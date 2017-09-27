@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<database>
+	<name>*dbname*</name>
+	<create>true</create>
+	<overwrite>false</overwrite>
+	<charset>utf8</charset>
+	<table>
+		<name>*dbprefix*e2e_encryption_lock</name>
+		<declaration>
+			<field>
+				<name>id</name>
+				<type>integer</type>
+				<notnull>true</notnull>
+				<length>4</length>
+				<comments>file id of the locked folder</comments>
+			</field>
+			<field>
+				<!-- timestamp when the job was executed the last time -->
+				<name>timestamp</name>
+				<type>integer</type>
+				<notnull>true</notnull>
+			</field>
+			<field>
+				<name>token</name>
+				<type>text</type>
+				<length>256</length>
+				<notnull>true</notnull>
+				<comments>token used to identify the client</comments>
+			</field>
+			<index>
+				<name>id</name>
+				<unique>true</unique>
+				<field>
+					<name>id</name>
+					<sorting>ascending</sorting>
+				</field>
+			</index>
+		</declaration>
+	</table>
+</database>
