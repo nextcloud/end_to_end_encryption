@@ -23,6 +23,7 @@
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\Directory;
+use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\IRequest;
 use Sabre\DAV\INode;
@@ -38,6 +39,14 @@ class PropFindPlugin extends ServerPlugin {
 	/** @var UserAgentManager */
 	private $userAgentManager;
 
+	/**
+	 * Should plugin be applied to the current node?
+	 * Only apply it to files and directories, not to contacts or calendars
+	 *
+	 * @var array
+	 */
+	private $applyPlugin;
+
 	/** @var IRequest */
 	private $request;
 
@@ -50,6 +59,7 @@ class PropFindPlugin extends ServerPlugin {
 	public function __construct(UserAgentManager $userAgentManager, IRequest $request) {
 		$this->userAgentManager = $userAgentManager;
 		$this->request = $request;
+		$this->applyPlugin = [];
 	}
 
 	/**
@@ -67,6 +77,12 @@ class PropFindPlugin extends ServerPlugin {
 	 * @param INode $node
 	 */
 	public function updateProperty(PropFind $propFind, INode $node) {
+
+		// only apply the plugin to files/directory, not to contacts or calendars
+		if (!$this->isFile($node)) {
+			return;
+		}
+
 		$userAgent = $this->request->getHeader('USER_AGENT');
 		$supportE2EEncryption = $this->userAgentManager->supportsEndToEndEncryption($userAgent);
 		if (is_a($node, Directory::class) && !$supportE2EEncryption) {
@@ -77,5 +93,26 @@ class PropFindPlugin extends ServerPlugin {
 			}
 		}
 	}
+
+	/**
+	 * check if we process a file or directory. This plugin should ignore calendars
+	 * and contacts
+	 *
+	 * @param INode $node
+	 * @return bool
+	 */
+	protected function isFile(INode $node) {
+
+		if (isset($this->applyPlugin[$node->getName()])) {
+			return $this->applyPlugin[$node->getName()];
+		}
+
+		// check if this is a regular file or directory
+		$this->applyPlugin[$node->getName()] = (($node instanceof File) || ($node instanceof Directory));
+
+		return $this->applyPlugin[$node->getName()];
+
+	}
+
 
 }

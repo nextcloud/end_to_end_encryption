@@ -23,14 +23,18 @@
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
 use OC\AppFramework\Http;
+use OCA\DAV\Connector\Sabre\Directory;
+use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
+use OCP\IURLGenerator;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\NotFound;
+use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\DAV\ServerPlugin;
 use Sabre\HTTP\RequestInterface;
@@ -52,6 +56,17 @@ class LockPlugin extends ServerPlugin {
 	/** @var UserAgentManager */
 	private $userAgentManager;
 
+	/** @var IURLGenerator */
+	private $urlGenerator;
+
+	/**
+	 * Should plugin be applied to the current node?
+	 * Only apply it to files and directories, not to contacts or calendars
+	 *
+	 * @var array
+	 */
+	private $applyPlugin;
+
 	/**
 	 * LockPlugin constructor.
 	 *
@@ -59,16 +74,20 @@ class LockPlugin extends ServerPlugin {
 	 * @param IUserSession $userSession
 	 * @param LockManager $lockManager
 	 * @param UserAgentManager $userAgentManager
+	 * @param IURLGenerator $urlGenerator
 	 */
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								LockManager $lockManager,
-								UserAgentManager $userAgentManager
+								UserAgentManager $userAgentManager,
+								IURLGenerator $urlGenerator
 	) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
 		$this->lockManager = $lockManager;
 		$this->userAgentManager = $userAgentManager;
+		$this->urlGenerator = $urlGenerator;
+		$this->applyPlugin = [];
 	}
 
 	/**
@@ -87,11 +106,18 @@ class LockPlugin extends ServerPlugin {
 	 */
 	public function checkLock(RequestInterface $request) {
 
+		$node = $this->getNodeForPath($request->getPath());
+		$url = $request->getAbsoluteUrl();
+
+		// only apply the plugin to files/directory, not to contacts or calendars
+		if (!$this->isFile($url, $node)) {
+			return;
+		}
+
 		$userAgent = $request->getHeader('user-agent');
 
 		$this->checkUserAgent($userAgent, $request->getPath());
 		if ($request->getMethod() === 'GET') {
-			$node = $this->server->tree->getNodeForPath($request->getPath());
 			if ($this->lockManager->isLocked($node->getId(), '')) {
 				throw new FileLocked('file is locked', Http::STATUS_FORBIDDEN);
 			}
@@ -127,6 +153,23 @@ class LockPlugin extends ServerPlugin {
 	}
 
 	/**
+	 * Get DAV Node for a given path
+	 *
+	 * @param $path
+	 * @return \Sabre\DAV\INode
+	 */
+	protected function getNodeForPath($path) {
+		try {
+			$node = $this->server->tree->getNodeForPath($path);
+		} catch (NotFound $e) {
+			// maybe we are in the process in creating a new node, try the parent
+			$node = $this->server->tree->getNodeForPath(dirname($path));
+		}
+
+		return $node;
+	}
+
+	/**
 	 * get file system node of requested file
 	 *
 	 * @param string $path
@@ -143,6 +186,26 @@ class LockPlugin extends ServerPlugin {
 		} catch (\Exception $e) {
 			throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $e);
 		}
+	}
+
+	/**
+	 * check if we process a file or directory. This plugin should ignore calendars
+	 * and contacts
+	 *
+	 * @param string $url
+	 * @param INode $node
+	 * @return bool
+	 */
+	protected function isFile($url, INode $node) {
+
+		if (isset($this->applyPlugin[$url])) {
+			return $this->applyPlugin[$url];
+		}
+
+		// check if this is a regular file or directory
+		$this->applyPlugin[$url] = (($node instanceof File) || ($node instanceof Directory));
+
+		return $this->applyPlugin[$url];
 	}
 
 }
