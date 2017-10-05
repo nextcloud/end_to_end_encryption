@@ -103,7 +103,7 @@ class EncryptionManager {
 	 *
 	 * @return Folder
 	 */
-	private function getUserRoot() {
+	protected function getUserRoot() {
 		$uid = $this->userSession->getUser()->getUID();
 		$userRoot = $this->rootFolder->getUserFolder($uid);
 		return $userRoot;
@@ -117,7 +117,7 @@ class EncryptionManager {
 	 *
 	 * @throws NotFoundException
 	 */
-	private function isValidFolder($id) {
+	protected function isValidFolder($id) {
 		$node = $this->rootFolder->getById($id);
 
 		if (!isset($node[0])) {
