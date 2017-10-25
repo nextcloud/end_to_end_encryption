@@ -163,7 +163,9 @@ class LockPlugin extends ServerPlugin {
 			$node = $this->server->tree->getNodeForPath($path);
 		} catch (NotFound $e) {
 			// maybe we are in the process in creating a new node, try the parent
-			$node = $this->server->tree->getNodeForPath(dirname($path));
+			$parent = dirname($path);
+			$parent = ($parent === '.') ? '/' : $parent;
+			$node = $this->server->tree->getNodeForPath($parent);
 		}
 
 		return $node;
