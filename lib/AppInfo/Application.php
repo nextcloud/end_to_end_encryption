@@ -55,7 +55,8 @@ class Application extends App {
 			$lockManager = $this->getContainer()->query(LockManager::class);
 			$request = $this->getContainer()->getServer()->getRequest();
 			$userAgentManager = $this->getContainer()->query(UserAgentManager::class);
-			$event->getServer()->addPlugin(new LockPlugin($rootFolder, $userSession, $lockManager, $userAgentManager));
+			$urlGenerator = \OC::$server->getURLGenerator();
+			$event->getServer()->addPlugin(new LockPlugin($rootFolder, $userSession, $lockManager, $userAgentManager, $urlGenerator));
 			$event->getServer()->addPlugin(new PropFindPlugin($userAgentManager, $request));
 		});
 
