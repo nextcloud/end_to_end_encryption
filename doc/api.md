@@ -2,6 +2,7 @@
 
 This are the available OCS API calls for clients to implement end-to-end encryption.
 A more general documentation how to use the API can be found [here](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md).
+* [List files and folders with encryption status](#list-files-and-folders-with-encryption-status)
 * [Store private key](#store-private-key)
 * [Get private key](#get-private-key)
 * [Delete private key](#delete-private-key)
@@ -24,6 +25,16 @@ A more general documentation how to use the API can be found [here](https://gith
 # Base URL for all API calls
 
 Base URL: `https://<nextcloud-server>/ocs/v2.php/apps/end_to_end_encryption/api/v1`
+
+## List files and folders with encryption status
+PROPFIND: https://nc-crypt.kaminsky.me/remote.php/webdav/$folder/
+
+xml body: 
+    <d:propfind xmlns:d="DAV:">
+        <d:prop xmlns:nc="http://nextcloud.org/ns">
+            <nc:is-encrypted/>
+        </d:prop>
+    </d:propfind>
 
 ## Store private key
 
