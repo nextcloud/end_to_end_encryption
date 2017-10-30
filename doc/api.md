@@ -2,6 +2,7 @@
 
 This are the available OCS API calls for clients to implement end-to-end encryption.
 A more general documentation how to use the API can be found [here](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md).
+* [List files and folders with encryption status](#list-files-and-folders-with-encryption-status)
 * [Store private key](#store-private-key)
 * [Get private key](#get-private-key)
 * [Delete private key](#delete-private-key)
@@ -24,6 +25,48 @@ A more general documentation how to use the API can be found [here](https://gith
 # Base URL for all API calls
 
 Base URL: `https://<nextcloud-server>/ocs/v2.php/apps/end_to_end_encryption/api/v1`
+
+## List files and folders with encryption status
+
+PROPFIND: `https://<nextcloud>/remote.php/webdav/<folder>/`
+
+**Data:**
+
+xml body: 
+````xml
+<d:propfind xmlns:d="DAV:">
+    <d:prop xmlns:nc="http://nextcloud.org/ns">
+        <nc:is-encrypted/>
+    </d:prop>
+</d:propfind>
+````
+
+**Results:**
+
+207 Multi-Status: xml with all files/folders and attributes
+
+400 bad request: unpredictable internal error
+
+**Response body on success**
+
+````xml
+...
+<d:response>
+    <d:href>/remote.php/webdav/folder/0/</d:href>
+    <d:propstat>
+        <d:prop>
+            <nc:is-encrypted>1</nc:is-encrypted>
+        </d:prop>
+        <d:status>HTTP/1.1 200 OK</d:status>
+    </d:propstat>
+</d:response>
+...
+````
+
+**Example curl call:**
+
+`curl -X PROPFIND https://<user>:<password>@<nextcloud>/remote.php/webdav/<folder>/ -d '<d:propfind xmlns:d="DAV:"> <d:prop xmlns:nc="http://nextcloud.org/ns"> <nc:is-encrypted/> </d:prop> </d:propfind>' -H "Content-Type=application/xml" -H OCS-APIRequest=true`
+
 
 ## Store private key
 
@@ -59,7 +102,7 @@ privateKey: the users private key
 
 **Example curl call:**
 
-`curl -X POST http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -d privateKey="<urlencoded-private-key>" -H "OCS-APIRequest:true"`
+`curl -X POST https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -d privateKey="<urlencoded-private-key>" -H "OCS-APIRequest:true"`
 
 
 ## Get private key
@@ -94,7 +137,7 @@ GET: `<base-url>/private-key`
 
 **Example curl call:**
 
-`curl -X GET http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true"`
+`curl -X GET https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true"`
 
 
 ## Delete private key
@@ -128,7 +171,7 @@ DELETE: `<base-url>/private-key`
 
 **Example curl call:**
 
-`curl -X DELETE http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true"`
 
 
 ## Sign public key
@@ -167,7 +210,7 @@ the public key
 
 **Example curl call:**
 
-`curl -X POST http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true" -d csr="<urlencoded-csr>"
+`curl -X POST https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true" -d csr="<urlencoded-csr>"
 `
 
 ## Get public keys
@@ -211,7 +254,7 @@ users: Json encoded list of users for which the server should return the public 
 
 **Example curl call:**
 
-`curl -X GET http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true"`
+`curl -X GET https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true"`
 
 ## Delete public keys
 
@@ -245,7 +288,7 @@ DELETE: `<base-url>/public-key`
 
 **Example curl call:**
 
-`curl -X DELETE http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true"`
 
 ## Lock file
 
@@ -287,11 +330,11 @@ token: if you re-try a previously failed upload, use the token from the first tr
 
 First try:
 
-`curl -X POST http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true"`
+`curl -X POST https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true"`
 
 Retry:
 
-`curl -X POST http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -d token="<token-from-previous-try>" -H "OCS-APIRequest:true"`
+`curl -X POST https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -d token="<token-from-previous-try>" -H "OCS-APIRequest:true"`
 
 ## Unlock file
 
@@ -329,7 +372,7 @@ token: got during lock operation
 
 First try:
 
-`curl -X DELETE http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -d token="<token-from-lock>" -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -d token="<token-from-lock>" -H "OCS-APIRequest:true"`
 
 ## Store meta-data file
 
@@ -367,7 +410,7 @@ metaData: content of the encrypted meta-data file
 
 **Example curl call:**
 
-`curl -X POST http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/10 -d metaData="encrypted-meta-data" -H "OCS-APIRequest:true"`
+`curl -X POST https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/10 -d metaData="encrypted-meta-data" -H "OCS-APIRequest:true"`
 
 ## Get meta-data file
 
@@ -399,7 +442,7 @@ GET: `<base-url>/meta-data/<file-id>`
 
 **Example curl call:**
 
-`curl -X GET http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
+`curl -X GET https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
 
 ## Update meta-data file
 
@@ -439,7 +482,7 @@ the file with the given file-id
 
 **Example curl call:**
 
-`curl -X PUT http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/10 -d metaData="encrypted-meta-data" -H "OCS-APIRequest:true"`
+`curl -X PUT https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/10 -d metaData="encrypted-meta-data" -H "OCS-APIRequest:true"`
 
 ## Delete meta-data file
 
@@ -472,7 +515,7 @@ DELETE: `<base-url>/meta-data/<file-id>`
 
 **Example curl call:**
 
-`curl -X DELETE http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
 
 
 ## Get server public key
@@ -505,7 +548,7 @@ GET: `<base-url>/server-key`
 
 **Example curl call:**
 
-`curl -X GET http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/server-key -H "OCS-APIRequest:true"`
+`curl -X GET https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/server-key -H "OCS-APIRequest:true"`
 
 ## Set encryption flag for a folder
 
@@ -532,7 +575,7 @@ PUT: `<base-url>/encrypted/<file-id>`
 ````
 **Example curl call:**
 
-`curl -X PUT http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true"`
+`curl -X PUT https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true"`
 
 ## Remove encryption flag for a folder
 
@@ -560,4 +603,4 @@ DELETE: `<base-url>/encrypted/<file-id>`
 
 **Example curl call:**
 
-`curl -X DELETE http://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true"`
