@@ -7,7 +7,6 @@ A more general documentation how to use the API can be found [here](https://gith
 * [Get private key](#get-private-key)
 * [Delete private key](#delete-private-key)
 * [Sign public key](#sign-public-key)
-* [Sign public key](#sign-public-key)
 * [Get public keys](#get-public-keys)
 * [Delete public keys](#delete-public-keys)
 * [Lock file](#lock-file)
@@ -113,7 +112,7 @@ GET: `<base-url>/private-key`
 
 200 ok: body contain the private key
 
-409 forbidden: if the user can't access the private key
+403 forbidden: if the user can't access the private key
 
 404 not found: if the private key doesn't exists
 
@@ -181,13 +180,15 @@ POST: `<base-url>/public-key`
 **Data:**
 
 csr: certificate signing request, created on the client for the server to sign
-the public key
+the public key (CN must be the same as the corresponding Nextcloud user name)
 
 **Results:**
 
 200 OK: public key was successfully signed and stored, body contain the public key
 
 409 conflict: if a public key for the user already exists
+
+403 forbidden: CN doesn't match the user name
 
 400 bad request: unpredictable internal error
 
@@ -264,7 +265,7 @@ DELETE: `<base-url>/public-key`
 
 200 ok: public key was deleted
 
-409 forbidden: if the is not allowed to delete the public key
+403 forbidden: if the is not allowed to delete the public key
 
 404 not found: public key doesn't exists
 
