@@ -223,6 +223,7 @@ class RequestHandlerController extends OCSController {
 	 * @param string $csr request to create a valid public key
 	 * @return DataResponse
 	 *
+	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
 	 */
 	public function createPublicKey($csr) {
@@ -231,8 +232,8 @@ class RequestHandlerController extends OCSController {
 		}
 
 		try {
+			$subject = openssl_csr_get_subject($csr);
 			$publicKey = $this->signatureHandler->sign($csr);
-			$this->keyStorage->setPublicKey($publicKey, $this->userId);
 		} catch (\BadMethodCallException $e) {
 			$error = 'Can\'t create public key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
@@ -242,6 +243,13 @@ class RequestHandlerController extends OCSController {
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException('internal error');
 		}
+
+		$cn = isset($subject['CN']) ? $subject['CN'] : '';
+		if ($cn !== $this->userId) {
+			throw new OCSForbiddenException('CN does not match the current user');
+		}
+
+		$this->keyStorage->setPublicKey($publicKey, $this->userId);
 
 		return new DataResponse(['public-key' => $publicKey]);
 

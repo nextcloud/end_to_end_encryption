@@ -50,6 +50,7 @@ class EncryptionManagerTest extends TestCase {
 	private $userSession;
 
 	public function setUp() {
+		parent::setUp();
 		$this->rootFolderInterface = $this->createMock(IRootFolder::class);
 		$this->rootFolder = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
 		$this->storage = $this->createMock(IStorage::class);
