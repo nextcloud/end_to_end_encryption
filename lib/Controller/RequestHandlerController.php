@@ -485,13 +485,13 @@ class RequestHandlerController extends OCSController {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id file ID
-	 * @param string $token token to identify client
 	 *
 	 * @return DataResponse
 	 * @throws OCSNotFoundException
 	 * @throws OCSForbiddenException
 	 */
-	public function unlockFolder($id, $token) {
+	public function unlockFolder($id) {
+		$token = $this->request->getHeader('token');
 		try {
 			$this->lockManager->unlockFile($id, $token);
 		} catch (FileLockedException $e) {

@@ -339,13 +339,9 @@ Retry:
 
 ## Unlock file
 
-unlock the file again after the file and the meta data was updated correctly
+unlock the file again after the file and the meta data was updated correctly. The token needs to be added to the header, see example below
 
 DELETE: `<base-url>/lock/<file-id>`
-
-**Data:**
-
-token: got during lock operation
 
 **Results:**
 
@@ -373,7 +369,7 @@ token: got during lock operation
 
 First try:
 
-`curl -X DELETE https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -d token="<token-from-lock>" -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true" -H "token:<token-received-during-lock-operation>`
 
 ## Store meta-data file
 
