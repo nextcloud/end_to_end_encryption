@@ -19,7 +19,5 @@
  *
  */
 
-\OCP\Util::addscript('end_to_end_encryption', 'alpha-warning');
-
 $app = new \OCA\EndToEndEncryption\AppInfo\Application();
 $app->registerEvents();

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <info>
     <id>end_to_end_encryption</id>
-    <name>End-to-End Encryption (Alpha Version!)</name>
+    <name>End-to-End Encryption</name>
     <summary>End-to-end encryption endpoint</summary>
     <description>Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!</description>
     <licence>AGPL</licence>
@@ -13,6 +13,6 @@
         <filesystem/>
     </types>
     <dependencies>
-        <nextcloud min-version="12" max-version="13"/>
+        <nextcloud min-version="13" max-version="13"/>
     </dependencies>
 </info>
