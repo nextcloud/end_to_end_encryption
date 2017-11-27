@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<info>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>end_to_end_encryption</id>
     <name>End-to-End Encryption</name>
     <summary>End-to-end encryption endpoint</summary>
     <description>Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!</description>
-    <licence>AGPL</licence>
+    <licence>agpl</licence>
     <author>Bjoern Schiessle</author>
     <version>0.0.2</version>
     <namespace>EndToEndEncryption</namespace>
