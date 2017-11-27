@@ -14,6 +14,7 @@
     </types>
     <category>files</category>
     <bugs>https://github.com/nextcloud/end_to_end_encryption/issues</bugs>
+    <screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/master/screenshots/e2ee-filelisting.png</screenshot>
     <dependencies>
         <nextcloud min-version="13" max-version="13"/>
     </dependencies>
