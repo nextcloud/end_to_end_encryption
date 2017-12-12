@@ -253,7 +253,7 @@ class RequestHandlerController extends OCSController {
 
 		$cn = isset($subject['CN']) ? $subject['CN'] : '';
 		if ($cn !== $this->userId) {
-			throw new OCSForbiddenException($this->l->t('CN does not match the current user'));
+			throw new OCSForbiddenException($this->l->t('Common name (CN) does not match the current user'));
 		}
 
 		$this->keyStorage->setPublicKey($publicKey, $this->userId);
