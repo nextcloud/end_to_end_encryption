@@ -290,7 +290,7 @@ class RequestHandlerController extends OCSController {
 
 
 	/**
-	 * get meta data
+	 * get metadata
 	 *
 	 * @NoAdminRequired
 	 *
@@ -306,7 +306,7 @@ class RequestHandlerController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (\Exception $e) {
-			$error = 'Can\'t read meta data: ' . $e->getMessage();
+			$error = 'Can\'t read metadata: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t("Can\'t read metadata"));
 		}
@@ -314,7 +314,7 @@ class RequestHandlerController extends OCSController {
 	}
 
 	/**
-	 * set meta data
+	 * set metadata
 	 *
 	 * @NoAdminRequired
 	 *
@@ -333,7 +333,7 @@ class RequestHandlerController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t($e->getMessage()));
 		} catch (\Exception $e) {
-			$error = 'Can\'t store meta data: ' . $e->getMessage();
+			$error = 'Can\'t store metadata: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t("Can\'t store metadata"));
 		}
@@ -342,7 +342,7 @@ class RequestHandlerController extends OCSController {
 	}
 
 	/**
-	 * update meta data
+	 * update metadata
 	 *
 	 * @NoAdminRequired
 	 *
@@ -368,7 +368,7 @@ class RequestHandlerController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t($e->getMessage()));
 		} catch (\Exception $e) {
-			$error = 'Can\'t store meta data: ' . $e->getMessage();
+			$error = 'Can\'t store metadata: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t("Can\'t store metadata"));
 		}
@@ -377,7 +377,7 @@ class RequestHandlerController extends OCSController {
 	}
 
 	/**
-	 * delete meta data
+	 * delete metadata
 	 *
 	 * @NoAdminRequired
 	 *
