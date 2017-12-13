@@ -512,10 +512,10 @@ class RequestHandlerController extends OCSController {
 	}
 
 	/**
-	 * decode JSON-encoded users list and return an array
+	 * decode JSON-encoded userlist and return an array
 	 * add the currently logged in user if the user isn't part of the list
 	 *
-	 * @param string $users JSON-encoded users list
+	 * @param string $users JSON-encoded userlist
 	 * @return array
 	 * @throws OCSBadRequestException
 	 */
