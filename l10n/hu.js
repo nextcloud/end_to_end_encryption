@@ -18,6 +18,7 @@ OC.L10N.register(
     "File is already locked" : "A fájl már zárolva van",
     "You are not allowed to remove the lock" : "Nincs jogosultságod eltávolítani a zárolást",
     "File not locked" : "A fájl nincs zárolva",
-    "Can not decode users list" : "Nem lehet dekódolni a felhasználók listáját"
+    "Can not decode users list" : "Nem lehet dekódolni a felhasználók listáját",
+    "End-to-End Encryption" : "Vég-vég titkosítás"
 },
 "nplurals=2; plural=(n != 1);");

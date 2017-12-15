@@ -19,6 +19,6 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Sie dürfen die Sperre nicht aufheben",
     "File not locked" : "Datei nicht gesperrt",
     "Can not decode users list" : "Die Benutzerliste kann nicht entschlüsselt werden",
-    "End-to-End Encryption" : "Ende-zu-Ende Verschlüsselung"
+    "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung"
 },
 "nplurals=2; plural=(n != 1);");
