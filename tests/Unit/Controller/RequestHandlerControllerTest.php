@@ -29,6 +29,7 @@ use OCA\EndToEndEncryption\KeyStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
+use OCP\IL10N;
 use OCP\ILogger;
 use OCP\IRequest;
 use Test\TestCase;
@@ -52,6 +53,9 @@ class RequestHandlerControllerTest extends TestCase {
 
 	/** @var  ILogger|\PHPUnit_Framework_MockObject_MockObject */
 	private $logger;
+
+	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
+	private $l10n;
 
 	/** @var string valid CSR (CN set to "admin") */
 	private $validCSR = "-----BEGIN CERTIFICATE REQUEST-----
@@ -90,6 +94,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		$this->lockManager = $this->getMockBuilder(LockManager::class)
 			->disableOriginalConstructor()->getMock();
 		$this->logger = $this->createMock(ILogger::class);
+		$this->l10n = $this->createMock(IL10N::class);
 
 	}
 
@@ -108,7 +113,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			$this->signatureHandler,
 			$this->encryptionManager,
 			$this->lockManager,
-			$this->logger
+			$this->logger,
+			$this->l10n
 		);
 	}
 
