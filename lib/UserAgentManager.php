@@ -28,6 +28,7 @@ class UserAgentManager {
 
 	/**
 	 * list of user agents that support end-to-end encryption
+	 * ['regex-to-identify-user-agent' => 'min-version']
 	 *
 	 * @var array
 	 */
@@ -35,9 +36,9 @@ class UserAgentManager {
 
 	public function __construct() {
 		$this->supportedUserAgents = [
-			Request::USER_AGENT_CLIENT_ANDROID,
-			Request::USER_AGENT_CLIENT_DESKTOP,
-			Request::USER_AGENT_CLIENT_IOS
+			'/^Mozilla\/5\.0 \(Android\) Nextcloud\-android.*$/' => '',
+			Request::USER_AGENT_CLIENT_DESKTOP => '',
+			Request::USER_AGENT_CLIENT_IOS => '',
 		];
 	}
 
@@ -48,13 +49,36 @@ class UserAgentManager {
 	 * @return bool
 	 */
 	public function supportsEndToEndEncryption($client) {
-		foreach ($this->supportedUserAgents as $regex) {
+		foreach ($this->supportedUserAgents as $regex => $minVersion) {
 			if (preg_match($regex, $client)) {
-				return true;
+				return $this->checkVersion($client, $minVersion);
 			}
 		}
 
 		return false;
+	}
+
+	/**
+	 * check the client version
+	 *
+	 * @param string $client
+	 * @param string $minVersion
+	 * @return bool returns true if clientVersion >= minVersion or if no min Version is specified
+	 */
+	protected function checkVersion($client, $minVersion) {
+
+		// no minVersion given, all client versions are compatible
+		if (empty($minVersion)) {
+			return true;
+		}
+
+		$version = substr( strrchr( $client, '/' ), 1 );
+		if(!empty($version) && version_compare($version, $minVersion) > -1) {
+			return true;
+		}
+
+		return false;
+
 	}
 
 }
