@@ -2,8 +2,11 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "You are not allowed to access this private key" : "Nemáte přístup k tomuto soukromému klíči",
+    "Private key for user %s not found" : "Soukromý klíč pro uživatele %s nenalezen",
     "Internal error" : "Vnitřní chyba",
     "internal error" : "vnitřní chyba",
+    "Public key for user %s not found" : "Veřejný klíč pro uživatele %s nenalezen",
+    "Meta data for \"%s\" not found" : "Metadata pro \"%s\" nenalezena",
     "Can't read meta data" : "Nelze číst metadata",
     "Can't store meta data" : "Nelze uložit metadata",
     "Meta data file doesn't exist" : "Soubor s metadaty neexistuje",

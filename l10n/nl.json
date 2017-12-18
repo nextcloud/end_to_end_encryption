@@ -9,6 +9,7 @@
     "Meta data for \"%s\" not found" : "Metadata voor \"%s\" niet gevonden",
     "Can't read meta data" : "Kan metadata niet lezen",
     "Can't store meta data" : "Kan metadata niet opslaan",
+    "You are not allowed to edit the file, make sure to lock it first and send the right token" : "Je mag het bestand niet bewerken. Zet het eerst op slot en stuur dan het juiste token.",
     "Meta data file doesn't exist" : "Metadatabestand bestaat niet.",
     "Only the owner can delete the meta-data file" : "Alleen de eigenaar kan het meta-data-bestand wissen",
     "Can't delete meta data" : "Kan metadata niet verwijderen",
