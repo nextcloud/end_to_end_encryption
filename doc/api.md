@@ -293,7 +293,7 @@ DELETE: `<base-url>/public-key`
 
 ## Lock file
 
-you need to lock the file before you start to write/update a encrypted file and/or
+You need to lock the file before you start to write/update a encrypted file and/or
 the meta data file.
 
 POST: `<base-url>/lock/<file-id>`
