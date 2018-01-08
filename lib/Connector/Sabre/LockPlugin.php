@@ -116,7 +116,7 @@ class LockPlugin extends ServerPlugin {
 
 		$userAgent = $request->getHeader('user-agent');
 
-		$this->checkUserAgent($userAgent, $request->getPath());
+		$this->checkUserAgent($userAgent, $node->getPath());
 		if ($request->getMethod() === 'GET') {
 			if ($this->lockManager->isLocked($node->getId(), '')) {
 				throw new FileLocked('file is locked', Http::STATUS_FORBIDDEN);
