@@ -28,13 +28,20 @@ use Test\TestCase;
 
 class UserAgentManagerTest extends TestCase {
 
-	/** @var UserAgentManager */
-	private $userAgentManager;
+	/**
+	 * create userAgentManager instance
+	 *
+	 * @param array $mockedMethods
+	 * @return UserAgentManager|\PHPUnit_Framework_MockObject_MockObject
+	 */
+	private function getUserAgentManager($mockedMethods = []) {
+		if (empty($mockedMethods)) {
+			return new UserAgentManager();
+		}
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->userAgentManager = new UserAgentManager();
+		$userAgentManager = $this->getMockBuilder(UserAgentManager::class)
+			->setMethods($mockedMethods)->getMock();
+		return $userAgentManager;
 	}
 
 	/**
@@ -45,21 +52,56 @@ class UserAgentManagerTest extends TestCase {
 	 * @param bool $expected
 	 */
 	public function testCheckVersion($client, $minVersion, $expected) {
-		$result = $this->invokePrivate($this->userAgentManager, 'checkVersion', [$client, $minVersion]);
+		$userAgentManager = $this->getUserAgentManager();
+		$result = $this->invokePrivate($userAgentManager, 'checkVersion', [$client, $minVersion]);
 		$this->assertSame($expected, $result);
 	}
 
 	public function dataTestCheckVersion() {
 		return [
+			// Android
 			['Mozilla/5.0 (Android) Nextcloud-android/2.1.3', '', true],
 			['Mozilla/5.0 (Android) Nextcloud-android/2.1.3', '1.9.3', true],
 			['Mozilla/5.0 (Android) Nextcloud-android/2.1.3', '2.1.3', true],
 			['Mozilla/5.0 (Android) Nextcloud-android/2.1.3', '2.1.4', false],
+			// iOS
+			['Mozilla/5.0 (iOS) Nextcloud-iOS/2.1.3', '', true],
+			['Mozilla/5.0 (iOS) Nextcloud-iOS/2.1.3', '1.9.3', true],
+			['Mozilla/5.0 (iOS) Nextcloud-iOS/2.1.3', '2.1.3', true],
+			['Mozilla/5.0 (iOS) Nextcloud-iOS/2.1.3', '2.1.4', false],
 			// no valid version should result in false
 			['Mozilla/5.0 (Android) Nextcloud-android/', '2.1.4', false],
 			['Mozilla/5.0 (Android) Nextcloud-android/zzz', '2.1.4', false],
 		];
 	}
 
+	/**
+	 * @dataProvider dataTestSupportsEndToEndEncryption
+	 *
+	 * @param string $client
+	 * @param bool $expected
+	 */
+	public function testSupportsEndToEndEncryption($client, $expected) {
+		$userAgentManager = $this->getUserAgentManager(['checkVersion']);
+
+		if ($expected === true) {
+			$userAgentManager->expects($this->once())->method('checkVersion')
+				->willReturn($expected);
+		} else {
+			$userAgentManager->expects($this->never())->method('checkVersion');
+		}
+
+		$result = $userAgentManager->supportsEndToEndEncryption($client);
+		$this->assertSame($expected, $result);
+	}
+
+	public function dataTestSupportsEndToEndEncryption() {
+		return [
+			['Mozilla/5.0 (Android) ownCloud-android/2.1.3', false],
+			['Mozilla/5.0 (iOS) ownCloud-iOS/2.20.1', false],
+			['Mozilla/5.0 (iOS) Nextcloud-iOS/2.20.1', true],
+			['Mozilla/5.0 (Android) Nextcloud-android/2.1.3', true],
+		];
+	}
 
 }

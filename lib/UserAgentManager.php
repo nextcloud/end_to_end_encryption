@@ -38,7 +38,7 @@ class UserAgentManager {
 		$this->supportedUserAgents = [
 			'/^Mozilla\/5\.0 \(Android\) Nextcloud\-android.*$/' => '',
 			Request::USER_AGENT_CLIENT_DESKTOP => '',
-			Request::USER_AGENT_CLIENT_IOS => '',
+			'/^Mozilla\/5\.0 \(iOS\) Nextcloud\-iOS.*$/' => '2.20.0',
 		];
 	}
 
