@@ -1,9 +1,25 @@
 { "translations": {
+    "This is someone else's private key" : "Questa è la chiave privata di qualcun altro",
+    "Could not find the private key of the user %s" : "Impossibile trovare la chiave privata dell'utente %s",
     "Internal error" : "Errore interno",
     "You are not allowed to delete this private key" : "Non ti è consentito eliminare questa chiave privata",
+    "Could not find the private key belonging to the user %s" : "Impossibile trovare la chiave privata che appartiene all'utente %s",
     "internal error" : "errore interno",
+    "Could not find the public key belonging to the user %s" : "Impossibile trovare la chiave pubblica che appartiene all'utente %s",
+    "Common name (CN) does not match the current user" : "Il nome comune (CN) non corrisponde all'utente attuale",
+    "Could not find the public key belonging to %s" : "Impossibile trovare la chiave pubblica che appartiene a %s",
+    "This is not your private key to delete" : "Questa non è la tua chiave privata da eliminare",
+    "Could not find metadata for \"%s\"" : "Impossibile trovare i metadati per \"%s\"",
+    "Can\\'t read metadata" : "Impossibile leggere i metadati",
+    "Can\\'t store metadata" : "Impossibile archiviare i metadati",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Non ti è consentito modificare il file, assicurati di bloccarlo prima e invia il token corretto",
+    "Metadata-file doesn\\'t exist" : "Il file dei metadati non esiste",
+    "Only the owner can delete the metadata-file" : "Solo il proprietario può eliminare il file dei metadati",
+    "Can\\'t delete metadata" : "Impossibile eliminare i metadati",
+    "File already locked" : "File già bloccato",
     "You are not allowed to remove the lock" : "Non ti è consentito rimuovere il blocco",
     "File not locked" : "File non bloccato",
+    "Can not decode userlist" : "Impossibile decodificare l'elenco degli utenti",
     "End-to-End Encryption" : "Cifratura End-To-End"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
