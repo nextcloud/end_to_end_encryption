@@ -33,6 +33,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\IURLGenerator;
 use OCP\IUserSession;
+use Sabre\DAV\Exception\Conflict;
 use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
@@ -157,18 +158,24 @@ class LockPlugin extends ServerPlugin {
 	 *
 	 * @param $path
 	 * @return \Sabre\DAV\INode
+	 * @throws Conflict
 	 */
 	protected function getNodeForPath($path) {
-		try {
-			$node = $this->server->tree->getNodeForPath($path);
-		} catch (NotFound $e) {
-			// maybe we are in the process in creating a new node, try the parent
-			$parent = dirname($path);
-			$parent = ($parent === '.') ? '/' : $parent;
-			$node = $this->server->tree->getNodeForPath($parent);
+
+		if ($this->server->tree->nodeExists($path)) {
+			return $this->server->tree->getNodeForPath($path);
 		}
 
-		return $node;
+		// maybe we are in the process in creating a new node, try the parent
+		$parent = dirname($path);
+		$parent = ($parent === '.') ? '/' : $parent;
+		if ($this->server->tree->nodeExists($parent)) {
+			return $this->server->tree->getNodeForPath($parent);
+		}
+
+		// If neither the actual node, nor the parent exists we throw a exception.
+		// According to the WebDAV specification it should result in 409 (conflict)
+		throw new Conflict();
 	}
 
 	/**
