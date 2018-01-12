@@ -135,12 +135,7 @@ class LockPlugin extends ServerPlugin {
 	 */
 	protected function checkUserAgent($userAgent, $path) {
 		if (!$this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
-			try {
-				$node = $this->getFileNode($path);
-			} catch (NotFound $e) {
-				// maybe we create a new file, try the parent folder
-				$node = $this->getFileNode(dirname($path));
-			}
+			$node = $this->getFileNode($path);
 			while ($node->isEncrypted() === false) {
 				$node = $node->getParent();
 				if ($node->getPath() === '/') {
