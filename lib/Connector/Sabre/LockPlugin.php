@@ -103,11 +103,15 @@ class LockPlugin extends ServerPlugin {
 	 * Check if a file is locked for end-to-end encryption before trying to download it
 	 *
 	 * @param RequestInterface $request
+	 * @throws Conflict
 	 * @throws FileLocked
+	 * @throws Forbidden
+	 * @throws NotFound
 	 */
 	public function checkLock(RequestInterface $request) {
 
-		$node = $this->getNodeForPath($request->getPath());
+		$node = $this->getNode($request->getPath(), $request->getMethod());
+
 		$url = $request->getAbsoluteUrl();
 
 		// only apply the plugin to files/directory, not to contacts or calendars
@@ -123,6 +127,24 @@ class LockPlugin extends ServerPlugin {
 				throw new FileLocked('file is locked', Http::STATUS_FORBIDDEN);
 			}
 		}
+	}
+
+	/**
+	 * get SabreDAV Node
+	 *
+	 * @param string $path
+	 * @param string $method
+	 * @return INode
+	 * @throws Conflict
+	 * @throws NotFound
+	 */
+	protected function getNode($path, $method) {
+		if ($method === 'GET' || $method === 'PROPFIND' || $method === 'HEAD') {
+			return $this->server->tree->getNodeForPath($path);
+		}
+
+		return $this->getNodeForPath($path);
+
 	}
 
 	/**
@@ -149,7 +171,7 @@ class LockPlugin extends ServerPlugin {
 	}
 
 	/**
-	 * Get DAV Node for a given path
+	 * Get DAV Node for a given path, if the path doesn't exists we try the parent
 	 *
 	 * @param $path
 	 * @return \Sabre\DAV\INode
