@@ -4,8 +4,10 @@ OC.L10N.register(
     "Internal error" : "Intern feil",
     "You are not allowed to delete this private key" : "Du har ikke lov til å slette denne private nøkkelen",
     "internal error" : "Intern feil",
+    "File already locked" : "Fil allerede låst",
     "You are not allowed to remove the lock" : "Du har ikke lov til å fjerne lås",
     "File not locked" : "Filen er ikke låst",
+    "Can not decode userlist" : "Kan ikke dekode brukerliste",
     "End-to-End Encryption" : "Ende til endre kryptering"
 },
 "nplurals=2; plural=(n != 1);");
