@@ -33,6 +33,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\IURLGenerator;
 use OCP\IUserSession;
+use Sabre\DAV\Exception\Conflict;
 use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
@@ -102,11 +103,15 @@ class LockPlugin extends ServerPlugin {
 	 * Check if a file is locked for end-to-end encryption before trying to download it
 	 *
 	 * @param RequestInterface $request
+	 * @throws Conflict
 	 * @throws FileLocked
+	 * @throws Forbidden
+	 * @throws NotFound
 	 */
 	public function checkLock(RequestInterface $request) {
 
-		$node = $this->getNodeForPath($request->getPath());
+		$node = $this->getNode($request->getPath(), $request->getMethod());
+
 		$url = $request->getAbsoluteUrl();
 
 		// only apply the plugin to files/directory, not to contacts or calendars
@@ -125,6 +130,24 @@ class LockPlugin extends ServerPlugin {
 	}
 
 	/**
+	 * get SabreDAV Node
+	 *
+	 * @param string $path
+	 * @param string $method
+	 * @return INode
+	 * @throws Conflict
+	 * @throws NotFound
+	 */
+	protected function getNode($path, $method) {
+		if ($method === 'GET' || $method === 'PROPFIND' || $method === 'HEAD') {
+			return $this->server->tree->getNodeForPath($path);
+		}
+
+		return $this->getNodeForPath($path);
+
+	}
+
+	/**
 	 * Check if user agent is allowed to access a end-to-end encrypted folder
 	 *
 	 * @param string $userAgent
@@ -134,12 +157,7 @@ class LockPlugin extends ServerPlugin {
 	 */
 	protected function checkUserAgent($userAgent, $path) {
 		if (!$this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
-			try {
-				$node = $this->getNode($path);
-			} catch (NotFound $e) {
-				// maybe we create a new file, try the parent folder
-				$node = $this->getNode(dirname($path));
-			}
+			$node = $this->getFileNode($path);
 			while ($node->isEncrypted() === false) {
 				$node = $node->getParent();
 				if ($node->getPath() === '/') {
@@ -153,22 +171,28 @@ class LockPlugin extends ServerPlugin {
 	}
 
 	/**
-	 * Get DAV Node for a given path
+	 * Get DAV Node for a given path, if the path doesn't exists we try the parent
 	 *
 	 * @param $path
 	 * @return \Sabre\DAV\INode
+	 * @throws Conflict
 	 */
 	protected function getNodeForPath($path) {
-		try {
-			$node = $this->server->tree->getNodeForPath($path);
-		} catch (NotFound $e) {
-			// maybe we are in the process in creating a new node, try the parent
-			$parent = dirname($path);
-			$parent = ($parent === '.') ? '/' : $parent;
-			$node = $this->server->tree->getNodeForPath($parent);
+
+		if ($this->server->tree->nodeExists($path)) {
+			return $this->server->tree->getNodeForPath($path);
 		}
 
-		return $node;
+		// maybe we are in the process in creating a new node, try the parent
+		$parent = dirname($path);
+		$parent = ($parent === '.') ? '/' : $parent;
+		if ($this->server->tree->nodeExists($parent)) {
+			return $this->server->tree->getNodeForPath($parent);
+		}
+
+		// If neither the actual node, nor the parent exists we throw a exception.
+		// According to the WebDAV specification it should result in 409 (conflict)
+		throw new Conflict();
 	}
 
 	/**
@@ -179,7 +203,7 @@ class LockPlugin extends ServerPlugin {
 	 *
 	 * @throws NotFound
 	 */
-	protected function getNode($path) {
+	protected function getFileNode($path) {
 		try {
 			$uid = $this->userSession->getUser()->getUID();
 			$userRoot = $this->rootFolder->getUserFolder($uid);
