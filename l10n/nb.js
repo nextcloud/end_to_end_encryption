@@ -14,6 +14,7 @@ OC.L10N.register(
     "Could not find metadata for \"%s\"" : "Kunne ikke finne metadata for \"%s\"",
     "Can\\'t read metadata" : "Kan ikke lese metadata",
     "Can\\'t store metadata" : "Kan ikke lagre metadata",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke tilgang til å endre fila, lås den først, og send så riktig symbol",
     "Metadata-file doesn\\'t exist" : "Metadatafila finnes ikke",
     "Only the owner can delete the metadata-file" : "Kun eieren kan slette metadatafila",
     "Can\\'t delete metadata" : "Kan ikke slette metadata",
