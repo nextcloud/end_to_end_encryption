@@ -5,7 +5,7 @@
     <name>End-to-End Encryption</name>
     <summary>End-to-end encryption endpoint</summary>
     <description>Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!</description>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <licence>agpl</licence>
     <author>Bjoern Schiessle</author>
     <namespace>EndToEndEncryption</namespace>
