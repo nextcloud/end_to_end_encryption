@@ -38,6 +38,7 @@ appstore: clean
 	--exclude=/.gitattributes \
 	--exclude=/.gitignore \
 	--exclude=/.scrutinizer.yml \
+	--exclude=/.drone.yml \
 	--exclude=/.travis.yml \
 	--exclude=/Makefile \
 	$(project_dir)/ $(sign_dir)/$(app_name)
