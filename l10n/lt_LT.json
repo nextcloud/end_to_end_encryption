@@ -1,9 +1,25 @@
 { "translations": {
+    "This is someone else's private key" : "Tai yra kažkieno kito privatusis raktas",
+    "Could not find the private key of the user %s" : "Nepavyko rasti naudotojo %s privačiojo rakto",
     "Internal error" : "Vidinė klaida",
     "You are not allowed to delete this private key" : "Jums nėra leidžiama ištrinti šį privatųjį raktą",
+    "Could not find the private key belonging to the user %s" : "Nepavyko rasti naudotojui %s priklausančio privačiojo rakto",
     "internal error" : "vidinė klaida",
+    "Could not find the public key belonging to the user %s" : "Nepavyko rasti naudotojui %s priklausančio viešojo rakto",
+    "Common name (CN) does not match the current user" : "Bendrinis pavadinimas (CN) neatitinka esamo naudotojo",
+    "Could not find the public key belonging to %s" : "Nepavyko rasti %s priklausančio viešojo rakto",
+    "This is not your private key to delete" : "Tai nėra jūsų privatusis raktas, kad galėtumėte jį ištrinti",
+    "Could not find metadata for \"%s\"" : "Nepavyko rasti metaduomenų, skirtų \"%s\"",
+    "Can\\'t read metadata" : "Nepavyksta perskaityti metaduomenų",
+    "Can\\'t store metadata" : "Nepavyksta saugoti metaduomenų",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Jums nėra leidžiama taisyti šį failą, nepamirškite, iš pradžių, jį užrakinti, o tuomet išsiųsti tinkamą prieigos raktą",
+    "Metadata-file doesn\\'t exist" : "Metaduomenų failo nėra",
+    "Only the owner can delete the metadata-file" : "Metaduomenų failą gali ištrinti tik savininkas",
+    "Can\\'t delete metadata" : "Nepavyksta ištrinti metaduomenų",
+    "File already locked" : "Failas jau užrakintas",
     "You are not allowed to remove the lock" : "Jums nėra leidžiama pašalinti užraktą",
     "File not locked" : "Failas nėra užrakintas",
+    "Can not decode userlist" : "Nepavyksta dekoduoti naudotojų sąrašo",
     "End-to-End Encryption" : "Ištisinis šifravimas"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }
