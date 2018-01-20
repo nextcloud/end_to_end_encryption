@@ -1,7 +1,17 @@
 { "translations": {
+    "This is someone else's private key" : "Ово је нечији туђи приватни кључ",
+    "Could not find the private key of the user %s" : "Не могу да нађем приватни кључ корисника %s",
     "Internal error" : "Интерна грешка",
     "You are not allowed to delete this private key" : "Није Вам дозвољено да обришете овај приватни кључ",
+    "Could not find the private key belonging to the user %s" : "Не могу да нађем приватни кључ који припада кориснику %s",
     "internal error" : "Интерна грешка",
+    "Could not find the public key belonging to the user %s" : "Не могу да нађем јавни кључ који припада кориснику %s",
+    "Could not find the public key belonging to %s" : "Не могу да нађем јавни кључ који припада %s",
+    "This is not your private key to delete" : "Ово није Ваш приватни кључ да га обришете",
+    "Could not find metadata for \"%s\"" : "Не могу да нађем метаподатке за \"%s\"",
+    "Can\\'t read metadata" : "Не могу да прочитам метаподатке",
+    "Can\\'t store metadata" : "Не могу да ускладиштим метаподатке",
+    "File already locked" : "Фајл већ закључан",
     "You are not allowed to remove the lock" : "Није Вам дозвољено да откључате фајл",
     "File not locked" : "Фајл није закључан",
     "End-to-End Encryption" : "Шифровање са краја на крај"
