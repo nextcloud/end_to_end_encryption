@@ -10,6 +10,8 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "%s felhasználóhoz tartozó nyilvános kulcs nem található",
     "Common name (CN) does not match the current user" : "„Common name” (CN) nem egyezik az aktuális felhasználóval",
     "Could not find the public key belonging to %s" : "%s nyilvános kulcsa nem található",
+    "This is not your private key to delete" : "Ez nem a te privát kulcsod a törléshez",
+    "Could not find metadata for \"%s\"" : "Metaadatok nem találhatók ehhez: \"%s\"",
     "Can\\'t read metadata" : "Metaadat nem olvasható",
     "Can\\'t store metadata" : "Nem lehet tárolni a metaadatokat",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nincs jogosultságod a fájl szerkesztéséhez. Először zárolnod kell, majd elküldeni a megfelelő tokent.",
