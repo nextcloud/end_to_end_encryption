@@ -22,6 +22,6 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Du har ikke lov til å fjerne lås",
     "File not locked" : "Filen er ikke låst",
     "Can not decode userlist" : "Kan ikke dekode brukerliste",
-    "End-to-End Encryption" : "Ende til endre kryptering"
+    "End-to-End Encryption" : "Ende-til-ende -kryptering"
 },
 "nplurals=2; plural=(n != 1);");
