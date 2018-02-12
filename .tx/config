@@ -3,7 +3,7 @@ host = https://www.transifex.com
 lang_map = bg_BG: bg, cs_CZ: cs, fi_FI: fi, hu_HU: hu, nb_NO: nb, sk_SK: sk, th_TH: th, ja_JP: ja
 
 [nextcloud.end_to_end_encryption]
-file_filter = <lang>/end_to_end_encryption.po
+file_filter = translationfiles/<lang>/end_to_end_encryption.po
 source_file = templates/end_to_end_encryption.pot
 source_lang = en
 type = PO
