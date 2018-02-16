@@ -129,6 +129,8 @@ class LockManager {
 	 * @param int $id
 	 * @param string $token
 	 * @return bool
+	 * @throws \OCP\Files\InvalidPathException
+	 * @throws \OCP\Files\NotFoundException
 	 */
 	public function isLocked($id, $token) {
 		$user = $this->userSession->getUser();
