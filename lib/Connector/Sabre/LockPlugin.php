@@ -29,6 +29,7 @@ use OCA\EndToEndEncryption\LockManager;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\IURLGenerator;
@@ -158,7 +159,7 @@ class LockPlugin extends ServerPlugin {
 	protected function checkUserAgent($userAgent, $path) {
 		if (!$this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
 			$node = $this->getFileNode($path);
-			while ($node->isEncrypted() === false) {
+			while ($node->isEncrypted() === false || $node->getType() === FileInfo::TYPE_FILE) {
 				$node = $node->getParent();
 				if ($node->getPath() === '/') {
 					// top-level folder reached
