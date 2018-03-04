@@ -7,6 +7,7 @@ OC.L10N.register(
     "internal error" : "sisäinen virhe",
     "File already locked" : "Tiedosto on jo lukittu",
     "You are not allowed to remove the lock" : "Sinulla ei ole oikeutta poistaa lukitusta",
-    "File not locked" : "Tiedosto ei ole lukittu"
+    "File not locked" : "Tiedosto ei ole lukittu",
+    "End-to-End Encryption" : "Päästä päähän -salaus"
 },
 "nplurals=2; plural=(n != 1);");
