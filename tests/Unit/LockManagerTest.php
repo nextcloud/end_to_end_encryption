@@ -72,10 +72,11 @@ class LockManagerTest extends TestCase {
 	}
 
 
-	public function testLockFile() {
+	public function testLockFileUnlockFile() {
 
-		$lockManager = $this->getLockManager(['isLocked']);
+		$lockManager = $this->getLockManager(['isLocked', 'getTimestamp']);
 		$lockManager->expects($this->any())->method('isLocked')->willReturn(false);
+		$lockManager->expects($this->any())->method('getTimestamp')->willReturn(1234567);
 
 		// check if db is empty
 		$qb = $this->connection->getQueryBuilder();
@@ -87,6 +88,15 @@ class LockManagerTest extends TestCase {
 		// make sure that we got a valid token back
 		$this->assertTrue(is_string($token));
 		$this->assertSame(64, strlen($token));
+
+		//check if it is really stored in the database
+		$qb = $this->connection->getQueryBuilder();
+		$result = $qb->select('*')->from('e2e_encryption_lock')->execute();
+		$data = $result->fetchAll();
+		$this->assertSame(1, count($data));
+		$this->assertSame(1234567, (int)$data[0]['timestamp']);
+		$this->assertSame(42, (int)$data[0]['id']);
+		$this->assertSame($token, $data[0]['token']);
 
 		// try to lock a already locked file with a unknown token
 		$this->assertEmpty($lockManager->lockFile(42));

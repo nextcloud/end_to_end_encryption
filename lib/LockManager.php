@@ -164,7 +164,7 @@ class LockManager {
 	 *
 	 * @return int
 	 */
-	private function getTimestamp() {
+	protected function getTimestamp() {
 		return time();
 	}
 
