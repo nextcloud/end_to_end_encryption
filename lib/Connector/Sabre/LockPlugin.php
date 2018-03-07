@@ -167,7 +167,7 @@ class LockPlugin extends ServerPlugin {
 				}
 			}
 
-			throw new Forbidden('client not allowed to access end-to-end encrypted content');
+			throw new Forbidden('client "' . $userAgent . '" is not allowed to access end-to-end encrypted content');
 		}
 	}
 
