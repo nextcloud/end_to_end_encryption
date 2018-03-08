@@ -23,6 +23,7 @@
 namespace OCA\EndToEndEncryption\Db;
 
 
+use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\Mapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
@@ -58,4 +59,31 @@ class LockMapper extends Mapper {
 
 		return LockEntity::fromRow($row);
 	}
+
+	/**
+	 * insert new lock
+	 *
+	 * @param Entity $entity
+	 * @return Entity
+	 */
+	public function insert(Entity $entity){
+
+		$properties = $entity->getUpdatedFields();
+		$query = $this->db->getQueryBuilder();
+
+		$values = [];
+
+		foreach($properties as $property => $updated) {
+			$column = $entity->propertyToColumn($property);
+			$getter = 'get' . ucfirst($property);
+			$values[$column] = $query->createNamedParameter($entity->$getter());
+		}
+
+
+		$query->insert($this->tableName)->values($values);
+		$query->execute();
+
+		return $entity;
+	}
+
 }
