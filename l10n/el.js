@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "This is someone else's private key" : "Αυτό είναι ιδιωτικό κλειδί κάποιου άλλου",
     "Internal error" : "Εσωτερικό σφάλμα",
     "internal error" : "Εσωτερικό σφάλμα",
     "Can\\'t read metadata" : "Αδναμία ανάγνωσης μεταδεδομένων",
