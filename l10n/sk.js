@@ -12,4 +12,4 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Nemáte oprávnenie odstrániť zámok",
     "File not locked" : "Súbor nie je zamknutý"
 },
-"nplurals=4; plural=(n % 1 == 0 ? 4: n==1 ? 1: n % 1 == 0 && n>=2 && n<=4 ? 3);");
+"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");
