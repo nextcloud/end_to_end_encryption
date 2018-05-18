@@ -21,5 +21,5 @@
     "File not locked" : "ფაილი არაა ჩაკეტილი",
     "Can not decode userlist" : "მომხმარებლის სიის დეკოდირება ვერ ხერხდება",
     "End-to-End Encryption" : "End-to-End შიფრაცია"
-},"pluralForm" :"nplurals=2; plural=(n==1);"
+},"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

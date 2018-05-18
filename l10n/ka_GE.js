@@ -24,4 +24,4 @@ OC.L10N.register(
     "Can not decode userlist" : "მომხმარებლის სიის დეკოდირება ვერ ხერხდება",
     "End-to-End Encryption" : "End-to-End შიფრაცია"
 },
-"nplurals=2; plural=(n==1);");
+"nplurals=2; plural=(n!=1);");
