@@ -22,6 +22,7 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Non ti è consentito rimuovere il blocco",
     "File not locked" : "File non bloccato",
     "Can not decode userlist" : "Impossibile decodificare l'elenco degli utenti",
-    "End-to-End Encryption" : "Cifratura End-To-End"
+    "End-to-End Encryption" : "Cifratura End-To-End",
+    "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end"
 },
 "nplurals=2; plural=(n != 1);");
