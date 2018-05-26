@@ -18,7 +18,7 @@ OC.L10N.register(
     "Metadata-file doesn\\'t exist" : "Soubor s metadaty neexistuje ",
     "Only the owner can delete the metadata-file" : "Pouze majitel může smazat metadata-file",
     "Can\\'t delete metadata" : "Nelze smazat metadata",
-    "File already locked" : "Soubor je již uzamčen ",
+    "File already locked" : "Soubor je už uzamčen",
     "You are not allowed to remove the lock" : "Nemáte oprávnění k odebrání uzamčení",
     "File not locked" : "Soubor nebyl uzamčen",
     "Can not decode userlist" : "Nelze dekódovat seznam uživatelů",
