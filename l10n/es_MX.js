@@ -22,6 +22,8 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "No tienes permitido eliminar el bloqueo",
     "File not locked" : "El archivo no está bloqueado",
     "Can not decode userlist" : "No se puede decodificar la lista de usuarios",
-    "End-to-End Encryption" : "Encripción Punto-a-Punto"
+    "End-to-End Encryption" : "Encripción Punto-a-Punto",
+    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Proporciona el endpoint necesario para habilitar la encripción de punto-a-punto. ¡La encripción de punto-a-punto aún esta en un estado de alpha, no la uses en producciíon y solo con datos de prueba!"
 },
 "nplurals=2; plural=(n != 1);");
