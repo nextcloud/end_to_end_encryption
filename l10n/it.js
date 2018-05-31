@@ -23,6 +23,7 @@ OC.L10N.register(
     "File not locked" : "File non bloccato",
     "Can not decode userlist" : "Impossibile decodificare l'elenco degli utenti",
     "End-to-End Encryption" : "Cifratura End-To-End",
-    "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end"
+    "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fornisce il terminatore necessario per abilitare la cifratura end-to-end. Tale cifratura è ancora in stato di alfa dello sviluppo, non utilizzarla in produzione e solo con dati di prova!"
 },
 "nplurals=2; plural=(n != 1);");
