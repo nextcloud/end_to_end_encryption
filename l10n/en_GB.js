@@ -22,6 +22,8 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "You are not allowed to remove the lock",
     "File not locked" : "File not locked",
     "Can not decode userlist" : "Can not decode userlist",
-    "End-to-End Encryption" : "End-to-End Encryption"
+    "End-to-End Encryption" : "End-to-End Encryption",
+    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!"
 },
 "nplurals=2; plural=(n != 1);");
