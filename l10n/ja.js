@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "This is someone else's private key" : "これは誰かの秘密鍵です",
     "Internal error" : "内部エラー",
     "You are not allowed to delete this private key" : "この秘密鍵を削除することを許可されていません",
     "internal error" : "内部エラー",
