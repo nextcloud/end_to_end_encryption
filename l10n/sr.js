@@ -22,6 +22,8 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Није Вам дозвољено да откључате фајл",
     "File not locked" : "Фајл није закључан",
     "Can not decode userlist" : "Не могу да декодирам листу корисника",
-    "End-to-End Encryption" : "Шифровање са краја на крај"
+    "End-to-End Encryption" : "Шифровање са краја на крај",
+    "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Обезбеђује неопходну крајњу тачку да омогући шифровање са краја на крај. Шифровање са краја на крај је још увек у алфа стању, не користити га у продукцији и искључиво са тест подацима!"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
