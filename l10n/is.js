@@ -22,6 +22,7 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Þú hefur ekki heimild til að fjarlægja læsinguna",
     "File not locked" : "Skrá er ekki læst",
     "Can not decode userlist" : "Gat ekki afkóðað notandalista",
-    "End-to-End Encryption" : "Enda-í-enda dulritun"
+    "End-to-End Encryption" : "Enda-í-enda dulritun",
+    "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
