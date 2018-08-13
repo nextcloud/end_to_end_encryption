@@ -22,6 +22,8 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Je mag het slot niet verwijderen",
     "File not locked" : "Bestand niet op slot",
     "Can not decode userlist" : "Kan de gebruikerslijst niet decoderen",
-    "End-to-End Encryption" : "Begin-tot-eind versleuteling"
+    "End-to-End Encryption" : "Begin-tot-eind versleuteling",
+    "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Zorgt voor de noodzakelijke eindpunten voor begin-tot-eind versleuteling. Begin-tot-eind versleuteling is nog in alpha-status, dus gebruik het niet in productieomgevingen en met testgegevens."
 },
 "nplurals=2; plural=(n != 1);");
