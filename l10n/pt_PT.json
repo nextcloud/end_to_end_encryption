@@ -20,6 +20,8 @@
     "You are not allowed to remove the lock" : "Não tem permissão para remover o bloqueio",
     "File not locked" : "O ficheiro não está bloqueado",
     "Can not decode userlist" : "Não é possível descodificar a lista de utilizadores",
-    "End-to-End Encryption" : "Cifra de ponto-a-ponto"
+    "End-to-End Encryption" : "Encriptação Ponto-a-Ponto",
+    "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fornece o \"endpoint\" necessário para ativar a encriptação ponto-a-ponto. esta ainda está no estado alfa, não utilize isto na produção, utilize apenas com dados de teste!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
