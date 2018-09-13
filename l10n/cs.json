@@ -9,7 +9,7 @@
     "Common name (CN) does not match the current user" : "Běžné jméno (CN) se neshoduje s aktuálním uživatelem",
     "Could not find the public key belonging to %s" : "Nelze nalézt veřejný klíč patřící %s",
     "This is not your private key to delete" : "Chcete smazat soukromý klíč, který není Váš",
-    "Could not find metadata for \"%s\"" : "Nelze nalézt metadate \"%s\"",
+    "Could not find metadata for \"%s\"" : "Nelze nalézt metadata „%s“",
     "Can\\'t read metadata" : "Nelze číst metadata",
     "Can\\'t store metadata" : "Nelze uložit metadata ",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nemáte povoleno úpravy souboru, ujistěte se, že nejprve zamknete a potom odešlete správný token",
