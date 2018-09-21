@@ -2,7 +2,7 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "This is someone else's private key" : "Toto je soukromý klíč někoho jiného",
-    "Could not find the private key of the user %s" : "Nelze nalézt soukromý klíč pro uživatele %s",
+    "Could not find the private key of the user %s" : "Nedaří se nalézt soukromý klíč pro uživatele %s",
     "Internal error" : "Vnitřní chyba",
     "You are not allowed to delete this private key" : "Nemáte oprávnění smazat tento soukromý klíč",
     "Could not find the private key belonging to the user %s" : "Nezle nalézt soukromý klič patřící uživateli %s",
