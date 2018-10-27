@@ -22,7 +22,7 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "No tienes permiso para eliminar el bloqueo",
     "File not locked" : "Archivo no bloqueado",
     "Can not decode userlist" : "No se puede descodificar la lista de usuarios",
-    "End-to-End Encryption" : "Cifrado punto a punto",
+    "End-to-End Encryption" : "Cifrado Punto a Punto",
     "End-to-end encryption endpoint" : "Extremo de la encriptación punto a punto",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Provee el punto final necesario para activar la encriptación extremo a extremo.  ¡La encriptación extremo a extremo todavía está en fase alfa, no lo use en producción, solo con datos de prueba!"
 },
