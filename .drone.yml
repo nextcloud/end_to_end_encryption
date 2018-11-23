@@ -8,7 +8,7 @@ pipeline:
     image: nextcloudci/php7.0:php7.0-2
     environment:
       - APP_NAME=end_to_end_encryption
-      - CORE_BRANCH=master
+      - CORE_BRANCH=stable15
       - DB=sqlite
     commands:
       - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
