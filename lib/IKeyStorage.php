@@ -21,6 +21,8 @@
 
 namespace OCA\EndToEndEncryption;
 
+use OCP\IUser;
+
 interface IKeyStorage {
 
 	/**

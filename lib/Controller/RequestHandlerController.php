@@ -36,6 +36,7 @@ use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\MetaDataStorage;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
@@ -43,6 +44,7 @@ use OCP\AppFramework\OCSController;
 use OCP\Files\ForbiddenException;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\IConfig;
 use OCP\IL10N;
 use OCP\ILogger;
 use OCP\IRequest;
@@ -98,23 +100,26 @@ class RequestHandlerController extends OCSController {
 	public function __construct($AppName,
 								IRequest $request,
 								$UserId,
-								KeyStorage $keyStorage,
 								MetaDataStorage $metaDataStorage,
 								SignatureHandler $signatureHandler,
 								EncryptionManager $manager,
 								LockManager $lockManager,
 								ILogger $logger,
-								IL10N $l
+								IL10N $l,
+								IAppContainer $appContainer,
+								IConfig $config
 	){
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
-		$this->keyStorage = $keyStorage;
 		$this->metaDataStorage = $metaDataStorage;
 		$this->signatureHandler = $signatureHandler;
 		$this->manager = $manager;
 		$this->logger = $logger;
 		$this->lockManager = $lockManager;
 		$this->l = $l;
+
+		$keyStorage = $config->getSystemValue('e2e_encryption_key_storage', KeyStorage::class);
+		$this->keyStorage = $appContainer->query($keyStorage);
 	}
 
 	/**
