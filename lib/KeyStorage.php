@@ -41,7 +41,7 @@ use OCP\IUserSession;
  *
  * @package OCA\EndToEndEncryption
  */
-class KeyStorage {
+class KeyStorage implements IKeyStorage {
 
 	/** @var  IAppData */
 	private $appData;
