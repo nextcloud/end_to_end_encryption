@@ -25,13 +25,17 @@ namespace OCA\EndToEndEncryption\Connector\Sabre;
 use OC\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\File;
+use OCA\EndToEndEncryption\IKeyStorage;
+use OCA\EndToEndEncryption\KeyStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCP\AppFramework\IAppContainer;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
+use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\Conflict;
@@ -69,6 +73,9 @@ class LockPlugin extends ServerPlugin {
 	 */
 	private $applyPlugin;
 
+	/** @var IKeyStorage */
+	private $keyStorage;
+
 	/**
 	 * LockPlugin constructor.
 	 *
@@ -77,12 +84,17 @@ class LockPlugin extends ServerPlugin {
 	 * @param LockManager $lockManager
 	 * @param UserAgentManager $userAgentManager
 	 * @param IURLGenerator $urlGenerator
+	 * @param IAppContainer $appContainer
+	 * @param IConfig $config
+	 * @throws \OCP\AppFramework\QueryException
 	 */
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								LockManager $lockManager,
 								UserAgentManager $userAgentManager,
-								IURLGenerator $urlGenerator
+								IURLGenerator $urlGenerator,
+								IAppContainer $appContainer,
+								IConfig $config
 	) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
@@ -90,6 +102,11 @@ class LockPlugin extends ServerPlugin {
 		$this->userAgentManager = $userAgentManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->applyPlugin = [];
+
+
+		$keyStorage = $config->getSystemValue('e2e_encryption_key_storage', KeyStorage::class);
+		$this->keyStorage = $appContainer->query($keyStorage);
+
 	}
 
 	/**
@@ -157,6 +174,13 @@ class LockPlugin extends ServerPlugin {
 	 * @throws NotFound
 	 */
 	protected function checkUserAgent($userAgent, $path) {
+
+		// if the key storage allows to access keys over the web interface
+		// we can return directly
+		if ($this->keyStorage->getCapabilities() & IKeyStorage::WEB_ACCESS) {
+			return;
+		}
+
 		if (!$this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
 			$node = $this->getFileNode($path);
 			while ($node->isEncrypted() === false || $node->getType() === FileInfo::TYPE_FILE) {

@@ -25,6 +25,9 @@ use OCP\IUser;
 
 interface IKeyStorage {
 
+	const CLIENT_ACCESS = 1;
+	const WEB_ACCESS = 2;
+
 	/**
 	 * store public key
 	 *
@@ -110,5 +113,13 @@ interface IKeyStorage {
 	 * @param IUser $user
 	 */
 	public function deleteUserKeys(IUser $user);
+
+	/**
+	 * Get capabilities of the key storage, e.g. can keys be accessed by the web
+	 * interface
+	 *
+	 * @return array
+	 */
+	public function getCapabilities();
 
 }

@@ -298,4 +298,9 @@ class KeyStorage implements IKeyStorage {
 		}
 
 	}
+
+	public function getCapabilities() {
+		return IKeyStorage::CLIENT_ACCESS;
+	}
+
 }
