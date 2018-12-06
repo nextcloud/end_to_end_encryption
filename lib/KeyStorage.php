@@ -24,8 +24,6 @@ namespace OCA\EndToEndEncryption;
 
 
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
-use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
-use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCP\Files\ForbiddenException;
 use OCP\Files\IAppData;
 use OCP\Files\IRootFolder;
@@ -103,38 +101,6 @@ class KeyStorage {
 		if (!$keyStorageRoot->fileExists($this->publicKeysRoot)) {
 			$this->appData->newFolder($this->publicKeysRoot);
 		}
-		if (!$keyStorageRoot->fileExists($this->metaDataRoot)) {
-			$this->appData->newFolder($this->metaDataRoot);
-		}
-	}
-
-	/**
-	 * create target folder recursively
-	 *
-	 * @param string $path
-	 * @param $root
-	 *
-	 * @throws \Exception
-	 */
-	private function prepareTargetFolder($path, $root) {
-		try {
-			$node = $this->appData->getFolder($root);
-			// create folder structure recursively
-			if (!$node->fileExists($path)) {
-				$sub_dirs = explode('/', ltrim($path, '/'));
-				$dir = '';
-				foreach ($sub_dirs as $sub_dir) {
-					$dir .= '/' . $sub_dir;
-					if (!$node->fileExists($dir)) {
-						$this->appData->newFolder($root . $dir);
-					}
-				}
-			}
-		} catch (\Exception $e) {
-			$error = 'Can\'t prepare target folders: ' . $e->getMessage();
-			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
-			throw $e;
-		}
 	}
 
 
@@ -146,6 +112,7 @@ class KeyStorage {
 	 *
 	 * @throws \RuntimeException
 	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 */
 	public function getPublicKey($uid) {
 		$publicKeys = $this->appData->getFolder($this->publicKeysRoot);
@@ -199,9 +166,9 @@ class KeyStorage {
 	 * @param string $uid
 	 * @return string
 	 *
-	 * @throws \RuntimeException
-	 * @throws NotFoundException
 	 * @throws ForbiddenException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
 	 */
 	public function getPrivateKey($uid) {
 		$user = $this->userSession->getUser();
@@ -254,6 +221,7 @@ class KeyStorage {
 	 * delete users private key
 	 *
 	 * @param $uid
+	 * @throws NotPermittedException
 	 */
 	protected function deleteUsersPrivateKey($uid) {
 		try {
@@ -268,6 +236,7 @@ class KeyStorage {
 	 * delete users public key
 	 *
 	 * @param string $uid
+	 * @throws NotPermittedException
 	 */
 	protected function deleteUsersPublicKey($uid) {
 		try {
@@ -276,111 +245,6 @@ class KeyStorage {
 		} catch (NotFoundException $e) {
 			// do nothing if the key doesn't exists
 		}
-	}
-
-	/**
-	 * get meta data file
-	 *
-	 * @param int $id
-	 * @return string
-	 *
-	 * @throws NotFoundException
-	 * @throws \RuntimeException
-	 */
-	public function getMetaData($id) {
-		$path = $this->getOwnerPath($id);
-		$folder = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
-		$file = $folder->getFile($this->metaDataFileName);
-		return $file->getContent();
-	}
-
-	/**
-	 * delete meta data file
-	 *
-	 * @param int $id
-	 *
-	 * @throws \RuntimeException
-	 * @throws NotPermittedException
-	 * @throws NotFoundException
-	 */
-	public function deleteMetaData($id) {
-		$owner = $this->getOwner($id);
-		$currentUser = $this->userSession->getUser();
-		if ($owner->getUID() !== $currentUser->getUID()) {
-			throw new NotPermittedException();
-		}
-
-		$path = $this->getOwnerPath($id);
-		$folder = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
-		$folder->getFile($this->metaDataFileName)->delete();
-	}
-
-
-	/**
-	 * set meta data file
-	 *
-	 * @param int $id file id
-	 * @param string $metaData
-	 *
-	 * @throws NotPermittedException
-	 * @throws NotFoundException
-	 * @throws \RuntimeException
-	 * @throws \Exception
-	 * @throws MetaDataExistsException
-	 */
-	public function setMetaData($id, $metaData) {
-		$path = $this->getOwnerPath($id);
-		$this->prepareTargetFolder($path, $this->metaDataRoot);
-		$dir = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
-		if ($dir->fileExists($this->metaDataFileName)) {
-			throw new MetaDataExistsException('meta data file already exists');
-		}
-
-		$file = $dir->newFile($this->metaDataFileName);
-		$file->putContent($metaData);
-	}
-
-
-	/**
-	 * delete all meta data files for a given user, e.g. when the user was deleted
-	 *
-	 * @param IUser $user
-	 */
-	public function deleteAllMetaDataFiles(IUser $user) {
-		$uid = $user->getUID();
-		if(!$this->userManager->userExists($uid)) {
-			try {
-				$metaDataRoot = $this->appData->getFolder($this->metaDataRoot . '/' . $uid);
-				$metaDataRoot->delete();
-			} catch (NotFoundException $e) {
-				// do nothing if no meta data exists
-			}
-		}
-	}
-
-	/**
-	 * update meta data file
-	 *
-	 * @param int $id file id
-	 * @param string $fileKey
-	 *
-	 * @throws NotPermittedException
-	 * @throws NotFoundException
-	 * @throws \RuntimeException
-	 * @throws \Exception
-	 * @throws MissingMetaDataException
-	 */
-	public function updateMetaData($id, $fileKey) {
-		// ToDo check signature for race condition
-		$path = $this->getOwnerPath($id);
-		$this->prepareTargetFolder($path, $this->metaDataRoot);
-		$dir = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
-		if (!$dir->fileExists($this->metaDataFileName)) {
-			throw new MissingMetaDataException('meta data file missing');
-		}
-
-		$file = $dir->getFile($this->metaDataFileName);
-		$file->putContent($fileKey);
 	}
 
 	/**
@@ -433,44 +297,5 @@ class KeyStorage {
 			throw new \Exception('Can\'t store public key');
 		}
 
-	}
-
-	/**
-	 * get path to the file for the file-owner
-	 *
-	 * @param int $id file id
-	 * @return string path to the owner's file
-	 *
-	 * @throws NotFoundException
-	 */
-	private function getOwnerPath($id) {
-		$node = $this->rootFolder->getById($id);
-		if (!isset($node[0])) {
-			throw new NotFoundException('No file with ID ' . $id);
-		}
-		$owner = $node[0]->getOwner();
-		$ownerRoot = $this->rootFolder->getUserFolder($owner->getUID());
-		$node = $ownerRoot->getById($id);
-		if (!isset($node[0])) {
-			throw new NotFoundException('No file for owner with ID ' . $id);
-		}
-		return $node[0]->getPath();
-	}
-
-	/**
-	 * get owner
-	 *
-	 * @param int $id file id
-	 * @return IUser
-	 * @throws NotFoundException
-	 */
-	private function getOwner($id) {
-		$node = $this->rootFolder->getById($id);
-		if (!isset($node[0])) {
-			throw new NotFoundException('No file with ID ' . $id);
-		}
-		$owner = $node[0]->getOwner();
-
-		return $owner;
 	}
 }
