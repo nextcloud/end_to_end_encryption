@@ -22,6 +22,7 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Nincs jogosultságod eltávolítani a zárolást",
     "File not locked" : "A fájl nincs zárolva",
     "Can not decode userlist" : "Nem lehet dekódolni a felhasználólistát",
-    "End-to-End Encryption" : "Vég-vég titkosítás"
+    "End-to-End Encryption" : "Vég-vég titkosítás",
+    "End-to-end encryption endpoint" : "Végponti titkosítási végződés"
 },
 "nplurals=2; plural=(n != 1);");
