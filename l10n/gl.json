@@ -1,5 +1,5 @@
 { "translations": {
-    "This is someone else's private key" : "Esta é a chave privada de alguén máis ",
+    "This is someone else's private key" : "Esta é a chave privada de alguén máis",
     "Could not find the private key of the user %s" : "Non foi posíbel atopar a chave privada do usuario %s",
     "Internal error" : "Produciuse un erro interno",
     "You are not allowed to delete this private key" : "Non ten permisos para eliminar esta chave privada",
