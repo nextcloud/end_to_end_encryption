@@ -27,19 +27,19 @@ use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
 use OCA\EndToEndEncryption\EncryptionManager;
-use OCA\EndToEndEncryption\KeyStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCA\EndToEndEncryption\UserManager;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
 use OCP\AppFramework\App;
+use OCP\IUser;
 use OCP\SabrePluginEvent;
 
 class Application extends App {
 
-	public function __construct() {
-		parent::__construct('end_to_end_encryption');
+	public function __construct(array $urlParams = []) {
+		parent::__construct('end_to_end_encryption', $urlParams);
 
 		$container = $this->getContainer();
 		$container->registerCapability(Capabilities::class);
@@ -60,10 +60,10 @@ class Application extends App {
 			$event->getServer()->addPlugin(new PropFindPlugin($userAgentManager, $request));
 		});
 
-		/** @var EncryptionManager $encryptionManager */
-		$encryptionManager = $this->getContainer()->query(EncryptionManager::class);
+		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function(MoveToTrashEvent $event) {
+			/** @var EncryptionManager $encryptionManager */
+			$encryptionManager = $this->getContainer()->query(EncryptionManager::class);
 
-		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function(MoveToTrashEvent $event) use ($encryptionManager) {
 			$node = $event->getNode();
 			if ($encryptionManager->isEncryptedFile($node)) {
 				$event->disableTrashBin();
@@ -71,7 +71,10 @@ class Application extends App {
 		});
 
 
-		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function(CreateVersionEvent $event) use ($encryptionManager) {
+		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function(CreateVersionEvent $event) {
+			/** @var EncryptionManager $encryptionManager */
+			$encryptionManager = $this->getContainer()->query(EncryptionManager::class);
+
 			$node = $event->getNode();
 			if ($encryptionManager->isEncryptedFile($node)) {
 				$event->disableVersions();
@@ -79,15 +82,11 @@ class Application extends App {
 		});
 
 		// listen to user management signals to delete user specific key if a user was deleted
-		$userManager = \OC::$server->getUserManager();
-		$keyStorage = new KeyStorage(
-			\OC::$server->getAppDataDir('end_to_end_encryption'),
-			\OC::$server->getUserSession(),
-			\OC::$server->getLogger(),
-			\OC::$server->getRootFolder(),
-			\OC::$server->getUserManager());
-		$cseUserManager = new UserManager($keyStorage);
-		$userManager->listen('\OC\User', 'postDelete', [$cseUserManager, 'deleteUserKeys']);
+		\OC::$server->getUserManager()->listen('\OC\User', 'postDelete', function(IUser $user) {
+			/** @var UserManager $cseUserManager */
+			$cseUserManager = $this->getContainer()->getServer()->query(UserManager::class);
+			$cseUserManager->deleteUserKeys($user);
+		});
 	}
 
 }
