@@ -1,0 +1,27 @@
+{ "translations": {
+    "This is someone else's private key" : "Tiu estas privata ŝlosilo de iu alia",
+    "Could not find the private key of the user %s" : "Ne eblis trovi la privatan ŝlosilon de la uzanto %s",
+    "Internal error" : "Interna eraro",
+    "You are not allowed to delete this private key" : "Vi ne rajtas forigi tiun privatan ŝlosilon",
+    "Could not find the private key belonging to the user %s" : "Ne eblis trovi la privatan ŝlosilon de la uzanto %s",
+    "internal error" : "interna eraro",
+    "Could not find the public key belonging to the user %s" : "Ne eblis trovi la publikan ŝlosilon de la uzanto %s",
+    "Common name (CN) does not match the current user" : "Komuna nomo („CN“) ne kongruas kun la aktuala uzanto",
+    "Could not find the public key belonging to %s" : "Ne eblis trovi la publikan ŝlosilon de %s",
+    "This is not your private key to delete" : "Tiu ne estas via privata ŝlosilo forigota",
+    "Could not find metadata for \"%s\"" : "Ne eblis trovi pridatumojn pri „%s“",
+    "Can\\'t read metadata" : "Pridatumoj ne legeblas",
+    "Can\\'t store metadata" : "Pridatumoj ne konserveblas",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vi ne rajtas redakti la dosieron; certigu, ke vi unue ŝlosas ĝin kaj poste sendas la ĝustan ĵetonon",
+    "Metadata-file doesn\\'t exist" : "Pridatuma dosiero ne ekzistas",
+    "Only the owner can delete the metadata-file" : "Nur la posedanto povas forigi la pridatuman dosieron",
+    "Can\\'t delete metadata" : "Pridatumoj ne forigeblas",
+    "File already locked" : "Dosiero jam ŝlosita",
+    "You are not allowed to remove the lock" : "Vi ne rajtas forigi la ŝlosadon",
+    "File not locked" : "Dosiero ne ŝlosita",
+    "Can not decode userlist" : "Ne eblas malkodi la liston de uzantoj",
+    "End-to-End Encryption" : "Tutvoja ĉifrado",
+    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Provizas la bezonatan finpunkton por ebligi tutvojan ĉifradon. Tutvoja ĉifrado ankoraŭ estas en alfa-versio: ne uzu en produktado kaj uzu nur kun testdatumoj!"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
