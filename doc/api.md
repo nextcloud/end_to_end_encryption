@@ -110,11 +110,11 @@ GET: `<base-url>/private-key`
 
 **Results:**
 
-200 ok: body contain the private key
+200 ok: body contains the private key
 
 403 forbidden: if the user can't access the private key
 
-404 not found: if the private key doesn't exists
+404 not found: if the private key doesn't exist
 
 400 bad request: unpredictable internal error
 
@@ -149,7 +149,7 @@ DELETE: `<base-url>/private-key`
 
 409 forbidden: if the user is not allowed to delete the private key
 
-404 not found: if the private key doesn't exists
+404 not found: if the private key doesn't exist
 
 400 bad request: unpredictable internal error
 
@@ -184,7 +184,7 @@ the public key (CN must be the same as the corresponding Nextcloud user name)
 
 **Results:**
 
-200 OK: public key was successfully signed and stored, body contain the public key
+200 OK: public key was successfully signed and stored, body contains the public key
 
 409 conflict: if a public key for the user already exists
 
@@ -225,7 +225,7 @@ users: Json encoded list of users for which the server should return the public 
 
 **Results:**
 
-200 ok: response body contain the public keys
+200 ok: response body contains the public keys
 
 404 not found: if one or more public keys couldn't be found
 
@@ -265,9 +265,9 @@ DELETE: `<base-url>/public-key`
 
 200 ok: public key was deleted
 
-403 forbidden: if the is not allowed to delete the public key
+403 forbidden: if the user is not allowed to delete the public key
 
-404 not found: public key doesn't exists
+404 not found: public key doesn't exist
 
 400 bad request: unpredictable internal error
 
@@ -293,7 +293,7 @@ DELETE: `<base-url>/public-key`
 
 ## Lock file
 
-You need to lock the file before you start to write/update a encrypted file and/or
+You need to lock the file before you start to write/update an encrypted file and/or
 the meta data file.
 
 POST: `<base-url>/lock/<file-id>`
@@ -415,9 +415,9 @@ GET: `<base-url>/meta-data/<file-id>`
 
 **Results:**
 
-200 ok: response body contain the meta data
+200 ok: response body contains the meta data
 
-404 not found: if the meta-data file doesn't exists
+404 not found: if the meta-data file doesn't exist
 
 400 bad request: unpredictable internal error
 
@@ -454,10 +454,10 @@ token: token to authenticate that you are the client who currently manipulates t
 
 200 ok: meta data successfully updated
 
-404 not found: if the meta-data file doesn't exists or if the user can't access 
+404 not found: if the meta-data file doesn't exist or if the user can't access 
 the file with the given file-id 
 
-403 forbidden: if the file was not locked or the client send the wrong token
+403 forbidden: if the file was not locked or the client sends the wrong token
 
 400 bad request: unpredictable internal error
 
@@ -489,7 +489,7 @@ DELETE: `<base-url>/meta-data/<file-id>`
 
 200 ok: meta data file deleted successfully
 
-404 not found: if the meta-data file doesn't exists
+404 not found: if the meta-data file doesn't exist
 
 409 you are not allowed to delete the meta data file (only the owner can do it)
 
