@@ -14,7 +14,7 @@ OC.L10N.register(
     "Could not find metadata for \"%s\"" : "Für \"%s\" können keine Metadaten gefunden werden",
     "Can\\'t read metadata" : "Metadaten können nicht gelesen werden",
     "Can\\'t store metadata" : "Metadaten können nicht gespeichert werden",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du darfst die Datei nicht bearbeiten. Stelle sicher, dass du sie zuerst sperrst und das richtige Token sendest.",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du darfst die Datei nicht bearbeiten. Stelle sicher, dass Du sie zuerst sperrst und das richtige Token sendest.",
     "Metadata-file doesn\\'t exist" : "Metadaten-Datei existiert nicht",
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
     "Can\\'t delete metadata" : "Metadaten können nicht gelöscht werden",
