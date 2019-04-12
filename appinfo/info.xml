@@ -5,7 +5,7 @@
     <name>End-to-End Encryption</name>
     <summary>End-to-end encryption endpoint</summary>
     <description>Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!</description>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <licence>agpl</licence>
     <author>Bjoern Schiessle</author>
     <namespace>EndToEndEncryption</namespace>
@@ -18,6 +18,6 @@
     <repository type="git">https://github.com/nextcloud/end_to_end_encryption.git</repository>
     <screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/master/screenshots/e2ee-filelisting.png</screenshot>
     <dependencies>
-        <nextcloud min-version="16" max-version="16"/>
+        <nextcloud min-version="17" max-version="17"/>
     </dependencies>
 </info>
