@@ -20,7 +20,7 @@
     "You are not allowed to remove the lock" : "No podeu treure el bloqueig",
     "File not locked" : "Fitxer no bloquejat",
     "Can not decode userlist" : "No es pot descodificar la llista d’usuaris",
-    "End-to-End Encryption" : "Encriptació d'extrem-a-extrem",
+    "End-to-End Encryption" : "Xifratge d'extrem a extrem",
     "End-to-end encryption endpoint" : "Extrem d’encriptació extrem-a-extrem",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Proporciona el punt d’entrada necessari per permetre el xifratge d'extrem a extrem. L’encriptació extrem-a-extrem està encara en estat alfa, no ho feu servir en producció i només amb dades de prova!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
