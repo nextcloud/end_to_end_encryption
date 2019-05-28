@@ -22,6 +22,8 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "잠금을 해제할 수 없음",
     "File not locked" : "파일이 잠기지 않았음",
     "Can not decode userlist" : "사용자 목록을 해석할 수 없음",
-    "End-to-End Encryption" : "종단간 암호화"
+    "End-to-End Encryption" : "종단간 암호화",
+    "End-to-end encryption endpoint" : "종단간 암호화 종단점",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "종단간 암호화 종단점을 제공합니다. 종단간 암호화는 아직 알파 상태이므로 테스트 데이터에만 사용하십시오!"
 },
 "nplurals=1; plural=0;");
