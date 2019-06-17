@@ -22,6 +22,6 @@
     "Can not decode userlist" : "Impossible de décoder la liste des utilisateurs",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
     "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fournit le point de terminaison nécessaire pour activer le chiffrement de bout en bout. Le cryptage de bout en bout est toujours en mode alpha, ne l'utilisez pas en production et uniquement avec des données de test !"
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fournit le point de terminaison nécessaire pour activer le chiffrement de bout en bout. Le chiffrement de bout en bout est toujours en mode alpha, ne l'utilisez pas en production et uniquement avec des données de test !"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
