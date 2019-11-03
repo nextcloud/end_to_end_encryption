@@ -20,6 +20,8 @@
     "You are not allowed to remove the lock" : "Du tillåts inte ta bort låset",
     "File not locked" : "Fil inte låst",
     "Can not decode userlist" : "Kan inte avkoda användarlista",
-    "End-to-End Encryption" : "Ändpunkt-till-ändpunkt-kryptering"
+    "End-to-End Encryption" : "Ändpunkt-till-ändpunkt-kryptering",
+    "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Ger den nödvändiga slutpunkten för att aktivera end-to-end-kryptering. End-to-end-kryptering är fortfarande i alfa-tillstånd, använd inte detta i produktion och endast med testdata!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
