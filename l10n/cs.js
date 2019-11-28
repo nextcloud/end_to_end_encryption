@@ -23,7 +23,7 @@ OC.L10N.register(
     "File not locked" : "Soubor není uzamčen",
     "Can not decode userlist" : "Nelze dekódovat seznam uživatelů",
     "End-to-End Encryption" : "Šifrování end-to-end",
-    "End-to-end encryption endpoint" : "Koncový bod koncového šifrování",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Poskytuje nutný koncový bod pro koncové šifrování. Koncové šifrování je stále v alpha stádiu, nepoužívejte v produkci a s jinými, než testovacími daty!"
+    "End-to-end encryption endpoint" : "Koncový bod end-to-end šifrování",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Poskytuje nutný koncový bod pro end-to-end šifrování. Toto šifrování je stále v alpha stádiu, proto nepoužívejte v produkci a s jinými, než testovacími daty!"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
