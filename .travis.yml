@@ -9,7 +9,7 @@ services:
 
 env:
   global:
-    - CORE_BRANCH=master
+    - CORE_BRANCH=stable18
     - APP_NAME=end_to_end_encryption
   matrix:
     - DB=sqlite
