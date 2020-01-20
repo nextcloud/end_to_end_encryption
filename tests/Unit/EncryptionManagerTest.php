@@ -49,7 +49,7 @@ class EncryptionManagerTest extends TestCase {
 	/** @var  IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	private $userSession;
 
-	public function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->rootFolderInterface = $this->createMock(IRootFolder::class);
 		$this->rootFolder = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();

@@ -35,7 +35,7 @@ class LockManagerTest extends TestCase {
 	/** @var IDBConnection */
 	private $connection;
 
-	public function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->connection = \OC::$server->getDatabaseConnection();
