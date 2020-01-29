@@ -2,6 +2,14 @@
     "This is someone else's private key" : "To je osebni ključ nekoga drugega",
     "Internal error" : "Notranja napaka",
     "internal error" : "notranja napaka",
-    "File already locked" : "Datoteka je že zaklenjena"
+    "Could not find metadata for \"%s\"" : "Ni mogoče najti metapodatkov za » %s «.",
+    "Can\\'t read metadata" : "Metapodatkov ni mogoče prebrati",
+    "Can\\'t store metadata" : "Metapodatkov ni mogoče shraniti",
+    "Metadata-file doesn\\'t exist" : "Datoteka metapodatkov ne obstaja",
+    "Only the owner can delete the metadata-file" : "Le lastnik lahko izbriše datoteko metapodatkov",
+    "File already locked" : "Datoteka je že zaklenjena",
+    "You are not allowed to remove the lock" : "Ni ustreznih dovoljenj za odstranjevanje zaklepa",
+    "File not locked" : "Datoteka ni zaklenjena",
+    "Can not decode userlist" : "Ni mogoče dekodirati uporabniškega seznama"
 },"pluralForm" :"nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);"
 }
