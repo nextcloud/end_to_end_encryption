@@ -2,6 +2,7 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "This is someone else's private key" : "To je osebni ključ nekoga drugega",
+    "Could not find the private key of the user %s" : "Ni mogoče najti zasebnega ključa uporabnika %s.",
     "Internal error" : "Notranja napaka",
     "internal error" : "notranja napaka",
     "Could not find metadata for \"%s\"" : "Ni mogoče najti metapodatkov za » %s «.",
@@ -9,6 +10,7 @@ OC.L10N.register(
     "Can\\'t store metadata" : "Metapodatkov ni mogoče shraniti",
     "Metadata-file doesn\\'t exist" : "Datoteka metapodatkov ne obstaja",
     "Only the owner can delete the metadata-file" : "Le lastnik lahko izbriše datoteko metapodatkov",
+    "Can\\'t delete metadata" : "Metapodatkov ni mogoče izbrisati",
     "File already locked" : "Datoteka je že zaklenjena",
     "You are not allowed to remove the lock" : "Ni ustreznih dovoljenj za odstranjevanje zaklepa",
     "File not locked" : "Datoteka ni zaklenjena",
