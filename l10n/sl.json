@@ -12,6 +12,9 @@
     "File already locked" : "Datoteka je že zaklenjena",
     "You are not allowed to remove the lock" : "Ni ustreznih dovoljenj za odstranjevanje zaklepa",
     "File not locked" : "Datoteka ni zaklenjena",
-    "Can not decode userlist" : "Ni mogoče dekodirati uporabniškega seznama"
+    "Can not decode userlist" : "Ni mogoče dekodirati uporabniškega seznama",
+    "End-to-End Encryption" : "Celovito šifriranje E2E",
+    "End-to-end encryption endpoint" : "Končna točka celovitega šifriranja E2E",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Omogoča obvezno končno točko za celovito šifriranje E2E. Celovito šifriranje je še vedno v preizkusnem stanju in ga ni priporočljivo uporabljati na produkcijskih okoljih, še manj s pravimi podatki!"
 },"pluralForm" :"nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);"
 }
