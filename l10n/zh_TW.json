@@ -9,6 +9,7 @@
     "File already locked" : "檔案已經被鎖定",
     "You are not allowed to remove the lock" : "您不被允許移除此鎖。",
     "File not locked" : "檔案沒有上鎖",
+    "Can not decode userlist" : "無法解密使用者清單",
     "End-to-End Encryption" : "終端對終端的加密",
     "End-to-end encryption endpoint" : "端到端加密端點"
 },"pluralForm" :"nplurals=1; plural=0;"
