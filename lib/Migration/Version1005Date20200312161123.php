@@ -22,17 +22,16 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Migration;
 
 use Closure;
-use Doctrine\DBAL\Types\Type;
 use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
 /**
- * Class Version1005Date20200312102456
+ * Class Version1005Date20200312161123
  *
  * @package OCA\EndToEndEncryption\Migration
  */
-class Version1005Date20200312102456 extends SimpleMigrationStep {
+class Version1005Date20200312161123 extends SimpleMigrationStep {
 
 	/**
 	 * @param IOutput $output
@@ -44,25 +43,16 @@ class Version1005Date20200312102456 extends SimpleMigrationStep {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
-		if (!$schema->hasTable('e2e_encryption_lock')) {
-			$table = $schema->createTable('e2e_encryption_lock');
-			// Id refers to the file id of the locked folder
-			// So we don't want autoincrement
-			$table->addColumn('id', Type::BIGINT, [
-				'notnull' => true,
-				'length' => 11,
-				'unsigned' => true,
-			]);
-			$table->addColumn('timestamp', Type::BIGINT, [
-				'notnull' => true,
-				'length' => 11,
-				'unsigned' => true,
-			]);
-			$table->addColumn('token', Type::STRING, [
-				'notnull' => true,
-				'length' => 256,
-			]);
-			$table->addUniqueIndex(['id'], 'e2e_unique_lock');
+		if ($schema->hasTable('e2e_encryption_lock')) {
+			$table = $schema->getTable('e2e_encryption_lock');
+
+			if ($table->hasIndex('id')) {
+				$table->dropIndex('id');
+			}
+
+			if (!$table->hasIndex('e2e_unique_lock')) {
+				$table->addUniqueIndex(['id'], 'e2e_unique_lock');
+			}
 		}
 
 		return $schema;
