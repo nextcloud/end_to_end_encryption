@@ -23,12 +23,13 @@
 namespace OCA\EndToEndEncryption;
 
 
-use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\IUserSession;
+use OCP\Share\IManager;
+use OCP\Share\IShare;
 
 /**
  * Class EncryptionManager
@@ -45,15 +46,22 @@ class EncryptionManager {
 	/** @var IUserSession */
 	private $userSession;
 
+	/** @var IManager */
+	private $shareManager;
+
 	/**
 	 * EncryptionManager constructor.
 	 *
 	 * @param IRootFolder $rootFolder
 	 * @param IUserSession $userSession
+	 * @param IManager $shareManager
 	 */
-	public function __construct(IRootFolder $rootFolder, IUserSession $userSession) {
+	public function __construct(IRootFolder $rootFolder,
+								IUserSession $userSession,
+								IManager $shareManager) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
+		$this->shareManager = $shareManager;
 	}
 
 	/**
@@ -117,15 +125,68 @@ class EncryptionManager {
 	 *
 	 * @throws NotFoundException
 	 */
-	protected function isValidFolder($id) {
+	protected function isValidFolder($id):void {
 		$node = $this->rootFolder->getById($id);
 
 		if (!isset($node[0])) {
 			throw new NotFoundException('No folder with ID ' . $id);
 		}
 
-		if ($node[0]->getType() === FileInfo::TYPE_FILE) {
+		$firstNode = $node[0];
+		if (!($firstNode instanceof Folder)) {
 			throw new NotFoundException('No folder with ID ' . $id);
 		}
+
+		if (!empty($firstNode->getDirectoryListing())) {
+			throw new NotFoundException('Folder with ID ' . $id . ' not empty');
+		}
+
+		$user = $this->userSession->getUser();
+		if ($user === null) {
+			throw new NotFoundException('No active user-session');
+		}
+
+		$userId = $user->getUID();
+		if ($this->isNodeShared($userId, $firstNode)) {
+			throw new NotFoundException('Folder with ID ' . $id . ' is shared');
+		}
+	}
+
+	/**
+	 * Check if a node is shared
+	 *
+	 * @param string $userId
+	 * @param Node $node
+	 * @return bool
+	 */
+	private function isNodeShared(string $userId, Node $node):bool {
+		$shareTypesToCheck = [
+			IShare::TYPE_USER,
+			IShare::TYPE_GROUP,
+			IShare::TYPE_USERGROUP,
+			IShare::TYPE_LINK,
+			IShare::TYPE_EMAIL,
+			IShare::TYPE_REMOTE,
+			IShare::TYPE_CIRCLE,
+			IShare::TYPE_GUEST,
+			IShare::TYPE_REMOTE_GROUP,
+			IShare::TYPE_ROOM,
+		];
+
+		foreach ($shareTypesToCheck as $shareType) {
+			$shares = $this->shareManager->getSharesBy(
+				$userId,
+				$shareType,
+				$node,
+				false,
+				1 // Limit 1, because we only care whether there is a share or not
+			);
+
+			if (!empty($shares)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

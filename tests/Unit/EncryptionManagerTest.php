@@ -23,13 +23,18 @@
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
 
+use OC\Files\Node\File;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCP\Files\Cache\ICache;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
+use OCP\Files\NotFoundException;
 use OCP\Files\Storage\IStorage;
+use OCP\IUser;
 use OCP\IUserSession;
+use OCP\Share\IManager;
+use OCP\Share\IShare;
 use Test\TestCase;
 
 class EncryptionManagerTest extends TestCase {
@@ -49,6 +54,9 @@ class EncryptionManagerTest extends TestCase {
 	/** @var  IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	private $userSession;
 
+	/** @var  IManager|\PHPUnit_Framework_MockObject_MockObject */
+	private $shareManager;
+
 	protected function setUp(): void {
 		parent::setUp();
 		$this->rootFolderInterface = $this->createMock(IRootFolder::class);
@@ -56,6 +64,7 @@ class EncryptionManagerTest extends TestCase {
 		$this->storage = $this->createMock(IStorage::class);
 		$this->fileCache = $this->createMock(ICache::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->shareManager = $this->createMock(IManager::class);
 
 		$this->rootFolder->expects($this->any())->method('getStorage')->willReturn($this->storage);
 		$this->storage->expects($this->any())->method('getCache')->willReturn($this->fileCache);
@@ -74,13 +83,14 @@ class EncryptionManagerTest extends TestCase {
 				->setConstructorArgs(
 					[
 						$this->rootFolderInterface,
-						$this->userSession
+						$this->userSession,
+						$this->shareManager,
 					]
 				)
 				->setMethods($mockedMethods)
 				->getMock();
 		} else {
-			$instance = new EncryptionManager($this->rootFolderInterface, $this->userSession);
+			$instance = new EncryptionManager($this->rootFolderInterface, $this->userSession, $this->shareManager);
 		}
 
 		return $instance;
@@ -160,6 +170,223 @@ class EncryptionManagerTest extends TestCase {
 		$node3->expects($this->any())->method('getPath')->willReturn('/');
 
 		return [$node1, $node2, $node3];
-}
+	}
+
+	public function testIsValidFolderSuccess():void {
+		$instance = $this->getInstance();
+
+		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+
+		$this->rootFolderInterface->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node1, $node2]);
+
+		$node1->expects($this->once())
+			->method('getDirectoryListing')
+			->willReturn([]);
+
+		$node2->expects($this->never())
+			->method('getDirectoryListing');
+
+		$user = $this->createMock(IUser::class);
+		$user->expects($this->once())
+			->method('getUID')
+			->willReturn('userId123');
+
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+
+		$this->shareManager->expects($this->at(0))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_USER, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(1))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_GROUP, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(2))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_USERGROUP, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(3))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_LINK, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(4))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_EMAIL, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(5))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_REMOTE, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(6))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_CIRCLE, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(7))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_GUEST, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(8))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(9))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_ROOM, $node1, false, 1)
+			->willReturn([]);
+
+		self::invokePrivate($instance, 'isValidFolder', [42]);
+	}
+
+	public function testIsValidFolderEmptyResultSet():void {
+		$this->expectException(NotFoundException::class);
+		$this->expectExceptionMessage('No folder with ID 42');
+
+		$instance = $this->getInstance();
+		$this->rootFolderInterface->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([]);
+
+		self::invokePrivate($instance, 'isValidFolder', [42]);
+	}
+
+	public function testIsValidFolderNotAFolder():void {
+		$this->expectException(NotFoundException::class);
+		$this->expectExceptionMessage('No folder with ID 42');
+
+		$instance = $this->getInstance();
+
+		$node1 = $this->getMockBuilder(File::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+
+		$this->rootFolderInterface->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node1, $node2]);
+
+		self::invokePrivate($instance, 'isValidFolder', [42]);
+	}
+
+	public function testIsValidFolderNonEmpty():void {
+		$this->expectException(NotFoundException::class);
+		$this->expectExceptionMessage('Folder with ID 42 not empty');
+
+		$instance = $this->getInstance();
+
+		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+
+		$this->rootFolderInterface->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node1]);
+
+		$node1->expects($this->once())
+			->method('getDirectoryListing')
+			->willReturn([$node2]);
+
+		self::invokePrivate($instance, 'isValidFolder', [42]);
+	}
+
+	public function testIsValidFolderNoUserSession():void {
+		$this->expectException(NotFoundException::class);
+		$this->expectExceptionMessage('No active user-session');
+
+		$instance = $this->getInstance();
+
+		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+
+		$this->rootFolderInterface->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node1, $node2]);
+
+		$node1->expects($this->once())
+			->method('getDirectoryListing')
+			->willReturn([]);
+
+		$node2->expects($this->never())
+			->method('getDirectoryListing');
+
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn(null);
+
+		self::invokePrivate($instance, 'isValidFolder', [42]);
+	}
+
+	public function testIsValidFolderShared():void {
+		$this->expectException(NotFoundException::class);
+		$this->expectExceptionMessage('Folder with ID 42 is shared');
+
+		$instance = $this->getInstance();
+
+		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+
+		$this->rootFolderInterface->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node1, $node2]);
+
+		$node1->expects($this->once())
+			->method('getDirectoryListing')
+			->willReturn([]);
+
+		$node2->expects($this->never())
+			->method('getDirectoryListing');
+
+		$user = $this->createMock(IUser::class);
+		$user->expects($this->once())
+			->method('getUID')
+			->willReturn('userId123');
+
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+
+		$this->shareManager->expects($this->at(0))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_USER, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(1))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_GROUP, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(2))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_USERGROUP, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(3))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_LINK, $node1, false, 1)
+			->willReturn([]);
+
+		$this->shareManager->expects($this->at(4))
+			->method('getSharesBy')
+			->with('userId123', IShare::TYPE_EMAIL, $node1, false, 1)
+			->willReturn(['share123']);
+
+		self::invokePrivate($instance, 'isValidFolder', [42]);
+	}
 
 }
