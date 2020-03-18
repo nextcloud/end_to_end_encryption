@@ -19,5 +19,5 @@
  *
  */
 
-$app = new \OCA\EndToEndEncryption\AppInfo\Application();
+$app = \OC::$server->query(\OCA\EndToEndEncryption\AppInfo\Application::class);
 $app->registerEvents();
