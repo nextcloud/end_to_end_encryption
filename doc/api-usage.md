@@ -21,7 +21,7 @@ Some typical client operation and how to use the API to perform them.
 
 ## Mark a folder as encrypted
 
-1. lock folder (only needed if the folder is not empty)
+1. Create a new empty folder
 2. mark folder as encrypted (see [Set encryption flag for a folder](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#set-encryption-flag-for-a-folder)).
 If a folder is marked as encrypted all content in the folder and sub-folder are considered to be encrypted, no need to mark sub-folders
 3. Encrypt all files in the folder and upload them together with the meta-data file
