@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -23,6 +24,7 @@
 namespace OCA\EndToEndEncryption\Tests\Controller;
 
 
+use BadMethodCallException;
 use OCA\EndToEndEncryption\Controller\RequestHandlerController;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\KeyStorage;
@@ -32,29 +34,30 @@ use OCP\AppFramework\Http;
 use OCP\IL10N;
 use OCP\ILogger;
 use OCP\IRequest;
+use PHPUnit_Framework_MockObject_MockObject;
 use Test\TestCase;
 
 class RequestHandlerControllerTest extends TestCase {
 
-	/** @var  IRequest|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  IRequest|PHPUnit_Framework_MockObject_MockObject */
 	private $request;
 
-	/** @var  KeyStorage|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  KeyStorage|PHPUnit_Framework_MockObject_MockObject */
 	private $keyStorage;
 
-	/** @var  SignatureHandler|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  SignatureHandler|PHPUnit_Framework_MockObject_MockObject */
 	private $signatureHandler;
 
-	/** @var  EncryptionManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  EncryptionManager|PHPUnit_Framework_MockObject_MockObject */
 	private $encryptionManager;
 
-	/** @var  LockManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  LockManager|PHPUnit_Framework_MockObject_MockObject */
 	private $lockManager;
 
-	/** @var  ILogger|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  ILogger|PHPUnit_Framework_MockObject_MockObject */
 	private $logger;
 
-	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IL10N|PHPUnit_Framework_MockObject_MockObject */
 	private $l10n;
 
 	/** @var string valid CSR (CN set to "admin") */
@@ -104,7 +107,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @param $uid user who calls the controller
 	 * @return RequestHandlerController
 	 */
-	private function getController($uid) {
+	private function getController($uid): RequestHandlerController {
 		return new RequestHandlerController(
 			'e2e',
 			$this->request,
@@ -121,7 +124,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	/**
 	 * test public key, valid crs and valid cn
 	 */
-	public function testCreatePublicKeySuccessful() {
+	public function testCreatePublicKeySuccessful(): void {
 		$controller = $this->getController('admin');
 		$result = $controller->createPublicKey($this->validCSR);
 		$this->assertSame(Http::STATUS_OK, $result->getStatus());
@@ -131,7 +134,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * test public key, valid crs but invalid cn
 	 * @expectedException \OCP\AppFramework\OCS\OCSForbiddenException
 	 */
-	public function testCreatePublicKeyInvalidCN() {
+	public function testCreatePublicKeyInvalidCN(): void {
 		$controller = $this->getController('user1');
 		$controller->createPublicKey($this->validCSR);
 	}
@@ -140,10 +143,10 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * test public key, invalid crs
 	 * @expectedException \OCP\AppFramework\OCS\OCSBadRequestException
 	 */
-	public function testCreatePublicKeyInvalidCSR() {
+	public function testCreatePublicKeyInvalidCSR(): void {
 		$controller = $this->getController('admin');
 		$this->signatureHandler->expects($this->once())->method('sign')
-			->with($this->invalidCSR)->willThrowException(new \BadMethodCallException());
+			->with($this->invalidCSR)->willThrowException(new BadMethodCallException());
 		$controller->createPublicKey($this->invalidCSR);
 	}
 

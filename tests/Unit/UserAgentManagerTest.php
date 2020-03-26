@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -24,6 +25,7 @@ namespace OCA\EndToEndEncryption\Tests\Unit;
 
 
 use OCA\EndToEndEncryption\UserAgentManager;
+use PHPUnit_Framework_MockObject_MockObject;
 use Test\TestCase;
 
 class UserAgentManagerTest extends TestCase {
@@ -32,7 +34,7 @@ class UserAgentManagerTest extends TestCase {
 	 * create userAgentManager instance
 	 *
 	 * @param array $mockedMethods
-	 * @return UserAgentManager|\PHPUnit_Framework_MockObject_MockObject
+	 * @return UserAgentManager|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private function getUserAgentManager($mockedMethods = []) {
 		if (empty($mockedMethods)) {
@@ -51,13 +53,13 @@ class UserAgentManagerTest extends TestCase {
 	 * @param string $minVersion
 	 * @param bool $expected
 	 */
-	public function testCheckVersion($client, $minVersion, $expected) {
+	public function testCheckVersion($client, $minVersion, $expected): void {
 		$userAgentManager = $this->getUserAgentManager();
 		$result = $this->invokePrivate($userAgentManager, 'checkVersion', [$client, $minVersion]);
 		$this->assertSame($expected, $result);
 	}
 
-	public function dataTestCheckVersion() {
+	public function dataTestCheckVersion(): array {
 		return [
 			// Android
 			['Mozilla/5.0 (Android) Nextcloud-android/2.1.3', '', true],
@@ -81,7 +83,7 @@ class UserAgentManagerTest extends TestCase {
 	 * @param string $client
 	 * @param bool $expected
 	 */
-	public function testSupportsEndToEndEncryption($client, $expected) {
+	public function testSupportsEndToEndEncryption($client, $expected): void {
 		$userAgentManager = $this->getUserAgentManager(['checkVersion']);
 
 		if ($expected === true) {
@@ -95,7 +97,7 @@ class UserAgentManagerTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-	public function dataTestSupportsEndToEndEncryption() {
+	public function dataTestSupportsEndToEndEncryption(): array {
 		return [
 			['Mozilla/5.0 (Android) ownCloud-android/2.1.3', false],
 			['Mozilla/5.0 (iOS) ownCloud-iOS/2.20.1', false],

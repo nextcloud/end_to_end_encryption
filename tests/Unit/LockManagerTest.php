@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * @copyright Copyright (c) 2018 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -38,7 +40,7 @@ class LockManagerTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->connection = \OC::$server->getDatabaseConnection();
+		$this->connection = OC::$server->getDatabaseConnection();
 
 		// make sure that DB is empty
 		$qb = $this->connection->getQueryBuilder();
@@ -54,9 +56,9 @@ class LockManagerTest extends TestCase {
 		if (empty($mockedMethods)) {
 			return new LockManager(
 				$lockMapper,
-				\OC::$server->getSecureRandom(),
-				\OC::$server->getRootFolder(),
-				\OC::$server->getUserSession()
+				OC::$server->getSecureRandom(),
+				OC::$server->getRootFolder(),
+				OC::$server->getUserSession()
 			);
 		}
 
@@ -64,15 +66,15 @@ class LockManagerTest extends TestCase {
 			->setConstructorArgs(
 				[
 					$lockMapper,
-					\OC::$server->getSecureRandom(),
-					\OC::$server->getRootFolder(),
-					\OC::$server->getUserSession()
+					OC::$server->getSecureRandom(),
+					OC::$server->getRootFolder(),
+					OC::$server->getUserSession()
 				]
 			)->setMethods($mockedMethods)->getMock();
 	}
 
 
-	public function testLockFileUnlockFile() {
+	public function testLockFileUnlockFile(): void {
 
 		$lockManager = $this->getLockManager(['isLocked', 'getTimestamp']);
 		$lockManager->expects($this->any())->method('isLocked')->willReturn(false);

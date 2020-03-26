@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -23,7 +24,10 @@
 namespace OCA\EndToEndEncryption\Exceptions;
 
 
-class FileNotLockedException extends \Exception {
+use Exception;
+use Throwable;
+
+class FileNotLockedException extends Exception {
 
 	/**
 	 * FileNotLockedException constructor.
@@ -32,7 +36,7 @@ class FileNotLockedException extends \Exception {
 	 * @param int $code
 	 * @param Throwable|null $previous
 	 */
-	public function __construct($message = 'file is not locked', $code = 0, Throwable $previous = null) {
+	public function __construct(string $message = 'file is not locked', int $code = 0, Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
 

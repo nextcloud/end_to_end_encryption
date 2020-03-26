@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -27,7 +28,9 @@ use OCA\EndToEndEncryption\Db\LockEntity;
 use OCA\EndToEndEncryption\Db\LockMapper;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
+use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException;
 use OCP\IUserSession;
 use OCP\Security\ISecureRandom;
 
@@ -80,13 +83,13 @@ class LockManager {
 	 * @param string $token
 	 * @return string
 	 */
-	public function lockFile($id, $token = '') {
+	public function lockFile(int $id, string $token = ''): string {
 		$result = '';
 		if ($this->isLocked($id, $token)) {
 			return $result;
 		}
 		$lock = $this->lockMapper->getByFileId($id);
-		if (empty($lock)) {
+		if ($lock === null) {
 			$newToken = $this->getToken();
 			$lockEntity = new LockEntity();
 			$lockEntity->setId($id);
@@ -110,9 +113,9 @@ class LockManager {
 	 * @throws FileLockedException
 	 * @throws FileNotLockedException
 	 */
-	public function unlockFile($id, $token) {
+	public function unlockFile(int $id, string $token): void {
 		$lock = $this->lockMapper->getByFileId($id);
-		if (empty($lock)) {
+		if ($lock === null) {
 			throw new FileNotLockedException();
 		}
 
@@ -129,17 +132,17 @@ class LockManager {
 	 * @param int $id
 	 * @param string $token
 	 * @return bool
-	 * @throws \OCP\Files\InvalidPathException
-	 * @throws \OCP\Files\NotFoundException
+	 * @throws InvalidPathException
+	 * @throws NotFoundException
 	 */
-	public function isLocked($id, $token) {
+	public function isLocked(int $id, string $token): bool {
 		$user = $this->userSession->getUser();
 		$userRoot = $this->rootFolder->getUserFolder($user->getUID());
 		$nodes = $userRoot->getById($id);
 		foreach ($nodes as $node) {
 			while ($node->getPath() !== '/') {
 				$lock = $this->lockMapper->getByFileId($node->getId());
-				if (!empty($lock) && $lock->getToken() !== $token) {
+				if ($lock !== null && $lock->getToken() !== $token) {
 					return true;
 				}
 				$node = $node->getParent();
@@ -155,7 +158,7 @@ class LockManager {
 	 *
 	 * @return string
 	 */
-	private function getToken() {
+	private function getToken(): string {
 		return $this->secureRandom->generate(64, $this->validChars);
 	}
 
@@ -164,7 +167,7 @@ class LockManager {
 	 *
 	 * @return int
 	 */
-	protected function getTimestamp() {
+	protected function getTimestamp(): int {
 		return time();
 	}
 

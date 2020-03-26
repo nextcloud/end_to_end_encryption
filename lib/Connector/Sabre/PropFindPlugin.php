@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -76,7 +77,7 @@ class PropFindPlugin extends ServerPlugin {
 	 * @param PropFind $propFind
 	 * @param INode $node
 	 */
-	public function updateProperty(PropFind $propFind, INode $node) {
+	public function updateProperty(PropFind $propFind, INode $node): void {
 
 		// only apply the plugin to files/directory, not to contacts or calendars
 		if (!$this->isFile($node)) {
@@ -101,7 +102,7 @@ class PropFindPlugin extends ServerPlugin {
 	 * @param INode $node
 	 * @return bool
 	 */
-	protected function isFile(INode $node) {
+	protected function isFile(INode $node): bool {
 
 		if (isset($this->applyPlugin[$node->getName()])) {
 			return $this->applyPlugin[$node->getName()];

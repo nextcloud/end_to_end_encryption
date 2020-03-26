@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -22,12 +23,13 @@
 
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
+use Exception;
 use OC\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
-use OCA\DAV\Connector\Sabre\File;
-use OCA\EndToEndEncryption\LockManager;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
+use OCA\DAV\Connector\Sabre\File;
+use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
@@ -109,7 +111,7 @@ class LockPlugin extends ServerPlugin {
 	 * @throws Forbidden
 	 * @throws NotFound
 	 */
-	public function checkLock(RequestInterface $request) {
+	public function checkLock(RequestInterface $request): void {
 
 		$node = $this->getNode($request->getPath(), $request->getMethod());
 
@@ -139,7 +141,7 @@ class LockPlugin extends ServerPlugin {
 	 * @throws Conflict
 	 * @throws NotFound
 	 */
-	protected function getNode($path, $method) {
+	protected function getNode($path, $method): INode {
 		if ($method === 'GET' || $method === 'PROPFIND' || $method === 'HEAD') {
 			return $this->server->tree->getNodeForPath($path);
 		}
@@ -156,7 +158,7 @@ class LockPlugin extends ServerPlugin {
 	 * @throws Forbidden
 	 * @throws NotFound
 	 */
-	protected function checkUserAgent($userAgent, $path) {
+	protected function checkUserAgent($userAgent, $path): void {
 		if (!$this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
 			$node = $this->getFileNode($path);
 			while ($node->isEncrypted() === false || $node->getType() === FileInfo::TYPE_FILE) {
@@ -175,10 +177,10 @@ class LockPlugin extends ServerPlugin {
 	 * Get DAV Node for a given path, if the path doesn't exists we try the parent
 	 *
 	 * @param $path
-	 * @return \Sabre\DAV\INode
+	 * @return INode
 	 * @throws Conflict
 	 */
-	protected function getNodeForPath($path) {
+	protected function getNodeForPath($path): INode {
 
 		if ($this->server->tree->nodeExists($path)) {
 			return $this->server->tree->getNodeForPath($path);
@@ -204,13 +206,13 @@ class LockPlugin extends ServerPlugin {
 	 *
 	 * @throws NotFound
 	 */
-	protected function getFileNode($path) {
+	protected function getFileNode($path): ?Node {
 		try {
 			$uid = $this->userSession->getUser()->getUID();
 			$userRoot = $this->rootFolder->getUserFolder($uid);
 			$node = $userRoot->get($path);
 			return $node;
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $e);
 		}
 	}
@@ -223,7 +225,7 @@ class LockPlugin extends ServerPlugin {
 	 * @param INode $node
 	 * @return bool
 	 */
-	protected function isFile($url, INode $node) {
+	protected function isFile($url, INode $node): bool {
 
 		if (isset($this->applyPlugin[$url])) {
 			return $this->applyPlugin[$url];

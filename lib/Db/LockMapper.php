@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -44,7 +45,7 @@ class LockMapper extends Mapper {
 	 * @return LockEntity
 	 * @throws ClientNotFoundException
 	 */
-	public function getByFileId($fileId) {
+	public function getByFileId($fileId): ?LockEntity {
 		$qb = $this->db->getQueryBuilder();
 		$qb
 			->select('*')
@@ -54,7 +55,7 @@ class LockMapper extends Mapper {
 		$row = $result->fetch();
 		$result->closeCursor();
 		if($row === false) {
-			return [];
+			return null;
 		}
 
 		return LockEntity::fromRow($row);
@@ -66,7 +67,7 @@ class LockMapper extends Mapper {
 	 * @param Entity $entity
 	 * @return Entity
 	 */
-	public function insert(Entity $entity){
+	public function insert(Entity $entity): Entity {
 
 		$properties = $entity->getUpdatedFields();
 		$query = $this->db->getQueryBuilder();
