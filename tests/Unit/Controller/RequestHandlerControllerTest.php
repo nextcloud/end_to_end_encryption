@@ -31,6 +31,8 @@ use OCA\EndToEndEncryption\KeyStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\OCS\OCSBadRequestException;
+use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\IL10N;
 use OCP\ILogger;
 use OCP\IRequest;
@@ -132,18 +134,20 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 	/**
 	 * test public key, valid crs but invalid cn
-	 * @expectedException \OCP\AppFramework\OCS\OCSForbiddenException
 	 */
 	public function testCreatePublicKeyInvalidCN(): void {
+		$this->expectException(OCSForbiddenException::class);
+
 		$controller = $this->getController('user1');
 		$controller->createPublicKey($this->validCSR);
 	}
 
 	/**
 	 * test public key, invalid crs
-	 * @expectedException \OCP\AppFramework\OCS\OCSBadRequestException
 	 */
 	public function testCreatePublicKeyInvalidCSR(): void {
+		$this->expectException(OCSBadRequestException::class);
+
 		$controller = $this->getController('admin');
 		$this->signatureHandler->expects($this->once())->method('sign')
 			->with($this->invalidCSR)->willThrowException(new BadMethodCallException());
