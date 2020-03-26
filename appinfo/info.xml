@@ -20,4 +20,10 @@
     <dependencies>
 		<nextcloud min-version="19" max-version="19" />
     </dependencies>
+	<sabre>
+		<plugins>
+			<plugin>OCA\EndToEndEncryption\Connector\Sabre\LockPlugin</plugin>
+			<plugin>OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin</plugin>
+		</plugins>
+	</sabre>
 </info>

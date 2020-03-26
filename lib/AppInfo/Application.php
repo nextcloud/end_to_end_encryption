@@ -54,19 +54,7 @@ class Application extends App {
 	}
 
 	public function registerEvents():void {
-
-		// register sabredav plugin to control client access to encrypted files
 		$eventDispatcher = $this->getContainer()->getServer()->getEventDispatcher();
-		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function(SabrePluginEvent $event) {
-			$rootFolder = $this->getContainer()->getServer()->getRootFolder();
-			$userSession = $this->getContainer()->getServer()->getUserSession();
-			$lockManager = $this->getContainer()->query(LockManager::class);
-			$request = $this->getContainer()->getServer()->getRequest();
-			$userAgentManager = $this->getContainer()->query(UserAgentManager::class);
-			$urlGenerator = $this->getContainer()->getServer()->getURLGenerator();
-			$event->getServer()->addPlugin(new LockPlugin($rootFolder, $userSession, $lockManager, $userAgentManager, $urlGenerator));
-			$event->getServer()->addPlugin(new PropFindPlugin($userAgentManager, $request));
-		});
 
 		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function(MoveToTrashEvent $event) {
 			/** @var EncryptionManager $encryptionManager */
