@@ -34,7 +34,6 @@ use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
-use OCP\IURLGenerator;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\Conflict;
 use Sabre\DAV\Exception\NotFound;
@@ -60,9 +59,6 @@ class LockPlugin extends ServerPlugin {
 	/** @var UserAgentManager */
 	private $userAgentManager;
 
-	/** @var IURLGenerator */
-	private $urlGenerator;
-
 	/**
 	 * Should plugin be applied to the current node?
 	 * Only apply it to files and directories, not to contacts or calendars
@@ -78,19 +74,16 @@ class LockPlugin extends ServerPlugin {
 	 * @param IUserSession $userSession
 	 * @param LockManager $lockManager
 	 * @param UserAgentManager $userAgentManager
-	 * @param IURLGenerator $urlGenerator
 	 */
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								LockManager $lockManager,
-								UserAgentManager $userAgentManager,
-								IURLGenerator $urlGenerator
+								UserAgentManager $userAgentManager
 	) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
 		$this->lockManager = $lockManager;
 		$this->userAgentManager = $userAgentManager;
-		$this->urlGenerator = $urlGenerator;
 		$this->applyPlugin = [];
 	}
 
