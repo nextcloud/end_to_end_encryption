@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -48,7 +49,7 @@ class UserAgentManager {
 	 * @param string $client
 	 * @return bool
 	 */
-	public function supportsEndToEndEncryption($client) {
+	public function supportsEndToEndEncryption(string $client): bool {
 		foreach ($this->supportedUserAgents as $regex => $minVersion) {
 			if (preg_match($regex, $client)) {
 				return $this->checkVersion($client, $minVersion);
@@ -65,7 +66,7 @@ class UserAgentManager {
 	 * @param string $minVersion
 	 * @return bool returns true if clientVersion >= minVersion or if no min Version is specified
 	 */
-	protected function checkVersion($client, $minVersion) {
+	protected function checkVersion(string $client, string $minVersion): bool {
 
 		// no minVersion given, all client versions are compatible
 		if (empty($minVersion)) {

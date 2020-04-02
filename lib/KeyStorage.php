@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -23,6 +24,7 @@
 namespace OCA\EndToEndEncryption;
 
 
+use Exception;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
@@ -35,6 +37,7 @@ use OCP\ILogger;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
+use RuntimeException;
 
 /**
  * Class KeyStorage
@@ -95,7 +98,7 @@ class KeyStorage {
 		$this->checkFolderStructure();
 	}
 
-	private function checkFolderStructure() {
+	private function checkFolderStructure(): void {
 		$keyStorageRoot = $this->appData->getFolder('/');
 		if (!$keyStorageRoot->fileExists($this->privateKeysRoot)) {
 			$this->appData->newFolder($this->privateKeysRoot);
@@ -112,11 +115,11 @@ class KeyStorage {
 	 * create target folder recursively
 	 *
 	 * @param string $path
-	 * @param $root
+	 * @param string $root
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
-	private function prepareTargetFolder($path, $root) {
+	private function prepareTargetFolder(string $path, string $root): void {
 		try {
 			$node = $this->appData->getFolder($root);
 			// create folder structure recursively
@@ -130,7 +133,7 @@ class KeyStorage {
 					}
 				}
 			}
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t prepare target folders: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw $e;
@@ -144,10 +147,10 @@ class KeyStorage {
 	 * @param string $uid
 	 * @return string
 	 *
-	 * @throws \RuntimeException
+	 * @throws RuntimeException
 	 * @throws NotFoundException
 	 */
-	public function getPublicKey($uid) {
+	public function getPublicKey(string $uid): string {
 		$publicKeys = $this->appData->getFolder($this->publicKeysRoot);
 		$file = $publicKeys->getFile($uid . '.public.key');
 		return $file->getContent();
@@ -161,10 +164,10 @@ class KeyStorage {
 	 * @return bool
 	 *
 	 * @throws NotPermittedException
-	 * @throws \RuntimeException
+	 * @throws RuntimeException
 	 * @throws NotFoundException
 	 */
-	public function deletePublicKey($uid) {
+	public function deletePublicKey(string $uid): bool {
 		$user = $this->userSession->getUser();
 		if ($user !== null && $user->getUID() === $uid) {
 			$publicKeys = $this->appData->getFolder($this->publicKeysRoot);
@@ -183,11 +186,11 @@ class KeyStorage {
 	 * @param string $uid
 	 * @return bool
 	 */
-	public function publicKeyExists($uid) {
+	public function publicKeyExists(string $uid): ?bool {
 		try {
 			$publicKeys = $this->appData->getFolder($this->publicKeysRoot);
 			return $publicKeys->fileExists($uid . '.public.key');
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$this->logger->error($e->getMessage(), ['app' => 'end_to_end_encryption']);
 			return false;
 		}
@@ -199,11 +202,11 @@ class KeyStorage {
 	 * @param string $uid
 	 * @return string
 	 *
-	 * @throws \RuntimeException
+	 * @throws RuntimeException
 	 * @throws NotFoundException
 	 * @throws ForbiddenException
 	 */
-	public function getPrivateKey($uid) {
+	public function getPrivateKey(string $uid): string {
 		$user = $this->userSession->getUser();
 		if ($user !== null && $user->getUID() === $uid) {
 			$privateKeys = $this->appData->getFolder($this->privateKeysRoot);
@@ -222,10 +225,10 @@ class KeyStorage {
 	 * @return bool
 	 *
 	 * @throws NotPermittedException
-	 * @throws \RuntimeException
+	 * @throws RuntimeException
 	 * @throws NotFoundException
 	 */
-	public function deletePrivateKey($uid) {
+	public function deletePrivateKey(string $uid): bool {
 		$user = $this->userSession->getUser();
 		if ($user !== null && $user->getUID() === $uid) {
 			$privateKeys = $this->appData->getFolder($this->privateKeysRoot);
@@ -242,7 +245,7 @@ class KeyStorage {
 	 *
 	 * @param IUser $user
 	 */
-	public function deleteUserKeys(IUser $user) {
+	public function deleteUserKeys(IUser $user): void {
 		$uid = $user->getUID();
 		if(!$this->userManager->userExists($uid)) {
 			$this->deleteUsersPrivateKey($uid);
@@ -253,9 +256,9 @@ class KeyStorage {
 	/**
 	 * delete users private key
 	 *
-	 * @param $uid
+	 * @param string $uid
 	 */
-	protected function deleteUsersPrivateKey($uid) {
+	protected function deleteUsersPrivateKey(string $uid): void {
 		try {
 			$privateKeys = $this->appData->getFolder($this->privateKeysRoot);
 			$privateKeys->getFile($uid . '.private.key')->delete();
@@ -269,7 +272,7 @@ class KeyStorage {
 	 *
 	 * @param string $uid
 	 */
-	protected function deleteUsersPublicKey($uid) {
+	protected function deleteUsersPublicKey(string $uid): void {
 		try {
 			$publicKeys = $this->appData->getFolder($this->publicKeysRoot);
 			$publicKeys->getFile($uid . '.public.key')->delete();
@@ -285,9 +288,9 @@ class KeyStorage {
 	 * @return string
 	 *
 	 * @throws NotFoundException
-	 * @throws \RuntimeException
+	 * @throws RuntimeException
 	 */
-	public function getMetaData($id) {
+	public function getMetaData(int $id): string {
 		$path = $this->getOwnerPath($id);
 		$folder = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
 		$file = $folder->getFile($this->metaDataFileName);
@@ -299,11 +302,11 @@ class KeyStorage {
 	 *
 	 * @param int $id
 	 *
-	 * @throws \RuntimeException
+	 * @throws RuntimeException
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
-	public function deleteMetaData($id) {
+	public function deleteMetaData(int $id): void {
 		$owner = $this->getOwner($id);
 		$currentUser = $this->userSession->getUser();
 		if ($owner->getUID() !== $currentUser->getUID()) {
@@ -324,11 +327,11 @@ class KeyStorage {
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
-	 * @throws \RuntimeException
-	 * @throws \Exception
+	 * @throws RuntimeException
+	 * @throws Exception
 	 * @throws MetaDataExistsException
 	 */
-	public function setMetaData($id, $metaData) {
+	public function setMetaData(int $id, string $metaData): void {
 		$path = $this->getOwnerPath($id);
 		$this->prepareTargetFolder($path, $this->metaDataRoot);
 		$dir = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
@@ -346,7 +349,7 @@ class KeyStorage {
 	 *
 	 * @param IUser $user
 	 */
-	public function deleteAllMetaDataFiles(IUser $user) {
+	public function deleteAllMetaDataFiles(IUser $user): void {
 		$uid = $user->getUID();
 		if(!$this->userManager->userExists($uid)) {
 			try {
@@ -366,11 +369,11 @@ class KeyStorage {
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
-	 * @throws \RuntimeException
-	 * @throws \Exception
+	 * @throws RuntimeException
+	 * @throws Exception
 	 * @throws MissingMetaDataException
 	 */
-	public function updateMetaData($id, $fileKey) {
+	public function updateMetaData(int $id, string $fileKey): void {
 		// ToDo check signature for race condition
 		$path = $this->getOwnerPath($id);
 		$this->prepareTargetFolder($path, $this->metaDataRoot);
@@ -392,7 +395,7 @@ class KeyStorage {
 	 *
 	 * @throw KeyExistsException
 	 */
-	public function setPrivateKey($privateKey, $uid) {
+	public function setPrivateKey(string $privateKey, string $uid): ?bool {
 		$fileName = $uid . '.private.key';
 		try {
 			$privateKeysDir = $this->appData->getFolder($this->privateKeysRoot);
@@ -402,7 +405,7 @@ class KeyStorage {
 			$file = $privateKeysDir->newFile($fileName);
 			$file->putContent($privateKey);
 			return true;
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t store private key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			return false;
@@ -418,19 +421,19 @@ class KeyStorage {
 	 * @param string $uid
 	 * @return bool
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
-	public function setPublicKey($publicKey, $uid) {
+	public function setPublicKey(string $publicKey, string $uid): ?bool {
 		$fileName = $uid . '.public.key';
 		try {
 			$privateKeysDir = $this->appData->getFolder($this->publicKeysRoot);
 			$file = $privateKeysDir->newFile($fileName);
 			$file->putContent($publicKey);
 			return true;
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t store public key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
-			throw new \Exception('Can\'t store public key');
+			throw new Exception('Can\'t store public key');
 		}
 
 	}
@@ -443,7 +446,7 @@ class KeyStorage {
 	 *
 	 * @throws NotFoundException
 	 */
-	private function getOwnerPath($id) {
+	private function getOwnerPath(int $id): string {
 		$node = $this->rootFolder->getById($id);
 		if (!isset($node[0])) {
 			throw new NotFoundException('No file with ID ' . $id);
@@ -464,7 +467,7 @@ class KeyStorage {
 	 * @return IUser
 	 * @throws NotFoundException
 	 */
-	private function getOwner($id) {
+	private function getOwner(int $id): IUser {
 		$node = $this->rootFolder->getById($id);
 		if (!isset($node[0])) {
 			throw new NotFoundException('No file with ID ' . $id);

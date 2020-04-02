@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -22,10 +23,10 @@
 
 namespace OCA\EndToEndEncryption\Exceptions;
 
-
+use Exception;
 use Throwable;
 
-class KeyExistsException extends \Exception {
+class KeyExistsException extends Exception {
 
 	/**
 	 * KeyExistsException constructor.
@@ -34,7 +35,7 @@ class KeyExistsException extends \Exception {
 	 * @param int $code
 	 * @param Throwable|null $previous
 	 */
-	public function __construct($message = 'key already exists', $code = 0, Throwable $previous = null) {
+	public function __construct(string $message = 'key already exists', int $code = 0, Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
 

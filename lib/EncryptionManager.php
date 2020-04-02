@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -70,7 +71,7 @@ class EncryptionManager {
 	 * @param int $id
 	 * @throws NotFoundException
 	 */
-	public function setEncryptionFlag($id) {
+	public function setEncryptionFlag(int $id): void {
 		$this->isValidFolder($id);
 		$userRoot = $this->getUserRoot();
 		$userRoot->getStorage()->getCache()->update($id, ['encrypted' => '1']);
@@ -82,7 +83,7 @@ class EncryptionManager {
 	 * @param int $id
 	 * @throws NotFoundException
 	 */
-	public function removeEncryptionFlag($id) {
+	public function removeEncryptionFlag(int $id): void {
 		$this->isValidFolder($id);
 		$userRoot = $this->getUserRoot();
 		$userRoot->getStorage()->getCache()->update($id, ['encrypted' => '0']);
@@ -94,7 +95,7 @@ class EncryptionManager {
 	 * @param Node $node
 	 * @return bool
 	 */
-	public function isEncryptedFile(Node $node) {
+	public function isEncryptedFile(Node $node): bool {
 		do {
 			if ($node->isEncrypted()) {
 				return true;
@@ -111,7 +112,7 @@ class EncryptionManager {
 	 *
 	 * @return Folder
 	 */
-	protected function getUserRoot() {
+	protected function getUserRoot(): Folder {
 		$uid = $this->userSession->getUser()->getUID();
 		$userRoot = $this->rootFolder->getUserFolder($uid);
 		return $userRoot;
@@ -125,7 +126,7 @@ class EncryptionManager {
 	 *
 	 * @throws NotFoundException
 	 */
-	protected function isValidFolder($id):void {
+	protected function isValidFolder(int $id):void {
 		$node = $this->rootFolder->getById($id);
 
 		if (!isset($node[0])) {

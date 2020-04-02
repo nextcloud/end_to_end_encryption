@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -23,7 +24,9 @@
 namespace OCA\EndToEndEncryption;
 
 
+use BadMethodCallException;
 use OC\Security\IdentityProof\Manager;
+use RuntimeException;
 
 /**
  * Class SignatureHandler
@@ -52,14 +55,14 @@ class SignatureHandler {
 	/**
 	 * @param string $csr
 	 * @return string signed certificate
-	 * @throws \BadMethodCallException
-	 * @throws \RuntimeException
+	 * @throws BadMethodCallException
+	 * @throws RuntimeException
 	 */
-	public function sign($csr) {
+	public function sign(string $csr): string {
 		$systemKeys = $this->identityProofManager->getSystemKey();
 		$signedCertificate = openssl_csr_sign($csr, null, $systemKeys->getPrivate(), $this->validity);
 		if ($signedCertificate === false) {
-			throw new \BadMethodCallException('could not sign the CSR, please make sure to submit a valid CSR');
+			throw new BadMethodCallException('could not sign the CSR, please make sure to submit a valid CSR');
 		}
 		openssl_x509_export($signedCertificate, $result);
 		return $result;
@@ -69,9 +72,9 @@ class SignatureHandler {
 	 * return the public key of the instance wide key-pair
 	 *
 	 * @return string
-	 * @throws \RuntimeException
+	 * @throws RuntimeException
 	 */
-	public function getPublicServerKey() {
+	public function getPublicServerKey(): string {
 		$publicKey = $this->identityProofManager->getSystemKey()->getPublic();
 		return $publicKey;
 	}

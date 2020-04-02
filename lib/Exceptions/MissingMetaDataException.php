@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -22,10 +23,10 @@
 
 namespace OCA\EndToEndEncryption\Exceptions;
 
-
+use Exception;
 use Throwable;
 
-class MissingMetaDataException extends \Exception {
+class MissingMetaDataException extends Exception {
 
 	/**
 	 * MissingMetaDataException constructor.
@@ -34,7 +35,7 @@ class MissingMetaDataException extends \Exception {
 	 * @param int $code
 	 * @param Throwable|null $previous
 	 */
-	public function __construct($message = 'can\'t find meta data file', $code = 0, Throwable $previous = null) {
+	public function __construct(string $message = 'can\'t find meta data file', int $code = 0, Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
 

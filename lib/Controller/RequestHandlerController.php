@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * SPDX-License-Identifier: AGPL-3.0+
  *
@@ -25,6 +26,8 @@
 
 namespace OCA\EndToEndEncryption\Controller;
 
+use BadMethodCallException;
+use Exception;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
@@ -35,6 +38,7 @@ use OCA\EndToEndEncryption\KeyStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
@@ -45,7 +49,8 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\ILogger;
 use OCP\IRequest;
-use OCP\AppFramework\Http\DataResponse;
+use function in_array;
+use function json_decode;
 
 /**
  * Class RequestHandlerController
@@ -121,7 +126,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
 	 */
-	public function getPrivateKey() {
+	public function getPrivateKey(): DataResponse {
 		try {
 			$privateKey = $this->keyStorage->getPrivateKey($this->userId);
 			return new DataResponse(['private-key' => $privateKey]);
@@ -129,7 +134,7 @@ class RequestHandlerController extends OCSController {
 			throw new OCSForbiddenException($this->l->t('This is someone else\'s private key'));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find the private key of the user %s', [$this->userId]));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t get private key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t('Internal error'));
@@ -147,7 +152,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
 	 */
-	public function deletePrivateKey() {
+	public function deletePrivateKey(): DataResponse {
 		try {
 			$this->keyStorage->deletePrivateKey($this->userId);
 			return new DataResponse();
@@ -155,7 +160,7 @@ class RequestHandlerController extends OCSController {
 			throw new OCSForbiddenException($this->l->t('You are not allowed to delete this private key'));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find the private key belonging to the user %s', [$this->userId]));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t find private key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t('Internal error'));
@@ -173,12 +178,12 @@ class RequestHandlerController extends OCSController {
 	 *
 	 * @throws OCSBadRequestException
 	 */
-	public function setPrivateKey($privateKey) {
+	public function setPrivateKey(string $privateKey): DataResponse {
 		try {
 			$this->keyStorage->setPrivateKey($privateKey, $this->userId);
 		} catch (KeyExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t store private key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t('internal error'));
@@ -198,7 +203,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
 	 */
-	public function getPublicKeys($users = '') {
+	public function getPublicKeys(string $users = ''): DataResponse {
 
 		$usersArray = $this->jsonDecode($users);
 
@@ -209,7 +214,7 @@ class RequestHandlerController extends OCSController {
 				$result['public-keys'][$uid] = $publicKey;
 			} catch (NotFoundException $e) {
 				throw new OCSNotFoundException($this->l->t('Could not find the public key belonging to the user %s', [$uid]));
-			} catch (\Exception $e) {
+			} catch (Exception $e) {
 				$error = 'Can\'t get public keys: ' . $e->getMessage();
 				$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 				throw new OCSBadRequestException($this->l->t('Internal error'));
@@ -233,7 +238,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
 	 */
-	public function createPublicKey($csr) {
+	public function createPublicKey(string $csr): DataResponse {
 		if ($this->keyStorage->publicKeyExists($this->userId)) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		}
@@ -241,11 +246,11 @@ class RequestHandlerController extends OCSController {
 		try {
 			$subject = openssl_csr_get_subject($csr);
 			$publicKey = $this->signatureHandler->sign($csr);
-		} catch (\BadMethodCallException $e) {
+		} catch (BadMethodCallException $e) {
 			$error = 'Can\'t create public key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t($e->getMessage()));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t create public key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t('Internal error'));
@@ -273,7 +278,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
 	 */
-	public function deletePublicKey() {
+	public function deletePublicKey(): ?DataResponse {
 		try {
 			$this->keyStorage->deletePublicKey($this->userId);
 			return new DataResponse();
@@ -281,7 +286,7 @@ class RequestHandlerController extends OCSController {
 			throw new OCSNotFoundException($this->l->t('Could not find the public key belonging to %s', [$this->userId]));
 		} catch (NotPermittedException $e) {
 			throw new OCSForbiddenException($this->l->t('This is not your private key to delete'));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t delete public keys: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t('Internal error'));
@@ -300,12 +305,12 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
 	 */
-	public function getMetaData($id) {
+	public function getMetaData(int $id): DataResponse {
 		try {
 			$metaData = $this->keyStorage->getMetaData($id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t read metadata: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t("Can\'t read metadata"));
@@ -325,14 +330,14 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
 	 */
-	public function setMetaData($id, $metaData) {
+	public function setMetaData(int $id, string $metaData): DataResponse {
 		try {
 			$this->keyStorage->setMetaData($id, $metaData);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t($e->getMessage()));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t store metadata: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t("Can\'t store metadata"));
@@ -355,7 +360,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
 	 */
-	public function updateMetaData($id, $metaData, $token) {
+	public function updateMetaData(int $id, string $metaData, string $token): DataResponse {
 
 		if ($this->lockManager->isLocked($id, $token)) {
 			throw new OCSForbiddenException($this->l->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
@@ -367,7 +372,7 @@ class RequestHandlerController extends OCSController {
 			throw new OCSNotFoundException($this->l->t("Metadata-file doesn\'t exist"));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t($e->getMessage()));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t store metadata: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t("Can\'t store metadata"));
@@ -388,14 +393,14 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
 	 */
-	public function deleteMetaData($id) {
+	public function deleteMetaData(int $id): DataResponse {
 		try {
 			$this->keyStorage->deleteMetaData($id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
 			throw new OCSForbiddenException($this->l->t('Only the owner can delete the metadata-file'));
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Internal server error: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t("Can\'t delete metadata"));
@@ -412,12 +417,12 @@ class RequestHandlerController extends OCSController {
 	 *
 	 * @return DataResponse
 	 *
-	 * @throws \OCP\AppFramework\OCS\OCSBadRequestException
+	 * @throws OCSBadRequestException
 	 */
-	public function getPublicServerKey() {
+	public function getPublicServerKey(): DataResponse {
 		try {
 			$publicKey = $this->signatureHandler->getPublicServerKey();
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = 'Can\'t read server wide public key: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new OCSBadRequestException($this->l->t('Internal error'));
@@ -436,7 +441,7 @@ class RequestHandlerController extends OCSController {
 	 *
 	 * @throws OCSNotFoundException
 	 */
-	public function setEncryptionFlag($id) {
+	public function setEncryptionFlag(int $id): DataResponse {
 		try {
 			$this->manager->setEncryptionFlag($id);
 		} catch (NotFoundException $e) {
@@ -456,7 +461,7 @@ class RequestHandlerController extends OCSController {
 	 *
 	 * @throws OCSNotFoundException
 	 */
-	public function removeEncryptionFlag($id) {
+	public function removeEncryptionFlag(int $id): DataResponse {
 		try {
 			$this->manager->removeEncryptionFlag($id);
 		} catch (NotFoundException $e) {
@@ -477,7 +482,7 @@ class RequestHandlerController extends OCSController {
 	 * @return DataResponse
 	 * @throws OCSForbiddenException
 	 */
-	public function lockFolder($id, $token = '') {
+	public function lockFolder(int $id, string $token = ''): DataResponse {
 		$token = $this->lockManager->lockFile($id, $token);
 		if (empty($token)) {
 			throw new OCSForbiddenException($this->l->t('File already locked'));
@@ -497,7 +502,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSNotFoundException
 	 * @throws OCSForbiddenException
 	 */
-	public function unlockFolder($id) {
+	public function unlockFolder(int $id): DataResponse {
 		$token = $this->request->getHeader('token');
 		try {
 			$this->lockManager->unlockFile($id, $token);
@@ -519,11 +524,12 @@ class RequestHandlerController extends OCSController {
 	 * @return array
 	 * @throws OCSBadRequestException
 	 */
-	private function jsonDecode($users) {
+	private function jsonDecode(string $users): array {
 
 		$usersArray = [];
 		if (!empty($users)) {
-			$usersArray = json_decode($users);
+			// TODO - use JSON_THROW_ON_ERROR once we require PHP 7.3
+			$usersArray = json_decode($users, true);
 			if ($usersArray === null) {
 				throw new OCSBadRequestException($this->l->t('Can not decode userlist'));
 			}

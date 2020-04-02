@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -35,26 +36,27 @@ use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
+use PHPUnit_Framework_MockObject_MockObject;
 use Test\TestCase;
 
 class EncryptionManagerTest extends TestCase {
 
-	/** @var  IRootFolder|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  IRootFolder|PHPUnit_Framework_MockObject_MockObject */
 	private $rootFolderInterface;
 
-	/** @var  Folder|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  Folder|PHPUnit_Framework_MockObject_MockObject */
 	private $rootFolder;
 
-	/** @var  IStorage|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  IStorage|PHPUnit_Framework_MockObject_MockObject */
 	private $storage;
 
-	/** @var  ICache|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  ICache|PHPUnit_Framework_MockObject_MockObject */
 	private $fileCache;
 
-	/** @var  IUserSession|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  IUserSession|PHPUnit_Framework_MockObject_MockObject */
 	private $userSession;
 
-	/** @var  IManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var  IManager|PHPUnit_Framework_MockObject_MockObject */
 	private $shareManager;
 
 	protected function setUp(): void {
@@ -75,7 +77,7 @@ class EncryptionManagerTest extends TestCase {
 	 * get EncryptionManager instance
 	 *
 	 * @param array $mockedMethods
-	 * @return \PHPUnit_Framework_MockObject_MockObject|EncryptionManager
+	 * @return PHPUnit_Framework_MockObject_MockObject|EncryptionManager
 	 */
 	private function getInstance($mockedMethods = []) {
 		if (!empty($mockedMethods)) {
@@ -96,8 +98,8 @@ class EncryptionManagerTest extends TestCase {
 		return $instance;
 	}
 
-	public function testSetEncryptionFlag() {
-		$fileId = '42';
+	public function testSetEncryptionFlag(): void {
+		$fileId = 42;
 		$instance = $this->getInstance(['isValidFolder', 'getUserRoot']);
 
 		$instance->expects($this->once())->method('isValidFolder')->with($fileId);
@@ -107,8 +109,8 @@ class EncryptionManagerTest extends TestCase {
 		$instance->setEncryptionFlag($fileId);
 	}
 
-	public function testRemoveEncryptionFlag() {
-		$fileId = '42';
+	public function testRemoveEncryptionFlag(): void {
+		$fileId = 42;
 		$instance = $this->getInstance(['isValidFolder', 'getUserRoot']);
 
 		$instance->expects($this->once())->method('isValidFolder')->with($fileId);
@@ -121,16 +123,16 @@ class EncryptionManagerTest extends TestCase {
 	/**
 	 * @dataProvider dataTestIsEncryptedFile
 	 *
-	 * @param Node|\PHPUnit_Framework_MockObject_MockObject $node
+	 * @param Node|PHPUnit_Framework_MockObject_MockObject $node
 	 * @param bool $expected
 	 */
-	public function testIsEncryptedFile($node, $expected) {
+	public function testIsEncryptedFile($node, $expected): void {
 		$instance = $this->getInstance();
 		$result = $instance->isEncryptedFile($node);
 		$this->assertSame($expected, $result);
 	}
 
-	public function dataTestIsEncryptedFile() {
+	public function dataTestIsEncryptedFile(): array {
 		// no node is encrypted
 		list($node1_1, $node1_2, $node1_3) = $this->constructNestedNodes();
 		$node1_1->expects($this->any())->method('isEncrypted')->willReturn(false);
@@ -157,9 +159,9 @@ class EncryptionManagerTest extends TestCase {
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject[]
+	 * @return PHPUnit_Framework_MockObject_MockObject[]
 	 */
-	public function constructNestedNodes() {
+	public function constructNestedNodes(): array {
 		$node1 = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();
 		$node2 = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();
 		$node3 = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -22,7 +23,6 @@
 
 namespace OCA\EndToEndEncryption\AppInfo;
 
-
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
@@ -34,31 +34,27 @@ use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
 use OCP\AppFramework\App;
 use OCP\IUser;
+use OCP\IUserManager;
 use OCP\SabrePluginEvent;
 
 class Application extends App {
 
+	public const APP_ID = 'end_to_end_encryption';
+
+	/**
+	 * Application constructor.
+	 *
+	 * @param array $urlParams
+	 */
 	public function __construct(array $urlParams = []) {
-		parent::__construct('end_to_end_encryption', $urlParams);
+		parent::__construct(self::APP_ID, $urlParams);
 
 		$container = $this->getContainer();
 		$container->registerCapability(Capabilities::class);
 	}
 
-	public function registerEvents() {
-
-		// register sabredav plugin to control client access to encrypted files
+	public function registerEvents():void {
 		$eventDispatcher = $this->getContainer()->getServer()->getEventDispatcher();
-		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function(SabrePluginEvent $event) {
-			$rootFolder = \OC::$server->getRootFolder();
-			$userSession = \OC::$server->getUserSession();
-			$lockManager = $this->getContainer()->query(LockManager::class);
-			$request = $this->getContainer()->getServer()->getRequest();
-			$userAgentManager = $this->getContainer()->query(UserAgentManager::class);
-			$urlGenerator = \OC::$server->getURLGenerator();
-			$event->getServer()->addPlugin(new LockPlugin($rootFolder, $userSession, $lockManager, $userAgentManager, $urlGenerator));
-			$event->getServer()->addPlugin(new PropFindPlugin($userAgentManager, $request));
-		});
 
 		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function(MoveToTrashEvent $event) {
 			/** @var EncryptionManager $encryptionManager */
@@ -82,7 +78,7 @@ class Application extends App {
 		});
 
 		// listen to user management signals to delete user specific key if a user was deleted
-		\OC::$server->getUserManager()->listen('\OC\User', 'postDelete', function(IUser $user) {
+		$this->getContainer()->getServer()->getUserManager()->listen('\OC\User', 'postDelete', function(IUser $user) {
 			/** @var UserManager $cseUserManager */
 			$cseUserManager = $this->getContainer()->getServer()->query(UserManager::class);
 			$cseUserManager->deleteUserKeys($user);

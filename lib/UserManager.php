@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -40,8 +41,10 @@ class UserManager {
 
 	/**
 	 * delete all user keys if a user was deleted
+	 *
+	 * @param IUser $user
 	 */
-	public function deleteUserKeys(IUser $user) {
+	public function deleteUserKeys(IUser $user): void {
 		$this->keyStorage->deleteUserKeys($user);
 		$this->keyStorage->deleteAllMetaDataFiles($user);
 	}

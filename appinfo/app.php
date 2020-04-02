@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  *
@@ -19,5 +20,7 @@
  *
  */
 
-$app = \OC::$server->query(\OCA\EndToEndEncryption\AppInfo\Application::class);
+use OCA\EndToEndEncryption\AppInfo\Application;
+
+$app = OC::$server->query(Application::class);
 $app->registerEvents();
