@@ -97,7 +97,7 @@ class LockPlugin extends ServerPlugin {
 	 */
 	public function initialize(Server $server) {
 		$this->server = $server;
-		$this->server->on('beforeMethod', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:*', [$this, 'checkLock'], 200);
 	}
 
 	/**
