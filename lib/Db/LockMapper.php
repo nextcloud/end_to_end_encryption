@@ -19,17 +19,16 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-
 namespace OCA\EndToEndEncryption\Db;
 
-
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
-use OCP\AppFramework\Db\Mapper;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
-class LockMapper extends Mapper {
+class LockMapper extends QBMapper {
 
 	/**
 	 * @param IDBConnection $db
@@ -42,49 +41,18 @@ class LockMapper extends Mapper {
 	 * get lock by file id
 	 *
 	 * @param int $fileId
-	 * @return LockEntity
-	 * @throws ClientNotFoundException
+	 * @return Lock
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
 	 */
-	public function getByFileId($fileId): ?LockEntity {
+	public function getByFileId($fileId): Entity {
 		$qb = $this->db->getQueryBuilder();
 		$qb
 			->select('*')
 			->from($this->tableName)
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($fileId, IQueryBuilder::PARAM_INT)));
-		$result = $qb->execute();
-		$row = $result->fetch();
-		$result->closeCursor();
-		if($row === false) {
-			return null;
-		}
 
-		return LockEntity::fromRow($row);
-	}
-
-	/**
-	 * insert new lock
-	 *
-	 * @param Entity $entity
-	 * @return Entity
-	 */
-	public function insert(Entity $entity): Entity {
-
-		$properties = $entity->getUpdatedFields();
-		$query = $this->db->getQueryBuilder();
-
-		$values = [];
-
-		foreach($properties as $property => $updated) {
-			$column = $entity->propertyToColumn($property);
-			$getter = 'get' . ucfirst($property);
-			$values[$column] = $query->createNamedParameter($entity->$getter());
-		}
-
-
-		$query->insert($this->tableName)->values($values);
-		$query->execute();
-
-		return $entity;
+		return $this->findEntity($qb);
 	}
 
 }

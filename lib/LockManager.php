@@ -24,10 +24,12 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption;
 
 
-use OCA\EndToEndEncryption\Db\LockEntity;
+use OCA\EndToEndEncryption\Db\Lock;
 use OCA\EndToEndEncryption\Db\LockMapper;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
@@ -81,27 +83,30 @@ class LockManager {
 	 *
 	 * @param int $id
 	 * @param string $token
-	 * @return string
+	 * @return string|null
 	 */
-	public function lockFile(int $id, string $token = ''): string {
-		$result = '';
+	public function lockFile(int $id, string $token = ''): ?string {
 		if ($this->isLocked($id, $token)) {
-			return $result;
+			return null;
 		}
-		$lock = $this->lockMapper->getByFileId($id);
-		if ($lock === null) {
+
+		try {
+			$lock = $this->lockMapper->getByFileId($id);
+		} catch (DoesNotExistException $ex) {
 			$newToken = $this->getToken();
-			$lockEntity = new LockEntity();
+			$lockEntity = new Lock();
 			$lockEntity->setId($id);
 			$lockEntity->setTimestamp($this->getTimestamp());
 			$lockEntity->setToken($newToken);
 			$this->lockMapper->insert($lockEntity);
-			$result = $newToken;
-		} elseif ($lock->getToken() === $token) {
-			$result = $token;
+			return $newToken;
 		}
 
-		return $result;
+		if ($lock->getToken() === $token) {
+			return $token;
+		}
+
+		return null;
 	}
 
 	/**
@@ -114,8 +119,9 @@ class LockManager {
 	 * @throws FileNotLockedException
 	 */
 	public function unlockFile(int $id, string $token): void {
-		$lock = $this->lockMapper->getByFileId($id);
-		if ($lock === null) {
+		try {
+			$lock = $this->lockMapper->getByFileId($id);
+		} catch (DoesNotExistException $ex) {
 			throw new FileNotLockedException();
 		}
 
@@ -141,10 +147,20 @@ class LockManager {
 		$nodes = $userRoot->getById($id);
 		foreach ($nodes as $node) {
 			while ($node->getPath() !== '/') {
-				$lock = $this->lockMapper->getByFileId($node->getId());
-				if ($lock !== null && $lock->getToken() !== $token) {
+				try {
+					$lock = $this->lockMapper->getByFileId($node->getId());
+				} catch (DoesNotExistException $ex) {
+					// If this node is not locked, just check the parent one
+					$node = $node->getParent();
+					continue;
+				}
+
+				// If it's locked with a different token, return true
+				if ($lock->getToken() !== $token) {
 					return true;
 				}
+
+				// If it's locked with the expected token, check the parent node
 				$node = $node->getParent();
 			}
 		}
