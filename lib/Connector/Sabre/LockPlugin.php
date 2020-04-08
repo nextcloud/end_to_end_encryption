@@ -105,23 +105,91 @@ class LockPlugin extends ServerPlugin {
 	 * @throws NotFound
 	 */
 	public function checkLock(RequestInterface $request): void {
-
 		$node = $this->getNode($request->getPath(), $request->getMethod());
-
 		$url = $request->getAbsoluteUrl();
+		$method = $request->getMethod();
 
 		// only apply the plugin to files/directory, not to contacts or calendars
 		if (!$this->isFile($url, $node)) {
 			return;
 		}
 
-		$userAgent = $request->getHeader('user-agent');
+		// We don't care if we are not inside an end to end encrypted folder
+		if ($method === 'COPY' || $method === 'MOVE') {
+			// If this is a COPY or MOVE request, we need to check both
+			// the request path as well as the destination of the command
+			$destInfo = $this->server->getCopyAndMoveInfo($request);
+			$destNode = $this->getNode($destInfo['destination'], $method);
 
-		$this->checkUserAgent($userAgent, $node->getPath());
-		if ($request->getMethod() === 'GET') {
-			if ($this->lockManager->isLocked($node->getId(), '')) {
-				throw new FileLocked('file is locked', Http::STATUS_FORBIDDEN);
+			// If neither is an end to end encrypted folders, we don't care
+			if (!$this->isE2EEnabledPath($node->getPath()) && !$this->isE2EEnabledPath($destNode->getPath())) {
+				return;
 			}
+			// Prevent moving or copying stuff from non-encrypted to encrypted folders
+			if ($this->isE2EEnabledPath($node->getPath()) xor $this->isE2EEnabledPath($destNode->getPath())) {
+				throw new Forbidden('Cannot copy or move files from non-encrypted folders to end to end encrypted folders or vice versa.');
+			}
+		} elseif (!$this->isE2EEnabledPath($node->getPath())) {
+			return;
+		}
+
+		// Throw an error, if the user-agent does not support end to end encryption
+		$userAgent = $request->getHeader('user-agent');
+		if (!$this->isE2EEnabledUserAgent($userAgent)) {
+			throw new Forbidden('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content');
+		}
+
+		switch ($method) {
+			case 'GET':
+				$this->preventReadAccessToLockedFile($node);
+				break;
+
+			case 'PROPFIND':
+			case 'REPORT':
+			case 'HEAD':
+				break;
+
+			case 'COPY':
+			case 'MOVE':
+				$this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
+				$this->verifyTokenOnWriteAccess($destNode, $request->getHeader('e2e-token'));
+				break;
+
+			default:
+				$this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
+				break;
+		}
+	}
+
+	/**
+	 * Make sure that a user is not downloading a locked file
+	 * (unless they themselves own the lock)
+	 *
+	 * @param INode $node
+	 * @throws FileLocked
+	 */
+	protected function preventReadAccessToLockedFile(INode $node): void {
+		if ($this->lockManager->isLocked($node->getId(), '')) {
+			throw new FileLocked('File is locked', Http::STATUS_FORBIDDEN);
+		}
+	}
+
+	/**
+	 * Make sure that a user does not write into an E2E folder without
+	 * having a valid lock
+	 *
+	 * @param INode $node
+	 * @param string|null $token
+	 * @throws Forbidden
+	 */
+	protected function verifyTokenOnWriteAccess(INode $node, ?string $token): void {
+		// Write access always requires e2e token
+		if ($token === null) {
+			throw new Forbidden('Write access to end-to-end encrypted folder requires token - no token sent');
+		}
+
+		if ($this->lockManager->isLocked($node->getId(), $token)) {
+			throw new FileLocked('Write access to end-to-end encrypted folder requires token - resource not locked or wrong token sent', Http::STATUS_FORBIDDEN);
 		}
 	}
 
@@ -140,30 +208,6 @@ class LockPlugin extends ServerPlugin {
 		}
 
 		return $this->getNodeForPath($path);
-
-	}
-
-	/**
-	 * Check if user agent is allowed to access a end-to-end encrypted folder
-	 *
-	 * @param string $userAgent
-	 * @param string $path
-	 * @throws Forbidden
-	 * @throws NotFound
-	 */
-	protected function checkUserAgent($userAgent, $path): void {
-		if (!$this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
-			$node = $this->getFileNode($path);
-			while ($node->isEncrypted() === false || $node->getType() === FileInfo::TYPE_FILE) {
-				$node = $node->getParent();
-				if ($node->getPath() === '/') {
-					// top-level folder reached
-					return;
-				}
-			}
-
-			throw new Forbidden('client "' . $userAgent . '" is not allowed to access end-to-end encrypted content');
-		}
 	}
 
 	/**
@@ -174,7 +218,6 @@ class LockPlugin extends ServerPlugin {
 	 * @throws Conflict
 	 */
 	protected function getNodeForPath($path): INode {
-
 		if ($this->server->tree->nodeExists($path)) {
 			return $this->server->tree->getNodeForPath($path);
 		}
@@ -199,12 +242,17 @@ class LockPlugin extends ServerPlugin {
 	 *
 	 * @throws NotFound
 	 */
-	protected function getFileNode($path): ?Node {
+	protected function getFileNode($path): Node {
+		$user = $this->userSession->getUser();
+		if ($user === null) {
+			throw new Forbidden('No user session found');
+		}
+		$uid = $user->getUID();
+
 		try {
-			$uid = $this->userSession->getUser()->getUID();
-			$userRoot = $this->rootFolder->getUserFolder($uid);
-			$node = $userRoot->get($path);
-			return $node;
+			return $this->rootFolder
+				->getUserFolder($uid)
+				->get($path);
 		} catch (Exception $e) {
 			throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $e);
 		}
@@ -230,4 +278,40 @@ class LockPlugin extends ServerPlugin {
 		return $this->applyPlugin[$url];
 	}
 
+	/**
+	 * Checks if the path is an E2E folder or inside an E2E folder
+	 *
+	 * @param string $path
+	 * @return bool
+	 */
+	protected function isE2EEnabledPath(string $path):bool {
+		try {
+			$node = $this->getFileNode($path);
+		} catch (NotFound $e) {
+			return false;
+		}
+
+		while ($node->isEncrypted() === false || $node->getType() === FileInfo::TYPE_FILE) {
+			$node = $node->getParent();
+
+			// Nitpick: This doesn't check if root is E2E,
+			// but that's not supported at the moment anyway
+			if ($node->getPath() === '/') {
+				// top-level folder reached
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks whether the client supports the latest version of E2E
+	 *
+	 * @param string $userAgent
+	 * @return bool
+	 */
+	protected function isE2EEnabledUserAgent(string $userAgent):bool {
+		return $this->userAgentManager->supportsEndToEndEncryption($userAgent);
+	}
 }

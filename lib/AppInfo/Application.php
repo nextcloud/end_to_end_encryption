@@ -56,6 +56,17 @@ class Application extends App {
 	public function registerEvents():void {
 		$eventDispatcher = $this->getContainer()->getServer()->getEventDispatcher();
 
+		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function(SabrePluginEvent $event) {
+			$server = $event->getServer();
+
+			if ($server !== null) {
+				// We have to register the LockPlugin here and not info.xml,
+				// because info.xml plugins are loaded, after the
+				// beforeMethod:* hook has already been emitted.
+				$server->addPlugin($this->getContainer()->query(LockPlugin::class));
+			}
+		});
+
 		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function(MoveToTrashEvent $event) {
 			/** @var EncryptionManager $encryptionManager */
 			$encryptionManager = $this->getContainer()->query(EncryptionManager::class);
