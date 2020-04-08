@@ -503,7 +503,7 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSForbiddenException
 	 */
 	public function unlockFolder(int $id): DataResponse {
-		$token = $this->request->getHeader('token');
+		$token = $this->request->getHeader('e2e-token');
 		try {
 			$this->lockManager->unlockFile($id, $token);
 		} catch (FileLockedException $e) {
