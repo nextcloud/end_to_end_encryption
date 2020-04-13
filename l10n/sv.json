@@ -12,7 +12,7 @@
     "Could not find metadata for \"%s\"" : "Kunde inte hitta metadata för \"%s\"",
     "Can\\'t read metadata" : "Kan inte läsa metadata",
     "Can\\'t store metadata" : "Kan inte lagra metadata",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du tillåts inte ändra filen, säkerställ att den låsts först och sänd rätt token",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du tillåts inte redigera filen, se till att först låsa den och sedan skicka rätt token",
     "Metadata-file doesn\\'t exist" : "Metadatafil finns inte",
     "Only the owner can delete the metadata-file" : "Bara ägaren kan ta bort metadatafilen",
     "Can\\'t delete metadata" : "Kan inte ta bort metadata",
