@@ -25,16 +25,12 @@ namespace OCA\EndToEndEncryption\AppInfo;
 
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
-use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
 use OCA\EndToEndEncryption\EncryptionManager;
-use OCA\EndToEndEncryption\LockManager;
-use OCA\EndToEndEncryption\UserAgentManager;
 use OCA\EndToEndEncryption\UserManager;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
 use OCP\AppFramework\App;
 use OCP\IUser;
-use OCP\IUserManager;
 use OCP\SabrePluginEvent;
 
 class Application extends App {
