@@ -29,6 +29,7 @@ use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
+use OCA\DAV\Upload\FutureFile;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\FileInfo;
@@ -125,8 +126,9 @@ class LockPlugin extends ServerPlugin {
 			if (!$this->isE2EEnabledPath($node->getPath()) && !$this->isE2EEnabledPath($destNode->getPath())) {
 				return;
 			}
-			// Prevent moving or copying stuff from non-encrypted to encrypted folders
-			if ($this->isE2EEnabledPath($node->getPath()) xor $this->isE2EEnabledPath($destNode->getPath())) {
+			// Prevent moving or copying stuff from non-encrypted to encrypted folders (only exception is big file chunking)
+			if (!($destNode instanceof FutureFile) &&
+				$this->isE2EEnabledPath($node->getPath()) xor $this->isE2EEnabledPath($destNode->getPath())) {
 				throw new Forbidden('Cannot copy or move files from non-encrypted folders to end to end encrypted folders or vice versa.');
 			}
 		} elseif (!$this->isE2EEnabledPath($node->getPath())) {
