@@ -114,22 +114,30 @@ class LockPlugin extends ServerPlugin {
 		if (!$this->isFile($url, $node)) {
 			return;
 		}
+		/** @var File|Directory|FutureFile $node*/
 
 		// We don't care if we are not inside an end to end encrypted folder
 		if ($method === 'COPY' || $method === 'MOVE') {
 			// If this is a COPY or MOVE request, we need to check both
 			// the request path as well as the destination of the command
 			$destInfo = $this->server->getCopyAndMoveInfo($request);
+			/** @var File|Directory $destNode */
 			$destNode = $this->getNode($destInfo['destination'], $method);
 
-			// If neither is an end to end encrypted folders, we don't care
-			if (!$this->isE2EEnabledPath($node->getPath()) && !$this->isE2EEnabledPath($destNode->getPath())) {
-				return;
-			}
-			// Prevent moving or copying stuff from non-encrypted to encrypted folders (only exception is big file chunking)
-			if (!($destNode instanceof FutureFile) &&
-				$this->isE2EEnabledPath($node->getPath()) xor $this->isE2EEnabledPath($destNode->getPath())) {
-				throw new Forbidden('Cannot copy or move files from non-encrypted folders to end to end encrypted folders or vice versa.');
+			if ($node instanceof FutureFile) {
+				if ($this->isE2EEnabledPath($destNode->getPath()) === false) {
+					return;
+				}
+			} else {
+				// If neither is an end to end encrypted folders, we don't care
+				if (!$this->isE2EEnabledPath($node->getPath()) && !$this->isE2EEnabledPath($destNode->getPath())) {
+					return;
+				}
+
+				// Prevent moving or copying stuff from non-encrypted to encrypted folders
+				if ($this->isE2EEnabledPath($node->getPath()) xor $this->isE2EEnabledPath($destNode->getPath())) {
+					throw new Forbidden('Cannot copy or move files from non-encrypted folders to end to end encrypted folders or vice versa.');
+				}
 			}
 		} elseif (!$this->isE2EEnabledPath($node->getPath())) {
 			return;
@@ -153,7 +161,7 @@ class LockPlugin extends ServerPlugin {
 
 			case 'COPY':
 			case 'MOVE':
-				$this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
+				$node instanceof FutureFile || $this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
 				$this->verifyTokenOnWriteAccess($destNode, $request->getHeader('e2e-token'));
 				break;
 
@@ -204,7 +212,7 @@ class LockPlugin extends ServerPlugin {
 	 * @throws Conflict
 	 * @throws NotFound
 	 */
-	protected function getNode($path, $method): INode {
+	protected function getNode(string $path, string $method): INode {
 		if ($method === 'GET' || $method === 'PROPFIND' || $method === 'HEAD') {
 			return $this->server->tree->getNodeForPath($path);
 		}
@@ -219,7 +227,7 @@ class LockPlugin extends ServerPlugin {
 	 * @return INode
 	 * @throws Conflict
 	 */
-	protected function getNodeForPath($path): INode {
+	protected function getNodeForPath(string $path): INode {
 		if ($this->server->tree->nodeExists($path)) {
 			return $this->server->tree->getNodeForPath($path);
 		}
@@ -244,7 +252,7 @@ class LockPlugin extends ServerPlugin {
 	 *
 	 * @throws NotFound
 	 */
-	protected function getFileNode($path): Node {
+	protected function getFileNode(string $path): Node {
 		$user = $this->userSession->getUser();
 		if ($user === null) {
 			throw new Forbidden('No user session found');
@@ -268,7 +276,7 @@ class LockPlugin extends ServerPlugin {
 	 * @param INode $node
 	 * @return bool
 	 */
-	protected function isFile($url, INode $node): bool {
+	protected function isFile(string $url, INode $node): bool {
 
 		if (isset($this->applyPlugin[$url])) {
 			return $this->applyPlugin[$url];
