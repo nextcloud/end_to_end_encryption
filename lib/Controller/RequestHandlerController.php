@@ -487,7 +487,7 @@ class RequestHandlerController extends OCSController {
 		if ($token === null) {
 			throw new OCSForbiddenException($this->l->t('File already locked'));
 		}
-		return new DataResponse(['token' => $e2eToken]);
+		return new DataResponse(['e2e-token' => $e2eToken]);
 	}
 
 
