@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<phpunit bootstrap="bootstrap.php"
+<phpunit bootstrap="tests/bootstrap.php"
 		 verbose="true"
 		 timeoutForSmallTests="900"
 		 timeoutForMediumTests="900"
 		 timeoutForLargeTests="900"
-		>
+>
 	<testsuite name='Nextcloud - End-to-End Encryption Tests'>
-		<directory suffix='Test.php'>Unit</directory>
+		<directory suffix='test.php'>./tests/Unit</directory>
+		<directory suffix='Test.php'>./tests/Unit</directory>
 	</testsuite>
 	<!-- filters for code coverage -->
 	<filter>
 		<whitelist>
-			<directory suffix=".php">../../end_to_end_encryption</directory>
+			<directory suffix=".php">./</directory>
 			<exclude>
-				<directory suffix=".php">../../end_to_end_encryption/l10n</directory>
-				<directory suffix=".php">../../end_to_end_encryption/tests</directory>
+				<directory suffix=".php">./appinfo</directory>
+				<directory suffix=".php">./l10n</directory>
+				<directory suffix=".php">./tests</directory>
 			</exclude>
 		</whitelist>
 	</filter>
