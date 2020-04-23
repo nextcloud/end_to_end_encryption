@@ -484,7 +484,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function lockFolder(int $id, string $token = ''): DataResponse {
 		$token = $this->lockManager->lockFile($id, $token);
-		if (empty($token)) {
+		if ($token === null) {
 			throw new OCSForbiddenException($this->l->t('File already locked'));
 		}
 		return new DataResponse(['token' => $token]);

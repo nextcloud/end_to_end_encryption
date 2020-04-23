@@ -34,7 +34,7 @@ use OCP\AppFramework\Db\Entity;
  * @method string getToken()
  * @method void setToken(string $token)
  */
-class LockEntity extends Entity {
+class Lock extends Entity {
 
 	/** @var int */
 	protected $timestamp;
