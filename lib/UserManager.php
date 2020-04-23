@@ -47,6 +47,5 @@ class UserManager {
 	 */
 	public function deleteUserKeys(IUser $user): void {
 		$this->keyStorage->deleteUserKeys($user);
-		$this->keyStorage->deleteAllMetaDataFiles($user);
 	}
 }
