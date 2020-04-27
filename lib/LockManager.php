@@ -29,6 +29,7 @@ use OCA\EndToEndEncryption\Db\LockMapper;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
@@ -56,6 +57,9 @@ class LockManager {
 	/** @var IRootFolder */
 	private $rootFolder;
 
+	/** @var ITimeFactory */
+	private $timeFactory;
+
 	private $validChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 	/**
@@ -65,16 +69,19 @@ class LockManager {
 	 * @param ISecureRandom $secureRandom
 	 * @param IRootFolder $rootFolder
 	 * @param IUserSession $userSession
+	 * @param ITimeFactory $timeFactory
 	 */
 	public function __construct(LockMapper $lockMapper,
 								ISecureRandom $secureRandom,
 								IRootFolder $rootFolder,
-								IUserSession $userSession
+								IUserSession $userSession,
+								ITimeFactory $timeFactory
 	) {
 		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;
 		$this->userSession = $userSession;
 		$this->rootFolder = $rootFolder;
+		$this->timeFactory = $timeFactory;
 	}
 
 	/**
@@ -95,7 +102,7 @@ class LockManager {
 			$newToken = $this->getToken();
 			$lockEntity = new Lock();
 			$lockEntity->setId($id);
-			$lockEntity->setTimestamp($this->getTimestamp());
+			$lockEntity->setTimestamp($this->timeFactory->getTime());
 			$lockEntity->setToken($newToken);
 			$this->lockMapper->insert($lockEntity);
 			return $newToken;
@@ -175,14 +182,5 @@ class LockManager {
 	 */
 	private function getToken(): string {
 		return $this->secureRandom->generate(64, $this->validChars);
-	}
-
-	/**
-	 * get timestamp of current time
-	 *
-	 * @return int
-	 */
-	protected function getTimestamp(): int {
-		return time();
 	}
 }
