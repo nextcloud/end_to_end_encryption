@@ -25,16 +25,12 @@ namespace OCA\EndToEndEncryption\AppInfo;
 
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
-use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
 use OCA\EndToEndEncryption\EncryptionManager;
-use OCA\EndToEndEncryption\LockManager;
-use OCA\EndToEndEncryption\UserAgentManager;
 use OCA\EndToEndEncryption\UserManager;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
 use OCP\AppFramework\App;
 use OCP\IUser;
-use OCP\IUserManager;
 use OCP\SabrePluginEvent;
 
 class Application extends App {
@@ -55,6 +51,17 @@ class Application extends App {
 
 	public function registerEvents():void {
 		$eventDispatcher = $this->getContainer()->getServer()->getEventDispatcher();
+
+		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function(SabrePluginEvent $event) {
+			$server = $event->getServer();
+
+			if ($server !== null) {
+				// We have to register the LockPlugin here and not info.xml,
+				// because info.xml plugins are loaded, after the
+				// beforeMethod:* hook has already been emitted.
+				$server->addPlugin($this->getContainer()->query(LockPlugin::class));
+			}
+		});
 
 		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function(MoveToTrashEvent $event) {
 			/** @var EncryptionManager $encryptionManager */

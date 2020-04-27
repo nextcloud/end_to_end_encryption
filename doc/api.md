@@ -300,7 +300,7 @@ POST: `<base-url>/lock/<file-id>`
 
 **Data:**
 
-token: if you re-try a previously failed upload, use the token from the first try, otherwise you can skip it
+e2e-token: if you re-try a previously failed upload, use the token from the first try, otherwise you can skip it
 
 **Results:**
 
@@ -321,7 +321,7 @@ token: if you re-try a previously failed upload, use the token from the first tr
   <message>OK</message>
  </meta>
  <data>
-  <token>fdkjfjdhgkjdhkjghdfhgk</token>
+  <e2e-token>fdkjfjdhgkjdhkjghdfhgk</e2e-token>
  </data>
 </ocs>
 ````
@@ -335,11 +335,11 @@ First try:
 
 Retry:
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"` -d token="<token-from-previous-try>"
+`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"` -d e2e-token="<e2e-token-from-previous-try>"
 
 ## Unlock file
 
-unlock the file again after the file and the meta data was updated correctly. The token needs to be added to the header, see example below
+unlock the file again after the file and the meta data was updated correctly. The e2e-token needs to be added to the header, see example below
 
 DELETE: `<base-url>/lock/<file-id>`
 
@@ -369,7 +369,7 @@ DELETE: `<base-url>/lock/<file-id>`
 
 First try:
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true" -H "token:<token-received-during-lock-operation>`
+`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true" -H "e2e-token:<e2e-token-received-during-lock-operation>`
 
 ## Store meta-data file
 
@@ -448,7 +448,7 @@ PUT: `<base-url>/meta-data/<file-id>`
 **Data:**
 
 metaData: the encrypted meta-data file
-token: token to authenticate that you are the client who currently manipulates the file
+e2e-token: token to authenticate that you are the client who currently manipulates the file
 
 **Results:**
 
@@ -457,7 +457,7 @@ token: token to authenticate that you are the client who currently manipulates t
 404 not found: if the meta-data file doesn't exist or if the user can't access 
 the file with the given file-id 
 
-403 forbidden: if the file was not locked or the client sends the wrong token
+403 forbidden: if the file was not locked or the client sends the wrong e2e-token
 
 400 bad request: unpredictable internal error
 
@@ -479,7 +479,7 @@ the file with the given file-id
 
 **Example curl call:**
 
-`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d "metaData=<encrypted-meta-data>&token=<token-received-during-lock-operation>"
+`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d "metaData=<encrypted-meta-data>&e2e-token=<e2e-token-received-during-lock-operation>"
 
 ## Delete meta-data file
 
