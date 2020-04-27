@@ -33,6 +33,7 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
+use OCP\Files\NotPermittedException;
 use OCP\IUserSession;
 use OCP\Security\ISecureRandom;
 
@@ -144,9 +145,14 @@ class LockManager {
 	 * @return bool
 	 * @throws InvalidPathException
 	 * @throws NotFoundException
+	 * @throws \OCP\Files\NotPermittedException
 	 */
 	public function isLocked(int $id, string $token): bool {
 		$user = $this->userSession->getUser();
+		if ($user === null) {
+			throw new NotPermittedException('No active user-session');
+		}
+
 		$userRoot = $this->rootFolder->getUserFolder($user->getUID());
 		$nodes = $userRoot->getById($id);
 		foreach ($nodes as $node) {

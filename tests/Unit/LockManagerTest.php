@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 /**
  * @copyright Copyright (c) 2018 Bjoern Schiessle <bjoern@schiessle.org>
+ * @copyright Copyright (c) 2020 Georg Ehrke <georg-nextcloud@ehrke.email>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -21,11 +22,22 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+namespace OCA\EndToEndEncryption\Tests\Unit;
 
+use OCA\EndToEndEncryption\Db\Lock;
 use OCA\EndToEndEncryption\Db\LockMapper;
+use OCA\EndToEndEncryption\Exceptions\FileLockedException;
+use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\LockManager;
-use OCP\IDBConnection;
-use PHPUnit\Framework\MockObject\MockObject;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\Files\Folder;
+use OCP\Files\IRootFolder;
+use OCP\Files\Node;
+use OCP\Files\NotPermittedException;
+use OCP\IUser;
+use OCP\IUserSession;
+use OCP\Security\ISecureRandom;
 use Test\TestCase;
 
 /**
@@ -35,83 +47,358 @@ use Test\TestCase;
  */
 class LockManagerTest extends TestCase {
 
-	/** @var IDBConnection */
-	private $connection;
+	/** @var LockMapper|\PHPUnit\Framework\MockObject\MockObject */
+	private $lockMapper;
+
+	/** @var ISecureRandom|\PHPUnit\Framework\MockObject\MockObject */
+	private $secureRandom;
+
+	/** @var IUserSession|\PHPUnit\Framework\MockObject\MockObject */
+	private $userSession;
+
+	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
+	private $rootFolder;
+
+	/** @var ITimeFactory|\PHPUnit\Framework\MockObject\MockObject */
+	private $timeFactory;
+
+	/** @var LockManager */
+	private $lockManager;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->connection = OC::$server->getDatabaseConnection();
+		$this->lockMapper = $this->createMock(LockMapper::class);
+		$this->secureRandom = $this->createMock(ISecureRandom::class);
+		$this->userSession = $this->createMock(IUserSession::class);
+		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->timeFactory = $this->createMock(ITimeFactory::class);
 
-		// make sure that DB is empty
-		$qb = $this->connection->getQueryBuilder();
-		$qb->delete('e2e_encryption_lock')->execute();
+		$this->lockManager = new LockManager($this->lockMapper, $this->secureRandom,
+			$this->rootFolder, $this->userSession, $this->timeFactory);
 	}
 
 	/**
-	 * @param array $mockedMethods
-	 * @return LockManager|MockObject
+	 * @dataProvider lockDataProvider
+	 *
+	 * @param bool $isLocked
+	 * @param bool $lockDoesNotExist
+	 * @param string $token
+	 * @param bool $expectNull
+	 * @param bool $expectNewToken
+	 * @param bool $expectOldToken
 	 */
-	private function getLockManager(array $mockedMethods = []) {
-		$lockMapper = new LockMapper($this->connection);
-		if (empty($mockedMethods)) {
-			return new LockManager(
-				$lockMapper,
-				OC::$server->getSecureRandom(),
-				OC::$server->getRootFolder(),
-				OC::$server->getUserSession()
-			);
+	public function testLock(bool $isLocked, bool $lockDoesNotExist, string $token, bool $expectNull, bool $expectNewToken, bool $expectOldToken): void {
+		$lockManager = $this->getMockBuilder(LockManager::class)
+			->setMethods(['isLocked'])
+			->setConstructorArgs([
+				$this->lockMapper,
+				$this->secureRandom,
+				$this->rootFolder,
+				$this->userSession,
+				$this->timeFactory
+			])
+			->getMock();
+
+		$lockManager->expects($this->once())
+			->method('isLocked')
+			->with(42, $token)
+			->willReturn($isLocked);
+
+		if (!$isLocked) {
+			if ($lockDoesNotExist) {
+				$this->lockMapper->expects($this->once())
+					->method('getByFileId')
+					->with(42)
+					->willThrowException(new DoesNotExistException(''));
+			} else {
+				$fakeLock = new Lock();
+				$fakeLock->setToken('correct-token123');
+
+				$this->lockMapper->expects($this->once())
+					->method('getByFileId')
+					->with(42)
+					->willReturn($fakeLock);
+			}
 		}
 
-		return $this->getMockBuilder(LockManager::class)
-			->setConstructorArgs(
-				[
-					$lockMapper,
-					OC::$server->getSecureRandom(),
-					OC::$server->getRootFolder(),
-					OC::$server->getUserSession()
-				]
-			)->setMethods($mockedMethods)->getMock();
+		if ($expectNewToken) {
+			$this->secureRandom->expects($this->once())
+				->method('generate')
+				->with(64, ISecureRandom::CHAR_UPPER . ISecureRandom::CHAR_LOWER . ISecureRandom::CHAR_DIGITS)
+				->willReturn('new-token');
+
+			$this->timeFactory->expects($this->once())
+				->method('getTime')
+				->willReturn(1337);
+
+			$this->lockMapper->expects($this->once())
+				->method('insert')
+				->with($this->callback(static function ($lock) {
+					return ($lock instanceof Lock &&
+							$lock->getId() === 42 &&
+							$lock->getTimestamp() === 1337 &&
+							$lock->getToken() === 'new-token');
+				}));
+		} else {
+			$this->secureRandom->expects($this->never())
+				->method('generate');
+			$this->timeFactory->expects($this->never())
+				->method('getTime');
+		}
+
+		$actual = $lockManager->lockFile(42, $token);
+
+		if ($expectNull) {
+			$this->assertNull($actual);
+		}
+		if ($expectOldToken) {
+			$this->assertEquals($token, $actual);
+		}
+		if ($expectNewToken) {
+			$this->assertEquals('new-token', $actual);
+		}
 	}
 
+	public function lockDataProvider(): array {
+		return [
+			[true,  false, 'correct-token123', true,  false, false],
+			[false, true,  'correct-token123', false, true,  false],
+			[false, false, 'correct-token123', false, false, true],
+			[false, false, 'wrong-token456',   true,  false, false],
+		];
+	}
 
-	public function testLockFileUnlockFile(): void {
-		$lockManager = $this->getLockManager(['isLocked', 'getTimestamp']);
-		$lockManager->expects($this->any())->method('isLocked')->willReturn(false);
-		$lockManager->expects($this->any())->method('getTimestamp')->willReturn(1234567);
+	/**
+	 * @dataProvider unlockDataProvider
+	 *
+	 * @param bool $lockDoesNotExist
+	 * @param string $token
+	 * @param bool $expectFileNotLocked
+	 * @param bool $expectFileLocked
+	 * @param bool $expectDelete
+	 */
+	public function testUnlock(bool $lockDoesNotExist, string $token, bool $expectFileNotLocked, bool $expectFileLocked, bool $expectDelete): void {
+		if ($lockDoesNotExist) {
+			$this->lockMapper->expects($this->once())
+				->method('getByFileId')
+				->with(42)
+				->willThrowException(new DoesNotExistException(''));
+		} else {
+			$fakeLock = new Lock();
+			$fakeLock->setToken('correct-token123');
 
-		// check if db is empty
-		$qb = $this->connection->getQueryBuilder();
-		$result = $qb->select('*')->from('e2e_encryption_lock')->execute();
-		$this->assertEmpty($result->fetchAll(),'We need to start with an empty e2e_encryption_lock table');
+			$this->lockMapper->expects($this->once())
+				->method('getByFileId')
+				->with(42)
+				->willReturn($fakeLock);
+		}
 
-		$token = $lockManager->lockFile(42);
+		if ($expectDelete) {
+			$this->lockMapper->expects($this->once())
+				->method('delete')
+				->with($fakeLock);
+		} else {
+			$this->lockMapper->expects($this->never())
+				->method('delete');
+		}
 
-		// make sure that we got a valid token back
-		$this->assertTrue(is_string($token));
-		$this->assertSame(64, strlen($token));
+		if ($expectFileNotLocked) {
+			$this->expectException(FileNotLockedException::class);
+		} elseif ($expectFileLocked) {
+			$this->expectException(FileLockedException::class);
+		}
 
-		//check if it is really stored in the database
-		$qb = $this->connection->getQueryBuilder();
-		$result = $qb->select('*')->from('e2e_encryption_lock')->execute();
-		$data = $result->fetchAll();
-		$this->assertSame(1, count($data));
-		$this->assertSame(1234567, (int)$data[0]['timestamp']);
-		$this->assertSame(42, (int)$data[0]['id']);
-		$this->assertSame($token, $data[0]['token']);
+		$this->lockManager->unlockFile(42, $token);
+	}
 
-		// try to lock a already locked file with a unknown token
-		$this->assertEmpty($lockManager->lockFile(42));
+	public function unlockDataProvider(): array {
+		return [
+			[true,  'correct-token123', true,  false, false],
+			[false, 'correct-token123', false, false, true],
+			[false, 'wrong-token456',   false, true,  false],
+		];
+	}
 
-		// try to lock with the known token
-		$this->assertSame($token, $lockManager->lockFile(42, $token));
+	public function testIsLockedNoUserSession(): void {
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn(null);
 
-		// unlock file
-		$lockManager->unlockFile(42, $token);
+		$this->expectException(NotPermittedException::class);
 
-		//check if db is empty again
-		$qb = $this->connection->getQueryBuilder();
-		$result = $qb->select('*')->from('e2e_encryption_lock')->execute();
-		$this->assertEmpty($result->fetchAll(), 'After all operations the e2e_encryption_lock table should be empty again');
+		$this->lockManager->isLocked(42, 'correct-token123');
+	}
+
+	public function testIsLockedRoot(): void {
+		$user = $this->createMock(IUser::class);
+		$user->method('getUID')
+			->willReturn('jane');
+
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+
+		$node = $this->createMock(Node::class);
+		$node->expects($this->once())
+			->method('getPath')
+			->willReturn('/');
+
+		$userRoot = $this->createMock(Folder::class);
+		$userRoot->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node]);
+
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('jane')
+			->willReturn($userRoot);
+
+		$actual = $this->lockManager->isLocked(42, 'wrong-token456');
+		$this->assertFalse($actual);
+	}
+
+	public function testIsLockedNodeDifferentToken(): void {
+		$user = $this->createMock(IUser::class);
+		$user->method('getUID')
+			->willReturn('jane');
+
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+
+		$node = $this->createMock(Node::class);
+		$node->expects($this->once())
+			->method('getPath')
+			->willReturn('/sub/folder/abc');
+		$node->expects($this->once())
+			->method('getId')
+			->willReturn(1337);
+
+		$userRoot = $this->createMock(Folder::class);
+		$userRoot->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node]);
+
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('jane')
+			->willReturn($userRoot);
+
+		$lock = new Lock();
+		$lock->setToken('correct-token123');
+
+		$this->lockMapper->expects($this->once())
+			->method('getByFileId')
+			->with(1337)
+			->willReturn($lock);
+
+		$actual = $this->lockManager->isLocked(42, 'wrong-token456');
+		$this->assertTrue($actual);
+	}
+
+	public function testIsLockedNodeCorrectToken(): void {
+		$user = $this->createMock(IUser::class);
+		$user->method('getUID')
+			->willReturn('jane');
+
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+
+		$parentNode = $this->createMock(Node::class);
+		$parentNode->expects($this->once())
+			->method('getPath')
+			->willReturn('/');
+
+		$node = $this->createMock(Node::class);
+		$node->expects($this->once())
+			->method('getPath')
+			->willReturn('/sub/folder/abc');
+		$node->expects($this->once())
+			->method('getId')
+			->willReturn(1337);
+		$node->expects($this->once())
+			->method('getParent')
+			->willReturn($parentNode);
+
+		$userRoot = $this->createMock(Folder::class);
+		$userRoot->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node]);
+
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('jane')
+			->willReturn($userRoot);
+
+		$lock = new Lock();
+		$lock->setToken('correct-token123');
+
+		$this->lockMapper->expects($this->once())
+			->method('getByFileId')
+			->with(1337)
+			->willReturn($lock);
+
+		$actual = $this->lockManager->isLocked(42, 'correct-token123');
+		$this->assertFalse($actual);
+	}
+
+	public function testIsLockedParent(): void {
+		$user = $this->createMock(IUser::class);
+		$user->method('getUID')
+			->willReturn('jane');
+
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+
+		$parentNode = $this->createMock(Node::class);
+		$parentNode->expects($this->once())
+			->method('getPath')
+			->willReturn('/sub/folder');
+		$parentNode->expects($this->once())
+			->method('getId')
+			->willReturn(7331);
+
+		$node = $this->createMock(Node::class);
+		$node->expects($this->once())
+			->method('getPath')
+			->willReturn('/sub/folder/abc');
+		$node->expects($this->once())
+			->method('getId')
+			->willReturn(1337);
+		$node->expects($this->once())
+			->method('getParent')
+			->willReturn($parentNode);
+
+		$userRoot = $this->createMock(Folder::class);
+		$userRoot->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willReturn([$node]);
+
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('jane')
+			->willReturn($userRoot);
+
+		$lock = new Lock();
+		$lock->setToken('correct-token123');
+
+		$this->lockMapper->expects($this->at(0))
+			->method('getByFileId')
+			->with(1337)
+			->willThrowException(new DoesNotExistException(''));
+		$this->lockMapper->expects($this->at(1))
+			->method('getByFileId')
+			->with(7331)
+			->willReturn($lock);
+
+		$actual = $this->lockManager->isLocked(42, 'wrong-token456');
+		$this->assertTrue($actual);
 	}
 }
