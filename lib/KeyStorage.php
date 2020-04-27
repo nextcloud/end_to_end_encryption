@@ -291,8 +291,9 @@ class KeyStorage {
 	 * @throws RuntimeException
 	 */
 	public function getMetaData(int $id): string {
-		$path = $this->getOwnerPath($id);
-		$folder = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
+		$this->verifyOwner($id);
+
+		$folder = $this->appData->getFolder($this->metaDataRoot . '/' . $id);
 		$file = $folder->getFile($this->metaDataFileName);
 		return $file->getContent();
 	}
@@ -307,15 +308,10 @@ class KeyStorage {
 	 * @throws NotFoundException
 	 */
 	public function deleteMetaData(int $id): void {
-		$owner = $this->getOwner($id);
-		$currentUser = $this->userSession->getUser();
-		if ($owner->getUID() !== $currentUser->getUID()) {
-			throw new NotPermittedException();
-		}
+		$this->verifyOwner($id);
 
-		$path = $this->getOwnerPath($id);
-		$folder = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
-		$folder->getFile($this->metaDataFileName)->delete();
+		$folder = $this->appData->getFolder($this->metaDataRoot . '/' . $id);
+		$folder->delete();
 	}
 
 
@@ -332,33 +328,19 @@ class KeyStorage {
 	 * @throws MetaDataExistsException
 	 */
 	public function setMetaData(int $id, string $metaData): void {
-		$path = $this->getOwnerPath($id);
-		$this->prepareTargetFolder($path, $this->metaDataRoot);
-		$dir = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
+		$this->verifyOwner($id);
+
+		try {
+			$dir = $this->appData->getFolder($this->metaDataRoot . '/' . $id);
+		} catch (NotFoundException $ex) {
+			$dir = $this->appData->newFolder($this->metaDataRoot . '/' . $id);
+		}
 		if ($dir->fileExists($this->metaDataFileName)) {
 			throw new MetaDataExistsException('meta data file already exists');
 		}
 
 		$file = $dir->newFile($this->metaDataFileName);
 		$file->putContent($metaData);
-	}
-
-
-	/**
-	 * delete all meta data files for a given user, e.g. when the user was deleted
-	 *
-	 * @param IUser $user
-	 */
-	public function deleteAllMetaDataFiles(IUser $user): void {
-		$uid = $user->getUID();
-		if (!$this->userManager->userExists($uid)) {
-			try {
-				$metaDataRoot = $this->appData->getFolder($this->metaDataRoot . '/' . $uid);
-				$metaDataRoot->delete();
-			} catch (NotFoundException $e) {
-				// do nothing if no meta data exists
-			}
-		}
 	}
 
 	/**
@@ -375,9 +357,9 @@ class KeyStorage {
 	 */
 	public function updateMetaData(int $id, string $fileKey): void {
 		// ToDo check signature for race condition
-		$path = $this->getOwnerPath($id);
-		$this->prepareTargetFolder($path, $this->metaDataRoot);
-		$dir = $this->appData->getFolder($this->metaDataRoot . '/' . $path);
+		$this->verifyOwner($id);
+
+		$dir = $this->appData->getFolder($this->metaDataRoot . '/' . $id);
 		if (!$dir->fileExists($this->metaDataFileName)) {
 			throw new MissingMetaDataException('meta data file missing');
 		}
@@ -437,14 +419,14 @@ class KeyStorage {
 	}
 
 	/**
-	 * get path to the file for the file-owner
+	 * Verifies that user has access to file-id
 	 *
-	 * @param int $id file id
-	 * @return string path to the owner's file
-	 *
+	 * @param int $id
 	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws \OC\User\NoUserException
 	 */
-	private function getOwnerPath(int $id): string {
+	private function verifyOwner(int $id): void {
 		$node = $this->rootFolder->getById($id);
 		if (!isset($node[0])) {
 			throw new NotFoundException('No file with ID ' . $id);
@@ -455,23 +437,5 @@ class KeyStorage {
 		if (!isset($node[0])) {
 			throw new NotFoundException('No file for owner with ID ' . $id);
 		}
-		return $node[0]->getPath();
-	}
-
-	/**
-	 * get owner
-	 *
-	 * @param int $id file id
-	 * @return IUser
-	 * @throws NotFoundException
-	 */
-	private function getOwner(int $id): IUser {
-		$node = $this->rootFolder->getById($id);
-		if (!isset($node[0])) {
-			throw new NotFoundException('No file with ID ' . $id);
-		}
-		$owner = $node[0]->getOwner();
-
-		return $owner;
 	}
 }
