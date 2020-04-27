@@ -191,7 +191,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           tools: phpunit
           extensions: mbstring, iconv, fileinfo, intl, pgsql, pdo_pgsql
-          coverage: none
+          coverage: xdebug
 
       - name: Set up PHPUnit
         working-directory: apps/${{ env.APP_NAME }}
@@ -208,8 +208,12 @@ jobs:
 
       - name: PHPUnit
         working-directory: apps/${{ env.APP_NAME }}
-        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.xml
+        run: composer run test
 
       - name: PHPUnit integration
         working-directory: apps/${{ env.APP_NAME }}
-        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+        run: composer run test:integration
+
+      - name: Upload coverage to Codecov
+        working-directory: apps/${{ env.APP_NAME }}
+        run: curl -s https://codecov.io/bash | bash -s - -t ${{ secrets.CODECOV_TOKEN }} -F php -f clover.unit.xml -Z
