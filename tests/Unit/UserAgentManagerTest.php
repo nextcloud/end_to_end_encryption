@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -22,7 +23,6 @@ declare(strict_types=1);
 
 
 namespace OCA\EndToEndEncryption\Tests\Unit;
-
 
 use OCA\EndToEndEncryption\UserAgentManager;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -105,5 +105,4 @@ class UserAgentManagerTest extends TestCase {
 			['Mozilla/5.0 (Android) Nextcloud-android/2.1.3', true],
 		];
 	}
-
 }

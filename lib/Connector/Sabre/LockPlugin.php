@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -277,7 +278,6 @@ class LockPlugin extends ServerPlugin {
 	 * @return bool
 	 */
 	protected function isFile(string $url, INode $node): bool {
-
 		if (isset($this->applyPlugin[$url])) {
 			return $this->applyPlugin[$url];
 		}

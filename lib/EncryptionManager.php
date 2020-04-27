@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -22,7 +23,6 @@ declare(strict_types=1);
 
 
 namespace OCA\EndToEndEncryption;
-
 
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
@@ -101,7 +101,6 @@ class EncryptionManager {
 				return true;
 			}
 			$node = $node->getParent();
-
 		} while ($node->getPath() !== '/');
 
 		return false;

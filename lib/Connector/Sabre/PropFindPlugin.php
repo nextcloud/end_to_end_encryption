@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -103,7 +104,6 @@ class PropFindPlugin extends ServerPlugin {
 	 * @return bool
 	 */
 	protected function isFile(INode $node): bool {
-
 		if (isset($this->applyPlugin[$node->getName()])) {
 			return $this->applyPlugin[$node->getName()];
 		}
@@ -112,8 +112,5 @@ class PropFindPlugin extends ServerPlugin {
 		$this->applyPlugin[$node->getName()] = (($node instanceof File) || ($node instanceof Directory));
 
 		return $this->applyPlugin[$node->getName()];
-
 	}
-
-
 }

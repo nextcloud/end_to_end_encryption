@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -22,7 +23,6 @@ declare(strict_types=1);
 
 
 namespace OCA\EndToEndEncryption\Tests\Controller;
-
 
 use BadMethodCallException;
 use OCA\EndToEndEncryption\Controller\RequestHandlerController;
@@ -100,7 +100,6 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->disableOriginalConstructor()->getMock();
 		$this->logger = $this->createMock(ILogger::class);
 		$this->l10n = $this->createMock(IL10N::class);
-
 	}
 
 	/**
@@ -153,6 +152,4 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->with($this->invalidCSR)->willThrowException(new BadMethodCallException());
 		$controller->createPublicKey($this->invalidCSR);
 	}
-
-
 }
