@@ -60,8 +60,6 @@ class LockManager {
 	/** @var ITimeFactory */
 	private $timeFactory;
 
-	private $validChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
 	/**
 	 * LockManager constructor.
 	 *
@@ -181,6 +179,6 @@ class LockManager {
 	 * @return string
 	 */
 	private function getToken(): string {
-		return $this->secureRandom->generate(64, $this->validChars);
+		return $this->secureRandom->generate(64, ISecureRandom::CHAR_UPPER . ISecureRandom::CHAR_LOWER . ISecureRandom::CHAR_DIGITS);
 	}
 }
