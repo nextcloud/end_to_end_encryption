@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -22,7 +23,6 @@ declare(strict_types=1);
 
 
 namespace OCA\EndToEndEncryption;
-
 
 use BadMethodCallException;
 use OC\Security\IdentityProof\Manager;
@@ -78,5 +78,4 @@ class SignatureHandler {
 		$publicKey = $this->identityProofManager->getSystemKey()->getPublic();
 		return $publicKey;
 	}
-
 }

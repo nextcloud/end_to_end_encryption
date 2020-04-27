@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -73,13 +74,11 @@ class UserAgentManager {
 			return true;
 		}
 
-		$version = substr( strrchr( $client, '/' ), 1 );
-		if(!empty($version) && version_compare($version, $minVersion) > -1) {
+		$version = substr(strrchr($client, '/'), 1);
+		if (!empty($version) && version_compare($version, $minVersion) > -1) {
 			return true;
 		}
 
 		return false;
-
 	}
-
 }

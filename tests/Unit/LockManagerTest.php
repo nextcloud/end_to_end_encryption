@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -75,7 +76,6 @@ class LockManagerTest extends TestCase {
 
 
 	public function testLockFileUnlockFile(): void {
-
 		$lockManager = $this->getLockManager(['isLocked', 'getTimestamp']);
 		$lockManager->expects($this->any())->method('isLocked')->willReturn(false);
 		$lockManager->expects($this->any())->method('getTimestamp')->willReturn(1234567);
@@ -113,8 +113,5 @@ class LockManagerTest extends TestCase {
 		$qb = $this->connection->getQueryBuilder();
 		$result = $qb->select('*')->from('e2e_encryption_lock')->execute();
 		$this->assertEmpty($result->fetchAll(), 'After all operations the e2e_encryption_lock table should be empty again');
-
 	}
-
-
 }

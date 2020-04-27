@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -22,7 +23,6 @@ declare(strict_types=1);
 
 
 namespace OCA\EndToEndEncryption;
-
 
 use Exception;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
@@ -247,7 +247,7 @@ class KeyStorage {
 	 */
 	public function deleteUserKeys(IUser $user): void {
 		$uid = $user->getUID();
-		if(!$this->userManager->userExists($uid)) {
+		if (!$this->userManager->userExists($uid)) {
 			$this->deleteUsersPrivateKey($uid);
 			$this->deleteUsersPublicKey($uid);
 		}
@@ -351,7 +351,7 @@ class KeyStorage {
 	 */
 	public function deleteAllMetaDataFiles(IUser $user): void {
 		$uid = $user->getUID();
-		if(!$this->userManager->userExists($uid)) {
+		if (!$this->userManager->userExists($uid)) {
 			try {
 				$metaDataRoot = $this->appData->getFolder($this->metaDataRoot . '/' . $uid);
 				$metaDataRoot->delete();
@@ -410,7 +410,6 @@ class KeyStorage {
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			return false;
 		}
-
 	}
 
 
@@ -435,7 +434,6 @@ class KeyStorage {
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
 			throw new Exception('Can\'t store public key');
 		}
-
 	}
 
 	/**

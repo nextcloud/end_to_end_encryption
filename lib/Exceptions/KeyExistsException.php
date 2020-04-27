@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -38,5 +39,4 @@ class KeyExistsException extends Exception {
 	public function __construct(string $message = 'key already exists', int $code = 0, Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
-
 }

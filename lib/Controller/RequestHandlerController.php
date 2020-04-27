@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * SPDX-License-Identifier: AGPL-3.0+
@@ -104,7 +105,7 @@ class RequestHandlerController extends OCSController {
 								LockManager $lockManager,
 								ILogger $logger,
 								IL10N $l
-	){
+	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
 		$this->keyStorage = $keyStorage;
@@ -204,7 +205,6 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSNotFoundException
 	 */
 	public function getPublicKeys(string $users = ''): DataResponse {
-
 		$usersArray = $this->jsonDecode($users);
 
 		$result = ['public-keys' => []];
@@ -264,7 +264,6 @@ class RequestHandlerController extends OCSController {
 		$this->keyStorage->setPublicKey($publicKey, $this->userId);
 
 		return new DataResponse(['public-key' => $publicKey]);
-
 	}
 
 	/**
@@ -515,7 +514,6 @@ class RequestHandlerController extends OCSController {
 		}
 
 		return new DataResponse();
-
 	}
 
 	/**
@@ -527,7 +525,6 @@ class RequestHandlerController extends OCSController {
 	 * @throws OCSBadRequestException
 	 */
 	private function jsonDecode(string $users): array {
-
 		$usersArray = [];
 		if (!empty($users)) {
 			// TODO - use JSON_THROW_ON_ERROR once we require PHP 7.3
@@ -543,5 +540,4 @@ class RequestHandlerController extends OCSController {
 
 		return $usersArray;
 	}
-
 }

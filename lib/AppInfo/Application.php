@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -34,7 +35,6 @@ use OCP\IUser;
 use OCP\SabrePluginEvent;
 
 class Application extends App {
-
 	public const APP_ID = 'end_to_end_encryption';
 
 	/**
@@ -52,7 +52,7 @@ class Application extends App {
 	public function registerEvents():void {
 		$eventDispatcher = $this->getContainer()->getServer()->getEventDispatcher();
 
-		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function(SabrePluginEvent $event) {
+		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function (SabrePluginEvent $event) {
 			$server = $event->getServer();
 
 			if ($server !== null) {
@@ -63,7 +63,7 @@ class Application extends App {
 			}
 		});
 
-		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function(MoveToTrashEvent $event) {
+		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function (MoveToTrashEvent $event) {
 			/** @var EncryptionManager $encryptionManager */
 			$encryptionManager = $this->getContainer()->query(EncryptionManager::class);
 
@@ -74,7 +74,7 @@ class Application extends App {
 		});
 
 
-		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function(CreateVersionEvent $event) {
+		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function (CreateVersionEvent $event) {
 			/** @var EncryptionManager $encryptionManager */
 			$encryptionManager = $this->getContainer()->query(EncryptionManager::class);
 
@@ -85,11 +85,10 @@ class Application extends App {
 		});
 
 		// listen to user management signals to delete user specific key if a user was deleted
-		$this->getContainer()->getServer()->getUserManager()->listen('\OC\User', 'postDelete', function(IUser $user) {
+		$this->getContainer()->getServer()->getUserManager()->listen('\OC\User', 'postDelete', function (IUser $user) {
 			/** @var UserManager $cseUserManager */
 			$cseUserManager = $this->getContainer()->getServer()->query(UserManager::class);
 			$cseUserManager->deleteUserKeys($user);
 		});
 	}
-
 }

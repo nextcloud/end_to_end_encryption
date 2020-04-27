@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -22,7 +23,6 @@ declare(strict_types=1);
 
 
 namespace OCA\EndToEndEncryption\Tests\Unit;
-
 
 use OC\Files\Node\File;
 use OCA\EndToEndEncryption\EncryptionManager;
@@ -70,7 +70,6 @@ class EncryptionManagerTest extends TestCase {
 
 		$this->rootFolder->expects($this->any())->method('getStorage')->willReturn($this->storage);
 		$this->storage->expects($this->any())->method('getCache')->willReturn($this->fileCache);
-
 	}
 
 	/**
@@ -390,5 +389,4 @@ class EncryptionManagerTest extends TestCase {
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}
-
 }

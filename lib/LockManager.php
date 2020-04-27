@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
@@ -23,13 +24,11 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-
 use OCA\EndToEndEncryption\Db\Lock;
 use OCA\EndToEndEncryption\Db\LockMapper;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\Files\InvalidPathException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
@@ -186,5 +185,4 @@ class LockManager {
 	protected function getTimestamp(): int {
 		return time();
 	}
-
 }
