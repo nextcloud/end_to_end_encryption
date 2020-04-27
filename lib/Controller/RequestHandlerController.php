@@ -353,14 +353,14 @@ class RequestHandlerController extends OCSController {
 	 *
 	 * @param int $id file id
 	 * @param string $metaData
-	 * @param string $e2eToken
 	 *
 	 * @return DataResponse
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
 	 */
-	public function updateMetaData(int $id, string $metaData, string $e2eToken): DataResponse {
+	public function updateMetaData(int $id, string $metaData): DataResponse {
+		$e2eToken = $this->request->getParam('e2e-token');
 
 		if ($this->lockManager->isLocked($id, $e2eToken)) {
 			throw new OCSForbiddenException($this->l->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
@@ -477,17 +477,18 @@ class RequestHandlerController extends OCSController {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id file ID
-	 * @param string $e2eToken token to identify client
 	 *
 	 * @return DataResponse
 	 * @throws OCSForbiddenException
 	 */
-	public function lockFolder(int $id, string $e2eToken = ''): DataResponse {
-		$e2eToken = $this->lockManager->lockFile($id, $e2eToken);
-		if ($token === null) {
+	public function lockFolder(int $id): DataResponse {
+		$e2eToken = $this->request->getParam('e2e-token', '');
+
+		$newToken = $this->lockManager->lockFile($id, $e2eToken);
+		if ($newToken === null) {
 			throw new OCSForbiddenException($this->l->t('File already locked'));
 		}
-		return new DataResponse(['e2e-token' => $e2eToken]);
+		return new DataResponse(['e2e-token' => $newToken]);
 	}
 
 
@@ -504,6 +505,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function unlockFolder(int $id): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
+
 		try {
 			$this->lockManager->unlockFile($id, $token);
 		} catch (FileLockedException $e) {
