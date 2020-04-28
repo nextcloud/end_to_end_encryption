@@ -35,7 +35,8 @@ use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
-use OCA\EndToEndEncryption\KeyStorage;
+use OCA\EndToEndEncryption\IKeyStorage;
+use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
@@ -65,8 +66,11 @@ class RequestHandlerController extends OCSController {
 	/** @var  string */
 	private $userId;
 
-	/** @var KeyStorage */
+	/** @var IKeyStorage */
 	private $keyStorage;
+
+	/** @var IMetaDataStorage */
+	private $metaDataStorage;
 
 	/** @var SignatureHandler */
 	private $signatureHandler;
@@ -89,7 +93,8 @@ class RequestHandlerController extends OCSController {
 	 * @param string $AppName
 	 * @param IRequest $request
 	 * @param string $UserId
-	 * @param KeyStorage $keyStorage
+	 * @param IKeyStorage $keyStorage
+	 * @param IMetaDataStorage $metaDataStorage
 	 * @param SignatureHandler $signatureHandler
 	 * @param EncryptionManager $manager
 	 * @param LockManager $lockManager
@@ -99,7 +104,8 @@ class RequestHandlerController extends OCSController {
 	public function __construct($AppName,
 								IRequest $request,
 								$UserId,
-								KeyStorage $keyStorage,
+								IKeyStorage $keyStorage,
+								IMetaDataStorage $metaDataStorage,
 								SignatureHandler $signatureHandler,
 								EncryptionManager $manager,
 								LockManager $lockManager,
@@ -109,6 +115,7 @@ class RequestHandlerController extends OCSController {
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
 		$this->keyStorage = $keyStorage;
+		$this->metaDataStorage = $metaDataStorage;
 		$this->signatureHandler = $signatureHandler;
 		$this->manager = $manager;
 		$this->logger = $logger;
@@ -306,7 +313,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function getMetaData(int $id): DataResponse {
 		try {
-			$metaData = $this->keyStorage->getMetaData($id);
+			$metaData = $this->metaDataStorage->getMetaData($id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (Exception $e) {
@@ -331,7 +338,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		try {
-			$this->keyStorage->setMetaData($id, $metaData);
+			$this->metaDataStorage->setMetaData($id, $metaData);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
@@ -366,7 +373,7 @@ class RequestHandlerController extends OCSController {
 		}
 
 		try {
-			$this->keyStorage->updateMetaData($id, $metaData);
+			$this->metaDataStorage->updateMetaData($id, $metaData);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l->t("Metadata-file doesn\'t exist"));
 		} catch (NotFoundException $e) {
@@ -394,7 +401,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		try {
-			$this->keyStorage->deleteMetaData($id);
+			$this->metaDataStorage->deleteMetaData($id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {

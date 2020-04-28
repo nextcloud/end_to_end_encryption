@@ -27,7 +27,8 @@ namespace OCA\EndToEndEncryption\Tests\Controller;
 use BadMethodCallException;
 use OCA\EndToEndEncryption\Controller\RequestHandlerController;
 use OCA\EndToEndEncryption\EncryptionManager;
-use OCA\EndToEndEncryption\KeyStorage;
+use OCA\EndToEndEncryption\IKeyStorage;
+use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
@@ -44,8 +45,11 @@ class RequestHandlerControllerTest extends TestCase {
 	/** @var  IRequest|PHPUnit_Framework_MockObject_MockObject */
 	private $request;
 
-	/** @var  KeyStorage|PHPUnit_Framework_MockObject_MockObject */
+	/** @var  IKeyStorage|PHPUnit_Framework_MockObject_MockObject */
 	private $keyStorage;
+
+	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
+	private $metaDataStorage;
 
 	/** @var  SignatureHandler|PHPUnit_Framework_MockObject_MockObject */
 	private $signatureHandler;
@@ -90,8 +94,9 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		parent::setUp();
 
 		$this->request = $this->createMock(IRequest::class);
-		$this->keyStorage = $this->getMockBuilder(KeyStorage::class)
+		$this->keyStorage = $this->getMockBuilder(IKeyStorage::class)
 			->disableOriginalConstructor()->getMock();
+		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->signatureHandler = $this->getMockBuilder(SignatureHandler::class)
 			->disableOriginalConstructor()->getMock();
 		$this->encryptionManager = $this->getMockBuilder(EncryptionManager::class)
@@ -114,6 +119,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			$this->request,
 			$uid,
 			$this->keyStorage,
+			$this->metaDataStorage,
 			$this->signatureHandler,
 			$this->encryptionManager,
 			$this->lockManager,
