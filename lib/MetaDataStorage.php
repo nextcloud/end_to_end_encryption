@@ -51,6 +51,9 @@ class MetaDataStorage implements IMetaDataStorage {
 	/** @var string */
 	private $metaDataFileName = 'meta.data';
 
+	/** @var string */
+	private $intermediateMetaDataFileName = 'intermediate.meta.data';
+
 	/**
 	 * MetaDataStorage constructor.
 	 *
@@ -81,7 +84,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function setMetaData(int $id, string $metaData): void {
+	public function setMetaDataIntoIntermediateFile(int $id, string $metaData): void {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($id);
 
@@ -97,14 +100,18 @@ class MetaDataStorage implements IMetaDataStorage {
 			throw new MetaDataExistsException('Meta-data file already exists');
 		}
 
-		$dir->newFile($this->metaDataFileName)
+		if ($dir->fileExists($this->intermediateMetaDataFileName)) {
+			throw new MetaDataExistsException('Intermediate meta-data file already exists');
+		}
+
+		$dir->newFile($this->intermediateMetaDataFileName)
 			->putContent($metaData);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function updateMetaData(int $id, string $fileKey): void {
+	public function updateMetaDataIntoIntermediateFile(int $id, string $fileKey): void {
 		// ToDo check signature for race condition
 		$this->verifyFolderStructure();
 		$this->verifyOwner($id);
@@ -120,7 +127,13 @@ class MetaDataStorage implements IMetaDataStorage {
 			throw new MissingMetaDataException('Meta-data file missing');
 		}
 
-		$dir->getFile($this->metaDataFileName)
+		try {
+			$intermediateMetaDataFile = $dir->getFile($this->intermediateMetaDataFileName);
+		} catch (NotFoundException $ex) {
+			$intermediateMetaDataFile = $dir->newFile($this->intermediateMetaDataFileName);
+		}
+
+		$intermediateMetaDataFile
 			->putContent($fileKey);
 	}
 
@@ -139,6 +152,57 @@ class MetaDataStorage implements IMetaDataStorage {
 		}
 
 		$dir->delete();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function saveIntermediateFile(int $id): void {
+		$this->verifyFolderStructure();
+		$this->verifyOwner($id);
+
+		$folderName = $this->getFolderNameForFileId($id);
+		try {
+			$dir = $this->appData->getFolder($folderName);
+		} catch (NotFoundException $ex) {
+			throw new MissingMetaDataException('Intermediate meta-data file missing');
+		}
+
+		if (!$dir->fileExists($this->intermediateMetaDataFileName)) {
+			throw new MissingMetaDataException('Intermediate meta-data file missing');
+		}
+
+		$intermediateMetaDataFile = $dir->getFile($this->intermediateMetaDataFileName);
+
+		try {
+			$finalFile = $dir->getFile($this->metaDataFileName);
+		} catch (NotFoundException $ex) {
+			$finalFile = $dir->newFile($this->metaDataFileName);
+		}
+
+		$finalFile->putContent($intermediateMetaDataFile->getContent());
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function deleteIntermediateFile(int $id): void {
+		$this->verifyFolderStructure();
+		$this->verifyOwner($id);
+
+		$folderName = $this->getFolderNameForFileId($id);
+		try {
+			$dir = $this->appData->getFolder($folderName);
+		} catch (NotFoundException $ex) {
+			return;
+		}
+
+		if (!$dir->fileExists($this->intermediateMetaDataFileName)) {
+			return;
+		}
+
+		$dir->getFile($this->intermediateMetaDataFileName)
+			->delete();
 	}
 
 	/**

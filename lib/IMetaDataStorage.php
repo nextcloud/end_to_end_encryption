@@ -46,7 +46,7 @@ interface IMetaDataStorage {
 	public function getMetaData(int $id): string;
 
 	/**
-	 * set meta data file
+	 * set meta data file into intermediate file
 	 *
 	 * @param int $id file id
 	 * @param string $metaData
@@ -55,10 +55,10 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MetaDataExistsException
 	 */
-	public function setMetaData(int $id, string $metaData): void;
+	public function setMetaDataIntoIntermediateFile(int $id, string $metaData): void;
 
 	/**
-	 * update meta data file
+	 * update meta data file into intermediate file
 	 *
 	 * @param int $id file id
 	 * @param string $fileKey
@@ -67,10 +67,31 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MissingMetaDataException
 	 */
-	public function updateMetaData(int $id, string $fileKey): void;
+	public function updateMetaDataIntoIntermediateFile(int $id, string $fileKey): void;
 
 	/**
-	 * delete meta data file
+	 * Moves intermediate metadata file to final file
+	 *
+	 * @param int $id file id
+	 *
+	 * @throws NotPermittedException
+	 * @throws NotFoundException
+	 * @throws MissingMetaDataException
+	 */
+	public function saveIntermediateFile(int $id): void;
+
+	/**
+	 * Delete the previously set intermediate file
+	 *
+	 * @param int $id file id
+	 *
+	 * @throws NotPermittedException
+	 * @throws NotFoundException
+	 */
+	public function deleteIntermediateFile(int $id): void;
+
+	/**
+	 * delete meta data file (and backup)
 	 *
 	 * @param int $id
 	 *

@@ -338,7 +338,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		try {
-			$this->metaDataStorage->setMetaData($id, $metaData);
+			$this->metaDataStorage->setMetaDataIntoIntermediateFile($id, $metaData);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
@@ -373,7 +373,7 @@ class RequestHandlerController extends OCSController {
 		}
 
 		try {
-			$this->metaDataStorage->updateMetaData($id, $metaData);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($id, $metaData);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l->t("Metadata-file doesn\'t exist"));
 		} catch (NotFoundException $e) {
@@ -526,6 +526,8 @@ class RequestHandlerController extends OCSController {
 		} catch (FileNotLockedException $e) {
 			throw new OCSNotFoundException($this->l->t('File not locked'));
 		}
+
+		$this->metaDataStorage->saveIntermediateFile($id);
 
 		return new DataResponse();
 	}
