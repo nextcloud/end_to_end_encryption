@@ -28,15 +28,15 @@ use OCP\IUser;
 
 class UserManager {
 
-	/** @var KeyStorage */
+	/** @var IKeyStorage */
 	private $keyStorage;
 
 	/**
 	 * UserManager constructor.
 	 *
-	 * @param KeyStorage $keyStorage
+	 * @param IKeyStorage $keyStorage
 	 */
-	public function __construct(KeyStorage $keyStorage) {
+	public function __construct(IKeyStorage $keyStorage) {
 		$this->keyStorage = $keyStorage;
 	}
 
