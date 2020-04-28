@@ -564,7 +564,6 @@ class KeyStorageTest extends TestCase {
 						->with('correct-userId.private.key')
 						->willThrowException(new NotFoundException());
 				}
-
 			}
 		}
 
