@@ -46,7 +46,7 @@ class LockMapper extends QBMapper {
 	 * @throws DoesNotExistException
 	 * @throws MultipleObjectsReturnedException
 	 */
-	public function getByFileId($fileId): Entity {
+	public function getByFileId(int $fileId): Entity {
 		$qb = $this->db->getQueryBuilder();
 		$qb
 			->select('*')
@@ -54,5 +54,31 @@ class LockMapper extends QBMapper {
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($fileId, IQueryBuilder::PARAM_INT)));
 
 		return $this->findEntity($qb);
+	}
+
+	/**
+	 * Find all entities older than given timestamp
+	 *
+	 * @param int $timeStamp
+	 * @param int|null $limit
+	 * @param int|null $offset
+	 * @return array
+	 */
+	public function findAllLocksOlderThan(int $timeStamp, ?int $limit=null, ?int $offset=null): array {
+		$qb = $this->db->getQueryBuilder();
+		$qb
+			->select('*')
+			->from($this->tableName)
+			->where($qb->expr()->lt('timestamp', $qb->createNamedParameter($timeStamp, IQueryBuilder::PARAM_INT)));
+
+		if ($limit !== null) {
+			$qb->setMaxResults($limit);
+		}
+		if ($offset !== null) {
+			$qb->setFirstResult($offset);
+		}
+
+
+		return $this->findEntities($qb);
 	}
 }
