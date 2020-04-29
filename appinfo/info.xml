@@ -20,6 +20,9 @@
     <dependencies>
         <nextcloud min-version="20" max-version="20" />
     </dependencies>
+	<background-jobs>
+		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
+	</background-jobs>
 	<sabre>
 		<plugins>
 			<plugin>OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin</plugin>
