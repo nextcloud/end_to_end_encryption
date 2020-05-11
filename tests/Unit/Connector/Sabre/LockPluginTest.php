@@ -313,9 +313,14 @@ class LockPluginTest extends TestCase {
 			->method('getAbsoluteUrl')
 			->willReturn($url);
 		$request->expects($this->once())
-			->method('getHeader')
-			->with('user-agent')
-			->willReturn($userAgentString);
+			->method('hasHeader')
+			->with('e2e-token')
+			->willReturn(true);
+		$request->method('getHeader')
+			->willReturnMap([
+				['user-agent', $userAgentString],
+				['e2e-token', null],
+			]);
 
 		$this->lockManager->expects($this->once())
 			->method('isLocked')
@@ -394,9 +399,14 @@ class LockPluginTest extends TestCase {
 			->method('getAbsoluteUrl')
 			->willReturn($url);
 		$request->expects($this->once())
-			->method('getHeader')
-			->with('user-agent')
-			->willReturn($userAgentString);
+			->method('hasHeader')
+			->with('e2e-token')
+			->willReturn(true);
+		$request->method('getHeader')
+			->willReturnMap([
+				['user-agent', $userAgentString],
+				['e2e-token', null],
+			]);
 
 		$this->lockManager->expects($this->never())
 			->method('isLocked');
@@ -483,6 +493,10 @@ class LockPluginTest extends TestCase {
 		$request->expects($this->once())
 			->method('getAbsoluteUrl')
 			->willReturn($url);
+		$request->expects($this->once())
+			->method('hasHeader')
+			->with('e2e-token')
+			->willReturn(true);
 		$request->method('getHeader')
 			->willReturnMap([
 				['user-agent', $userAgentString],
@@ -588,6 +602,9 @@ class LockPluginTest extends TestCase {
 		$request->expects($this->once())
 			->method('getAbsoluteUrl')
 			->willReturn($url);
+		$request->method('hasHeader')
+			->with('e2e-token')
+			->willReturn(true);
 		$request->method('getHeader')
 			->willReturnMap([
 				['user-agent', $userAgentString],
