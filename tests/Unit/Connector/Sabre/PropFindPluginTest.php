@@ -26,13 +26,21 @@ namespace OCA\EndToEndEncryption\Tests\Connector\Sabre;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCP\Files\IRootFolder;
 use OCP\IRequest;
+use OCP\IUserSession;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\PropFind;
 use Sabre\DAV\Server;
 use Test\TestCase;
 
 class PropFindPluginTest extends TestCase {
+
+	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
+	private $rootFolder;
+
+	/** @var IUserSession|\PHPUnit\Framework\MockObject\MockObject */
+	private $userSession;
 
 	/** @var UserAgentManager|\PHPUnit\Framework\MockObject\MockObject */
 	private $userAgentManager;
@@ -46,10 +54,15 @@ class PropFindPluginTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
+		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->userSession = $this->createMock(IUserSession::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 		$this->request = $this->createMock(IRequest::class);
 
-		$this->plugin = new PropFindPlugin($this->userAgentManager, $this->request);
+		$this->plugin = new PropFindPlugin($this->rootFolder,
+			$this->userSession,
+			$this->userAgentManager,
+			$this->request);
 	}
 
 	public function testInitialize(): void {
