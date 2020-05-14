@@ -22,6 +22,7 @@
     "Can not decode userlist" : "לא ניתן לפענח את רשימת המשתמשים",
     "End-to-End Encryption" : "הצפנה מקצה לקצה",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "מספקת את נקודת הגישה הנחוצה לטובת הצפנה מקצה לקצה. תכונה זו עדיין במצב בתולי, יש להשתמש רק עם נתוני דמה, אף פעם לא בסביבה היומיומית (production)!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "מספקת את נקודת הגישה הנחוצה לטובת הצפנה מקצה לקצה. תכונה זו עדיין במצב בתולי, אין להשתמש במערכת לשימוש יומיומי ורק עם נתוני דמה!"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;"
 }
