@@ -22,6 +22,7 @@
     "Can not decode userlist" : "Nie można zdekodować listy użytkowników",
     "End-to-End Encryption" : "Szyfrowanie End-to-End",
     "End-to-end encryption endpoint" : "Końcówka szyfrowania typu end-to-end",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end. Szyfrowanie end-to-end jest nadal w stanie alfa. Używaj tylko z danymi testowymi, nigdy w produkcji!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end. Szyfrowanie end-to-end jest nadal w stanie alfa. Używaj tylko z danymi testowymi, nigdy w produkcji!"
 },"pluralForm" :"nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"
 }

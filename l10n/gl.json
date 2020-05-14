@@ -22,6 +22,7 @@
     "Can not decode userlist" : "No se pode descodificar a lista de usuarios ",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Fornece o punto final necesario para activar o cifrado de extremo a extremo. O cifrado de extremo a extremo aínda está en fase alfa. Useo só con datos de proba, nunca en produción.",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fornece o punto final necesario para activar o cifrado de extremo a extremo. O cifrado de extremo a extremo aínda está en fase alfa, non o empregue en produción, só con datos de proba! "
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

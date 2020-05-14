@@ -24,6 +24,7 @@ OC.L10N.register(
     "Can not decode userlist" : "Kan de gebruikerslijst niet decoderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Zorgt voor de noodzakelijke eindpunten voor end-to-end versleuteling. End-to-end versleuteling bevindt zich heden nog in alpha-status, dus gebruik het niet in productieomgevingen, maar enkel met testgegevens.",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Zorgt voor de noodzakelijke eindpunten voor begin-tot-eind versleuteling. Begin-tot-eind versleuteling is nog in alpha-status, dus gebruik het niet in productieomgevingen en met testgegevens."
 },
 "nplurals=2; plural=(n != 1);");
