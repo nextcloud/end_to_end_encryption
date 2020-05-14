@@ -24,6 +24,7 @@ OC.L10N.register(
     "Can not decode userlist" : "Nedaří se dekódovat seznam uživatelů",
     "End-to-End Encryption" : "Šifrování end-to-end",
     "End-to-end encryption endpoint" : "Koncový bod end-to-end šifrování",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Poskytuje nezbytné koncové body pro zapnutí end-to-end šifrování. Toto je pořád ve vývojovém stádiu. Použijte pouze pro testovací data, nikdy ne v produkci!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Poskytuje nutný koncový bod pro end-to-end šifrování. Toto šifrování je stále v alpha stádiu, proto nepoužívejte v produkci a s jinými, než testovacími daty!"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
