@@ -58,10 +58,10 @@ use Sabre\HTTP\ResponseInterface;
 class RedirectRequestPlugin extends APlugin {
 
 	/** @var string */
-	private const SAVE_SUFFIX = '.e2e-to-save';
+	public const SAVE_SUFFIX = '.e2e-to-save';
 
 	/** @var string */
-	private const DELETE_SUFFIX = '.e2e-to-delete';
+	public const DELETE_SUFFIX = '.e2e-to-delete';
 
 	/**
 	 * {@inheritdoc}

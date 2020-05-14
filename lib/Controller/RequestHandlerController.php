@@ -29,12 +29,14 @@ namespace OCA\EndToEndEncryption\Controller;
 
 use BadMethodCallException;
 use Exception;
+use OC\Files\Node\Folder;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
+use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
@@ -46,6 +48,7 @@ use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\ForbiddenException;
+use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
@@ -78,6 +81,12 @@ class RequestHandlerController extends OCSController {
 	/** @var EncryptionManager */
 	private $manager;
 
+	/** @var IRootFolder */
+	private $rootFolder;
+
+	/** @var FileService */
+	private $fileService;
+
 	/** @var ILogger */
 	private $logger;
 
@@ -98,6 +107,8 @@ class RequestHandlerController extends OCSController {
 	 * @param SignatureHandler $signatureHandler
 	 * @param EncryptionManager $manager
 	 * @param LockManager $lockManager
+	 * @param IRootFolder $rootFolder
+	 * @param FileService $fileService
 	 * @param ILogger $logger
 	 * @param IL10N $l
 	 */
@@ -109,6 +120,8 @@ class RequestHandlerController extends OCSController {
 								SignatureHandler $signatureHandler,
 								EncryptionManager $manager,
 								LockManager $lockManager,
+								IRootFolder $rootFolder,
+								FileService $fileService,
 								ILogger $logger,
 								IL10N $l
 	) {
@@ -118,6 +131,8 @@ class RequestHandlerController extends OCSController {
 		$this->metaDataStorage = $metaDataStorage;
 		$this->signatureHandler = $signatureHandler;
 		$this->manager = $manager;
+		$this->rootFolder = $rootFolder;
+		$this->fileService = $fileService;
 		$this->logger = $logger;
 		$this->lockManager = $lockManager;
 		$this->l = $l;
@@ -519,6 +534,15 @@ class RequestHandlerController extends OCSController {
 	public function unlockFolder(int $id): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
 
+		$userView = $this->rootFolder->getUserFolder($this->userId);
+		$nodes = $userView->getById($id);
+		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+			throw new OCSForbiddenException($this->l->t('You are not allowed to remove the lock'));
+		}
+
+		$this->fileService->finalizeChanges($nodes[0]);
+		$this->metaDataStorage->saveIntermediateFile($id);
+
 		try {
 			$this->lockManager->unlockFile($id, $token);
 		} catch (FileLockedException $e) {
@@ -526,8 +550,6 @@ class RequestHandlerController extends OCSController {
 		} catch (FileNotLockedException $e) {
 			throw new OCSNotFoundException($this->l->t('File not locked'));
 		}
-
-		$this->metaDataStorage->saveIntermediateFile($id);
 
 		return new DataResponse();
 	}
