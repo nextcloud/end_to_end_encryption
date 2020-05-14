@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\Directory;
-use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;

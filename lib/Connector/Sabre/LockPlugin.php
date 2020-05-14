@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
-use Exception;
 use OC\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;

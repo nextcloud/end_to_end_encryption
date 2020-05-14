@@ -27,6 +27,7 @@ namespace OCA\EndToEndEncryption\Tests\Controller;
 use BadMethodCallException;
 use OCA\EndToEndEncryption\Controller\RequestHandlerController;
 use OCA\EndToEndEncryption\EncryptionManager;
+use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
@@ -34,6 +35,7 @@ use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
+use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\ILogger;
 use OCP\IRequest;
@@ -59,6 +61,12 @@ class RequestHandlerControllerTest extends TestCase {
 
 	/** @var  LockManager|PHPUnit_Framework_MockObject_MockObject */
 	private $lockManager;
+
+	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
+	private $rootFolder;
+
+	/** @var FileService|\PHPUnit\Framework\MockObject\MockObject */
+	private $fileService;
 
 	/** @var  ILogger|PHPUnit_Framework_MockObject_MockObject */
 	private $logger;
@@ -103,6 +111,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->disableOriginalConstructor()->getMock();
 		$this->lockManager = $this->getMockBuilder(LockManager::class)
 			->disableOriginalConstructor()->getMock();
+		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->fileService = $this->createMock(FileService::class);
 		$this->logger = $this->createMock(ILogger::class);
 		$this->l10n = $this->createMock(IL10N::class);
 	}
@@ -123,6 +133,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			$this->signatureHandler,
 			$this->encryptionManager,
 			$this->lockManager,
+			$this->rootFolder,
+			$this->fileService,
 			$this->logger,
 			$this->l10n
 		);
