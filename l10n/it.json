@@ -22,6 +22,7 @@
     "Can not decode userlist" : "Impossibile decodificare l'elenco degli utenti",
     "End-to-End Encryption" : "Cifratura End-To-End",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Fornisce l'endpoint necessario ad attivare la cifratura end-to-end. La cifratura end-to-end è ancora in fase alfa. Usala solo con dati di test, mai in produzione!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fornisce il terminatore necessario per abilitare la cifratura end-to-end. Tale cifratura è ancora in stato di alfa dello sviluppo, non utilizzarla in produzione e solo con dati di prova!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
