@@ -38,9 +38,9 @@ class UserAgentManager {
 
 	public function __construct() {
 		$this->supportedUserAgents = [
-			'/^Mozilla\/5\.0 \(Android\) Nextcloud\-android.*$/' => '',
-			Request::USER_AGENT_CLIENT_DESKTOP => '',
-			'/^Mozilla\/5\.0 \(iOS\) Nextcloud\-iOS.*$/' => '2.20.0',
+			'/^Mozilla\/5\.0 \(Android\) Nextcloud\-android\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '3.13.0',
+			'/^Mozilla\/5\.0 \([A-Za-z ]+\) (mirall|csyncoC)\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '2.7.0',
+			'/^Mozilla\/5\.0 \(iOS\) Nextcloud\-iOS\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '3.0.0',
 		];
 	}
 
@@ -51,34 +51,31 @@ class UserAgentManager {
 	 * @return bool
 	 */
 	public function supportsEndToEndEncryption(string $client): bool {
-		foreach ($this->supportedUserAgents as $regex => $minVersion) {
-			if (preg_match($regex, $client)) {
-				return $this->checkVersion($client, $minVersion);
+		$supportedUAs = $this->getSupportedUserAgents();
+
+		foreach ($supportedUAs as $regex => $minVersion) {
+			$doesMatch = preg_match($regex, $client, $matches);
+			if ($doesMatch === 0) {
+				continue;
 			}
+
+			if (empty($minVersion)) {
+				return true;
+			}
+			if (!isset($matches['version'])) {
+				return false;
+			}
+
+			return (version_compare($matches['version'], $minVersion) > -1);
 		}
 
 		return false;
 	}
 
 	/**
-	 * check the client version
-	 *
-	 * @param string $client
-	 * @param string $minVersion
-	 * @return bool returns true if clientVersion >= minVersion or if no min Version is specified
+	 * @return array|string[]
 	 */
-	protected function checkVersion(string $client, string $minVersion): bool {
-
-		// no minVersion given, all client versions are compatible
-		if (empty($minVersion)) {
-			return true;
-		}
-
-		$version = substr(strrchr($client, '/'), 1);
-		if (!empty($version) && version_compare($version, $minVersion) > -1) {
-			return true;
-		}
-
-		return false;
+	protected function getSupportedUserAgents(): array {
+		return $this->supportedUserAgents;
 	}
 }
