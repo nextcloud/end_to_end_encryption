@@ -88,6 +88,10 @@ class RedirectRequestPlugin extends APlugin {
 	 */
 	public function httpCopyMove(RequestInterface $request): void {
 		$node = $this->getNode($request->getPath(), $request->getMethod());
+		if (!$this->isFile($request->getPath(), $node)) {
+			return;
+		}
+		/** @var File|Directory $node */
 		if (!$this->isE2EEnabledPath($node->getPath())) {
 			return;
 		}
@@ -104,6 +108,10 @@ class RedirectRequestPlugin extends APlugin {
 	 */
 	public function httpDelete(RequestInterface $request, ResponseInterface $response): bool {
 		$node = $this->getNode($request->getPath(), $request->getMethod());
+		if (!$this->isFile($request->getPath(), $node)) {
+			return true;
+		}
+		/** @var File|Directory $node */
 		if (!$this->isE2EEnabledPath($node->getPath())) {
 			// If this is no e2e-enabled path, return true to continue up in the event chain
 			return true;
@@ -119,7 +127,6 @@ class RedirectRequestPlugin extends APlugin {
 		$subRequest->setHeader('X-Nc-Sabre-Original-Method', 'DELETE');
 		$subRequest->setHeader('Destination', $path);
 
-		// TODO: wrap in try catch?
 		$this->server->invokeMethod($subRequest, $response);
 		// Return false to break the event chain
 		return false;
@@ -131,6 +138,10 @@ class RedirectRequestPlugin extends APlugin {
 	 */
 	public function httpMkColPut(RequestInterface $request): void {
 		$node = $this->getNode($request->getPath(), $request->getMethod());
+		if (!$this->isFile($request->getPath(), $node)) {
+			return;
+		}
+		/** @var File|Directory $node */
 		if (!$this->isE2EEnabledPath($node->getPath())) {
 			return;
 		}
@@ -163,7 +174,7 @@ class RedirectRequestPlugin extends APlugin {
 	 * @throws \Sabre\DAV\Exception\Conflict
 	 */
 	public function propFind(PropFind $propFind, INode $node): bool {
-		if (!$this->isFile($node->getName(), $node)) {
+		if (!$this->isFile($propFind->getPath(), $node)) {
 			return true;
 		}
 
