@@ -22,7 +22,7 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption;
 
-use OC\Files\Node\Folder;
+use OCP\Files\Folder;
 use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\EndToEndEncryption\Db\Lock;
 use OCA\EndToEndEncryption\Db\LockMapper;
