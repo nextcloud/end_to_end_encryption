@@ -22,7 +22,7 @@
     "Can not decode userlist" : "Benutzerliste kann nicht entschlüsselt werden",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Bietet den notwendigen Endpunkt, um die Ende-zu-Ende-Verschlüsselung zu aktivieren. Ende-zu-Ende-Verschlüsselung ist noch immer im Alpha-Status, benutzen Sie sie nicht im Produktivbetrieb und nur mit Testdaten!",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Bietet den notwendigen Endpunkt, um die Ende-zu-Ende-Verschlüsselung zu aktivieren. Ende-zu-Ende-Verschlüsselung ist noch immer im Alpha-Status. Nur mit Testdaten und nicht im Produktivbetrieb einsetzen!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Bietet den notwendigen Endpunkt, um Ende-zu-Ende-Verschlüsselung zu aktivieren. Ende-zu-Ende-Verschlüsselung ist noch immer in Alpha-Status, benutze das nicht im Produktivbetrieb und nur mit Testdaten!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
