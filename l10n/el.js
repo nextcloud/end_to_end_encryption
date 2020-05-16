@@ -24,6 +24,7 @@ OC.L10N.register(
     "Can not decode userlist" : "Δεν είναι δυνατή η αποκωδικοποίηση της λίστας χρηστών",
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
     "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Παρέχει το απαραίτητο άκρο για κρυπτογράφηση από άκρο-σε-άκρο. Είναι ακόμη σε δοκιμαστική κατάσταση. Για χρήση μόνο με δοκιμαστικά δεδομένα!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Παρέχει το απαραίτητο άκρο για κρυπτογράφηση από άκρο-σε-άκρο. Είναι ακόμη σε δοκιμαστική κατάσταση, μην το χρησιμοποιείται παρά μόνο με δοκιμαστικά δεδομένα!"
 },
 "nplurals=2; plural=(n != 1);");
