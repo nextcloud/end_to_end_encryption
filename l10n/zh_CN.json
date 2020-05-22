@@ -22,6 +22,7 @@
     "Can not decode userlist" : "无法解码用户列表",
     "End-to-End Encryption" : "点对点加密",
     "End-to-end encryption endpoint" : "端到端加密端点",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "提供必要的端点以启用端到端加密。 端到端加密仍处于 Alpha 状态。 仅用于测试数据，绝不要用于生产！",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "为启用端到端加密提供必要的端点。端到端加密还处于alpha状态，请不要在生产环境中使用，且只操作测试数据！"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
