@@ -150,6 +150,16 @@ class LockPlugin extends ServerPlugin {
 			throw new Forbidden('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content');
 		}
 
+		$e2eToken = null;
+		if ($request->hasHeader('e2e-token')) {
+			$e2eToken = $request->getHeader('e2e-token');
+		} else {
+			$queryParams = $request->getQueryParameters();
+			if (array_key_exists('e2e-token', $queryParams)) {
+				$e2eToken = $queryParams['e2e-token'];
+			}
+		}
+
 		switch ($method) {
 			case 'GET':
 				$this->preventReadAccessToLockedFile($node);
@@ -162,12 +172,12 @@ class LockPlugin extends ServerPlugin {
 
 			case 'COPY':
 			case 'MOVE':
-				$node instanceof FutureFile || $this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
-				$this->verifyTokenOnWriteAccess($destNode, $request->getHeader('e2e-token'));
+				$node instanceof FutureFile || $this->verifyTokenOnWriteAccess($node, $e2eToken);
+				$this->verifyTokenOnWriteAccess($destNode, $e2eToken);
 				break;
 
 			default:
-				$this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
+				$this->verifyTokenOnWriteAccess($node, $e2eToken);
 				break;
 		}
 	}
