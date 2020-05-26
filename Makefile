@@ -7,7 +7,7 @@ source_dir=$(build_dir)/source
 sign_dir=$(build_dir)/sign
 package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
-version+=1.0.5
+version+=1.5.1
 
 all: appstore
 
@@ -27,8 +27,10 @@ appstore: clean
 	--exclude=/build \
 	--exclude=/docs \
 	--exclude=/translationfiles \
+	--exclude=/.github \
 	--exclude=/.tx \
 	--exclude=/tests \
+	--exclude=/vendor \
 	--exclude=/.git \
 	--exclude=/.github \
 	--exclude=/l10n/l10n.pl \
@@ -36,6 +38,7 @@ appstore: clean
 	--exclude=/issue_template.md \
 	--exclude=/README.md \
 	--exclude=/.gitattributes \
+	--exclude=/.php_cs.cache \
 	--exclude=/.gitignore \
 	--exclude=/.scrutinizer.yml \
 	--exclude=/.drone.yml \
