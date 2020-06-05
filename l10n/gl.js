@@ -14,7 +14,7 @@ OC.L10N.register(
     "Could not find metadata for \"%s\"" : "Non foi posíbel atopar os metadatos para «%s»",
     "Can\\'t read metadata" : "Non é posíbel ler os metadatos",
     "Can\\'t store metadata" : "Non é posíbel almacenar os metadatos",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Non ten permiso para editar o ficheiro, asegúrese primeiro de bloquealo, e a seguir envíe a marca correcta",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Non ten permiso para editar o ficheiro, asegúrese primeiro de bloquealo, e a seguir envíe a testemuña correcta",
     "Metadata-file doesn\\'t exist" : "Non existe o ficheiro de metadatos",
     "Only the owner can delete the metadata-file" : "Só o propietario pode eliminar o ficheiro de metadatos ",
     "Can\\'t delete metadata" : "Non é posíbel eliminar os metadatos",
@@ -24,6 +24,7 @@ OC.L10N.register(
     "Can not decode userlist" : "No se pode descodificar a lista de usuarios ",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Fornece o punto final necesario para activar o cifrado de extremo a extremo. O cifrado de extremo a extremo aínda está en fase alfa. Useo só con datos de proba, nunca en produción.",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fornece o punto final necesario para activar o cifrado de extremo a extremo. O cifrado de extremo a extremo aínda está en fase alfa, non o empregue en produción, só con datos de proba! "
 },
 "nplurals=2; plural=(n != 1);");

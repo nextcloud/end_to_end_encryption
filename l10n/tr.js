@@ -24,6 +24,7 @@ OC.L10N.register(
     "Can not decode userlist" : "Kullanıcı listesinin kodu çözülemedi",
     "End-to-End Encryption" : "Uçtan Uca Şifreleme",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme bitiş noktası",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Uçtan uca şifreleme için gereken bitiş noktasını sağlar. Uçtan uca şifreleme özelliği henüz geliştirme aşamasında olduğundan üretim sitelerinde kullanmayın ve yalnız deneme verileri ile kulanın.",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Uçtan uca şifreleme için gereken bitiş noktasını sağlar. Uçtan uca şifreleme özelliği henüz geliştirme aşamasında olduğundan üretim sitelerinde kullanmayın ve yalnız deneme verileri ile kulanın."
 },
 "nplurals=2; plural=(n > 1);");

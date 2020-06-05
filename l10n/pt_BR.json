@@ -22,6 +22,7 @@
     "Can not decode userlist" : "Não foi possível decodificar a lista de usuários",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Fornece o ponto de extremidade necessário para ativar a criptografia de ponta a ponta. A criptografia de ponta a ponta ainda está no estado alfa. Use apenas com dados de teste, nunca em produção!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fornece o ponto final necessário para ativar a criptografia de ponta-a-ponta. Esta criptografia ainda está no estado alfa, não use isso em produção e apenas com dados de teste!"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
