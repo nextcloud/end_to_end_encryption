@@ -24,7 +24,7 @@ OC.L10N.register(
     "Can not decode userlist" : "Nepavyksta dekoduoti naudotojų sąrašo",
     "End-to-End Encryption" : "Ištisinis šifravimas",
     "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Pateikia galutinį tašką, kad būtų galima šifruoti iš vieno galo į kitą. Šifravimas vis dar yra alfa būsenoje. Naudokite tik su bandymų duomenimis, niekada nenaudokite su svarbiais duomenimis!",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Pateikia galutinį tašką, kad būtų galima šifruoti iš vieno galo į kitą. Šifravimas vis dar yra alfa būsenoje. Nenaudokite su svarbiais duomenimis!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Pateikia būtiną rezultatą, kad būtų galima įjungti  ištisinį šifravimą. Ištisinis šifravimas vis dar yra alfa versijoje."
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");
