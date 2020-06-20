@@ -22,6 +22,7 @@
     "Can not decode userlist" : "Can not decode userlist",
     "End-to-End Encryption" : "End-to-End Encryption",
     "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!",
     "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
