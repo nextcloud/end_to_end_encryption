@@ -22,9 +22,9 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption;
 
+use OCP\Files\Config\IUserMountCache;
 use OCP\Files\Folder;
 use OCA\EndToEndEncryption\AppInfo\Application;
-use OCA\EndToEndEncryption\Db\Lock;
 use OCA\EndToEndEncryption\Db\LockMapper;
 use OCP\Files\IRootFolder;
 use OCP\ILogger;
@@ -56,6 +56,9 @@ class RollbackService {
 	/** @var FileService */
 	private $fileService;
 
+	/** @var IUserMountCache */
+	private $userMountCache;
+
 	/** @var IRootFolder */
 	private $rootFolder;
 
@@ -68,17 +71,20 @@ class RollbackService {
 	 * @param LockMapper $lockMapper
 	 * @param IMetaDataStorage $metaDataStorage
 	 * @param FileService $fileService
+	 * @param IUserMountCache $userMountCache
 	 * @param IRootFolder $rootFolder
 	 * @param ILogger $logger
 	 */
 	public function __construct(LockMapper $lockMapper,
 								IMetaDataStorage $metaDataStorage,
 								FileService $fileService,
+								IUserMountCache $userMountCache,
 								IRootFolder $rootFolder,
 								ILogger $logger) {
 		$this->lockMapper = $lockMapper;
 		$this->metaDataStorage = $metaDataStorage;
 		$this->fileService = $fileService;
+		$this->userMountCache = $userMountCache;
 		$this->rootFolder = $rootFolder;
 		$this->logger = $logger;
 	}
@@ -93,8 +99,21 @@ class RollbackService {
 		$locks = $this->lockMapper->findAllLocksOlderThan($olderThanTimestamp, $limit);
 
 		foreach ($locks as $lock) {
-			/** @var Lock $lock */
-			$nodes = $this->rootFolder->getById($lock->getId());
+			$mountPoints = $this->userMountCache->getMountsForFileId($lock->getId());
+			if (empty($mountPoints)) {
+				continue;
+			}
+
+			try {
+				$userFolder = $this->rootFolder->getUserFolder($mountPoints[0]->getUser()->getUID());
+			} catch (\Exception $ex) {
+				$this->logger->logException($ex, [
+					'app' => Application::APP_ID,
+				]);
+				continue;
+			}
+
+			$nodes = $userFolder->getById($lock->getId());
 			if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
 				continue;
 			}
