@@ -28,9 +28,12 @@ use OCA\EndToEndEncryption\Db\LockMapper;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\RollbackService;
+use OCP\Files\Config\ICachedMountFileInfo;
+use OCP\Files\Config\IUserMountCache;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\ILogger;
+use OCP\IUser;
 use Test\TestCase;
 
 class RollbackServiceTest extends TestCase {
@@ -43,6 +46,9 @@ class RollbackServiceTest extends TestCase {
 
 	/** @var FileService|\PHPUnit\Framework\MockObject\MockObject */
 	private $fileService;
+
+	/** @var IUserMountCache|\PHPUnit\Framework\MockObject\MockObject */
+	private $userMountCache;
 
 	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
 	private $rootFolder;
@@ -59,12 +65,14 @@ class RollbackServiceTest extends TestCase {
 		$this->lockMapper = $this->createMock(LockMapper::class);
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->fileService = $this->createMock(FileService::class);
+		$this->userMountCache = $this->createMock(IUserMountCache::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->logger = $this->createMock(ILogger::class);
 
 		$this->rollbackService = new RollbackService($this->lockMapper,
 			$this->metaDataStorage,
 			$this->fileService,
+			$this->userMountCache,
 			$this->rootFolder,
 			$this->logger);
 	}
@@ -72,66 +80,132 @@ class RollbackServiceTest extends TestCase {
 	public function testRollbackOlderThan(): void {
 		$locks = $this->getSampleLocks();
 
-		$this->lockMapper->expects($this->at(0))
+		$this->lockMapper->expects($this->once())
 			->method('findAllLocksOlderThan')
-			->with(1337, 4)
+			->with(1337, 10)
 			->willReturn($locks);
 
-		$node1 = $this->createMock(Folder::class);
-		$node1->expects($this->once())
-			->method('getMTime')
-			->willReturn(1338);
+		$mountFileInfo2 = $this->createMock(ICachedMountFileInfo::class);
+		$mountFileInfo3 = $this->createMock(ICachedMountFileInfo::class);
+		$mountFileInfo4 = $this->createMock(ICachedMountFileInfo::class);
+		$mountFileInfo5 = $this->createMock(ICachedMountFileInfo::class);
+		$mountFileInfo6 = $this->createMock(ICachedMountFileInfo::class);
+
+		$this->userMountCache->expects($this->exactly(6))
+			->method('getMountsForFileId')
+			->willReturnMap([
+				[100001, null, []],
+				[100002, null, [$mountFileInfo2]],
+				[100003, null, [$mountFileInfo3]],
+				[100004, null, [$mountFileInfo4]],
+				[100005, null, [$mountFileInfo5]],
+				[100006, null, [$mountFileInfo6]],
+			]);
+
+		$user2 = $this->createMock(IUser::class);
+		$user2->method('getUID')->willReturn('user2');
+		$user3 = $this->createMock(IUser::class);
+		$user3->method('getUID')->willReturn('user3');
+		$user4 = $this->createMock(IUser::class);
+		$user4->method('getUID')->willReturn('user4');
+		$user5 = $this->createMock(IUser::class);
+		$user5->method('getUID')->willReturn('user5');
+		$user6 = $this->createMock(IUser::class);
+		$user6->method('getUID')->willReturn('user6');
+
+		$mountFileInfo2->method('getUser')->willReturn($user2);
+		$mountFileInfo3->method('getUser')->willReturn($user3);
+		$mountFileInfo4->method('getUser')->willReturn($user4);
+		$mountFileInfo5->method('getUser')->willReturn($user5);
+		$mountFileInfo6->method('getUser')->willReturn($user6);
+
+		$userFolder3 = $this->createMock(Folder::class);
+		$userFolder4 = $this->createMock(Folder::class);
+		$userFolder5 = $this->createMock(Folder::class);
+		$userFolder6 = $this->createMock(Folder::class);
+
+		$this->rootFolder->expects($this->at(0))
+			->method('getUserFolder')
+			->with('user2')
+			->willThrowException(new \Exception('User not found'));
+		$this->rootFolder->expects($this->at(1))
+			->method('getUserFolder')
+			->with('user3')
+			->willReturn($userFolder3);
+		$this->rootFolder->expects($this->at(2))
+			->method('getUserFolder')
+			->with('user4')
+			->willReturn($userFolder4);
+		$this->rootFolder->expects($this->at(3))
+			->method('getUserFolder')
+			->with('user5')
+			->willReturn($userFolder5);
+		$this->rootFolder->expects($this->at(4))
+			->method('getUserFolder')
+			->with('user6')
+			->willReturn($userFolder6);
 
 		$node3 = $this->createMock(Folder::class);
 		$node3->expects($this->once())
 			->method('getMTime')
-			->willReturn(150);
-
+			->willReturn(2000);
 		$node4 = $this->createMock(Folder::class);
 		$node4->expects($this->once())
 			->method('getMTime')
+			->willReturn(1336);
+		$node5 = $this->createMock(Folder::class);
+		$node5->expects($this->once())
+			->method('getMTime')
+			->willReturn(1335);
+		$node6 = $this->createMock(Folder::class);
+		$node6->expects($this->once())
+			->method('getMTime')
 			->willReturn(200);
 
-		$this->rootFolder->expects($this->at(0))
-			->method('getById')
-			->with(100001)
-			->willReturn([$node1]);
-		$this->rootFolder->expects($this->at(1))
-			->method('getById')
-			->with(100002)
-			->willReturn([]);
-		$this->rootFolder->expects($this->at(2))
+		$userFolder3->expects($this->once())
 			->method('getById')
 			->with(100003)
 			->willReturn([$node3]);
-		$this->rootFolder->expects($this->at(3))
+		$userFolder4->expects($this->once())
 			->method('getById')
 			->with(100004)
 			->willReturn([$node4]);
+		$userFolder5->expects($this->once())
+			->method('getById')
+			->with(100005)
+			->willReturn([$node5]);
+		$userFolder6->expects($this->once())
+			->method('getById')
+			->with(100006)
+			->willReturn([$node6]);
 
-		$exception = new \Exception();
 		$this->fileService->expects($this->at(0))
 			->method('revertChanges')
-			->with($node3)
-			->willThrowException($exception);
-
+			->with($node4)
+			->willThrowException(new \Exception('Exception while reverting changes'));
 		$this->fileService->expects($this->at(1))
 			->method('revertChanges')
-			->with($node4);
+			->with($node5);
+		$this->fileService->expects($this->at(2))
+			->method('revertChanges')
+			->with($node6);
 
 		$this->metaDataStorage->expects($this->at(0))
 			->method('deleteIntermediateFile')
-			->with(100004);
+			->with(100005)
+			->willThrowException(new \Exception('Exception while deleting intermediate file'));
+		$this->metaDataStorage->expects($this->at(1))
+			->method('deleteIntermediateFile')
+			->with(100006);
 
-		$this->logger->expects($this->once())
-			->method('logException')
-			->with($exception, ['app' => 'end_to_end_encryption']);
-
-		$this->lockMapper->expects($this->at(1))
+		$this->lockMapper->expects($this->once())
 			->method('delete')
-			->with($locks[3]);
+			->with($locks[5]);
 
-		$this->rollbackService->rollbackOlderThan(1337, 4);
+		$this->logger->expects($this->exactly(3))
+			->method('logException');
+
+		$this->rollbackService->rollbackOlderThan(1337, 10);
 	}
 
 	private function getSampleLocks(): array {
@@ -147,11 +221,19 @@ class RollbackServiceTest extends TestCase {
 		$lock4 = new Lock();
 		$lock4->setId(100004);
 
+		$lock5 = new Lock();
+		$lock5->setId(100005);
+
+		$lock6 = new Lock();
+		$lock6->setId(100006);
+
 		return [
 			$lock1,
 			$lock2,
 			$lock3,
 			$lock4,
+			$lock5,
+			$lock6,
 		];
 	}
 }
