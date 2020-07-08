@@ -467,6 +467,13 @@ class RequestHandlerController extends OCSController {
 			throw new OCSNotFoundException($this->l->t($e->getMessage()));
 		}
 
+		try {
+			$this->keyStorage->deleteMetaData($id);
+		} catch (Exception $e) {
+			$error = 'Internal server error: ' . $e->getMessage();
+			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
+		}
+
 		return new DataResponse();
 	}
 
