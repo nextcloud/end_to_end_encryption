@@ -192,11 +192,11 @@ class RollbackServiceTest extends TestCase {
 
 		$this->metaDataStorage->expects($this->at(0))
 			->method('deleteIntermediateFile')
-			->with(100005)
+			->with('user5', 100005)
 			->willThrowException(new \Exception('Exception while deleting intermediate file'));
 		$this->metaDataStorage->expects($this->at(1))
 			->method('deleteIntermediateFile')
-			->with(100006);
+			->with('user6', 100006);
 
 		$this->lockMapper->expects($this->once())
 			->method('delete')

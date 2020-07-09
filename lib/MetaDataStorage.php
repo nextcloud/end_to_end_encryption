@@ -69,9 +69,9 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function getMetaData(int $id): string {
+	public function getMetaData(string $userId, int $id): string {
 		$this->verifyFolderStructure();
-		$this->verifyOwner($id);
+		$this->verifyOwner($userId, $id);
 
 		$folderName = $this->getFolderNameForFileId($id);
 		$folder = $this->appData->getFolder($folderName);
@@ -84,9 +84,9 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function setMetaDataIntoIntermediateFile(int $id, string $metaData): void {
+	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData): void {
 		$this->verifyFolderStructure();
-		$this->verifyOwner($id);
+		$this->verifyOwner($userId, $id);
 
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
@@ -111,10 +111,10 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function updateMetaDataIntoIntermediateFile(int $id, string $fileKey): void {
+	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey): void {
 		// ToDo check signature for race condition
 		$this->verifyFolderStructure();
-		$this->verifyOwner($id);
+		$this->verifyOwner($userId, $id);
 
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
@@ -140,9 +140,9 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function deleteMetaData(int $id): void {
+	public function deleteMetaData(string $userId, int $id): void {
 		$this->verifyFolderStructure();
-		$this->verifyOwner($id);
+		$this->verifyOwner($userId, $id);
 
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
@@ -157,9 +157,9 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function saveIntermediateFile(int $id): void {
+	public function saveIntermediateFile(string $userId, int $id): void {
 		$this->verifyFolderStructure();
-		$this->verifyOwner($id);
+		$this->verifyOwner($userId, $id);
 
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
@@ -186,9 +186,9 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function deleteIntermediateFile(int $id): void {
+	public function deleteIntermediateFile(string $userId, int $id): void {
 		$this->verifyFolderStructure();
-		$this->verifyOwner($id);
+		$this->verifyOwner($userId, $id);
 
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
@@ -216,25 +216,20 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * Verifies that user has access to file-id
 	 *
+	 * @param string $userId
 	 * @param int $id
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
-	protected function verifyOwner(int $id): void {
-		$nodes = $this->rootFolder->getById($id);
-		if (!isset($nodes[0])) {
-			throw new NotFoundException('No file with ID ' . $id);
-		}
-
-		$owner = $nodes[0]->getOwner();
+	protected function verifyOwner(string $userId, int $id): void {
 		try {
-			$ownerRoot = $this->rootFolder->getUserFolder($owner->getUID());
+			$userFolder = $this->rootFolder->getUserFolder($userId);
 		} catch (NoUserException $ex) {
-			throw new NotFoundException('No user-root for owner of ID ' . $id);
+			throw new NotFoundException('No user-root for '. $userId);
 		}
 
-		$ownerNodes = $ownerRoot->getById($id);
+		$ownerNodes = $userFolder->getById($id);
 		if (!isset($ownerNodes[0])) {
 			throw new NotFoundException('No file for owner with ID ' . $id);
 		}

@@ -328,7 +328,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function getMetaData(int $id): DataResponse {
 		try {
-			$metaData = $this->metaDataStorage->getMetaData($id);
+			$metaData = $this->metaDataStorage->getMetaData($this->userId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (Exception $e) {
@@ -353,7 +353,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		try {
-			$this->metaDataStorage->setMetaDataIntoIntermediateFile($id, $metaData);
+			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
@@ -388,7 +388,7 @@ class RequestHandlerController extends OCSController {
 		}
 
 		try {
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($id, $metaData);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l->t("Metadata-file doesn\'t exist"));
 		} catch (NotFoundException $e) {
@@ -416,7 +416,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		try {
-			$this->metaDataStorage->deleteMetaData($id);
+			$this->metaDataStorage->deleteMetaData($this->userId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
@@ -490,7 +490,7 @@ class RequestHandlerController extends OCSController {
 		}
 
 		try {
-			$this->keyStorage->deleteMetaData($id);
+			$this->metaDataStorage->deleteMetaData($this->userId, $id);
 		} catch (Exception $e) {
 			$error = 'Internal server error: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
@@ -541,7 +541,7 @@ class RequestHandlerController extends OCSController {
 		}
 
 		$this->fileService->finalizeChanges($nodes[0]);
-		$this->metaDataStorage->saveIntermediateFile($id);
+		$this->metaDataStorage->saveIntermediateFile($this->userId, $id);
 
 		try {
 			$this->lockManager->unlockFile($id, $token);

@@ -37,17 +37,19 @@ interface IMetaDataStorage {
 	/**
 	 * get meta data file
 	 *
+	 * @param string $userId
 	 * @param int $id
 	 * @return string
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
-	public function getMetaData(int $id): string;
+	public function getMetaData(string $userId, int $id): string;
 
 	/**
 	 * set meta data file into intermediate file
 	 *
+	 * @param string $userId
 	 * @param int $id file id
 	 * @param string $metaData
 	 *
@@ -55,11 +57,12 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MetaDataExistsException
 	 */
-	public function setMetaDataIntoIntermediateFile(int $id, string $metaData): void;
+	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData): void;
 
 	/**
 	 * update meta data file into intermediate file
 	 *
+	 * @param string $userId
 	 * @param int $id file id
 	 * @param string $fileKey
 	 *
@@ -67,36 +70,39 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MissingMetaDataException
 	 */
-	public function updateMetaDataIntoIntermediateFile(int $id, string $fileKey): void;
+	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey): void;
 
 	/**
 	 * Moves intermediate metadata file to final file
 	 *
+	 * @param string $userId
 	 * @param int $id file id
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 * @throws MissingMetaDataException
 	 */
-	public function saveIntermediateFile(int $id): void;
+	public function saveIntermediateFile(string $userId, int $id): void;
 
 	/**
 	 * Delete the previously set intermediate file
 	 *
+	 * @param string $userId
 	 * @param int $id file id
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
-	public function deleteIntermediateFile(int $id): void;
+	public function deleteIntermediateFile(string $userId, int $id): void;
 
 	/**
 	 * delete meta data file (and backup)
 	 *
+	 * @param string $userId
 	 * @param int $id
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
-	public function deleteMetaData(int $id): void;
+	public function deleteMetaData(string $userId, int $id): void;
 }
