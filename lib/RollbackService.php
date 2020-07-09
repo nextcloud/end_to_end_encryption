@@ -104,8 +104,9 @@ class RollbackService {
 				continue;
 			}
 
+			$userId = $mountPoints[0]->getUser()->getUID();
 			try {
-				$userFolder = $this->rootFolder->getUserFolder($mountPoints[0]->getUser()->getUID());
+				$userFolder = $this->rootFolder->getUserFolder($userId);
 			} catch (\Exception $ex) {
 				$this->logger->logException($ex, [
 					'app' => Application::APP_ID,
@@ -127,7 +128,7 @@ class RollbackService {
 
 			try {
 				$this->fileService->revertChanges($node);
-				$this->metaDataStorage->deleteIntermediateFile($lock->getId());
+				$this->metaDataStorage->deleteIntermediateFile($userId, $lock->getId());
 			} catch (\Exception $ex) {
 				$this->logger->logException($ex, [
 					'app' => Application::APP_ID,

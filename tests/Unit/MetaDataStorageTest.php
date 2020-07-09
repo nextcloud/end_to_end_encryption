@@ -34,7 +34,6 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\Files\SimpleFS\ISimpleFolder;
-use OCP\IUser;
 use Test\TestCase;
 
 class MetaDataStorageTest extends TestCase {
@@ -71,7 +70,7 @@ class MetaDataStorageTest extends TestCase {
 
 		$metaDataStorage->expects($this->once())
 			->method('verifyOwner')
-			->with(42);
+			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
 
@@ -91,7 +90,7 @@ class MetaDataStorageTest extends TestCase {
 			->with('/meta-data/42')
 			->willReturn($metaDataFolder);
 
-		$actual = $metaDataStorage->getMetaData(42);
+		$actual = $metaDataStorage->getMetaData('userId', 42);
 		$this->assertEquals('metadata-file-content', $actual);
 	}
 
@@ -118,7 +117,7 @@ class MetaDataStorageTest extends TestCase {
 
 		$metaDataStorage->expects($this->once())
 			->method('verifyOwner')
-			->with(42);
+			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
 
@@ -177,7 +176,7 @@ class MetaDataStorageTest extends TestCase {
 				->willReturn($node);
 		}
 
-		$metaDataStorage->setMetaDataIntoIntermediateFile(42, 'metadata-file-content');
+		$metaDataStorage->setMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content');
 	}
 
 	public function setMetaDataIntoIntermediateFileDataProvider(): array {
@@ -212,7 +211,7 @@ class MetaDataStorageTest extends TestCase {
 
 		$metaDataStorage->expects($this->once())
 			->method('verifyOwner')
-			->with(42);
+			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
 
@@ -263,7 +262,7 @@ class MetaDataStorageTest extends TestCase {
 			$this->expectExceptionMessage('Meta-data file missing');
 		}
 
-		$metaDataStorage->updateMetaDataIntoIntermediateFile(42, 'metadata-file-content');
+		$metaDataStorage->updateMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content');
 	}
 
 	public function updateMetaDataIntoIntermediateFileDataProvider(): array {
@@ -294,7 +293,7 @@ class MetaDataStorageTest extends TestCase {
 
 		$metaDataStorage->expects($this->once())
 			->method('verifyOwner')
-			->with(42);
+			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
 
@@ -314,7 +313,7 @@ class MetaDataStorageTest extends TestCase {
 				->willThrowException(new NotFoundException());
 		}
 
-		$metaDataStorage->deleteMetaData(42);
+		$metaDataStorage->deleteMetaData('userId', 42);
 	}
 
 	public function deleteMetaDataDataProvider(): array {
@@ -346,7 +345,7 @@ class MetaDataStorageTest extends TestCase {
 
 		$metaDataStorage->expects($this->once())
 			->method('verifyOwner')
-			->with(42);
+			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
 
@@ -407,7 +406,7 @@ class MetaDataStorageTest extends TestCase {
 			$this->expectExceptionMessage('Intermediate meta-data file missing');
 		}
 
-		$metaDataStorage->saveIntermediateFile(42);
+		$metaDataStorage->saveIntermediateFile('userId', 42);
 	}
 
 	public function saveIntermediateFileDataProvider(): array {
@@ -439,7 +438,7 @@ class MetaDataStorageTest extends TestCase {
 
 		$metaDataStorage->expects($this->once())
 			->method('verifyOwner')
-			->with(42);
+			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
 
@@ -467,7 +466,7 @@ class MetaDataStorageTest extends TestCase {
 			}
 		}
 
-		$metaDataStorage->deleteIntermediateFile(42);
+		$metaDataStorage->deleteIntermediateFile('userId', 42);
 	}
 
 	public function deleteIntermediateFileDataProvider(): array {
@@ -481,58 +480,35 @@ class MetaDataStorageTest extends TestCase {
 	/**
 	 * @dataProvider verifyOwnerDataProvider
 	 *
-	 * @param bool $emptyRootFolder
 	 * @param bool $noUserException
 	 * @param bool $emptyOwnerRoot
 	 * @param bool $expectsNotFoundEx
 	 * @param string|null $expectedMessage
 	 */
-	public function testVerifyOwner(bool $emptyRootFolder, bool $noUserException, bool $emptyOwnerRoot, bool $expectsNotFoundEx, ?string $expectedMessage): void {
-		if ($emptyRootFolder) {
-			$this->rootFolder->expects($this->at(0))
-				->method('getById')
-				->with(42)
-				->willReturn([]);
+	public function testVerifyOwner(bool $noUserException, bool $emptyOwnerRoot, bool $expectsNotFoundEx, ?string $expectedMessage): void {
+		if ($noUserException) {
+			$this->rootFolder->expects($this->once())
+				->method('getUserFolder')
+				->with('userId')
+				->willThrowException(new NoUserException());
 		} else {
-			$user = $this->createMock(IUser::class);
-			$user->expects($this->once())
-				->method('getUID')
-				->willReturn('userId');
+			$ownerRoot = $this->createMock(Folder::class);
+			$this->rootFolder->expects($this->once())
+				->method('getUserFolder')
+				->with('userId')
+				->willReturn($ownerRoot);
 
-			$node = $this->createMock(Node::class);
-			$node->expects($this->once())
-				->method('getOwner')
-				->willReturn($user);
-
-			$this->rootFolder->expects($this->at(0))
-				->method('getById')
-				->with(42)
-				->willReturn([$node]);
-
-			if ($noUserException) {
-				$this->rootFolder->expects($this->at(1))
-					->method('getUserFolder')
-					->with('userId')
-					->willThrowException(new NoUserException());
+			if ($emptyOwnerRoot) {
+				$ownerRoot->expects($this->at(0))
+					->method('getById')
+					->with(42)
+					->willReturn([]);
 			} else {
-				$ownerRoot = $this->createMock(Folder::class);
-				$this->rootFolder->expects($this->at(1))
-					->method('getUserFolder')
-					->with('userId')
-					->willReturn($ownerRoot);
-
-				if ($emptyOwnerRoot) {
-					$ownerRoot->expects($this->at(0))
-						->method('getById')
-						->with(42)
-						->willReturn([]);
-				} else {
-					$ownerNode = $this->createMock(Node::class);
-					$ownerRoot->expects($this->at(0))
-						->method('getById')
-						->with(42)
-						->willReturn([$ownerNode]);
-				}
+				$ownerNode = $this->createMock(Node::class);
+				$ownerRoot->expects($this->at(0))
+					->method('getById')
+					->with(42)
+					->willReturn([$ownerNode]);
 			}
 		}
 
@@ -541,15 +517,14 @@ class MetaDataStorageTest extends TestCase {
 			$this->expectExceptionMessage($expectedMessage);
 		}
 
-		self::invokePrivate($this->metaDataStorage, 'verifyOwner', [42]);
+		self::invokePrivate($this->metaDataStorage, 'verifyOwner', ['userId', 42]);
 	}
 
 	public function verifyOwnerDataProvider(): array {
 		return [
-			[true,  false, false, true, 'No file with ID 42'],
-			[false, true,  false, true, 'No user-root for owner of ID 42'],
-			[false, false, true,  true, 'No file for owner with ID 42'],
-			[false, false, false, false, null],
+			[true,  false, true, 'No user-root for userId'],
+			[false, true,  true, 'No file for owner with ID 42'],
+			[false, false, false, null],
 		];
 	}
 
