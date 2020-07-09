@@ -128,6 +128,12 @@ class RedirectRequestPlugin extends APlugin {
 		$subRequest->setHeader('Destination', $path);
 
 		$this->server->invokeMethod($subRequest, $response);
+
+		// Do not return response code for CREATED
+		if ($response->getStatus() === 201) {
+			$response->setStatus(204);
+		}
+
 		// Return false to break the event chain
 		return false;
 	}
