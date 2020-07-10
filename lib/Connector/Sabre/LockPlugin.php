@@ -70,7 +70,13 @@ class LockPlugin extends APlugin {
 	 */
 	public function initialize(Server $server) {
 		parent::initialize($server);
-		$this->server->on('beforeMethod:*', [$this, 'checkLock'], 200);
+
+		$this->server->on('beforeMethod:DELETE', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:MKCOL', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:PUT', [$this, 'checkLock'], 200);
+
+		$this->server->on('beforeMethod:COPY', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:MOVE', [$this, 'checkLock'], 200);
 	}
 
 	/**
@@ -137,15 +143,6 @@ class LockPlugin extends APlugin {
 		}
 
 		switch ($method) {
-			case 'GET':
-				$this->preventReadAccessToLockedFile($node);
-				break;
-
-			case 'PROPFIND':
-			case 'REPORT':
-			case 'HEAD':
-				break;
-
 			case 'COPY':
 			case 'MOVE':
 				$node instanceof FutureFile || $this->verifyTokenOnWriteAccess($node, $e2eToken);
@@ -155,19 +152,6 @@ class LockPlugin extends APlugin {
 			default:
 				$this->verifyTokenOnWriteAccess($node, $e2eToken);
 				break;
-		}
-	}
-
-	/**
-	 * Make sure that a user is not downloading a locked file
-	 * (unless they themselves own the lock)
-	 *
-	 * @param INode $node
-	 * @throws FileLocked
-	 */
-	protected function preventReadAccessToLockedFile(INode $node): void {
-		if ($this->lockManager->isLocked($node->getId(), '')) {
-			throw new FileLocked('File is locked', Http::STATUS_FORBIDDEN);
 		}
 	}
 

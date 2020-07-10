@@ -77,10 +77,10 @@ class RedirectRequestPlugin extends APlugin {
 
 		$this->server->on('method:DELETE', [$this, 'httpDelete'], 95);
 
-		$this->server->on('method:GET', [$this, 'httpGetHead'], 95);
-		$this->server->on('method:HEAD', [$this, 'httpGetHead'], 95);
+		$this->server->on('method:GET', [$this, 'httpGetHead'], 5);
+		$this->server->on('method:HEAD', [$this, 'httpGetHead'], 5);
 
-		$this->server->on('propFind', [$this, 'propFind'], 5);
+		$this->server->on('propFind', [$this, 'propFind'], 500);
 	}
 
 	/**
@@ -161,12 +161,11 @@ class RedirectRequestPlugin extends APlugin {
 	 * @param RequestInterface $request
 	 */
 	public function httpGetHead(RequestInterface $request): void {
-		try {
-			// Try fetching the node. If it exists, we do nothing
-			$this->getNode($request->getPath(), $request->getMethod());
+		if ($this->server->tree->nodeExists($request->getPath())) {
 			return;
-		} catch (NotFound $ex) {
-			// In case the node does not exist, we try to fetch $uri.e2e-to-delete
+		}
+
+		if ($this->server->tree->nodeExists($request->getPath() . self::DELETE_SUFFIX)) {
 			$url = $request->getUrl();
 			$url = $this->addFilenameSuffixToUrl($url, self::DELETE_SUFFIX);
 			$request->setUrl($url);
@@ -194,7 +193,7 @@ class RedirectRequestPlugin extends APlugin {
 		}
 		if (substr($propFind->getPath(), strlen(self::DELETE_SUFFIX) * -1) === self::DELETE_SUFFIX) {
 			$propFind->setPath(substr($propFind->getPath(), 0, strlen($propFind->getPath()) - strlen(self::DELETE_SUFFIX)));
-			return false;
+			return true;
 		}
 
 		return true;

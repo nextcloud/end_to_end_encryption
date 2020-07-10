@@ -63,17 +63,17 @@ class PropFindPlugin extends APlugin {
 	 */
 	public function initialize(Server $server) {
 		parent::initialize($server);
+
 		$this->server->on('propFind', [$this, 'updateProperty']);
 	}
 
 	/**
-	 * remove permissions of end-to-end encrypted files for unsupported clients
+	 * Remove permissions of end-to-end encrypted files for unsupported clients
 	 *
 	 * @param PropFind $propFind
 	 * @param INode $node
 	 */
 	public function updateProperty(PropFind $propFind, INode $node): void {
-
 		// only apply the plugin to files/directory, not to contacts or calendars
 		if (!$this->isFile($node->getName(), $node)) {
 			return;
@@ -81,7 +81,7 @@ class PropFindPlugin extends APlugin {
 
 		$userAgent = $this->request->getHeader('USER_AGENT');
 		$supportE2EEncryption = $this->userAgentManager->supportsEndToEndEncryption($userAgent);
-		if (is_a($node, Directory::class) && !$supportE2EEncryption) {
+		if (!$supportE2EEncryption && $node instanceof Directory) {
 			// encrypted files have only read permissions
 			$isEncrypted = $propFind->get('{http://nextcloud.org/ns}is-encrypted');
 			if ($isEncrypted === '1') {
