@@ -71,13 +71,13 @@ class RedirectRequestPluginTest extends TestCase {
 			->with('method:DELETE', [$this->plugin, 'httpDelete'], 95);
 		$server->expects($this->at(5))
 			->method('on')
-			->with('method:GET', [$this->plugin, 'httpGetHead'], 95);
+			->with('method:GET', [$this->plugin, 'httpGetHead'], 5);
 		$server->expects($this->at(6))
 			->method('on')
-			->with('method:HEAD', [$this->plugin, 'httpGetHead'], 95);
+			->with('method:HEAD', [$this->plugin, 'httpGetHead'], 5);
 		$server->expects($this->at(7))
 			->method('on')
-			->with('propFind', [$this->plugin, 'propFind'], 5);
+			->with('propFind', [$this->plugin, 'propFind'], 500);
 
 		$this->plugin->initialize($server);
 	}

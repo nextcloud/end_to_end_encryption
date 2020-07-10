@@ -87,10 +87,6 @@ abstract class APlugin extends ServerPlugin {
 	 * @throws NotFound
 	 */
 	protected function getNode(string $path, string $method): INode {
-		if ($method === 'GET' || $method === 'PROPFIND' || $method === 'HEAD') {
-			return $this->server->tree->getNodeForPath($path);
-		}
-
 		return $this->getNodeForPath($path);
 	}
 

@@ -76,7 +76,19 @@ class LockPluginTest extends TestCase {
 
 		$server->expects($this->at(0))
 			->method('on')
-			->with('beforeMethod:*', [$this->plugin, 'checkLock'], 200);
+			->with('beforeMethod:DELETE', [$this->plugin, 'checkLock'], 200);
+		$server->expects($this->at(1))
+			->method('on')
+			->with('beforeMethod:MKCOL', [$this->plugin, 'checkLock'], 200);
+		$server->expects($this->at(2))
+			->method('on')
+			->with('beforeMethod:PUT', [$this->plugin, 'checkLock'], 200);
+		$server->expects($this->at(3))
+			->method('on')
+			->with('beforeMethod:COPY', [$this->plugin, 'checkLock'], 200);
+		$server->expects($this->at(4))
+			->method('on')
+			->with('beforeMethod:MOVE', [$this->plugin, 'checkLock'], 200);
 
 		$this->plugin->initialize($server);
 	}
@@ -250,175 +262,6 @@ class LockPluginTest extends TestCase {
 			['POST'],
 			['PROPPATCH'],
 			['DELETE'],
-		];
-	}
-
-	/**
-	 * @dataProvider checkLockForGetDataProvider
-	 *
-	 * @param bool $isLocked
-	 * @param bool $expectException
-	 */
-	public function testCheckLockForGet(bool $isLocked, bool $expectException): void {
-		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
-			->setConstructorArgs([
-				$this->rootFolder,
-				$this->userSession,
-				$this->lockManager,
-				$this->userAgentManager
-			])
-			->getMock();
-
-		$method = 'GET';
-		$path = '/path/123';
-		$url = 'url://path/123';
-		$node = $this->createMock(File::class);
-		$userAgentString = 'User-Agent-String';
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/node/path/123');
-		$node->expects($this->once())
-			->method('getId')
-			->willReturn(42);
-
-		$plugin->expects($this->once())
-			->method('isFile')
-			->with($url, $node)
-			->willReturn(true);
-
-		$plugin->expects($this->once())
-			->method('getNode')
-			->with($path, $method)
-			->willReturn($node);
-
-		$plugin->expects($this->once())
-			->method('isE2EEnabledPath')
-			->with('/node/path/123')
-			->willReturn(true);
-
-		$plugin->expects($this->once())
-			->method('isE2EEnabledUserAgent')
-			->with($userAgentString)
-			->willReturn(true);
-
-		$request = $this->createMock(RequestInterface::class);
-		$request->expects($this->once())
-			->method('getPath')
-			->willReturn($path);
-		$request->expects($this->exactly(2))
-			->method('getMethod')
-			->willReturn($method);
-		$request->expects($this->once())
-			->method('getAbsoluteUrl')
-			->willReturn($url);
-		$request->expects($this->once())
-			->method('hasHeader')
-			->with('e2e-token')
-			->willReturn(true);
-		$request->method('getHeader')
-			->willReturnMap([
-				['user-agent', $userAgentString],
-				['e2e-token', null],
-			]);
-
-		$this->lockManager->expects($this->once())
-			->method('isLocked')
-			->with(42, '')
-			->willReturn($isLocked);
-
-		if ($expectException) {
-			$this->expectException(FileLocked::class);
-			$this->expectExceptionMessage('File is locked');
-		}
-
-		$plugin->checkLock($request);
-	}
-
-	public function checkLockForGetDataProvider(): array {
-		return [
-			[true, true],
-			[false, false],
-		];
-	}
-
-	/**
-	 * @dataProvider checkLockForPropFindReportHeadDataProvider
-	 *
-	 * @param string $method
-	 */
-	public function testCheckLockForPropFindReportHead(string $method): void {
-		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
-			->setConstructorArgs([
-				$this->rootFolder,
-				$this->userSession,
-				$this->lockManager,
-				$this->userAgentManager
-			])
-			->getMock();
-
-		$path = '/path/123';
-		$url = 'url://path/123';
-		$node = $this->createMock(File::class);
-		$userAgentString = 'User-Agent-String';
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/node/path/123');
-		$node->expects($this->never())
-			->method('getId');
-
-		$plugin->expects($this->once())
-			->method('isFile')
-			->with($url, $node)
-			->willReturn(true);
-
-		$plugin->expects($this->once())
-			->method('getNode')
-			->with($path, $method)
-			->willReturn($node);
-
-		$plugin->expects($this->once())
-			->method('isE2EEnabledPath')
-			->with('/node/path/123')
-			->willReturn(true);
-
-		$plugin->expects($this->once())
-			->method('isE2EEnabledUserAgent')
-			->with($userAgentString)
-			->willReturn(true);
-
-		$request = $this->createMock(RequestInterface::class);
-		$request->expects($this->once())
-			->method('getPath')
-			->willReturn($path);
-		$request->expects($this->exactly(2))
-			->method('getMethod')
-			->willReturn($method);
-		$request->expects($this->once())
-			->method('getAbsoluteUrl')
-			->willReturn($url);
-		$request->expects($this->once())
-			->method('hasHeader')
-			->with('e2e-token')
-			->willReturn(true);
-		$request->method('getHeader')
-			->willReturnMap([
-				['user-agent', $userAgentString],
-				['e2e-token', null],
-			]);
-
-		$this->lockManager->expects($this->never())
-			->method('isLocked');
-
-		$plugin->checkLock($request);
-	}
-
-	public function checkLockForPropFindReportHeadDataProvider(): array {
-		return [
-			['PROPFIND'],
-			['REPORT'],
-			['HEAD'],
 		];
 	}
 
