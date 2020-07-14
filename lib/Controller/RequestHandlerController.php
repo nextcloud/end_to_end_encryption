@@ -29,13 +29,16 @@ namespace OCA\EndToEndEncryption\Controller;
 
 use BadMethodCallException;
 use Exception;
+use OC\Files\Node\Folder;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
-use OCA\EndToEndEncryption\KeyStorage;
+use OCA\EndToEndEncryption\FileService;
+use OCA\EndToEndEncryption\IKeyStorage;
+use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
@@ -45,6 +48,7 @@ use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\ForbiddenException;
+use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
@@ -65,14 +69,23 @@ class RequestHandlerController extends OCSController {
 	/** @var  string */
 	private $userId;
 
-	/** @var KeyStorage */
+	/** @var IKeyStorage */
 	private $keyStorage;
+
+	/** @var IMetaDataStorage */
+	private $metaDataStorage;
 
 	/** @var SignatureHandler */
 	private $signatureHandler;
 
 	/** @var EncryptionManager */
 	private $manager;
+
+	/** @var IRootFolder */
+	private $rootFolder;
+
+	/** @var FileService */
+	private $fileService;
 
 	/** @var ILogger */
 	private $logger;
@@ -89,28 +102,37 @@ class RequestHandlerController extends OCSController {
 	 * @param string $AppName
 	 * @param IRequest $request
 	 * @param string $UserId
-	 * @param KeyStorage $keyStorage
+	 * @param IKeyStorage $keyStorage
+	 * @param IMetaDataStorage $metaDataStorage
 	 * @param SignatureHandler $signatureHandler
 	 * @param EncryptionManager $manager
 	 * @param LockManager $lockManager
+	 * @param IRootFolder $rootFolder
+	 * @param FileService $fileService
 	 * @param ILogger $logger
 	 * @param IL10N $l
 	 */
 	public function __construct($AppName,
 								IRequest $request,
 								$UserId,
-								KeyStorage $keyStorage,
+								IKeyStorage $keyStorage,
+								IMetaDataStorage $metaDataStorage,
 								SignatureHandler $signatureHandler,
 								EncryptionManager $manager,
 								LockManager $lockManager,
+								IRootFolder $rootFolder,
+								FileService $fileService,
 								ILogger $logger,
 								IL10N $l
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $UserId;
 		$this->keyStorage = $keyStorage;
+		$this->metaDataStorage = $metaDataStorage;
 		$this->signatureHandler = $signatureHandler;
 		$this->manager = $manager;
+		$this->rootFolder = $rootFolder;
+		$this->fileService = $fileService;
 		$this->logger = $logger;
 		$this->lockManager = $lockManager;
 		$this->l = $l;
@@ -306,7 +328,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function getMetaData(int $id): DataResponse {
 		try {
-			$metaData = $this->keyStorage->getMetaData($id);
+			$metaData = $this->metaDataStorage->getMetaData($this->userId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (Exception $e) {
@@ -331,7 +353,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		try {
-			$this->keyStorage->setMetaData($id, $metaData);
+			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
@@ -366,7 +388,7 @@ class RequestHandlerController extends OCSController {
 		}
 
 		try {
-			$this->keyStorage->updateMetaData($id, $metaData);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l->t("Metadata-file doesn\'t exist"));
 		} catch (NotFoundException $e) {
@@ -394,7 +416,7 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		try {
-			$this->keyStorage->deleteMetaData($id);
+			$this->metaDataStorage->deleteMetaData($this->userId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
@@ -468,7 +490,7 @@ class RequestHandlerController extends OCSController {
 		}
 
 		try {
-			$this->keyStorage->deleteMetaData($id);
+			$this->metaDataStorage->deleteMetaData($this->userId, $id);
 		} catch (Exception $e) {
 			$error = 'Internal server error: ' . $e->getMessage();
 			$this->logger->error($error, ['app' => 'end_to_end_encryption']);
@@ -511,6 +533,16 @@ class RequestHandlerController extends OCSController {
 	 */
 	public function unlockFolder(int $id): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
+
+		$userView = $this->rootFolder->getUserFolder($this->userId);
+		$nodes = $userView->getById($id);
+		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+			throw new OCSForbiddenException($this->l->t('You are not allowed to remove the lock'));
+		}
+
+		$this->fileService->finalizeChanges($nodes[0]);
+		$this->metaDataStorage->saveIntermediateFile($this->userId, $id);
+		$this->metaDataStorage->deleteIntermediateFile($this->userId, $id);
 
 		try {
 			$this->lockManager->unlockFile($id, $token);

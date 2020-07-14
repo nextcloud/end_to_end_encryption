@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
+ * @copyright Copyright (c) 2020 Georg Ehrke <georg-nextcloud@ehrke.email>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -21,31 +21,28 @@ declare(strict_types=1);
  *
  */
 
+namespace OCA\EndToEndEncryption\Tests\Unit;
 
-namespace OCA\EndToEndEncryption;
+use OCA\EndToEndEncryption\Capabilities;
+use Test\TestCase;
 
-use OCP\IUser;
+class CapabilitiesTest extends TestCase {
 
-class UserManager {
+	/** @var Capabilities */
+	private $capabilities;
 
-	/** @var IKeyStorage */
-	private $keyStorage;
+	protected function setUp(): void {
+		parent::setUp();
 
-	/**
-	 * UserManager constructor.
-	 *
-	 * @param IKeyStorage $keyStorage
-	 */
-	public function __construct(IKeyStorage $keyStorage) {
-		$this->keyStorage = $keyStorage;
+		$this->capabilities = new Capabilities();
 	}
 
-	/**
-	 * delete all user keys if a user was deleted
-	 *
-	 * @param IUser $user
-	 */
-	public function deleteUserKeys(IUser $user): void {
-		$this->keyStorage->deleteUserKeys($user);
+	public function testGetCapabilities() {
+		$this->assertEquals([
+			'end-to-end-encryption' => [
+				'enabled' => true,
+				'api-version' => '1.0'
+			]
+		], $this->capabilities->getCapabilities());
 	}
 }

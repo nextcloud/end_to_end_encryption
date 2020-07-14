@@ -26,7 +26,12 @@ namespace OCA\EndToEndEncryption\AppInfo;
 
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
+use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
 use OCA\EndToEndEncryption\EncryptionManager;
+use OCA\EndToEndEncryption\IKeyStorage;
+use OCA\EndToEndEncryption\IMetaDataStorage;
+use OCA\EndToEndEncryption\KeyStorage;
+use OCA\EndToEndEncryption\MetaDataStorage;
 use OCA\EndToEndEncryption\UserManager;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
@@ -46,6 +51,9 @@ class Application extends App {
 		parent::__construct(self::APP_ID, $urlParams);
 
 		$container = $this->getContainer();
+		$container->registerAlias(IKeyStorage::class, KeyStorage::class);
+		$container->registerAlias(IMetaDataStorage::class, MetaDataStorage::class);
+
 		$container->registerCapability(Capabilities::class);
 	}
 
@@ -60,6 +68,7 @@ class Application extends App {
 				// because info.xml plugins are loaded, after the
 				// beforeMethod:* hook has already been emitted.
 				$server->addPlugin($this->getContainer()->query(LockPlugin::class));
+				$server->addPlugin($this->getContainer()->query(RedirectRequestPlugin::class));
 			}
 		});
 
