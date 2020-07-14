@@ -32,6 +32,7 @@ use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\KeyStorage;
 use OCA\EndToEndEncryption\MetaDataStorage;
+use OCA\EndToEndEncryption\Middleware\UserAgentCheckMiddleware;
 use OCA\EndToEndEncryption\UserManager;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
@@ -55,6 +56,7 @@ class Application extends App {
 		$container->registerAlias(IMetaDataStorage::class, MetaDataStorage::class);
 
 		$container->registerCapability(Capabilities::class);
+		$container->registerMiddleWare(UserAgentCheckMiddleware::class);
 	}
 
 	public function registerEvents():void {
