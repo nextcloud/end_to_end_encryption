@@ -66,6 +66,54 @@ class LockMapperTest extends TestCase {
 		$this->assertEquals($lock2->getToken(), $actualLock->getToken());
 	}
 
+	public function testFindAllLocksOlderThan(): void {
+		$lock1 = new Lock();
+		$lock1->setId(1);
+		$lock1->setTimestamp(123000);
+		$lock1->setToken('token123');
+
+		$lock2 = new Lock();
+		$lock2->setId(2);
+		$lock2->setTimestamp(123010);
+		$lock2->setToken('token456');
+
+		$lock3 = new Lock();
+		$lock3->setId(3);
+		$lock3->setTimestamp(456000);
+		$lock3->setToken('token789');
+
+		$lock4 = new Lock();
+		$lock4->setId(4);
+		$lock4->setTimestamp(456050);
+		$lock4->setToken('token123456');
+
+		$this->lockMapper->insert($lock1);
+		$this->lockMapper->insert($lock2);
+		$this->lockMapper->insert($lock3);
+		$this->lockMapper->insert($lock4);
+
+		$lockSet1 = $this->lockMapper->findAllLocksOlderThan(300000);
+
+		$this->assertEquals($lock1->getId(), $lockSet1[0]->getId());
+		$this->assertEquals($lock1->getTimestamp(), $lockSet1[0]->getTimestamp());
+		$this->assertEquals($lock1->getToken(), $lockSet1[0]->getToken());
+		$this->assertEquals($lock2->getId(), $lockSet1[1]->getId());
+		$this->assertEquals($lock2->getTimestamp(), $lockSet1[1]->getTimestamp());
+		$this->assertEquals($lock2->getToken(), $lockSet1[1]->getToken());
+
+		$lockSet2 = $this->lockMapper->findAllLocksOlderThan(300000, 1);
+
+		$this->assertEquals($lock1->getId(), $lockSet2[0]->getId());
+		$this->assertEquals($lock1->getTimestamp(), $lockSet2[0]->getTimestamp());
+		$this->assertEquals($lock1->getToken(), $lockSet2[0]->getToken());
+
+		$lockSet3 = $this->lockMapper->findAllLocksOlderThan(300000, 1, 1);
+
+		$this->assertEquals($lock2->getId(), $lockSet3[0]->getId());
+		$this->assertEquals($lock2->getTimestamp(), $lockSet3[0]->getTimestamp());
+		$this->assertEquals($lock2->getToken(), $lockSet3[0]->getToken());
+	}
+
 	/**
 	 * @Db
 	 */

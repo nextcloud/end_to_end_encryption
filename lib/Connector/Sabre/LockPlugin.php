@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
-use Exception;
 use OC\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
@@ -33,41 +32,21 @@ use OCA\DAV\Connector\Sabre\File;
 use OCA\DAV\Upload\FutureFile;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
-use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
-use OCP\Files\Node;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\Conflict;
 use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
-use Sabre\DAV\ServerPlugin;
 use Sabre\HTTP\RequestInterface;
 
-class LockPlugin extends ServerPlugin {
-
-	/* @var Server */
-	private $server;
-
-	/** @var IRootFolder */
-	private $rootFolder;
-
-	/** @var IUserSession */
-	private $userSession;
+class LockPlugin extends APlugin {
 
 	/** @var LockManager */
 	private $lockManager;
 
 	/** @var UserAgentManager */
 	private $userAgentManager;
-
-	/**
-	 * Should plugin be applied to the current node?
-	 * Only apply it to files and directories, not to contacts or calendars
-	 *
-	 * @var array
-	 */
-	private $applyPlugin;
 
 	/**
 	 * LockPlugin constructor.
@@ -80,21 +59,24 @@ class LockPlugin extends ServerPlugin {
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								LockManager $lockManager,
-								UserAgentManager $userAgentManager
-	) {
-		$this->rootFolder = $rootFolder;
-		$this->userSession = $userSession;
+								UserAgentManager $userAgentManager) {
+		parent::__construct($rootFolder, $userSession);
 		$this->lockManager = $lockManager;
 		$this->userAgentManager = $userAgentManager;
-		$this->applyPlugin = [];
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function initialize(Server $server) {
-		$this->server = $server;
-		$this->server->on('beforeMethod:*', [$this, 'checkLock'], 200);
+		parent::initialize($server);
+
+		$this->server->on('beforeMethod:DELETE', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:MKCOL', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:PUT', [$this, 'checkLock'], 200);
+
+		$this->server->on('beforeMethod:COPY', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:MOVE', [$this, 'checkLock'], 200);
 	}
 
 	/**
@@ -150,38 +132,26 @@ class LockPlugin extends ServerPlugin {
 			throw new Forbidden('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content');
 		}
 
+		$e2eToken = null;
+		if ($request->hasHeader('e2e-token')) {
+			$e2eToken = $request->getHeader('e2e-token');
+		} else {
+			$queryParams = $request->getQueryParameters();
+			if (array_key_exists('e2e-token', $queryParams)) {
+				$e2eToken = $queryParams['e2e-token'];
+			}
+		}
+
 		switch ($method) {
-			case 'GET':
-				$this->preventReadAccessToLockedFile($node);
-				break;
-
-			case 'PROPFIND':
-			case 'REPORT':
-			case 'HEAD':
-				break;
-
 			case 'COPY':
 			case 'MOVE':
-				$node instanceof FutureFile || $this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
-				$this->verifyTokenOnWriteAccess($destNode, $request->getHeader('e2e-token'));
+				$node instanceof FutureFile || $this->verifyTokenOnWriteAccess($node, $e2eToken);
+				$this->verifyTokenOnWriteAccess($destNode, $e2eToken);
 				break;
 
 			default:
-				$this->verifyTokenOnWriteAccess($node, $request->getHeader('e2e-token'));
+				$this->verifyTokenOnWriteAccess($node, $e2eToken);
 				break;
-		}
-	}
-
-	/**
-	 * Make sure that a user is not downloading a locked file
-	 * (unless they themselves own the lock)
-	 *
-	 * @param INode $node
-	 * @throws FileLocked
-	 */
-	protected function preventReadAccessToLockedFile(INode $node): void {
-		if ($this->lockManager->isLocked($node->getId(), '')) {
-			throw new FileLocked('File is locked', Http::STATUS_FORBIDDEN);
 		}
 	}
 
@@ -202,117 +172,6 @@ class LockPlugin extends ServerPlugin {
 		if ($this->lockManager->isLocked($node->getId(), $token)) {
 			throw new FileLocked('Write access to end-to-end encrypted folder requires token - resource not locked or wrong token sent', Http::STATUS_FORBIDDEN);
 		}
-	}
-
-	/**
-	 * get SabreDAV Node
-	 *
-	 * @param string $path
-	 * @param string $method
-	 * @return INode
-	 * @throws Conflict
-	 * @throws NotFound
-	 */
-	protected function getNode(string $path, string $method): INode {
-		if ($method === 'GET' || $method === 'PROPFIND' || $method === 'HEAD') {
-			return $this->server->tree->getNodeForPath($path);
-		}
-
-		return $this->getNodeForPath($path);
-	}
-
-	/**
-	 * Get DAV Node for a given path, if the path doesn't exists we try the parent
-	 *
-	 * @param $path
-	 * @return INode
-	 * @throws Conflict
-	 */
-	protected function getNodeForPath(string $path): INode {
-		if ($this->server->tree->nodeExists($path)) {
-			return $this->server->tree->getNodeForPath($path);
-		}
-
-		// maybe we are in the process in creating a new node, try the parent
-		$parent = dirname($path);
-		$parent = ($parent === '.') ? '/' : $parent;
-		if ($this->server->tree->nodeExists($parent)) {
-			return $this->server->tree->getNodeForPath($parent);
-		}
-
-		// If neither the actual node, nor the parent exists we throw a exception.
-		// According to the WebDAV specification it should result in 409 (conflict)
-		throw new Conflict();
-	}
-
-	/**
-	 * get file system node of requested file
-	 *
-	 * @param string $path
-	 * @return Node
-	 *
-	 * @throws NotFound
-	 */
-	protected function getFileNode(string $path): Node {
-		$user = $this->userSession->getUser();
-		if ($user === null) {
-			throw new Forbidden('No user session found');
-		}
-		$uid = $user->getUID();
-
-		try {
-			return $this->rootFolder
-				->getUserFolder($uid)
-				->get($path);
-		} catch (Exception $e) {
-			throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $e);
-		}
-	}
-
-	/**
-	 * check if we process a file or directory. This plugin should ignore calendars
-	 * and contacts
-	 *
-	 * @param string $url
-	 * @param INode $node
-	 * @return bool
-	 */
-	protected function isFile(string $url, INode $node): bool {
-		if (isset($this->applyPlugin[$url])) {
-			return $this->applyPlugin[$url];
-		}
-
-		// check if this is a regular file or directory
-		$this->applyPlugin[$url] = (($node instanceof File) || ($node instanceof Directory));
-
-		return $this->applyPlugin[$url];
-	}
-
-	/**
-	 * Checks if the path is an E2E folder or inside an E2E folder
-	 *
-	 * @param string $path
-	 * @return bool
-	 */
-	protected function isE2EEnabledPath(string $path):bool {
-		try {
-			$node = $this->getFileNode($path);
-		} catch (NotFound $e) {
-			return false;
-		}
-
-		while ($node->isEncrypted() === false || $node->getType() === FileInfo::TYPE_FILE) {
-			$node = $node->getParent();
-
-			// Nitpick: This doesn't check if root is E2E,
-			// but that's not supported at the moment anyway
-			if ($node->getPath() === '/') {
-				// top-level folder reached
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 	/**

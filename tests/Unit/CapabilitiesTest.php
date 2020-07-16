@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
+ * @copyright Copyright (c) 2020 Georg Ehrke <georg-nextcloud@ehrke.email>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -21,27 +21,28 @@ declare(strict_types=1);
  *
  */
 
+namespace OCA\EndToEndEncryption\Tests\Unit;
 
-namespace OCA\EndToEndEncryption;
+use OCA\EndToEndEncryption\Capabilities;
+use Test\TestCase;
 
-use OCP\Capabilities\ICapability;
+class CapabilitiesTest extends TestCase {
 
-class Capabilities implements ICapability {
+	/** @var Capabilities */
+	private $capabilities;
 
-	/**
-	 * Function an app uses to return the capabilities
-	 *
-	 * @return array Array containing the apps capabilities
-	 * @since 8.2.0
-	 */
-	public function getCapabilities() {
-		$capabilities = ['end-to-end-encryption' =>
-			[
+	protected function setUp(): void {
+		parent::setUp();
+
+		$this->capabilities = new Capabilities();
+	}
+
+	public function testGetCapabilities() {
+		$this->assertEquals([
+			'end-to-end-encryption' => [
 				'enabled' => true,
 				'api-version' => '1.1',
 			]
-		];
-
-		return $capabilities;
+		], $this->capabilities->getCapabilities());
 	}
 }
