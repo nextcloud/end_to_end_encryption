@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Internal error" : "Error interno",
     "You are not allowed to delete this private key" : "No tienes privilegios para borrar esta llave privada",
-    "internal error" : "Error interno",
     "You are not allowed to remove the lock" : "No tienes permitido eliminar el bloqueo",
     "File not locked" : "El archivo no está bloqueado",
-    "End-to-End Encryption" : "Encripción Punto-a-Punto"
+    "End-to-End Encryption" : "Encripción Punto-a-Punto",
+    "internal error" : "Error interno"
 },
 "nplurals=2; plural=(n != 1);");
