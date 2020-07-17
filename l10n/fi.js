@@ -6,11 +6,11 @@ OC.L10N.register(
     "Internal error" : "Sisäinen virhe",
     "You are not allowed to delete this private key" : "Sinulla ei ole oikeutta poistaa tätä yksityistä avainta",
     "Could not find the private key belonging to the user %s" : "Ei löydetty käyttäjälle %s kuuluvaa yksityistä avainta",
-    "internal error" : "sisäinen virhe",
     "Could not find the public key belonging to the user %s" : "Ei löydetty käyttäjälle %s kuuluvaa julkista avainta",
     "File already locked" : "Tiedosto on jo lukittu",
     "You are not allowed to remove the lock" : "Sinulla ei ole oikeutta poistaa lukitusta",
     "File not locked" : "Tiedosto ei ole lukittu",
-    "End-to-End Encryption" : "Päästä päähän -salaus"
+    "End-to-End Encryption" : "Päästä päähän -salaus",
+    "internal error" : "sisäinen virhe"
 },
 "nplurals=2; plural=(n != 1);");
