@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Internal error" : "Error i brendshëm",
     "You are not allowed to delete this private key" : "Nuk je i lejuar të fshish këtë çelës privat",
-    "internal error" : "error i brendshëm",
     "You are not allowed to remove the lock" : "Nuk je i lejuar të fshish kyçjen",
-    "File not locked" : "Skedari nuk është i kyçur"
+    "File not locked" : "Skedari nuk është i kyçur",
+    "internal error" : "error i brendshëm"
 },
 "nplurals=2; plural=(n != 1);");
