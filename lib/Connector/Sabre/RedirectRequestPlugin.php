@@ -97,7 +97,9 @@ class RedirectRequestPlugin extends APlugin {
 		}
 
 		if ($request->hasHeader('Destination') && $request->getHeader('X-Nc-Sabre-Original-Method') !== 'DELETE') {
-			$request->setHeader('Destination', $request->getHeader('Destination') . self::SAVE_SUFFIX);
+			$header = $request->getHeader('Destination');
+			$header = $this->addSuffixToPath($header, self::SAVE_SUFFIX);
+			$request->setHeader('Destination', $header);
 		}
 	}
 
@@ -118,14 +120,13 @@ class RedirectRequestPlugin extends APlugin {
 		}
 
 		$url = $request->getUrl();
+		$url = $this->addSuffixToUrl($url, self::DELETE_SUFFIX);
 		$parts = parse_url($url);
-		$path = $parts['path'];
-		$path .= self::DELETE_SUFFIX;
 
 		$subRequest = clone $request;
 		$subRequest->setMethod('MOVE');
 		$subRequest->setHeader('X-Nc-Sabre-Original-Method', 'DELETE');
-		$subRequest->setHeader('Destination', $path);
+		$subRequest->setHeader('Destination', $parts['path']);
 
 		$this->server->invokeMethod($subRequest, $response);
 
@@ -153,7 +154,7 @@ class RedirectRequestPlugin extends APlugin {
 		}
 
 		$url = $request->getUrl();
-		$url = $this->addFilenameSuffixToUrl($url, self::SAVE_SUFFIX);
+		$url = $this->addSuffixToUrl($url, self::SAVE_SUFFIX);
 		$request->setUrl($url);
 	}
 
@@ -166,8 +167,7 @@ class RedirectRequestPlugin extends APlugin {
 		}
 
 		if ($this->server->tree->nodeExists($request->getPath() . self::DELETE_SUFFIX)) {
-			$url = $request->getUrl();
-			$url = $this->addFilenameSuffixToUrl($url, self::DELETE_SUFFIX);
+			$url = $this->addSuffixToUrl($request->getUrl(), self::DELETE_SUFFIX);
 			$request->setUrl($url);
 		}
 	}
@@ -204,24 +204,35 @@ class RedirectRequestPlugin extends APlugin {
 	 * @param string $suffix
 	 * @return string
 	 */
-	protected function addFilenameSuffixToUrl(string $url, string $suffix): string {
+	protected function addSuffixToUrl(string $url, string $suffix): string {
 		$parts = parse_url($url);
 
 		if (substr($parts['path'], strlen($suffix) * -1) === $suffix) {
 			throw new Forbidden('Not allowed to create file with reserved suffix!');
 		}
 
+		$parts['path'] = $this->addSuffixToPath($parts['path'], $suffix);
+		return $this->buildUrlFromParts($parts);
+	}
+
+	/**
+	 * @param string $path
+	 * @param string $suffix
+	 * @return string
+	 */
+	protected function addSuffixToPath(string $path, string $suffix): string {
 		$hasTrailingSlash = false;
-		if (substr($parts['path'], -1) === '/') {
-			$parts['path'] = substr($parts['path'], 0, -1);
+		if (substr($path, -1) === '/') {
+			$hasTrailingSlash = true;
+			$path = substr($path, 0, -1);
 		}
-		$parts['path'] .= $suffix;
+		$path .= $suffix;
 
 		if ($hasTrailingSlash) {
-			$parts['path'] .= '/';
+			$path .= '/';
 		}
 
-		return $this->buildUrlFromParts($parts);
+		return $path;
 	}
 
 	/**
