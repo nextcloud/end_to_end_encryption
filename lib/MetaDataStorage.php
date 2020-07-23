@@ -173,14 +173,20 @@ class MetaDataStorage implements IMetaDataStorage {
 		}
 
 		$intermediateMetaDataFile = $dir->getFile($this->intermediateMetaDataFileName);
+		// If the intermediate file is empty, delete the metadata file
+		if ($intermediateMetaDataFile->getContent() === '{}') {
+			$dir->delete();
+		} else {
+			try {
+				$finalFile = $dir->getFile($this->metaDataFileName);
+			} catch (NotFoundException $ex) {
+				$finalFile = $dir->newFile($this->metaDataFileName);
+			}
 
-		try {
-			$finalFile = $dir->getFile($this->metaDataFileName);
-		} catch (NotFoundException $ex) {
-			$finalFile = $dir->newFile($this->metaDataFileName);
+			$finalFile->putContent($intermediateMetaDataFile->getContent());
+			// After successfully saving, automatically delete the intermediate file
+			$intermediateMetaDataFile->delete();
 		}
-
-		$finalFile->putContent($intermediateMetaDataFile->getContent());
 	}
 
 	/**

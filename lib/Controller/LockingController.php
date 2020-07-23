@@ -144,7 +144,6 @@ class LockingController extends OCSController {
 
 		$this->fileService->finalizeChanges($nodes[0]);
 		$this->metaDataStorage->saveIntermediateFile($this->userId, $id);
-		$this->metaDataStorage->deleteIntermediateFile($this->userId, $id);
 
 		try {
 			$this->lockManager->unlockFile($id, $token);

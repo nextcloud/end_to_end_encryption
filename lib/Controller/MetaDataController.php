@@ -188,7 +188,7 @@ class MetaDataController extends OCSController {
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		try {
-			$this->metaDataStorage->deleteMetaData($this->userId, $id);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}');
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
