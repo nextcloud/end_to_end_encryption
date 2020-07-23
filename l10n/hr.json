@@ -16,6 +16,7 @@
     "Only the owner can delete the metadata-file" : "Samo vlasnik može izbrisati datoteku s metapodacima",
     "End-to-End Encryption" : "Cjelovito šifriranje",
     "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja",
+    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Osigurava potrebnu krajnju točku za omogućavanje cjelovitog šifriranja. Cjelovito šifriranje i dalje je u alfa inačici. Upotrebljavajte samo s testnim podacima, nikako u produkciji!",
     "internal error" : "unutarnja pogreška",
     "This is not your private key to delete" : "Ovo nije vaš privatni ključ i ne smijete ga izbrisati",
     "Can\\'t read metadata" : "Čitanje metapodataka nije uspjelo",
