@@ -194,9 +194,6 @@ class LockingControllerTest extends TestCase {
 				$this->metaDataStorage->expects($this->once())
 					->method('saveIntermediateFile')
 					->with('john.doe', $fileId);
-				$this->metaDataStorage->expects($this->once())
-					->method('deleteIntermediateFile')
-					->with('john.doe', $fileId);
 
 				if ($unlockException) {
 					$this->lockManager->expects($this->once())
