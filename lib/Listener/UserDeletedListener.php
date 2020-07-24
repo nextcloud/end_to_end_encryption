@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
+ * @copyright Copyright (c) 2020 Georg Ehrke <georg-nextcloud@ehrke.email>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -21,12 +21,14 @@ declare(strict_types=1);
  *
  */
 
+namespace OCA\EndToEndEncryption\Listener;
 
-namespace OCA\EndToEndEncryption;
+use OCA\EndToEndEncryption\IKeyStorage;
+use OCP\EventDispatcher\Event;
+use OCP\EventDispatcher\IEventListener;
+use OCP\User\Events\UserDeletedEvent;
 
-use OCP\IUser;
-
-class UserManager {
+class UserDeletedListener implements IEventListener {
 
 	/** @var IKeyStorage */
 	private $keyStorage;
@@ -41,11 +43,13 @@ class UserManager {
 	}
 
 	/**
-	 * delete all user keys if a user was deleted
-	 *
-	 * @param IUser $user
+	 * @inheritDoc
 	 */
-	public function deleteUserKeys(IUser $user): void {
-		$this->keyStorage->deleteUserKeys($user);
+	public function handle(Event $event): void {
+		if (!($event instanceof UserDeletedEvent)) {
+			return;
+		}
+
+		$this->keyStorage->deleteUserKeys($event->getUser());
 	}
 }
