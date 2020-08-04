@@ -9,6 +9,7 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "Ezin izan da %s erabiltzailearen gako publikoa aurkitu",
     "Common name (CN) does not match the current user" : "Izen arrunta (CN) ez dator bat uneko erabiltzailearekin",
     "Could not find the public key belonging to %s" : "Ezin izan da %s-ren gako publikoa aurkitu",
+    "This is not your public key to delete" : "Hau ez da ezabatzeko zure gako publikoa ",
     "Can not decode userlist" : "Ezin da erabiltzailerren zerrenda deskodetu",
     "File already locked" : "Fitxategia jada blokeatuta dago",
     "You are not allowed to remove the lock" : "Zuk ez duzu blokeoa kentzeko baimenik",
