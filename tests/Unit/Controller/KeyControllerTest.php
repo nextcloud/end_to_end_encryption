@@ -251,8 +251,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		} else {
 			$this->keyStorage->expects($this->once())
 				->method('setPrivateKey')
-				->with($privateKey, 'admin')
-				->willReturn($privateKey);
+				->with($privateKey, 'admin');
 		}
 
 		$this->l10n->expects($this->any())
