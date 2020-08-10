@@ -10,6 +10,7 @@
     <author>Bjoern Schiessle</author>
     <namespace>EndToEndEncryption</namespace>
     <types>
+        <dav/>
         <filesystem/>
     </types>
     <category>files</category>

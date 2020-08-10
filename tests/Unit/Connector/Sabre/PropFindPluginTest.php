@@ -70,7 +70,7 @@ class PropFindPluginTest extends TestCase {
 
 		$server->expects($this->at(0))
 			->method('on')
-			->with('propFind', [$this->plugin, 'updateProperty']);
+			->with('propFind', [$this->plugin, 'updateProperty'], 105);
 
 		$this->plugin->initialize($server);
 	}
