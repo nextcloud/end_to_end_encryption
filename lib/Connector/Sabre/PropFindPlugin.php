@@ -64,7 +64,7 @@ class PropFindPlugin extends APlugin {
 	public function initialize(Server $server) {
 		parent::initialize($server);
 
-		$this->server->on('propFind', [$this, 'updateProperty']);
+		$this->server->on('propFind', [$this, 'updateProperty'], 105);
 	}
 
 	/**
