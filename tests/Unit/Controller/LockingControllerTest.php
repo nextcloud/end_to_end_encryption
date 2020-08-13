@@ -163,6 +163,8 @@ class LockingControllerTest extends TestCase {
 			->method('getHeader')
 			->with('e2e-token')
 			->willReturn($sendE2E);
+		$this->request->expects($this->never())
+			->method('getParam');
 
 		if ($getUserFolderThrows) {
 			$this->rootFolder->expects($this->once())
@@ -231,5 +233,55 @@ class LockingControllerTest extends TestCase {
 			[false, true, new FileLockedException(), OCSForbiddenException::class, 'You are not allowed to remove the lock'],
 			[false, true, new FileNotLockedException(), OCSNotFoundException::class, 'File not locked']
 		];
+	}
+
+	public function testUnlockFolderWithE2ETokenViaQuery(): void {
+		$fileId = 42;
+		$sendE2E = 'e2e-token';
+
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static function ($string, $args) {
+				return vsprintf($string, $args);
+			});
+
+		$this->request->expects($this->at(0))
+			->method('getHeader')
+			->with('e2e-token')
+			->willReturn('');
+		$this->request->expects($this->at(1))
+			->method('getParam')
+			->with('e2e-token', '')
+			->willReturn($sendE2E);
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('john.doe')
+			->willReturn($userFolder);
+
+		$node = $this->createMock(Folder::class);
+		$userFolder->expects($this->once())
+			->method('getById')
+			->with($fileId)
+			->willReturn([$node]);
+
+		$this->fileService->expects($this->once())
+			->method('finalizeChanges')
+			->with($node);
+		$this->metaDataStorage->expects($this->once())
+			->method('saveIntermediateFile')
+			->with('john.doe', $fileId);
+		$this->metaDataStorage->expects($this->once())
+			->method('deleteIntermediateFile')
+			->with('john.doe', $fileId);
+
+		$this->lockManager->expects($this->once())
+			->method('unlockFile')
+			->with($fileId, $sendE2E);
+
+		$response = $this->controller->unlockFolder($fileId);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertEquals([], $response->getData());
 	}
 }

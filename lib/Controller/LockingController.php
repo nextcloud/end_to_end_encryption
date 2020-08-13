@@ -130,6 +130,9 @@ class LockingController extends OCSController {
 	 */
 	public function unlockFolder(int $id): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
+		if ($token === '') {
+			$token = $this->request->getParam('e2e-token', '');
+		}
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($this->userId);
