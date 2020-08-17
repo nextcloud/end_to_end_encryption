@@ -301,13 +301,13 @@ class MetaDataControllerTest extends TestCase {
 		$fileId = 42;
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
-				->method('deleteMetaData')
-				->with('john.doe', $fileId)
+				->method('updateMetaDataIntoIntermediateFile')
+				->with('john.doe', $fileId, '{}')
 				->willThrowException($metaDataStorageException);
 		} else {
 			$this->metaDataStorage->expects($this->once())
-				->method('deleteMetaData')
-				->with('john.doe', $fileId);
+				->method('updateMetaDataIntoIntermediateFile')
+				->with('john.doe', $fileId, '{}');
 		}
 
 		$this->l10n->expects($this->any())
