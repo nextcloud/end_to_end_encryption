@@ -31,6 +31,7 @@ use OCP\Files\IAppData;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\Files\SimpleFS\ISimpleFile;
 
 /**
  * Class MetaDataStorage
@@ -73,6 +74,11 @@ class MetaDataStorage implements IMetaDataStorage {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
 
+		$legacyFile = $this->getLegacyFile($userId, $id);
+		if ($legacyFile !== null) {
+			return $legacyFile->getContent();
+		}
+
 		$folderName = $this->getFolderNameForFileId($id);
 		$folder = $this->appData->getFolder($folderName);
 
@@ -87,6 +93,11 @@ class MetaDataStorage implements IMetaDataStorage {
 	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData): void {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
+
+		$legacyFile = $this->getLegacyFile($userId, $id);
+		if ($legacyFile !== null) {
+			throw new MetaDataExistsException('Legacy Meta-data file already exists');
+		}
 
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
@@ -116,14 +127,20 @@ class MetaDataStorage implements IMetaDataStorage {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
 
+		$legacyFile = $this->getLegacyFile($userId, $id);
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
 			$dir = $this->appData->getFolder($folderName);
 		} catch (NotFoundException $ex) {
-			throw new MissingMetaDataException('Meta-data file missing');
+			// No folder and no legacy
+			if ($legacyFile === null) {
+				throw new MissingMetaDataException('Meta-data file missing');
+			}
+
+			$dir = $this->appData->newFolder($folderName);
 		}
 
-		if (!$dir->fileExists($this->metaDataFileName)) {
+		if ($legacyFile === null && !$dir->fileExists($this->metaDataFileName)) {
 			throw new MissingMetaDataException('Meta-data file missing');
 		}
 
@@ -152,6 +169,7 @@ class MetaDataStorage implements IMetaDataStorage {
 		}
 
 		$dir->delete();
+		$this->cleanupLegacyFile($userId, $id);
 	}
 
 	/**
@@ -187,6 +205,8 @@ class MetaDataStorage implements IMetaDataStorage {
 			// After successfully saving, automatically delete the intermediate file
 			$intermediateMetaDataFile->delete();
 		}
+
+		$this->cleanupLegacyFile($userId, $id);
 	}
 
 	/**
@@ -225,13 +245,12 @@ class MetaDataStorage implements IMetaDataStorage {
 	 * @param string $userId
 	 * @param int $id
 	 *
-	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
 	protected function verifyOwner(string $userId, int $id): void {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
-		} catch (NoUserException $ex) {
+		} catch (NoUserException|NotPermittedException $ex) {
 			throw new NotFoundException('No user-root for '. $userId);
 		}
 
@@ -250,5 +269,75 @@ class MetaDataStorage implements IMetaDataStorage {
 		if (!$appDataRoot->fileExists($this->metaDataRoot)) {
 			$this->appData->newFolder($this->metaDataRoot);
 		}
+	}
+
+	/**
+	 * @param string $userId
+	 * @param int $id
+	 * @return ISimpleFile|null
+	 * @throws NotPermittedException
+	 */
+	protected function getLegacyFile(string $userId, int $id): ?ISimpleFile {
+		try {
+			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
+		} catch (NotFoundException $e) {
+			// Just return if file does not exist for user
+			return null;
+		}
+
+		try {
+			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
+			return $legacyFolder->getFile($this->metaDataFileName);
+		} catch (NotFoundException $e) {
+			// Just return if no legacy file exits
+			return null;
+		}
+	}
+
+	/**
+	 * @param string $userId
+	 * @param int $id
+	 * @throws NotPermittedException
+	 */
+	protected function cleanupLegacyFile(string $userId, int $id): void {
+		try {
+			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
+		} catch (NotFoundException $e) {
+			// Just return if file does not exist for user
+			return;
+		}
+
+		try {
+			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
+			$legacyFolder->delete();
+		} catch (NotFoundException|NotPermittedException $e) {
+			return;
+		}
+	}
+
+	/**
+	 * Get path to the file for the file-owner.
+	 * This is needed for the old way of storing metadata-files.
+	 *
+	 * @param string $userId userId
+	 * @param int $id file id
+	 * @return string path to the owner's file
+	 *
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 */
+	protected function getLegacyOwnerPath(string $userId, int $id):string {
+		try {
+			$userFolder = $this->rootFolder->getUserFolder($userId);
+		} catch (NoUserException $ex) {
+			throw new NotFoundException('No user-root for '. $userId);
+		}
+
+		$ownerNodes = $userFolder->getById($id);
+		if (!isset($ownerNodes[0])) {
+			throw new NotFoundException('No file for owner with ID ' . $id);
+		}
+
+		return $ownerNodes[0]->getPath();
 	}
 }
