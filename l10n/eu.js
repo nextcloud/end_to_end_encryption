@@ -23,7 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Ezin da metadaturik ezabatu",
     "End-to-End Encryption" : "Muturretik muturrerako zifratzea",
     "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Muturretik muturrerako zifratzea gaitzeko puntua eskaintzen du. Muturretik muturrerako zifratzea alfa egoeran dago oraindik. Ez erabili hau produkzioan, probako datuekin bakarrik erabili!",
     "internal error" : "barne errorea",
     "This is not your private key to delete" : "Hau ez da zure gako pribatua",
     "Can\\'t read metadata" : "Ezin dira metadatuak irakurri",

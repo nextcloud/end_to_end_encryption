@@ -18,7 +18,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "オーナーだけがメタデータファイルを削除できます",
     "End-to-End Encryption" : "End-to-End 暗号化",
     "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "End-to-End 暗号化を有効にするために必要なエンドポイントを提供します。 End-to-End 暗号化はまだアルファ版です。決して実運用環境では使用せず、テストデータでのみ使用してください。",
     "internal error" : "内部エラー",
     "This is not your private key to delete" : "これは削除するあなたの秘密鍵ではありません",
     "Can\\'t read metadata" : "メタデータが読み込めません",

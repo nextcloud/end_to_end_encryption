@@ -21,7 +21,6 @@
     "Can't delete metadata" : "Impossible de supprimer les métadonnées",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
     "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Fournit le point de terminaison nécessaire pour activer le chiffrement de bout en bout. Le chiffrement de bout en bout est toujours en mode alpha. Utilisez le seulement sur des données de test, jamais en production !",
     "internal error" : "Erreur interne",
     "This is not your private key to delete" : "Ce n'est pas votre clé privée à supprimer",
     "Can\\'t read metadata" : "Impossible de lire les méta-données",
