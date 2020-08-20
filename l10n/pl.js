@@ -23,7 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Nie można usunąć metadanych",
     "End-to-End Encryption" : "Szyfrowanie End-to-End",
     "End-to-end encryption endpoint" : "Końcówka szyfrowania typu end-to-end",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end. Szyfrowanie end-to-end jest nadal w stanie alfa. Używaj tylko z danymi testowymi, nigdy w produkcji!",
     "internal error" : "Błąd wewnętrzny",
     "This is not your private key to delete" : "Klucz do usunięcia nie jest Twoim kluczem prywatnym",
     "Can\\'t read metadata" : "Nie można odczytać metadanych",

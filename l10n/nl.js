@@ -23,7 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Kan metadata niet verwijderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Zorgt voor de noodzakelijke eindpunten voor end-to-end versleuteling. End-to-end versleuteling bevindt zich heden nog in alpha-status, dus gebruik het niet in productieomgevingen, maar enkel met testgegevens.",
     "internal error" : "Interne fout",
     "This is not your private key to delete" : "Het is niet aan jou om deze privésleutel te verwijderen",
     "Can\\'t read metadata" : "Kan metadata niet lezen",

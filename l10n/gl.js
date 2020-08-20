@@ -23,7 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Non é posíbel eliminar os metadatos",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Fornece o punto final necesario para activar o cifrado de extremo a extremo. O cifrado de extremo a extremo aínda está en fase alfa. Useo só con datos de proba, nunca en produción.",
     "internal error" : "Produciuse un erro interno",
     "This is not your private key to delete" : "Esta non é a súa chave privada para que poida eliminala",
     "Can\\'t read metadata" : "Non é posíbel ler os metadatos",

@@ -16,7 +16,6 @@
     "Only the owner can delete the metadata-file" : "Удалить файл метаданных может только его владелец",
     "End-to-End Encryption" : "Сквозное шифрование",
     "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Предоставляет необходимую конечную точку для обеспечения сквозного шифрования. Сквозное шифрование все ещё находится в альфа-состоянии, не используйте его для данных, представляющих ценность.",
     "internal error" : "внутренняя ошибка",
     "This is not your private key to delete" : "Это не ваш закрытый ключ для удаления",
     "Can\\'t read metadata" : "Не удалось прочитать метаданные",

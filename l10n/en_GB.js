@@ -18,7 +18,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Only the owner can delete the metadata-file",
     "End-to-End Encryption" : "End-to-End Encryption",
     "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!",
     "internal error" : "internal error",
     "This is not your private key to delete" : "This is not your private key to delete",
     "Can\\'t read metadata" : "Can\\'t read metadata",

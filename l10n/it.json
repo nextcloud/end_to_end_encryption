@@ -21,7 +21,6 @@
     "Can't delete metadata" : "Impossibile eliminare i metadati",
     "End-to-End Encryption" : "Cifratura End-To-End",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Fornisce l'endpoint necessario ad attivare la cifratura end-to-end. La cifratura end-to-end è ancora in fase alfa. Usala solo con dati di test, mai in produzione!",
     "internal error" : "errore interno",
     "This is not your private key to delete" : "Questa non è la tua chiave privata da eliminare",
     "Can\\'t read metadata" : "Impossibile leggere i metadati",

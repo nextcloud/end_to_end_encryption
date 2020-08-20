@@ -21,7 +21,6 @@
     "Can't delete metadata" : "Meta údaje nie je možné odstrániť",
     "End-to-End Encryption" : "Šifrovanie po celej dĺžke spojenia",
     "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Poskytuje koncový bod nevyhnutný pre šifrovane po celej dĺžke spojenia. Šifrovanie po celej dĺžke spojenia je stále vo vývojovom štádiu alfa. Používajte iba s testovacími údajmi a nikdy v produkčnom prostredí!",
     "internal error" : "interná chyba",
     "This is not your private key to delete" : "Toto nieje váš privátny kľúč na zmazanie",
     "Can\\'t read metadata" : "Nedajú sa načítať metadáta",

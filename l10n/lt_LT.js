@@ -23,7 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Nepavyksta ištrinti metaduomenų",
     "End-to-End Encryption" : "Ištisinis šifravimas",
     "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Pateikia galutinį tašką, kad būtų galima šifruoti iš vieno galo į kitą. Šifravimas vis dar yra alfa būsenoje. Nenaudokite su svarbiais duomenimis!",
     "internal error" : "vidinė klaida",
     "This is not your private key to delete" : "Tai nėra jūsų privatusis raktas, kad galėtumėte jį ištrinti",
     "Can\\'t read metadata" : "Nepavyksta perskaityti metaduomenų",
