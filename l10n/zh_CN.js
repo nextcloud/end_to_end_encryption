@@ -23,7 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "无法删除元数据",
     "End-to-End Encryption" : "点对点加密",
     "End-to-end encryption endpoint" : "端到端加密端点",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "提供必要的端点以启用端到端加密。 端到端加密仍处于 Alpha 状态。 仅用于测试数据，绝不要用于生产！",
     "internal error" : "内部错误",
     "This is not your private key to delete" : "要删除的不是您的私钥",
     "Can\\'t read metadata" : "无法读取元数据",

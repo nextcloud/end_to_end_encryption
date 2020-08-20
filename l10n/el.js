@@ -18,7 +18,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Μόνο ο κάτοχος μπορεί να διαγράψει τα μεταδεδομένα-αρχείου",
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
     "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Παρέχει το απαραίτητο άκρο για κρυπτογράφηση από άκρο-σε-άκρο. Είναι ακόμη σε δοκιμαστική κατάσταση. Για χρήση μόνο με δοκιμαστικά δεδομένα!",
     "internal error" : "Εσωτερικό σφάλμα",
     "This is not your private key to delete" : "Δεν είναι το δικό σας δημόσιο κλειδί για διαγραφή",
     "Can\\'t read metadata" : "Αδναμία ανάγνωσης μεταδεδομένων",

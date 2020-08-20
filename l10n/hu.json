@@ -16,7 +16,6 @@
     "Only the owner can delete the metadata-file" : "A metaadatfájlt csak a tulajdonosa törölheti",
     "End-to-End Encryption" : "Végpontok közötti titkosítás",
     "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja. A végpontok közti titkosítás még mindig alfa állapotban van. Csak tesztadatokkal használja, sosem éles környezetben.",
     "internal error" : "belső hiba",
     "This is not your private key to delete" : "Ez nem az Ön törlendő titkos kulcsa",
     "Can\\'t read metadata" : "A metaadatok nem olvashatóak",

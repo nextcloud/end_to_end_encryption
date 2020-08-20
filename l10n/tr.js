@@ -23,7 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Üst veri silinemedi",
     "End-to-End Encryption" : "Uçtan Uca Şifreleme",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme bitiş noktası",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Uçtan uca şifreleme için gereken bitiş noktasını sağlar. Uçtan uca şifreleme özelliği henüz geliştirme aşamasında olduğundan üretim sitelerinde kullanmayın ve yalnız deneme verileri ile kulanın.",
     "internal error" : "İç hata",
     "This is not your private key to delete" : "Silinecek özel anahtar sizin değil",
     "Can\\'t read metadata" : "Üst veri okunamadı",

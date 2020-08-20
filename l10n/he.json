@@ -16,7 +16,6 @@
     "Only the owner can delete the metadata-file" : "רק הבעלים יכול למחוק את קובץ נתוני העל",
     "End-to-End Encryption" : "הצפנה מקצה לקצה",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "מספקת את נקודת הגישה הנחוצה לטובת הצפנה מקצה לקצה. תכונה זו עדיין במצב בתולי, יש להשתמש רק עם נתוני דמה, אף פעם לא בסביבה היומיומית (production)!",
     "internal error" : "שגיאה פנימית",
     "This is not your private key to delete" : "זה לא המפתח הפרטי שלך ולכן אין לך הרשאה למחוק אותו",
     "Can\\'t read metadata" : "לא ניתן לקרוא את נתוני העל",
