@@ -21,7 +21,6 @@
     "Can't delete metadata" : "Не могу да обришем метаподатке",
     "End-to-End Encryption" : "Шифровање са краја на крај",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state. Use only with test data, never in production!" : "Обезбеђује неопходну крајњу тачку да омогући шифровање са краја на крај. Шифровање са краја на крај је још увек у алфа стању. Користите га само на тест подацима, никад у продукцији!",
     "internal error" : "Интерна грешка",
     "This is not your private key to delete" : "Ово није Ваш приватни кључ да га обришете",
     "Can\\'t read metadata" : "Не могу да прочитам метаподатке",
