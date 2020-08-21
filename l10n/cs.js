@@ -23,6 +23,7 @@ OC.L10N.register(
     "Can't delete metadata" : "Nedaří se smazat metadata",
     "End-to-End Encryption" : "Šifrování end-to-end",
     "End-to-end encryption endpoint" : "Koncový bod end-to-end šifrování",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování.",
     "internal error" : "vnitřní chyba",
     "This is not your private key to delete" : "Chcete smazat soukromý klíč, který není váš",
     "Can\\'t read metadata" : "Nedaří se číst metadata",
