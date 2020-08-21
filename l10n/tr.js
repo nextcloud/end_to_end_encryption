@@ -23,6 +23,7 @@ OC.L10N.register(
     "Can't delete metadata" : "Üst veri silinemedi",
     "End-to-End Encryption" : "Uçtan Uca Şifreleme",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme bitiş noktası",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar.",
     "internal error" : "İç hata",
     "This is not your private key to delete" : "Silinecek özel anahtar sizin değil",
     "Can\\'t read metadata" : "Üst veri okunamadı",

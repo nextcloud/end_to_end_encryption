@@ -23,6 +23,7 @@ OC.L10N.register(
     "Can't delete metadata" : "Metadaten können nicht gelöscht werden",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
     "internal error" : "Interner Fehler",
     "This is not your private key to delete" : "Dies ist nicht Ihr privater Schlüssel und kann daher nicht gelöscht werden",
     "Can\\'t read metadata" : "Metadaten können nicht gelesen werden",

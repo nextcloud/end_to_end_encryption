@@ -23,6 +23,7 @@ OC.L10N.register(
     "Can't delete metadata" : "Meta údaje nie je možné odstrániť",
     "End-to-End Encryption" : "Šifrovanie po celej dĺžke spojenia",
     "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje potrebný koncový bod na povolenie šifrovania medzi koncovými bodmi.",
     "internal error" : "interná chyba",
     "This is not your private key to delete" : "Toto nieje váš privátny kľúč na zmazanie",
     "Can\\'t read metadata" : "Nedajú sa načítať metadáta",
