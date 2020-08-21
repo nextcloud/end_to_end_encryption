@@ -23,6 +23,7 @@ OC.L10N.register(
     "Can't delete metadata" : "Não foi possível excluir os metadados",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
     "internal error" : "erro interno",
     "This is not your private key to delete" : "Essa não é sua chave privada a excluir",
     "Can\\'t read metadata" : "Não foi possível ler metadados",
