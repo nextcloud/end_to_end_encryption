@@ -21,6 +21,7 @@
     "Can't delete metadata" : "Не могу да обришем метаподатке",
     "End-to-End Encryption" : "Шифровање са краја на крај",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај.",
     "internal error" : "Интерна грешка",
     "This is not your private key to delete" : "Ово није Ваш приватни кључ да га обришете",
     "Can\\'t read metadata" : "Не могу да прочитам метаподатке",
