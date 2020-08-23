@@ -21,6 +21,7 @@
     "Can't delete metadata" : "No se pudo borrar los metadatos",
     "End-to-End Encryption" : "Cifrado Punto a Punto",
     "End-to-end encryption endpoint" : "Extremo de la encriptación punto a punto",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto.",
     "internal error" : "Error interno",
     "This is not your private key to delete" : "Esta clave privada no es tuya para que la puedas borrar",
     "Can\\'t read metadata" : "No se pueden leer los metadatos",
