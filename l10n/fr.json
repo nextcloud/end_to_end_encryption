@@ -21,6 +21,7 @@
     "Can't delete metadata" : "Impossible de supprimer les métadonnées",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
     "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit l'extrémité (endpoint) nécessaire pour permettre un chiffrement de bout en bout.",
     "internal error" : "Erreur interne",
     "This is not your private key to delete" : "Ce n'est pas votre clé privée à supprimer",
     "Can\\'t read metadata" : "Impossible de lire les méta-données",
