@@ -7,10 +7,21 @@ OC.L10N.register(
     "You are not allowed to delete this private key" : "Sinulla ei ole oikeutta poistaa tätä yksityistä avainta",
     "Could not find the private key belonging to the user %s" : "Ei löydetty käyttäjälle %s kuuluvaa yksityistä avainta",
     "Could not find the public key belonging to the user %s" : "Ei löydetty käyttäjälle %s kuuluvaa julkista avainta",
+    "Could not find the public key belonging to %s" : "Ei löydetty käyttäjälle %s kuuluvaa julkista avainta",
+    "Can not decode userlist" : "Käyttäjäluetteloa ei voida purkaa",
     "File already locked" : "Tiedosto on jo lukittu",
     "You are not allowed to remove the lock" : "Sinulla ei ole oikeutta poistaa lukitusta",
     "File not locked" : "Tiedosto ei ole lukittu",
+    "Can't read metadata" : "Metadataa ei voida lukea",
+    "Can't store metadata" : "Metadataa ei voida tallentaa",
+    "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
+    "Only the owner can delete the metadata-file" : "Vain omistaja voi poistaa metadatatiedoston",
+    "Can't delete metadata" : "Metadataa ei voida poistaa",
     "End-to-End Encryption" : "Päästä päähän -salaus",
-    "internal error" : "sisäinen virhe"
+    "internal error" : "sisäinen virhe",
+    "Can\\'t read metadata" : "Metadataa ei voida lukea",
+    "Can\\'t store metadata" : "Metadataa ei voida tallentaa",
+    "Metadata-file doesn\\'t exist" : "Metadatatiedostoa ei ole",
+    "Can\\'t delete metadata" : "Metadatatiedostoa ei voida poistaa"
 },
 "nplurals=2; plural=(n != 1);");
