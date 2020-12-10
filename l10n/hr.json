@@ -21,6 +21,7 @@
     "Can't delete metadata" : "Brisanje metapodataka nije moguće",
     "End-to-End Encryption" : "Cjelovito šifriranje",
     "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Osigurava potrebnu krajnju točku za omogućavanje cjelovitog šifriranja.",
     "internal error" : "unutarnja pogreška",
     "This is not your private key to delete" : "Ovo nije vaš privatni ključ i ne smijete ga izbrisati",
     "Can\\'t read metadata" : "Čitanje metapodataka nije uspjelo",
