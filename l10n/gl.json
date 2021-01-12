@@ -7,7 +7,7 @@
     "Could not find the public key belonging to the user %s" : "Non foi posíbel atopar a chave pública pertencente ao usuario %s",
     "Common name (CN) does not match the current user" : "O nome común (CN) non coincide co usuario actual ",
     "Could not find the public key belonging to %s" : "Non foi posíbel atopar a chave pública pertencente a %s",
-    "This is not your public key to delete" : "Esta non é a súa chave pública para que poida eliminala",
+    "This is not your public key to delete" : "Esta non é a súa clave pública para que poida eliminala",
     "Can not decode userlist" : "No se pode descodificar a lista de usuarios ",
     "File already locked" : "O ficheiro xa está bloqueado",
     "You are not allowed to remove the lock" : "Non ten permiso para retirar o bloqueo",
