@@ -21,13 +21,6 @@
     "Can't delete metadata" : "Não foi possível excluir os metadados",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
-    "internal error" : "erro interno",
-    "This is not your private key to delete" : "Essa não é sua chave privada a excluir",
-    "Can\\'t read metadata" : "Não foi possível ler metadados",
-    "Can\\'t store metadata" : "Não foi possível armazenar metadados",
-    "Metadata-file doesn\\'t exist" : "Arquivo de metadados não existe",
-    "Can\\'t delete metadata" : "Não foi possível excluir metadados",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Fornece o ponto final necessário para ativar a criptografia de ponta-a-ponta. Esta criptografia ainda está no estado alfa, não use isso em produção e apenas com dados de teste!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

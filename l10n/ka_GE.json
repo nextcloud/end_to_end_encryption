@@ -14,12 +14,6 @@
     "Could not find metadata for \"%s\"" : "მეტა-მონაცემები \"%s\"-ზე ვერ იქნა ნაპოვნი",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "ფაილის ცვლილების უფლება არ გაქვთ, დარწმუნდით რომ მას კეტავთ და შემდეგ გზავნით სწორ ტოკენს",
     "Only the owner can delete the metadata-file" : "მხოლოდ მფლობელს შეუძლია გააუქმოს მეტა-მონაცემების ფაილი",
-    "End-to-End Encryption" : "End-to-End შიფრაცია",
-    "internal error" : "შიდა შეცდომა",
-    "This is not your private key to delete" : "ეს პირადი გასაღები გასაუქმებლად თქვენ არ გეკუთვნით",
-    "Can\\'t read metadata" : "მეტა-მონაცემების კითხვა ვერ ხერხდება",
-    "Can\\'t store metadata" : "მეტა-მონაცემების შენახვა ვერ ხერხდება",
-    "Metadata-file doesn\\'t exist" : "მეტა-მონაცემების ფაილი არ არსებობს",
-    "Can\\'t delete metadata" : "მეტა-მონაცემების გაუქმება ვერ ხერხდება"
+    "End-to-End Encryption" : "End-to-End შიფრაცია"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

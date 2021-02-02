@@ -10,10 +10,6 @@ OC.L10N.register(
     "Common name (CN) does not match the current user" : "Поле \"Common name (CN)\" не відповідає поточному користувачеві",
     "Could not find the public key belonging to %s" : "Не вдалося знайти відкритий ключ, що належить %s",
     "Could not find metadata for \"%s\"" : "Не вдалося знайти метадані для \"%s\"",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не дозволяється редагувати файл. Переконайтесь що файл заблокований, а потім надішліть потрібний токен",
-    "internal error" : "внутрішня помилка",
-    "This is not your private key to delete" : "Це не ваш приватний ключ для вилучення",
-    "Can\\'t read metadata" : "Неможливо прочитати метадані",
-    "Can\\'t store metadata" : "Неможливо зберегти метадані"
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не дозволяється редагувати файл. Переконайтесь що файл заблокований, а потім надішліть потрібний токен"
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

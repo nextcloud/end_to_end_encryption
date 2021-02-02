@@ -17,13 +17,6 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "You are not allowed to edit the file, make sure to lock it first, and then send the right token",
     "Only the owner can delete the metadata-file" : "Only the owner can delete the metadata-file",
     "End-to-End Encryption" : "End-to-End Encryption",
-    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
-    "internal error" : "internal error",
-    "This is not your private key to delete" : "This is not your private key to delete",
-    "Can\\'t read metadata" : "Can\\'t read metadata",
-    "Can\\'t store metadata" : "Can\\'t store metadata",
-    "Metadata-file doesn\\'t exist" : "Metadata-file doesn\\'t exist",
-    "Can\\'t delete metadata" : "Can\\'t delete metadata",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!"
+    "End-to-end encryption endpoint" : "End-to-end encryption endpoint"
 },
 "nplurals=2; plural=(n != 1);");

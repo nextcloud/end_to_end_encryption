@@ -21,13 +21,6 @@
     "Can't delete metadata" : "Δεν μπορεί να γίνει διαγραφή των μεταδεδομένων",
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
     "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο.",
-    "internal error" : "Εσωτερικό σφάλμα",
-    "This is not your private key to delete" : "Δεν είναι δικό σας αυτό το ιδιωτικό κλειδί για να το διαγράψετε.",
-    "Can\\'t read metadata" : "Αδυναμία ανάγνωσης των μεταδεδομένων",
-    "Can\\'t store metadata" : "Αποτυχία αποθήκευσης μεταδεδομένων",
-    "Metadata-file doesn\\'t exist" : "Το αρχείο μεταδεδομένων δεν υπάρχει",
-    "Can\\'t delete metadata" : "Αδυναμία διαγραφής μεταδεδομένων",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Παρέχει το απαραίτητο άκρο για κρυπτογράφηση από άκρο-σε-άκρο. Είναι ακόμη σε δοκιμαστική κατάσταση, μην το χρησιμοποιείται παρά μόνο με δοκιμαστικά δεδομένα!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

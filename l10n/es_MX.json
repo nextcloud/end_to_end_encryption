@@ -15,13 +15,6 @@
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No puedes editar el archivo, asegúrate de bloquearlo primero y despues enviar la ficha correcta",
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
-    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
-    "internal error" : "Error interno",
-    "This is not your private key to delete" : "Esta no es tu llave privada para poder borrarla",
-    "Can\\'t read metadata" : "No se pueden leer los metadatos",
-    "Can\\'t store metadata" : "No se pueden almacenar los metadatos",
-    "Metadata-file doesn\\'t exist" : "El archivo de metadatos no existe",
-    "Can\\'t delete metadata" : "No se pueden borrar los metadatos",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Proporciona el endpoint necesario para habilitar la encripción de punto-a-punto. ¡La encripción de punto-a-punto aún esta en un estado de alpha, no la uses en producciíon y solo con datos de prueba!"
+    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
