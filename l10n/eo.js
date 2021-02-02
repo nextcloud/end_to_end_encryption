@@ -17,13 +17,6 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vi ne rajtas redakti la dosieron; certigu, ke vi unue ŝlosas ĝin kaj poste sendas la ĝustan ĵetonon",
     "Only the owner can delete the metadata-file" : "Nur la posedanto povas forigi la pridatuman dosieron",
     "End-to-End Encryption" : "Tutvoja ĉifrado",
-    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
-    "internal error" : "interna eraro",
-    "This is not your private key to delete" : "Tiu ne estas via privata ŝlosilo forigota",
-    "Can\\'t read metadata" : "Pridatumoj ne legeblas",
-    "Can\\'t store metadata" : "Pridatumoj ne konserveblas",
-    "Metadata-file doesn\\'t exist" : "Pridatuma dosiero ne ekzistas",
-    "Can\\'t delete metadata" : "Pridatumoj ne forigeblas",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Provizas la bezonatan finpunkton por ebligi tutvojan ĉifradon. Tutvoja ĉifrado ankoraŭ estas en alfa-versio: ne uzu en produktado kaj uzu nur kun testdatumoj!"
+    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado"
 },
 "nplurals=2; plural=(n != 1);");

@@ -23,13 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "No se pudo borrar los metadatos",
     "End-to-End Encryption" : "Cifrado Punto a Punto",
     "End-to-end encryption endpoint" : "Extremo de la encriptación punto a punto",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto.",
-    "internal error" : "Error interno",
-    "This is not your private key to delete" : "Esta clave privada no es tuya para que la puedas borrar",
-    "Can\\'t read metadata" : "No se pueden leer los metadatos",
-    "Can\\'t store metadata" : "No se pueden almacenar los metadatos",
-    "Metadata-file doesn\\'t exist" : "El archivo de metadatos no existe",
-    "Can\\'t delete metadata" : "No se pueden borrar los metadatos",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Provee el punto final necesario para activar la encriptación extremo a extremo.  ¡La encriptación extremo a extremo todavía está en fase alfa, no lo use en producción, solo con datos de prueba!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto."
 },
 "nplurals=2; plural=(n != 1);");

@@ -21,13 +21,6 @@
     "Can't delete metadata" : "אי אפשר למחוק נתוני על",
     "End-to-End Encryption" : "הצפנה מקצה לקצה",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "מספק את נקודת הקצה הנוכחית כדי להפעיל הצפנה מקצה לקצה.",
-    "internal error" : "שגיאה פנימית",
-    "This is not your private key to delete" : "זה לא המפתח הפרטי שלך ולכן אין לך הרשאה למחוק אותו",
-    "Can\\'t read metadata" : "לא ניתן לקרוא את נתוני העל",
-    "Can\\'t store metadata" : "לא ניתן לאחסן את נתוני העל",
-    "Metadata-file doesn\\'t exist" : "קובץ נתוני העל לא קיים",
-    "Can\\'t delete metadata" : "לא ניתן למחוק נתוני על",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "מספקת את נקודת הגישה הנחוצה לטובת הצפנה מקצה לקצה. תכונה זו עדיין במצב בתולי, אין להשתמש במערכת לשימוש יומיומי ורק עם נתוני דמה!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "מספק את נקודת הקצה הנוכחית כדי להפעיל הצפנה מקצה לקצה."
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;"
 }

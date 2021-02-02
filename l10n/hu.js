@@ -17,13 +17,6 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nincs jogosultsága a fájl szerkesztéséhez. Először zárolnia kell, majd el kell küldenie a megfelelő tokent.",
     "Only the owner can delete the metadata-file" : "A metaadatfájlt csak a tulajdonosa törölheti",
     "End-to-End Encryption" : "Végpontok közötti titkosítás",
-    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont",
-    "internal error" : "belső hiba",
-    "This is not your private key to delete" : "Ez nem az Ön törlendő titkos kulcsa",
-    "Can\\'t read metadata" : "A metaadatok nem olvashatóak",
-    "Can\\'t store metadata" : "A metaadatok nem tárolhatóak",
-    "Metadata-file doesn\\'t exist" : "A metaadatfájl nem létezik",
-    "Can\\'t delete metadata" : "A metaadatok nem törölhetőek",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "A végpontok közötti titkosítás lehető tételéhez szükséges végpontot biztosítja. A végpontok közti titkosítás még mindig alfa állapotban van, ne használja éles környezetben vagy éles adatokkal."
+    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont"
 },
 "nplurals=2; plural=(n != 1);");
