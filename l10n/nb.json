@@ -14,12 +14,6 @@
     "Could not find metadata for \"%s\"" : "Kunne ikke finne metadata for \"%s\"",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke tilgang til å endre filen, lås den først, og send så riktig symbol",
     "Only the owner can delete the metadata-file" : "Kun eieren kan slette metadatafilen",
-    "End-to-End Encryption" : "Ende-til-ende -kryptering",
-    "internal error" : "Intern feil",
-    "This is not your private key to delete" : "Dette er ikke din private nøkkel å slette",
-    "Can\\'t read metadata" : "Kan ikke lese metadata",
-    "Can\\'t store metadata" : "Kan ikke lagre metadata",
-    "Metadata-file doesn\\'t exist" : "Metadatafilen finnes ikke",
-    "Can\\'t delete metadata" : "Kan ikke slette metadata"
+    "End-to-End Encryption" : "Ende-til-ende -kryptering"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

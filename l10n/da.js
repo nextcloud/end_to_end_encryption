@@ -17,13 +17,6 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke adgang til at redigere filen - sørg for først at låse den, og send så den rette nøgle",
     "Only the owner can delete the metadata-file" : "Kun ejeren kan slette metadata-filen",
     "End-to-End Encryption" : "End-to-End-kryptering",
-    "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering",
-    "internal error" : "Intern fejl",
-    "This is not your private key to delete" : "Dette er ikke din private nøgle til at slette",
-    "Can\\'t read metadata" : "Kan ikke læse metadata",
-    "Can\\'t store metadata" : "Kan ikke gemme metadata",
-    "Metadata-file doesn\\'t exist" : "Fil med metadata eksisterer ikke",
-    "Can\\'t delete metadata" : "Kan ikke slette metadata",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Opgiver det påkrævede endpoint for at kunne aktivere end-to-end-kryptering. End-to-end-kryptering er stadig i alfa-stadiet, anvend ikke i produktion og kun med testdata!"
+    "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");

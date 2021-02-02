@@ -23,13 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Ekki tókst að eyða lýsigögnum",
     "End-to-End Encryption" : "Enda-í-enda dulritun",
     "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun.",
-    "internal error" : "innri villa",
-    "This is not your private key to delete" : "Þetta er ekki þinn einkalykill sem þú ætlar að eyða",
-    "Can\\'t read metadata" : "Ekki tókst að lesa lýsigögn",
-    "Can\\'t store metadata" : "Ekki tókst að geyma lýsigögn",
-    "Metadata-file doesn\\'t exist" : "Lýsigögn eru ekki til staðar",
-    "Can\\'t delete metadata" : "Ekki tókst að eyða lýsigögnum",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun. Endi-í-enda dulritun er ennþá á prófunarstigi (alfa), ekk nota þetta í raunvinnslu og nota ætti prufugögn!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun."
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

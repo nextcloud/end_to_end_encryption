@@ -21,13 +21,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Удалить файл метаданных может только его владелец",
     "Can't delete metadata" : "Невозможно удалить метаданные",
     "End-to-End Encryption" : "Сквозное шифрование",
-    "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
-    "internal error" : "внутренняя ошибка",
-    "This is not your private key to delete" : "Это не ваш закрытый ключ для удаления",
-    "Can\\'t read metadata" : "Не удалось прочитать метаданные",
-    "Can\\'t store metadata" : "Не удалось сохранить метаданные",
-    "Metadata-file doesn\\'t exist" : "Файл метаданных не существует",
-    "Can\\'t delete metadata" : "Не удалось удалить метаданные",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Предоставляет необходимую конечную точку для обеспечения сквозного шифрования. Сквозное шифрование все ещё находится в альфа-состоянии, не используйте его для данных, представляющих ценность."
+    "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

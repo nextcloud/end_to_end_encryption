@@ -23,13 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Nie można usunąć metadanych",
     "End-to-End Encryption" : "Szyfrowanie End-to-End",
     "End-to-end encryption endpoint" : "Końcówka szyfrowania typu end-to-end",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end.",
-    "internal error" : "Błąd wewnętrzny",
-    "This is not your private key to delete" : "Klucz do usunięcia nie jest Twoim kluczem prywatnym",
-    "Can\\'t read metadata" : "Nie można odczytać metadanych",
-    "Can\\'t store metadata" : "Nie można zachować metadanych",
-    "Metadata-file doesn\\'t exist" : "Metadane pliku nie istnieją",
-    "Can\\'t delete metadata" : "Nie można usunąć metadanych",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end. Szyfrowanie end-to-end jest nadal w stanie alfa. Używaj tylko z danymi testowymi, nigdy w produkcji!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end."
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

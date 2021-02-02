@@ -23,13 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "無法刪除詮釋資料",
     "End-to-End Encryption" : "終端對終端的加密",
     "End-to-end encryption endpoint" : "端到端加密端點",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。",
-    "internal error" : "內部錯誤",
-    "This is not your private key to delete" : "這不是您要刪除的私鑰",
-    "Can\\'t read metadata" : "無法讀取原始數據",
-    "Can\\'t store metadata" : "不能儲存詮釋資料",
-    "Metadata-file doesn\\'t exist" : "詮釋資料檔案不存在",
-    "Can\\'t delete metadata" : "無法刪除原始數據",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "提供必要的端點以開啟終端到終端的加密。終端到終端的加密還屬於不穩定狀態，目前只在測試資料上使用請勿在產品上使用此功能！"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。"
 },
 "nplurals=1; plural=0;");

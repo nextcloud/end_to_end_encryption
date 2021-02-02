@@ -23,13 +23,6 @@ OC.L10N.register(
     "Can't delete metadata" : "Meta údaje nie je možné odstrániť",
     "End-to-End Encryption" : "Šifrovanie po celej dĺžke spojenia",
     "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje potrebný koncový bod na povolenie šifrovania medzi koncovými bodmi.",
-    "internal error" : "interná chyba",
-    "This is not your private key to delete" : "Toto nieje váš privátny kľúč na zmazanie",
-    "Can\\'t read metadata" : "Nedajú sa načítať metadáta",
-    "Can\\'t store metadata" : "Nedajú sa uložiť metadáta",
-    "Metadata-file doesn\\'t exist" : "Súbor metadát neexistuje",
-    "Can\\'t delete metadata" : "Nedajú sa uložiť metadáta",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Poskytuje koncový bod nevyhnutný pre zapnutie šifrovania po celej dĺžke spojenia. Šifrovanie po celej dĺžke spojenia je stále vo vývojovom štádiu alfa, nepoužívajte ho v produkcii a len s testovacími dátami."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje potrebný koncový bod na povolenie šifrovania medzi koncovými bodmi."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

@@ -21,13 +21,6 @@
     "Can't delete metadata" : "Brisanje metapodataka nije moguće",
     "End-to-End Encryption" : "Cjelovito šifriranje",
     "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Osigurava potrebnu krajnju točku za omogućavanje cjelovitog šifriranja.",
-    "internal error" : "unutarnja pogreška",
-    "This is not your private key to delete" : "Ovo nije vaš privatni ključ i ne smijete ga izbrisati",
-    "Can\\'t read metadata" : "Čitanje metapodataka nije uspjelo",
-    "Can\\'t store metadata" : "Pohranjivanje metapodataka nije uspjelo",
-    "Metadata-file doesn\\'t exist" : "Datoteka s metapodacima ne postoji",
-    "Can\\'t delete metadata" : "Brisanje metapodataka nije moguće",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Osigurava potrebnu krajnju točku za omogućavanje cjelovitog šifriranja. Cjelovito šifriranje i dalje je u alfa inačici pa ga nemojte upotrebljavati u produkciji i samo s testnim podacima!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Osigurava potrebnu krajnju točku za omogućavanje cjelovitog šifriranja."
 },"pluralForm" :"nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;"
 }

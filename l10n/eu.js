@@ -22,13 +22,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Jabeak bakarrik ezabatu dezake metadatuen fitxategia",
     "Can't delete metadata" : "Ezin da metadaturik ezabatu",
     "End-to-End Encryption" : "Muturretik muturrerako zifratzea",
-    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
-    "internal error" : "barne errorea",
-    "This is not your private key to delete" : "Hau ez da zure gako pribatua",
-    "Can\\'t read metadata" : "Ezin dira metadatuak irakurri",
-    "Can\\'t store metadata" : "Ezin dira metadatuak gorde",
-    "Metadata-file doesn\\'t exist" : "Metadatuen fitxategia ez dago",
-    "Can\\'t delete metadata" : "Ezin da metadaturik ezabatu",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Muturretik muturrerako zifratzea aktibatzeko puntua eskaintzen du. Muturretik muturrerako zifratzea alfa egoeran dago oraindik, ez erabili hau produkzioan, probako datuekin bakarrik erabili!"
+    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua"
 },
 "nplurals=2; plural=(n != 1);");

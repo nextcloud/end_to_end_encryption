@@ -20,13 +20,6 @@
     "Only the owner can delete the metadata-file" : "Bara ägaren kan ta bort metadatafilen",
     "Can't delete metadata" : "Kan inte radera metadata",
     "End-to-End Encryption" : "Ändpunkt-till-ändpunkt-kryptering",
-    "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt",
-    "internal error" : "internt fel",
-    "This is not your private key to delete" : "Detta är inte din privata nyckel att ta bort",
-    "Can\\'t read metadata" : "Kan inte läsa metadata",
-    "Can\\'t store metadata" : "Kan inte lagra metadata",
-    "Metadata-file doesn\\'t exist" : "Metadatafil finns inte",
-    "Can\\'t delete metadata" : "Kan inte ta bort metadata",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Ger den nödvändiga slutpunkten för att aktivera end-to-end-kryptering. End-to-end-kryptering är fortfarande i alfa-tillstånd, använd inte detta i produktion och endast med testdata!"
+    "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

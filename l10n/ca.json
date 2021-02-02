@@ -21,13 +21,6 @@
     "Can't delete metadata" : "No es poden suprimir les metadades",
     "End-to-End Encryption" : "Xifratge d'extrem a extrem",
     "End-to-end encryption endpoint" : "Extrem d’encriptació extrem-a-extrem",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar l'encriptació d'extrem a extrem.",
-    "internal error" : "error intern",
-    "This is not your private key to delete" : "Aquesta no és la vostra clau privada a suprimir",
-    "Can\\'t read metadata" : "No s’han pogut llegir metadades",
-    "Can\\'t store metadata" : "No s’han pogut desar metadades",
-    "Metadata-file doesn\\'t exist" : "El fitxer de metadades no existeix",
-    "Can\\'t delete metadata" : "No es poden suprimir metadades",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Proporciona el punt d’entrada necessari per permetre el xifratge d'extrem a extrem. L’encriptació extrem-a-extrem està encara en estat alfa, no ho feu servir en producció i només amb dades de prova!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar l'encriptació d'extrem a extrem."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

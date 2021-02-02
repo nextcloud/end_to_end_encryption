@@ -21,13 +21,6 @@
     "Can't delete metadata" : "Metapodatkov ni mogoče izbrisati",
     "End-to-End Encryption" : "Celovito šifriranje E2E",
     "End-to-end encryption endpoint" : "Končna točka celovitega šifriranja E2E",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Omogoča obvezne končne točke za celovito šifriranje.",
-    "internal error" : "notranja napaka",
-    "This is not your private key to delete" : "To ni vaš zasebni ključ za brisanje",
-    "Can\\'t read metadata" : "Metapodatkov ni mogoče prebrati",
-    "Can\\'t store metadata" : "Metapodatkov ni mogoče shraniti",
-    "Metadata-file doesn\\'t exist" : "Datoteka metapodatkov ne obstaja",
-    "Can\\'t delete metadata" : "Metapodatkov ni mogoče izbrisati",
-    "Provides the necessary endpoint to enable end-to-end encryption. End-to-end encryption is still in alpha state, don't use this in production and only with test data!" : "Omogoča obvezno končno točko za celovito šifriranje E2E. Celovito šifriranje je še vedno v preizkusnem stanju in ga ni priporočljivo uporabljati na produkcijskih okoljih, še manj s pravimi podatki!"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Omogoča obvezne končne točke za celovito šifriranje."
 },"pluralForm" :"nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);"
 }
