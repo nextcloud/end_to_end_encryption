@@ -20,6 +20,7 @@
     "Only the owner can delete the metadata-file" : "Jabeak bakarrik ezabatu dezake metadatuen fitxategia",
     "Can't delete metadata" : "Ezin da metadaturik ezabatu",
     "End-to-End Encryption" : "Muturretik muturrerako zifratzea",
-    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua"
+    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
