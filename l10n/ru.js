@@ -9,6 +9,7 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "Не удалось найти открытый ключ, принадлежащий пользователю %s",
     "Common name (CN) does not match the current user" : "Поле «Имя субъекта» (CN) не соответствует текущему пользователю",
     "Could not find the public key belonging to %s" : "Не удалось найти открытый ключ, принадлежащий %s",
+    "This is not your public key to delete" : "Это не ваш открытый ключ для удаления",
     "Can not decode userlist" : "Не удалось расшифровать список пользователей",
     "File already locked" : "Файл уже заблокирован",
     "You are not allowed to remove the lock" : "Вам не разрешено снятие блокировки",
@@ -21,6 +22,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Удалить файл метаданных может только его владелец",
     "Can't delete metadata" : "Невозможно удалить метаданные",
     "End-to-End Encryption" : "Сквозное шифрование",
-    "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования"
+    "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Представляет необходимую конечную точку для использования сквозного шифрования."
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");
