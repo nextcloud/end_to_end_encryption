@@ -6,6 +6,7 @@
     "Could not find the private key belonging to the user %s" : "Ei löydetty käyttäjälle %s kuuluvaa yksityistä avainta",
     "Could not find the public key belonging to the user %s" : "Ei löydetty käyttäjälle %s kuuluvaa julkista avainta",
     "Could not find the public key belonging to %s" : "Ei löydetty käyttäjälle %s kuuluvaa julkista avainta",
+    "This is not your public key to delete" : "Tämä julkinen avain ei kuulu sinulle",
     "Can not decode userlist" : "Käyttäjäluetteloa ei voida purkaa",
     "File already locked" : "Tiedosto on jo lukittu",
     "You are not allowed to remove the lock" : "Sinulla ei ole oikeutta poistaa lukitusta",
