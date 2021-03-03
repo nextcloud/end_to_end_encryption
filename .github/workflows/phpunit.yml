@@ -212,5 +212,7 @@ jobs:
 #        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 
       - name: Upload coverage to Codecov
-        working-directory: apps/${{ env.APP_NAME }}
-        run: curl -s https://codecov.io/bash | bash -s - -t ${{ secrets.CODECOV_TOKEN }} -F php -f clover.unit.xml -Z
+        uses: codecov/codecov-action@v1
+        with:
+          file: apps/${{ env.APP_NAME }}/clover.unit.xml
+          fail_ci_if_error: true
