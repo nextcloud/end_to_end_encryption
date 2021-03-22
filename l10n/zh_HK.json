@@ -5,7 +5,7 @@
     "You are not allowed to delete this private key" : "您不被允許刪除此私鑰",
     "Could not find the private key belonging to the user %s" : "無法找到屬於用戶%s的私鑰",
     "Could not find the public key belonging to the user %s" : "無法找到屬於用戶%s的公鑰",
-    "Common name (CN) does not match the current user" : "一般名稱 (CN) 與目前的用戶不符",
+    "Common name (CN) does not match the current user" : "一般名稱（CN）與目前的用戶不符",
     "Could not find the public key belonging to %s" : "無法找到屬於%s的公鑰",
     "This is not your public key to delete" : "這不是您要刪除的公開密鑰",
     "Can not decode userlist" : "無法解密用戶清單",
