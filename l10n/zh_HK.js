@@ -4,7 +4,7 @@ OC.L10N.register(
     "This is someone else's private key" : "這是其他人的私鑰",
     "Could not find the private key of the user %s" : "找不到用戶的私鑰%s",
     "Internal error" : "內部錯誤",
-    "You are not allowed to delete this private key" : "您不被允許刪除此私鑰",
+    "You are not allowed to delete this private key" : "您無權刪除此私鑰",
     "Could not find the private key belonging to the user %s" : "無法找到屬於用戶%s的私鑰",
     "Could not find the public key belonging to the user %s" : "無法找到屬於用戶%s的公鑰",
     "Common name (CN) does not match the current user" : "一般名稱（CN）與目前的用戶不符",
