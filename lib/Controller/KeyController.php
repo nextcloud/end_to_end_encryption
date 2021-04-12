@@ -303,7 +303,7 @@ class KeyController extends OCSController {
 			// TODO - use JSON_THROW_ON_ERROR once we require PHP 7.3
 			$usersArray = \json_decode($users, true);
 			if ($usersArray === null) {
-				throw new OCSBadRequestException($this->l10n->t('Can not decode userlist'));
+				throw new OCSBadRequestException($this->l10n->t('Cannot decode userlist'));
 			}
 		}
 
