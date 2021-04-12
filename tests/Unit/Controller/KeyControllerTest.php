@@ -324,7 +324,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			});
 
 		$this->expectException(OCSBadRequestException::class);
-		$this->expectExceptionMessage('Can not decode userlist');
+		$this->expectExceptionMessage('Cannot decode userlist');
 
 		$this->controller->getPublicKeys($users);
 	}
