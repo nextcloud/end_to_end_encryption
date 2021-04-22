@@ -95,7 +95,7 @@ class RollbackService {
 	 * @param int $olderThanTimestamp
 	 * @param int|null $limit
 	 */
-	public function rollbackOlderThan(int $olderThanTimestamp, ?int $limit=null): void {
+	public function rollbackOlderThan(int $olderThanTimestamp, ?int $limit = null): void {
 		$locks = $this->lockMapper->findAllLocksOlderThan($olderThanTimestamp, $limit);
 
 		foreach ($locks as $lock) {
