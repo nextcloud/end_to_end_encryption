@@ -143,7 +143,7 @@ class MetaDataControllerTest extends TestCase {
 		return [
 			[null, null, null, false],
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', false],
-			[new \Exception(), OCSBadRequestException::class, 'Can\'t read metadata', true],
+			[new \Exception(), OCSBadRequestException::class, 'Cannot read metadata', true],
 		];
 	}
 
@@ -206,7 +206,7 @@ class MetaDataControllerTest extends TestCase {
 			[null, null, null, false, ['meta-data' => 'JSON-ENCODED-META-DATA'], 200],
 			[new MetaDataExistsException(), null, null, false, [], 409],
 			[new NotFoundException('Exception message'), OCSNotFoundException::class, 'Exception message', false, null, null],
-			[new \Exception(), OCSBadRequestException::class, 'Can\'t store metadata', true, null, null],
+			[new \Exception(), OCSBadRequestException::class, 'Cannot store metadata', true, null, null],
 		];
 	}
 
@@ -282,7 +282,7 @@ class MetaDataControllerTest extends TestCase {
 			[true, null, OCSForbiddenException::class, 'You are not allowed to edit the file, make sure to first lock it, and then send the right token', false],
 			[false, new MissingMetaDataException(), OCSNotFoundException::class, 'Metadata-file doesn\'t exist', false],
 			[false, new NotFoundException('Exception Message'), OCSNotFoundException::class, 'Exception Message', false],
-			[false, new \Exception(), OCSBadRequestException::class, 'Can\'t store metadata', true],
+			[false, new \Exception(), OCSBadRequestException::class, 'Cannot store metadata', true],
 		];
 	}
 
@@ -339,7 +339,7 @@ class MetaDataControllerTest extends TestCase {
 			[null, null, null, false],
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', false],
 			[new NotPermittedException(), OCSForbiddenException::class, 'Only the owner can delete the metadata-file', false],
-			[new \Exception(), OCSBadRequestException::class, 'Can\'t delete metadata', true],
+			[new \Exception(), OCSBadRequestException::class, 'Cannot delete metadata', true],
 		];
 	}
 }
