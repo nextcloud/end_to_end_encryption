@@ -39,6 +39,7 @@ appstore: clean
 	--exclude=/issue_template.md \
 	--exclude=/README.md \
 	--exclude=/.gitattributes \
+	--exclude=/.php_cs.dist \
 	--exclude=/.php_cs.cache \
 	--exclude=/.gitignore \
 	--exclude=/.scrutinizer.yml \
