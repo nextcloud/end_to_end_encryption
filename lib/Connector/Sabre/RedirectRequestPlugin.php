@@ -241,14 +241,14 @@ class RedirectRequestPlugin extends APlugin {
 	 */
 	protected function buildUrlFromParts(array $parts): string {
 		// https://www.php.net/manual/en/function.parse-url.php#106731
-		$scheme   = isset($parts['scheme']) ? $parts['scheme'] . '://' : '';
-		$host     = $parts['host'] ?? '';
-		$port     = isset($parts['port']) ? ':' . $parts['port'] : '';
-		$user     = $parts['user'] ?? '';
-		$pass     = isset($parts['pass']) ? ':' . $parts['pass']  : '';
-		$pass     = ($user || $pass) ? "$pass@" : '';
-		$path     = $parts['path'] ?? '';
-		$query    = isset($parts['query']) ? '?' . $parts['query'] : '';
+		$scheme = isset($parts['scheme']) ? $parts['scheme'] . '://' : '';
+		$host = $parts['host'] ?? '';
+		$port = isset($parts['port']) ? ':' . $parts['port'] : '';
+		$user = $parts['user'] ?? '';
+		$pass = isset($parts['pass']) ? ':' . $parts['pass']  : '';
+		$pass = ($user || $pass) ? "$pass@" : '';
+		$path = $parts['path'] ?? '';
+		$query = isset($parts['query']) ? '?' . $parts['query'] : '';
 		$fragment = isset($parts['fragment']) ? '#' . $parts['fragment'] : '';
 
 		return "$scheme$user$pass$host$port$path$query$fragment";
