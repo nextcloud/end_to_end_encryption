@@ -67,9 +67,9 @@ jobs:
         working-directory: apps/${{ env.APP_NAME }}
         run: ./vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
-      - name: PHPUnit integration
-        working-directory: apps/${{ env.APP_NAME }}
-        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+#      - name: PHPUnit integration
+#        working-directory: apps/${{ env.APP_NAME }}
+#        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 
   mysql:
     runs-on: ubuntu-latest
@@ -136,9 +136,9 @@ jobs:
         working-directory: apps/${{ env.APP_NAME }}
         run: ./vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
-      - name: PHPUnit integration
-        working-directory: apps/${{ env.APP_NAME }}
-        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+#      - name: PHPUnit integration
+#        working-directory: apps/${{ env.APP_NAME }}
+#        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 
   pgsql:
     runs-on: ubuntu-latest
@@ -207,9 +207,9 @@ jobs:
         working-directory: apps/${{ env.APP_NAME }}
         run: composer run test
 
-      - name: PHPUnit integration
-        working-directory: apps/${{ env.APP_NAME }}
-        run: composer run test:integration
+#      - name: PHPUnit integration
+#        working-directory: apps/${{ env.APP_NAME }}
+#        run: composer run test:integration
 
       - name: Upload coverage to Codecov
         working-directory: apps/${{ env.APP_NAME }}
