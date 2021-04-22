@@ -24,8 +24,6 @@ checks:
         parameter_doc_comments: true
         return_doc_comments: true
         fix_doc_comments: true
-        return_doc_comments: true
-        parameter_doc_comments: true
         more_specific_types_in_doc_comments: true
         code_rating: true
         duplication: true
@@ -44,7 +42,6 @@ checks:
         parameter_non_unique: true
         no_property_on_interface: true
         no_non_implemented_abstract_methods: true
-        deprecated_code_usage: true
         closure_use_not_conflicting: true
         closure_use_modifiable: true
         avoid_useless_overridden_methods: true
