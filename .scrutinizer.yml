@@ -1,6 +1,7 @@
 filter:
     excluded_paths:
         - 'tests/*'
+        - 'vendor/*'
         - 'doc/*'
 
 
@@ -98,18 +99,3 @@ checks:
         no_extra_boolean_cast: true
         no_empty: true
         no_dupe_keys: true
-
-coding_style:
-    php:
-        indentation:
-            general:
-                use_tabs: true
-                size: 4
-        spaces:
-            within:
-                brackets: false
-            other:
-                after_type_cast: false
-        braces:
-            classes_functions:
-                class: end-of-line
