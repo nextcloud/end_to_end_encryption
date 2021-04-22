@@ -250,7 +250,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	protected function verifyOwner(string $userId, int $id): void {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
-		} catch (NoUserException|NotPermittedException $ex) {
+		} catch (NoUserException | NotPermittedException $ex) {
 			throw new NotFoundException('No user-root for '. $userId);
 		}
 
@@ -310,7 +310,7 @@ class MetaDataStorage implements IMetaDataStorage {
 		try {
 			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
 			$legacyFolder->delete();
-		} catch (NotFoundException|NotPermittedException $e) {
+		} catch (NotFoundException | NotPermittedException $e) {
 			return;
 		}
 	}

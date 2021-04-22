@@ -133,19 +133,19 @@ class EncryptionManagerTest extends TestCase {
 
 	public function dataTestIsEncryptedFile(): array {
 		// no node is encrypted
-		list($node1_1, $node1_2, $node1_3) = $this->constructNestedNodes();
+		[$node1_1, $node1_2, $node1_3] = $this->constructNestedNodes();
 		$node1_1->expects($this->any())->method('isEncrypted')->willReturn(false);
 		$node1_2->expects($this->any())->method('isEncrypted')->willReturn(false);
 		$node1_3->expects($this->any())->method('isEncrypted')->willReturn(false);
 
 		//first node is encrypted
-		list($node2_1, $node2_2, $node2_3) = $this->constructNestedNodes();
+		[$node2_1, $node2_2, $node2_3] = $this->constructNestedNodes();
 		$node2_1->expects($this->any())->method('isEncrypted')->willReturn(true);
 		$node2_2->expects($this->any())->method('isEncrypted')->willReturn(false);
 		$node2_3->expects($this->any())->method('isEncrypted')->willReturn(false);
 
 		//parent node is encrypted
-		list($node3_1, $node3_2, $node3_3) = $this->constructNestedNodes();
+		[$node3_1, $node3_2, $node3_3] = $this->constructNestedNodes();
 		$node3_1->expects($this->any())->method('isEncrypted')->willReturn(false);
 		$node3_2->expects($this->any())->method('isEncrypted')->willReturn(true);
 		$node3_3->expects($this->any())->method('isEncrypted')->willReturn(false);

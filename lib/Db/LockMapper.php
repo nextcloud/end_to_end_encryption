@@ -64,7 +64,7 @@ class LockMapper extends QBMapper {
 	 * @param int|null $offset
 	 * @return array
 	 */
-	public function findAllLocksOlderThan(int $timeStamp, ?int $limit=null, ?int $offset=null): array {
+	public function findAllLocksOlderThan(int $timeStamp, ?int $limit = null, ?int $offset = null): array {
 		$qb = $this->db->getQueryBuilder();
 		$qb
 			->select('*')
