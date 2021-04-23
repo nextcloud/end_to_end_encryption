@@ -7,13 +7,13 @@
     "Could not find the public key belonging to the user %s" : "Kunne ikke finne offentlig nøkkel tilhørende brukeren %s",
     "Common name (CN) does not match the current user" : "Vanlig navn (CN) samsvarer ikke med gjeldende bruker",
     "Could not find the public key belonging to %s" : "Kunne ikke finne offentlig nøkkel tilhørende %s",
-    "Can not decode userlist" : "Kan ikke dekode brukerliste",
     "File already locked" : "Filen er allerede låst",
     "You are not allowed to remove the lock" : "Du har ikke lov til å fjerne lås",
     "File not locked" : "Filen er ikke låst",
     "Could not find metadata for \"%s\"" : "Kunne ikke finne metadata for \"%s\"",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke tilgang til å endre filen, lås den først, og send så riktig symbol",
     "Only the owner can delete the metadata-file" : "Kun eieren kan slette metadatafilen",
-    "End-to-End Encryption" : "Ende-til-ende -kryptering"
+    "End-to-End Encryption" : "Ende-til-ende -kryptering",
+    "Can not decode userlist" : "Kan ikke dekode brukerliste"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

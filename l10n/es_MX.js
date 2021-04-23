@@ -9,7 +9,6 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "No se encontró la llave pública de usuario %s",
     "Common name (CN) does not match the current user" : "El nombre común (CN) no corresponde al usuario actual",
     "Could not find the public key belonging to %s" : "No se encontró la llave pública de %s",
-    "Can not decode userlist" : "No se puede decodificar la lista de usuarios",
     "File already locked" : "El archivo ya está bloqueado",
     "You are not allowed to remove the lock" : "No tienes permitido eliminar el bloqueo",
     "File not locked" : "El archivo no está bloqueado",
@@ -17,6 +16,7 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No puedes editar el archivo, asegúrate de bloquearlo primero y despues enviar la ficha correcta",
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
-    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto"
+    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
+    "Can not decode userlist" : "No se puede decodificar la lista de usuarios"
 },
 "nplurals=2; plural=(n != 1);");

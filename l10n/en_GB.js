@@ -9,7 +9,6 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "Could not find the public key belonging to the user %s",
     "Common name (CN) does not match the current user" : "Common name (CN) does not match the current user",
     "Could not find the public key belonging to %s" : "Could not find the public key belonging to %s",
-    "Can not decode userlist" : "Can not decode userlist",
     "File already locked" : "File already locked",
     "You are not allowed to remove the lock" : "You are not allowed to remove the lock",
     "File not locked" : "File not locked",
@@ -17,6 +16,7 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "You are not allowed to edit the file, make sure to lock it first, and then send the right token",
     "Only the owner can delete the metadata-file" : "Only the owner can delete the metadata-file",
     "End-to-End Encryption" : "End-to-End Encryption",
-    "End-to-end encryption endpoint" : "End-to-end encryption endpoint"
+    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "Can not decode userlist" : "Can not decode userlist"
 },
 "nplurals=2; plural=(n != 1);");
