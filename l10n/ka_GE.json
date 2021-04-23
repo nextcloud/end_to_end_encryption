@@ -7,13 +7,13 @@
     "Could not find the public key belonging to the user %s" : "%s მომხმარებლის კუთვნილი ღია გასაღების პოვნა ვერ მოხერხდა",
     "Common name (CN) does not match the current user" : "Common name (CN) არ ემთხვევა ამჟამინდელ მომხმარებელს",
     "Could not find the public key belonging to %s" : "%s მომხმარებლის ღია გასაღები ვერ იქნა ნაპოვნი",
-    "Can not decode userlist" : "მომხმარებლის სიის დეკოდირება ვერ ხერხდება",
     "File already locked" : "ფაილი უკვე ჩაკეტილია",
     "You are not allowed to remove the lock" : "ჩაკეთვის მოხსნის უფლება არ გაქვთ",
     "File not locked" : "ფაილი არაა ჩაკეტილი",
     "Could not find metadata for \"%s\"" : "მეტა-მონაცემები \"%s\"-ზე ვერ იქნა ნაპოვნი",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "ფაილის ცვლილების უფლება არ გაქვთ, დარწმუნდით რომ მას კეტავთ და შემდეგ გზავნით სწორ ტოკენს",
     "Only the owner can delete the metadata-file" : "მხოლოდ მფლობელს შეუძლია გააუქმოს მეტა-მონაცემების ფაილი",
-    "End-to-End Encryption" : "End-to-End შიფრაცია"
+    "End-to-End Encryption" : "End-to-End შიფრაცია",
+    "Can not decode userlist" : "მომხმარებლის სიის დეკოდირება ვერ ხერხდება"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

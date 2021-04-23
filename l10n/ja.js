@@ -9,7 +9,6 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "ユーザー %s の公開鍵が見つかりません",
     "Common name (CN) does not match the current user" : "コモンネーム(CN)が現在のユーザーと一致しません",
     "Could not find the public key belonging to %s" : "%s に属する公開鍵が見つかりません",
-    "Can not decode userlist" : "ユーザリストをデコードできません",
     "File already locked" : "ファイルはすでにロックされています",
     "You are not allowed to remove the lock" : "ロックを解除することは許可されていません",
     "File not locked" : "ファイルはロックされていません",
@@ -17,6 +16,7 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "ファイルの編集が許可されていません。まずファイルをロックし、適切なトークンを送信してください",
     "Only the owner can delete the metadata-file" : "オーナーだけがメタデータファイルを削除できます",
     "End-to-End Encryption" : "End-to-End 暗号化",
-    "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント"
+    "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント",
+    "Can not decode userlist" : "ユーザリストをデコードできません"
 },
 "nplurals=1; plural=0;");
