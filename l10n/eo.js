@@ -9,7 +9,6 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "Ne eblis trovi la publikan ŝlosilon de la uzanto %s",
     "Common name (CN) does not match the current user" : "Komuna nomo („CN“) ne kongruas kun la aktuala uzanto",
     "Could not find the public key belonging to %s" : "Ne eblis trovi la publikan ŝlosilon de %s",
-    "Can not decode userlist" : "Ne eblas malkodi la liston de uzantoj",
     "File already locked" : "Dosiero jam ŝlosita",
     "You are not allowed to remove the lock" : "Vi ne rajtas forigi la ŝlosadon",
     "File not locked" : "Dosiero ne ŝlosita",
@@ -17,6 +16,7 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vi ne rajtas redakti la dosieron; certigu, ke vi unue ŝlosas ĝin kaj poste sendas la ĝustan ĵetonon",
     "Only the owner can delete the metadata-file" : "Nur la posedanto povas forigi la pridatuman dosieron",
     "End-to-End Encryption" : "Tutvoja ĉifrado",
-    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado"
+    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
+    "Can not decode userlist" : "Ne eblas malkodi la liston de uzantoj"
 },
 "nplurals=2; plural=(n != 1);");
