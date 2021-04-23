@@ -8,19 +8,19 @@
     "Common name (CN) does not match the current user" : "Common name (CN) não confere com a do usuário atual",
     "Could not find the public key belonging to %s" : "Não foi possível encontrar a chave pública pertencente a %s",
     "This is not your public key to delete" : "Esta não é sua chave pública a excluir",
-    "Can not decode userlist" : "Não foi possível decodificar a lista de usuários",
     "File already locked" : "Arquivo já bloqueado",
     "You are not allowed to remove the lock" : "Você não ter permissão para remover o bloqueio",
     "File not locked" : "O arquivo não bloqueado",
     "Could not find metadata for \"%s\"" : "Não foi possível encontrar metadados para \"%s\"",
-    "Can't read metadata" : "Não foi possível ler os metadados",
-    "Can't store metadata" : "Não foi possível salvar os metadados",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Você não tem permissão para editar o arquivo. Certifique-se de bloqueá-lo e então envie o token correto",
     "Metadata-file doesn't exist" : "Arquivo de metadados não existe",
     "Only the owner can delete the metadata-file" : "Somente o proprietário pode excluir o arquivo de metadados",
-    "Can't delete metadata" : "Não foi possível excluir os metadados",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
+    "Can not decode userlist" : "Não foi possível decodificar a lista de usuários",
+    "Can't read metadata" : "Não foi possível ler os metadados",
+    "Can't store metadata" : "Não foi possível salvar os metadados",
+    "Can't delete metadata" : "Não foi possível excluir os metadados"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
