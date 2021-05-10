@@ -94,10 +94,28 @@ class LockingControllerTest extends TestCase {
 	public function testLockFolder(): void {
 		$fileId = 42;
 		$sendE2E = '';
+
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static function ($string, $args) {
+				return vsprintf($string, $args);
+			});
+
 		$this->request->expects($this->once())
 			->method('getParam')
 			->with('e2e-token', '')
 			->willReturn('');
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('john.doe')
+			->willReturn($userFolder);
+		$node = $this->createMock(Folder::class);
+		$userFolder->expects($this->once())
+			->method('getById')
+			->with($fileId)
+			->willReturn([$node]);
 
 		$this->lockManager->expects($this->once())
 			->method('lockFile')
@@ -118,6 +136,17 @@ class LockingControllerTest extends TestCase {
 			->method('getParam')
 			->with('e2e-token', '')
 			->willReturn('');
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('john.doe')
+			->willReturn($userFolder);
+		$node = $this->createMock(Folder::class);
+		$userFolder->expects($this->once())
+			->method('getById')
+			->with($fileId)
+			->willReturn([$node]);
 
 		$this->lockManager->expects($this->once())
 			->method('lockFile')
