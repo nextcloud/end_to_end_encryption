@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "找不到属于%s的公钥",
     "This is not your public key to delete" : "这不是你要删除的公钥",
     "Cannot decode userlist" : "无法解码用户列表",
+    "You are not allowed to create the lock" : "你不被允许创建锁",
     "File already locked" : "文件已锁定",
     "You are not allowed to remove the lock" : "您无权移除锁",
     "File not locked" : "文件未锁定",

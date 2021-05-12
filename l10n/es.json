@@ -9,6 +9,7 @@
     "Could not find the public key belonging to %s" : "No se ha podido encontrar la clave pública perteneciente a %s",
     "This is not your public key to delete" : "Esta no es su clave pública para borrar",
     "Cannot decode userlist" : "No se puede decodificar la lista de usuarios",
+    "You are not allowed to create the lock" : "No tienes permiso para crear el bloqueo",
     "File already locked" : "El archivo ya está bloqueado",
     "You are not allowed to remove the lock" : "No tienes permiso para eliminar el bloqueo",
     "File not locked" : "Archivo no bloqueado",
