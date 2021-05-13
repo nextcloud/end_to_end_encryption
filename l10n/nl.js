@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Kan de publieke sleutel van %s niet vinden",
     "This is not your public key to delete" : "Dit is niet jouw openbare sleutel, kun je niet verwijderen",
     "Cannot decode userlist" : "Kan de gebruikerslijst niet decoderen",
+    "You are not allowed to create the lock" : "Je mag het slot niet verwijderen",
     "File already locked" : "Bestand zit al op slot",
     "You are not allowed to remove the lock" : "Je mag het slot niet verwijderen",
     "File not locked" : "Bestand niet op slot",
