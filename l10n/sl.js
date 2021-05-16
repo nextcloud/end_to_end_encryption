@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Ni mogoče najti javnega ključa, ki pripada %s.",
     "This is not your public key to delete" : "To ni vaš zasebni ključ in ga ne morete izbrisati",
     "Cannot decode userlist" : "Ni mogoče dekodirati uporabniškega seznama",
+    "You are not allowed to create the lock" : "Ni ustreznih dovoljenj za ustvarjanje zaklepa",
     "File already locked" : "Datoteka je že zaklenjena",
     "You are not allowed to remove the lock" : "Ni ustreznih dovoljenj za odstranjevanje zaklepa",
     "File not locked" : "Datoteka ni zaklenjena",
