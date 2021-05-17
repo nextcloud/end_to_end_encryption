@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Impossibile trovare la chiave pubblica che appartiene a %s",
     "This is not your public key to delete" : "Questa non è la tua chiave privata da eliminare",
     "Cannot decode userlist" : "Impossibile decodificare l'elenco degli utenti",
+    "You are not allowed to create the lock" : "Non ti è consentito creare il blocco",
     "File already locked" : "File già bloccato",
     "You are not allowed to remove the lock" : "Non ti è consentito rimuovere il blocco",
     "File not locked" : "File non bloccato",
