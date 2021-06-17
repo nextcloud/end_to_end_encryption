@@ -60,11 +60,11 @@ jobs:
         uses: actions/checkout@master
 
       - name: Download schema
-        run: wget https://apps.nextcloud.com/schema/apps/info.xsd
+        run: wget https://raw.githubusercontent.com/nextcloud/server/master/resources/app-info-shipped.xsd
 
       - name: Lint info.xml
         uses: ChristophWurst/xmllint-action@v1
         with:
           xml-file: ./appinfo/info.xml
-          xml-schema-file: ./info.xsd
+          xml-schema-file: ./app-info-shipped.xsd
 
