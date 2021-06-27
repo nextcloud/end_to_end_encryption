@@ -9,6 +9,7 @@
     "Could not find the public key belonging to %s" : "Non s'est agatada sa crae pùblica chi apartenet a %s",
     "This is not your public key to delete" : "Custa no est sa crae pùblica tua de cantzellare",
     "Cannot decode userlist" : "Impossìbile a decodificare sa lista de utentes",
+    "You are not allowed to create the lock" : "Non tenes su permissu pro creare su blocu",
     "File already locked" : "Archìviu giai blocadu",
     "You are not allowed to remove the lock" : "Non tenes su permissu pro isblocare",
     "File not locked" : "Archìviu non blocadu",
