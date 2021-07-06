@@ -11,7 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Nedaří se nalézt veřejný klíč náležející k %s",
     "This is not your public key to delete" : "Chcete smazat veřejný klíč, který není váš",
     "Cannot decode userlist" : "Nedaří se dekódovat seznam uživatelů",
-    "You are not allowed to create the lock" : "K zamčení nemáte povolení",
+    "You are not allowed to create the lock" : "Nemáte oprávnění provést uzamčení",
     "File already locked" : "Soubor už je uzamčen",
     "You are not allowed to remove the lock" : "Nemáte oprávnění k odebrání uzamčení",
     "File not locked" : "Soubor není uzamčen",
