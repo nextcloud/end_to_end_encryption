@@ -9,6 +9,7 @@
     "Could not find the public key belonging to %s" : "Не удалось найти открытый ключ, принадлежащий %s",
     "This is not your public key to delete" : "Это не ваш открытый ключ для удаления",
     "Cannot decode userlist" : "Не удалось расшифровать список пользователей",
+    "You are not allowed to create the lock" : "Вам не разрешено создание блокировки",
     "File already locked" : "Файл уже заблокирован",
     "You are not allowed to remove the lock" : "Вам не разрешено снятие блокировки",
     "File not locked" : "Файл не заблокирован",
