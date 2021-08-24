@@ -1,9 +1,9 @@
 { "translations": {
-    "This is someone else's private key" : "Bu başka birisinin özel anahtarı",
-    "Could not find the private key of the user %s" : "%s kullanıcısının özel anahtarı bulunamadı",
+    "This is someone else's private key" : "Bu başka birisinin kişisel anahtarı",
+    "Could not find the private key of the user %s" : "%s kullanıcısının kişisel anahtarı bulunamadı",
     "Internal error" : "İçeride bir sorun çıktı",
-    "You are not allowed to delete this private key" : "Bu özel anahtarı silme izniniz yok",
-    "Could not find the private key belonging to the user %s" : "%s kullanıcısına ait özel anahtar bulunamadı",
+    "You are not allowed to delete this private key" : "Bu kişisel anahtarı silme izniniz yok",
+    "Could not find the private key belonging to the user %s" : "%s kullanıcısına ait kişisel anahtar bulunamadı",
     "Could not find the public key belonging to the user %s" : "%s kullanıcısına ait herkese açık anahtar bulunamadı",
     "Common name (CN) does not match the current user" : "Ortak ad (CN) geçerli kullanıcı ile uyuşmuyor",
     "Could not find the public key belonging to %s" : "%s kullanıcısına ait herkese açık anahtar bulunamadı",
