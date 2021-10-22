@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\Directory;
+use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
@@ -32,6 +33,8 @@ use OCP\IUserSession;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\PropFind;
 use Sabre\DAV\Server;
+use Sabre\DAV\Tree;
+use Sabre\HTTP\RequestInterface;
 use Test\TestCase;
 
 class PropFindPluginTest extends TestCase {
@@ -48,6 +51,9 @@ class PropFindPluginTest extends TestCase {
 	/** @var  IRequest|\PHPUnit\Framework\MockObject\MockObject */
 	private $request;
 
+	/** @var Server|\PHPUnit\Framework\MockObject\MockObject */
+	protected $server;
+
 	/** @var PropFindPlugin */
 	private $plugin;
 
@@ -58,6 +64,7 @@ class PropFindPluginTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 		$this->request = $this->createMock(IRequest::class);
+		$this->server = $this->createMock(Server::class);
 
 		$this->plugin = new PropFindPlugin($this->rootFolder,
 			$this->userSession,
@@ -69,6 +76,10 @@ class PropFindPluginTest extends TestCase {
 		$server = $this->createMock(Server::class);
 
 		$server->expects($this->at(0))
+			->method('on')
+			->with('afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50);
+
+		$server->expects($this->at(1))
 			->method('on')
 			->with('propFind', [$this->plugin, 'updateProperty'], 105);
 
@@ -148,6 +159,72 @@ class PropFindPluginTest extends TestCase {
 	}
 
 	public function updatePropertyDataProvider(): array {
+		return [
+			[false, false],
+			[false, true],
+			[true, false],
+			[true, true],
+		];
+	}
+
+
+
+
+	/**
+	 * @dataProvider updatePropertyDataProvider
+	 *
+	 * @param bool $supportedUserAgent
+	 * @param bool $fileEncrypted
+	 */
+	public function testCheckAccess(bool $supportedUserAgent, bool $fileEncrypted): void {
+		$server = $this->createMock(Server::class);
+		$propFind = $this->createMock(PropFind::class);
+		$iNode = $this->createMock(Directory::class);
+		$request = $this->createMock(RequestInterface::class);
+		$tree = $this->createMock(Tree::class);
+
+		$this->plugin->initialize($server);
+		$server->tree = $tree;
+
+		$request->expects($this->once())
+			->method('getMethod')
+			->willReturn('PROPFIND');
+
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('USER_AGENT')
+			->willReturn('User-Agent-String');
+
+		$request->expects($this->exactly(2))
+			->method('getPath')
+			->willReturn('files/admin/Folder');
+
+		$this->userAgentManager->expects($this->once())
+			->method('supportsEndToEndEncryption')
+			->with('User-Agent-String')
+			->willReturn($supportedUserAgent);
+
+		$tree->expects($this->once())
+			->method('getNodeForPath')
+			->with('files/admin/Folder')
+			->willReturn($iNode);
+
+		$server->expects($this->once())
+			->method('getProperties')
+			->with('files/admin/Folder', '{http://nextcloud.org/ns}is-encrypted')
+			->willReturn([
+				'{http://nextcloud.org/ns}is-encrypted' => $fileEncrypted ? '1' : '0'
+			]);
+
+		if (!$supportedUserAgent && $fileEncrypted) {
+			$this->expectException(Forbidden::class);
+			$this->expectExceptionMessage('Client "User-Agent-String" is not allowed to access end-to-end encrypted content');
+		}
+
+		$this->plugin->checkAccess($request);
+	}
+
+	public function checkAccessDataProvider(): array {
 		return [
 			[false, false],
 			[false, true],
