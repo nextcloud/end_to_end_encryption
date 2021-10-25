@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\Directory;
+use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
@@ -32,6 +33,7 @@ use OCP\IUserSession;
 use Sabre\DAV\INode;
 use Sabre\DAV\PropFind;
 use Sabre\DAV\Server;
+use Sabre\HTTP\RequestInterface;
 
 class PropFindPlugin extends APlugin {
 
@@ -40,6 +42,9 @@ class PropFindPlugin extends APlugin {
 
 	/** @var IRequest */
 	private $request;
+
+	/** @var Server */
+	protected $server;
 
 	/**
 	 * PropFindPlugin constructor.
@@ -64,6 +69,8 @@ class PropFindPlugin extends APlugin {
 	public function initialize(Server $server) {
 		parent::initialize($server);
 
+		$this->server = $server;
+		$this->server->on('afterMethod:PROPFIND', [$this, 'checkAccess'], 50);
 		$this->server->on('propFind', [$this, 'updateProperty'], 105);
 	}
 
@@ -87,6 +94,28 @@ class PropFindPlugin extends APlugin {
 			if ($isEncrypted === '1') {
 				$propFind->set('{http://owncloud.org/ns}permissions', '', 200);
 			}
+		}
+	}
+
+	public function checkAccess(RequestInterface $request) {
+		if ($request->getMethod() !== 'PROPFIND') {
+			return;
+		}
+
+		// Check client support
+		$encryptionProperty = '{http://nextcloud.org/ns}is-encrypted';
+		$userAgent = $this->request->getHeader('USER_AGENT');
+		$supportE2EEncryption = $this->userAgentManager->supportsEndToEndEncryption($userAgent);
+
+		// Check node encryption status
+		$node = $this->server->tree->getNodeForPath($request->getPath());
+		$isEncrypted = $this->server->getProperties($request->getPath(), $encryptionProperty);
+
+		if (!$supportE2EEncryption
+			&& $node instanceof Directory
+			&& array_key_exists($encryptionProperty, $isEncrypted)
+			&& $isEncrypted[$encryptionProperty] === '1') {
+			throw new Forbidden('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content');
 		}
 	}
 }
