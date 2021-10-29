@@ -2,20 +2,12 @@ app_name=end_to_end_encryption
 
 project_dir=$(CURDIR)/../$(app_name)
 build_dir=$(CURDIR)/build/artifacts
-appstore_dir=$(build_dir)/appstore
-source_dir=$(build_dir)/source
 sign_dir=$(build_dir)/sign
 package_name=$(app_name)
 cert_dir=$(HOME)/.nextcloud/certificates
 version+=1.7.1
 
 all: appstore
-
-release: appstore create-tag
-
-create-tag:
-	git tag -s -a v$(version) -m "Tagging the $(version) release."
-	git push origin v$(version)
 
 clean:
 	rm -rf $(build_dir)
@@ -51,9 +43,5 @@ appstore: clean
 	--exclude=/phpunit.integration.xml \
 	--exclude=/Makefile \
 	$(project_dir)/ $(sign_dir)/$(app_name)
-	tar -czf $(build_dir)/$(app_name)-$(version).tar.gz \
+	tar -czf $(build_dir)/$(app_name).tar.gz \
 		-C $(sign_dir) $(app_name)
-	@if [ -f $(cert_dir)/$(app_name).key ]; then \
-		echo "Signing package…"; \
-		openssl dgst -sha512 -sign $(cert_dir)/$(app_name).key $(build_dir)/$(app_name)-$(version).tar.gz | openssl base64; \
-	fi
