@@ -3,9 +3,6 @@ app_name=end_to_end_encryption
 project_dir=$(CURDIR)/../$(app_name)
 build_dir=$(CURDIR)/build/artifacts
 sign_dir=$(build_dir)/sign
-package_name=$(app_name)
-cert_dir=$(HOME)/.nextcloud/certificates
-version+=1.6.3
 
 all: appstore
 
