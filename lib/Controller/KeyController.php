@@ -110,6 +110,7 @@ class KeyController extends OCSController {
 		} catch (ForbiddenException $e) {
 			throw new OCSForbiddenException($this->l10n->t('This is someone else\'s private key'));
 		} catch (NotFoundException $e) {
+			$this->logger->warning('Could not find the private key of the user: ' . $this->userId);
 			throw new OCSNotFoundException($this->l10n->t('Could not find the private key of the user %s', [$this->userId]));
 		} catch (Exception $e) {
 			$this->logger->logException($e, ['app' => $this->appName]);
