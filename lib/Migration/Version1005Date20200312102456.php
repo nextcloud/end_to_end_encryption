@@ -26,6 +26,7 @@ use Closure;
 use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
+use OCP\DB\Types;
 
 /**
  * Class Version1005Date20200312102456
@@ -48,17 +49,17 @@ class Version1005Date20200312102456 extends SimpleMigrationStep {
 			$table = $schema->createTable('e2e_encryption_lock');
 			// Id refers to the file id of the locked folder
 			// So we don't want autoincrement
-			$table->addColumn('id', 'bigint', [
+			$table->addColumn('id', Types::BIGINT, [
 				'notnull' => true,
 				'length' => 11,
 				'unsigned' => true,
 			]);
-			$table->addColumn('timestamp', 'bigint', [
+			$table->addColumn('timestamp', Types::BIGINT, [
 				'notnull' => true,
 				'length' => 11,
 				'unsigned' => true,
 			]);
-			$table->addColumn('token', 'string', [
+			$table->addColumn('token', Types::STRING, [
 				'notnull' => true,
 				'length' => 256,
 			]);
