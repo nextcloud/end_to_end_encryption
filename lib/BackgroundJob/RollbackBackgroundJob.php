@@ -70,7 +70,7 @@ class RollbackBackgroundJob extends TimedJob {
 		}
 
 		$automaticRollbackTTL = (int)$this->config
-			->getAppValue(Application::APP_ID, 'automatic_rollback_ttl', 60 * 60 * 24);
+			->getAppValue(Application::APP_ID, 'automatic_rollback_ttl', (string)(60 * 60 * 24));
 		$timestamp = $this->time->getTime() - $automaticRollbackTTL;
 
 		$this->rollbackService->rollbackOlderThan($timestamp, 25);

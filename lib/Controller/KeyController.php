@@ -42,10 +42,10 @@ use OCP\Files\ForbiddenException;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
-use OCP\ILogger;
 use OCP\IRequest;
 use \Exception;
 use \BadMethodCallException;
+use Psr\Log\LoggerInterface;
 
 class KeyController extends OCSController {
 
@@ -58,7 +58,7 @@ class KeyController extends OCSController {
 	/** @var SignatureHandler */
 	private $signatureHandler;
 
-	/** @var ILogger */
+	/** @var LoggerInterface*/
 	private $logger;
 
 	/** @var IL10N */
@@ -72,7 +72,7 @@ class KeyController extends OCSController {
 	 * @param string $userId
 	 * @param IKeyStorage $keyStorage
 	 * @param SignatureHandler $signatureHandler
-	 * @param ILogger $logger
+	 * @param LoggerInterface $logger
 	 * @param IL10N $l10n
 	 */
 	public function __construct($AppName,
@@ -80,7 +80,7 @@ class KeyController extends OCSController {
 								$userId,
 								IKeyStorage $keyStorage,
 								SignatureHandler $signatureHandler,
-								ILogger $logger,
+								LoggerInterface $logger,
 								IL10N $l10n
 	) {
 		parent::__construct($AppName, $request);
@@ -113,7 +113,7 @@ class KeyController extends OCSController {
 			$this->logger->warning('Could not find the private key of the user: ' . $this->userId);
 			throw new OCSNotFoundException($this->l10n->t('Could not find the private key of the user %s', [$this->userId]));
 		} catch (Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 	}
@@ -139,7 +139,7 @@ class KeyController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find the private key belonging to the user %s', [$this->userId]));
 		} catch (Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 	}
@@ -162,7 +162,7 @@ class KeyController extends OCSController {
 		} catch (KeyExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 
@@ -192,7 +192,7 @@ class KeyController extends OCSController {
 			} catch (NotFoundException $e) {
 				throw new OCSNotFoundException($this->l10n->t('Could not find the public key belonging to the user %s', [$uid]));
 			} catch (Exception $e) {
-				$this->logger->logException($e, ['app' => $this->appName]);
+				$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 				throw new OCSBadRequestException($this->l10n->t('Internal error'));
 			}
 		}
@@ -224,10 +224,10 @@ class KeyController extends OCSController {
 			$subject = openssl_csr_get_subject($csr);
 			$publicKey = $this->signatureHandler->sign($csr);
 		} catch (BadMethodCallException $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($e->getMessage());
 		} catch (Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 
@@ -262,7 +262,7 @@ class KeyController extends OCSController {
 		} catch (NotPermittedException $e) {
 			throw new OCSForbiddenException($this->l10n->t('This is not your public key to delete'));
 		} catch (Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 	}
@@ -283,7 +283,7 @@ class KeyController extends OCSController {
 		try {
 			$publicKey = $this->signatureHandler->getPublicServerKey();
 		} catch (Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 

@@ -35,8 +35,8 @@ use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
-use OCP\ILogger;
 use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class MetaDataControllerTest extends TestCase {
@@ -57,7 +57,7 @@ class MetaDataControllerTest extends TestCase {
 	/** @var LockManager|\PHPUnit\Framework\MockObject\MockObject */
 	private $lockManager;
 
-	/** @var ILogger|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
 	private $logger;
 
 	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
@@ -75,7 +75,7 @@ class MetaDataControllerTest extends TestCase {
 		$this->userId = 'john.doe';
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->lockManager = $this->createMock(LockManager::class);
-		$this->logger = $this->createMock(ILogger::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
 
 		$this->controller = new MetaDataController($this->appName,
@@ -121,8 +121,8 @@ class MetaDataControllerTest extends TestCase {
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($metaDataStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($metaDataStorageException->getMessage(), ['exception' => $metaDataStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {
@@ -184,8 +184,8 @@ class MetaDataControllerTest extends TestCase {
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($metaDataStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($metaDataStorageException->getMessage(), ['exception' => $metaDataStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {
@@ -258,8 +258,8 @@ class MetaDataControllerTest extends TestCase {
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($metaDataStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($metaDataStorageException->getMessage(), ['exception' => $metaDataStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {
@@ -318,8 +318,8 @@ class MetaDataControllerTest extends TestCase {
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($metaDataStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($metaDataStorageException->getMessage(), ['exception' => $metaDataStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {

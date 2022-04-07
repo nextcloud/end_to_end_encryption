@@ -25,7 +25,6 @@ namespace OCA\EndToEndEncryption;
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
 use OCP\Files\Folder;
 use OCP\Files\Node;
-use OCP\ILogger;
 
 /**
  * Class FileService
@@ -33,16 +32,6 @@ use OCP\ILogger;
  * @package OCA\EndToEndEncryption
  */
 class FileService {
-
-	/**
-	 * FileService constructor.
-	 *
-	 * @param ILogger $logger
-	 */
-	public function __construct(ILogger $logger) {
-		$this->logger = $logger;
-	}
-
 	/**
 	 * @param Folder $folder
 	 * @return bool Whether or not it changed any files

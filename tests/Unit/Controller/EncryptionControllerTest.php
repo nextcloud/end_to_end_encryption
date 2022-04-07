@@ -29,8 +29,8 @@ use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Files\NotFoundException;
-use OCP\ILogger;
 use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class EncryptionControllerTest extends TestCase {
@@ -50,7 +50,7 @@ class EncryptionControllerTest extends TestCase {
 	/** @var EncryptionManager|\PHPUnit\Framework\MockObject\MockObject */
 	private $encryptionManager;
 
-	/** @var ILogger|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
 	private $logger;
 
 	/** @var EncryptionController */
@@ -64,7 +64,7 @@ class EncryptionControllerTest extends TestCase {
 		$this->userId = 'john.doe';
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->encryptionManager = $this->createMock(EncryptionManager::class);
-		$this->logger = $this->createMock(ILogger::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->controller = new EncryptionController($this->appName,
 			$this->request,
@@ -145,8 +145,8 @@ class EncryptionControllerTest extends TestCase {
 			->willThrowException($exception);
 
 		$this->logger->expects($this->once())
-			->method('logException')
-			->with($exception, ['app' => $this->appName]);
+			->method('critical')
+			->with($exception->getMessage(), ['exception' => $exception, 'app' => $this->appName]);
 
 		$response = $this->controller->removeEncryptionFlag($fileId);
 		$this->assertInstanceOf(DataResponse::class, $response);

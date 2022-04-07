@@ -32,7 +32,7 @@ use OCP\Files\Config\ICachedMountFileInfo;
 use OCP\Files\Config\IUserMountCache;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface;
 use OCP\IUser;
 use Test\TestCase;
 
@@ -53,7 +53,7 @@ class RollbackServiceTest extends TestCase {
 	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
 	private $rootFolder;
 
-	/** @var ILogger|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
 	private $logger;
 
 	/** @var RollbackService */
@@ -67,7 +67,7 @@ class RollbackServiceTest extends TestCase {
 		$this->fileService = $this->createMock(FileService::class);
 		$this->userMountCache = $this->createMock(IUserMountCache::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
-		$this->logger = $this->createMock(ILogger::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->rollbackService = new RollbackService($this->lockMapper,
 			$this->metaDataStorage,
@@ -203,7 +203,7 @@ class RollbackServiceTest extends TestCase {
 			->with($locks[5]);
 
 		$this->logger->expects($this->exactly(3))
-			->method('logException');
+			->method('critical');
 
 		$this->rollbackService->rollbackOlderThan(1337, 10);
 	}

@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Migration;
 
 use Closure;
-use Doctrine\DBAL\Types\Types;
 use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
@@ -49,17 +48,17 @@ class Version1005Date20200312102456 extends SimpleMigrationStep {
 			$table = $schema->createTable('e2e_encryption_lock');
 			// Id refers to the file id of the locked folder
 			// So we don't want autoincrement
-			$table->addColumn('id', Types::BIGINT, [
+			$table->addColumn('id', 'bigint', [
 				'notnull' => true,
 				'length' => 11,
 				'unsigned' => true,
 			]);
-			$table->addColumn('timestamp', Types::BIGINT, [
+			$table->addColumn('timestamp', 'bigint', [
 				'notnull' => true,
 				'length' => 11,
 				'unsigned' => true,
 			]);
-			$table->addColumn('token', Types::STRING, [
+			$table->addColumn('token', 'string', [
 				'notnull' => true,
 				'length' => 256,
 			]);

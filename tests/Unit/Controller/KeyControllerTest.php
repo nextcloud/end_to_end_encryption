@@ -35,9 +35,9 @@ use OCP\Files\ForbiddenException;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
-use OCP\ILogger;
 use OCP\IRequest;
 use Test\TestCase;
+use Psr\Log\LoggerInterface;
 
 class KeyControllerTest extends TestCase {
 
@@ -56,7 +56,7 @@ class KeyControllerTest extends TestCase {
 	/** @var SignatureHandler|\PHPUnit\Framework\MockObject\MockObject */
 	private $signatureHandler;
 
-	/** @var ILogger|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
 	private $logger;
 
 	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
@@ -98,7 +98,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		$this->userId = 'admin';
 		$this->keyStorage = $this->createMock(IKeyStorage::class);
 		$this->signatureHandler = $this->createMock(SignatureHandler::class);
-		$this->logger = $this->createMock(ILogger::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
 
 		$this->controller = new KeyController($this->appName,
@@ -143,8 +143,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($keyStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {
@@ -201,8 +201,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($keyStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {
@@ -262,8 +262,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($keyStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {
@@ -363,8 +363,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			});
 
 		$this->logger->expects($this->once())
-			->method('logException')
-			->with($exception, ['app' => $this->appName]);
+			->method('critical')
+			->with($exception->getMessage(), ['exception' => $exception, 'app' => $this->appName]);
 
 		$this->expectException(OCSBadRequestException::class);
 		$this->expectExceptionMessage('Internal error');
@@ -487,8 +487,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
-				->method('logException')
-				->with($keyStorageException, ['app' => $this->appName]);
+				->method('critical')
+				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
 		}
 
 		if ($expectedException) {
@@ -538,8 +538,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			});
 
 		$this->logger->expects($this->once())
-			->method('logException')
-			->willReturn($exception);
+			->method('critical')
+			->willReturn($exception->getMessage());
 
 		$this->expectException(OCSBadRequestException::class);
 		$this->expectExceptionMessage('Internal error');

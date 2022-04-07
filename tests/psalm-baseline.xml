@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.x-dev@">
+  <file src="lib/AppInfo/Application.php">
+    <UndefinedClass occurrences="2">
+      <code>CreateVersionEvent</code>
+      <code>MoveToTrashEvent</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Connector/Sabre/APlugin.php">
+    <TypeDoesNotContainType occurrences="1">
+      <code>$node instanceof Directory</code>
+    </TypeDoesNotContainType>
+  </file>
+  <file src="lib/Connector/Sabre/LockPlugin.php">
+    <UndefinedClass occurrences="1">
+      <code>Http</code>
+    </UndefinedClass>
+    <UndefinedMethod occurrences="3">
+      <code>getAbsoluteUrl</code>
+      <code>getId</code>
+      <code>getQueryParameters</code>
+    </UndefinedMethod>
+  </file>
+  <file src="lib/Connector/Sabre/PropFindPlugin.php">
+    <TypeDoesNotContainType occurrences="1">
+      <code>!$supportE2EEncryption &amp;&amp; $node instanceof Directory</code>
+    </TypeDoesNotContainType>
+    <UndefinedMethod occurrences="4">
+      <code>getName</code>
+      <code>getProperties</code>
+      <code>on</code>
+      <code>on</code>
+    </UndefinedMethod>
+    <UndefinedPropertyFetch occurrences="1">
+      <code>$this-&gt;server-&gt;tree</code>
+    </UndefinedPropertyFetch>
+  </file>
+  <file src="lib/Connector/Sabre/RedirectRequestPlugin.php">
+    <InvalidReturnType occurrences="1">
+      <code>bool</code>
+    </InvalidReturnType>
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>bool</code>
+    </MismatchingDocblockReturnType>
+  </file>
+</files>

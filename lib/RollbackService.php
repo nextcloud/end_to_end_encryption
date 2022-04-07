@@ -27,7 +27,7 @@ use OCP\Files\Folder;
 use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\EndToEndEncryption\Db\LockMapper;
 use OCP\Files\IRootFolder;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class RollbackService
@@ -62,7 +62,7 @@ class RollbackService {
 	/** @var IRootFolder */
 	private $rootFolder;
 
-	/** @var ILogger */
+	/** @var LoggerInterface */
 	private $logger;
 
 	/**
@@ -73,14 +73,14 @@ class RollbackService {
 	 * @param FileService $fileService
 	 * @param IUserMountCache $userMountCache
 	 * @param IRootFolder $rootFolder
-	 * @param ILogger $logger
+	 * @param LoggerInterface $logger
 	 */
 	public function __construct(LockMapper $lockMapper,
 								IMetaDataStorage $metaDataStorage,
 								FileService $fileService,
 								IUserMountCache $userMountCache,
 								IRootFolder $rootFolder,
-								ILogger $logger) {
+								LoggerInterface $logger) {
 		$this->lockMapper = $lockMapper;
 		$this->metaDataStorage = $metaDataStorage;
 		$this->fileService = $fileService;
@@ -108,7 +108,8 @@ class RollbackService {
 			try {
 				$userFolder = $this->rootFolder->getUserFolder($userId);
 			} catch (\Exception $ex) {
-				$this->logger->logException($ex, [
+				$this->logger->critical($ex->getMessage(), [
+					'exception' => $ex,
 					'app' => Application::APP_ID,
 				]);
 				continue;
@@ -130,7 +131,8 @@ class RollbackService {
 				$this->fileService->revertChanges($node);
 				$this->metaDataStorage->deleteIntermediateFile($userId, $lock->getId());
 			} catch (\Exception $ex) {
-				$this->logger->logException($ex, [
+				$this->logger->critical($ex->getMessage(), [
+					'exception' => $ex,
 					'app' => Application::APP_ID,
 				]);
 				continue;
