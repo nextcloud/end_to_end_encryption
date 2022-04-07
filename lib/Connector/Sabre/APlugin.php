@@ -22,7 +22,7 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
-use OC\AppFramework\Http;
+use OCP\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;

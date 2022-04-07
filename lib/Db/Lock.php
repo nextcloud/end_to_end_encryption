@@ -36,11 +36,11 @@ use OCP\AppFramework\Db\Entity;
  */
 class Lock extends Entity {
 
-	/** @var int */
-	protected $timestamp;
+	/** @var ?int */
+	protected $timestamp = null;
 
-	/** @var string */
-	protected $token;
+	/** @var ?string */
+	protected $token = null;
 
 	public function __construct() {
 		$this->addType('id', 'int');

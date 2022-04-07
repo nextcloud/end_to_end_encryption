@@ -35,8 +35,8 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\NotFoundException;
-use OCP\ILogger;
 use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class EncryptionController
@@ -54,7 +54,7 @@ class EncryptionController extends OCSController {
 	/** @var EncryptionManager */
 	private $manager;
 
-	/** @var ILogger */
+	/** @var LoggerInterface */
 	private $logger;
 
 	/**
@@ -65,14 +65,14 @@ class EncryptionController extends OCSController {
 	 * @param string $userId
 	 * @param IMetaDataStorage $metaDataStorage
 	 * @param EncryptionManager $manager
-	 * @param ILogger $logger
+	 * @param LoggerInterface $logger
 	 */
 	public function __construct($AppName,
 								IRequest $request,
 								$userId,
 								IMetaDataStorage $metaDataStorage,
 								EncryptionManager $manager,
-								ILogger $logger) {
+								LoggerInterface $logger) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;
 		$this->metaDataStorage = $metaDataStorage;
@@ -124,7 +124,7 @@ class EncryptionController extends OCSController {
 		try {
 			$this->metaDataStorage->deleteMetaData($this->userId, $id);
 		} catch (\Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 		}
 
 		return new DataResponse();

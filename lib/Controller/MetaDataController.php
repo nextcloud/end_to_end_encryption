@@ -42,8 +42,8 @@ use OCP\AppFramework\OCSController;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
-use OCP\ILogger;
 use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
 
@@ -53,7 +53,7 @@ class MetaDataController extends OCSController {
 	/** @var IMetaDataStorage */
 	private $metaDataStorage;
 
-	/** @var ILogger */
+	/** @var LoggerInterface */
 	private $logger;
 
 	/** @var LockManager */
@@ -70,7 +70,7 @@ class MetaDataController extends OCSController {
 	 * @param string $userId
 	 * @param IMetaDataStorage $metaDataStorage
 	 * @param LockManager $lockManager
-	 * @param ILogger $logger
+	 * @param LoggerInterface $logger
 	 * @param IL10N $l10n
 	 */
 	public function __construct($AppName,
@@ -78,7 +78,7 @@ class MetaDataController extends OCSController {
 								$userId,
 								IMetaDataStorage $metaDataStorage,
 								LockManager $lockManager,
-								ILogger $logger,
+								LoggerInterface $logger,
 								IL10N $l10n
 	) {
 		parent::__construct($AppName, $request);
@@ -107,7 +107,7 @@ class MetaDataController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (\Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot read metadata'));
 		}
 		return new DataResponse(['meta-data' => $metaData]);
@@ -133,7 +133,7 @@ class MetaDataController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
 		} catch (\Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot store metadata'));
 		}
 
@@ -167,7 +167,7 @@ class MetaDataController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
 		} catch (\Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot store metadata'));
 		}
 
@@ -194,7 +194,7 @@ class MetaDataController extends OCSController {
 		} catch (NotPermittedException $e) {
 			throw new OCSForbiddenException($this->l10n->t('Only the owner can delete the metadata-file'));
 		} catch (\Exception $e) {
-			$this->logger->logException($e, ['app' => $this->appName]);
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot delete metadata'));
 		}
 		return new DataResponse();

@@ -23,10 +23,10 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Migration;
 
 use Closure;
-use Doctrine\DBAL\Types\Types;
 use OCP\DB\ISchemaWrapper;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
+use OCP\DB\Types;
 
 /**
  * Class Version1005Date20200312102456
