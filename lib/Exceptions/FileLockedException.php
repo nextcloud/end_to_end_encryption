@@ -28,15 +28,7 @@ use Exception;
 use Throwable;
 
 class FileLockedException extends Exception {
-
-	/**
-	 * FileLockedException constructor.
-	 *
-	 * @param string $message
-	 * @param int $code
-	 * @param Throwable|null $previous
-	 */
-	public function __construct(string $message = 'file is locked', int $code = 0, Throwable $previous = null) {
+	public function __construct(string $message = 'File is locked', int $code = 0, Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
 }

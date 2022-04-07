@@ -29,10 +29,10 @@ use OC\AppFramework\Http\Request;
 class UserAgentManager {
 
 	/**
-	 * list of user agents that support end-to-end encryption
+	 * List of user agents that support end-to-end encryption
 	 * ['regex-to-identify-user-agent' => 'min-version']
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	private $supportedUserAgents;
 
@@ -45,10 +45,7 @@ class UserAgentManager {
 	}
 
 	/**
-	 * check whether request comes from a client which supports end-to-end encryption
-	 *
-	 * @param string $client
-	 * @return bool
+	 * Check whether request comes from a client which supports end-to-end encryption
 	 */
 	public function supportsEndToEndEncryption(string $client): bool {
 		$supportedUAs = $this->getSupportedUserAgents();
@@ -73,7 +70,7 @@ class UserAgentManager {
 	}
 
 	/**
-	 * @return array|string[]
+	 * @return string[]
 	 */
 	protected function getSupportedUserAgents(): array {
 		return $this->supportedUserAgents;

@@ -45,40 +45,16 @@ use OCP\IL10N;
 use OCP\IRequest;
 
 class LockingController extends OCSController {
+	private string $userId;
+	private IMetaDataStorage $metaDataStorage;
+	private IRootFolder $rootFolder;
+	private FileService $fileService;
+	private LockManager $lockManager;
+	private IL10N $l10n;
 
-	/** @var  string */
-	private $userId;
-
-	/** @var IMetaDataStorage */
-	private $metaDataStorage;
-
-	/** @var IRootFolder */
-	private $rootFolder;
-
-	/** @var FileService */
-	private $fileService;
-
-	/** @var LockManager */
-	private $lockManager;
-
-	/** @var IL10N */
-	private $l10n;
-
-	/**
-	 * RequestHandlerController constructor.
-	 *
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param string $userId
-	 * @param IMetaDataStorage $metaDataStorage
-	 * @param LockManager $lockManager
-	 * @param IRootFolder $rootFolder
-	 * @param FileService $fileService
-	 * @param IL10N $l10n
-	 */
-	public function __construct($AppName,
+	public function __construct(string $AppName,
 								IRequest $request,
-								$userId,
+								string $userId,
 								IMetaDataStorage $metaDataStorage,
 								LockManager $lockManager,
 								IRootFolder $rootFolder,
@@ -95,7 +71,7 @@ class LockingController extends OCSController {
 	}
 
 	/**
-	 * lock folder
+	 * Lock folder
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
@@ -128,7 +104,7 @@ class LockingController extends OCSController {
 
 
 	/**
-	 * unlock folder
+	 * Unlock folder
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent

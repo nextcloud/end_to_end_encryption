@@ -33,7 +33,6 @@ use OCP\Files\Node;
  */
 class FileService {
 	/**
-	 * @param Folder $folder
 	 * @return bool Whether or not it changed any files
 	 */
 	public function revertChanges(Folder $folder): bool {
@@ -57,7 +56,6 @@ class FileService {
 	}
 
 	/**
-	 * @param Folder $folder
 	 * @return bool Whether or not it changed any files
 	 */
 	public function finalizeChanges(Folder $folder): bool {
@@ -82,7 +80,7 @@ class FileService {
 
 	/**
 	 * @param Folder $folder
-	 * @return array
+	 * @return array{to_save: Node[], to_delete: Node[]}
 	 */
 	private function getIntermediateFiles(Folder $folder): array {
 		$listing = $folder->getDirectoryListing();
@@ -105,28 +103,15 @@ class FileService {
 		return $result;
 	}
 
-	/**
-	 * @param Node $node
-	 * @return bool
-	 */
 	private function isIntermediateFileToSave(Node $node): bool {
 		return (substr($node->getName(), strlen(RedirectRequestPlugin::SAVE_SUFFIX) * -1) === RedirectRequestPlugin::SAVE_SUFFIX);
 	}
 
-	/**
-	 * @param Node $node
-	 * @return bool
-	 */
 	private function isIntermediateFileToDelete(Node $node): bool {
 		return (substr($node->getName(), strlen(RedirectRequestPlugin::DELETE_SUFFIX) * -1) === RedirectRequestPlugin::DELETE_SUFFIX);
 	}
 
-	/**
-	 * @param string $filename
-	 * @param string $suffix
-	 * @return string
-	 */
-	private function removeSuffixFromString(string $filename, string $suffix):string {
+	private function removeSuffixFromString(string $filename, string $suffix): string {
 		// Do nothing if filename does not end with suffix
 		if (substr($filename, strlen($suffix) * -1) !== $suffix) {
 			return $filename;

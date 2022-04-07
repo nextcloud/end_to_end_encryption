@@ -36,24 +36,10 @@ use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
 
 class PropFindPlugin extends APlugin {
+	private UserAgentManager $userAgentManager;
+	private IRequest $request;
+	protected ?Server $server = null;
 
-	/** @var UserAgentManager */
-	private $userAgentManager;
-
-	/** @var IRequest */
-	private $request;
-
-	/** @var Server */
-	protected $server;
-
-	/**
-	 * PropFindPlugin constructor.
-	 *
-	 * @param IRootFolder $rootFolder
-	 * @param IUserSession $userSession
-	 * @param UserAgentManager $userAgentManager
-	 * @param IRequest $request
-	 */
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								UserAgentManager $userAgentManager,

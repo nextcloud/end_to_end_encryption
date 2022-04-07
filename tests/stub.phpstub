@@ -57,6 +57,7 @@ namespace Sabre\Dav {
 
     class INode {
         public function getPath(): string {}
+        public function getId(): int {}
     }
 
     class PropFind {
@@ -68,12 +69,15 @@ namespace Sabre\Dav {
 
     class Server {
         public function addPlugin(ServerPlugin $plugin) {}
+        public function on(string $method, callable $call, int $priority): void {}
+        public function getCopyAndMoveInfo(\Sabre\HTTP\RequestInterface $request): array {}
+        public function invokeMethod(\Sabre\HTTP\RequestInterface $request, \Sabre\HTTP\ResponseInterface $response): void {}
     }
 }
 
 namespace OCA\DAV\Connector\Sabre {
     class File extends \Sabre\Dav\INode {}
-    class Directory extends Node {}
+    class Directory extends \Sabre\Dav\INode {}
 }
 
 namespace OCA\DAV\Connector\Sabre\Exception {
@@ -94,7 +98,9 @@ namespace Sabre\Http {
         public function getMethod(): string {}
         public function setMethod(string $method): void {}
         public function setHeader(string $key, string $value) {}
-        public function hasHeader(string $key): void {}
+        public function hasHeader(string $key): bool {}
+        public function getAbsoluteUrl(): string {}
+        public function getQueryParameters(): array {}
     }
     class ResponseInterface {
         public function setHeader(string $key, string $value) {}

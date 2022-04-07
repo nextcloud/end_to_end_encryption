@@ -39,28 +39,12 @@ use OCP\Files\SimpleFS\ISimpleFile;
  * @package OCA\EndToEndEncryption
  */
 class MetaDataStorage implements IMetaDataStorage {
+	private IAppData $appData;
+	private IRootFolder $rootFolder;
+	private string $metaDataRoot = '/meta-data';
+	private string $metaDataFileName = 'meta.data';
+	private string $intermediateMetaDataFileName = 'intermediate.meta.data';
 
-	/** @var IAppData */
-	private $appData;
-
-	/** @var IRootFolder */
-	private $rootFolder;
-
-	/** @var string */
-	private $metaDataRoot = '/meta-data';
-
-	/** @var string */
-	private $metaDataFileName = 'meta.data';
-
-	/** @var string */
-	private $intermediateMetaDataFileName = 'intermediate.meta.data';
-
-	/**
-	 * MetaDataStorage constructor.
-	 *
-	 * @param IAppData $appData
-	 * @param IRootFolder $rootFolder
-	 */
 	public function __construct(IAppData $appData,
 								IRootFolder $rootFolder) {
 		$this->appData = $appData;
@@ -231,19 +215,12 @@ class MetaDataStorage implements IMetaDataStorage {
 			->delete();
 	}
 
-	/**
-	 * @param int $id
-	 * @return string
-	 */
 	private function getFolderNameForFileId(int $id): string {
 		return $this->metaDataRoot . '/' . $id;
 	}
 
 	/**
 	 * Verifies that user has access to file-id
-	 *
-	 * @param string $userId
-	 * @param int $id
 	 *
 	 * @throws NotFoundException
 	 */
@@ -272,9 +249,6 @@ class MetaDataStorage implements IMetaDataStorage {
 	}
 
 	/**
-	 * @param string $userId
-	 * @param int $id
-	 * @return ISimpleFile|null
 	 * @throws NotPermittedException
 	 */
 	protected function getLegacyFile(string $userId, int $id): ?ISimpleFile {
@@ -295,8 +269,6 @@ class MetaDataStorage implements IMetaDataStorage {
 	}
 
 	/**
-	 * @param string $userId
-	 * @param int $id
 	 * @throws NotPermittedException
 	 */
 	protected function cleanupLegacyFile(string $userId, int $id): void {
@@ -318,10 +290,6 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * Get path to the file for the file-owner.
 	 * This is needed for the old way of storing metadata-files.
-	 *
-	 * @param string $userId userId
-	 * @param int $id file id
-	 * @return string path to the owner's file
 	 *
 	 * @throws NotFoundException
 	 * @throws NotPermittedException

@@ -39,23 +39,10 @@ use OCP\IRequest;
  * @package OCA\EndToEndEncryption\Middleware
  */
 class UserAgentCheckMiddleware extends Middleware {
+	private IControllerMethodReflector $reflector;
+	private IRequest $request;
+	private UserAgentManager $userAgentManager;
 
-	/** @var IControllerMethodReflector */
-	private $reflector;
-
-	/** @var IRequest */
-	private $request;
-
-	/** @var UserAgentManager */
-	private $userAgentManager;
-
-	/**
-	 * UserAgentCheckMiddleware constructor.
-	 *
-	 * @param IControllerMethodReflector $reflector
-	 * @param IRequest $request
-	 * @param UserAgentManager $userAgentManager
-	 */
 	public function __construct(IControllerMethodReflector $reflector,
 								IRequest $request,
 								UserAgentManager $userAgentManager) {

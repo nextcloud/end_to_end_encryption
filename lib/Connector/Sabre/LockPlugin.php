@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
-use OC\AppFramework\Http;
+use OCP\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
@@ -41,21 +41,9 @@ use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
 
 class LockPlugin extends APlugin {
+	private LockManager $lockManager;
+	private UserAgentManager $userAgentManager;
 
-	/** @var LockManager */
-	private $lockManager;
-
-	/** @var UserAgentManager */
-	private $userAgentManager;
-
-	/**
-	 * LockPlugin constructor.
-	 *
-	 * @param IRootFolder $rootFolder
-	 * @param IUserSession $userSession
-	 * @param LockManager $lockManager
-	 * @param UserAgentManager $userAgentManager
-	 */
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								LockManager $lockManager,

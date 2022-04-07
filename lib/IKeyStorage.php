@@ -38,9 +38,6 @@ interface IKeyStorage {
 	/**
 	 * Get users public key
 	 *
-	 * @param string $uid
-	 * @return string
-	 *
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 */
@@ -49,19 +46,13 @@ interface IKeyStorage {
 	/**
 	 * Check if a public key exists
 	 *
-	 * @param string $uid
-	 * @return bool
-	 *
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 */
 	public function publicKeyExists(string $uid): bool;
 
 	/**
-	 * store public key
-	 *
-	 * @param string $publicKey
-	 * @param string $uid
+	 * Store public key
 	 *
 	 * @throws KeyExistsException
 	 * @throws NotFoundException
@@ -70,9 +61,7 @@ interface IKeyStorage {
 	public function setPublicKey(string $publicKey, string $uid): void;
 
 	/**
-	 * delete the users public key
-	 *
-	 * @param string $uid
+	 * Delete the users public key
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
@@ -80,10 +69,7 @@ interface IKeyStorage {
 	public function deletePublicKey(string $uid): void;
 
 	/**
-	 * get users private key
-	 *
-	 * @param string $uid
-	 * @return string
+	 * Get users private key
 	 *
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
@@ -92,10 +78,7 @@ interface IKeyStorage {
 	public function getPrivateKey(string $uid): string;
 
 	/**
-	 * check if a private key exists
-	 *
-	 * @param string $uid
-	 * @return bool
+	 * Check if a private key exists
 	 *
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
@@ -104,10 +87,7 @@ interface IKeyStorage {
 	public function privateKeyExists(string $uid): bool;
 
 	/**
-	 * store private key
-	 *
-	 * @param string $privateKey
-	 * @param string $uid
+	 * Store private key
 	 *
 	 * @throws KeyExistsException
 	 * @throws NotFoundException
@@ -117,9 +97,7 @@ interface IKeyStorage {
 	public function setPrivateKey(string $privateKey, string $uid): void;
 
 	/**
-	 * get users private key
-	 *
-	 * @param string $uid
+	 * Get users private key
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
@@ -127,9 +105,7 @@ interface IKeyStorage {
 	public function deletePrivateKey(string $uid): void;
 
 	/**
-	 * delete all user private and public key permanently
-	 *
-	 * @param IUser $user
+	 * Delete all user private and public key permanently
 	 *
 	 * @throws NotFoundException
 	 * @throws NotPermittedException

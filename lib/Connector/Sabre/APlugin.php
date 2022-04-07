@@ -38,23 +38,15 @@ use Sabre\DAV\ServerPlugin;
 use Exception;
 
 abstract class APlugin extends ServerPlugin {
-
-	/* @var Server */
-	protected $server;
-
-	/** @var IRootFolder */
-	protected $rootFolder;
-
-	/** @var IUserSession */
-	protected $userSession;
+	protected ?Server $server = null;
+	protected IRootFolder $rootFolder;
+	protected IUserSession $userSession;
 
 	/**
 	 * Should plugin be applied to the current node?
 	 * Only apply it to files and directories, not to contacts or calendars
-	 *
-	 * @var array
 	 */
-	private $applyPlugin;
+	private array $applyPlugin = [];
 
 	/**
 	 * APlugin constructor.
@@ -66,8 +58,6 @@ abstract class APlugin extends ServerPlugin {
 								IUserSession $userSession) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
-
-		$this->applyPlugin = [];
 	}
 
 	/**
@@ -78,11 +68,7 @@ abstract class APlugin extends ServerPlugin {
 	}
 
 	/**
-	 * get SabreDAV Node
-	 *
-	 * @param string $path
-	 * @param string $method
-	 * @return INode
+	 * Get SabreDAV Node
 	 * @throws Conflict
 	 * @throws NotFound
 	 */
@@ -92,9 +78,6 @@ abstract class APlugin extends ServerPlugin {
 
 	/**
 	 * Get DAV Node for a given path, if the path doesn't exists we try the parent
-	 *
-	 * @param $path
-	 * @return INode
 	 * @throws Conflict
 	 */
 	protected function getNodeForPath(string $path): INode {
@@ -115,11 +98,7 @@ abstract class APlugin extends ServerPlugin {
 	}
 
 	/**
-	 * get file system node of requested file
-	 *
-	 * @param string $path
-	 * @return Node
-	 *
+	 * Get file system node of requested file
 	 * @throws NotFound
 	 */
 	protected function getFileNode(string $path): Node {
@@ -139,12 +118,8 @@ abstract class APlugin extends ServerPlugin {
 	}
 
 	/**
-	 * check if we process a file or directory. This plugin should ignore calendars
+	 * Check if we process a file or directory. This plugin should ignore calendars
 	 * and contacts
-	 *
-	 * @param string $url
-	 * @param INode $node
-	 * @return bool
 	 */
 	protected function isFile(string $url, INode $node): bool {
 		if (isset($this->applyPlugin[$url])) {
@@ -159,9 +134,6 @@ abstract class APlugin extends ServerPlugin {
 
 	/**
 	 * Checks if the path is an E2E folder or inside an E2E folder
-	 *
-	 * @param string $path
-	 * @return bool
 	 */
 	protected function isE2EEnabledPath(string $path):bool {
 		try {

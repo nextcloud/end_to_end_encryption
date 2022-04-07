@@ -29,31 +29,21 @@ use OC\Security\IdentityProof\Manager;
 use RuntimeException;
 
 /**
- * Class SignatureHandler
- *
- * signs users public keys and manage system keys
+ * Signs users public keys and manage system keys
  *
  * @package OCA\EndToEndEncryption
  */
 class SignatureHandler {
+	private Manager $identityProofManager;
 
-	/** @var Manager */
-	private $identityProofManager;
+	/** @var int the signature is 20 years (7300 days) valid */
+	private int $validity = 7300;
 
-	/** @var  int the signature is 20 years (7300 days) valid */
-	private $validity = 7300;
-
-	/**
-	 * SignatureHandler constructor.
-	 *
-	 * @param Manager $identityProofManager
-	 */
 	public function __construct(Manager $identityProofManager) {
 		$this->identityProofManager = $identityProofManager;
 	}
 
 	/**
-	 * @param string $csr
 	 * @return string signed certificate
 	 * @throws BadMethodCallException
 	 * @throws RuntimeException
@@ -69,13 +59,10 @@ class SignatureHandler {
 	}
 
 	/**
-	 * return the public key of the instance wide key-pair
-	 *
-	 * @return string
+	 * Return the public key of the instance wide key-pair
 	 * @throws RuntimeException
 	 */
 	public function getPublicServerKey(): string {
-		$publicKey = $this->identityProofManager->getSystemKey()->getPublic();
-		return $publicKey;
+		return $this->identityProofManager->getSystemKey()->getPublic();
 	}
 }

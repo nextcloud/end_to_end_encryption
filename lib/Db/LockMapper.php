@@ -30,19 +30,12 @@ use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 class LockMapper extends QBMapper {
-
-	/**
-	 * @param IDBConnection $db
-	 */
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'e2e_encryption_lock');
 	}
 
 	/**
-	 * get lock by file id
-	 *
-	 * @param int $fileId
-	 * @return Lock
+	 * Get lock by file id
 	 * @throws DoesNotExistException
 	 * @throws MultipleObjectsReturnedException
 	 */
@@ -58,11 +51,6 @@ class LockMapper extends QBMapper {
 
 	/**
 	 * Find all entities older than given timestamp
-	 *
-	 * @param int $timeStamp
-	 * @param int|null $limit
-	 * @param int|null $offset
-	 * @return array
 	 */
 	public function findAllLocksOlderThan(int $timeStamp, ?int $limit = null, ?int $offset = null): array {
 		$qb = $this->db->getQueryBuilder();

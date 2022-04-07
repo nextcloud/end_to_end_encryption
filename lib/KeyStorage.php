@@ -40,25 +40,11 @@ use OCP\IUserSession;
  * @package OCA\EndToEndEncryption
  */
 class KeyStorage implements IKeyStorage {
+	private IAppData $appData;
+	private IUserSession $userSession;
+	private string $privateKeysRoot = '/private-keys';
+	private string $publicKeysRoot = '/public-keys';
 
-	/** @var  IAppData */
-	private $appData;
-
-	/** @var IUserSession */
-	private $userSession;
-
-	/** @var string */
-	private $privateKeysRoot = '/private-keys';
-
-	/** @var string */
-	private $publicKeysRoot = '/public-keys';
-
-	/**
-	 * KeyStorage constructor.
-	 *
-	 * @param IAppData $appData
-	 * @param IUserSession $userSession
-	 */
 	public function __construct(IAppData $appData,
 								IUserSession $userSession) {
 		$this->appData = $appData;
@@ -218,8 +204,6 @@ class KeyStorage implements IKeyStorage {
 	/**
 	 * Delete public key of user
 	 *
-	 * @param string $uid
-	 *
 	 * @throws NotPermittedException
 	 */
 	protected function deleteUsersPublicKey(string $uid): void {
@@ -236,8 +220,6 @@ class KeyStorage implements IKeyStorage {
 
 	/**
 	 * Delete private key of user
-	 *
-	 * @param string $uid
 	 *
 	 * @throws NotPermittedException
 	 */
@@ -267,18 +249,10 @@ class KeyStorage implements IKeyStorage {
 		}
 	}
 
-	/**
-	 * @param string $uid
-	 * @return string
-	 */
 	private function getFileNameForPublicKey(string $uid):string {
 		return $uid . '.public.key';
 	}
 
-	/**
-	 * @param string $uid
-	 * @return string
-	 */
 	private function getFileNameForPrivateKey(string $uid):string {
 		return $uid . '.private.key';
 	}

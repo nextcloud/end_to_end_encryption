@@ -46,35 +46,13 @@ use Psr\Log\LoggerInterface;
  * and only backup files when they are actually being modified / deleted.
  */
 class RollbackService {
+	private LockMapper $lockMapper;
+	private IMetaDataStorage $metaDataStorage;
+	private FileService $fileService;
+	private IUserMountCache $userMountCache;
+	private IRootFolder $rootFolder;
+	private LoggerInterface $logger;
 
-	/** @var LockMapper */
-	private $lockMapper;
-
-	/** @var IMetaDataStorage */
-	private $metaDataStorage;
-
-	/** @var FileService */
-	private $fileService;
-
-	/** @var IUserMountCache */
-	private $userMountCache;
-
-	/** @var IRootFolder */
-	private $rootFolder;
-
-	/** @var LoggerInterface */
-	private $logger;
-
-	/**
-	 * RollbackService constructor.
-	 *
-	 * @param LockMapper $lockMapper
-	 * @param IMetaDataStorage $metaDataStorage
-	 * @param FileService $fileService
-	 * @param IUserMountCache $userMountCache
-	 * @param IRootFolder $rootFolder
-	 * @param LoggerInterface $logger
-	 */
 	public function __construct(LockMapper $lockMapper,
 								IMetaDataStorage $metaDataStorage,
 								FileService $fileService,

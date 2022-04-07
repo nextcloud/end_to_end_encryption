@@ -46,36 +46,15 @@ use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
+	private string $userId;
+	private IMetaDataStorage $metaDataStorage;
+	private LoggerInterface $logger;
+	private LockManager $lockManager;
+	private IL10N $l10n;
 
-	/** @var  string */
-	private $userId;
-
-	/** @var IMetaDataStorage */
-	private $metaDataStorage;
-
-	/** @var LoggerInterface */
-	private $logger;
-
-	/** @var LockManager */
-	private $lockManager;
-
-	/** @var IL10N */
-	private $l10n;
-
-	/**
-	 * RequestHandlerController constructor.
-	 *
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param string $userId
-	 * @param IMetaDataStorage $metaDataStorage
-	 * @param LockManager $lockManager
-	 * @param LoggerInterface $logger
-	 * @param IL10N $l10n
-	 */
-	public function __construct($AppName,
+	public function __construct(string $AppName,
 								IRequest $request,
-								$userId,
+								string $userId,
 								IMetaDataStorage $metaDataStorage,
 								LockManager $lockManager,
 								LoggerInterface $logger,
@@ -90,13 +69,10 @@ class MetaDataController extends OCSController {
 	}
 
 	/**
-	 * get metadata
+	 * Get metadata
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 *
-	 * @param int $id file id
-	 * @return DataResponse
 	 *
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
@@ -114,13 +90,9 @@ class MetaDataController extends OCSController {
 	}
 
 	/**
-	 * set metadata
+	 * Set metadata
 	 *
 	 * @NoAdminRequired
-	 *
-	 * @param int $id file id
-	 * @param string $metaData
-	 * @return DataResponse
 	 *
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
@@ -141,13 +113,9 @@ class MetaDataController extends OCSController {
 	}
 
 	/**
-	 * update metadata
+	 * Update metadata
 	 *
 	 * @NoAdminRequired
-	 *
-	 * @param int $id file id
-	 * @param string $metaData
-	 *
 	 * @return DataResponse
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
@@ -175,7 +143,7 @@ class MetaDataController extends OCSController {
 	}
 
 	/**
-	 * delete metadata
+	 * Delete metadata
 	 *
 	 * @NoAdminRequired
 	 *

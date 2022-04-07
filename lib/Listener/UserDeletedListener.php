@@ -29,15 +29,8 @@ use OCP\EventDispatcher\IEventListener;
 use OCP\User\Events\UserDeletedEvent;
 
 class UserDeletedListener implements IEventListener {
+	private IKeyStorage $keyStorage;
 
-	/** @var IKeyStorage */
-	private $keyStorage;
-
-	/**
-	 * UserManager constructor.
-	 *
-	 * @param IKeyStorage $keyStorage
-	 */
 	public function __construct(IKeyStorage $keyStorage) {
 		$this->keyStorage = $keyStorage;
 	}
