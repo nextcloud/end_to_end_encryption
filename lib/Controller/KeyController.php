@@ -43,41 +43,20 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
-use \Exception;
-use \BadMethodCallException;
+use Exception;
+use BadMethodCallException;
 use Psr\Log\LoggerInterface;
 
 class KeyController extends OCSController {
+	private string $userId;
+	private IKeyStorage $keyStorage;
+	private SignatureHandler $signatureHandler;
+	private LoggerInterface $logger;
+	private IL10N $l10n;
 
-	/** @var  string */
-	private $userId;
-
-	/** @var IKeyStorage */
-	private $keyStorage;
-
-	/** @var SignatureHandler */
-	private $signatureHandler;
-
-	/** @var LoggerInterface*/
-	private $logger;
-
-	/** @var IL10N */
-	private $l10n;
-
-	/**
-	 * RequestHandlerController constructor.
-	 *
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param string $userId
-	 * @param IKeyStorage $keyStorage
-	 * @param SignatureHandler $signatureHandler
-	 * @param LoggerInterface $logger
-	 * @param IL10N $l10n
-	 */
-	public function __construct($AppName,
+	public function __construct(string $AppName,
 								IRequest $request,
-								$userId,
+								string $userId,
 								IKeyStorage $keyStorage,
 								SignatureHandler $signatureHandler,
 								LoggerInterface $logger,
@@ -92,13 +71,10 @@ class KeyController extends OCSController {
 	}
 
 	/**
-	 * get private key
+	 * Get private key
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 *
-	 * @return DataResponse
-	 *
 	 * @throws OCSBadRequestException
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
@@ -119,13 +95,10 @@ class KeyController extends OCSController {
 	}
 
 	/**
-	 * delete the users private key
+	 * Delete the users private key
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 *
-	 * @return DataResponse
-	 *
 	 * @throws OCSBadRequestException
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
@@ -146,14 +119,10 @@ class KeyController extends OCSController {
 
 
 	/**
-	 * set private key
+	 * Set private key
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 *
-	 * @param string $privateKey
-	 * @return DataResponse
-	 *
 	 * @throws OCSBadRequestException
 	 */
 	public function setPrivateKey(string $privateKey): DataResponse {
@@ -170,14 +139,11 @@ class KeyController extends OCSController {
 	}
 
 	/**
-	 * get public key
+	 * Get public key
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 *
 	 * @param string $users a json encoded list of users
-	 * @return DataResponse
-	 *
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
 	 */
@@ -201,16 +167,15 @@ class KeyController extends OCSController {
 	}
 
 	/**
-	 * create public key, store it on the server and return it to the user
+	 * Create public key, store it on the server and return it to the user
 	 *
-	 * if no public key exists and the request contains a valid certificate
+	 * If no public key exists and the request contains a valid certificate
 	 * from the currently logged in user we will create one
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
 	 * @param string $csr request to create a valid public key
-	 * @return DataResponse
 	 *
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
@@ -242,7 +207,7 @@ class KeyController extends OCSController {
 	}
 
 	/**
-	 * delete the users public key
+	 * Delete the users public key
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
@@ -272,7 +237,7 @@ class KeyController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
-	 * get the public server key so that the clients can verify the
+	 * Get the public server key so that the clients can verify the
 	 * signature of the users public keys
 	 *
 	 * @return DataResponse
@@ -291,7 +256,7 @@ class KeyController extends OCSController {
 	}
 
 	/**
-	 * decode JSON-encoded userlist and return an array
+	 * Decode JSON-encoded userlist and return an array
 	 * add the currently logged in user if the user isn't part of the list
 	 *
 	 * @param string $users JSON-encoded userlist

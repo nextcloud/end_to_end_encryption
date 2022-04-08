@@ -73,7 +73,7 @@ class Application extends App implements IBootstrap {
 	 */
 	public function boot(IBootContext $context): void {
 		$eventDispatcher = $context->getServerContainer()->get(IEventDispatcher::class);
-		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function (SabrePluginEvent $event) {
+		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function (SabrePluginEvent $event): void {
 			$server = $event->getServer();
 
 			if ($server !== null) {
@@ -85,7 +85,7 @@ class Application extends App implements IBootstrap {
 			}
 		});
 
-		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function (MoveToTrashEvent $event) {
+		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function (MoveToTrashEvent $event): void {
 			/** @var EncryptionManager $encryptionManager */
 			$encryptionManager = $this->getContainer()->get(EncryptionManager::class);
 
@@ -96,7 +96,7 @@ class Application extends App implements IBootstrap {
 		});
 
 
-		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function (CreateVersionEvent $event) {
+		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function (CreateVersionEvent $event): void {
 			/** @var EncryptionManager $encryptionManager */
 			$encryptionManager = $this->getContainer()->get(EncryptionManager::class);
 

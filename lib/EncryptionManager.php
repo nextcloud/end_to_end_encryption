@@ -40,23 +40,10 @@ use OCP\Share\IShare;
  * @package OCA\EndToEndEncryption
  */
 class EncryptionManager {
+	private IRootFolder $rootFolder;
+	private IUserSession $userSession;
+	private IManager $shareManager;
 
-	/** @var IRootFolder */
-	private $rootFolder;
-
-	/** @var IUserSession */
-	private $userSession;
-
-	/** @var IManager */
-	private $shareManager;
-
-	/**
-	 * EncryptionManager constructor.
-	 *
-	 * @param IRootFolder $rootFolder
-	 * @param IUserSession $userSession
-	 * @param IManager $shareManager
-	 */
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								IManager $shareManager) {
@@ -66,9 +53,7 @@ class EncryptionManager {
 	}
 
 	/**
-	 * mark folder as encrypted
-	 *
-	 * @param int $id
+	 * Mark folder as encrypted
 	 * @throws NotFoundException
 	 */
 	public function setEncryptionFlag(int $id): void {
@@ -78,9 +63,7 @@ class EncryptionManager {
 	}
 
 	/**
-	 * mark folder as un-encrypted
-	 *
-	 * @param int $id
+	 * Mark folder as un-encrypted
 	 * @throws NotFoundException
 	 */
 	public function removeEncryptionFlag(int $id): void {
@@ -90,10 +73,7 @@ class EncryptionManager {
 	}
 
 	/**
-	 * check if a file is in a folder marked as encrypted
-	 *
-	 * @param Node $node
-	 * @return bool
+	 * Check if a file is in a folder marked as encrypted
 	 */
 	public function isEncryptedFile(Node $node): bool {
 		do {
@@ -107,9 +87,7 @@ class EncryptionManager {
 	}
 
 	/**
-	 * get root folder of the currently logged in user
-	 *
-	 * @return Folder
+	 * Get root folder of the currently logged in user
 	 */
 	protected function getUserRoot(): Folder {
 		$uid = $this->userSession->getUser()->getUID();
@@ -119,10 +97,7 @@ class EncryptionManager {
 
 
 	/**
-	 * check if file ID points to a valid folder
-	 *
-	 * @param int $id folder id
-	 *
+	 * Check if file ID points to a valid folder
 	 * @throws NotFoundException
 	 */
 	protected function isValidFolder(int $id):void {
@@ -154,10 +129,6 @@ class EncryptionManager {
 
 	/**
 	 * Check if a node is shared
-	 *
-	 * @param string $userId
-	 * @param Node $node
-	 * @return bool
 	 */
 	private function isNodeShared(string $userId, Node $node):bool {
 		$shareTypesToCheck = [

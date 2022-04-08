@@ -7,29 +7,14 @@
     </UndefinedClass>
   </file>
   <file src="lib/Connector/Sabre/APlugin.php">
-    <TypeDoesNotContainType occurrences="1">
-      <code>$node instanceof Directory</code>
-    </TypeDoesNotContainType>
-  </file>
-  <file src="lib/Connector/Sabre/LockPlugin.php">
-    <UndefinedClass occurrences="1">
-      <code>Http</code>
-    </UndefinedClass>
-    <UndefinedMethod occurrences="3">
-      <code>getAbsoluteUrl</code>
-      <code>getId</code>
-      <code>getQueryParameters</code>
-    </UndefinedMethod>
+    <UndefinedPropertyFetch occurrences="1">
+      <code>$this-&gt;server-&gt;tree</code>
+    </UndefinedPropertyFetch>
   </file>
   <file src="lib/Connector/Sabre/PropFindPlugin.php">
-    <TypeDoesNotContainType occurrences="1">
-      <code>!$supportE2EEncryption &amp;&amp; $node instanceof Directory</code>
-    </TypeDoesNotContainType>
-    <UndefinedMethod occurrences="4">
+    <UndefinedMethod occurrences="2">
       <code>getName</code>
       <code>getProperties</code>
-      <code>on</code>
-      <code>on</code>
     </UndefinedMethod>
     <UndefinedPropertyFetch occurrences="1">
       <code>$this-&gt;server-&gt;tree</code>
@@ -42,5 +27,8 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>bool</code>
     </MismatchingDocblockReturnType>
+    <UndefinedPropertyFetch occurrences="1">
+      <code>$this-&gt;server-&gt;tree</code>
+    </UndefinedPropertyFetch>
   </file>
 </files>

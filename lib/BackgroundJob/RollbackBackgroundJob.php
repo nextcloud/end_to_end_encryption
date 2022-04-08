@@ -34,20 +34,9 @@ use OCP\IConfig;
  * @package OCA\EndToEndEncryption\BackgroundJob
  */
 class RollbackBackgroundJob extends TimedJob {
+	private IConfig $config;
+	private RollbackService $rollbackService;
 
-	/** @var IConfig */
-	private $config;
-
-	/** @var RollbackService */
-	private $rollbackService;
-
-	/**
-	 * RollbackBackgroundJob constructor.
-	 *
-	 * @param IConfig $config
-	 * @param ITimeFactory $time
-	 * @param RollbackService $rollbackService
-	 */
 	public function __construct(IConfig $config,
 								ITimeFactory $time,
 								RollbackService $rollbackService) {

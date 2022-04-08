@@ -44,32 +44,14 @@ use Psr\Log\LoggerInterface;
  * @package OCA\EndToEndEncryption\Controller
  */
 class EncryptionController extends OCSController {
+	private string $userId;
+	private IMetaDataStorage $metaDataStorage;
+	private EncryptionManager $manager;
+	private LoggerInterface $logger;
 
-	/** @var  string */
-	private $userId;
-
-	/** @var IMetaDataStorage */
-	private $metaDataStorage;
-
-	/** @var EncryptionManager */
-	private $manager;
-
-	/** @var LoggerInterface */
-	private $logger;
-
-	/**
-	 * RequestHandlerController constructor.
-	 *
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param string $userId
-	 * @param IMetaDataStorage $metaDataStorage
-	 * @param EncryptionManager $manager
-	 * @param LoggerInterface $logger
-	 */
-	public function __construct($AppName,
+	public function __construct(string $AppName,
 								IRequest $request,
-								$userId,
+								string $userId,
 								IMetaDataStorage $metaDataStorage,
 								EncryptionManager $manager,
 								LoggerInterface $logger) {
@@ -81,15 +63,10 @@ class EncryptionController extends OCSController {
 	}
 
 	/**
+	 * Set encryption flag for folder
+	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 *
-	 * set encryption flag for folder
-	 *
-	 *
-	 * @param int $id file ID
-	 * @return DataResponse
-	 *
 	 * @throws OCSNotFoundException
 	 */
 	public function setEncryptionFlag(int $id): DataResponse {
@@ -103,15 +80,10 @@ class EncryptionController extends OCSController {
 	}
 
 	/**
+	 * Set encryption flag for folder
+	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 *
-	 * set encryption flag for folder
-	 *
-	 *
-	 * @param int $id file ID
-	 * @return DataResponse
-	 *
 	 * @throws OCSNotFoundException
 	 */
 	public function removeEncryptionFlag(int $id): DataResponse {

@@ -35,11 +35,7 @@ use OCP\Files\NotPermittedException;
 interface IMetaDataStorage {
 
 	/**
-	 * get meta data file
-	 *
-	 * @param string $userId
-	 * @param int $id
-	 * @return string
+	 * Get meta data file
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
@@ -47,11 +43,7 @@ interface IMetaDataStorage {
 	public function getMetaData(string $userId, int $id): string;
 
 	/**
-	 * set meta data file into intermediate file
-	 *
-	 * @param string $userId
-	 * @param int $id file id
-	 * @param string $metaData
+	 * Set meta data file into intermediate file
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
@@ -60,11 +52,7 @@ interface IMetaDataStorage {
 	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData): void;
 
 	/**
-	 * update meta data file into intermediate file
-	 *
-	 * @param string $userId
-	 * @param int $id file id
-	 * @param string $fileKey
+	 * Update meta data file into intermediate file
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
@@ -75,9 +63,6 @@ interface IMetaDataStorage {
 	/**
 	 * Moves intermediate metadata file to final file
 	 *
-	 * @param string $userId
-	 * @param int $id file id
-	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 * @throws MissingMetaDataException
@@ -87,19 +72,13 @@ interface IMetaDataStorage {
 	/**
 	 * Delete the previously set intermediate file
 	 *
-	 * @param string $userId
-	 * @param int $id file id
-	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
 	public function deleteIntermediateFile(string $userId, int $id): void;
 
 	/**
-	 * delete meta data file (and backup)
-	 *
-	 * @param string $userId
-	 * @param int $id
+	 * Delete meta data file (and backup)
 	 *
 	 * @throws NotPermittedException
 	 * @throws NotFoundException

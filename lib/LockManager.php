@@ -38,38 +38,17 @@ use OCP\IUserSession;
 use OCP\Security\ISecureRandom;
 
 /**
- * Class LockManager
- *
- * handle end-to-end encryption file locking
+ * Handle end-to-end encryption file locking
  *
  * @package OCA\EndToEndEncryption
  */
 class LockManager {
+	private LockMapper $lockMapper;
+	private ISecureRandom $secureRandom;
+	private IUserSession $userSession;
+	private IRootFolder $rootFolder;
+	private ITimeFactory $timeFactory;
 
-	/** @var LockMapper */
-	private $lockMapper;
-
-	/** @var ISecureRandom */
-	private $secureRandom;
-
-	/** @var IUserSession */
-	private $userSession;
-
-	/** @var IRootFolder */
-	private $rootFolder;
-
-	/** @var ITimeFactory */
-	private $timeFactory;
-
-	/**
-	 * LockManager constructor.
-	 *
-	 * @param LockMapper $lockMapper
-	 * @param ISecureRandom $secureRandom
-	 * @param IRootFolder $rootFolder
-	 * @param IUserSession $userSession
-	 * @param ITimeFactory $timeFactory
-	 */
 	public function __construct(LockMapper $lockMapper,
 								ISecureRandom $secureRandom,
 								IRootFolder $rootFolder,
@@ -84,11 +63,7 @@ class LockManager {
 	}
 
 	/**
-	 * lock file
-	 *
-	 * @param int $id
-	 * @param string $token
-	 * @return string|null
+	 * Lock file
 	 */
 	public function lockFile(int $id, string $token = ''): ?string {
 		if ($this->isLocked($id, $token)) {
@@ -115,10 +90,7 @@ class LockManager {
 	}
 
 	/**
-	 * unlock file
-	 *
-	 * @param int $id
-	 * @param string $token
+	 * Unlock file
 	 *
 	 * @throws FileLockedException
 	 * @throws FileNotLockedException
@@ -138,11 +110,8 @@ class LockManager {
 	}
 
 	/**
-	 * check if a file or a parent folder is locked
+	 * Check if a file or a parent folder is locked
 	 *
-	 * @param int $id
-	 * @param string $token
-	 * @return bool
 	 * @throws InvalidPathException
 	 * @throws NotFoundException
 	 * @throws \OCP\Files\NotPermittedException
@@ -180,9 +149,7 @@ class LockManager {
 
 
 	/**
-	 * generate a new token
-	 *
-	 * @return string
+	 * Generate a new token
 	 */
 	private function getToken(): string {
 		return $this->secureRandom->generate(64, ISecureRandom::CHAR_UPPER . ISecureRandom::CHAR_LOWER . ISecureRandom::CHAR_DIGITS);

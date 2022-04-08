@@ -35,12 +35,8 @@ use OCP\AppFramework\Db\Entity;
  * @method void setToken(string $token)
  */
 class Lock extends Entity {
-
-	/** @var ?int */
-	protected $timestamp = null;
-
-	/** @var ?string */
-	protected $token = null;
+	protected ?int $timestamp = null;
+	protected ?string $token = null;
 
 	public function __construct() {
 		$this->addType('id', 'int');
