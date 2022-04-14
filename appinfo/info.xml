@@ -5,7 +5,7 @@
 	<name>End-to-End Encryption</name>
 	<summary>End-to-end encryption endpoint</summary>
 	<description>Provides the necessary endpoint to enable end-to-end encryption.</description>
-	<version>1.10.1</version>
+	<version>1.11.0</version>
 	<licence>agpl</licence>
 	<author>Bjoern Schiessle</author>
 	<namespace>EndToEndEncryption</namespace>
@@ -19,7 +19,7 @@
 	<repository type="git">https://github.com/nextcloud/end_to_end_encryption.git</repository>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/master/screenshots/e2ee-filelisting.png</screenshot>
 	<dependencies>
-		<nextcloud min-version="24" max-version="24" />
+		<nextcloud min-version="25" max-version="25" />
 	</dependencies>
 	<background-jobs>
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
