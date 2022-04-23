@@ -14,6 +14,7 @@ OC.L10N.register(
     "File already locked" : "Tiedosto on jo lukittu",
     "You are not allowed to remove the lock" : "Sinulla ei ole oikeutta poistaa lukitusta",
     "File not locked" : "Tiedosto ei ole lukittu",
+    "Could not find metadata for \"%s\"" : "Kohteelle \"%s\" ei löytynyt metatietoja",
     "Cannot read metadata" : "Metatietoja ei voitu lukea",
     "Cannot store metadata" : "Metatietoja ei voitu tallettaa",
     "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
