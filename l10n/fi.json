@@ -12,16 +12,13 @@
     "File already locked" : "Tiedosto on jo lukittu",
     "You are not allowed to remove the lock" : "Sinulla ei ole oikeutta poistaa lukitusta",
     "File not locked" : "Tiedosto ei ole lukittu",
+    "Could not find metadata for \"%s\"" : "Kohteelle \"%s\" ei löytynyt metatietoja",
     "Cannot read metadata" : "Metatietoja ei voitu lukea",
     "Cannot store metadata" : "Metatietoja ei voitu tallettaa",
     "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
     "Only the owner can delete the metadata-file" : "Vain omistaja voi poistaa metadatatiedoston",
     "Cannot delete metadata" : "Metatietoja ei voi poistaa",
     "End-to-End Encryption" : "Päästä päähän -salaus",
-    "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste",
-    "Can not decode userlist" : "Käyttäjäluetteloa ei voida purkaa",
-    "Can't read metadata" : "Metadataa ei voida lukea",
-    "Can't store metadata" : "Metadataa ei voida tallentaa",
-    "Can't delete metadata" : "Metadataa ei voida poistaa"
+    "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

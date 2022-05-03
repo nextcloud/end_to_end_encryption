@@ -24,10 +24,6 @@ OC.L10N.register(
     "Cannot delete metadata" : "A metaadatok nem törölhetők",
     "End-to-End Encryption" : "Végpontok közötti titkosítás",
     "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja.",
-    "Can not decode userlist" : "Nem lehet dekódolni a felhasználólistát",
-    "Can't read metadata" : "A metaadatok nem olvashatóak",
-    "Can't store metadata" : "Nem lehet tárolni a metaadatokat",
-    "Can't delete metadata" : "Metaadatok törlése sikertelen"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja."
 },
 "nplurals=2; plural=(n != 1);");

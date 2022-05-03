@@ -24,10 +24,6 @@ OC.L10N.register(
     "Cannot delete metadata" : "Ezin da metadaturik ezabatu",
     "End-to-End Encryption" : "Muturretik muturrerako zifratzea",
     "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko.",
-    "Can not decode userlist" : "Ezin da erabiltzailerren zerrenda deskodetu",
-    "Can't read metadata" : "Ezin dira metadatuak irakurri",
-    "Can't store metadata" : "Ezin dira metadatuak gorde",
-    "Can't delete metadata" : "Ezin da metadaturik ezabatu"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko."
 },
 "nplurals=2; plural=(n != 1);");

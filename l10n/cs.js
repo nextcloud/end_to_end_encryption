@@ -24,10 +24,6 @@ OC.L10N.register(
     "Cannot delete metadata" : "Nedaří se smazat metadata",
     "End-to-End Encryption" : "Šifrování end-to-end",
     "End-to-end encryption endpoint" : "Koncový bod end-to-end šifrování",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování.",
-    "Can not decode userlist" : "Nedaří se dekódovat seznam uživatelů",
-    "Can't read metadata" : "Nedaří se číst metadata",
-    "Can't store metadata" : "Nedaří se uložit metadata ",
-    "Can't delete metadata" : "Nedaří se smazat metadata"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

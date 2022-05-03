@@ -22,10 +22,6 @@
     "Cannot delete metadata" : "Não é possível excluir metadados ",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
-    "Can not decode userlist" : "Não foi possível decodificar a lista de usuários",
-    "Can't read metadata" : "Não foi possível ler os metadados",
-    "Can't store metadata" : "Não foi possível salvar os metadados",
-    "Can't delete metadata" : "Não foi possível excluir os metadados"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

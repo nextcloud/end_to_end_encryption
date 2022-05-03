@@ -22,10 +22,6 @@
     "Cannot delete metadata" : "Impossìbile a cantzellare metadatos",
     "End-to-End Encryption" : "Critografia a nodu terminale",
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Frunit su puntu finale netzessàriu pro ativare sa critografia a nodu terminale.",
-    "Can not decode userlist" : "Impossìbile a decodificare sa lista de utentes",
-    "Can't read metadata" : "Impossìbile a lèghere is metadatos",
-    "Can't store metadata" : "Impossìbile a regòllere is metadatos",
-    "Can't delete metadata" : "Impossìbile a cantzellare metadatos"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Frunit su puntu finale netzessàriu pro ativare sa critografia a nodu terminale."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
