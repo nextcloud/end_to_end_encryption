@@ -23,10 +23,6 @@ OC.L10N.register(
     "Cannot delete metadata" : "No es poden suprimir les metadades",
     "End-to-End Encryption" : "Xifratge d'extrem a extrem",
     "End-to-end encryption endpoint" : "Extrem d’encriptació extrem-a-extrem",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar l'encriptació d'extrem a extrem.",
-    "Can not decode userlist" : "No es pot descodificar la llista d’usuaris",
-    "Can't read metadata" : "No es poden llegir les metadades",
-    "Can't store metadata" : "No es poden emmagatzemar les metadades",
-    "Can't delete metadata" : "No es poden suprimir les metadades"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar l'encriptació d'extrem a extrem."
 },
 "nplurals=2; plural=(n != 1);");

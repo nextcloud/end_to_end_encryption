@@ -22,10 +22,6 @@
     "Cannot delete metadata" : "Metapodatkov ni mogoče izbrisati",
     "End-to-End Encryption" : "Celovito šifriranje E2E",
     "End-to-end encryption endpoint" : "Končna točka celovitega šifriranja E2E",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Omogoča obvezne končne točke za celovito šifriranje.",
-    "Can not decode userlist" : "Ni mogoče dekodirati uporabniškega seznama",
-    "Can't read metadata" : "Metapodatkov ni mogoče prebrati",
-    "Can't store metadata" : "Metapodatkov ni mogoče shraniti",
-    "Can't delete metadata" : "Metapodatkov ni mogoče izbrisati"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Omogoča obvezne končne točke za celovito šifriranje."
 },"pluralForm" :"nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);"
 }
