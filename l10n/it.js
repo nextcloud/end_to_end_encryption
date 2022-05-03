@@ -24,10 +24,6 @@ OC.L10N.register(
     "Cannot delete metadata" : "Impossibile eliminare i metadati",
     "End-to-End Encryption" : "Cifratura End-To-End",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornisce il terminatore necessario per abilitare la crittografia end-to-end.",
-    "Can not decode userlist" : "Impossibile decodificare l'elenco degli utenti",
-    "Can't read metadata" : "Impossibile leggere i metadati",
-    "Can't store metadata" : "Impossibile archiviare i metadati",
-    "Can't delete metadata" : "Impossibile eliminare i metadati"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornisce il terminatore necessario per abilitare la crittografia end-to-end."
 },
 "nplurals=2; plural=(n != 1);");

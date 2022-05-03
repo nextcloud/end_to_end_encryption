@@ -24,10 +24,6 @@ OC.L10N.register(
     "Cannot delete metadata" : "无法删除元数据",
     "End-to-End Encryption" : "点对点加密",
     "End-to-end encryption endpoint" : "端到端加密端点",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端点以启用端到端加密。",
-    "Can not decode userlist" : "无法解码用户列表",
-    "Can't read metadata" : "无法读取元数据",
-    "Can't store metadata" : "无法存储元数据",
-    "Can't delete metadata" : "无法删除元数据"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端点以启用端到端加密。"
 },
 "nplurals=1; plural=0;");
