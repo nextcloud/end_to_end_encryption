@@ -14,7 +14,6 @@
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No puedes editar el archivo, asegúrate de bloquearlo primero y despues enviar la ficha correcta",
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
-    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
-    "Can not decode userlist" : "No se puede decodificar la lista de usuarios"
+    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

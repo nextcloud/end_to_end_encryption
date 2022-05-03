@@ -15,7 +15,6 @@ OC.L10N.register(
     "Could not find metadata for \"%s\"" : "მეტა-მონაცემები \"%s\"-ზე ვერ იქნა ნაპოვნი",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "ფაილის ცვლილების უფლება არ გაქვთ, დარწმუნდით რომ მას კეტავთ და შემდეგ გზავნით სწორ ტოკენს",
     "Only the owner can delete the metadata-file" : "მხოლოდ მფლობელს შეუძლია გააუქმოს მეტა-მონაცემების ფაილი",
-    "End-to-End Encryption" : "End-to-End შიფრაცია",
-    "Can not decode userlist" : "მომხმარებლის სიის დეკოდირება ვერ ხერხდება"
+    "End-to-End Encryption" : "End-to-End შიფრაცია"
 },
 "nplurals=2; plural=(n!=1);");

@@ -22,10 +22,6 @@
     "Cannot delete metadata" : "Impossible de supprimer les métadonnées",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
     "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit l'extrémité (endpoint) nécessaire pour permettre un chiffrement de bout en bout.",
-    "Can not decode userlist" : "Impossible de décoder la liste des utilisateurs",
-    "Can't read metadata" : "Impossible de lire les métadonnées",
-    "Can't store metadata" : "Impossible d'enregistrer les métadonnées",
-    "Can't delete metadata" : "Impossible de supprimer les métadonnées"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit l'extrémité (endpoint) nécessaire pour permettre un chiffrement de bout en bout."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
