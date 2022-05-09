@@ -91,8 +91,7 @@ class EncryptionManager {
 	 */
 	protected function getUserRoot(): Folder {
 		$uid = $this->userSession->getUser()->getUID();
-		$userRoot = $this->rootFolder->getUserFolder($uid);
-		return $userRoot;
+		return $this->rootFolder->getUserFolder($uid);
 	}
 
 

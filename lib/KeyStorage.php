@@ -249,11 +249,11 @@ class KeyStorage implements IKeyStorage {
 		}
 	}
 
-	private function getFileNameForPublicKey(string $uid):string {
+	private function getFileNameForPublicKey(string $uid): string {
 		return $uid . '.public.key';
 	}
 
-	private function getFileNameForPrivateKey(string $uid):string {
+	private function getFileNameForPrivateKey(string $uid): string {
 		return $uid . '.private.key';
 	}
 }
