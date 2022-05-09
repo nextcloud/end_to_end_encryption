@@ -44,14 +44,14 @@ use Psr\Log\LoggerInterface;
  * @package OCA\EndToEndEncryption\Controller
  */
 class EncryptionController extends OCSController {
-	private string $userId;
+	private ?string $userId;
 	private IMetaDataStorage $metaDataStorage;
 	private EncryptionManager $manager;
 	private LoggerInterface $logger;
 
 	public function __construct(string $AppName,
 								IRequest $request,
-								string $userId,
+								?string $userId,
 								IMetaDataStorage $metaDataStorage,
 								EncryptionManager $manager,
 								LoggerInterface $logger) {

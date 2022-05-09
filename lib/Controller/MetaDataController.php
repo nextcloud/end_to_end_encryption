@@ -46,7 +46,7 @@ use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
-	private string $userId;
+	private ?string $userId;
 	private IMetaDataStorage $metaDataStorage;
 	private LoggerInterface $logger;
 	private LockManager $lockManager;
@@ -54,7 +54,7 @@ class MetaDataController extends OCSController {
 
 	public function __construct(string $AppName,
 								IRequest $request,
-								string $userId,
+								?string $userId,
 								IMetaDataStorage $metaDataStorage,
 								LockManager $lockManager,
 								LoggerInterface $logger,

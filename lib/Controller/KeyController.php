@@ -48,7 +48,7 @@ use BadMethodCallException;
 use Psr\Log\LoggerInterface;
 
 class KeyController extends OCSController {
-	private string $userId;
+	private ?string $userId;
 	private IKeyStorage $keyStorage;
 	private SignatureHandler $signatureHandler;
 	private LoggerInterface $logger;
@@ -56,7 +56,7 @@ class KeyController extends OCSController {
 
 	public function __construct(string $AppName,
 								IRequest $request,
-								string $userId,
+								?string $userId,
 								IKeyStorage $keyStorage,
 								SignatureHandler $signatureHandler,
 								LoggerInterface $logger,

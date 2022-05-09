@@ -45,7 +45,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 
 class LockingController extends OCSController {
-	private string $userId;
+	private ?string $userId;
 	private IMetaDataStorage $metaDataStorage;
 	private IRootFolder $rootFolder;
 	private FileService $fileService;
@@ -54,7 +54,7 @@ class LockingController extends OCSController {
 
 	public function __construct(string $AppName,
 								IRequest $request,
-								string $userId,
+								?string $userId,
 								IMetaDataStorage $metaDataStorage,
 								LockManager $lockManager,
 								IRootFolder $rootFolder,
