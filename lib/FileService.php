@@ -33,7 +33,7 @@ use OCP\Files\Node;
  */
 class FileService {
 	/**
-	 * @return bool Whether or not it changed any files
+	 * @return bool Whether this operation changed any files
 	 */
 	public function revertChanges(Folder $folder): bool {
 		$intermediateFiles = $this->getIntermediateFiles($folder);
@@ -56,7 +56,7 @@ class FileService {
 	}
 
 	/**
-	 * @return bool Whether or not it changed any files
+	 * @return bool Whether this operation changed any files
 	 */
 	public function finalizeChanges(Folder $folder): bool {
 		$intermediateFiles = $this->getIntermediateFiles($folder);
