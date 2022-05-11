@@ -13,7 +13,7 @@
     "File already locked" : "Datei ist bereits gesperrt",
     "You are not allowed to remove the lock" : "Du darfst die Sperrung nicht aufheben",
     "File not locked" : "Datei nicht gesperrt",
-    "Could not find metadata for \"%s\"" : "Für \"%s\" können keine Metadaten gefunden werden",
+    "Could not find metadata for \"%s\"" : "Für \"%s\" konnten keine Metadaten gefunden werden",
     "Cannot read metadata" : "Metadaten können nicht gelesen werden",
     "Cannot store metadata" : "Metadaten können nicht gespeichert werden",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du darfst die Datei nicht bearbeiten. Stelle sicher, dass Du sie zuerst sperrst und das richtige Token sendest.",
