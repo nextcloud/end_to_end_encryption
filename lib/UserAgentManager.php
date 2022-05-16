@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-use OC\AppFramework\Http\Request;
+use OCP\IConfig;
 
 class UserAgentManager {
 
@@ -34,14 +34,14 @@ class UserAgentManager {
 	 *
 	 * @var array<string, string>
 	 */
-	private $supportedUserAgents;
+	private array $supportedUserAgents;
 
-	public function __construct() {
-		$this->supportedUserAgents = [
+	public function __construct(IConfig $config) {
+		$this->supportedUserAgents = $config->getSystemValue('end_to_end_encryption.supported-user-agents', [
 			'/^Mozilla\/5\.0 \(Android\) Nextcloud\-android\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '3.13.0',
 			'/^Mozilla\/5\.0 \([A-Za-z ]+\) (mirall|csyncoC)\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '3.0.0',
 			'/^Mozilla\/5\.0 \(iOS\) Nextcloud\-iOS\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '3.0.5',
-		];
+		]);
 	}
 
 	/**
