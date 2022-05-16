@@ -26,6 +26,7 @@ namespace OCA\EndToEndEncryption\Tests\Unit;
 
 use OCA\EndToEndEncryption\UserAgentManager;
 use Test\TestCase;
+use OCP\IConfig;
 
 class UserAgentManagerTest extends TestCase {
 
@@ -90,12 +91,13 @@ class UserAgentManagerTest extends TestCase {
 
 	private function getUserAgentManager(array $mockedMethods = []) {
 		if (empty($mockedMethods)) {
-			return new UserAgentManager();
+			return new UserAgentManager(\OC::$server->get(IConfig::class));
 		}
 
 		return $this
 			->getMockBuilder(UserAgentManager::class)
 			->setMethods($mockedMethods)
+			->disableOriginalConstructor()
 			->getMock();
 	}
 
@@ -107,7 +109,7 @@ class UserAgentManagerTest extends TestCase {
 	 * @return array
 	 */
 	private function getSupportedUserAgents(): array {
-		$userAgentManager = new UserAgentManager();
+		$userAgentManager = new UserAgentManager(\OC::$server->get(IConfig::class));
 		$originalRules = self::invokePrivate($userAgentManager, 'getSupportedUserAgents');
 
 		foreach ($originalRules as $regex => $version) {

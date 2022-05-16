@@ -212,7 +212,7 @@ jobs:
 #        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
         with:
           file: apps/${{ env.APP_NAME }}/clover.unit.xml
           fail_ci_if_error: true
