@@ -26,4 +26,4 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornisce il terminatore necessario per abilitare la crittografia end-to-end."
 },
-"nplurals=2; plural=(n != 1);");
+"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
