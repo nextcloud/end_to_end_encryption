@@ -26,4 +26,4 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit l'extrémité (endpoint) nécessaire pour permettre un chiffrement de bout en bout."
 },
-"nplurals=2; plural=(n > 1);");
+"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

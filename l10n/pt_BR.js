@@ -26,4 +26,4 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto."
 },
-"nplurals=2; plural=(n > 1);");
+"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
