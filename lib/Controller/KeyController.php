@@ -98,7 +98,6 @@ class KeyController extends OCSController {
 	 * Delete the users private key
 	 *
 	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
 	 * @throws OCSBadRequestException
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
@@ -210,7 +209,6 @@ class KeyController extends OCSController {
 	 * Delete the users public key
 	 *
 	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
 	 *
 	 * @return DataResponse
 	 *
