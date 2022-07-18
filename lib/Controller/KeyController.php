@@ -244,7 +244,6 @@ class KeyController extends OCSController {
 	 * delete the users public key
 	 *
 	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
 	 *
 	 * @return DataResponse
 	 *
