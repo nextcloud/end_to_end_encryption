@@ -129,4 +129,27 @@ class EncryptionController extends OCSController {
 
 		return new DataResponse();
 	}
+
+	/**
+	 * Remove encrypted files
+	 *
+	 * @NoAdminRequired
+	 * @throws OCSNotFoundException
+	 */
+	public function removeEncryptedFolders(): DataResponse {
+		try {
+			$ids = $this->manager->removeEncryptedFolders($this->userId);
+		} catch (NotFoundException $e) {
+			throw new OCSNotFoundException($e->getMessage());
+		}
+		foreach($ids as $id) {
+			try {
+				$this->metaDataStorage->deleteMetaData($this->userId, $id);
+			} catch (\Exception $e) {
+				$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
+			}
+		}
+
+		return new DataResponse(['deletedIds' => $ids]);
+	}
 }
