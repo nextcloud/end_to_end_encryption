@@ -32,12 +32,14 @@ use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\Storage\IStorage;
+use OCP\IDBConnection;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
 use PHPUnit_Framework_MockObject_MockObject;
 use Test\TestCase;
+use Psr\Log\LoggerInterface;
 
 class EncryptionManagerTest extends TestCase {
 
@@ -59,6 +61,12 @@ class EncryptionManagerTest extends TestCase {
 	/** @var  IManager|PHPUnit_Framework_MockObject_MockObject */
 	private $shareManager;
 
+	/** @var IDBConnection|PHPUnit_Framework_MockObject_MockObject */
+	private $dbConnection;
+
+	/** @var LoggerInterface|PHPUnit_Framework_MockObject_MockObject */
+	private $logger;
+
 	protected function setUp(): void {
 		parent::setUp();
 		$this->rootFolderInterface = $this->createMock(IRootFolder::class);
@@ -67,6 +75,8 @@ class EncryptionManagerTest extends TestCase {
 		$this->fileCache = $this->createMock(ICache::class);
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->shareManager = $this->createMock(IManager::class);
+		$this->dbConnection = $this->createMock(IDBConnection::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->rootFolder->expects($this->any())->method('getStorage')->willReturn($this->storage);
 		$this->storage->expects($this->any())->method('getCache')->willReturn($this->fileCache);
@@ -86,12 +96,14 @@ class EncryptionManagerTest extends TestCase {
 						$this->rootFolderInterface,
 						$this->userSession,
 						$this->shareManager,
+						$this->dbConnection,
+						$this->logger,
 					]
 				)
 				->setMethods($mockedMethods)
 				->getMock();
 		} else {
-			$instance = new EncryptionManager($this->rootFolderInterface, $this->userSession, $this->shareManager);
+			$instance = new EncryptionManager($this->rootFolderInterface, $this->userSession, $this->shareManager, $this->dbConnection, $this->logger);
 		}
 
 		return $instance;

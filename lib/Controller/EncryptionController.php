@@ -142,7 +142,7 @@ class EncryptionController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
 		}
-		foreach($ids as $id) {
+		foreach ($ids as $id) {
 			try {
 				$this->metaDataStorage->deleteMetaData($this->userId, $id);
 			} catch (\Exception $e) {

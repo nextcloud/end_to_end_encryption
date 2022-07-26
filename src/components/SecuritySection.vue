@@ -184,6 +184,7 @@ li {
 	margin-left: 1rem;
 	padding: 0.25rem 0;
 }
+
 .margin-bottom {
 	margin-bottom: 0.75rem;
 }
