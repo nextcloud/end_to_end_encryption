@@ -31,6 +31,9 @@ use OCP\Files\NotFoundException;
 use OCP\IUserSession;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
+use OCP\IDBConnection;
+use OCP\DB\QueryBuilder\IQueryBuilder;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class EncryptionManager
@@ -43,13 +46,19 @@ class EncryptionManager {
 	private IRootFolder $rootFolder;
 	private IUserSession $userSession;
 	private IManager $shareManager;
+	private IDBConnection $dbConnection;
+	private LoggerInterface $logger;
 
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
-								IManager $shareManager) {
+								IManager $shareManager,
+								IDBConnection $dbConnection,
+								LoggerInterface $logger) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
 		$this->shareManager = $shareManager;
+		$this->dbConnection = $dbConnection;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -158,5 +167,32 @@ class EncryptionManager {
 		}
 
 		return false;
+	}
+
+	public function removeEncryptedFolders(string $userId): array {
+		$userRoot = $this->getUserRoot();
+		$storageId = $userRoot->getStorage()->getCache()->getNumericStorageId();
+
+		$qb = $this->dbConnection->getQueryBuilder();
+		$qb->select('fileid')
+			->from('filecache')
+			->where($qb->expr()->eq('encrypted', $qb->createNamedParameter(1, IQueryBuilder::PARAM_INT)))
+			->andWhere($qb->expr()->eq('storage', $qb->createNamedParameter($storageId, IQueryBuilder::PARAM_INT)));
+
+		$fileIds = [];
+		$result = $qb->executeQuery();
+		while (($row = $result->fetch()) !== false) {
+			$nodes = $userRoot->getById($row['fileid']);
+			try {
+				foreach ($nodes as $node) {
+					$node->delete();
+					$fileIds[] = $node->getId();
+				}
+			} catch (\Exception $e) {
+				$this->logger->error('Error while deleting file', ['exception' => $e]);
+			}
+		}
+
+		return $fileIds;
 	}
 }

@@ -4,10 +4,10 @@
 import Vue from 'vue'
 import { translate, translatePlural } from '@nextcloud/l10n'
 
+import SecuritySection from './components/SecuritySection.vue'
+
 Vue.prototype.t = translate
 Vue.prototype.n = translatePlural
-
-import SecuritySection from './components/SecuritySection'
 
 const View = Vue.extend(SecuritySection)
 new View({}).$mount('#security-end-to-end')
