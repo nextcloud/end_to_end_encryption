@@ -13,19 +13,16 @@
 		<div v-if="shouldDisplayWarning && hasKey" class="notecard warning" role="alert">
 			<p>{{ t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys') }}</p>
 			<ul>
-				<li>{{ t('end_to_end_encryption', 'Once your end to end encryption are reset, all files stored in your encrypted folder will be inaccessible') }}</li>
-				<li>{{ t('end_to_end_encryption', 'You should only reset your end to end encryption when you have lost your secure key words') }}</li>
+				<li>{{ t('end_to_end_encryption', 'Once you end to end encryption reset, all files stored in your encrypted folder will be inaccessible') }}</li>
+				<li>{{ t('end_to_end_encryption', 'You should only reset your end to end encryption when you have lost your secure key words (mnemonic)') }}</li>
 				<li>{{ t('end_to_end_encryption', 'Check on all connected devices, if you can retrieve your mnemonic') }}</li>
 				<li>{{ t('end_to_end_encryption', 'After deleting the keys any still existing device might cause problems, therefore please re-setup the accounts.') }}</li>
 			</ul>
 
-			<CheckboxRadioSwitch :checked.sync="deleteEncryptedFiles" type="switch">
+			<CheckboxRadioSwitch :checked.sync="deleteEncryptedFiles" type="switch" class="margin-bottom">
 				{{ t('end_to_end_encryption', 'Delete existing encrypted files') }}
 			</CheckboxRadioSwitch>
 
-			<p class="margin-bottom">
-				{{ t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?') }}
-			</p>
 			<Button type="error" @click="showModal">
 				{{ t('end_to_end_encryption', "Confirm") }}
 			</Button>
@@ -35,7 +32,9 @@
 				class="modal"
 				@close="closeModal">
 				<div class="modal-container">
-					<p>{{ t('end_to_end_encryption', 'Are you really sure?') }}</p>
+					<p>
+						{{ t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?') }}
+					</p>
 					<div class="button-row">
 						<Button type="tertiary" @click="closeModal">
 							{{ t('end_to_end_encryption', "Cancel") }}
@@ -85,7 +84,7 @@ export default {
 	computed: {
 		encryptionState() {
 			if (this.hasKey) {
-				return t('end_to_end_encryption', 'End to end encryption is currently enabled and correctly setup')
+				return t('end_to_end_encryption', 'End to end encryption is currently enabled and correctly setup.')
 			} else {
 				return t('end_to_end_encryption', 'End to end encryption is currently disabled. You can set it up with the {productName} clients.', {
 					productName: OCA.Theming ? OCA.Theming.name : 'Nextcloud',
@@ -135,7 +134,7 @@ export default {
 				let success = true
 				success = success && await this.deletePrivateKey()
 				success = success && await this.deletePublicKey()
-				success = success && await this.deletePrivateKey()
+				success = success && await this.deleteFiles()
 
 				if (success) {
 					showSuccess(t('end_to_end_encryption', 'End to end keys reset'))
