@@ -4,19 +4,19 @@
   -->
 
 <template>
-	<SettingsSection :title="t('end_to_end_encryption', 'End to End Encryption')"
+	<SettingsSection :title="t('end_to_end_encryption', 'End to end encryption')"
 		:description="encryptionState">
 		<Button :disabled="!hasKey" type="warning" @click="startResetProcess()">
-			{{ t('end_to_end_encryption', 'Reset End to End Encryption') }}
+			{{ t('end_to_end_encryption', 'Reset end to end encryption') }}
 		</Button>
 
 		<div v-if="shouldDisplayWarning && hasKey" class="notecard warning" role="alert">
-			<p>{{ t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys') }}</p>
+			<p><strong>{{ t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys') }}</strong></p>
 			<ul>
-				<li>{{ t('end_to_end_encryption', 'Once you end to end encryption reset, all files stored in your encrypted folder will be inaccessible') }}</li>
-				<li>{{ t('end_to_end_encryption', 'You should only reset your end to end encryption when you have lost your secure key words (mnemonic)') }}</li>
-				<li>{{ t('end_to_end_encryption', 'Check on all connected devices, if you can retrieve your mnemonic') }}</li>
-				<li>{{ t('end_to_end_encryption', 'After deleting the keys any still existing device might cause problems, therefore please re-setup the accounts.') }}</li>
+				<li>{{ t('end_to_end_encryption', 'Once your end to end encryption keys are reset, all files stored in your encrypted folder will be inaccessible') }}</li>
+				<li>{{ t('end_to_end_encryption', 'You should only reset your end to end encryption keys if you lost your secure key words (mnemonic)') }}</li>
+				<li>{{ t('end_to_end_encryption', 'Check on all connected devices if you can retrieve your mnemonic') }}</li>
+				<li>{{ t('end_to_end_encryption', 'Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again.') }}</li>
 			</ul>
 
 			<CheckboxRadioSwitch :checked.sync="deleteEncryptedFiles" type="switch" class="margin-bottom">
@@ -24,7 +24,7 @@
 			</CheckboxRadioSwitch>
 
 			<Button type="error" @click="showModal">
-				{{ t('end_to_end_encryption', "Confirm") }}
+				{{ t('end_to_end_encryption', "Confirm and reset end to end encryption") }}
 			</Button>
 
 			<Modal v-if="modal"
@@ -32,9 +32,9 @@
 				class="modal"
 				@close="closeModal">
 				<div class="modal-container">
-					<p>
+					<p><strong>
 						{{ t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?') }}
-					</p>
+					</strong></p>
 					<div class="button-row">
 						<Button type="tertiary" @click="closeModal">
 							{{ t('end_to_end_encryption', "Cancel") }}
