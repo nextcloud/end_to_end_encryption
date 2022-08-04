@@ -91,7 +91,7 @@ class UserAgentManagerTest extends TestCase {
 
 	private function getUserAgentManager(array $mockedMethods = []) {
 		if (empty($mockedMethods)) {
-			return new UserAgentManager(\OC::$erver->get(IConfig::class));
+			return new UserAgentManager(\OC::$server->get(IConfig::class));
 		}
 
 		return $this
