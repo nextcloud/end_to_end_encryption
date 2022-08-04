@@ -24,6 +24,9 @@
 	<background-jobs>
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
 	</background-jobs>
+	<settings>
+		<personal>OCA\EndToEndEncryption\Settings\Personal</personal>
+	</settings>
 	<sabre>
 		<plugins>
 			<plugin>OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin</plugin>
