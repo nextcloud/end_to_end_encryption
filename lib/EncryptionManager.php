@@ -53,6 +53,12 @@ class EncryptionManager {
 	/** @var IManager */
 	private $shareManager;
 
+	/** @var IDBConnection */
+	private $dbConnection;
+
+	/** @var LoggerInterface */
+	private $logger;
+
 	/**
 	 * EncryptionManager constructor.
 	 *
