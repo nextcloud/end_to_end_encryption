@@ -14,9 +14,12 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\Settings\ISettings;
 
 class Personal implements ISettings {
-	private IKeyStorage $keyStorage;
-	private IInitialState $initialState;
-	private ?string $userId;
+	/** @var IKeyStorage */
+	private $keyStorage;
+	/** @var IInitialState */
+	private $initialState;
+	/** @var ?string */
+	private $userId;
 
 	public function __construct(IKeyStorage $keyStorage, IInitialState $initialState, ?string $userId) {
 		$this->keyStorage = $keyStorage;
