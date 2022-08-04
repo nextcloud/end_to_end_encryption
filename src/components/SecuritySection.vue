@@ -167,13 +167,11 @@ export default {
 	color: var(--color-text-light) !important;
 	background-color: var(--note-background) !important;
 	border: 1px solid var(--color-border);
-	border-left: 4px solid var(--note-theme);
 	border-radius: var(--border-radius);
-	box-shadow: rgba(43, 42, 51, 0.05) 0 1px 2px 0;
 	margin: 1rem 0;
 	padding: 1rem !important;
 	&.warning {
-		--note-background: rgba(var(--color-warning-rgb), 0.2);
+		--note-background: rgba(236, 167, 0, 0.15);
 		--note-theme: var(--color-warning);
 	}
 }
