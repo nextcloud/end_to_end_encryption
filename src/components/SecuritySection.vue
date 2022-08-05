@@ -13,9 +13,9 @@
 		<div v-if="shouldDisplayWarning && hasKey" class="notecard warning" role="alert">
 			<p><strong>{{ t('end_to_end_encryption', 'Please read carefully before resetting your End-to-End encryption keys') }}</strong></p>
 			<ul>
-				<li>{{ t('end_to_end_encryption', 'Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible') }}</li>
-				<li>{{ t('end_to_end_encryption', 'You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)') }}</li>
-				<li>{{ t('end_to_end_encryption', 'Check on all connected devices if you can retrieve your mnemonic') }}</li>
+				<li>{{ t('end_to_end_encryption', 'Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible.') }}</li>
+				<li>{{ t('end_to_end_encryption', 'You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic).') }}</li>
+				<li>{{ t('end_to_end_encryption', 'Check on all connected devices if you can retrieve your mnemonic.') }}</li>
 				<li>{{ t('end_to_end_encryption', 'Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again.') }}</li>
 			</ul>
 
