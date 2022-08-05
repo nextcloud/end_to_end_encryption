@@ -24,6 +24,7 @@ OC.L10N.register(
     "Cannot delete metadata" : "Não é possível excluir metadados ",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
+    "End to end encryption" : "Criptografia de ponta-a-ponta"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
