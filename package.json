@@ -1,7 +1,7 @@
 {
 	"name": "end_to_end_encryption",
 	"version": "1.11.0",
-	"description": "Provides the necessary endpoint to enable end-to-end encryption.",
+	"description": "Provides the necessary endpoint to enable End-to-End encryption.",
 	"private": true,
 	"scripts": {
 		"build": "NODE_ENV=production webpack --progress --config webpack.js",
