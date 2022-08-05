@@ -14,6 +14,7 @@
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "파일을 편집할 수 없습니다. 파일 잠금을 확인하시고 올바른 토큰을 보내십시오",
     "Only the owner can delete the metadata-file" : "소유자만 메타데이터 파일을 삭제할 수 있음",
     "End-to-End Encryption" : "종단간 암호화",
-    "End-to-end encryption endpoint" : "종단간 암호화 종단점"
+    "End-to-end encryption endpoint" : "종단간 암호화 종단점",
+    "End to end encryption" : "종단간 암호화"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

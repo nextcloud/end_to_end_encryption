@@ -16,6 +16,7 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "You are not allowed to edit the file, make sure to lock it first, and then send the right token",
     "Only the owner can delete the metadata-file" : "Only the owner can delete the metadata-file",
     "End-to-End Encryption" : "End-to-End Encryption",
-    "End-to-end encryption endpoint" : "End-to-end encryption endpoint"
+    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "End to end encryption" : "End to end encryption"
 },
 "nplurals=2; plural=(n != 1);");

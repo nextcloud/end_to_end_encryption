@@ -24,6 +24,7 @@ OC.L10N.register(
     "Cannot delete metadata" : "Kan metadata niet verwijderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Levert de noodzakelijke functionaliteit voor end-to-end versleuteling."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Levert de noodzakelijke functionaliteit voor end-to-end versleuteling.",
+    "End to end encryption" : "End to end encryptie"
 },
 "nplurals=2; plural=(n != 1);");
