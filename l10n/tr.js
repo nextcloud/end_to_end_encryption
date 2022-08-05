@@ -24,6 +24,7 @@ OC.L10N.register(
     "Cannot delete metadata" : "Üst veri silinemedi",
     "End-to-End Encryption" : "Uçtan uca şifreleme",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar.",
+    "End to end encryption" : "Uçtan uca şifreleme"
 },
 "nplurals=2; plural=(n > 1);");
