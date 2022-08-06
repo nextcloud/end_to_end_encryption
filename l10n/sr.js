@@ -18,8 +18,7 @@ OC.L10N.register(
     "Metadata-file doesn't exist" : "Фајл метаподатака не постоји",
     "Only the owner can delete the metadata-file" : "Само власник може обрисати фајл метаподатака",
     "End-to-End Encryption" : "Шифровање са краја на крај",
-    "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај.",
-    "End to end encryption" : "Шифровање са краја на крај"
+    "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

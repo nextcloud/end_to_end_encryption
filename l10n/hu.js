@@ -23,8 +23,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "A metaadatfájlt csak a tulajdonosa törölheti",
     "Cannot delete metadata" : "A metaadatok nem törölhetők",
     "End-to-End Encryption" : "Végpontok közötti titkosítás",
-    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont",
     "Provides the necessary endpoint to enable end-to-end encryption." : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja.",
-    "End to end encryption" : "Vég-vég titkosítás"
+    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont"
 },
 "nplurals=2; plural=(n != 1);");

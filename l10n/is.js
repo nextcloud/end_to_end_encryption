@@ -18,7 +18,7 @@ OC.L10N.register(
     "Metadata-file doesn't exist" : "Lýsigögn eru ekki til staðar",
     "Only the owner can delete the metadata-file" : "Aðeins eigandinn getur eytt lýsigagnaskránni",
     "End-to-End Encryption" : "Enda-í-enda dulritun",
-    "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun.",
+    "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
