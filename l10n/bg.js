@@ -23,7 +23,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Само собственикът може да изтрие файл с метаданни",
     "Cannot delete metadata" : "Метаданните не могат да бъдат изтрити",
     "End-to-End Encryption" : "Цялостно Криптиране",
-    "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране.",
+    "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране"
 },
 "nplurals=2; plural=(n != 1);");

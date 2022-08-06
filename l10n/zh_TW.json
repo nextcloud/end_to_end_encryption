@@ -21,7 +21,7 @@
     "Only the owner can delete the metadata-file" : "只有擁有者可以刪除詮釋資料檔案",
     "Cannot delete metadata" : "無法刪除詮釋資料",
     "End-to-End Encryption" : "終端對終端的加密",
-    "End-to-end encryption endpoint" : "端到端加密端點",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。",
+    "End-to-end encryption endpoint" : "端到端加密端點"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

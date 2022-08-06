@@ -23,7 +23,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Μόνο ο κάτοχος μπορεί να διαγράψει τα μεταδεδομένα-αρχείου",
     "Cannot delete metadata" : "Αδυναμία διαγραφής μεταδεδομένων",
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
-    "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο.",
+    "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο"
 },
 "nplurals=2; plural=(n != 1);");

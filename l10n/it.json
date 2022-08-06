@@ -21,8 +21,7 @@
     "Only the owner can delete the metadata-file" : "Solo il proprietario può eliminare il file dei metadati",
     "Cannot delete metadata" : "Impossibile eliminare i metadati",
     "End-to-End Encryption" : "Cifratura End-To-End",
-    "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornisce il terminatore necessario per abilitare la crittografia end-to-end.",
-    "End to end encryption" : "Cifratura End to End"
+    "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
