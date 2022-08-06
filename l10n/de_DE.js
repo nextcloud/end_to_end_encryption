@@ -23,8 +23,10 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
     "Cannot delete metadata" : "Metadaten können nicht gelöscht werden",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
-    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
-    "End to end encryption" : "Ende-zu-Ende Verschlüsselung"
+    "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Jedes noch angeschlossene Gerät könnte nach dem Löschen der Schlüssel Probleme verursachen, daher ist es besser, die Geräte zu trennen und erneut anzuschließen.",
+    "Delete existing encrypted files" : "Vorhandene verschlüsselte Dateien löschen",
+    "This is the final warning: Do you really want to reset your keys?" : "Dies ist die letzte Warnung: Wollen Sie Ihre Schlüssel wirklich zurücksetzen?",
+    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung"
 },
 "nplurals=2; plural=(n != 1);");

@@ -9,7 +9,7 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "Der öffentliche Schlüssel des Benutzers %s konnte nicht gefunden werden",
     "Common name (CN) does not match the current user" : "Der Common name (CN) stimmt nicht mit dem aktuellen Benutzer überein",
     "Could not find the public key belonging to %s" : "Der öffentliche Schlüssel des Benutzers %s konnte nicht gefunden werden",
-    "This is not your public key to delete" : "Dies ist nicht Dein öffentlicher Schlüssel und kann daher nicht gelöscht werden",
+    "This is not your public key to delete" : "Dies ist nicht dein öffentlicher Schlüssel und kann daher nicht gelöscht werden",
     "Cannot decode userlist" : "Benutzerliste kann nicht entschlüsselt werden",
     "You are not allowed to create the lock" : "Du bist nicht berechtigt, die Sperre zu erstellen",
     "File already locked" : "Datei ist bereits gesperrt",
@@ -18,13 +18,12 @@ OC.L10N.register(
     "Could not find metadata for \"%s\"" : "Für \"%s\" konnten keine Metadaten gefunden werden",
     "Cannot read metadata" : "Metadaten können nicht gelesen werden",
     "Cannot store metadata" : "Metadaten können nicht gespeichert werden",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du darfst die Datei nicht bearbeiten. Stelle sicher, dass Du sie zuerst sperrst und das richtige Token sendest.",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du darfst die Datei nicht bearbeiten. Stelle sicher, dass du sie zuerst sperrst und das richtige Token sendest.",
     "Metadata-file doesn't exist" : "Metadaten-Datei existiert nicht",
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
     "Cannot delete metadata" : "Metadaten können nicht gelöscht werden",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
-    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
-    "End to end encryption" : "Ende-zu-Ende Verschlüsselung"
+    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung"
 },
 "nplurals=2; plural=(n != 1);");

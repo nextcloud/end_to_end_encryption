@@ -18,7 +18,7 @@ OC.L10N.register(
     "Metadata-file doesn't exist" : "Non existe o ficheiro de metadatos",
     "Only the owner can delete the metadata-file" : "Só o propietario pode eliminar o ficheiro de metadatos ",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
-    "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto necesario para activar o cifrado de extremo a extremo."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto necesario para activar o cifrado de extremo a extremo.",
+    "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo"
 },
 "nplurals=2; plural=(n != 1);");

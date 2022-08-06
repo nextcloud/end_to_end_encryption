@@ -22,7 +22,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Només el propietari pot suprimir el fitxer de metadades",
     "Cannot delete metadata" : "No es poden suprimir les metadades",
     "End-to-End Encryption" : "Xifratge d'extrem a extrem",
-    "End-to-end encryption endpoint" : "Extrem d’encriptació extrem-a-extrem",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar l'encriptació d'extrem a extrem."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar l'encriptació d'extrem a extrem.",
+    "End-to-end encryption endpoint" : "Extrem d’encriptació extrem-a-extrem"
 },
 "nplurals=2; plural=(n != 1);");
