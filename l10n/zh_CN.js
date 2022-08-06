@@ -23,7 +23,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "只有拥有者才能删除元数据文件",
     "Cannot delete metadata" : "无法删除元数据",
     "End-to-End Encryption" : "点对点加密",
-    "End-to-end encryption endpoint" : "端到端加密端点",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端点以启用端到端加密。"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端点以启用端到端加密。",
+    "End-to-end encryption endpoint" : "端到端加密端点"
 },
 "nplurals=1; plural=0;");

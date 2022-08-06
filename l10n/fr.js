@@ -23,8 +23,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Seul le propriétaire peut supprimer le fichier de méta-données",
     "Cannot delete metadata" : "Impossible de supprimer les métadonnées",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
-    "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit l'extrémité (endpoint) nécessaire pour permettre un chiffrement de bout en bout.",
-    "End to end encryption" : "Chiffrement de bout en bout"
+    "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
