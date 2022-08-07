@@ -23,7 +23,18 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
     "Cannot delete metadata" : "Metadaten können nicht gelöscht werden",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
+    "End-to-End encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
+    "End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung",
+    "Reset End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung zurücksetzen",
+    "Please read carefully before resetting your End-to-End encryption keys" : "Bitte vor dem Zurücksetzen deiner Schlüssel für die Ende-zu-Ende-Verschlüsselung sorgfältig lesen.",
+    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Sobald deine Ende-zu-Ende-Verschlüsselungsschlüssel zurückgesetzt sind, sind alle in deinem verschlüsselten Ordner gespeicherten Dateien unzugänglich.",
+    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Du solltest deine Ende-zu-Ende-Verschlüsselungsschlüssel nur zurücksetzen, wenn du deine sicheren Schlüsselwörter (Gedächtnisstütze) verloren hast.",
+    "Check on all connected devices if you can retrieve your mnemonic." : "Prüfe auf allen angeschlossenen Geräten, ob du deine Gedächtnishilfe abrufen kannst.",
+    "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Jedes noch angeschlossene Gerät könnte nach dem Löschen der Schlüssel Probleme verursachen, daher ist es besser, die Geräte zu trennen und erneut anzuschließen.",
+    "Delete existing encrypted files" : "Vorhandene verschlüsselte Dateien löschen",
+    "This is the final warning: Do you really want to reset your keys?" : "Dies ist die letzte Warnung: Willst du deine Schlüssel wirklich zurücksetzen?",
+    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten.",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung"
 },
 "nplurals=2; plural=(n != 1);");
