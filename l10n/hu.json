@@ -21,7 +21,21 @@
     "Only the owner can delete the metadata-file" : "A metaadatfájlt csak a tulajdonosa törölheti",
     "Cannot delete metadata" : "A metaadatok nem törölhetők",
     "End-to-End Encryption" : "Végpontok közötti titkosítás",
+    "End-to-End encryption endpoint" : "Végpontok közti titkosítási végpont",
     "Provides the necessary endpoint to enable end-to-end encryption." : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja.",
+    "End-to-End encryption" : "Végpontok közti titkosítás",
+    "Reset End-to-End encryption" : "Végpontok közti titkosítás alaphelyzetbe állítása",
+    "Please read carefully before resetting your End-to-End encryption keys" : "Olvassa el figyelmesen, mielőtt alaphelyzetbe állítja a végpontok közti titkosítási kulcsokat",
+    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Amint alaphelyzetbe állítja a végpontok közti titkosítási kulcsokat, az összes, titkosított mappában található fájlja elérhetetlenné válik.",
+    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Csak akkor állítsa alaphelyzetbe a végpontok közti titkosítási kulcsait, ha elvesztette a biztonságos kulcsszavait (mnemonikus kódját).",
+    "Check on all connected devices if you can retrieve your mnemonic." : "Nézze meg az összes kapcsolódó eszközét, hogy vissza tudja-e szerezni a mnemonikus kódját.",
+    "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Minden továbbra is csatlakoztatott eszköz problémát okozhat a kulcsok törlése után, így érdemes bontani velük a kapcsolatot, majd újrakapcsolódni.",
+    "Delete existing encrypted files" : "Meglévő titkosított fájlok törlése",
+    "This is the final warning: Do you really want to reset your keys?" : "Ez az utolsó figyelmeztetés: Biztos, hogy alaphelyzetbe állítja a kulcsait?",
+    "End-to-End encryption is currently enabled and correctly setup." : "A végpontok közti titkosítás jelenleg engedélyezett és helyesen van beállítva.",
+    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "A végpontok közti titkosítás jelenleg le van tiltva. Beállíthatja a {productName}-kliensekben.",
+    "End-to-End keys reset" : "Végpontok közti titkosítási kulcsok alaphelyzetbe állítva",
+    "Unable to reset End-to-End encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe",
     "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
