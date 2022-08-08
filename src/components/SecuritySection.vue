@@ -137,7 +137,7 @@ export default {
 				success = success && await this.deleteFiles()
 
 				if (success) {
-					showSuccess(t('end_to_end_encryption', 'End-to-End keys reset'))
+					showSuccess(t('end_to_end_encryption', 'End-to-End encryption keys reset'))
 				}
 			} catch (e) {
 				this.handleResponse({
