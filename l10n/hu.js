@@ -36,7 +36,6 @@ OC.L10N.register(
     "This is the final warning: Do you really want to reset your keys?" : "Ez az utolsó figyelmeztetés: Biztos, hogy alaphelyzetbe állítja a kulcsait?",
     "End-to-End encryption is currently enabled and correctly setup." : "A végpontok közti titkosítás jelenleg engedélyezett és helyesen van beállítva.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "A végpontok közti titkosítás jelenleg le van tiltva. Beállíthatja a {productName}-kliensekben.",
-    "End-to-End keys reset" : "Végpontok közti titkosítási kulcsok alaphelyzetbe állítva",
     "Unable to reset End-to-End encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe",
     "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont"
 },
