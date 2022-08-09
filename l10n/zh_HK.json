@@ -34,7 +34,6 @@
     "This is the final warning: Do you really want to reset your keys?" : "這是最後的警告：請問您真的要重設您的密鑰？",
     "End-to-End encryption is currently enabled and correctly setup." : "端到端加密當前已啟用並正確設置。",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "當前禁用端到端加密。您可以使用 {productName} 客戶端進行設置。",
-    "End-to-End keys reset" : "端對端密鑰重設",
     "Unable to reset End-to-End encryption" : "無法重置端到端加密",
     "End-to-end encryption endpoint" : "端到端加密端點"
 },"pluralForm" :"nplurals=1; plural=0;"
