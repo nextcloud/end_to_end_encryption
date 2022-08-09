@@ -34,7 +34,6 @@
     "This is the final warning: Do you really want to reset your keys?" : "Bu son uyarıdır: Anahtarlarınızı sıfırlamak istediğinize emin misiniz?",
     "End-to-End encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme şu anda etkin ve doğru şekilde ayarlanmış.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu anda devre dışı. {productName} istemcileriyle ayarlayabilirsiniz.",
-    "End-to-End keys reset" : "Uçtan uca anahtarlarını sıfırlama",
     "Unable to reset End-to-End encryption" : "Uçtan uca şifreleme sıfırlanamadı",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
