@@ -10,6 +10,7 @@ OC.L10N.register(
     "Common name (CN) does not match the current user" : "Bendrinis pavadinimas (CN) neatitinka esamo naudotojo",
     "Could not find the public key belonging to %s" : "Nepavyko rasti %s priklausančio viešojo rakto",
     "This is not your public key to delete" : "Tai nėra jūsų viešasis raktas, kad galėtumėte jį ištrinti",
+    "Cannot decode userlist" : "Nepavyksta dekoduoti naudotojų sąrašo",
     "File already locked" : "Failas jau užrakintas",
     "You are not allowed to remove the lock" : "Jums nėra leidžiama pašalinti užraktą",
     "File not locked" : "Failas nėra užrakintas",
