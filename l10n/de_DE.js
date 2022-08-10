@@ -36,6 +36,7 @@ OC.L10N.register(
     "This is the final warning: Do you really want to reset your keys?" : "Dies ist die letzte Warnung: Wollen Sie Ihre Schlüssel wirklich zurücksetzen?",
     "End-to-End encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Sie können sie mit den {productName}-Clients einrichten.",
+    "End-to-End encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Unable to reset End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung"
 },

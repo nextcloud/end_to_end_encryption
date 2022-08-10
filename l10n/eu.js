@@ -36,6 +36,7 @@ OC.L10N.register(
     "This is the final warning: Do you really want to reset your keys?" : "Azken abisua da: Benetan zure gakoak berezarri nahi dituzu?",
     "End-to-End encryption is currently enabled and correctly setup." : "Muturretik muturrerako zifratzea gaituta eta ondo konfiguratuta dago.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Muturretik muturrerako zifratzea desgaituta dago. {productName} bezeroekin konfiguratu dezakezu.",
+    "End-to-End encryption keys reset" : "Muturretik muturrerako zifratze gakoak berezarrita",
     "Unable to reset End-to-End encryption" : "Ezin izan da muturretik muturrerako zifratzea berezarri",
     "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua"
 },
