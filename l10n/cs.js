@@ -13,7 +13,7 @@ OC.L10N.register(
     "Cannot decode userlist" : "Nedaří se dekódovat seznam uživatelů",
     "You are not allowed to create the lock" : "Nemáte oprávnění provést uzamčení",
     "File already locked" : "Soubor už je uzamčen",
-    "You are not allowed to remove the lock" : "Nemáte oprávnění k odebrání uzamčení",
+    "You are not allowed to remove the lock" : "Nemáte oprávnění odebrat uzamčení",
     "File not locked" : "Soubor není uzamčen",
     "Could not find metadata for \"%s\"" : "Nedaří se nalézt metadata „%s“",
     "Cannot read metadata" : "Nedaří se číst metadata",
@@ -22,7 +22,7 @@ OC.L10N.register(
     "Metadata-file doesn't exist" : "Soubor s metadaty neexistuje ",
     "Only the owner can delete the metadata-file" : "Pouze jeho vlastník může smazat metadata-file",
     "Cannot delete metadata" : "Nedaří se smazat metadata",
-    "End-to-End Encryption" : "Šifrování end-to-end",
+    "End-to-End Encryption" : "Šifrování mezi koncovými body",
     "End-to-End encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování.",
     "End-to-End encryption" : "Šifrování mezi koncovými body",
@@ -38,6 +38,6 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
     "End-to-End encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
     "Unable to reset End-to-End encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
-    "End-to-end encryption endpoint" : "Koncový bod end-to-end šifrování"
+    "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
