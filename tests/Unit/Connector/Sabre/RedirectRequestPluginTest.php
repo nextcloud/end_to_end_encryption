@@ -25,6 +25,7 @@ namespace OCA\EndToEndEncryption\Tests\Unit\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
 use Sabre\DAV\Server;
@@ -39,16 +40,19 @@ class RedirectRequestPluginTest extends TestCase {
 	/** @var IUserSession|\PHPUnit\Framework\MockObject\MockObject */
 	private $userSession;
 
-	/** @var RedirectRequestPlugin */
-	private $plugin;
+	/** @var E2EEnabledPathCache|\PHPUnit\Framework\MockObject\MockObject */
+	private $pathCache;
+
+	private RedirectRequestPlugin $plugin;
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
 
-		$this->plugin = new RedirectRequestPlugin($this->rootFolder, $this->userSession);
+		$this->plugin = new RedirectRequestPlugin($this->rootFolder, $this->userSession, $this->pathCache);
 	}
 
 	public function testInitialize(): void {

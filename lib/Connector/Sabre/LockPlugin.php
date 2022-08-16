@@ -39,6 +39,7 @@ use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 
 class LockPlugin extends APlugin {
 	private LockManager $lockManager;
@@ -47,8 +48,9 @@ class LockPlugin extends APlugin {
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								LockManager $lockManager,
-								UserAgentManager $userAgentManager) {
-		parent::__construct($rootFolder, $userSession);
+								UserAgentManager $userAgentManager,
+								E2EEnabledPathCache $pathCache) {
+		parent::__construct($rootFolder, $userSession, $pathCache);
 		$this->lockManager = $lockManager;
 		$this->userAgentManager = $userAgentManager;
 	}

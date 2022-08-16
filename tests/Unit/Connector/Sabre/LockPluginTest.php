@@ -31,6 +31,7 @@ use OCA\DAV\Upload\FutureFile;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -56,8 +57,10 @@ class LockPluginTest extends TestCase {
 	/** @var UserAgentManager|\PHPUnit\Framework\MockObject\MockObject */
 	private $userAgentManager;
 
-	/** @var LockPlugin */
-	private $plugin;
+	/** @var E2EEnabledPathCache|\PHPUnit\Framework\MockObject\MockObject */
+	private $pathCache;
+
+	private LockPlugin $plugin;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -66,9 +69,10 @@ class LockPluginTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
+		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
 
 		$this->plugin = new LockPlugin($this->rootFolder, $this->userSession,
-			$this->lockManager, $this->userAgentManager);
+			$this->lockManager, $this->userAgentManager, $this->pathCache);
 	}
 
 	public function testInitialize(): void {

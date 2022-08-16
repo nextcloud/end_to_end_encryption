@@ -26,6 +26,7 @@ use OCP\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -41,6 +42,7 @@ abstract class APlugin extends ServerPlugin {
 	protected ?Server $server = null;
 	protected IRootFolder $rootFolder;
 	protected IUserSession $userSession;
+	protected E2EEnabledPathCache $pathCache;
 
 	/**
 	 * Should plugin be applied to the current node?
@@ -50,14 +52,15 @@ abstract class APlugin extends ServerPlugin {
 
 	/**
 	 * APlugin constructor.
-	 *
-	 * @param IRootFolder $rootFolder
-	 * @param IUserSession $userSession
 	 */
-	public function __construct(IRootFolder $rootFolder,
-								IUserSession $userSession) {
+	public function __construct(
+		IRootFolder $rootFolder,
+		IUserSession $userSession,
+		E2EEnabledPathCache $pathCache
+	) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
+		$this->pathCache = $pathCache;
 	}
 
 	/**
@@ -118,6 +121,18 @@ abstract class APlugin extends ServerPlugin {
 	}
 
 	/**
+	 * Checks if the path is an E2E folder or inside an E2E folder
+	 */
+	protected function isE2EEnabledPath(string $path): bool {
+		try {
+			 $node = $this->getFileNode($path);
+		} catch (NotFound $e) {
+			 return false;
+		}
+		return $this->pathCache->isE2EEnabledPath($node, $path);
+	}
+
+	/**
 	 * Check if we process a file or directory. This plugin should ignore calendars
 	 * and contacts
 	 */
@@ -132,27 +147,4 @@ abstract class APlugin extends ServerPlugin {
 		return $this->applyPlugin[$url];
 	}
 
-	/**
-	 * Checks if the path is an E2E folder or inside an E2E folder
-	 */
-	protected function isE2EEnabledPath(string $path):bool {
-		try {
-			$node = $this->getFileNode($path);
-		} catch (NotFound $e) {
-			return false;
-		}
-
-		while ($node->isEncrypted() === false || $node->getType() === FileInfo::TYPE_FILE) {
-			$node = $node->getParent();
-
-			// Nitpick: This doesn't check if root is E2E,
-			// but that's not supported at the moment anyway
-			if ($node->getPath() === '/') {
-				// top-level folder reached
-				return false;
-			}
-		}
-
-		return true;
-	}
 }
