@@ -34,6 +34,8 @@ use OCA\EndToEndEncryption\UserAgentManager;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
+use OCP\Files\Storage\IStorage;
+use OCP\Files\IHomeStorage;
 use OCP\Files\Node;
 use OCP\IUserSession;
 use Sabre\CalDAV\ICalendar;
@@ -104,7 +106,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -150,7 +153,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -203,7 +207,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -289,7 +294,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -420,7 +426,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -571,7 +578,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -591,17 +599,33 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				new E2EEnabledPathCache(),
 			])
 			->getMock();
+
+		$cache = $this->createMock(\OCP\Files\Storage\IStorage::class);
+		$cache->expects($this->any())
+			->method('getNumericStorageId')
+			->willReturn(42);
+
+		$storage = $this->createMock(\OCP\Files\Storage\IStorage::class);
+		$storage->expects($this->once())
+			->method('getCache')
+			->willReturn($cache);
+		$storage->expects($this->any())
+			->method('instanceOfStorage')
+			->with(IHomeStorage::class)
+			->willReturn(true);
 
 		$node = $this->createMock(Node::class);
 		$node->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(true);
 		$node->expects($this->once())
-			->method('getType')
-			->willReturn(FileInfo::TYPE_FOLDER);
+			->method('getStorage')
+			->willReturn($storage);
+	  
 
 		$plugin->expects($this->once())
 			->method('getFileNode')
@@ -619,7 +643,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -669,7 +694,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 

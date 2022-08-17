@@ -27,7 +27,6 @@ use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
-use OCP\Files\FileInfo;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\IUserSession;
@@ -110,14 +109,7 @@ abstract class APlugin extends ServerPlugin {
 			throw new Forbidden('No user session found');
 		}
 		$uid = $user->getUID();
-
-		try {
-			return $this->rootFolder
-				->getUserFolder($uid)
-				->get($path);
-		} catch (Exception $e) {
-			throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $e);
-		}
+		return $this->pathCache->getFileNode($uid, $path, $this->rootFolder);
 	}
 
 	/**
@@ -125,9 +117,9 @@ abstract class APlugin extends ServerPlugin {
 	 */
 	protected function isE2EEnabledPath(string $path): bool {
 		try {
-			 $node = $this->getFileNode($path);
+			$node = $this->getFileNode($path);
 		} catch (NotFound $e) {
-			 return false;
+			return false;
 		}
 		return $this->pathCache->isE2EEnabledPath($node, $path);
 	}
@@ -146,5 +138,4 @@ abstract class APlugin extends ServerPlugin {
 
 		return $this->applyPlugin[$url];
 	}
-
 }

@@ -31,7 +31,6 @@ use Sabre\DAV\PropFind;
 use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
 use Sabre\HTTP\ResponseInterface;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 
 /**
  * Class WritePlugin

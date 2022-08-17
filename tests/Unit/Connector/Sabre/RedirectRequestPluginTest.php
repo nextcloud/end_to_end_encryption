@@ -91,7 +91,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -141,7 +142,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -190,7 +192,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -223,7 +226,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -263,7 +267,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -308,7 +313,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -341,7 +347,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 

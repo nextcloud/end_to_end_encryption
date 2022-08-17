@@ -2,97 +2,131 @@
 
 declare(strict_types=1);
 
-// SPDX-FileCopyrightText: 2020 Georg Ehrke <georg-nextcloud@ehrke.email>
-// SPDX-License-Identifier: AGPL-3.0-or-later
+/**
+ * @copyright Copyright (c) 2022 Carl Schwan <carl@carlschwan.eu>
+ *
+ * @license GNU AGPL version 3 or any later version
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 namespace OCA\EndToEndEncryption;
 
 use Sabre\DAV\INode;
 use OCP\Files\Node;
+use OCP\Files\Storage\IStorage;
 use OCP\Files\IHomeStorage;
 use OCP\Files\Cache\ICache;
-use OC\Files\Storage\Wrapper\Wrapper;
-use OCA\Files_Sharing\SharedStorage;
+use OCP\Cache\CappedMemoryCache;
+use Sabre\DAV\Exception\NotFound;
 
 class E2EEnabledPathCache {
 	/**
-	 * @psalm-type FileId=int
-	 *
-	 * @psalm-type EncryptedState=array{0: FileId, 1: bool}
+	 * @psalm-type EncryptedState=bool
 	 *
 	 * @psalm-type Path=string
 	 *
 	 * @psalm-type StorageId=string|int
 	 */
 
-	/** @var array<StorageId, array<Path, EncryptedState>> */
-	protected $cacheEntries;
+	/** @var CappedMemoryCache<StorageId, array<Path, EncryptedState>> */
+	private CappedMemoryCache $perStorageEncryptedStateCache;
+
+	public function __construct() {
+		$this->perStorageEncryptedStateCache = new CappedMemoryCache();
+		$this->nodeCache = [];
+	}
 
 	/**
 	 * Checks if the path is an E2E folder or inside an E2E folder
 	 *
 	 * @param INode&Node $node
 	 */
-	public function isE2EEnabledPath($node, string $path): bool {
+	public function isE2EEnabledPath($node): bool {
 		$storage = $node->getStorage();
 		$cache = $storage->getCache();
-		$encryptedStates = $this->getEncryptedStates($cache, $path, $storage, !$storage->instanceOfStorage(IHomeStorage::class) || $storage->instanceOfStorage(SharedStorage::class));
-		foreach ($encryptedStates as [$fileid, $encryptedState]) {
-			if ($encryptedState) {
-				return true;
-			}
-		}
-		return false;
+		return $this->getEncryptedStates($cache, $node, $storage);
 	}
 
 	/**
-	 * Get the file ids of the given path and its parents
-	 *
-	 * @return array<Path, EncryptedState>
+	 * Get file system node of requested file
+	 * @throws NotFound
 	 */
-	protected function getEncryptedStates(ICache $cache, string $path, $storage, bool $isExternalStorage): array {
-		/** @psalm-suppress InvalidArgument */
-		if ($storage->instanceOfStorage(\OCA\GroupFolders\Mount\GroupFolderStorage::class)) {
-			// Special implementation for groupfolder since all groupfolders share the same storage
-			// id so add the group folder id in the cache key too.
-			$groupFolderStorage = $storage;
-			if ($this->storage instanceof Wrapper) {
-				$groupFolderStorage = $getInstanceOfStorage(\OCA\GroupFolders\Mount\GroupFolderStorage::class);
+	public function getFileNode($uid, string $path, $rootFolder): Node {
+		if (!isset($this->nodeCache[$uid])) {
+			$this->nodeCache[$uid] = [];
+		} else if (isset($this->nodeCache[$uid][$path])) {
+			$node = $this->nodeCache[$uid][$path];
+			if ($node instanceof \Exception) {
+				throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $node);
 			}
-			if ($groupFolderStorage === null) {
-				throw new \LogicException('Should not happen: Storage is instance of GroupFolderStorage but no group folder storage found while unwrapping.');
-			}
-			/**
-			 * @psalm-suppress UndefinedDocblockClass
-			 * @psalm-suppress UndefinedInterfaceMethod
-			 */
-			$cacheId = $cache->getNumericStorageId() . '/' . $groupFolderStorage->getFolderId();
-		} else {
-			$cacheId = $cache->getNumericStorageId();
+			return $node;
 		}
-		if (isset($this->cacheEntries[$cacheId][$path])) {
-			return $this->cacheEntries[$cacheId][$path];
+		try {
+			$node = $rootFolder
+				->getUserFolder($uid)
+				->get($path);
+			$this->nodeCache[$uid][$path] = $node;
+			return $node;
+		} catch (Exception $e) {
+			$this->nodeCache[$uid][$path] = $e;
+			throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $e);
+		}
+	}
+
+	/**
+	 * Get the encryption state for the path
+	 */
+	protected function getEncryptedStates(ICache $cache, $node, IStorage $storage): bool {
+		if (!$storage->instanceOfStorage(IHomeStorage::class)) {
+			return false;
+		}
+
+		$storageId = $cache->getNumericStorageId();
+		if (isset($this->perStorageEncryptedStateCache[$storageId][$node->getPath()])) {
+			return $this->perStorageEncryptedStateCache[$storageId][$node->getPath()];
 		}
 
 		$parentIds = [];
-		if ($path !== $this->dirname($path)) {
-			$cacheEntries = [];
-			$cacheEntry = $cache->get($path);
-			if ($cacheEntry !== false) {
-				$cacheEntries[] = [$cacheEntry->getId(), $cacheEntry->isEncrypted()];
-				if ($cacheEntry->isEncrypted()) {
-					// no need to go further down in the tree
-					$this->cacheEntries[$cacheId][$path] = $parentEntries;
-					return $cacheEntry;
-				}
-			}
-			$cacheEntries = array_merge($this->getEncryptedStates($cache, $this->dirname($path), $storage, $isExternalStorage), $cacheEntries);
-		} elseif (!$isExternalStorage) {
-			return [];
+		if ($node->getPath() === '/' || $node->getPath() === '') {
+			// root is never encrypted
+			$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = false;
+			return false;
 		}
 
-		$this->cacheEntries[$cacheId][$path] = $cacheEntries;
-		return $cacheEntries;
+		if ($node->isEncrypted()) {
+			// no need to go further down in the tree
+			$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = true;
+			return true;
+		}
+
+		// go down more, but try first just with the parent path to spare a lot of
+		// queries if already cached
+		$parentPath = $this->dirname($node->getPath());
+		if (isset($this->perStorageEncryptedStateCache[$storageId][$parentPath])) {
+			return $this->perStorageEncryptedStateCache[$storageId][$parentPath];
+		}
+
+		if ($parentPath === '/' || $parentPath === '.') {
+			$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = false;
+			return false;
+		}
+
+		$encrypted = $this->getEncryptedStates($cache, $node->getParent(), $storage);
+		$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = $encrypted;
+		return $encrypted;
 	}
 
 	protected function dirname(string $path): string {
