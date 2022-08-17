@@ -49,7 +49,7 @@ use \BadMethodCallException;
 
 class KeyController extends OCSController {
 
-	/** @var  string */
+	/** @var ?string */
 	private $userId;
 
 	/** @var IKeyStorage */
@@ -121,7 +121,6 @@ class KeyController extends OCSController {
 	 * delete the users private key
 	 *
 	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
 	 *
 	 * @return DataResponse
 	 *
@@ -244,7 +243,6 @@ class KeyController extends OCSController {
 	 * delete the users public key
 	 *
 	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
 	 *
 	 * @return DataResponse
 	 *
