@@ -35,6 +35,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Vorhandene verschlüsselte Dateien löschen",
     "This is the final warning: Do you really want to reset your keys?" : "Dies ist die letzte Warnung: Willst du deine Schlüssel wirklich zurücksetzen?",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten.",
-    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung"
+    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
+    "End to end encryption" : "Ende-zu-Ende Verschlüsselung"
 },
 "nplurals=2; plural=(n != 1);");
