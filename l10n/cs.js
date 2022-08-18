@@ -38,6 +38,16 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
     "End-to-End encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
     "Unable to reset End-to-End encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
-    "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body"
+    "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
+    "End to end encryption" : "Šifrování mezi koncovými body",
+    "Reset end to end encryption" : "Vrátit šifrování mezi koncovými body do výchozího stavu",
+    "Please read carefully before resetting your end-to-end encryption keys" : "Důkladně si pročtěte a až teprve poté případě vracejte šifrování mezi koncovými body do výchozího stavu",
+    "Once your end to end encryption keys are reset, all files stored in your encrypted folder will be inaccessible" : "Jakmile budou klíče pro šifrování mezi koncovými body resetovány, veškeré soubory, uložené ve vaší šifrované složce přestanou být přístupné",
+    "You should only reset your end to end encryption keys if you lost your secure key words (mnemonic)" : "Své klíče pro šifrování mezi koncovými body byste měli resetovat pouze v situaci, kdy ztratíte svá slova zabezpečeného klíče (mnemotechnickou)",
+    "Check on all connected devices if you can retrieve your mnemonic" : "Podívejte se po všech připojených zařízeních, zda byste z nich nezískali svou mnemotechnickou zpět",
+    "End to end encryption is currently enabled and correctly setup." : "Šifrování mezi koncovými body je v tuto chvíli zapnuté a správně nastavené.",
+    "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
+    "End to end keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
+    "Unable to reset end to end encryption" : "Nedaří se resetovat šifrování mezi koncovými body"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

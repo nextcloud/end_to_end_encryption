@@ -37,6 +37,7 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "A végpontok közti titkosítás jelenleg engedélyezett és helyesen van beállítva.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "A végpontok közti titkosítás jelenleg le van tiltva. Beállíthatja a {productName}-kliensekben.",
     "Unable to reset End-to-End encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe",
-    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont"
+    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont",
+    "End to end encryption" : "Vég-vég titkosítás"
 },
 "nplurals=2; plural=(n != 1);");
