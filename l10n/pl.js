@@ -38,6 +38,16 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Szyfrowanie typu End-to-End jest obecnie wyłączone. Możesz to skonfigurować z klientami {productName}.",
     "End-to-End encryption keys reset" : "Resetowanie kluczy szyfrowania End-to-End",
     "Unable to reset End-to-End encryption" : "Nie można zresetować szyfrowania End-to-End",
-    "End-to-end encryption endpoint" : "Końcówka szyfrowania End-to-End"
+    "End-to-end encryption endpoint" : "Końcówka szyfrowania End-to-End",
+    "End to end encryption" : "Szyfrowanie End-to-End",
+    "Reset end to end encryption" : "Zresetuj szyfrowanie End-to-End",
+    "Please read carefully before resetting your end-to-end encryption keys" : "Przeczytaj uważnie przed zresetowaniem kluczy szyfrowania End-to-End",
+    "Once your end to end encryption keys are reset, all files stored in your encrypted folder will be inaccessible" : "Po zresetowaniu kluczy szyfrowania End-to-End wszystkie pliki przechowywane w zaszyfrowanym katalogu będą niedostępne",
+    "You should only reset your end to end encryption keys if you lost your secure key words (mnemonic)" : "Klucze szyfrowania End-to-End należy resetować tylko w przypadku zgubienia bezpiecznych słów kluczowych (mnemonika)",
+    "Check on all connected devices if you can retrieve your mnemonic" : "Sprawdź na wszystkich podłączonych urządzeniach, czy możesz odzyskać swój mnemonik",
+    "End to end encryption is currently enabled and correctly setup." : "Szyfrowanie End-to-End jest obecnie włączone i poprawnie skonfigurowane.",
+    "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Szyfrowanie typu End-to-End jest obecnie wyłączone. Możesz to skonfigurować z klientami {productName}.",
+    "End to end keys reset" : "Resetowanie kluczy End-to-End",
+    "Unable to reset end to end encryption" : "Nie można zresetować szyfrowania End-to-End"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

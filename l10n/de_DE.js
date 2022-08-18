@@ -38,6 +38,16 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Sie können sie mit den {productName}-Clients einrichten.",
     "End-to-End encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Unable to reset End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
-    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung"
+    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
+    "End to end encryption" : "Ende-zu-Ende Verschlüsselung",
+    "Reset end to end encryption" : "Ende-zu-Ende-Verschlüsselung starten",
+    "Please read carefully before resetting your end-to-end encryption keys" : "Bitte sorgfältig vor dem Zurücksetzen Ihrer Schlüssel für die Ende-zu-Ende-Verschlüsselung",
+    "Once your end to end encryption keys are reset, all files stored in your encrypted folder will be inaccessible" : "Sobald Ihre Ende-zu-Ende-Verschlüsselungsschlüssel zurückgesetzt sind, sind alle in Ihrem verschlüsselten Ordner gespeicherten Dateien unzugänglich.",
+    "You should only reset your end to end encryption keys if you lost your secure key words (mnemonic)" : "Sie sollten Ihre Ende-zu-Ende-Verschlüsselungsschlüssel nur zurücksetzen, wenn Sie Ihre sicheren Schlüsselwörter (Gedächtnisstütze) verloren haben",
+    "Check on all connected devices if you can retrieve your mnemonic" : "Prüfen Sie auf allen angeschlossenen Geräten, ob Sie Ihre Gedächtnishilfe abrufen können",
+    "End to end encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
+    "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Sie können sie mit den {productName} Clients einrichten.",
+    "End to end keys reset" : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Sie können sie mit den {productName}-Clients einrichten.",
+    "Unable to reset end to end encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden"
 },
 "nplurals=2; plural=(n != 1);");
