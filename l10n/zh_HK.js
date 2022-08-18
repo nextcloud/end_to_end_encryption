@@ -38,6 +38,16 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "當前禁用端到端加密。您可以使用 {productName} 客戶端進行設置。",
     "End-to-End encryption keys reset" : "端到端加密密鑰重設",
     "Unable to reset End-to-End encryption" : "無法重置端到端加密",
-    "End-to-end encryption endpoint" : "端到端加密端點"
+    "End-to-end encryption endpoint" : "端到端加密端點",
+    "End to end encryption" : "端點對端點加密",
+    "Reset end to end encryption" : "重設端點對端點加密",
+    "Please read carefully before resetting your end-to-end encryption keys" : "在重設伺服器端加密之前，請仔細閱讀：",
+    "Once your end to end encryption keys are reset, all files stored in your encrypted folder will be inaccessible" : "重置端點對端點加密密鑰後，將無法訪問存儲在加密資料夾中的所有檔案",
+    "You should only reset your end to end encryption keys if you lost your secure key words (mnemonic)" : "如果您丟失了安全關鍵字（助記符），您應該只重置您的端點對端點加密密鑰",
+    "Check on all connected devices if you can retrieve your mnemonic" : "檢查所有連接的裝置是否可以檢索助記詞",
+    "End to end encryption is currently enabled and correctly setup." : "端點對端點加密當前已啟用並正確設置。",
+    "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "當前禁用端點對端點加密。您可以使用 {productName} 客戶端進行設置。",
+    "End to end keys reset" : "端點對端點密鑰重設",
+    "Unable to reset end to end encryption" : "無法重置端點對端點加密"
 },
 "nplurals=1; plural=0;");

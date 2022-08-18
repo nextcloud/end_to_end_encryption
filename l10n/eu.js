@@ -38,6 +38,16 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Muturretik muturrerako zifratzea desgaituta dago. {productName} bezeroekin konfiguratu dezakezu.",
     "End-to-End encryption keys reset" : "Muturretik muturrerako zifratze gakoak berezarrita",
     "Unable to reset End-to-End encryption" : "Ezin izan da muturretik muturrerako zifratzea berezarri",
-    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua"
+    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
+    "End to end encryption" : "Muturretik muturrerako zifratzea",
+    "Reset end to end encryption" : "Berezarri muturretik muturrerako zifratzea",
+    "Please read carefully before resetting your end-to-end encryption keys" : "Irakurri arretaz zure muturretik muturrerako zifratze gakoak berezarri aurretik mesedez",
+    "Once your end to end encryption keys are reset, all files stored in your encrypted folder will be inaccessible" : "Zure muturretik muturrerako zifratze gakoak berezartzen direnean, zifratutako karpetan dauden fitxategi guztiak helezinak izango dira",
+    "You should only reset your end to end encryption keys if you lost your secure key words (mnemonic)" : "Zure muturretik muturrerako zifratze gakoak gako-hitz seguruak (mnemonikoak) galdu badituzu soilik berezarri beharko zenituzke",
+    "Check on all connected devices if you can retrieve your mnemonic" : "Egiaztatu zure konektatutako gailu guztietan zure mnemonikoa berreskuratu ahal baduzun",
+    "End to end encryption is currently enabled and correctly setup." : "Muturretik muturrerako zifratzea gaituta eta ondo konfiguratuta dago.",
+    "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Muturretik muturrerako zifratzea desgaituta dago. {productName} bezeroekin konfiguratu dezakezu.",
+    "End to end keys reset" : "Muturretik muturrerako zifratze gakoen berezarpena",
+    "Unable to reset end to end encryption" : "Ezin izan da muturretik muturrerako zifratzea berezarri"
 },
 "nplurals=2; plural=(n != 1);");
