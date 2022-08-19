@@ -24,66 +24,35 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-use Sabre\DAV\INode;
 use OCP\Files\Node;
 use OCP\Files\Storage\IStorage;
 use OCP\Files\IHomeStorage;
 use OCP\Files\Cache\ICache;
 use OCP\Cache\CappedMemoryCache;
-use Sabre\DAV\Exception\NotFound;
 
 class E2EEnabledPathCache {
 	/**
 	 * @psalm-type EncryptedState=bool
 	 *
-	 * @psalm-type Path=string
-	 *
-	 * @psalm-type StorageId=string|int
+	 * @psalm-type FileId=int
 	 */
 
-	/** @var CappedMemoryCache<StorageId, array<Path, EncryptedState>> */
 	private CappedMemoryCache $perStorageEncryptedStateCache;
 
 	public function __construct() {
 		$this->perStorageEncryptedStateCache = new CappedMemoryCache();
-		$this->nodeCache = [];
 	}
 
 	/**
 	 * Checks if the path is an E2E folder or inside an E2E folder
-	 *
-	 * @param INode&Node $node
 	 */
-	public function isE2EEnabledPath($node): bool {
+	public function isE2EEnabledPath(Node $node): bool {
+		if ($node->isEncrypted()) {
+			return true;
+		}
 		$storage = $node->getStorage();
 		$cache = $storage->getCache();
 		return $this->getEncryptedStates($cache, $node, $storage);
-	}
-
-	/**
-	 * Get file system node of requested file
-	 * @throws NotFound
-	 */
-	public function getFileNode($uid, string $path, $rootFolder): Node {
-		if (!isset($this->nodeCache[$uid])) {
-			$this->nodeCache[$uid] = [];
-		} else if (isset($this->nodeCache[$uid][$path])) {
-			$node = $this->nodeCache[$uid][$path];
-			if ($node instanceof \Exception) {
-				throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $node);
-			}
-			return $node;
-		}
-		try {
-			$node = $rootFolder
-				->getUserFolder($uid)
-				->get($path);
-			$this->nodeCache[$uid][$path] = $node;
-			return $node;
-		} catch (Exception $e) {
-			$this->nodeCache[$uid][$path] = $e;
-			throw new NotFound('file not found', Http::STATUS_NOT_FOUND, $e);
-		}
 	}
 
 	/**
@@ -94,43 +63,36 @@ class E2EEnabledPathCache {
 			return false;
 		}
 
-		$storageId = $cache->getNumericStorageId();
-		if (isset($this->perStorageEncryptedStateCache[$storageId][$node->getPath()])) {
-			return $this->perStorageEncryptedStateCache[$storageId][$node->getPath()];
+		$storageId = (string)$cache->getNumericStorageId();
+		if (!isset($this->perStorageEncryptedStateCache[$storageId])) {
+			$this->perStorageEncryptedStateCache[$storageId] = [];
+		}
+		if (isset($this->perStorageEncryptedStateCache[$storageId][$node->getId()])) {
+			return $this->perStorageEncryptedStateCache[$storageId][$node->getId()];
 		}
 
 		$parentIds = [];
-		if ($node->getPath() === '/' || $node->getPath() === '') {
+		if ($node->getPath() === '/') {
 			// root is never encrypted
-			$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = false;
+			$this->perStorageEncryptedStateCache[$storageId][$node->getId()] = false;
 			return false;
 		}
 
 		if ($node->isEncrypted()) {
 			// no need to go further down in the tree
-			$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = true;
+			$this->perStorageEncryptedStateCache[$storageId][$node->getId()] = true;
 			return true;
 		}
 
 		// go down more, but try first just with the parent path to spare a lot of
 		// queries if already cached
-		$parentPath = $this->dirname($node->getPath());
-		if (isset($this->perStorageEncryptedStateCache[$storageId][$parentPath])) {
-			return $this->perStorageEncryptedStateCache[$storageId][$parentPath];
-		}
-
-		if ($parentPath === '/' || $parentPath === '.') {
-			$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = false;
-			return false;
+		$parentId = $node->getFileInfo()['parent'];
+		if (isset($this->perStorageEncryptedStateCache[$storageId][$parentId])) {
+			return $this->perStorageEncryptedStateCache[$storageId][$parentId];
 		}
 
 		$encrypted = $this->getEncryptedStates($cache, $node->getParent(), $storage);
-		$this->perStorageEncryptedStateCache[$storageId][$node->getPath()] = $encrypted;
+		$this->perStorageEncryptedStateCache[$storageId][$node->getId()] = $encrypted;
 		return $encrypted;
-	}
-
-	protected function dirname(string $path): string {
-		$dir = dirname($path);
-		return $dir === '.' ? '' : $dir;
 	}
 }

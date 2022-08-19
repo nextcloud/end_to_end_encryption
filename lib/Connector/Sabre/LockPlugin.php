@@ -98,21 +98,21 @@ class LockPlugin extends APlugin {
 			$destNode = $this->getNode($destInfo['destination'], $method);
 
 			if ($node instanceof FutureFile) {
-				if ($this->isE2EEnabledPath($destNode->getPath()) === false) {
+				if ($this->isE2EEnabledPath($destNode) === false) {
 					return;
 				}
 			} else {
 				// If neither is an end to end encrypted folders, we don't care
-				if (!$this->isE2EEnabledPath($node->getPath()) && !$this->isE2EEnabledPath($destNode->getPath())) {
+				if (!$this->isE2EEnabledPath($node) && !$this->isE2EEnabledPath($destNode)) {
 					return;
 				}
 
 				// Prevent moving or copying stuff from non-encrypted to encrypted folders
-				if ($this->isE2EEnabledPath($node->getPath()) xor $this->isE2EEnabledPath($destNode->getPath())) {
+				if ($this->isE2EEnabledPath($node) xor $this->isE2EEnabledPath($destNode)) {
 					throw new Forbidden('Cannot copy or move files from non-encrypted folders to end to end encrypted folders or vice versa.');
 				}
 			}
-		} elseif (!$this->isE2EEnabledPath($node->getPath())) {
+		} elseif (!$this->isE2EEnabledPath($node)) {
 			return;
 		}
 

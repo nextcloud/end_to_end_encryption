@@ -7,9 +7,6 @@
     </UndefinedClass>
   </file>
   <file src="lib/Connector/Sabre/APlugin.php">
-    <InvalidArgument occurrences="1">
-      <code>$node</code>
-    </InvalidArgument>
     <UndefinedPropertyFetch occurrences="1">
       <code>$this-&gt;server-&gt;tree</code>
     </UndefinedPropertyFetch>
@@ -33,17 +30,5 @@
     <UndefinedPropertyFetch occurrences="1">
       <code>$this-&gt;server-&gt;tree</code>
     </UndefinedPropertyFetch>
-  </file>
-  <file src="lib/E2EEnabledPathCache.php">
-    <UndefinedClass occurrences="1">
-      <code>CappedMemoryCache</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="5">
-      <code>$this-&gt;perStorageEncryptedStateCache</code>
-      <code>$this-&gt;perStorageEncryptedStateCache</code>
-      <code>$this-&gt;perStorageEncryptedStateCache</code>
-      <code>$this-&gt;perStorageEncryptedStateCache</code>
-      <code>CappedMemoryCache</code>
-    </UndefinedDocblockClass>
   </file>
 </files>

@@ -117,9 +117,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->with('Destination', '/foo/bar/DestinationPath123.e2e-to-save');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -127,7 +124,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -167,9 +164,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setHeader');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -177,7 +171,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -242,9 +236,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setHeader');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -252,7 +243,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(false);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -288,9 +279,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->with('http://username:password@hostname:9090/path/123/foo.e2e-to-save?arg=value#anchor');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -298,7 +286,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -363,9 +351,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setUrl');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -377,7 +362,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(false);
 
 		$plugin->httpMkColPut($request);

@@ -22,9 +22,7 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
-use OCP\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
-use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
@@ -100,28 +98,10 @@ abstract class APlugin extends ServerPlugin {
 	}
 
 	/**
-	 * Get file system node of requested file
-	 * @throws NotFound
-	 */
-	protected function getFileNode(string $path): Node {
-		$user = $this->userSession->getUser();
-		if ($user === null) {
-			throw new Forbidden('No user session found');
-		}
-		$uid = $user->getUID();
-		return $this->pathCache->getFileNode($uid, $path, $this->rootFolder);
-	}
-
-	/**
 	 * Checks if the path is an E2E folder or inside an E2E folder
 	 */
-	protected function isE2EEnabledPath(string $path): bool {
-		try {
-			$node = $this->getFileNode($path);
-		} catch (NotFound $e) {
-			return false;
-		}
-		return $this->pathCache->isE2EEnabledPath($node, $path);
+	protected function isE2EEnabledPath(\OCA\DAV\Connector\Sabre\Node $node): bool {
+		return $this->pathCache->isE2EEnabledPath($node->getNode());
 	}
 
 	/**
