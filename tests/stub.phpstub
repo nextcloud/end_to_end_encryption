@@ -76,8 +76,13 @@ namespace Sabre\Dav {
 }
 
 namespace OCA\DAV\Connector\Sabre {
-    class File extends \Sabre\Dav\INode {}
-    class Directory extends \Sabre\Dav\INode {}
+    class Node extends \Sabre\Dav\INode {
+        public function getNode(): \OCP\Files\Node {
+
+        }
+    }
+    class File extends Node {}
+    class Directory extends Node {}
 }
 
 namespace OCA\DAV\Connector\Sabre\Exception {
