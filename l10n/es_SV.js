@@ -17,4 +17,4 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto"
 },
-"nplurals=2; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
+"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
