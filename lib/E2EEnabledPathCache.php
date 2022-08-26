@@ -29,6 +29,7 @@ use OCP\Files\Storage\IStorage;
 use OCP\Files\IHomeStorage;
 use OCP\Files\Cache\ICache;
 use OCP\Cache\CappedMemoryCache;
+use OCP\Files\NotFoundException;
 
 class E2EEnabledPathCache {
 	/**
@@ -91,7 +92,13 @@ class E2EEnabledPathCache {
 			return $this->perStorageEncryptedStateCache[$storageId][$parentId];
 		}
 
-		$encrypted = $this->getEncryptedStates($cache, $node->getParent(), $storage);
+		try {
+			$parentNode = $node->getParent();
+		} catch (NotFoundException $e) {
+			$this->perStorageEncryptedStateCache[$storageId][$node->getId()] = false;
+			return false;
+		}
+		$encrypted = $this->getEncryptedStates($cache, $parentNode, $storage);
 		$this->perStorageEncryptedStateCache[$storageId][$node->getId()] = $encrypted;
 		return $encrypted;
 	}
