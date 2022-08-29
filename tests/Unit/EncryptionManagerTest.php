@@ -212,55 +212,19 @@ class EncryptionManagerTest extends TestCase {
 			->method('getUser')
 			->willReturn($user);
 
-		$this->shareManager->expects($this->at(0))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_USER, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(1))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_GROUP, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(2))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_USERGROUP, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(3))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_LINK, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(4))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_EMAIL, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(5))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_REMOTE, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(6))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_CIRCLE, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(7))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_GUEST, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(8))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(9))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_ROOM, $node1, false, 1)
-			->willReturn([]);
+		$this->shareManager->method('getSharesBy')
+			 ->willReturnMap([
+			 	['userId123', IShare::TYPE_USER, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_GROUP, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_USERGROUP, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_LINK, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_EMAIL, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_REMOTE, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_CIRCLE, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_GUEST, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1, []],
+			 	['userId123', IShare::TYPE_ROOM, $node1, false, 1, []],
+			 ]);
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}
@@ -374,30 +338,16 @@ class EncryptionManagerTest extends TestCase {
 			->method('getUser')
 			->willReturn($user);
 
-		$this->shareManager->expects($this->at(0))
+		$this->shareManager->expects($this->exactly(5))
 			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_USER, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(1))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_GROUP, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(2))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_USERGROUP, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(3))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_LINK, $node1, false, 1)
-			->willReturn([]);
-
-		$this->shareManager->expects($this->at(4))
-			->method('getSharesBy')
-			->with('userId123', IShare::TYPE_EMAIL, $node1, false, 1)
-			->willReturn(['share123']);
+			->withConsecutive(
+				['userId123', IShare::TYPE_USER, $node1, false, 1],
+				['userId123', IShare::TYPE_GROUP, $node1, false, 1],
+				['userId123', IShare::TYPE_USERGROUP, $node1, false, 1],
+				['userId123', IShare::TYPE_LINK, $node1, false, 1],
+				['userId123', IShare::TYPE_EMAIL, $node1, false, 1]
+			)
+			->willReturnOnConsecutiveCalls([], [], [], [], ['share123']);
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}

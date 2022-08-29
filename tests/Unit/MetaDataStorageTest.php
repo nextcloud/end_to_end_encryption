@@ -193,16 +193,17 @@ class MetaDataStorageTest extends TestCase {
 					->method('newFolder');
 			}
 
-			$metaDataFolder->expects($this->at(0))
-				->method('fileExists')
-				->with('meta.data')
-				->willReturn($fileExists);
 
-			if (!$fileExists) {
-				$metaDataFolder->expects($this->at(1))
+			if ($fileExists) {
+				$metaDataFolder->expects($this->once())
 					->method('fileExists')
-					->with('intermediate.meta.data')
-					->willReturn($intermediateFileExists);
+					->with('meta.data')
+					->willReturn($fileExists);
+			} else {
+				$metaDataFolder->expects($this->exactly(2))
+					->method('fileExists')
+					->withConsecutive(['meta.data'], ['intermediate.meta.data'])
+					->willReturnOnConsecutiveCalls($fileExists, $intermediateFileExists);
 			}
 		}
 
@@ -439,7 +440,7 @@ class MetaDataStorageTest extends TestCase {
 				->with('/meta-data/42')
 				->willReturn($metaDataFolder);
 
-			$metaDataFolder->expects($this->at(0))
+			$metaDataFolder->expects($this->once())
 				->method('fileExists')
 				->with('intermediate.meta.data')
 				->willReturn($intermediateFileExists);
@@ -451,7 +452,7 @@ class MetaDataStorageTest extends TestCase {
 						->method('getContent')
 						->willReturn('{}');
 
-					$metaDataFolder->expects($this->at(1))
+					$metaDataFolder->expects($this->once())
 						->method('getFile')
 						->with('intermediate.meta.data')
 						->willReturn($intermediateFile);
@@ -463,28 +464,26 @@ class MetaDataStorageTest extends TestCase {
 						->method('getContent')
 						->willReturn('intermediate-file-content');
 
-					$metaDataFolder->expects($this->at(1))
-						->method('getFile')
-						->with('intermediate.meta.data')
-						->willReturn($intermediateFile);
-
 					$finalFile = $this->createMock(ISimpleFile::class);
 					$finalFile->expects($this->once())
 						->method('putContent')
 						->with('intermediate-file-content');
 
 					if ($finalFileExists) {
-						$metaDataFolder->expects($this->at(2))
+						$metaDataFolder->expects($this->exactly(2))
 							->method('getFile')
-							->with('meta.data')
-							->willReturn($finalFile);
+							->withConsecutive(['intermediate.meta.data'], ['meta.data'])
+							->willReturn($intermediateFile, $finalFile);
 					} else {
-						$metaDataFolder->expects($this->at(2))
+						$metaDataFolder->expects($this->exactly(2))
 							->method('getFile')
-							->with('meta.data')
-							->willThrowException(new NotFoundException());
+							->withConsecutive(['intermediate.meta.data'], ['meta.data'])
+							->willReturnOnConsecutiveCalls(
+								$intermediateFile,
+								$this->throwException(new NotFoundException()),
+							);
 
-						$metaDataFolder->expects($this->at(3))
+						$metaDataFolder->expects($this->once())
 							->method('newFile')
 							->with('meta.data')
 							->willReturn($finalFile);
@@ -605,13 +604,13 @@ class MetaDataStorageTest extends TestCase {
 				->willReturn($ownerRoot);
 
 			if ($emptyOwnerRoot) {
-				$ownerRoot->expects($this->at(0))
+				$ownerRoot->expects($this->once())
 					->method('getById')
 					->with(42)
 					->willReturn([]);
 			} else {
 				$ownerNode = $this->createMock(Node::class);
-				$ownerRoot->expects($this->at(0))
+				$ownerRoot->expects($this->once())
 					->method('getById')
 					->with(42)
 					->willReturn([$ownerNode]);
@@ -642,13 +641,13 @@ class MetaDataStorageTest extends TestCase {
 	 */
 	public function testVerifyFolderStructure(bool $exists, bool $expectsNewFolder): void {
 		$appDataRoot = $this->createMock(ISimpleFolder::class);
-		$appDataRoot->expects($this->at(0))
+		$appDataRoot->expects($this->once())
 			->method('fileExists')
 			->with('/meta-data')
 			->willReturn($exists);
 
 		if ($expectsNewFolder) {
-			$this->appData->expects($this->at(1))
+			$this->appData->expects($this->once())
 				->method('newFolder')
 				->with('/meta-data');
 		} else {
@@ -656,7 +655,7 @@ class MetaDataStorageTest extends TestCase {
 				->method('newFolder');
 		}
 
-		$this->appData->expects($this->at(0))
+		$this->appData->expects($this->once())
 			->method('getFolder')
 			->with('/')
 			->willReturn($appDataRoot);
@@ -707,12 +706,12 @@ class MetaDataStorageTest extends TestCase {
 				->willReturn('legacy-path-to-metadata-folder');
 
 			if ($getFolderException) {
-				$this->appData->expects($this->at(0))
+				$this->appData->expects($this->once())
 					->method('getFolder')
 					->with('/meta-data/legacy-path-to-metadata-folder')
 					->willThrowException($getFolderException);
 			} else {
-				$this->appData->expects($this->at(0))
+				$this->appData->expects($this->once())
 					->method('getFolder')
 					->with('/meta-data/legacy-path-to-metadata-folder')
 					->willReturn($legacyFolder);
@@ -781,12 +780,12 @@ class MetaDataStorageTest extends TestCase {
 				->willReturn('legacy-path-to-metadata-folder');
 
 			if ($getFolderException) {
-				$this->appData->expects($this->at(0))
+				$this->appData->expects($this->once())
 					->method('getFolder')
 					->with('/meta-data/legacy-path-to-metadata-folder')
 					->willThrowException($getFolderException);
 			} else {
-				$this->appData->expects($this->at(0))
+				$this->appData->expects($this->once())
 					->method('getFolder')
 					->with('/meta-data/legacy-path-to-metadata-folder')
 					->willReturn($legacyFolder);

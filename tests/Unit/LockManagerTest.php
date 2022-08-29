@@ -389,14 +389,13 @@ class LockManagerTest extends TestCase {
 		$lock = new Lock();
 		$lock->setToken('correct-token123');
 
-		$this->lockMapper->expects($this->at(0))
+		$this->lockMapper->expects($this->exactly(2))
 			->method('getByFileId')
-			->with(1337)
-			->willThrowException(new DoesNotExistException(''));
-		$this->lockMapper->expects($this->at(1))
-			->method('getByFileId')
-			->with(7331)
-			->willReturn($lock);
+			->withConsecutive([1337], [7331])
+			->willReturnOnConsecutiveCalls(
+				$this->throwException(new DoesNotExistException('')),
+				$lock
+			);
 
 		$actual = $this->lockManager->isLocked(42, 'wrong-token456');
 		$this->assertTrue($actual);

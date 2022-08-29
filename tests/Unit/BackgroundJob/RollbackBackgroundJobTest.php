@@ -62,17 +62,14 @@ class RollbackBackgroundJobTest extends TestCase {
 	 * @param int $expectedTimestamp
 	 */
 	public function testRun(string $automaticRollback, bool $expectsServiceCall, int $automaticRollbackTTL, int $expectedTimestamp):void {
-		$this->config->expects($this->at(0))
+		$this->config->expects($automaticRollback === 'no' ? $this->once() : $this->exactly(2))
 			->method('getAppValue')
-			->with('end_to_end_encryption', 'automatic_rollback', 'yes')
-			->willReturn($automaticRollback);
+			->willReturnMap([
+				['end_to_end_encryption', 'automatic_rollback', 'yes', $automaticRollback],
+				['end_to_end_encryption', 'automatic_rollback_ttl', '86400', (string)$automaticRollbackTTL],
+			]);
 
 		if ($expectsServiceCall) {
-			$this->config->expects($this->at(1))
-				->method('getAppValue')
-				->with('end_to_end_encryption', 'automatic_rollback_ttl', 60 * 60 * 24)
-				->willReturn($automaticRollbackTTL);
-
 			$this->timeFactory->expects($this->once())
 				->method('getTime')
 				->willReturn(500);

@@ -124,26 +124,15 @@ class RollbackServiceTest extends TestCase {
 		$userFolder5 = $this->createMock(Folder::class);
 		$userFolder6 = $this->createMock(Folder::class);
 
-		$this->rootFolder->expects($this->at(0))
-			->method('getUserFolder')
-			->with('user2')
-			->willThrowException(new \Exception('User not found'));
-		$this->rootFolder->expects($this->at(1))
-			->method('getUserFolder')
-			->with('user3')
-			->willReturn($userFolder3);
-		$this->rootFolder->expects($this->at(2))
-			->method('getUserFolder')
-			->with('user4')
-			->willReturn($userFolder4);
-		$this->rootFolder->expects($this->at(3))
-			->method('getUserFolder')
-			->with('user5')
-			->willReturn($userFolder5);
-		$this->rootFolder->expects($this->at(4))
-			->method('getUserFolder')
-			->with('user6')
-			->willReturn($userFolder6);
+		$this->rootFolder->method('getUserFolder')
+			->withConsecutive(['user2'], ['user3'], ['user4'], ['user5'], ['user6'])
+			->willReturnOnConsecutiveCalls(
+				$this->throwException(new \Exception('User not found')),
+				$userFolder3,
+				$userFolder4,
+				$userFolder5,
+				$userFolder6,
+			);
 
 		$node3 = $this->createMock(Folder::class);
 		$node3->expects($this->once())
@@ -179,24 +168,22 @@ class RollbackServiceTest extends TestCase {
 			->with(100006)
 			->willReturn([$node6]);
 
-		$this->fileService->expects($this->at(0))
+		$this->fileService->expects($this->exactly(3))
 			->method('revertChanges')
-			->with($node4)
-			->willThrowException(new \Exception('Exception while reverting changes'));
-		$this->fileService->expects($this->at(1))
-			->method('revertChanges')
-			->with($node5);
-		$this->fileService->expects($this->at(2))
-			->method('revertChanges')
-			->with($node6);
+			->withConsecutive([$node4], [$node5], [$node6])
+			->willReturnOnConsecutiveCalls(
+				$this->throwException(new \Exception('Exception while reverting changes')),
+				true,
+				true
+			);
 
-		$this->metaDataStorage->expects($this->at(0))
+		$this->metaDataStorage->expects($this->exactly(2))
 			->method('deleteIntermediateFile')
-			->with('user5', 100005)
-			->willThrowException(new \Exception('Exception while deleting intermediate file'));
-		$this->metaDataStorage->expects($this->at(1))
-			->method('deleteIntermediateFile')
-			->with('user6', 100006);
+			->withConsecutive(['user5', 100005], ['user6', 100006])
+			->willReturnOnConsecutiveCalls(
+				$this->throwException(new \Exception('Exception while deleting intermediate file')),
+				null
+			);
 
 		$this->lockMapper->expects($this->once())
 			->method('delete')
