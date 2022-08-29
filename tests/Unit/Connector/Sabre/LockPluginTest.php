@@ -31,12 +31,13 @@ use OCA\DAV\Upload\FutureFile;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
-use OCP\Files\FileInfo;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
-use OCP\Files\Node;
+use OC\Files\Node\Node;
 use OCP\IUserSession;
+use OCP\Files\Cache\ICache;
+use OCP\Files\Storage\IStorage;
 use Sabre\CalDAV\ICalendar;
-use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
@@ -56,8 +57,10 @@ class LockPluginTest extends TestCase {
 	/** @var UserAgentManager|\PHPUnit\Framework\MockObject\MockObject */
 	private $userAgentManager;
 
-	/** @var LockPlugin */
-	private $plugin;
+	/** @var E2EEnabledPathCache|\PHPUnit\Framework\MockObject\MockObject */
+	private $pathCache;
+
+	private LockPlugin $plugin;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -66,9 +69,10 @@ class LockPluginTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
+		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
 
 		$this->plugin = new LockPlugin($this->rootFolder, $this->userSession,
-			$this->lockManager, $this->userAgentManager);
+			$this->lockManager, $this->userAgentManager, $this->pathCache);
 	}
 
 	public function testInitialize(): void {
@@ -100,7 +104,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -146,16 +151,14 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
 		$path = '/path/123';
 		$url = 'url://path/123';
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/node/path/123');
 
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -169,7 +172,7 @@ class LockPluginTest extends TestCase {
 
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/node/path/123')
+			->with($node)
 			->willReturn(false);
 
 		$request = $this->createMock(RequestInterface::class);
@@ -199,7 +202,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -207,9 +211,6 @@ class LockPluginTest extends TestCase {
 		$url = 'url://path/123';
 		$node = $this->createMock(File::class);
 		$userAgentString = 'User-Agent-String';
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/node/path/123');
 
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -223,7 +224,7 @@ class LockPluginTest extends TestCase {
 
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/node/path/123')
+			->with($node)
 			->willReturn(true);
 
 		$plugin->expects($this->once())
@@ -285,7 +286,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -293,9 +295,6 @@ class LockPluginTest extends TestCase {
 		$url = 'url://path/123';
 		$node = $this->createMock(File::class);
 		$userAgentString = 'User-Agent-String';
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/node/path/123');
 
 		if ($expectsForbidden) {
 			$node->expects($this->never())
@@ -318,7 +317,7 @@ class LockPluginTest extends TestCase {
 
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/node/path/123')
+			->with($node)
 			->willReturn(true);
 
 		$plugin->expects($this->once())
@@ -416,7 +415,8 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -424,11 +424,9 @@ class LockPluginTest extends TestCase {
 			$srcNode = $this->createMock(FutureFile::class);
 		} else {
 			$srcNode = $this->createMock(File::class);
-			$srcNode->method('getPath')->willReturn('/path/src/');
 			$srcNode->method('getId')->willReturn(42);
 		}
 		$destNode = $this->createMock(File::class);
-		$destNode->method('getPath')->willReturn('/path/dest/');
 		$destNode->method('getId')->willReturn(1337);
 
 		$path = '/path/123';
@@ -467,8 +465,8 @@ class LockPluginTest extends TestCase {
 
 		$plugin->method('isE2EEnabledPath')
 			->willReturnMap([
-				['/path/src/', $isSrcE2E],
-				['/path/dest/', $isDestE2E],
+				[$srcNode, $isSrcE2E],
+				[$destNode, $isDestE2E],
 			]);
 
 		$plugin->method('isE2EEnabledUserAgent')
@@ -560,34 +558,14 @@ class LockPluginTest extends TestCase {
 		$this->assertTrue($actual);
 	}
 
-	public function testIsE2EEnabledPathNotFound():void {
-		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['getFileNode'])
-			->setConstructorArgs([
-				$this->rootFolder,
-				$this->userSession,
-				$this->lockManager,
-				$this->userAgentManager
-			])
-			->getMock();
-
-		$plugin->expects($this->once())
-			->method('getFileNode')
-			->with('path-123')
-			->willThrowException(new NotFound());
-
-		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', ['path-123']);
-		$this->assertFalse($actual);
-	}
-
 	public function testIsE2EEnabledPathEncryptedFolder():void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['getFileNode'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				new E2EEnabledPathCache(),
 			])
 			->getMock();
 
@@ -595,27 +573,22 @@ class LockPluginTest extends TestCase {
 		$node->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(true);
-		$node->expects($this->once())
-			->method('getType')
-			->willReturn(FileInfo::TYPE_FOLDER);
 
-		$plugin->expects($this->once())
-			->method('getFileNode')
-			->with('path-123')
-			->willReturn($node);
+		$davNode = $this->createMock(\OCA\DAV\Connector\Sabre\Node::class);
+		$davNode->method('getNode')->willReturn($node);
 
-		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', ['path-123']);
+		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', [$davNode]);
 		$this->assertTrue($actual);
 	}
 
 	public function testIsE2EEnabledPathParentEncrypted():void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['getFileNode'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				new E2EEnabledPathCache(),
 			])
 			->getMock();
 
@@ -623,38 +596,50 @@ class LockPluginTest extends TestCase {
 		$encryptedParentParentNode->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(true);
-		$encryptedParentParentNode->expects($this->once())
-			->method('getType')
-			->willReturn(FileInfo::TYPE_FOLDER);
-		$encryptedParentParentNode->expects($this->once())
-			->method('getPath')
-			->willReturn('/sub1/sub2/');
+		$encryptedParentParentNode->method('getId')
+			->willReturn(1);
+		$encryptedParentParentNode->method('getFileInfo')
+			->willReturn(['parent' => 0]);
 
 		$parentNode = $this->createMock(Node::class);
 		$parentNode->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(false);
 		$parentNode->expects($this->once())
-			->method('getPath')
-			->willReturn('/sub1/sub2/sub3/');
-		$parentNode->expects($this->once())
 			->method('getParent')
 			->willReturn($encryptedParentParentNode);
+		$parentNode->method('getId')
+			->willReturn(2);
+		$parentNode->method('getFileInfo')
+			->willReturn(['parent' => 1]);
 
 		$fileNode = $this->createMock(Node::class);
-		$fileNode->expects($this->once())
+		$fileNode->expects($this->atLeastOnce())
 			->method('isEncrypted')
 			->willReturn(false);
+		$cache = $this->createMock(ICache::class);
+		$cache->method('getNumericStorageId')
+			->willReturn(1);
+		$storage = $this->createMock(IStorage::class);
+		$storage->method('instanceOfStorage')
+			->willReturn(true);
+		$storage->method('getCache')
+			->willReturn($cache);
+		$fileNode->expects($this->once())
+			->method('getStorage')
+			->willReturn($storage);
 		$fileNode->expects($this->once())
 			->method('getParent')
 			->willReturn($parentNode);
+		$fileNode->method('getId')
+			->willReturn(3);
+		$fileNode->method('getFileInfo')
+			->willReturn(['parent' => 2]);
 
-		$plugin->expects($this->once())
-			->method('getFileNode')
-			->with('path-123')
-			->willReturn($fileNode);
+		$davNode = $this->createMock(\OCA\DAV\Connector\Sabre\Node::class);
+		$davNode->method('getNode')->willReturn($fileNode);
 
-		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', ['path-123']);
+		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', [$davNode]);
 		$this->assertTrue($actual);
 	}
 
@@ -665,11 +650,16 @@ class LockPluginTest extends TestCase {
 				$this->rootFolder,
 				$this->userSession,
 				$this->lockManager,
-				$this->userAgentManager
+				$this->userAgentManager,
+				new E2EEnabledPathCache(),
 			])
 			->getMock();
 
 		$encryptedParentParentNode = $this->createMock(Node::class);
+		$encryptedParentParentNode->method('getId')
+			->willReturn(1);
+		$encryptedParentParentNode->method('getFileInfo')
+			->willReturn(['parent' => 0]);
 		$encryptedParentParentNode->expects($this->once())
 			->method('getPath')
 			->willReturn('/');
@@ -679,26 +669,43 @@ class LockPluginTest extends TestCase {
 			->method('isEncrypted')
 			->willReturn(false);
 		$parentNode->expects($this->once())
-			->method('getPath')
-			->willReturn('/sub1/');
-		$parentNode->expects($this->once())
 			->method('getParent')
 			->willReturn($encryptedParentParentNode);
+		$parentNode->method('getId')
+			->willReturn(2);
+		$parentNode->method('getFileInfo')
+			->willReturn(['parent' => 1]);
+
+		$cache = $this->createMock(ICache::class);
+		$cache->method('getNumericStorageId')
+			->willReturn(1);
+		$storage = $this->createMock(IStorage::class);
+		$storage->method('instanceOfStorage')
+			->willReturn(true);
+		$storage->method('getCache')
+			->willReturn($cache);
 
 		$fileNode = $this->createMock(Node::class);
-		$fileNode->expects($this->once())
+		$fileNode->expects($this->atLeastOnce())
 			->method('isEncrypted')
 			->willReturn(false);
 		$fileNode->expects($this->once())
 			->method('getParent')
 			->willReturn($parentNode);
+		$fileNode->expects($this->once())
+			->method('getPath')
+			->willReturn('/data/rere/re');
+		$fileNode->method('getId')
+			->willReturn(3);
+		$fileNode->method('getFileInfo')
+			->willReturn(['parent' => 2]);
+		$fileNode->method('getStorage')
+			->willReturn($storage);
 
-		$plugin->expects($this->once())
-			->method('getFileNode')
-			->with('path-123')
-			->willReturn($fileNode);
+		$davNode = $this->createMock(\OCA\DAV\Connector\Sabre\Node::class);
+		$davNode->method('getNode')->willReturn($fileNode);
 
-		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', ['path-123']);
+		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', [$davNode]);
 		$this->assertFalse($actual);
 	}
 

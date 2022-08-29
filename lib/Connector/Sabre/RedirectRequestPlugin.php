@@ -92,7 +92,7 @@ class RedirectRequestPlugin extends APlugin {
 			return;
 		}
 		/** @var File|Directory $node */
-		if (!$this->isE2EEnabledPath($node->getPath())) {
+		if (!$this->isE2EEnabledPath($node)) {
 			return;
 		}
 
@@ -114,7 +114,7 @@ class RedirectRequestPlugin extends APlugin {
 			return true;
 		}
 		/** @var File|Directory $node */
-		if (!$this->isE2EEnabledPath($node->getPath())) {
+		if (!$this->isE2EEnabledPath($node)) {
 			// If this is no e2e-enabled path, return true to continue up in the event chain
 			return true;
 		}
@@ -149,7 +149,7 @@ class RedirectRequestPlugin extends APlugin {
 			return;
 		}
 		/** @var File|Directory $node */
-		if (!$this->isE2EEnabledPath($node->getPath())) {
+		if (!$this->isE2EEnabledPath($node)) {
 			return;
 		}
 
@@ -184,7 +184,7 @@ class RedirectRequestPlugin extends APlugin {
 		}
 
 		/** @var File|Directory $node */
-		if (!$this->isE2EEnabledPath($node->getPath())) {
+		if (!$this->isE2EEnabledPath($node)) {
 			return true;
 		}
 

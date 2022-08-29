@@ -76,8 +76,13 @@ namespace Sabre\Dav {
 }
 
 namespace OCA\DAV\Connector\Sabre {
-    class File extends \Sabre\Dav\INode {}
-    class Directory extends \Sabre\Dav\INode {}
+    class Node extends \Sabre\Dav\INode {
+        public function getNode(): \OCP\Files\Node {
+
+        }
+    }
+    class File extends Node {}
+    class Directory extends Node {}
 }
 
 namespace OCA\DAV\Connector\Sabre\Exception {
@@ -152,9 +157,26 @@ namespace OC\Hooks {
 }
 
 namespace OC\Cache {
-	class CappedMemoryCache {
+	/**
+	 * @template T
+	 */
+	class CappedMemoryCache implements \ArrayAccess {
 		public function get($key) {}
 		public function set($key, $value, $ttl = '') {}
+		public function offsetExists($offset): bool {}
+		public function offsetUnset($offset): void {}
+		/**
+		 * @return T
+		 */
+		public function &offsetGet($offset) {
+			return $this->cache[$offset];
+		}
+
+		/**
+		 * @param string $offset
+		 * @param T $value
+		 */
+		public function offsetSet($offset, $value): void {}
 	}
 }
 

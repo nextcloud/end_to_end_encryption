@@ -25,6 +25,7 @@ namespace OCA\EndToEndEncryption\Tests\Unit\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
 use Sabre\DAV\Server;
@@ -39,16 +40,19 @@ class RedirectRequestPluginTest extends TestCase {
 	/** @var IUserSession|\PHPUnit\Framework\MockObject\MockObject */
 	private $userSession;
 
-	/** @var RedirectRequestPlugin */
-	private $plugin;
+	/** @var E2EEnabledPathCache|\PHPUnit\Framework\MockObject\MockObject */
+	private $pathCache;
+
+	private RedirectRequestPlugin $plugin;
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
 
-		$this->plugin = new RedirectRequestPlugin($this->rootFolder, $this->userSession);
+		$this->plugin = new RedirectRequestPlugin($this->rootFolder, $this->userSession, $this->pathCache);
 	}
 
 	public function testInitialize(): void {
@@ -87,7 +91,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -112,9 +117,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->with('Destination', '/foo/bar/DestinationPath123.e2e-to-save');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -122,7 +124,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -137,7 +139,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -161,9 +164,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setHeader');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -171,7 +171,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -186,7 +186,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -219,7 +220,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -234,9 +236,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setHeader');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -244,7 +243,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(false);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -259,7 +258,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -279,9 +279,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->with('http://username:password@hostname:9090/path/123/foo.e2e-to-save?arg=value#anchor');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -289,7 +286,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn($node);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -304,7 +301,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -337,7 +335,8 @@ class RedirectRequestPluginTest extends TestCase {
 			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
-				$this->userSession
+				$this->userSession,
+				$this->pathCache,
 			])
 			->getMock();
 
@@ -352,9 +351,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setUrl');
 
 		$node = $this->createMock(File::class);
-		$node->expects($this->once())
-			->method('getPath')
-			->willReturn('/random/path/');
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -366,7 +362,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->willReturn(true);
 		$plugin->expects($this->once())
 			->method('isE2EEnabledPath')
-			->with('/random/path/')
+			->with($node)
 			->willReturn(false);
 
 		$plugin->httpMkColPut($request);

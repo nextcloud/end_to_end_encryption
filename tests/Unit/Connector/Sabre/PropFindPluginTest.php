@@ -27,6 +27,7 @@ use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
@@ -54,8 +55,7 @@ class PropFindPluginTest extends TestCase {
 	/** @var Server|\PHPUnit\Framework\MockObject\MockObject */
 	protected $server;
 
-	/** @var PropFindPlugin */
-	private $plugin;
+	private PropFindPlugin $plugin;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -65,23 +65,26 @@ class PropFindPluginTest extends TestCase {
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 		$this->request = $this->createMock(IRequest::class);
 		$this->server = $this->createMock(Server::class);
+		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
 
-		$this->plugin = new PropFindPlugin($this->rootFolder,
+		$this->plugin = new PropFindPlugin(
+			$this->rootFolder,
 			$this->userSession,
 			$this->userAgentManager,
-			$this->request);
+			$this->request,
+			$this->pathCache
+		);
 	}
 
 	public function testInitialize(): void {
 		$server = $this->createMock(Server::class);
 
-		$server->expects($this->at(0))
-			->method('on')
-			->with('afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50);
-
-		$server->expects($this->at(1))
-			->method('on')
-			->with('propFind', [$this->plugin, 'updateProperty'], 105);
+		$server->expects($this->atLeast(2))
+		 ->method('on')
+		 ->withConsecutive(
+			['afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50],
+			['propFind', [$this->plugin, 'updateProperty'], 105],
+		 );
 
 		$this->plugin->initialize($server);
 	}
@@ -121,24 +124,24 @@ class PropFindPluginTest extends TestCase {
 
 		$this->plugin->initialize($server);
 
-		$this->request->expects($this->at(0))
+		$this->request->expects($this->once())
 			->method('getHeader')
 			->with('USER_AGENT')
 			->willReturn('User-Agent-String');
 
-		$this->userAgentManager->expects($this->at(0))
+		$this->userAgentManager->expects($this->once())
 			->method('supportsEndToEndEncryption')
 			->with('User-Agent-String')
 			->willReturn($supportedUserAgent);
 
 		if (!$supportedUserAgent) {
-			$propFind->expects($this->at(0))
+			$propFind->expects($this->once())
 				->method('get')
 				->with('{http://nextcloud.org/ns}is-encrypted')
 				->willReturn($fileEncrypted ? '1' : '0');
 
 			if ($fileEncrypted) {
-				$propFind->expects($this->at(1))
+				$propFind->expects($this->once())
 					->method('set')
 					->with('{http://owncloud.org/ns}permissions', '', 200);
 			} else {

@@ -39,6 +39,7 @@ use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 
 class LockPlugin extends APlugin {
 	private LockManager $lockManager;
@@ -47,8 +48,9 @@ class LockPlugin extends APlugin {
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								LockManager $lockManager,
-								UserAgentManager $userAgentManager) {
-		parent::__construct($rootFolder, $userSession);
+								UserAgentManager $userAgentManager,
+								E2EEnabledPathCache $pathCache) {
+		parent::__construct($rootFolder, $userSession, $pathCache);
 		$this->lockManager = $lockManager;
 		$this->userAgentManager = $userAgentManager;
 	}
@@ -96,21 +98,21 @@ class LockPlugin extends APlugin {
 			$destNode = $this->getNode($destInfo['destination'], $method);
 
 			if ($node instanceof FutureFile) {
-				if ($this->isE2EEnabledPath($destNode->getPath()) === false) {
+				if ($this->isE2EEnabledPath($destNode) === false) {
 					return;
 				}
 			} else {
 				// If neither is an end to end encrypted folders, we don't care
-				if (!$this->isE2EEnabledPath($node->getPath()) && !$this->isE2EEnabledPath($destNode->getPath())) {
+				if (!$this->isE2EEnabledPath($node) && !$this->isE2EEnabledPath($destNode)) {
 					return;
 				}
 
 				// Prevent moving or copying stuff from non-encrypted to encrypted folders
-				if ($this->isE2EEnabledPath($node->getPath()) xor $this->isE2EEnabledPath($destNode->getPath())) {
+				if ($this->isE2EEnabledPath($node) xor $this->isE2EEnabledPath($destNode)) {
 					throw new Forbidden('Cannot copy or move files from non-encrypted folders to end to end encrypted folders or vice versa.');
 				}
 			}
-		} elseif (!$this->isE2EEnabledPath($node->getPath())) {
+		} elseif (!$this->isE2EEnabledPath($node)) {
 			return;
 		}
 
