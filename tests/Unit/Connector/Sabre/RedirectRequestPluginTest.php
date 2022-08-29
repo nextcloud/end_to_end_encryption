@@ -58,30 +58,18 @@ class RedirectRequestPluginTest extends TestCase {
 	public function testInitialize(): void {
 		$server = $this->createMock(Server::class);
 
-		$server->expects($this->at(0))
+		$server->expects($this->exactly(8))
 			->method('on')
-			->with('method:MKCOL', [$this->plugin, 'httpMkColPut'], 95);
-		$server->expects($this->at(1))
-			->method('on')
-			->with('method:PUT', [$this->plugin, 'httpMkColPut'], 95);
-		$server->expects($this->at(2))
-			->method('on')
-			->with('method:COPY', [$this->plugin, 'httpCopyMove'], 95);
-		$server->expects($this->at(3))
-			->method('on')
-			->with('method:MOVE', [$this->plugin, 'httpCopyMove'], 95);
-		$server->expects($this->at(4))
-			->method('on')
-			->with('method:DELETE', [$this->plugin, 'httpDelete'], 95);
-		$server->expects($this->at(5))
-			->method('on')
-			->with('method:GET', [$this->plugin, 'httpGetHead'], 5);
-		$server->expects($this->at(6))
-			->method('on')
-			->with('method:HEAD', [$this->plugin, 'httpGetHead'], 5);
-		$server->expects($this->at(7))
-			->method('on')
-			->with('propFind', [$this->plugin, 'propFind'], 500);
+			->withConsecutive(
+				['method:MKCOL', [$this->plugin, 'httpMkColPut'], 95],
+				['method:PUT', [$this->plugin, 'httpMkColPut'], 95],
+				['method:COPY', [$this->plugin, 'httpCopyMove'], 95],
+				['method:MOVE', [$this->plugin, 'httpCopyMove'], 95],
+				['method:DELETE', [$this->plugin, 'httpDelete'], 95],
+				['method:GET', [$this->plugin, 'httpGetHead'], 5],
+				['method:HEAD', [$this->plugin, 'httpGetHead'], 5],
+				['propFind', [$this->plugin, 'propFind'], 500],
+			);
 
 		$this->plugin->initialize($server);
 	}

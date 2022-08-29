@@ -611,14 +611,10 @@ class KeyStorageTest extends TestCase {
 		$publicKeyFolder = $this->createMock(ISimpleFolder::class);
 		$privateKeyFolder = $this->createMock(ISimpleFolder::class);
 
-		$this->appData->expects($this->at(0))
+		$this->appData->expects($this->exactly(2))
 			->method('getFolder')
-			->with('/public-keys')
-			->willReturn($publicKeyFolder);
-		$this->appData->expects($this->at(1))
-			->method('getFolder')
-			->with('/private-keys')
-			->willReturn($privateKeyFolder);
+			->withConsecutive(['/public-keys'], ['/private-keys'])
+			->willReturnOnConsecutiveCalls($publicKeyFolder, $privateKeyFolder);
 
 		$publicKeyFile = $this->createMock(ISimpleFile::class);
 		$privateKeyFile = $this->createMock(ISimpleFile::class);
@@ -675,41 +671,32 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider verifyFolderStructureDataProvider
-	 *
-	 * @param bool $privateKeyExists
-	 * @param bool $publicKeyExists
-	 * @param bool $expectPrivateNewFolder
-	 * @param bool $expectPublicNewFolder
 	 */
 	public function testVerifyFolderStructure(bool $privateKeyExists, bool $publicKeyExists, bool $expectPrivateNewFolder, bool $expectPublicNewFolder): void {
 		$appDataRoot = $this->createMock(ISimpleFolder::class);
-		$appDataRoot->expects($this->at(0))
+		$appDataRoot->expects($this->exactly(2))
 			->method('fileExists')
-			->with('/private-keys')
-			->willReturn($privateKeyExists);
-		$appDataRoot->expects($this->at(1))
-			->method('fileExists')
-			->with('/public-keys')
-			->willReturn($publicKeyExists);
+			->withConsecutive(['/private-keys'], ['/public-keys'])
+			->willReturnOnConsecutiveCalls($publicKeyExists, $privateKeyExists);
 
-		$i = 0;
-		$this->appData->expects($this->at($i++))
+		$this->appData->expects($this->once())
 			->method('getFolder')
 			->with('/')
 			->willReturn($appDataRoot);
 
-		if ($expectPrivateNewFolder) {
-			$this->appData->expects($this->at($i++))
+		if ($expectPrivateNewFolder && $expectPublicNewFolder) {
+			$this->appData->expects($this->exactly(2))
+				->method('newFolder')
+				->withConsecutive(['/private-keys'], ['/public-keys']);
+		} elseif ($expectPublicNewFolder) {
+			$this->appData->expects($this->once())
 				->method('newFolder')
 				->with('/private-keys');
-		}
-		if ($expectPublicNewFolder) {
-			$this->appData->expects($this->at($i))
+		} elseif ($expectPrivateNewFolder) {
+			$this->appData->expects($this->once())
 				->method('newFolder')
 				->with('/public-keys');
-		}
-
-		if (!$expectPrivateNewFolder && !$expectPublicNewFolder) {
+		} else {
 			$this->appData->expects($this->never())
 				->method('newFolder');
 		}

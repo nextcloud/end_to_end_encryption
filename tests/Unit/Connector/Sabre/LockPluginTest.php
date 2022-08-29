@@ -78,21 +78,15 @@ class LockPluginTest extends TestCase {
 	public function testInitialize(): void {
 		$server = $this->createMock(Server::class);
 
-		$server->expects($this->at(0))
+		$server->expects($this->exactly(5))
 			->method('on')
-			->with('beforeMethod:DELETE', [$this->plugin, 'checkLock'], 200);
-		$server->expects($this->at(1))
-			->method('on')
-			->with('beforeMethod:MKCOL', [$this->plugin, 'checkLock'], 200);
-		$server->expects($this->at(2))
-			->method('on')
-			->with('beforeMethod:PUT', [$this->plugin, 'checkLock'], 200);
-		$server->expects($this->at(3))
-			->method('on')
-			->with('beforeMethod:COPY', [$this->plugin, 'checkLock'], 200);
-		$server->expects($this->at(4))
-			->method('on')
-			->with('beforeMethod:MOVE', [$this->plugin, 'checkLock'], 200);
+			->withConsecutive(
+				['beforeMethod:DELETE', [$this->plugin, 'checkLock'], 200],
+				['beforeMethod:MKCOL', [$this->plugin, 'checkLock'], 200],
+				['beforeMethod:PUT', [$this->plugin, 'checkLock'], 200],
+				['beforeMethod:COPY', [$this->plugin, 'checkLock'], 200],
+				['beforeMethod:MOVE', [$this->plugin, 'checkLock'], 200],
+			);
 
 		$this->plugin->initialize($server);
 	}
