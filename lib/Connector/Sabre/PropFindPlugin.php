@@ -27,6 +27,7 @@ namespace OCA\EndToEndEncryption\Connector\Sabre;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
@@ -43,8 +44,9 @@ class PropFindPlugin extends APlugin {
 	public function __construct(IRootFolder $rootFolder,
 								IUserSession $userSession,
 								UserAgentManager $userAgentManager,
-								IRequest $request) {
-		parent::__construct($rootFolder, $userSession);
+								IRequest $request,
+								E2EEnabledPathCache $pathCache) {
+		parent::__construct($rootFolder, $userSession, $pathCache);
 		$this->userAgentManager = $userAgentManager;
 		$this->request = $request;
 	}
