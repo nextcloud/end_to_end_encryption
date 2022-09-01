@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 /**
- * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
  * @copyright Copyright (c) 2022 Carl Schwan <carl@carlschwan.eu>
  *
  * @license GNU AGPL version 3 or any later version
@@ -21,36 +20,37 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-
 namespace OCA\EndToEndEncryption;
 
-use OCP\IUserSession;
+use OCP\IConfig;
 use OCP\IUser;
-use OCP\Capabilities\ICapability;
+use OCP\IGroupManager;
 
-class Capabilities implements ICapability {
-	private Config $config;
-	private IUserSession $userSession;
+class Config {
+	private IConfig $config;
+	private IGroupManager $groupManager;
 
-	public function __construct(Config $config, IUserSession $userSession) {
+	public function __construct(IConfig $config, IGroupManager $groupManager) {
 		$this->config = $config;
-		$this->userSession = $userSession;
+		$this->groupManager = $groupManager;
 	}
 
-	public function getCapabilities(): array {
-		$user = $this->userSession->getUser();
-		if (!($user instanceof IUser) || $this->config->isDisabledForUser($user)) {
-			return [];
+	/**
+	 * @return string[]
+	 */
+	public function getAllowedGroupIds(): array {
+		$groups = $this->config->getAppValue('end_to_end_encryption', 'allowed_groups', '[]');
+		$groups = json_decode($groups, true);
+		return \is_array($groups) ? $groups : [];
+	}
+
+	public function isDisabledForUser(IUser $user): bool {
+		$allowedGroups = $this->getAllowedGroupIds();
+		if (empty($allowedGroups)) {
+			return false;
 		}
 
-		$capabilities = ['end-to-end-encryption' =>
-			[
-				'enabled' => true,
-				'api-version' => '1.1',
-			]
-		];
-
-		return $capabilities;
+		$userGroups = $this->groupManager->getUserGroupIds($user);
+		return empty(array_intersect($allowedGroups, $userGroups));
 	}
 }
