@@ -24,25 +24,62 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
 use OCA\EndToEndEncryption\Capabilities;
+use OCA\EndToEndEncryption\Config;
 use Test\TestCase;
+use OCP\IUserSession;
+use OCP\IUser;
 
 class CapabilitiesTest extends TestCase {
-
-	/** @var Capabilities */
-	private $capabilities;
+	private Capabilities $capabilities;
+	/** @var IUserSession */
+	private $userSession;
+	/** @var Config */
+	private $config;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->capabilities = new Capabilities();
+		$this->config = $this->createMock(Config::class);
+		$this->userSession = $this->createMock(IUserSession::class);
+		$this->capabilities = new Capabilities(
+			$this->config,
+			$this->userSession
+		);
 	}
 
-	public function testGetCapabilities() {
+	public function testGetCapabilities(): void {
+		$user = $this->createMock(IUser::class);
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+		$this->config->expects($this->once())
+			->method('isDisabledForUser')
+			->with($user)
+			->willReturn(false);
 		$this->assertEquals([
 			'end-to-end-encryption' => [
 				'enabled' => true,
 				'api-version' => '1.1',
 			]
 		], $this->capabilities->getCapabilities());
+	}
+
+	public function testGetCapabilitiesDisabled(): void {
+		$user = $this->createMock(IUser::class);
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+		$this->config->expects($this->once())
+			->method('isDisabledForUser')
+			->with($user)
+			->willReturn(true);
+		$this->assertEquals([], $this->capabilities->getCapabilities());
+	}
+
+	public function testGetCapabilitiesNoUser(): void {
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn(null);
+		$this->assertEquals([], $this->capabilities->getCapabilities());
 	}
 }

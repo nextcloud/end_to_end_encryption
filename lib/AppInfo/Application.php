@@ -34,6 +34,7 @@ use OCA\EndToEndEncryption\KeyStorage;
 use OCA\EndToEndEncryption\Listener\UserDeletedListener;
 use OCA\EndToEndEncryption\MetaDataStorage;
 use OCA\EndToEndEncryption\Middleware\UserAgentCheckMiddleware;
+use OCA\EndToEndEncryption\Middleware\CanUseAppMiddleware;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
 use OCP\AppFramework\App;
@@ -63,6 +64,7 @@ class Application extends App implements IBootstrap {
 	public function register(IRegistrationContext $context): void {
 		$context->registerCapability(Capabilities::class);
 		$context->registerMiddleware(UserAgentCheckMiddleware::class);
+		$context->registerMiddleware(CanUseAppMiddleware::class);
 		$context->registerServiceAlias(IKeyStorage::class, KeyStorage::class);
 		$context->registerServiceAlias(IMetaDataStorage::class, MetaDataStorage::class);
 		$context->registerEventListener(UserDeletedEvent::class, UserDeletedListener::class);
