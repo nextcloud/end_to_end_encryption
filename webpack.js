@@ -3,6 +3,7 @@ const path = require('path')
 
 webpackConfig.entry = {
 	settings: path.join(__dirname, 'src', 'settings.js'),
+	adminSettings: path.join(__dirname, 'src', 'settings-admin.js'),
 }
 
 webpackConfig.stats = {

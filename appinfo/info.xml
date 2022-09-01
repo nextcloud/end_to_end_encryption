@@ -25,6 +25,7 @@
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
 	</background-jobs>
 	<settings>
+		<admin>OCA\EndToEndEncryption\Settings\Admin</admin>
 		<personal>OCA\EndToEndEncryption\Settings\Personal</personal>
 	</settings>
 	<sabre>

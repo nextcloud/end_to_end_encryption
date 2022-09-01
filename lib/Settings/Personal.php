@@ -9,19 +9,25 @@ namespace OCA\EndToEndEncryption\Settings;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\EndToEndEncryption\IKeyStorage;
+use OCA\EndToEndEncryption\Config;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Settings\ISettings;
+use OCP\IUserSession;
 
 class Personal implements ISettings {
 	private IKeyStorage $keyStorage;
 	private IInitialState $initialState;
 	private ?string $userId;
+	private IUserSession $userSession;
+	private Config $config;
 
-	public function __construct(IKeyStorage $keyStorage, IInitialState $initialState, ?string $userId) {
+	public function __construct(IKeyStorage $keyStorage, IInitialState $initialState, ?string $userId, IUserSession $userSession, Config $config) {
 		$this->keyStorage = $keyStorage;
 		$this->initialState = $initialState;
 		$this->userId = $userId;
+		$this->config = $config;
+		$this->userSession = $userSession;
 	}
 
 	public function getForm(): TemplateResponse {
@@ -34,7 +40,7 @@ class Personal implements ISettings {
 		return new TemplateResponse(
 			Application::APP_ID,
 			'settings',
-			[]
+			["canUseApp" => !$this->config->isDisabledForUser($this->userSession->getUser())]
 		);
 	}
 
