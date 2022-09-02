@@ -19,6 +19,9 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Само власник може обрисати фајл метаподатака",
     "End-to-End Encryption" : "Шифровање са краја на крај",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај.",
+    "Limit to groups" : "Ограничи на групе",
+    "Limit app usage to groups." : "Ограничи коришћење апликације на групе.",
+    "Save" : "Сачувај",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
     "End to end encryption" : "Шифровање са краја на крај"
 },

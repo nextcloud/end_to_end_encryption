@@ -24,6 +24,8 @@ OC.L10N.register(
     "Cannot delete metadata" : "No se pueden borrar los metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto.",
+    "Limit to groups" : "Limitar a grupos",
+    "Save" : "Guardar",
     "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
     "End to end encryption" : "Encripción punto-a-punto"
 },

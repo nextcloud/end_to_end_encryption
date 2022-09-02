@@ -16,6 +16,9 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Não tem permissões para editar o ficheiro, certifique-se que o bloqueia primeiro, e de seguida envia o token correcto",
     "Only the owner can delete the metadata-file" : "Só o proprietário pode apagar o ficheiro de metadados",
     "End-to-End Encryption" : "Encriptação Ponto-a-Ponto",
+    "Limit to groups" : "Limitado a grupos",
+    "Limit app usage to groups." : "Limitar o uso da aplicação a grupos.",
+    "Save" : "Guardar",
     "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
