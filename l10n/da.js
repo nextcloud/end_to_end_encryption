@@ -24,6 +24,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "Kan ikke slette metadata",
     "End-to-End Encryption" : "End-to-End-kryptering",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Giver det nødvendige slutpunkt for at aktivere ende-til-ende-kryptering.",
+    "Limit to groups" : "Begræns til grupper",
+    "Limit app usage to groups." : "Begræns app-brug til grupper.",
+    "Save" : "Gem",
     "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");

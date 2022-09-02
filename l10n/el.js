@@ -24,6 +24,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "Αδυναμία διαγραφής μεταδεδομένων",
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο.",
+    "Limit to groups" : "Περιορισμός σε ομάδες",
+    "Limit app usage to groups." : "Περιορισμός χρήσης της εφαρμογής σε ομάδες.",
+    "Save" : "Αποθήκευση",
     "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο"
 },
 "nplurals=2; plural=(n != 1);");
