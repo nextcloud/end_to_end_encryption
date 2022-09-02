@@ -5,10 +5,10 @@
   -->
 
 <template>
-	<SettingsSection :title="t('end_to_end_encryption', 'End to End Encryption')" class="admin-e2ee">
+	<SettingsSection :title="t('end_to_end_encryption', 'End-to-End Encryption')" class="admin-e2ee">
 		<h3>{{ t('end_to_end_encryption', 'Limit to groups') }}</h3>
 		<p class="settings-hint">
-			{{ t('end_to_end_encryption', 'When at least one group is selected, only people of the listed groups can use the end to end encryption app.') }}
+			{{ t('end_to_end_encryption', 'When at least one group is selected, only people of the listed groups can use the End-to-End encryption app.') }}
 		</p>
 		<Multiselect v-model="allowedGroups"
 			class="allowed-groups"
