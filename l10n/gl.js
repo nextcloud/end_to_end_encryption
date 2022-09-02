@@ -19,6 +19,9 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Só o propietario pode eliminar o ficheiro de metadatos ",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto necesario para activar o cifrado de extremo a extremo.",
+    "Limit to groups" : "Límite para grupos",
+    "Limit app usage to groups." : "Limitar o uso de aplicacións a grupos",
+    "Save" : "Gardar",
     "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo"
 },
 "nplurals=2; plural=(n != 1);");

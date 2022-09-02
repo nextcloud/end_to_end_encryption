@@ -21,6 +21,9 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Vain omistaja voi poistaa metadatatiedoston",
     "Cannot delete metadata" : "Metatietoja ei voi poistaa",
     "End-to-End Encryption" : "Päästä päähän -salaus",
+    "Limit to groups" : "Rajoita ryhmiin",
+    "Limit app usage to groups." : "Rajoita sovelluksen käyttö ryhmiin.",
+    "Save" : "Tallenna",
     "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste"
 },
 "nplurals=2; plural=(n != 1);");

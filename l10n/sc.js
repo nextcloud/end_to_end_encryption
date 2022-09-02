@@ -24,6 +24,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "Impossìbile a cantzellare metadatos",
     "End-to-End Encryption" : "Critografia a nodu terminale",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Frunit su puntu finale netzessàriu pro ativare sa critografia a nodu terminale.",
+    "Limit to groups" : "Lìmita a grupos",
+    "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos.",
+    "Save" : "Sarva",
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale"
 },
 "nplurals=2; plural=(n != 1);");

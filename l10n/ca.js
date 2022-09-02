@@ -23,6 +23,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "No es poden suprimir les metadades",
     "End-to-End Encryption" : "Xifratge d'extrem a extrem",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar l'encriptació d'extrem a extrem.",
+    "Limit to groups" : "Limita a grups",
+    "Limit app usage to groups." : "Limita l'ús de l'aplicació només pels grups.",
+    "Save" : "Desa",
     "End-to-end encryption endpoint" : "Extrem d’encriptació extrem-a-extrem"
 },
 "nplurals=2; plural=(n != 1);");

@@ -18,6 +18,7 @@ OC.L10N.register(
     "Metadata-file doesn't exist" : "Metadatafil finns inte",
     "Only the owner can delete the metadata-file" : "Bara ägaren kan ta bort metadatafilen",
     "End-to-End Encryption" : "Ändpunkt-till-ändpunkt-kryptering",
+    "Limit to groups" : "Begränsa till grupper",
     "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt"
 },
 "nplurals=2; plural=(n != 1);");
