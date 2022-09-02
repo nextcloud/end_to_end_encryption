@@ -15,6 +15,8 @@ OC.L10N.register(
     "Could not find metadata for \"%s\"" : "No se encontraron metadatos para \"%s\"",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No puedes editar el archivo, asegúrate de bloquearlo primero y despues enviar la ficha correcta",
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
-    "End-to-End Encryption" : "Encripción Punto-a-Punto"
+    "End-to-End Encryption" : "Encripción Punto-a-Punto",
+    "Limit to groups" : "Limitar a grupos",
+    "Save" : "Guardar"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

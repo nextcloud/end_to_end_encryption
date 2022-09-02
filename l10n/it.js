@@ -24,6 +24,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "Impossibile eliminare i metadati",
     "End-to-End Encryption" : "Cifratura End-To-End",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornisce il terminatore necessario per abilitare la crittografia end-to-end.",
+    "Limit to groups" : "Limita a gruppi",
+    "Limit app usage to groups." : "Limita utilizzo delle applicazioni a gruppi.",
+    "Save" : "Salva",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
     "End to end encryption" : "Cifratura End to End"
 },

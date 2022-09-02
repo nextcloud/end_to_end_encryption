@@ -16,6 +16,9 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke tilgang til å endre filen, lås den først, og send så riktig symbol",
     "Only the owner can delete the metadata-file" : "Kun eieren kan slette metadatafilen",
     "End-to-End Encryption" : "Ende-til-ende -kryptering",
+    "Limit to groups" : "Begrens til grupper",
+    "Limit app usage to groups." : "Begrens app-bruk til grupper",
+    "Save" : "Lagre",
     "End to end encryption" : "Ende-til-ende -kryptering"
 },
 "nplurals=2; plural=(n != 1);");

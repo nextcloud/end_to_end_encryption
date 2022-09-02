@@ -7,6 +7,8 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "Nun pudo alcontrase la clave pública que pertenez al usuariu %s",
     "Common name (CN) does not match the current user" : "El nome común (CN) nun concasa col usuariu actual",
     "You are not allowed to remove the lock" : "Nun tienes permisu pa desaniciar el bloquéu",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nun tienes permisu pa editar el ficheru, asegúrate de bloquialu primero y d'unviar el pase correutu"
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nun tienes permisu pa editar el ficheru, asegúrate de bloquialu primero y d'unviar el pase correutu",
+    "Limit to groups" : "Llendar a grupos",
+    "Save" : "Guardar"
 },
 "nplurals=2; plural=(n != 1);");

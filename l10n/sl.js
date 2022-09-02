@@ -24,6 +24,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "Metapodatkov ni mogoče izbrisati",
     "End-to-End Encryption" : "Celovito šifriranje E2E",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Omogoča obvezne končne točke za celovito šifriranje.",
+    "Limit to groups" : "Omeji na skupine",
+    "Limit app usage to groups." : "Omeji uporabo programov za skupine.",
+    "Save" : "Shrani",
     "End-to-end encryption endpoint" : "Končna točka celovitega šifriranja E2E"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

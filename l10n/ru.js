@@ -24,6 +24,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "Не удалось удалить метаданные",
     "End-to-End Encryption" : "Сквозное шифрование",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Представляет необходимую конечную точку для использования сквозного шифрования.",
+    "Limit to groups" : "Разрешить использование только участникам этих групп",
+    "Limit app usage to groups." : "Разрешить использование только участникам этих групп.",
+    "Save" : "Сохранить",
     "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
     "End to end encryption" : "Оконечное шифрование"
 },
