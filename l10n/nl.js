@@ -24,6 +24,9 @@ OC.L10N.register(
     "Cannot delete metadata" : "Kan metadata niet verwijderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Levert de noodzakelijke functionaliteit voor end-to-end versleuteling.",
+    "Limit to groups" : "Beperk tot groepen",
+    "Limit app usage to groups." : "Beperkt gebruik programma tot groepen.",
+    "Save" : "Opslaan",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
     "End to end encryption" : "End to end encryptie"
 },
