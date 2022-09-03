@@ -19,6 +19,8 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Bara ägaren kan ta bort metadatafilen",
     "End-to-End Encryption" : "Ändpunkt-till-ändpunkt-kryptering",
     "Limit to groups" : "Begränsa till grupper",
+    "Limit app usage to groups." : "Begränsa appanvändning till grupper.",
+    "Save" : "Spara",
     "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt"
 },
 "nplurals=2; plural=(n != 1);");
