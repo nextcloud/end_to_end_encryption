@@ -16,6 +16,9 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "ファイルの編集が許可されていません。まずファイルをロックし、適切なトークンを送信してください",
     "Only the owner can delete the metadata-file" : "オーナーだけがメタデータファイルを削除できます",
     "End-to-End Encryption" : "End-to-End 暗号化",
+    "Limit to groups" : "グループに制限する",
+    "Limit app usage to groups." : "アプリの使用をグループに制限する",
+    "Save" : "保存",
     "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント"
 },
 "nplurals=1; plural=0;");
