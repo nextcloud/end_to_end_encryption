@@ -26,6 +26,7 @@ OC.L10N.register(
     "End-to-End encryption endpoint" : "端到端加密端點",
     "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。",
     "Limit to groups" : "限制於群組",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "選擇一或多個群組後，只有列出群組中的人可以使用端到端加密應用程式。",
     "Limit app usage to groups." : "將應用程式使用限制為群組。",
     "Save" : "保存",
     "Saved groups" : "已保存的群組",

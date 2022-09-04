@@ -26,6 +26,7 @@ OC.L10N.register(
     "End-to-End encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování.",
     "Limit to groups" : "Omezit na skupiny",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Pokud je vybrána alespoň jedna skupina, pak aplikaci pro šifrování mezi koncovými body mohou používat pouze lidé z uvedených skupin.",
     "Limit app usage to groups." : "Omezit používání aplikace na skupiny.",
     "Save" : "Uložit",
     "Saved groups" : "Uložené skupiny",

@@ -24,6 +24,7 @@
     "End-to-End encryption endpoint" : "Uçtan uca şifreleme uç noktası",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar.",
     "Limit to groups" : "Şu gruplarla sınırlansın",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "En az bir grup seçildiğinde, yalnızca belirtilen gruplardaki kişiler uçtan uca şifreleme uygulamasını kullanabilir.",
     "Limit app usage to groups." : "Uygulamayı belirli gruplar kullanabilsin.",
     "Save" : "Kaydet",
     "Saved groups" : "Kaydedilmiş gruplar",
