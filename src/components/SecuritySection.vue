@@ -32,9 +32,11 @@
 				class="modal"
 				@close="closeModal">
 				<div class="modal-container">
-					<p><strong>
-						{{ t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?') }}
-					</strong></p>
+					<p>
+						<strong>
+							{{ t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?') }}
+						</strong>
+					</p>
 					<div class="button-row">
 						<Button type="tertiary" @click="closeModal">
 							{{ t('end_to_end_encryption', "Cancel") }}
