@@ -24,6 +24,7 @@
     "End-to-End encryption endpoint" : "Punkt końcowy szyfrowania End-to-End",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie End-to-End.",
     "Limit to groups" : "Ogranicz dla grup",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "W przypadku wybrania co najmniej jednej grupy tylko osoby z wymienionych grup mogą korzystać z aplikacji do szyfrowania End-to-End.",
     "Limit app usage to groups." : " Ogranicz wykorzystanie aplikacji do wybranych grup.",
     "Save" : "Zapisz",
     "Saved groups" : "Zapisano grupy",
