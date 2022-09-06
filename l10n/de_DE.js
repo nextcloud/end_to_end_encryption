@@ -53,6 +53,8 @@ OC.L10N.register(
     "End to end encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Sie können sie mit den {productName} Clients einrichten.",
     "End to end keys reset" : "Zurücksetzen der End-to-End-Verschlüsselungsschlüssel",
-    "Unable to reset end to end encryption" : "Die Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden"
+    "Unable to reset end to end encryption" : "Die Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
+    "End to End Encryption" : "Ende-zu-Ende-Verschlüsselung",
+    "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "Wenn mindestens eine Gruppe ausgewählt ist, können nur Personen der aufgelisteten Gruppen die Ende-zu-Ende-Verschlüsselungs-App benutzen."
 },
 "nplurals=2; plural=(n != 1);");
