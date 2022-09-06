@@ -53,6 +53,8 @@ OC.L10N.register(
     "End to end encryption is currently enabled and correctly setup." : "Šifrování mezi koncovými body je v tuto chvíli zapnuté a správně nastavené.",
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
     "End to end keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
-    "Unable to reset end to end encryption" : "Nedaří se resetovat šifrování mezi koncovými body"
+    "Unable to reset end to end encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
+    "End to End Encryption" : "Šifrování mezi koncovými body",
+    "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "Když je vybrána alespoň jedna skupina, pak aplikaci pro šifrování mezi koncovými body mohou používat pouze lidé z uvedených skupin."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
