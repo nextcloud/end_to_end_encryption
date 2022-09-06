@@ -51,6 +51,8 @@
     "End to end encryption is currently enabled and correctly setup." : "端點對端點加密當前已啟用並正確設置。",
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "當前禁用端點對端點加密。您可以使用 {productName} 客戶端進行設置。",
     "End to end keys reset" : "端點對端點密鑰重設",
-    "Unable to reset end to end encryption" : "無法重置端點對端點加密"
+    "Unable to reset end to end encryption" : "無法重置端點對端點加密",
+    "End to End Encryption" : "端到端加密",
+    "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "選擇一或多個群組後，只有列出群組中的人可以使用端到端加密應用程式。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

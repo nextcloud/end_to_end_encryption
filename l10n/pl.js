@@ -53,6 +53,8 @@ OC.L10N.register(
     "End to end encryption is currently enabled and correctly setup." : "Szyfrowanie End-to-End jest obecnie włączone i poprawnie skonfigurowane.",
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Szyfrowanie typu End-to-End jest obecnie wyłączone. Możesz to skonfigurować z klientami {productName}.",
     "End to end keys reset" : "Resetowanie kluczy End-to-End",
-    "Unable to reset end to end encryption" : "Nie można zresetować szyfrowania End-to-End"
+    "Unable to reset end to end encryption" : "Nie można zresetować szyfrowania End-to-End",
+    "End to End Encryption" : "Szyfrowanie End-to-End",
+    "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "W przypadku wybrania co najmniej jednej grupy tylko osoby z wymienionych grup mogą korzystać z aplikacji do szyfrowania End-to-End."
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

@@ -53,6 +53,8 @@ OC.L10N.register(
     "End to end encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme şu anda etkin ve doğru şekilde ayarlanmış.",
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu anda devre dışı. {productName} istemcileriyle ayarlayabilirsiniz.",
     "End to end keys reset" : "Uçtan uca anahtarlarını sıfırlama",
-    "Unable to reset end to end encryption" : "Uçtan uca şifreleme sıfırlanamadı"
+    "Unable to reset end to end encryption" : "Uçtan uca şifreleme sıfırlanamadı",
+    "End to End Encryption" : "Uçtan Uca Şifreleme",
+    "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "En az bir grup seçildiğinde, yalnızca belirtilen gruplardaki kişiler uçtan uca şifreleme uygulamasını kullanabilir."
 },
 "nplurals=2; plural=(n > 1);");
