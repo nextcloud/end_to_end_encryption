@@ -53,6 +53,8 @@ OC.L10N.register(
     "End to end encryption is currently enabled and correctly setup." : "端到端加密目前已啟用並正確設定。",
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "端到端加密目前已停用。您可以使用 {productName} 客戶端進行設定。",
     "End to end keys reset" : "端到端加密金鑰重設",
-    "Unable to reset end to end encryption" : "無法重設端到端加密"
+    "Unable to reset end to end encryption" : "無法重設端到端加密",
+    "End to End Encryption" : "端到端加密",
+    "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "當至少選取一個群組時，僅列出的群組才可以使用端到端加密應用程式。"
 },
 "nplurals=1; plural=0;");
