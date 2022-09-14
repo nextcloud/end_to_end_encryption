@@ -28,6 +28,7 @@ OC.L10N.register(
     "Limit to groups" : "Auf Gruppen beschränken",
     "Limit app usage to groups." : "App-Verwendung auf Gruppen beschränken.",
     "Save" : "Speichern",
+    "Saved groups" : "Gespeicherte Gruppen",
     "End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung",
     "Reset End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Please read carefully before resetting your End-to-End encryption keys" : "Bitte vor dem Zurücksetzen deiner Schlüssel für die Ende-zu-Ende-Verschlüsselung sorgfältig lesen.",
@@ -38,12 +39,17 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Vorhandene verschlüsselte Dateien löschen",
     "This is the final warning: Do you really want to reset your keys?" : "Dies ist die letzte Warnung: Willst du deine Schlüssel wirklich zurücksetzen?",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten.",
+    "End-to-End encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
+    "Unable to reset End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
     "End to end encryption" : "Ende-zu-Ende Verschlüsselung",
+    "Reset end to end encryption" : "Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Please read carefully before resetting your end-to-end encryption keys" : "Bitte vor dem Zurücksetzen deiner Schlüssel für die Ende-zu-Ende-Verschlüsselung aufmerksam lesen.",
     "Once your end to end encryption keys are reset, all files stored in your encrypted folder will be inaccessible" : "Sobald deine Ende-zu-Ende-Verschlüsselungsschlüssel zurückgesetzt sind, sind alle in deinem verschlüsselten Ordner gespeicherten Dateien unzugänglich.",
     "You should only reset your end to end encryption keys if you lost your secure key words (mnemonic)" : "Du solltest deine Ende-zu-Ende-Verschlüsselungsschlüssel nur zurücksetzen, wenn du deine sicheren Schlüsselwörter (Gedächtnisstütze) verloren hast.",
     "Check on all connected devices if you can retrieve your mnemonic" : "Prüfe auf allen angeschlossenen Geräten, ob du deine Gedächtnishilfe abrufen kannst.",
-    "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten."
+    "End to end encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
+    "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten.",
+    "End to end keys reset" : "Zurücksetzen der Schlüssel der Ende-zu-Ende-Verschlüsselung"
 },
 "nplurals=2; plural=(n != 1);");
