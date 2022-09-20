@@ -28,6 +28,7 @@ OC.L10N.register(
     "Limit to groups" : "Mugatu taldeetara",
     "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei.",
     "Save" : "Gorde",
+    "Saved groups" : "Gordetako taldeak",
     "End-to-End encryption" : "Muturretik muturrerako zifratzea",
     "Reset End-to-End encryption" : "Berezarri muturretik muturrerako zifratzea",
     "Please read carefully before resetting your End-to-End encryption keys" : "Irakurri arretaz zure muturretik muturrerako zifratze gakoak berezarri aurretik mesedez",
@@ -51,6 +52,7 @@ OC.L10N.register(
     "End to end encryption is currently enabled and correctly setup." : "Muturretik muturrerako zifratzea gaituta eta ondo konfiguratuta dago.",
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Muturretik muturrerako zifratzea desgaituta dago. {productName} bezeroekin konfiguratu dezakezu.",
     "End to end keys reset" : "Muturretik muturrerako zifratze gakoen berezarpena",
-    "Unable to reset end to end encryption" : "Ezin izan da muturretik muturrerako zifratzea berezarri"
+    "Unable to reset end to end encryption" : "Ezin izan da muturretik muturrerako zifratzea berezarri",
+    "End to End Encryption" : "Muturretik muturrerako zifratzea"
 },
 "nplurals=2; plural=(n != 1);");
