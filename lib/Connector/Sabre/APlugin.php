@@ -100,8 +100,11 @@ abstract class APlugin extends ServerPlugin {
 	/**
 	 * Checks if the path is an E2E folder or inside an E2E folder
 	 */
-	protected function isE2EEnabledPath(\OCA\DAV\Connector\Sabre\Node $node): bool {
-		return $this->pathCache->isE2EEnabledPath($node->getNode());
+	protected function isE2EEnabledPath(INode $node): bool {
+		if ($node instanceof \OCA\DAV\Connector\Sabre\Node) {
+			return $this->pathCache->isE2EEnabledPath($node->getNode());
+		}
+		return false;
 	}
 
 	/**
