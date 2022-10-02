@@ -24,6 +24,7 @@
     "End-to-End encryption endpoint" : "Muturretik muturrerako zifratzearen amaiera-puntua",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko.",
     "Limit to groups" : "Mugatu taldeetara",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Gutxienez talde bat hautatuta badago, zerrendatutako taldeetako pertsonek soilik erabili dezakete muturretik muturrerako enkripzio aplikazioa.",
     "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei.",
     "Save" : "Gorde",
     "Saved groups" : "Gordetako taldeak",
