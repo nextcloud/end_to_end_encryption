@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2fbd48dc7f89198b5d7a6f2447a4064",
+    "content-hash": "b2ae3da39905e44dd2f1f30aa5ef784a",
     "packages": [],
     "packages-dev": [
         {
             "name": "christophwurst/nextcloud",
-            "version": "dev-master",
+            "version": "dev-stable25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristophWurst/nextcloud_composer.git",
-                "reference": "9f9f727cf66a75ece93cee24c01074a477e1615e"
+                "reference": "308bc78b8ccc9e21905562f38f4887f13ee5115a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristophWurst/nextcloud_composer/zipball/9f9f727cf66a75ece93cee24c01074a477e1615e",
-                "reference": "9f9f727cf66a75ece93cee24c01074a477e1615e",
+                "url": "https://api.github.com/repos/ChristophWurst/nextcloud_composer/zipball/308bc78b8ccc9e21905562f38f4887f13ee5115a",
+                "reference": "308bc78b8ccc9e21905562f38f4887f13ee5115a",
                 "shasum": ""
             },
             "require": {
@@ -27,11 +27,10 @@
                 "psr/event-dispatcher": "^1.0",
                 "psr/log": "^1.1"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "25.0.0-dev"
+                    "dev-master": "26.0.0-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -47,9 +46,10 @@
             "description": "Composer package containing Nextcloud's public API (classes, interfaces)",
             "support": {
                 "issues": "https://github.com/ChristophWurst/nextcloud_composer/issues",
-                "source": "https://github.com/ChristophWurst/nextcloud_composer/tree/master"
+                "source": "https://github.com/ChristophWurst/nextcloud_composer/tree/stable25"
             },
-            "time": "2022-08-18T02:33:31+00:00"
+            "abandoned": "nextcloud/ocp",
+            "time": "2022-10-01T02:54:25+00:00"
         },
         {
             "name": "composer/pcre",
