@@ -280,7 +280,7 @@ class MetaDataControllerTest extends TestCase {
 		return [
 			[false, null, null, null, false],
 			[true, null, OCSForbiddenException::class, 'You are not allowed to edit the file, make sure to first lock it, and then send the right token', false],
-			[false, new MissingMetaDataException(), OCSNotFoundException::class, 'Metadata-file doesn\'t exist', false],
+			[false, new MissingMetaDataException(), OCSNotFoundException::class, 'Metadata-file does not exist', false],
 			[false, new NotFoundException('Exception Message'), OCSNotFoundException::class, 'Exception Message', false],
 			[false, new \Exception(), OCSBadRequestException::class, 'Cannot store metadata', true],
 		];

@@ -131,7 +131,7 @@ class MetaDataController extends OCSController {
 		try {
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
 		} catch (MissingMetaDataException $e) {
-			throw new OCSNotFoundException($this->l10n->t('Metadata-file doesn\'t exist'));
+			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
 		} catch (\Exception $e) {
