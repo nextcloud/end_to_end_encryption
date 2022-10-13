@@ -23,10 +23,13 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Solo el propietario puede eliminar el archivo de metadatos",
     "Cannot delete metadata" : "No se pueden borrar los metadatos",
     "End-to-End Encryption" : "Cifrado Punto a Punto",
+    "End-to-End encryption endpoint" : "Extremo de cifrado de extremo a extremo",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto.",
     "Limit to groups" : "Límite a grupos",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Cuando se ha seleccionado al menos un grupo, solo personas de los grupos seleccionados pueden utilizar la aplicación de cifrado de extremo a extremo.",
     "Limit app usage to groups." : "Limitar uso de apps a grupos.",
     "Save" : "Guardar",
+    "Saved groups" : "Grupos guardados",
     "End-to-end encryption endpoint" : "Extremo de la encriptación punto a punto",
     "End to end encryption" : "Cifrado punto a punto"
 },
