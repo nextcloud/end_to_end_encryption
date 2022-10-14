@@ -17,13 +17,13 @@ OC.L10N.register(
     "Could not find metadata for \"%s\"" : "Kohteelle \"%s\" ei löytynyt metatietoja",
     "Cannot read metadata" : "Metatietoja ei voitu lukea",
     "Cannot store metadata" : "Metatietoja ei voitu tallettaa",
-    "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
     "Only the owner can delete the metadata-file" : "Vain omistaja voi poistaa metadatatiedoston",
     "Cannot delete metadata" : "Metatietoja ei voi poistaa",
     "End-to-End Encryption" : "Päästä päähän -salaus",
     "Limit to groups" : "Rajoita ryhmiin",
     "Limit app usage to groups." : "Rajoita sovelluksen käyttö ryhmiin.",
     "Save" : "Tallenna",
+    "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
     "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste"
 },
 "nplurals=2; plural=(n != 1);");

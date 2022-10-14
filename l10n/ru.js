@@ -19,7 +19,6 @@ OC.L10N.register(
     "Cannot read metadata" : "Не удалось прочитать метаданные",
     "Cannot store metadata" : "Не удалось сохранить метаданные",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не разрешено редактировать этот файл. Убедитесь, что файл заблокирован и отправьте верный маркер.",
-    "Metadata-file doesn't exist" : "Файл метаданных не существует",
     "Only the owner can delete the metadata-file" : "Удалить файл метаданных может только его владелец",
     "Cannot delete metadata" : "Не удалось удалить метаданные",
     "End-to-End Encryption" : "Сквозное шифрование",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Разрешить использование только участникам этих групп",
     "Limit app usage to groups." : "Разрешить использование только участникам этих групп.",
     "Save" : "Сохранить",
+    "Metadata-file doesn't exist" : "Файл метаданных не существует",
     "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
     "End to end encryption" : "Оконечное шифрование"
 },

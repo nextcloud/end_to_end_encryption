@@ -13,13 +13,13 @@
     "File not locked" : "Ficheiro sen bloquear",
     "Could not find metadata for \"%s\"" : "Non foi posíbel atopar os metadatos para «%s»",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Non ten permiso para editar o ficheiro, asegúrese primeiro de bloquealo, e a seguir envíe o testemuño correcto",
-    "Metadata-file doesn't exist" : "Non existe o ficheiro de metadatos",
     "Only the owner can delete the metadata-file" : "Só o propietario pode eliminar o ficheiro de metadatos ",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto necesario para activar o cifrado de extremo a extremo.",
     "Limit to groups" : "Límite para grupos",
     "Limit app usage to groups." : "Limitar o uso de aplicacións a grupos",
     "Save" : "Gardar",
+    "Metadata-file doesn't exist" : "Non existe o ficheiro de metadatos",
     "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
