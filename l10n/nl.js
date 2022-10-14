@@ -19,7 +19,6 @@ OC.L10N.register(
     "Cannot read metadata" : "Kan metadata niet lezen",
     "Cannot store metadata" : "Kan metadata niet opslaan",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Je mag het bestand niet bewerken. Zet het eerst op slot en stuur dan het juiste token",
-    "Metadata-file doesn't exist" : "Metadata-bestand bestaat niet",
     "Only the owner can delete the metadata-file" : "Alleen de eigenaar kan het metadatabestand wissen",
     "Cannot delete metadata" : "Kan metadata niet verwijderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Beperk tot groepen",
     "Limit app usage to groups." : "Beperkt gebruik programma tot groepen.",
     "Save" : "Opslaan",
+    "Metadata-file doesn't exist" : "Metadata-bestand bestaat niet",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
     "End to end encryption" : "End to end encryptie"
 },
