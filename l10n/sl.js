@@ -19,7 +19,6 @@ OC.L10N.register(
     "Cannot read metadata" : "Metapodatkov ni mogoče prebrati",
     "Cannot store metadata" : "Metapodatkov ni mogoče shraniti",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Za urejanje te datoteke ni ustreznih dovoljen,. Najprej je treba datoteko zakleniti in nato poslati pravi žeton.",
-    "Metadata-file doesn't exist" : "Datoteka metapodatkov ne obstaja",
     "Only the owner can delete the metadata-file" : "Le lastnik lahko izbriše datoteko metapodatkov",
     "Cannot delete metadata" : "Metapodatkov ni mogoče izbrisati",
     "End-to-End Encryption" : "Celovito šifriranje E2E",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Omeji na skupine",
     "Limit app usage to groups." : "Omeji uporabo programov za skupine.",
     "Save" : "Shrani",
+    "Metadata-file doesn't exist" : "Datoteka metapodatkov ne obstaja",
     "End-to-end encryption endpoint" : "Končna točka celovitega šifriranja E2E"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

@@ -17,7 +17,6 @@
     "Cannot read metadata" : "Impossìbile a lèghere is metadatos",
     "Cannot store metadata" : "Impossìbile a regòllere is metadatos",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Non tenes su permissu de modificare s'archìviu, in antis assegura·ti de ddu blocare, a pustis imbia s'autenticadore giustu",
-    "Metadata-file doesn't exist" : "S'archìviu metadatos no esistit",
     "Only the owner can delete the metadata-file" : "Isceti sa persone proprietària podet cantzellare s'archìviu metadatos",
     "Cannot delete metadata" : "Impossìbile a cantzellare metadatos",
     "End-to-End Encryption" : "Critografia a nodu terminale",
@@ -25,6 +24,7 @@
     "Limit to groups" : "Lìmita a grupos",
     "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos.",
     "Save" : "Sarva",
+    "Metadata-file doesn't exist" : "S'archìviu metadatos no esistit",
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
