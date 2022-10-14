@@ -19,7 +19,6 @@ OC.L10N.register(
     "Cannot read metadata" : "Impossible de lire les métadonnées",
     "Cannot store metadata" : "Impossible d'enregistrer les métadonnées",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vous n'êtes pas autorisé à modifier le fichier, assurez-vous d'abord de le verrouiller puis d'envoyer le jeton adéquat",
-    "Metadata-file doesn't exist" : "Le fichier de métadonnées n'existe pas",
     "Only the owner can delete the metadata-file" : "Seul le propriétaire peut supprimer le fichier de méta-données",
     "Cannot delete metadata" : "Impossible de supprimer les métadonnées",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
@@ -42,6 +41,7 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Le chiffrement de bout en bout est actuellement désactivé. Vous pouvez le configurer avec les clients {productName}.",
     "End-to-End encryption keys reset" : "Réinitialisation des clés de chiffrement de bout en bout",
     "Unable to reset End-to-End encryption" : "Impossible de réinitialiser le chiffrement de bout en bout",
+    "Metadata-file doesn't exist" : "Le fichier de métadonnées n'existe pas",
     "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
     "End to end encryption" : "Chiffrement de bout en bout",
     "End to End Encryption" : "Chiffrement de bout en bout"

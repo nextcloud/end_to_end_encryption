@@ -19,7 +19,6 @@ OC.L10N.register(
     "Cannot read metadata" : "Kan ikke læse metadata",
     "Cannot store metadata" : "Kan ikke gemme metadata",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke adgang til at redigere filen - sørg for først at låse den, og send så den rette nøgle",
-    "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke",
     "Only the owner can delete the metadata-file" : "Kun ejeren kan slette metadata-filen",
     "Cannot delete metadata" : "Kan ikke slette metadata",
     "End-to-End Encryption" : "End-to-End-kryptering",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Begræns til grupper",
     "Limit app usage to groups." : "Begræns app-brug til grupper.",
     "Save" : "Gem",
+    "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke",
     "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");
