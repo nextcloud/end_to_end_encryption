@@ -19,6 +19,7 @@ OC.L10N.register(
     "Cannot read metadata" : "Metadaten können nicht gelesen werden",
     "Cannot store metadata" : "Metadaten können nicht gespeichert werden",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Sie sind nicht berechtigt, die Datei zu bearbeiten. Stellen Sie sicher, dass Sie sie zuerst sperren und das richtige Token senden.",
+    "Metadata-file does not exist" : "Metadaten-Datei existiert nicht",
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
     "Cannot delete metadata" : "Metadaten können nicht gelöscht werden",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
