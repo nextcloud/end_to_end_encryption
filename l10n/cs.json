@@ -17,6 +17,7 @@
     "Cannot read metadata" : "Nedaří se číst metadata",
     "Cannot store metadata" : "Nedaří se uložit metadata ",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Není vám umožněno soubor upravovat – nejprve ho zamkněte a pak odešlete správný token",
+    "Metadata-file does not exist" : "Soubor s metadaty neexistuje ",
     "Only the owner can delete the metadata-file" : "Pouze jeho vlastník může smazat metadata-file",
     "Cannot delete metadata" : "Nedaří se smazat metadata",
     "End-to-End Encryption" : "Šifrování mezi koncovými body",

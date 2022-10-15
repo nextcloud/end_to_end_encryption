@@ -17,6 +17,7 @@
     "Cannot read metadata" : "無法讀取詮釋資料",
     "Cannot store metadata" : "無法儲存詮釋資料",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "您不被允許編輯檔案，請確認有先鎖定檔案然後傳送正確的符記",
+    "Metadata-file does not exist" : "詮釋資料檔案不存在",
     "Only the owner can delete the metadata-file" : "只有擁有者可以刪除詮釋資料檔案",
     "Cannot delete metadata" : "無法刪除詮釋資料",
     "End-to-End Encryption" : "終端對終端的加密",

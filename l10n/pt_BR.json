@@ -17,6 +17,7 @@
     "Cannot read metadata" : "Não é possível ler metadados ",
     "Cannot store metadata" : "Não é possível armazenar metadados ",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Você não tem permissão para editar o arquivo. Certifique-se de bloqueá-lo e então envie o token correto",
+    "Metadata-file does not exist" : "Arquivo de metadados não existe",
     "Only the owner can delete the metadata-file" : "Somente o proprietário pode excluir o arquivo de metadados",
     "Cannot delete metadata" : "Não é possível excluir metadados ",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",

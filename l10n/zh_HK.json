@@ -17,6 +17,7 @@
     "Cannot read metadata" : "無法讀取元數據",
     "Cannot store metadata" : "無法儲存元數據",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "您無權編輯該文件。請先鎖定它，然後發送正確的權杖",
+    "Metadata-file does not exist" : "元數據檔案不存在",
     "Only the owner can delete the metadata-file" : "只有擁有者可以刪除元數據檔案",
     "Cannot delete metadata" : "無法刪除元數據",
     "End-to-End Encryption" : "端到端加密",
