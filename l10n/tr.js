@@ -19,6 +19,7 @@ OC.L10N.register(
     "Cannot read metadata" : "Üst veri okunamadı",
     "Cannot store metadata" : "Üst veri kaydedilemedi",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Dosyayı düzenleme izniniz yok, önce dosyayı kilitlediğinizden emin olun ve sonra doğru kodu gönderin",
+    "Metadata-file does not exist" : "Üst veri dosyası bulunamadı",
     "Only the owner can delete the metadata-file" : "Üst veri dosyasını yalnızca sahibi silebilir",
     "Cannot delete metadata" : "Üst veri silinemedi",
     "End-to-End Encryption" : "Uçtan uca şifreleme",
