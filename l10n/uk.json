@@ -7,6 +7,8 @@
     "Could not find the public key belonging to the user %s" : "Не вдалося знайти відкритий ключ користувача %s",
     "Common name (CN) does not match the current user" : "Поле \"Common name (CN)\" не відповідає поточному користувачеві",
     "Could not find the public key belonging to %s" : "Не вдалося знайти відкритий ключ, що належить %s",
+    "File already locked" : "Файл вже заблоковано",
+    "File not locked" : "Файл не заблоковано",
     "Could not find metadata for \"%s\"" : "Не вдалося знайти метадані для \"%s\"",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не дозволяється редагувати файл. Переконайтесь що файл заблокований, а потім надішліть потрібний токен",
     "End-to-End Encryption" : "Наскрізне шифрування",
