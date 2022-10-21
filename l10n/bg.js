@@ -19,6 +19,7 @@ OC.L10N.register(
     "Cannot read metadata" : "Не е възможно четене на метаданните",
     "Cannot store metadata" : "Не е възможно съхраняване на метаданните",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Нямате право да редактирате файла, не забравяйте първо да го заключите и след това да изпратите правилния токен",
+    "Metadata-file does not exist" : "Файл с метаданни не съществува",
     "Only the owner can delete the metadata-file" : "Само собственикът може да изтрие файл с метаданни",
     "Cannot delete metadata" : "Метаданните не могат да бъдат изтрити",
     "End-to-End Encryption" : "Цялостно Криптиране",
