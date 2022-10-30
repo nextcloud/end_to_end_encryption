@@ -17,6 +17,7 @@
     "Cannot read metadata" : "No se pueden leer los metadatos",
     "Cannot store metadata" : "No se pueden almacenar los metadatos",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No se te permite editar el archivo, asegúrate primero de bloquearlo y, después, envía el token correcto",
+    "Metadata-file does not exist" : "El archivo de Metadatos no existe",
     "Only the owner can delete the metadata-file" : "Solo el propietario puede eliminar el archivo de metadatos",
     "Cannot delete metadata" : "No se pueden borrar los metadatos",
     "End-to-End Encryption" : "Cifrado Punto a Punto",
