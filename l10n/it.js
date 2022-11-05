@@ -19,7 +19,6 @@ OC.L10N.register(
     "Cannot read metadata" : "Impossibile leggere i metadati",
     "Cannot store metadata" : "Impossibile archiviare i metadati",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Non ti è consentito modificare il file, assicurati di bloccarlo prima e invia il token corretto",
-    "Metadata-file doesn't exist" : "Il file dei metadati non esiste",
     "Only the owner can delete the metadata-file" : "Solo il proprietario può eliminare il file dei metadati",
     "Cannot delete metadata" : "Impossibile eliminare i metadati",
     "End-to-End Encryption" : "Cifratura End-To-End",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Limita a gruppi",
     "Limit app usage to groups." : "Limita utilizzo delle applicazioni a gruppi.",
     "Save" : "Salva",
+    "Metadata-file doesn't exist" : "Il file dei metadati non esiste",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
     "End to end encryption" : "Cifratura End to End"
 },

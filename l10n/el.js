@@ -19,7 +19,6 @@ OC.L10N.register(
     "Cannot read metadata" : "Αδυναμία ανάγνωσης μεταδεδομένων",
     "Cannot store metadata" : "Αδυναμία αποθήκευσης μεταδεδομένων",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Δεν επιτρέπεται να επεξεργαστείτε το αρχείο, σιγουρευτείτε πως το κλειδώσατε πρώτα και στείλατε το σωστό αναγνωριστικό",
-    "Metadata-file doesn't exist" : "Το αρχείο μεταδεδομένων δεν υπάρχει",
     "Only the owner can delete the metadata-file" : "Μόνο ο κάτοχος μπορεί να διαγράψει τα μεταδεδομένα-αρχείου",
     "Cannot delete metadata" : "Αδυναμία διαγραφής μεταδεδομένων",
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
@@ -27,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Περιορισμός σε ομάδες",
     "Limit app usage to groups." : "Περιορισμός χρήσης της εφαρμογής σε ομάδες.",
     "Save" : "Αποθήκευση",
+    "Metadata-file doesn't exist" : "Το αρχείο μεταδεδομένων δεν υπάρχει",
     "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο"
 },
 "nplurals=2; plural=(n != 1);");

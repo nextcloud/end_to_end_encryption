@@ -15,12 +15,12 @@ OC.L10N.register(
     "File not locked" : "Fil inte låst",
     "Could not find metadata for \"%s\"" : "Kunde inte hitta metadata för \"%s\"",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du tillåts inte redigera filen, se till att först låsa den och sedan skicka rätt token",
-    "Metadata-file doesn't exist" : "Metadatafil finns inte",
     "Only the owner can delete the metadata-file" : "Bara ägaren kan ta bort metadatafilen",
     "End-to-End Encryption" : "Ändpunkt-till-ändpunkt-kryptering",
     "Limit to groups" : "Begränsa till grupper",
     "Limit app usage to groups." : "Begränsa appanvändning till grupper.",
     "Save" : "Spara",
+    "Metadata-file doesn't exist" : "Metadatafil finns inte",
     "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt"
 },
 "nplurals=2; plural=(n != 1);");

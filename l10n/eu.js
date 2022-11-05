@@ -19,13 +19,13 @@ OC.L10N.register(
     "Cannot read metadata" : "Ezin dira metadatuak irakurri",
     "Cannot store metadata" : "Ezin dira metadatuak gorde",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Ezin duzu fitxategian ezer idatzi, blokeatu ezazu lehenengo eta gero bidali token zuzena.",
-    "Metadata-file doesn't exist" : "Metadatuen fitxategia ez dago",
     "Only the owner can delete the metadata-file" : "Jabeak bakarrik ezabatu dezake metadatuen fitxategia",
     "Cannot delete metadata" : "Ezin da metadaturik ezabatu",
     "End-to-End Encryption" : "Muturretik muturrerako zifratzea",
     "End-to-End encryption endpoint" : "Muturretik muturrerako zifratzearen amaiera-puntua",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko.",
     "Limit to groups" : "Mugatu taldeetara",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Gutxienez talde bat hautatuta badago, zerrendatutako taldeetako pertsonek soilik erabili dezakete muturretik muturrerako enkripzio aplikazioa.",
     "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei.",
     "Save" : "Gorde",
     "Saved groups" : "Gordetako taldeak",
@@ -42,6 +42,7 @@ OC.L10N.register(
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Muturretik muturrerako zifratzea desgaituta dago. {productName} bezeroekin konfiguratu dezakezu.",
     "End-to-End encryption keys reset" : "Muturretik muturrerako zifratze gakoak berezarrita",
     "Unable to reset End-to-End encryption" : "Ezin izan da muturretik muturrerako zifratzea berezarri",
+    "Metadata-file doesn't exist" : "Metadatuen fitxategia ez dago",
     "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
     "End to end encryption" : "Muturretik muturrerako zifratzea",
     "Reset end to end encryption" : "Berezarri muturretik muturrerako zifratzea",
@@ -53,6 +54,7 @@ OC.L10N.register(
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Muturretik muturrerako zifratzea desgaituta dago. {productName} bezeroekin konfiguratu dezakezu.",
     "End to end keys reset" : "Muturretik muturrerako zifratze gakoen berezarpena",
     "Unable to reset end to end encryption" : "Ezin izan da muturretik muturrerako zifratzea berezarri",
-    "End to End Encryption" : "Muturretik muturrerako zifratzea"
+    "End to End Encryption" : "Muturretik muturrerako zifratzea",
+    "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "Gutxienez talde bat hautatuta badago, zerrendatutako taldeetako pertsonek soilik erabili dezakete muturretik muturrerako enkripzio aplikazioa."
 },
 "nplurals=2; plural=(n != 1);");

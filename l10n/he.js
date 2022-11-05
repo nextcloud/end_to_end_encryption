@@ -15,13 +15,13 @@ OC.L10N.register(
     "File not locked" : "הקובץ לא נעול",
     "Could not find metadata for \"%s\"" : "לא ניתן למצוא נתונים על „%s”",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "אין לך הרשאה לערוך את הקובץ, נא לוודא לנעול אותו תחילה ולאחר מכן לשלוח את האסימון הנכון.",
-    "Metadata-file doesn't exist" : "קובץ נתוני העל לא קיים",
     "Only the owner can delete the metadata-file" : "רק הבעלים יכול למחוק את קובץ נתוני העל",
     "End-to-End Encryption" : "הצפנה מקצה לקצה",
     "Provides the necessary endpoint to enable end-to-end encryption." : "מספק את נקודת הקצה הנוכחית כדי להפעיל הצפנה מקצה לקצה.",
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups." : "להגביל את השימוש ביישומון לקבוצות.",
     "Save" : "שמירה",
+    "Metadata-file doesn't exist" : "קובץ נתוני העל לא קיים",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");
