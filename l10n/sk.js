@@ -19,6 +19,7 @@ OC.L10N.register(
     "Cannot read metadata" : "Metadáta nie je možné načítať",
     "Cannot store metadata" : "Metadáta nie je možné uložiť",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nieste oprávnený upraviť tento súbor, najskôr ho zamknite a potom pošlite správny token. ",
+    "Metadata-file does not exist" : "Súbor s meta údajmi neexistuje",
     "Only the owner can delete the metadata-file" : "Iba vlastník môže zmazať súbor s metadátami",
     "Cannot delete metadata" : "Metadáta nie je možné odstrániť",
     "End-to-End Encryption" : "Šifrovanie po celej dĺžke spojenia",
