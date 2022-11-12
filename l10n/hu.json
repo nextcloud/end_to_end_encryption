@@ -17,6 +17,7 @@
     "Cannot read metadata" : "A metaadatok nem olvashatók",
     "Cannot store metadata" : "A metaadatok nem tárolhatók",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nincs jogosultsága a fájl szerkesztéséhez. Először zárolnia kell, majd el kell küldenie a megfelelő tokent.",
+    "Metadata-file does not exist" : "A metaadatfájl nem létezik",
     "Only the owner can delete the metadata-file" : "A metaadatfájlt csak a tulajdonosa törölheti",
     "Cannot delete metadata" : "A metaadatok nem törölhetők",
     "End-to-End Encryption" : "Végpontok közötti titkosítás",
