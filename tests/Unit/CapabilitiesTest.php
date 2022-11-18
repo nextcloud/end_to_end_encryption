@@ -29,7 +29,6 @@ use OCA\EndToEndEncryption\IKeyStorage;
 use Test\TestCase;
 use OCP\IUserSession;
 use OCP\IUser;
-use function PHPUnit\Framework\any;
 
 class CapabilitiesTest extends TestCase {
 	private Capabilities $capabilities;
