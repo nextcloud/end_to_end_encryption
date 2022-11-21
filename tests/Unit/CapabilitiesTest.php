@@ -25,6 +25,7 @@ namespace OCA\EndToEndEncryption\Tests\Unit;
 
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Config;
+use OCA\EndToEndEncryption\IKeyStorage;
 use Test\TestCase;
 use OCP\IUserSession;
 use OCP\IUser;
@@ -35,15 +36,19 @@ class CapabilitiesTest extends TestCase {
 	private $userSession;
 	/** @var Config */
 	private $config;
+	/** @var IKeyStorage */
+	private $keyStorage;
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->config = $this->createMock(Config::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->keyStorage = $this->createMock(IKeyStorage::class);
 		$this->capabilities = new Capabilities(
 			$this->config,
-			$this->userSession
+			$this->userSession,
+			$this->keyStorage
 		);
 	}
 
@@ -52,14 +57,26 @@ class CapabilitiesTest extends TestCase {
 		$this->userSession->expects($this->once())
 			->method('getUser')
 			->willReturn($user);
+		$user
+			->method('getUID')
+			->willReturn("test");
 		$this->config->expects($this->once())
 			->method('isDisabledForUser')
 			->with($user)
 			->willReturn(false);
+		$this->keyStorage->expects($this->once())
+			->method('publicKeyExists')
+			->with("test")
+			->willReturn(true);
+		$this->keyStorage->expects($this->once())
+			->method('privateKeyExists')
+			->with("test")
+			->willReturn(true);
 		$this->assertEquals([
 			'end-to-end-encryption' => [
 				'enabled' => true,
 				'api-version' => '1.1',
+				'keys-exist' => true
 			]
 		], $this->capabilities->getCapabilities());
 	}

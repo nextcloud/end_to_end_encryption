@@ -3,7 +3,6 @@
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2017 Bjoern Schiessle <bjoern@schiessle.org>
- * @copyright Copyright (c) 2022 Carl Schwan <carl@carlschwan.eu>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -32,10 +31,12 @@ use OCP\Capabilities\ICapability;
 class Capabilities implements ICapability {
 	private Config $config;
 	private IUserSession $userSession;
+	private IKeyStorage $keyStorage;
 
-	public function __construct(Config $config, IUserSession $userSession) {
+	public function __construct(Config $config, IUserSession $userSession, IKeyStorage $keyStorage) {
 		$this->config = $config;
 		$this->userSession = $userSession;
+		$this->keyStorage = $keyStorage;
 	}
 
 	public function getCapabilities(): array {
@@ -44,10 +45,14 @@ class Capabilities implements ICapability {
 			return [];
 		}
 
+		$keysExist = $this->keyStorage->publicKeyExists($user->getUID()) &&
+			$this->keyStorage->privateKeyExists($user->getUID());
+
 		$capabilities = ['end-to-end-encryption' =>
 			[
 				'enabled' => true,
 				'api-version' => '1.1',
+				'keys-exist' => $keysExist,
 			]
 		];
 
