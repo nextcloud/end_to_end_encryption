@@ -44,6 +44,7 @@ OC.L10N.register(
     "Metadata-file doesn't exist" : "Le fichier de métadonnées n'existe pas",
     "End-to-end encryption endpoint" : "Endpoint de chiffrement de bout en bout",
     "End to end encryption" : "Chiffrement de bout en bout",
+    "Reset end to end encryption" : "Réinitialiser le chiffrement de bout en bout",
     "End to End Encryption" : "Chiffrement de bout en bout"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
