@@ -22,10 +22,11 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Metaduomenų failą gali ištrinti tik savininkas",
     "Cannot delete metadata" : "Nepavyksta ištrinti metaduomenų",
     "End-to-End Encryption" : "Ištisinis šifravimas",
+    "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas",
     "Limit to groups" : "Apriboti iki grupių",
     "Save" : "Įrašyti",
+    "End-to-end encryption" : "Ištisinis šifravimas",
     "Metadata-file doesn't exist" : "Metaduomenų failo nėra",
-    "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas",
     "End to end encryption" : "Ištisinis šifravimas",
     "Reset end to end encryption" : "Atstatyti ištisinį šifravimą",
     "Unable to reset end to end encryption" : "Nepavyko atstatyti ištisinio šifravimo"

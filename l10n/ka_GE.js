@@ -18,6 +18,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "End-to-End შიფრაცია",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Save" : "შენახვა",
+    "End-to-end encryption" : "End-to-end შიფრაცია",
     "End to end encryption" : "End to end შიფრაცია"
 },
 "nplurals=2; plural=(n!=1);");

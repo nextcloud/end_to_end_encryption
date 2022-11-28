@@ -22,11 +22,12 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "Cannot delete metadata" : "No se pueden borrar los metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
+    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto.",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
+    "End-to-end encryption" : "Encripción de punta-a-punta",
     "Metadata-file doesn't exist" : "Archivo-Metadatos no existe",
-    "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
     "End to end encryption" : "Encripción punto-a-punto"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
