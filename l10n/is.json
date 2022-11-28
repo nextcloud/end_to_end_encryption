@@ -15,11 +15,12 @@
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Þú hefur ekki heimild til að breyta skránni, gakktu úr skugga um að læsa henni fyrst, og síðan að senda rétt teikn",
     "Only the owner can delete the metadata-file" : "Aðeins eigandinn getur eytt lýsigagnaskránni",
     "End-to-End Encryption" : "Enda-í-enda dulritun",
+    "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun.",
     "Limit to groups" : "Takmarka við hópa",
     "Limit app usage to groups." : "Takmarka notkun forrits við tiltekna hópa.",
     "Save" : "Vista",
-    "Metadata-file doesn't exist" : "Lýsigögn eru ekki til staðar",
-    "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun"
+    "End-to-end encryption" : "Enda-í-enda dulritun",
+    "Metadata-file doesn't exist" : "Lýsigögn eru ekki til staðar"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }

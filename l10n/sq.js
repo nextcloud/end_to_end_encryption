@@ -6,6 +6,7 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "Nuk je i lejuar të fshish kyçjen",
     "File not locked" : "Skedari nuk është i kyçur",
     "Limit to groups" : "Kufizo grupet",
-    "Save" : "Ruaj"
+    "Save" : "Ruaj",
+    "End-to-end encryption" : "Enkriptim end-to-end "
 },
 "nplurals=2; plural=(n != 1);");
