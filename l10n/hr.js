@@ -22,11 +22,12 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Samo vlasnik može izbrisati datoteku s metapodacima",
     "Cannot delete metadata" : "Brisanje metapodataka nije moguće",
     "End-to-End Encryption" : "Cjelovito šifriranje",
+    "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Osigurava potrebnu krajnju točku za omogućavanje cjelovitog šifriranja.",
     "Limit to groups" : "Ograniči na grupe",
     "Limit app usage to groups." : "Ograničite primjenu aplikacije na grupe.",
     "Save" : "Spremi",
-    "Metadata-file doesn't exist" : "Datoteka s metapodacima ne postoji",
-    "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja"
+    "End-to-end encryption" : "Cjelovito šifriranje",
+    "Metadata-file doesn't exist" : "Datoteka s metapodacima ne postoji"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

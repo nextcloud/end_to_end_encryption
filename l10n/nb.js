@@ -19,6 +19,7 @@ OC.L10N.register(
     "Limit to groups" : "Begrens til grupper",
     "Limit app usage to groups." : "Begrens app-bruk til grupper",
     "Save" : "Lagre",
+    "End-to-end encryption" : "Ende-til-ende -kryptering",
     "End to end encryption" : "Ende-til-ende -kryptering"
 },
 "nplurals=2; plural=(n != 1);");

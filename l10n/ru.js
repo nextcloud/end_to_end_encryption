@@ -22,12 +22,13 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Удалить файл метаданных может только его владелец",
     "Cannot delete metadata" : "Не удалось удалить метаданные",
     "End-to-End Encryption" : "Сквозное шифрование",
+    "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Представляет необходимую конечную точку для использования сквозного шифрования.",
     "Limit to groups" : "Разрешить использование только участникам этих групп",
     "Limit app usage to groups." : "Разрешить использование только участникам этих групп.",
     "Save" : "Сохранить",
+    "End-to-end encryption" : "Сквозное шифрование",
     "Metadata-file doesn't exist" : "Файл метаданных не существует",
-    "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
     "End to end encryption" : "Оконечное шифрование"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

@@ -15,10 +15,11 @@
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du tillåts inte redigera filen, se till att först låsa den och sedan skicka rätt token",
     "Only the owner can delete the metadata-file" : "Bara ägaren kan ta bort metadatafilen",
     "End-to-End Encryption" : "Ändpunkt-till-ändpunkt-kryptering",
+    "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt",
     "Limit to groups" : "Begränsa till grupper",
     "Limit app usage to groups." : "Begränsa appanvändning till grupper.",
     "Save" : "Spara",
-    "Metadata-file doesn't exist" : "Metadatafil finns inte",
-    "End-to-end encryption endpoint" : "End-to-end-krypteringsslutpunkt"
+    "End-to-end encryption" : "Ändpunkt-till-ändpunkt-kryptering",
+    "Metadata-file doesn't exist" : "Metadatafil finns inte"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
