@@ -15,12 +15,13 @@
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Немате права да измените овај фајл, будите сигурни да сте га прво закључали, а онда пошаљите исправни токен",
     "Only the owner can delete the metadata-file" : "Само власник може обрисати фајл метаподатака",
     "End-to-End Encryption" : "Шифровање са краја на крај",
+    "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај.",
     "Limit to groups" : "Ограничи на групе",
     "Limit app usage to groups." : "Ограничи коришћење апликације на групе.",
     "Save" : "Сачувај",
+    "End-to-end encryption" : "Шифровање са краја на крај",
     "Metadata-file doesn't exist" : "Фајл метаподатака не постоји",
-    "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
     "End to end encryption" : "Шифровање са краја на крај"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }

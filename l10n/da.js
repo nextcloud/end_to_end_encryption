@@ -22,11 +22,12 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Kun ejeren kan slette metadata-filen",
     "Cannot delete metadata" : "Kan ikke slette metadata",
     "End-to-End Encryption" : "End-to-End-kryptering",
+    "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Giver det nødvendige slutpunkt for at aktivere ende-til-ende-kryptering.",
     "Limit to groups" : "Begræns til grupper",
     "Limit app usage to groups." : "Begræns app-brug til grupper.",
     "Save" : "Gem",
-    "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke",
-    "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
+    "End-to-end encryption" : "End-to-end kryptering",
+    "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke"
 },
 "nplurals=2; plural=(n != 1);");
