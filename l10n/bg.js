@@ -30,6 +30,7 @@ OC.L10N.register(
     "Limit app usage to groups." : "Ограничаване използването на приложението от групи.",
     "Save" : "Запиши",
     "Saved groups" : "Записани групи",
+    "End-to-end encryption" : "Криптиране",
     "Please read carefully before resetting your end-to-end encryption keys" : "Моля, прочетете внимателно, преди да възстановите вашите ключове за цялостно криптиране",
     "Check on all connected devices if you can retrieve your mnemonic." : "Проверете на всички свързани устройства дали можете да извлечете вашата мнемоника.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Всяко устройство, което все още е свързано, може да причини проблеми след изтриването на ключовете, така че е по-добре да прекъснете връзката и по късно отново да свържете отново устройствата.",
