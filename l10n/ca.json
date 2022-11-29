@@ -27,6 +27,7 @@
     "Limit app usage to groups." : "Limita l'ús de l'aplicació només pels grups.",
     "Save" : "Desa",
     "Saved groups" : "Grups guardats",
+    "End-to-end encryption" : "Xifratge d'extrem a extrem",
     "Please read carefully before resetting your end-to-end encryption keys" : "Si us plau, llegiu atentament abans de restablir les vostres claus de xifratge d'extrem a extrem",
     "Check on all connected devices if you can retrieve your mnemonic." : "Comproveu a tots els dispositius connectats si podeu recuperar el vostre recordatori.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Qualsevol dispositiu encara connectat pot causar problemes després de suprimir les claus, per la qual cosa és millor desconnectar i tornar a connectar els dispositius.",
