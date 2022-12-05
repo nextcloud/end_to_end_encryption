@@ -38,7 +38,7 @@
     "Delete existing encrypted files" : "Vorhandene verschlüsselte Dateien löschen",
     "This is the final warning: Do you really want to reset your keys?" : "Dies ist die letzte Warnung: Wollen Sie Ihre Schlüssel wirklich zurücksetzen?",
     "End-to-end encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
-    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Sie können es mit den {productName}-Clients einrichten.",
+    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Sie können sie mit den {productName}-Clients einrichten.",
     "End-to-end encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Unable to reset end-to-end encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
     "Metadata-file doesn't exist" : "Metadaten-Datei existiert nicht",
