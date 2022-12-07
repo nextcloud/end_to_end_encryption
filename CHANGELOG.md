@@ -1,4 +1,4 @@
-## Release 1.11.0-beta.1
+## Release 1.11.0
 
 - Compatibility with NC 25
 - Large performance improvement in the dav plugins
