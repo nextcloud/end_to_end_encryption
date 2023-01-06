@@ -95,7 +95,7 @@ class LockingController extends OCSController {
 
 		if ($userFolder->getId() === $id) {
 			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
-			$this->logger->error($e->getMessage(), ['exception' => $e])
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
 			throw $e;
 		}
 
