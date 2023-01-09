@@ -70,6 +70,7 @@ class LockingController extends OCSController {
 		$this->rootFolder = $rootFolder;
 		$this->fileService = $fileService;
 		$this->lockManager = $lockManager;
+		$this->logger = $logger;
 		$this->l10n = $l10n;
 	}
 
