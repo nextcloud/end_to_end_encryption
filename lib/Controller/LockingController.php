@@ -43,6 +43,7 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 
 class LockingController extends OCSController {
 	private ?string $userId;
@@ -51,6 +52,7 @@ class LockingController extends OCSController {
 	private FileService $fileService;
 	private LockManager $lockManager;
 	private IL10N $l10n;
+	private LoggerInterface $logger;
 
 	public function __construct(string $AppName,
 								IRequest $request,
@@ -59,6 +61,7 @@ class LockingController extends OCSController {
 								LockManager $lockManager,
 								IRootFolder $rootFolder,
 								FileService $fileService,
+								LoggerInterface $logger,
 								IL10N $l10n
 	) {
 		parent::__construct($AppName, $request);
@@ -67,6 +70,7 @@ class LockingController extends OCSController {
 		$this->rootFolder = $rootFolder;
 		$this->fileService = $fileService;
 		$this->lockManager = $lockManager;
+		$this->logger = $logger;
 		$this->l10n = $l10n;
 	}
 
@@ -88,6 +92,12 @@ class LockingController extends OCSController {
 			$userFolder = $this->rootFolder->getUserFolder($this->userId);
 		} catch (NoUserException $e) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
+		if ($userFolder->getId() === $id) {
+			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			throw $e;
 		}
 
 		$nodes = $userFolder->getById($id);

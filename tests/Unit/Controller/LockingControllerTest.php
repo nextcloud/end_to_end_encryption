@@ -37,6 +37,7 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
+use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class LockingControllerTest extends TestCase {
@@ -63,6 +64,9 @@ class LockingControllerTest extends TestCase {
 	/** @var FileService|\PHPUnit\Framework\MockObject\MockObject */
 	private $fileService;
 
+	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
+	private $logger;
+
 	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
 	private $l10n;
 
@@ -79,6 +83,7 @@ class LockingControllerTest extends TestCase {
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->fileService = $this->createMock(FileService::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
 
 		$this->controller = new LockingController($this->appName,
@@ -88,6 +93,7 @@ class LockingControllerTest extends TestCase {
 			$this->lockManager,
 			$this->rootFolder,
 			$this->fileService,
+			$this->logger,
 			$this->l10n);
 	}
 
