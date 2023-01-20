@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "這不是您要刪除的公開密鑰",
     "Cannot decode userlist" : "無法解密用戶清單",
     "You are not allowed to create the lock" : "您無權創建此鎖",
+    "You are not allowed to lock the root" : "您無權鎖上 root",
     "File already locked" : "檔案已經被鎖定",
     "You are not allowed to remove the lock" : "您無權刪除此鎖",
     "File not locked" : "檔案沒有上鎖",

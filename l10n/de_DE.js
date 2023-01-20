@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "Dies ist nicht Ihr öffentlicher Schlüssel und kann daher nicht gelöscht werden",
     "Cannot decode userlist" : "Benutzerliste kann nicht entschlüsselt werden",
     "You are not allowed to create the lock" : "Sie dürfen die Sperre nicht erstellen",
+    "You are not allowed to lock the root" : "Sie dürfen das Hauptverzeichnis nicht sperren",
     "File already locked" : "Datei ist bereits gesperrt",
     "You are not allowed to remove the lock" : "Sie dürfen die Sperre nicht aufheben",
     "File not locked" : "Datei nicht gesperrt",
