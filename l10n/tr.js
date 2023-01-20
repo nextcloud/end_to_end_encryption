@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "Silinecek herkese açık anahtar sizin değil",
     "Cannot decode userlist" : "Kullanıcı listesinin kodu çözülemedi",
     "You are not allowed to create the lock" : "Kilit ekleme izniniz yok",
+    "You are not allowed to lock the root" : "Root kullanıcısını kilitleme izniniz yok",
     "File already locked" : "Dosya zaten kilitlenmiş",
     "You are not allowed to remove the lock" : "Kilidi açma izniniz yok",
     "File not locked" : "Dosya kilitli değil",
