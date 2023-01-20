@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "Chcete smazat veřejný klíč, který není váš",
     "Cannot decode userlist" : "Nedaří se dekódovat seznam uživatelů",
     "You are not allowed to create the lock" : "Nemáte oprávnění provést uzamčení",
+    "You are not allowed to lock the root" : "Nemáte oprávnění uzamknout kořen",
     "File already locked" : "Soubor už je uzamčen",
     "You are not allowed to remove the lock" : "Nemáte oprávnění odebrat uzamčení",
     "File not locked" : "Soubor není uzamčen",

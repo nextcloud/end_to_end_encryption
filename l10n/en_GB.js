@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "This is not your public key to delete",
     "Cannot decode userlist" : "Cannot decode userlist",
     "You are not allowed to create the lock" : "You are not allowed to create the lock",
+    "You are not allowed to lock the root" : "You are not allowed to lock the root",
     "File already locked" : "File already locked",
     "You are not allowed to remove the lock" : "You are not allowed to remove the lock",
     "File not locked" : "File not locked",
