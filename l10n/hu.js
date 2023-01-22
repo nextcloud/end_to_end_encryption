@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "Ezt a titkos kulcsot nem törölheti, mert nem az Öné",
     "Cannot decode userlist" : "A felhasználólista nem dekódolható",
     "You are not allowed to create the lock" : "Nem hozhatja létre a zárolást",
+    "You are not allowed to lock the root" : "Nincs jogosultsága a gyökérkönyvtár zárolására",
     "File already locked" : "A fájl már zárolva van",
     "You are not allowed to remove the lock" : "Nincs jogosultsága eltávolítani a zárolást",
     "File not locked" : "A fájl nincs zárolva",
