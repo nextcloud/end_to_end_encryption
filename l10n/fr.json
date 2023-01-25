@@ -10,6 +10,7 @@
     "This is not your public key to delete" : "Ce n'est pas votre clé publique à supprimer",
     "Cannot decode userlist" : "Impossible de décoder la liste des utilisateurs",
     "You are not allowed to create the lock" : "Vous n'êtes pas autorisé à créer le verrou",
+    "You are not allowed to lock the root" : "Vous n'êtes pas autorisé à verrouiller la racine",
     "File already locked" : "Fichier déjà verrouillé",
     "You are not allowed to remove the lock" : "Vous n'êtes pas autorisé à enlever le verrou",
     "File not locked" : "Fichier non verrouillé",
