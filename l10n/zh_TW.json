@@ -1,6 +1,6 @@
 { "translations": {
     "This is someone else's private key" : "這是其他人的私鑰",
-    "Could not find the private key of the user %s" : "找不到用戶的私鑰%s",
+    "Could not find the private key of the user %s" : "找不到使用者的私鑰%s",
     "Internal error" : "內部錯誤",
     "You are not allowed to delete this private key" : "您不被允許刪除此私鑰",
     "Could not find the private key belonging to the user %s" : "無法找到屬於使用者%s的私鑰",
@@ -10,6 +10,7 @@
     "This is not your public key to delete" : "這不是您要刪除的公開金鑰",
     "Cannot decode userlist" : "無法解碼使用者清單",
     "You are not allowed to create the lock" : "您無權建立鎖",
+    "You are not allowed to lock the root" : "您不被允許鎖定 root",
     "File already locked" : "檔案已經被鎖定",
     "You are not allowed to remove the lock" : "您不被允許移除此鎖。",
     "File not locked" : "檔案沒有上鎖",
