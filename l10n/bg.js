@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "Това не е вашият публичен ключ за изтриване",
     "Cannot decode userlist" : "Не може да се декодира потребителски списък",
     "You are not allowed to create the lock" : "Нямате право да създавате заключване",
+    "You are not allowed to lock the root" : "Нямате право да заключвате основата",
     "File already locked" : "Файлът вече е заключен",
     "You are not allowed to remove the lock" : "Нямате право за премахване на заключване",
     "File not locked" : "Файлът не е заключен",
