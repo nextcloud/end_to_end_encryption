@@ -255,7 +255,19 @@ users: Json encoded list of users for which the server should return the public 
 
 **Example curl call:**
 
-`curl -X GET https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true"`
+```shell
+# Fetch the public key of the logged in user.
+curl \
+    --header 'OCS-APIRequest: true' \
+    https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key
+
+# Fetch the public keys of a list of users.
+curl \
+    --header 'OCS-APIRequest: true' \
+    --data users='["alice","bob"]' \
+    --get \
+    https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key
+```
 
 ## Delete public keys
 
