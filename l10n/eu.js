@@ -12,6 +12,7 @@ OC.L10N.register(
     "This is not your public key to delete" : "Hau ez da ezabatzeko zure gako publikoa ",
     "Cannot decode userlist" : "Ezin da erabiltzaileen zerrenda deskodetu",
     "You are not allowed to create the lock" : "Zuk ez duzu blokeoa sortzeko baimenik",
+    "You are not allowed to lock the root" : "Ez duzu erroa blokeatzeko baimenik",
     "File already locked" : "Fitxategia jada blokeatuta dago",
     "You are not allowed to remove the lock" : "Zuk ez duzu blokeoa kentzeko baimenik",
     "File not locked" : "Fitxategoa ez dago blokeatua",
