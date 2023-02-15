@@ -37,6 +37,7 @@ return [
 		['name' => 'MetaData#getMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'GET'],
 		['name' => 'MetaData#updateMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'PUT'],
 		['name' => 'MetaData#deleteMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'DELETE'],
+		['name' => 'MetaData#addMetadataFileDrop', 'url' => '/api/v1/meta-data/{id}/filedrop', 'verb' => 'PUT'],
 		['name' => 'Encryption#removeEncryptedFolders', 'url' => '/api/v1/encrypted-files', 'verb' => 'DELETE'],
 		['name' => 'Encryption#setEncryptionFlag', 'url' => '/api/v1/encrypted/{id}', 'verb' => 'PUT'],
 		['name' => 'Encryption#removeEncryptionFlag', 'url' => '/api/v1/encrypted/{id}', 'verb' => 'DELETE'],

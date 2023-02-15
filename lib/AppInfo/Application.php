@@ -27,6 +27,7 @@ namespace OCA\EndToEndEncryption\AppInfo;
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
+use OCA\EndToEndEncryption\E2EEPublicShareTemplateProvider;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\IMetaDataStorage;
@@ -68,6 +69,7 @@ class Application extends App implements IBootstrap {
 		$context->registerServiceAlias(IKeyStorage::class, KeyStorage::class);
 		$context->registerServiceAlias(IMetaDataStorage::class, MetaDataStorage::class);
 		$context->registerEventListener(UserDeletedEvent::class, UserDeletedListener::class);
+		$context->registerPublicShareTemplateProvider(E2EEPublicShareTemplateProvider::class);
 	}
 
 	/**

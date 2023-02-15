@@ -44,6 +44,7 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
+use OCP\Share\IManager as ShareManager;
 
 class MetaDataController extends OCSController {
 	private ?string $userId;
@@ -51,14 +52,17 @@ class MetaDataController extends OCSController {
 	private LoggerInterface $logger;
 	private LockManager $lockManager;
 	private IL10N $l10n;
+	private ShareManager $shareManager;
 
-	public function __construct(string $AppName,
-								IRequest $request,
-								?string $userId,
-								IMetaDataStorage $metaDataStorage,
-								LockManager $lockManager,
-								LoggerInterface $logger,
-								IL10N $l10n
+	public function __construct(
+		string $AppName,
+		IRequest $request,
+		?string $userId,
+		IMetaDataStorage $metaDataStorage,
+		LockManager $lockManager,
+		LoggerInterface $logger,
+		IL10N $l10n,
+		ShareManager $shareManager
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;
@@ -66,20 +70,23 @@ class MetaDataController extends OCSController {
 		$this->logger = $logger;
 		$this->lockManager = $lockManager;
 		$this->l10n = $l10n;
+		$this->shareManager = $shareManager;
 	}
 
 	/**
 	 * Get metadata
 	 *
 	 * @NoAdminRequired
+	 * @PublicPage
 	 * @E2ERestrictUserAgent
 	 *
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
 	 */
-	public function getMetaData(int $id): DataResponse {
+	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
 		try {
-			$metaData = $this->metaDataStorage->getMetaData($this->userId, $id);
+			$ownerId = $this->getOwnerId($shareToken);
+			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (\Exception $e) {
@@ -166,5 +173,60 @@ class MetaDataController extends OCSController {
 			throw new OCSBadRequestException($this->l10n->t('Cannot delete metadata'));
 		}
 		return new DataResponse();
+	}
+
+
+	/**
+	 * Append new entries in the filedrop property of a metadata
+	 *
+	 * @PublicPage
+	 * @NoAdminRequired
+	 * @return DataResponse
+	 * @throws OCSForbiddenException
+	 * @throws OCSBadRequestException
+	 * @throws OCSNotFoundException
+	 */
+	public function addMetadataFileDrop(int $id, string $fileDrop, ?string $shareToken = null): DataResponse {
+		$e2eToken = $this->request->getParam('e2e-token');
+		$ownerId = $this->getOwnerId($shareToken);
+
+		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId)) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
+		}
+
+		try {
+			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
+			$decodedMetadata = json_decode($metaData, true);
+			$decodedFileDrop = json_decode($fileDrop, true);
+			$decodedMetadata['filedrop'] = array_merge($decodedMetadata['filedrop'] ?? [], $decodedFileDrop);
+			$encodedMetadata = json_encode($decodedMetadata);
+
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata);
+		} catch (MissingMetaDataException $e) {
+			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
+		} catch (NotFoundException $e) {
+			throw new OCSNotFoundException($e->getMessage());
+		} catch (\Exception $e) {
+			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
+			throw new OCSBadRequestException($this->l10n->t('Cannot update filedrop'));
+		}
+
+		return new DataResponse(['meta-data' => $metaData]);
+	}
+
+	private function getOwnerId(?string $shareToken = null): string {
+		if ($shareToken !== null) {
+			$share = $this->shareManager->getShareByToken($shareToken);
+
+			if (!($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE)) {
+				throw new OCSForbiddenException("Can't lock share without create permission");
+			}
+
+			return $share->getShareOwner();
+		} elseif ($this->userId !== null) {
+			return $this->userId;
+		} else {
+			throw new OCSBadRequestException("Couldn't find the owner of the encrypted folder");
+		}
 	}
 }

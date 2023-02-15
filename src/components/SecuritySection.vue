@@ -4,11 +4,11 @@
   -->
 
 <template>
-	<SettingsSection :title="t('end_to_end_encryption', 'End-to-end encryption')"
+	<NcSettingsSection :title="t('end_to_end_encryption', 'End-to-end encryption')"
 		:description="encryptionState">
-		<Button :disabled="!hasKey" type="warning" @click="startResetProcess()">
+		<NcButton :disabled="!hasKey" type="warning" @click="startResetProcess()">
 			{{ t('end_to_end_encryption', 'Reset end-to-end encryption') }}
-		</Button>
+		</NcButton>
 
 		<div v-if="shouldDisplayWarning && hasKey" class="notecard warning" role="alert">
 			<p><strong>{{ t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys') }}</strong></p>
@@ -19,15 +19,15 @@
 				<li>{{ t('end_to_end_encryption', 'Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again.') }}</li>
 			</ul>
 
-			<CheckboxRadioSwitch :checked.sync="deleteEncryptedFiles" type="switch" class="margin-bottom">
+			<NcCheckboxRadioSwitch :checked.sync="deleteEncryptedFiles" type="switch" class="margin-bottom">
 				{{ t('end_to_end_encryption', 'Delete existing encrypted files') }}
-			</CheckboxRadioSwitch>
+			</NcCheckboxRadioSwitch>
 
-			<Button type="error" @click="showModal">
+			<NcButton type="error" @click="showModal">
 				{{ t('end_to_end_encryption', "Confirm and reset end-to-end encryption") }}
-			</Button>
+			</NcButton>
 
-			<Modal v-if="modal"
+			<NcModal v-if="modal"
 				size="small"
 				class="modal"
 				@close="closeModal">
@@ -38,42 +38,38 @@
 						</strong>
 					</p>
 					<div class="button-row">
-						<Button type="tertiary" @click="closeModal">
+						<NcButton type="tertiary" @click="closeModal">
 							{{ t('end_to_end_encryption', "Cancel") }}
-						</Button>
-						<Button type="error" @click="resetEncryption">
+						</NcButton>
+						<NcButton type="error" @click="resetEncryption">
 							{{ t('end_to_end_encryption', "Confirm") }}
-						</Button>
+						</NcButton>
 					</div>
 				</div>
-			</Modal>
+			</NcModal>
 		</div>
-	</SettingsSection>
+	</NcSettingsSection>
 </template>
 
 <script>
 import axios from '@nextcloud/axios'
-import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
-import Button from '@nextcloud/vue/dist/Components/Button'
-import Modal from '@nextcloud/vue/dist/Components/Modal'
+import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess } from '@nextcloud/dialogs'
-import { getLoggerBuilder } from '@nextcloud/logger'
 import { generateOcsUrl } from '@nextcloud/router'
 
-const logger = getLoggerBuilder()
-	.setApp('settings')
-	.detectUser()
-	.build()
+import logger from '../services/logger.js'
 
 export default {
 	name: 'SecuritySection',
 	components: {
-		SettingsSection,
-		Button,
-		Modal,
-		CheckboxRadioSwitch,
+		NcSettingsSection,
+		NcButton,
+		NcModal,
+		NcCheckboxRadioSwitch,
 	},
 	data() {
 		return {
@@ -86,11 +82,20 @@ export default {
 	computed: {
 		encryptionState() {
 			if (this.hasKey) {
-				return t('end_to_end_encryption', 'End-to-end encryption is currently enabled and correctly setup.')
+				return t(
+					'end_to_end_encryption',
+					'End-to-end encryption is currently enabled and correctly setup.'
+				)
 			} else {
-				return t('end_to_end_encryption', 'End-to-end encryption is currently disabled. You can set it up with the {productName} clients.', {
-					productName: OCA.Theming ? OCA.Theming.name : 'Nextcloud',
-				})
+				return t(
+					'end_to_end_encryption',
+					'End-to-end encryption is currently disabled. You can set it up with the {productName} clients.',
+					{
+						productName: OCA.Theming
+							? OCA.Theming.name
+							: 'Nextcloud',
+					}
+				)
 			}
 		},
 	},
@@ -105,7 +110,9 @@ export default {
 			this.modal = false
 		},
 		async deletePrivateKey() {
-			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'))
+			const { data } = await axios.delete(
+				generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key')
+			)
 
 			return this.handleResponse({
 				status: data.ocs?.meta?.status,
@@ -113,7 +120,9 @@ export default {
 			})
 		},
 		async deletePublicKey() {
-			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'))
+			const { data } = await axios.delete(
+				generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key')
+			)
 
 			return this.handleResponse({
 				status: data.ocs?.meta?.status,
@@ -122,7 +131,11 @@ export default {
 		},
 		async deleteFiles() {
 			if (this.deleteEncryptedFiles) {
-				const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/encrypted-files'))
+				const { data } = await axios.delete(
+					generateOcsUrl(
+						'/apps/end_to_end_encryption/api/v1/encrypted-files'
+					)
+				)
 
 				return this.handleResponse({
 					status: data.ocs?.meta?.status,
@@ -134,16 +147,24 @@ export default {
 		async resetEncryption() {
 			try {
 				let success = true
-				success = success && await this.deletePrivateKey()
-				success = success && await this.deletePublicKey()
-				success = success && await this.deleteFiles()
+				success = success && (await this.deletePrivateKey())
+				success = success && (await this.deletePublicKey())
+				success = success && (await this.deleteFiles())
 
 				if (success) {
-					showSuccess(t('end_to_end_encryption', 'End-to-end encryption keys reset'))
+					showSuccess(
+						t(
+							'end_to_end_encryption',
+							'End-to-end encryption keys reset'
+						)
+					)
 				}
 			} catch (e) {
 				this.handleResponse({
-					errorMessage: t('end_to_end_encryption', 'Unable to reset end-to-end encryption'),
+					errorMessage: t(
+						'end_to_end_encryption',
+						'Unable to reset end-to-end encryption'
+					),
 					error: e,
 				})
 			} finally {

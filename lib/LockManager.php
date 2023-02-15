@@ -65,8 +65,8 @@ class LockManager {
 	/**
 	 * Lock file
 	 */
-	public function lockFile(int $id, string $token = ''): ?string {
-		if ($this->isLocked($id, $token)) {
+	public function lockFile(int $id, string $token = '', ?string $ownerId = null): ?string {
+		if ($this->isLocked($id, $token, $ownerId)) {
 			return null;
 		}
 
@@ -111,13 +111,16 @@ class LockManager {
 	 * @throws NotFoundException
 	 * @throws \OCP\Files\NotPermittedException
 	 */
-	public function isLocked(int $id, string $token): bool {
-		$user = $this->userSession->getUser();
-		if ($user === null) {
-			throw new NotPermittedException('No active user-session');
+	public function isLocked(int $id, string $token, ?string $ownerId = null): bool {
+		if ($ownerId === null) {
+			$user = $this->userSession->getUser();
+			if ($user === null) {
+				throw new NotPermittedException('No active user-session');
+			}
+			$ownerId = $user->getUid();
 		}
 
-		$userRoot = $this->rootFolder->getUserFolder($user->getUID());
+		$userRoot = $this->rootFolder->getUserFolder($ownerId);
 		$nodes = $userRoot->getById($id);
 		foreach ($nodes as $node) {
 			while ($node->getPath() !== '/') {
