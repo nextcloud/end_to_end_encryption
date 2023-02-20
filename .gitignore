@@ -99,3 +99,6 @@ js/public
 css/public
 
 .phpunit.result.cache
+
+
+js/*

@@ -38,6 +38,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
+use OCP\Share\IManager as ShareManager;
 
 class MetaDataControllerTest extends TestCase {
 
@@ -63,6 +64,9 @@ class MetaDataControllerTest extends TestCase {
 	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
 	private $l10n;
 
+	/** @var ShareManager|\PHPUnit\Framework\MockObject\MockObject */
+	private $shareManager;
+
 	/** @var MetaDataController */
 	private $controller;
 
@@ -77,14 +81,18 @@ class MetaDataControllerTest extends TestCase {
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
+		$this->shareManager = $this->createMock(ShareManager::class);
 
-		$this->controller = new MetaDataController($this->appName,
+		$this->controller = new MetaDataController(
+			$this->appName,
 			$this->request,
 			$this->userId,
 			$this->metaDataStorage,
 			$this->lockManager,
 			$this->logger,
-			$this->l10n);
+			$this->l10n,
+			$this->shareManager
+		);
 	}
 
 	/**

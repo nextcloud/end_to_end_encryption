@@ -62,11 +62,13 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 	 *
 	 * @dataProvider beforeControllerDataProvider
 	 */
-	public function testBeforeController(bool $hasAnnotation, bool $supportsE2E, bool $expectException) {
-		$this->request->expects($this->once())
+	public function testBeforeController(bool $hasAnnotation, bool $supportsE2E, bool $expectException, bool $forceSupport) {
+		$this->request->expects($hasAnnotation ? $this->exactly($supportsE2E ? 1 : 2) : $this->never())
 			->method('getHeader')
-			->with('user-agent')
-			->willReturn('user-agent-string');
+			->willReturnMap([
+				['user-agent', 'user-agent-string'],
+				['x-e2ee-supported', (string)$forceSupport]
+			]);
 
 		$this->reflector->method('hasAnnotation')
 			->with('E2ERestrictUserAgent')
@@ -87,10 +89,10 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 
 	public function beforeControllerDataProvider(): array {
 		return [
-			[false, false, false],
-			[false, true, false],
-			[true, false, true],
-			[true, true, false],
+			[false, false, false, false],
+			[false, true, false, false],
+			[true, false, true, false],
+			[true, true, false, false],
 		];
 	}
 }

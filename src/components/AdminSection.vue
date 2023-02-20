@@ -5,12 +5,12 @@
   -->
 
 <template>
-	<SettingsSection :title="t('end_to_end_encryption', 'End-to-End Encryption')" class="admin-e2ee">
+	<NcSettingsSection :title="t('end_to_end_encryption', 'End-to-End Encryption')" class="admin-e2ee">
 		<h3>{{ t('end_to_end_encryption', 'Limit to groups') }}</h3>
 		<p class="settings-hint">
 			{{ t('end_to_end_encryption', 'When at least one group is selected, only people of the listed groups can use the End-to-End encryption app.') }}
 		</p>
-		<Multiselect v-model="allowedGroups"
+		<NcMultiselect v-model="allowedGroups"
 			class="allowed-groups"
 			:options="groups"
 			:placeholder="t('end_to_end_encryption', 'Limit app usage to groups.')"
@@ -25,19 +25,19 @@
 			:close-on-select="false"
 			@search-change="searchGroup" />
 
-		<Button type="primary"
+		<NcButton type="primary"
 			:loading="loading"
 			@click="saveChanges">
 			{{ t('end_to_end_encryption', 'Save') }}
-		</Button>
-	</SettingsSection>
+		</NcButton>
+	</NcSettingsSection>
 </template>
 
 <script>
 import axios from '@nextcloud/axios'
-import Multiselect from '@nextcloud/vue/dist/Components/Multiselect.js'
-import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection.js'
-import Button from '@nextcloud/vue/dist/Components/Button.js'
+import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
+import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import { loadState } from '@nextcloud/initial-state'
 import { showSuccess } from '@nextcloud/dialogs'
 import { generateOcsUrl } from '@nextcloud/router'
@@ -52,9 +52,9 @@ const logger = getLoggerBuilder()
 export default {
 	name: 'AdminSection',
 	components: {
-		Multiselect,
-		SettingsSection,
-		Button,
+		NcMultiselect,
+		NcSettingsSection,
+		NcButton,
 	},
 	data() {
 		return {
@@ -63,6 +63,12 @@ export default {
 			groups: loadState('end_to_end_encryption', 'allowed_groups'),
 			allowedGroups: [],
 		}
+	},
+	mounted() {
+		this.allowedGroups = loadState('end_to_end_encryption', 'allowed_groups').sort(function(a, b) {
+			return a.displayname.localeCompare(b.displayname)
+		})
+		this.searchGroup()
 	},
 	methods: {
 		searchGroup: debounce(async function(query) {
@@ -96,12 +102,6 @@ export default {
 				}.bind(this),
 			})
 		},
-	},
-	mounted() {
-		this.allowedGroups = loadState('end_to_end_encryption', 'allowed_groups').sort(function(a, b) {
-			return a.displayname.localeCompare(b.displayname)
-		})
-		this.searchGroup()
 	},
 }
 </script>

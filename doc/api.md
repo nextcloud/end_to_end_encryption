@@ -493,6 +493,46 @@ the file with the given file-id
 
 `curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d "metaData=<encrypted-meta-data>&e2e-token=<e2e-token-received-during-lock-operation>"
 
+## Update filedrop property of meta-data file
+
+PUT: `<base-url>/meta-data/<file-id>/filedrop`
+
+**Data:**
+
+fileDrop: the filedrop object
+e2e-token: token to authenticate that you are the client who currently manipulates the file
+
+**Results:**
+
+200 ok: filedrop successfully updated
+
+404 not found: if the meta-data file doesn't exist or if the user can't access 
+the file with the given file-id 
+
+403 forbidden: if the file was not locked or the client sends the wrong e2e-token
+
+400 bad request: unpredictable internal error
+
+**Result body on success:**
+````xml
+<?xml version="1.0"?>
+<ocs>
+ <meta>
+  <status>ok</status>
+  <statuscode>200</statuscode>
+  <message>OK</message>
+ </meta>
+ <data>
+  <meta-data>encrypted-meta-data</meta-data>
+ </data>
+</ocs>
+````
+
+
+**Example curl call:**
+
+`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>/filedrop -H "OCS-APIRequest:true"` -d "fileDrop=<filedrop-property>&e2e-token=<e2e-token-received-during-lock-operation>"
+
 ## Delete meta-data file
 
 DELETE: `<base-url>/meta-data/<file-id>`

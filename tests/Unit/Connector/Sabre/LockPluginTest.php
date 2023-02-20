@@ -469,8 +469,8 @@ class LockPluginTest extends TestCase {
 
 		$this->lockManager->method('isLocked')
 			->willReturnMap([
-				[42, $token, $isSrcLocked],
-				[1337, $token, $isDestLocked],
+				[42, $token, null, $isSrcLocked],
+				[1337, $token, null, $isDestLocked],
 			]);
 
 		$server = $this->createMock(Server::class);

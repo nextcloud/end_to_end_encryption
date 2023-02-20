@@ -59,10 +59,20 @@ class UserAgentCheckMiddleware extends Middleware {
 	public function beforeController($controller, $methodName): void {
 		parent::beforeController($controller, $methodName);
 
-		$userAgent = $this->request->getHeader('user-agent');
-		if ($this->reflector->hasAnnotation('E2ERestrictUserAgent')
-			&& !$this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
-			throw new OCSForbiddenException('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content.');
+		if (!$this->reflector->hasAnnotation('E2ERestrictUserAgent')) {
+			return;
 		}
+
+		$userAgent = $this->request->getHeader('user-agent');
+
+		if ($this->userAgentManager->supportsEndToEndEncryption($userAgent)) {
+			return;
+		}
+
+		if ($this->request->getHeader('x-e2ee-supported') === "true") {
+			return;
+		}
+
+		throw new OCSForbiddenException('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content.');
 	}
 }
