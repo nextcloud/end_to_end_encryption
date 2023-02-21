@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "End-to-end encryption" : "Begin-tot-eind versleuteling",
     "This is someone else's private key" : "Dit is de privésleutel van iemand anders",
     "Could not find the private key of the user %s" : "Kan de privésleutel van %s niet vinden",
     "Internal error" : "Interne fout",
@@ -27,7 +28,6 @@ OC.L10N.register(
     "Limit to groups" : "Beperk tot groepen",
     "Limit app usage to groups." : "Beperkt gebruik programma tot groepen.",
     "Save" : "Opslaan",
-    "End-to-end encryption" : "Begin-tot-eind versleuteling",
     "Metadata-file doesn't exist" : "Metadata-bestand bestaat niet",
     "End to end encryption" : "End to end encryptie"
 },

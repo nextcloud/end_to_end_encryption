@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "End-to-end encryption" : "Encripción de punta-a-punta",
     "This is someone else's private key" : "Esta es la llave privada de alguien más.",
     "Could not find the private key of the user %s" : "No se encontró la llave privada del usuario %s",
     "Internal error" : "Error interno",
@@ -17,7 +18,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "Limit to groups" : "Limitar a grupos",
-    "Save" : "Guardar",
-    "End-to-end encryption" : "Encripción de punta-a-punta"
+    "Save" : "Guardar"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

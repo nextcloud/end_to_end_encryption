@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "End-to-end encryption" : "Cifrado de extremo a extremo",
     "This is someone else's private key" : "Esta é a clave privada de alguén máis",
     "Could not find the private key of the user %s" : "Non foi posíbel atopar a clave privada do usuario %s",
     "Internal error" : "Produciuse un erro interno",
@@ -22,7 +23,6 @@ OC.L10N.register(
     "Limit to groups" : "Límite para grupos",
     "Limit app usage to groups." : "Limitar o uso de aplicacións a grupos",
     "Save" : "Gardar",
-    "End-to-end encryption" : "Cifrado de extremo a extremo",
     "Metadata-file doesn't exist" : "Non existe o ficheiro de metadatos"
 },
 "nplurals=2; plural=(n != 1);");

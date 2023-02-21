@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "End-to-end encryption" : "Ende-til-ende -kryptering",
     "This is someone else's private key" : "Dette er noen annens private nøkkel",
     "Could not find the private key of the user %s" : "Kunne ikke finne privat nøkkel tilhørende brukeren %s",
     "Internal error" : "Intern feil",
@@ -20,7 +21,6 @@ OC.L10N.register(
     "Limit to groups" : "Begrens til grupper",
     "Limit app usage to groups." : "Begrens app-bruk til grupper",
     "Save" : "Lagre",
-    "End-to-end encryption" : "Ende-til-ende -kryptering",
     "End to end encryption" : "Ende-til-ende -kryptering"
 },
 "nplurals=2; plural=(n != 1);");

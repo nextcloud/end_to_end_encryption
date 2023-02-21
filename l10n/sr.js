@@ -1,6 +1,9 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Select or drop files" : "Одаберите или превуците фајлове",
+    "End-to-end encryption" : "Шифровање са краја на крај",
+    "error" : "грешка",
     "This is someone else's private key" : "Ово је нечији туђи приватни кључ",
     "Could not find the private key of the user %s" : "Не могу да нађем приватни кључ корисника %s",
     "Internal error" : "Интерна грешка",
@@ -22,7 +25,6 @@ OC.L10N.register(
     "Limit to groups" : "Ограничи на групе",
     "Limit app usage to groups." : "Ограничи коришћење апликације на групе.",
     "Save" : "Сачувај",
-    "End-to-end encryption" : "Шифровање са краја на крај",
     "Metadata-file doesn't exist" : "Фајл метаподатака не постоји",
     "End to end encryption" : "Шифровање са краја на крај"
 },
