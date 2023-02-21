@@ -1,6 +1,8 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Select or drop files" : "Seleccione ou solte ficheiros",
+    "End-to-end encryption" : "Encriptação ponto-a-ponto",
     "This is someone else's private key" : "Isto é a chave privada de outra pessoa",
     "Could not find the private key of the user %s" : "Não foi possível encontrar a chave privada do utilizador %s",
     "Internal error" : "Erro interno",
@@ -19,7 +21,6 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto",
     "Limit to groups" : "Limitado a grupos",
     "Limit app usage to groups." : "Limitar o uso da aplicação a grupos.",
-    "Save" : "Guardar",
-    "End-to-end encryption" : "Encriptação ponto-a-ponto"
+    "Save" : "Guardar"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
