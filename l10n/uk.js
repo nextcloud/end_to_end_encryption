@@ -1,6 +1,8 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Select or drop files" : "Виберіть або перетягніть файли",
+    "error" : "помилка",
     "This is someone else's private key" : "Це чужий приватний ключ",
     "Could not find the private key of the user %s" : "Не вдалося знайти приватний ключ користувача %s",
     "Internal error" : "Внутрішня помилка",

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Select or drop files" : "Selectează sau plasează fișiere",
     "Internal error" : "Eroare internă",
     "End-to-End Encryption" : "Criptare integrală",
     "Limit to groups" : "Limitează pentru grupuri",

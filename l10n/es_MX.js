@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "End-to-end encryption" : "Encripción de punta-a-punta",
     "This is someone else's private key" : "Esta es la llave privada de alguien más.",
     "Could not find the private key of the user %s" : "No se encontró la llave privada del usuario %s",
     "Internal error" : "Error interno",
@@ -26,7 +27,6 @@ OC.L10N.register(
     "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto.",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
-    "End-to-end encryption" : "Encripción de punta-a-punta",
     "Metadata-file doesn't exist" : "Archivo-Metadatos no existe",
     "End to end encryption" : "Encripción punto-a-punto"
 },

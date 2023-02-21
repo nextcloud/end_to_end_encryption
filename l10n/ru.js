@@ -1,6 +1,9 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Select or drop files" : "Выберите или перетащите файлы",
+    "End-to-end encryption" : "Сквозное шифрование",
+    "error" : "ошибка",
     "This is someone else's private key" : "Это закрытый ключ кого-то другого",
     "Could not find the private key of the user %s" : "Не удалось найти закрытый ключ пользователя %s",
     "Internal error" : "Внутренняя ошибка",
@@ -27,7 +30,6 @@ OC.L10N.register(
     "Limit to groups" : "Разрешить использование только участникам этих групп",
     "Limit app usage to groups." : "Разрешить использование только участникам этих групп.",
     "Save" : "Сохранить",
-    "End-to-end encryption" : "Сквозное шифрование",
     "Metadata-file doesn't exist" : "Файл метаданных не существует",
     "End to end encryption" : "Оконечное шифрование"
 },

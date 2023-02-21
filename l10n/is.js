@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "End-to-end encryption" : "Enda-í-enda dulritun",
     "This is someone else's private key" : "Þetta er einkalykill einhvers annars",
     "Could not find the private key of the user %s" : "Fann ekki einkalykil notandans %s",
     "Internal error" : "Innri villa",
@@ -22,7 +23,6 @@ OC.L10N.register(
     "Limit to groups" : "Takmarka við hópa",
     "Limit app usage to groups." : "Takmarka notkun forrits við tiltekna hópa.",
     "Save" : "Vista",
-    "End-to-end encryption" : "Enda-í-enda dulritun",
     "Metadata-file doesn't exist" : "Lýsigögn eru ekki til staðar"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
