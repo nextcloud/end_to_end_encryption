@@ -1,7 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "Ištisinis šifravimas",
     "This is someone else's private key" : "Tai yra kažkieno kito privatusis raktas",
     "Could not find the private key of the user %s" : "Nepavyko rasti naudotojo %s privačiojo rakto",
     "Internal error" : "Vidinė klaida",
@@ -26,6 +25,8 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas",
     "Limit to groups" : "Apriboti iki grupių",
     "Save" : "Įrašyti",
+    "End-to-end encryption" : "Ištisinis šifravimas",
+    "Select or drop files" : "Pasirinkite arba vilkite failus",
     "Metadata-file doesn't exist" : "Metaduomenų failo nėra",
     "End to end encryption" : "Ištisinis šifravimas",
     "Reset end to end encryption" : "Atstatyti ištisinį šifravimą",

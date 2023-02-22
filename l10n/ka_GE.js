@@ -1,7 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "End-to-end შიფრაცია",
     "This is someone else's private key" : "ეს სხვისი პირადი გასაღებია",
     "Could not find the private key of the user %s" : "%s მომხმარებლის პირადი გასაღები ვერ იქნა ნაპოვნი",
     "Internal error" : "შიდა შეცდომა",
@@ -19,6 +18,8 @@ OC.L10N.register(
     "End-to-End Encryption" : "End-to-End შიფრაცია",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Save" : "შენახვა",
+    "End-to-end encryption" : "End-to-end შიფრაცია",
+    "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები",
     "End to end encryption" : "End to end შიფრაცია"
 },
 "nplurals=2; plural=(n!=1);");

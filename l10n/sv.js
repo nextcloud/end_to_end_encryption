@@ -1,9 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "Select or drop files" : "Välj eller dra filer hit",
-    "End-to-end encryption" : "Ändpunkt-till-ändpunkt-kryptering",
-    "error" : "fel",
     "This is someone else's private key" : "Detta är nån annans privata nyckel",
     "Could not find the private key of the user %s" : "Kunde inte hitta den privata nyckeln för användaren %s",
     "Internal error" : "Internt fel",
@@ -24,6 +21,8 @@ OC.L10N.register(
     "Limit to groups" : "Begränsa till grupper",
     "Limit app usage to groups." : "Begränsa appanvändning till grupper.",
     "Save" : "Spara",
+    "End-to-end encryption" : "Ändpunkt-till-ändpunkt-kryptering",
+    "Select or drop files" : "Välj eller dra filer hit",
     "Metadata-file doesn't exist" : "Metadatafil finns inte"
 },
 "nplurals=2; plural=(n != 1);");

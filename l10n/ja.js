@@ -1,7 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "End-to-End 暗号化",
     "This is someone else's private key" : "これは誰かの秘密鍵です",
     "Could not find the private key of the user %s" : "ユーザー %s の秘密鍵が見つかりません",
     "Internal error" : "内部エラー",
@@ -20,6 +19,8 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント",
     "Limit to groups" : "グループに制限する",
     "Limit app usage to groups." : "アプリの使用をグループに制限する",
-    "Save" : "保存"
+    "Save" : "保存",
+    "End-to-end encryption" : "End-to-End 暗号化",
+    "Select or drop files" : "ファイルを選択するか、ドラッグ&ドロップしてください"
 },
 "nplurals=1; plural=0;");

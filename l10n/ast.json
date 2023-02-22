@@ -7,6 +7,7 @@
     "You are not allowed to remove the lock" : "Nun tienes permisu pa desaniciar el bloquéu",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nun tienes permisu pa editar el ficheru, asegúrate de bloquialu primero y d'unviar el pase correutu",
     "Limit to groups" : "Llendar a grupos",
-    "Save" : "Guardar"
+    "Save" : "Guardar",
+    "Select or drop files" : "Esbilla o suelta ficheros"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
