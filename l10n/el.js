@@ -1,7 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
     "This is someone else's private key" : "Αυτό είναι ιδιωτικό κλειδί κάποιου άλλου",
     "Could not find the private key of the user %s" : "Δεν ήταν δυνατή η εύρεση του ιδιωτικού κλειδιού του χρήστη%s",
     "Internal error" : "Εσωτερικό σφάλμα",
@@ -28,6 +27,8 @@ OC.L10N.register(
     "Limit to groups" : "Περιορισμός σε ομάδες",
     "Limit app usage to groups." : "Περιορισμός χρήσης της εφαρμογής σε ομάδες.",
     "Save" : "Αποθήκευση",
+    "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
+    "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
     "Metadata-file doesn't exist" : "Το αρχείο μεταδεδομένων δεν υπάρχει"
 },
 "nplurals=2; plural=(n != 1);");

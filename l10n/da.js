@@ -1,7 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "End-to-end kryptering",
     "This is someone else's private key" : "Dette er en andens private nøgle",
     "Could not find the private key of the user %s" : "Kunne ikke finde brugeren %s's private nøgle",
     "Internal error" : "Intern fejl",
@@ -28,6 +27,8 @@ OC.L10N.register(
     "Limit to groups" : "Begræns til grupper",
     "Limit app usage to groups." : "Begræns app-brug til grupper.",
     "Save" : "Gem",
+    "End-to-end encryption" : "End-to-end kryptering",
+    "Select or drop files" : "Vælg eller slip filer",
     "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke"
 },
 "nplurals=2; plural=(n != 1);");

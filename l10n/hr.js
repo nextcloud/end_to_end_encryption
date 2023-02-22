@@ -1,7 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "Cjelovito šifriranje",
     "This is someone else's private key" : "Ovo je tuđi privatni ključ",
     "Could not find the private key of the user %s" : "Nije moguće pronaći privatni ključ korisnika %s",
     "Internal error" : "Unutarnja pogreška",
@@ -28,6 +27,8 @@ OC.L10N.register(
     "Limit to groups" : "Ograniči na grupe",
     "Limit app usage to groups." : "Ograničite primjenu aplikacije na grupe.",
     "Save" : "Spremi",
+    "End-to-end encryption" : "Cjelovito šifriranje",
+    "Select or drop files" : "Odaberi ili ispusti datoteke",
     "Metadata-file doesn't exist" : "Datoteka s metapodacima ne postoji"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

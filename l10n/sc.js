@@ -1,9 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "Select or drop files" : "Sèbera o iscapa archìvios",
-    "End-to-end encryption" : "Tzifradura end-to-end",
-    "error" : "errore",
     "This is someone else's private key" : "Custa est sa crae privada de un'àtera persone",
     "Could not find the private key of the user %s" : "Non s'est agatada sa crae privada de s'utente %s",
     "Internal error" : "Errore internu",
@@ -30,6 +27,8 @@ OC.L10N.register(
     "Limit to groups" : "Lìmita a grupos",
     "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos.",
     "Save" : "Sarva",
+    "End-to-end encryption" : "Tzifradura end-to-end",
+    "Select or drop files" : "Sèbera o iscapa archìvios",
     "Metadata-file doesn't exist" : "S'archìviu metadatos no esistit"
 },
 "nplurals=2; plural=(n != 1);");
