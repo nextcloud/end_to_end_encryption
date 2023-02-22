@@ -1,9 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "Select or drop files" : "选择或拖放文件",
-    "End-to-end encryption" : "端到端加密",
-    "error" : "错误",
     "This is someone else's private key" : "这是其他人的私钥",
     "Could not find the private key of the user %s" : "找不到%s的私钥",
     "Internal error" : "内部错误",
@@ -30,6 +27,8 @@ OC.L10N.register(
     "Limit to groups" : "限制于分组",
     "Limit app usage to groups." : "限制可使用应用的分组",
     "Save" : "保存",
+    "End-to-end encryption" : "端到端加密",
+    "Select or drop files" : "选择或拖放文件",
     "Metadata-file doesn't exist" : "元数据文件不存在"
 },
 "nplurals=1; plural=0;");

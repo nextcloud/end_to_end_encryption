@@ -18,6 +18,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "Tutvoja ĉifrado",
     "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
     "Limit to groups" : "Limigi al grupoj",
-    "Save" : "Konservi"
+    "Save" : "Konservi",
+    "Select or drop files" : "Elekti aŭ demeti dosierojn"
 },
 "nplurals=2; plural=(n != 1);");

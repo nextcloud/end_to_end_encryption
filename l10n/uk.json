@@ -1,6 +1,4 @@
 { "translations": {
-    "Select or drop files" : "Виберіть або перетягніть файли",
-    "error" : "помилка",
     "This is someone else's private key" : "Це чужий приватний ключ",
     "Could not find the private key of the user %s" : "Не вдалося знайти приватний ключ користувача %s",
     "Internal error" : "Внутрішня помилка",
@@ -19,6 +17,7 @@
     "Limit app usage to groups." : "Обмежте використання програми групами.",
     "Save" : "Зберегти",
     "Saved groups" : "Збережені групи",
+    "Select or drop files" : "Виберіть або перетягніть файли",
     "End to End Encryption" : "Наскрізне шифрування",
     "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "Якщо вибрано принаймні одну групу, лише люди з перелічених груп можуть використовувати програму наскрізного шифрування."
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"

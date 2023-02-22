@@ -1,8 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "Päästä päähän -salaus",
-    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
     "This is someone else's private key" : "Tämä on jonkun toisen salainen avain",
     "Could not find the private key of the user %s" : "Käyttäjän %s yksityistä avainta ei löytynyt",
     "Internal error" : "Sisäinen virhe",
@@ -27,6 +25,9 @@ OC.L10N.register(
     "Limit app usage to groups." : "Rajoita sovelluksen käyttö ryhmiin.",
     "Save" : "Tallenna",
     "Saved groups" : "Tallennetut ryhmät",
+    "End-to-end encryption" : "Päästä päähän -salaus",
+    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
+    "Select or drop files" : "Valitse tai pudota tiedostoja",
     "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
     "End to End Encryption" : "Päästä päähän -salaus",
     "End-to-End encryption" : "Päästä päähän -salaus"

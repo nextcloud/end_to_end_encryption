@@ -1,9 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "Select or drop files" : "Izberte ali povlecite datoteke",
-    "End-to-end encryption" : "Celovito šifriranje E2E",
-    "error" : "napaka",
     "This is someone else's private key" : "To je osebni ključ nekoga drugega",
     "Could not find the private key of the user %s" : "Ni mogoče najti zasebnega ključa uporabnika %s.",
     "Internal error" : "Notranja napaka",
@@ -30,6 +27,8 @@ OC.L10N.register(
     "Limit to groups" : "Omeji na skupine",
     "Limit app usage to groups." : "Omeji uporabo programov za skupine.",
     "Save" : "Shrani",
+    "End-to-end encryption" : "Celovito šifriranje E2E",
+    "Select or drop files" : "Izberte ali povlecite datoteke",
     "Metadata-file doesn't exist" : "Datoteka metapodatkov ne obstaja"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

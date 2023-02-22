@@ -1,8 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "Select or drop files" : "Виберіть або перетягніть файли",
-    "error" : "помилка",
     "This is someone else's private key" : "Це чужий приватний ключ",
     "Could not find the private key of the user %s" : "Не вдалося знайти приватний ключ користувача %s",
     "Internal error" : "Внутрішня помилка",
@@ -21,6 +19,7 @@ OC.L10N.register(
     "Limit app usage to groups." : "Обмежте використання програми групами.",
     "Save" : "Зберегти",
     "Saved groups" : "Збережені групи",
+    "Select or drop files" : "Виберіть або перетягніть файли",
     "End to End Encryption" : "Наскрізне шифрування",
     "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "Якщо вибрано принаймні одну групу, лише люди з перелічених груп можуть використовувати програму наскрізного шифрування."
 },

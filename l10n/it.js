@@ -1,7 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "End-to-end encryption" : "Cifratura End-To-End",
     "This is someone else's private key" : "Questa è la chiave privata di qualcun altro",
     "Could not find the private key of the user %s" : "Impossibile trovare la chiave privata dell'utente %s",
     "Internal error" : "Errore interno",
@@ -28,6 +27,8 @@ OC.L10N.register(
     "Limit to groups" : "Limita a gruppi",
     "Limit app usage to groups." : "Limita utilizzo delle applicazioni a gruppi.",
     "Save" : "Salva",
+    "End-to-end encryption" : "Cifratura End-To-End",
+    "Select or drop files" : "Seleziona o deseleziona file",
     "Metadata-file doesn't exist" : "Il file dei metadati non esiste",
     "End to end encryption" : "Cifratura End to End"
 },
