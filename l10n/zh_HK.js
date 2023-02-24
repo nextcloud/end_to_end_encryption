@@ -47,6 +47,7 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "端到端加密密鑰重設",
     "Unable to reset end-to-end encryption" : "無法重設端到端加密",
     "Select or drop files" : "選擇或拖曳檔案至此",
+    "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
     "Metadata-file doesn't exist" : "元數據檔案不存在",
     "End to End Encryption" : "端到端加密",
     "When at least one group is selected, only people of the listed groups can use the end to end encryption app." : "選擇一或多個群組後，只有列出群組中的人可以使用端到端加密應用程式。",
