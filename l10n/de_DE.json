@@ -21,7 +21,7 @@
     "Metadata-file does not exist" : "Metadaten-Datei existiert nicht",
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
     "Cannot delete metadata" : "Metadaten können nicht gelöscht werden",
-    "Cannot update filedrop" : "File drop kann nicht aktualisiert werden",
+    "Cannot update filedrop" : "File-Drop kann nicht aktualisiert werden",
     "Encrypted share" : "Verschlüsselte Freigabe",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
