@@ -1,6 +1,6 @@
 {
   "name": "end_to_end_encryption",
-  "version": "1.12.1",
+  "version": "1.13.0",
   "description": "Provides the necessary endpoint to enable End-to-End encryption.",
   "private": true,
   "scripts": {
