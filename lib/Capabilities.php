@@ -51,7 +51,7 @@ class Capabilities implements ICapability {
 		$capabilities = ['end-to-end-encryption' =>
 			[
 				'enabled' => true,
-				'api-version' => '1.1',
+				'api-version' => '2',
 				'keys-exist' => $keysExist,
 			]
 		];
