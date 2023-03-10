@@ -36,19 +36,19 @@ If a folder is marked as encrypted all content in the folder and sub-folder are 
 
 ## Upload a file
 
-1. lock the file you want to upload (see [Lock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#lock-file)) you will get a e2e-token which can be used to restart the process, e.g. if the connection dropped
-3. Make sure that you have the latest version of the meta-data file (see [Get meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#get-meta-data-file))
+1. lock the file you want to upload (see [Lock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#lock-file)) you will get a e2e-token which can be used to restart the process, e.g. if the connection dropped
+3. Make sure that you have the latest version of the meta-data file (see [Get meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#get-meta-data-file))
 2. Update the meta-data file and encrypt the file
-3. upload the meta-data file and the encrypted file (see [store meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#store-meta-data-file)) and [update meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#update-meta-data-file))
-4. if everything was successful, unlock the file (see [Unlock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#unlock-file))
+3. upload the meta-data file and the encrypted file (see [store meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#store-meta-data-file)) and [update meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#update-meta-data-file))
+4. if everything was successful, unlock the file (see [Unlock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#unlock-file))
 
 ## Share a file
 
-1. lock the file you want to update (see [Lock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#lock-file))
-2. Make sure that you have the latest version of the meta-data file (see [get meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#get-meta-data-file))
+1. lock the file you want to update (see [Lock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#lock-file))
+2. Make sure that you have the latest version of the meta-data file (see [get meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#get-meta-data-file))
 3. Update the meta-data file
-4. upload the meta-data file (see [store meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#store-meta-data-file) and [update meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#update-meta-data-file))
-5. unlock the file (see [Unlock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#unlock-file))
+4. upload the meta-data file (see [store meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#store-meta-data-file) and [update meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#update-meta-data-file))
+5. unlock the file (see [Unlock file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#unlock-file))
 
 ## Unshare a file
 
