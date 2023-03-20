@@ -49,11 +49,13 @@ class LockManager {
 	private IRootFolder $rootFolder;
 	private ITimeFactory $timeFactory;
 
-	public function __construct(LockMapper $lockMapper,
+	public function __construct(
+		LockMapper $lockMapper,
 		ISecureRandom $secureRandom,
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		ITimeFactory $timeFactory
+		ITimeFactory $timeFactory,
+		private IMetaDataStorage $metaDataStorage,
 	) {
 		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;
@@ -101,6 +103,7 @@ class LockManager {
 			throw new FileLockedException();
 		}
 
+		$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 		$this->lockMapper->delete($lock);
 	}
 

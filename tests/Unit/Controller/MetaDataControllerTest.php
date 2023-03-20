@@ -249,12 +249,12 @@ class MetaDataControllerTest extends TestCase {
 			if ($metaDataStorageException) {
 				$this->metaDataStorage->expects($this->once())
 					->method('updateMetaDataIntoIntermediateFile')
-					->with('john.doe', $fileId, $metaData)
+					->with('john.doe', $fileId, $metaData, $sendToken)
 					->willThrowException($metaDataStorageException);
 			} else {
 				$this->metaDataStorage->expects($this->once())
 					->method('updateMetaDataIntoIntermediateFile')
-					->with('john.doe', $fileId, $metaData);
+					->with('john.doe', $fileId, $metaData, $sendToken);
 			}
 		}
 
@@ -310,13 +310,18 @@ class MetaDataControllerTest extends TestCase {
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
 				->method('updateMetaDataIntoIntermediateFile')
-				->with('john.doe', $fileId, '{}')
+				->with('john.doe', $fileId, '{}', 'e2e-token')
 				->willThrowException($metaDataStorageException);
 		} else {
 			$this->metaDataStorage->expects($this->once())
 				->method('updateMetaDataIntoIntermediateFile')
-				->with('john.doe', $fileId, '{}');
+				->with('john.doe', $fileId, '{}', 'e2e-token');
 		}
+
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('e2e-token')
+			->willReturn('e2e-token');
 
 		$this->l10n->expects($this->any())
 			->method('t')
