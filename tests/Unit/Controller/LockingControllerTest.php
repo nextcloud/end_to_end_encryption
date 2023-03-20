@@ -228,10 +228,15 @@ class LockingControllerTest extends TestCase {
 					->willReturn([]);
 			} else {
 				$node = $this->createMock(Folder::class);
-				$userFolder->expects($this->once())
+				$userFolder->expects($this->exactly(2))
 					->method('getById')
 					->with($fileId)
 					->willReturn([$node]);
+
+				$this->metaDataStorage->expects($this->once())
+					->method('getTouchedFolders')
+					->with('e2e-token')
+					->willReturn([$fileId]);
 
 				$this->fileService->expects($this->once())
 					->method('finalizeChanges')

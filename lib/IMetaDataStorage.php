@@ -49,7 +49,7 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MetaDataExistsException
 	 */
-	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData): void;
+	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData, string $token): void;
 
 	/**
 	 * Update meta data file into intermediate file
@@ -58,7 +58,7 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MissingMetaDataException
 	 */
-	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey): void;
+	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey, string $token): void;
 
 	/**
 	 * Moves intermediate metadata file to final file
@@ -84,4 +84,22 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 */
 	public function deleteMetaData(string $userId, int $id): void;
+
+	/**
+	 * Return the list of folders marked as touched.
+	 *
+	 * @return int[]
+	 *
+	 * @throws NotPermittedException
+	 * @throws NotFoundException
+	 */
+	public function getTouchedFolders(string $token): array;
+
+	/**
+	 * Clear the list of touched folder for a token.
+	 *
+	 * @throws NotPermittedException
+	 * @throws NotFoundException
+	 */
+	public function clearTouchedFolders(string $token): void;
 }

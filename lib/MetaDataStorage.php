@@ -32,6 +32,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\Files\SimpleFS\ISimpleFile;
+use OCP\Files\SimpleFS\ISimpleFolder;
 
 /**
  * Class MetaDataStorage
@@ -76,7 +77,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData): void {
+	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData, string $token): void {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
 
@@ -103,12 +104,14 @@ class MetaDataStorage implements IMetaDataStorage {
 
 		$dir->newFile($this->intermediateMetaDataFileName)
 			->putContent($metaData);
+
+		$this->getTokenFolder($token)->newFile("$id", '');
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey): void {
+	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey, string $token): void {
 		// ToDo check signature for race condition
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
@@ -138,6 +141,8 @@ class MetaDataStorage implements IMetaDataStorage {
 
 		$intermediateMetaDataFile
 			->putContent($fileKey);
+
+		$this->getTokenFolder($token)->newFile("$id", '');
 	}
 
 	/**
@@ -309,5 +314,33 @@ class MetaDataStorage implements IMetaDataStorage {
 		}
 
 		return $ownerNodes[0]->getPath();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getTouchedFolders(string $token): array {
+		return array_map(
+			fn (ISimpleFile $file) => (int)$file->getName(),
+			$this->getTokenFolder($token)->getDirectoryListing()
+		);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function clearTouchedFolders(string $token): void {
+		$this->getTokenFolder($token)->delete();
+	}
+
+	// To ease the wrap-up process during unlocking,
+	// we keep track of every folder for which metadata was updated.
+	// For that we create a file named /tokens/$token/$folderId.
+	private function getTokenFolder(string $token): ISimpleFolder {
+		try {
+			return $this->appData->getFolder("/tokens/$token");
+		} catch (NotFoundException $ex) {
+			return $this->appData->newFolder("/tokens/$token");
+		}
 	}
 }

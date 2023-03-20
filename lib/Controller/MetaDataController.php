@@ -104,8 +104,10 @@ class MetaDataController extends OCSController {
 	 * @throws OCSBadRequestException
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
+		$e2eToken = $this->request->getHeader('e2e-token');
+
 		try {
-			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
+			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
@@ -135,7 +137,7 @@ class MetaDataController extends OCSController {
 		}
 
 		try {
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
@@ -161,8 +163,10 @@ class MetaDataController extends OCSController {
 	 * @throws OCSBadRequestException
 	 */
 	public function deleteMetaData(int $id): DataResponse {
+		$e2eToken = $this->request->getHeader('e2e-token');
+
 		try {
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}');
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}', $e2eToken);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
@@ -200,7 +204,7 @@ class MetaDataController extends OCSController {
 			$decodedMetadata['filedrop'] = array_merge($decodedMetadata['filedrop'] ?? [], $decodedFileDrop);
 			$encodedMetadata = json_encode($decodedMetadata);
 
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata, $e2eToken);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {

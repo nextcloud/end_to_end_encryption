@@ -82,6 +82,7 @@ class RollbackService {
 		foreach ($locks as $lock) {
 			$mountPoints = $this->userMountCache->getMountsForFileId($lock->getId());
 			if (empty($mountPoints)) {
+				$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 				$this->lockMapper->delete($lock);
 				continue;
 			}
@@ -101,6 +102,7 @@ class RollbackService {
 			}
 
 			if (strpos($firstMountPoint->getInternalPath(), 'files_trashbin/files/') === 0) {
+				$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 				$this->lockMapper->delete($lock);
 				continue;
 			}
@@ -128,6 +130,7 @@ class RollbackService {
 				continue;
 			}
 
+			$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 			$this->lockMapper->delete($lock);
 		}
 	}

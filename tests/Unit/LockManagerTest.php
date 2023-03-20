@@ -28,6 +28,7 @@ use OCA\EndToEndEncryption\Db\Lock;
 use OCA\EndToEndEncryption\Db\LockMapper;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
+use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -62,6 +63,9 @@ class LockManagerTest extends TestCase {
 	/** @var ITimeFactory|\PHPUnit\Framework\MockObject\MockObject */
 	private $timeFactory;
 
+	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
+	private $metaDataStorage;
+
 	/** @var LockManager */
 	private $lockManager;
 
@@ -73,9 +77,16 @@ class LockManagerTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->timeFactory = $this->createMock(ITimeFactory::class);
+		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 
-		$this->lockManager = new LockManager($this->lockMapper, $this->secureRandom,
-			$this->rootFolder, $this->userSession, $this->timeFactory);
+		$this->lockManager = new LockManager(
+			$this->lockMapper,
+			$this->secureRandom,
+			$this->rootFolder,
+			$this->userSession,
+			$this->timeFactory,
+			$this->metaDataStorage,
+		);
 	}
 
 	/**
@@ -96,7 +107,8 @@ class LockManagerTest extends TestCase {
 				$this->secureRandom,
 				$this->rootFolder,
 				$this->userSession,
-				$this->timeFactory
+				$this->timeFactory,
+				$this->metaDataStorage,
 			])
 			->getMock();
 

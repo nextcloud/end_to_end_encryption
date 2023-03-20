@@ -55,6 +55,7 @@ class LockManager {
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
 		ITimeFactory $timeFactory,
+		private IMetaDataStorage $metaDataStorage,
 	) {
 		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;
@@ -102,6 +103,7 @@ class LockManager {
 			throw new FileLockedException();
 		}
 
+		$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 		$this->lockMapper->delete($lock);
 	}
 

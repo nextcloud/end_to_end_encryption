@@ -56,7 +56,7 @@ class FileService {
 	}
 
 	/**
-	 * @return bool Whether this operation changed any files
+	 * @return bool Move and delete temporary files suffixed by .e2e-to-save and .e2e-to-delete
 	 */
 	public function finalizeChanges(Folder $folder): bool {
 		$intermediateFiles = $this->getIntermediateFiles($folder);

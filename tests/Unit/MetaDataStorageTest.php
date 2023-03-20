@@ -171,28 +171,28 @@ class MetaDataStorageTest extends TestCase {
 				->willReturn(null);
 
 			$metaDataFolder = $this->createMock(ISimpleFolder::class);
+			$tokenFolder = $this->createMock(ISimpleFolder::class);
 			if ($folderExists) {
-				$this->appData->expects($this->once())
+				$this->appData->expects($this->exactly($expectsMetaDataExistsException ? 1 : 2))
 					->method('getFolder')
-					->with('/meta-data/42')
-					->willReturn($metaDataFolder);
+					->willReturnMap([['/meta-data/42', $metaDataFolder], ['/tokens/e2e-token', $tokenFolder]]);
 			} else {
-				$this->appData->expects($this->once())
+				$this->appData->expects($this->exactly($expectsMetaDataExistsException ? 1 : 2))
 					->method('getFolder')
-					->with('/meta-data/42')
+					->withConsecutive(['/meta-data/42'], ['/tokens/e2e-token'])
 					->willThrowException(new NotFoundException());
 			}
 
 			if ($expectsNewFolder) {
-				$this->appData->expects($this->once())
+				$this->appData->expects($this->exactly($expectsMetaDataExistsException || $folderExists ? 1 : 2))
 					->method('newFolder')
-					->with('/meta-data/42')
-					->willReturn($metaDataFolder);
+					->willReturnMap([['/meta-data/42', $metaDataFolder], ['/tokens/e2e-token', $tokenFolder]]);
 			} else {
-				$this->appData->expects($this->never())
-					->method('newFolder');
+				$this->appData->expects($this->exactly($expectsMetaDataExistsException || $folderExists ? 0 : 1))
+					->method('newFolder')
+					->with('/tokens/e2e-token')
+					->willReturn($tokenFolder);
 			}
-
 
 			if ($fileExists) {
 				$metaDataFolder->expects($this->once())
@@ -229,7 +229,7 @@ class MetaDataStorageTest extends TestCase {
 				->willReturn($node);
 		}
 
-		$metaDataStorage->setMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content');
+		$metaDataStorage->setMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content', 'e2e-token');
 	}
 
 	public function setMetaDataIntoIntermediateFileDataProvider(): array {
@@ -284,11 +284,11 @@ class MetaDataStorageTest extends TestCase {
 		}
 
 		$metaDataFolder = $this->createMock(ISimpleFolder::class);
+		$tokenFolder = $this->createMock(ISimpleFolder::class);
 		if ($folderExists) {
-			$this->appData->expects($this->once())
+			$this->appData->expects($this->exactly($expectMissingMetaDataException ? 1 : 2))
 				->method('getFolder')
-				->with('/meta-data/42')
-				->willReturn($metaDataFolder);
+				->willReturnMap([['/meta-data/42', $metaDataFolder], ['/tokens/e2e-token', $tokenFolder]]);
 
 			if (!$hasLegacyMetadataFile) {
 				$metaDataFolder->expects($this->once())
@@ -297,16 +297,15 @@ class MetaDataStorageTest extends TestCase {
 					->willReturn($fileExists);
 			}
 		} else {
-			$this->appData->expects($this->once())
+			$this->appData->expects($this->exactly($expectMissingMetaDataException ? 1 : 2))
 				->method('getFolder')
-				->with('/meta-data/42')
+				->withConsecutive(['/meta-data/42'], ['/tokens/e2e-token'])
 				->willThrowException(new NotFoundException());
 
 			if ($hasLegacyMetadataFile) {
-				$this->appData->expects($this->once())
+				$this->appData->expects($this->exactly($expectMissingMetaDataException ? 1 : 2))
 					->method('newFolder')
-					->with('/meta-data/42')
-					->willReturn($metaDataFolder);
+					->willReturnMap([['/meta-data/42', $metaDataFolder], ['/tokens/e2e-token', $tokenFolder]]);
 			}
 		}
 
@@ -315,6 +314,7 @@ class MetaDataStorageTest extends TestCase {
 			$this->expectExceptionMessage('Meta-data file missing');
 		} else {
 			$intermediateFile = $this->createMock(ISimpleFile::class);
+			$tokenFile = $this->createMock(ISimpleFile::class);
 			$intermediateFile->expects($this->once())
 				->method('putContent')
 				->with('metadata-file-content');
@@ -335,9 +335,14 @@ class MetaDataStorageTest extends TestCase {
 					->with('intermediate.meta.data')
 					->willReturn($intermediateFile);
 			}
+
+			$tokenFolder->expects($this->once())
+				->method('newFile')
+				->with('42', '')
+				->willReturn($tokenFile);
 		}
 
-		$metaDataStorage->updateMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content');
+		$metaDataStorage->updateMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content', 'e2e-token');
 	}
 
 	public function updateMetaDataIntoIntermediateFileDataProvider(): array {
