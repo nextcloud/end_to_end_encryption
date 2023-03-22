@@ -18,12 +18,12 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ['8.0']
-        server-versions: ['stable24']
+        php-versions: ["8.0"]
+        server-versions: ["stable24"]
 
     services:
       postgres:
-        image: postgres
+        image: postgres:14
         ports:
           - 4444:5432/tcp
         env:
