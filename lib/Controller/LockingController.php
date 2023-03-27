@@ -32,6 +32,7 @@ namespace OCA\EndToEndEncryption\Controller;
 use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
+use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
@@ -151,9 +152,15 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
-		$this->fileService->finalizeChanges($nodes[0]);
+		$hadChanges = $this->fileService->finalizeChanges($nodes[0]);
 
-		$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
+		try {
+			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
+		} catch (MissingMetaDataException $ex) {
+			if ($hadChanges) {
+				throw $ex;
+			}
+		}
 
 		try {
 			$this->lockManager->unlockFile($id, $token);
