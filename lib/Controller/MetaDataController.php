@@ -77,7 +77,6 @@ class MetaDataController extends OCSController {
 	 * Get metadata
 	 *
 	 * @NoAdminRequired
-	 * @PublicPage
 	 * @E2ERestrictUserAgent
 	 *
 	 * @throws OCSNotFoundException
