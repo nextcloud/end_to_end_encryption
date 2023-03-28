@@ -79,6 +79,7 @@ class RollbackService {
 		foreach ($locks as $lock) {
 			$mountPoints = $this->userMountCache->getMountsForFileId($lock->getId());
 			if (empty($mountPoints)) {
+				$this->lockMapper->delete($lock);
 				continue;
 			}
 
