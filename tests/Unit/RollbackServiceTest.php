@@ -198,9 +198,9 @@ class RollbackServiceTest extends TestCase {
 			->method('deleteIntermediateFile')
 			->with('user6', 100006);
 
-		$this->lockMapper->expects($this->once())
+		$this->lockMapper->expects($this->exactly(2))
 			->method('delete')
-			->with($locks[5]);
+			->withConsecutive([$locks[0]], [$locks[5]]);
 
 		$this->logger->expects($this->exactly(3))
 			->method('critical');
