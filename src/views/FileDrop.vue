@@ -54,8 +54,12 @@ import logger from '../services/logger.js'
 import { EncryptedFile } from '../services/crypto.js'
 import { uploadFile } from '../services/uploadFile.js'
 import { lock, unlock } from '../services/lock.js'
-import FolderMetadata from '../services/metadata.js'
+import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
 
+/**
+ * @readonly
+ * @enum {string}
+ */
 const UploadStep = {
 	NONE: 'none',
 	ENCRYPTING: 'encrypting',
@@ -65,6 +69,14 @@ const UploadStep = {
 	UNLOCKING: 'unlocking',
 	DONE: 'done',
 }
+
+/**
+ * @typedef {object} UploadProgress
+ * @property {File} file
+ * @property {UploadStep} step
+ * @property {boolean} error
+ * @property {Object<string, import('../services/filedrop.js').EncryptedFileMetadata>} fileDrop
+ */
 
 export default {
 	name: 'FileDrop',
@@ -130,16 +142,14 @@ export default {
 				return
 			}
 
-			this.error = ''
 			this.loading = true
+			/** @type {UploadProgress[]} */
 			let progresses = []
-			let folderMetadata = null
 			let lockToken = null
 
 			try {
 				logger.debug('Locking the folder', { lockToken: this.lockToken, shareToken: this.shareToken })
 				lockToken = await lock(this.folderId, this.shareToken)
-
 			} catch (exception) {
 				logger.error('Could not lock the folder', { exception })
 				showError('Could not lock the folder')
@@ -148,14 +158,10 @@ export default {
 			}
 
 			try {
-				logger.debug('Getting the folder metadata', { lockToken, shareToken: this.shareToken })
-				folderMetadata = new FolderMetadata(this.folderId)
-				await folderMetadata.retrieveMetadata(this.shareToken)
-
 				progresses = await Promise.all(
 					Array
 						.from(fileList)
-						.map((file) => this.uploadFile(file, folderMetadata))
+						.map((file) => this.uploadFile(file))
 				)
 			} catch (exception) {
 				logger.error('Error while uploading files', { exception })
@@ -164,13 +170,16 @@ export default {
 			}
 
 			try {
-				if (folderMetadata !== null) {
-					logger.debug('Updating the folder metadata', { lockToken, shareToken: this.shareToken })
-					progresses
-						.filter(({ error }) => !error)
-						.forEach(progress => { progress.step = UploadStep.UPLOADING_METADATA })
-					await folderMetadata.uploadMetadata(lockToken, this.shareToken)
-				}
+				logger.debug('Updating the fileDrop entries', { lockToken, shareToken: this.shareToken })
+				progresses
+					.filter(({ error }) => !error)
+					.forEach(progress => { progress.step = UploadStep.UPLOADING_METADATA })
+
+				const fileDrops = progresses
+					.filter(({ error }) => !error)
+					.reduce((fileDropEntries, { fileDrop }) => ({ ...fileDropEntries, ...fileDrop }), {})
+
+				await uploadFileDrop(this.folderId, fileDrops, lockToken, this.shareToken)
 			} catch (exception) {
 				logger.error('Error while uploading metadata', { exception })
 				showError('Error while uploading metadata')
@@ -197,10 +206,11 @@ export default {
 
 		/**
 		 * @param {File} unencryptedFile
-		 * @param {FolderMetadata} folderMetadata
+		 * @return {Promise<UploadProgress>}
 		 */
-		async uploadFile(unencryptedFile, folderMetadata) {
-			const progress = { file: unencryptedFile, step: UploadStep.NONE, error: false }
+		async uploadFile(unencryptedFile) {
+			/** @type {UploadProgress} */
+			const progress = { file: unencryptedFile, step: UploadStep.NONE, error: false, fileDrop: undefined }
 			this.uploadedFiles.push(progress)
 
 			try {
@@ -215,7 +225,7 @@ export default {
 				await uploadFile('/public.php/webdav/', file.encryptedFileName, content, this.shareToken)
 				progress.step = UploadStep.UPLOADED
 
-				await folderMetadata.addFileDrop(file, tag, this.publicKey)
+				progress.fileDrop = await getFileDropEntry(file, tag, this.publicKey)
 			} catch (exception) {
 				progress.error = true
 				logger.error(`Fail to upload the file (${progress.step})`, { exception })
