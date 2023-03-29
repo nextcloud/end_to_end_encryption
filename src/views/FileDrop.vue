@@ -152,7 +152,7 @@ export default {
 				lockToken = await lock(this.folderId, this.shareToken)
 			} catch (exception) {
 				logger.error('Could not lock the folder', { exception })
-				showError('Could not lock the folder')
+				showError(t('end_to_end_encryption', 'Could not lock the folder'))
 				this.loading = false
 				return
 			}
@@ -165,7 +165,7 @@ export default {
 				)
 			} catch (exception) {
 				logger.error('Error while uploading files', { exception })
-				showError('Error while uploading files')
+				showError(t('end_to_end_encryption', 'Error while uploading files'))
 				progresses.forEach(progress => { progress.error = true })
 			}
 
@@ -182,7 +182,7 @@ export default {
 				await uploadFileDrop(this.folderId, fileDrops, lockToken, this.shareToken)
 			} catch (exception) {
 				logger.error('Error while uploading metadata', { exception })
-				showError('Error while uploading metadata')
+				showError(t('end_to_end_encryption', 'Error while uploading metadata'))
 				progresses.forEach(progress => { progress.error = true })
 			}
 
@@ -197,7 +197,7 @@ export default {
 					.forEach(progress => { progress.step = UploadStep.DONE })
 			} catch (exception) {
 				logger.error('Error while unlocking the folder', { exception })
-				showError('Error while unlocking the folder')
+				showError(t('end_to_end_encryption', 'Error while unlocking the folder'))
 				progresses.forEach(progress => { progress.error = true })
 			}
 
@@ -220,15 +220,19 @@ export default {
 				const blob = await unencryptedFile.arrayBuffer()
 				const { content, tag } = await file.encrypt(blob)
 
+				progress.fileDrop = await getFileDropEntry(file, tag, this.publicKey)
+
 				progress.step = UploadStep.UPLOADING
 				logger.debug('Uploading the file', { unencryptedFile, shareToken: this.shareToken })
 				await uploadFile('/public.php/webdav/', file.encryptedFileName, content, this.shareToken)
 				progress.step = UploadStep.UPLOADED
-
-				progress.fileDrop = await getFileDropEntry(file, tag, this.publicKey)
 			} catch (exception) {
 				progress.error = true
 				logger.error(`Fail to upload the file (${progress.step})`, { exception })
+
+				if (exception.name === 'OperationError') {
+					showError(t('end_to_end_encryption', 'File name is too long: {fileName}', { fileName: unencryptedFile.name }))
+				}
 			}
 
 			return progress
