@@ -229,10 +229,6 @@ export default {
 			} catch (exception) {
 				progress.error = true
 				logger.error(`Fail to upload the file (${progress.step})`, { exception })
-
-				if (exception.name === 'OperationError') {
-					showError(t('end_to_end_encryption', 'File name is too long: {fileName}', { fileName: unencryptedFile.name }))
-				}
 			}
 
 			return progress
