@@ -61,7 +61,7 @@ export async function getFileDropEntry(file, tag, publicKey) {
 
 	const encryptedKey = await encryptStringAsymmetric(
 		publicKey,
-		await window.crypto.subtle.exportKey('raw', encryptedEncryptionParams.key),
+		new TextEncoder().encode(bufferToBase64(await window.crypto.subtle.exportKey('raw', encryptedEncryptionParams.key))),
 	)
 
 	return {
