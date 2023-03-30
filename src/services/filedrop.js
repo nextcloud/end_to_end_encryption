@@ -64,13 +64,6 @@ export async function getFileDropEntry(file, tag, publicKey) {
 	const base64Key2 = btoa(base64Key1)
 	const bufferKey = new TextEncoder().encode(base64Key2)
 
-	console.log({
-		rawKey,
-		base64Key1,
-		base64Key2,
-		bufferKey,
-	})
-
 	const encryptedKey = await encryptStringAsymmetric(
 		publicKey,
 		bufferKey,
