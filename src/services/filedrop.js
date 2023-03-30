@@ -56,7 +56,7 @@ export async function getFileDropEntry(file, tag, publicKey) {
 
 	const encrypted = await encryptWithAES(
 		encryptedEncryptionParams,
-		new TextEncoder().encode(JSON.stringify(encryptedPayload))
+		new TextEncoder().encode(btoa(JSON.stringify(encryptedPayload)))
 	)
 
 	const encryptedKey = await encryptStringAsymmetric(
