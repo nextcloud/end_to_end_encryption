@@ -59,9 +59,19 @@ export async function getFileDropEntry(file, tag, publicKey) {
 		new TextEncoder().encode(btoa(JSON.stringify(encryptedPayload)))
 	)
 
+	const rawKey = await window.crypto.subtle.exportKey('raw', encryptedEncryptionParams.key)
+	const base64Key = bufferToBase64(rawKey)
+	const bufferKey = new TextEncoder().encode(base64Key)
+
+	console.log({
+		rawKey,
+		base64Key,
+		bufferKey,
+	})
+
 	const encryptedKey = await encryptStringAsymmetric(
 		publicKey,
-		new TextEncoder().encode(bufferToBase64(await window.crypto.subtle.exportKey('raw', encryptedEncryptionParams.key))),
+		bufferKey,
 	)
 
 	return {
