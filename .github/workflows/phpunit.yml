@@ -18,9 +18,9 @@ jobs:
       # do not stop on another job's failure
       fail-fast: false
       matrix:
-        php-versions: ['7.4']
-        databases: ['sqlite']
-        server-versions: ['stable23']
+        php-versions: ["7.4"]
+        databases: ["sqlite"]
+        server-versions: ["stable23"]
 
     name: php${{ matrix.php-versions }}-${{ matrix.databases }}-${{ matrix.server-versions }}
 
@@ -44,11 +44,13 @@ jobs:
           path: apps/${{ env.APP_NAME }}
 
       - name: Set up php ${{ matrix.php-versions }}
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@1a18b2267f80291a81ca1d33e7c851fe09e7dfc4 # v2
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring, iconv, fileinfo, intl, sqlite, pdo_sqlite
           coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up PHPUnit
         working-directory: apps/${{ env.APP_NAME }}
@@ -67,9 +69,9 @@ jobs:
         working-directory: apps/${{ env.APP_NAME }}
         run: ./vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
-#      - name: PHPUnit integration
-#        working-directory: apps/${{ env.APP_NAME }}
-#        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+  #      - name: PHPUnit integration
+  #        working-directory: apps/${{ env.APP_NAME }}
+  #        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 
   mysql:
     runs-on: ubuntu-latest
@@ -78,9 +80,9 @@ jobs:
       # do not stop on another job's failure
       fail-fast: false
       matrix:
-        php-versions: ['7.3', '7.4', '8.0']
-        databases: ['mysql']
-        server-versions: ['stable23']
+        php-versions: ["7.3", "7.4", "8.0"]
+        databases: ["mysql"]
+        server-versions: ["stable23"]
 
     name: php${{ matrix.php-versions }}-${{ matrix.databases }}-${{ matrix.server-versions }}
 
@@ -113,11 +115,13 @@ jobs:
           path: apps/${{ env.APP_NAME }}
 
       - name: Set up php ${{ matrix.php-versions }}
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@1a18b2267f80291a81ca1d33e7c851fe09e7dfc4 # v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, iconv, fileinfo, intl, mysql, pdo_mysql
+          extensions: mbstring, iconv, fileinfo, intl, sqlite, pdo_sqlite
           coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up PHPUnit
         working-directory: apps/${{ env.APP_NAME }}
@@ -136,9 +140,9 @@ jobs:
         working-directory: apps/${{ env.APP_NAME }}
         run: ./vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
-#      - name: PHPUnit integration
-#        working-directory: apps/${{ env.APP_NAME }}
-#        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+  #      - name: PHPUnit integration
+  #        working-directory: apps/${{ env.APP_NAME }}
+  #        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 
   pgsql:
     runs-on: ubuntu-latest
@@ -147,15 +151,15 @@ jobs:
       # do not stop on another job's failure
       fail-fast: false
       matrix:
-        php-versions: ['7.4']
-        databases: ['pgsql']
-        server-versions: ['stable23']
+        php-versions: ["7.4"]
+        databases: ["pgsql"]
+        server-versions: ["stable23"]
 
     name: php${{ matrix.php-versions }}-${{ matrix.databases }}-${{ matrix.server-versions }}
 
     services:
       postgres:
-        image: postgres
+        image: postgres:14
         ports:
           - 4444:5432/tcp
         env:
@@ -184,11 +188,13 @@ jobs:
           path: apps/${{ env.APP_NAME }}
 
       - name: Set up php ${{ matrix.php-versions }}
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@1a18b2267f80291a81ca1d33e7c851fe09e7dfc4 # v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, iconv, fileinfo, intl, pgsql, pdo_pgsql
-          coverage: xdebug
+          extensions: mbstring, iconv, fileinfo, intl, sqlite, pdo_sqlite
+          coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up PHPUnit
         working-directory: apps/${{ env.APP_NAME }}
@@ -207,12 +213,12 @@ jobs:
         working-directory: apps/${{ env.APP_NAME }}
         run: ./vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
-#      - name: PHPUnit integration
-#        working-directory: apps/${{ env.APP_NAME }}
-#        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+      #      - name: PHPUnit integration
+      #        working-directory: apps/${{ env.APP_NAME }}
+      #        run: ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: apps/${{ env.APP_NAME }}/clover.unit.xml
-          fail_ci_if_error: true
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     file: apps/${{ env.APP_NAME }}/clover.unit.xml
+      #     fail_ci_if_error: true
