@@ -69,6 +69,10 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "Le chiffrement de bout en bout est actuellement activé et correctement configuré.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Le chiffrement de bout en bout est actuellement désactivé. Vous pouvez le configurer avec les clients {productName}.",
     "End-to-End encryption keys reset" : "Réinitialisation des clés de chiffrement de bout en bout",
-    "Unable to reset End-to-End encryption" : "Impossible de réinitialiser le chiffrement de bout en bout"
+    "Unable to reset End-to-End encryption" : "Impossible de réinitialiser le chiffrement de bout en bout",
+    "Could not lock the folder" : "Impossible de verrouiller le dossier",
+    "Error while uploading files" : "Erreur lors du téléversement du fichier",
+    "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées",
+    "Error while unlocking the folder" : "Erreur lors du déverrouillage du dossier"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
