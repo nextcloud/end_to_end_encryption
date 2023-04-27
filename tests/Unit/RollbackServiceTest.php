@@ -90,8 +90,12 @@ class RollbackServiceTest extends TestCase {
 		$mountFileInfo4 = $this->createMock(ICachedMountFileInfo::class);
 		$mountFileInfo5 = $this->createMock(ICachedMountFileInfo::class);
 		$mountFileInfo6 = $this->createMock(ICachedMountFileInfo::class);
+		$mountFileInfo7 = $this->createMock(ICachedMountFileInfo::class);
 
-		$this->userMountCache->expects($this->exactly(6))
+		$mountFileInfo7->method('getInternalPath')
+			->willReturn('files_trashbin/files/a_deleted_file.jpg.d1682517431');
+
+		$this->userMountCache->expects($this->exactly(7))
 			->method('getMountsForFileId')
 			->willReturnMap([
 				[100001, null, []],
@@ -100,6 +104,7 @@ class RollbackServiceTest extends TestCase {
 				[100004, null, [$mountFileInfo4]],
 				[100005, null, [$mountFileInfo5]],
 				[100006, null, [$mountFileInfo6]],
+				[100007, null, [$mountFileInfo7]],
 			]);
 
 		$user2 = $this->createMock(IUser::class);
@@ -112,26 +117,31 @@ class RollbackServiceTest extends TestCase {
 		$user5->method('getUID')->willReturn('user5');
 		$user6 = $this->createMock(IUser::class);
 		$user6->method('getUID')->willReturn('user6');
+		$user7 = $this->createMock(IUser::class);
+		$user7->method('getUID')->willReturn('user7');
 
 		$mountFileInfo2->method('getUser')->willReturn($user2);
 		$mountFileInfo3->method('getUser')->willReturn($user3);
 		$mountFileInfo4->method('getUser')->willReturn($user4);
 		$mountFileInfo5->method('getUser')->willReturn($user5);
 		$mountFileInfo6->method('getUser')->willReturn($user6);
+		$mountFileInfo7->method('getUser')->willReturn($user7);
 
 		$userFolder3 = $this->createMock(Folder::class);
 		$userFolder4 = $this->createMock(Folder::class);
 		$userFolder5 = $this->createMock(Folder::class);
 		$userFolder6 = $this->createMock(Folder::class);
+		$userFolder7 = $this->createMock(Folder::class);
 
 		$this->rootFolder->method('getUserFolder')
-			->withConsecutive(['user2'], ['user3'], ['user4'], ['user5'], ['user6'])
+			->withConsecutive(['user2'], ['user3'], ['user4'], ['user5'], ['user6'], ['user7'])
 			->willReturnOnConsecutiveCalls(
 				$this->throwException(new \Exception('User not found')),
 				$userFolder3,
 				$userFolder4,
 				$userFolder5,
 				$userFolder6,
+				$userFolder7
 			);
 
 		$node3 = $this->createMock(Folder::class);
@@ -185,9 +195,9 @@ class RollbackServiceTest extends TestCase {
 				null
 			);
 
-		$this->lockMapper->expects($this->exactly(2))
+		$this->lockMapper->expects($this->exactly(3))
 			->method('delete')
-			->withConsecutive([$locks[0]], [$locks[5]]);
+			->withConsecutive([$locks[0]], [$locks[5]], [$locks[6]]);
 
 		$this->logger->expects($this->exactly(3))
 			->method('critical');
@@ -214,6 +224,9 @@ class RollbackServiceTest extends TestCase {
 		$lock6 = new Lock();
 		$lock6->setId(100006);
 
+		$lock7 = new Lock();
+		$lock7->setId(100007);
+
 		return [
 			$lock1,
 			$lock2,
@@ -221,6 +234,7 @@ class RollbackServiceTest extends TestCase {
 			$lock4,
 			$lock5,
 			$lock6,
+			$lock7,
 		];
 	}
 }
