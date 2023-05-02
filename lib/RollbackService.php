@@ -98,6 +98,11 @@ class RollbackService {
 				continue;
 			}
 
+			if (strpos($firstMountPoint->getInternalPath(), 'files_trashbin/files/') === 0) {
+				$this->lockMapper->delete($lock);
+				continue;
+			}
+
 			$nodes = $userFolder->getById($lock->getId());
 			if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
 				continue;
