@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption;
 
+use OCP\Files\Config\ICachedMountFileInfo;
 use OCP\Files\Config\IUserMountCache;
 use OCP\Files\Folder;
 use OCA\EndToEndEncryption\AppInfo\Application;
@@ -83,7 +84,10 @@ class RollbackService {
 				continue;
 			}
 
-			$userId = $mountPoints[0]->getUser()->getUID();
+			/** @var ICachedMountFileInfo $firstMountPoint */
+			$firstMountPoint = array_shift($mountPoints);
+			$userId = $firstMountPoint->getUser()->getUID();
+
 			try {
 				$userFolder = $this->rootFolder->getUserFolder($userId);
 			} catch (\Exception $ex) {
