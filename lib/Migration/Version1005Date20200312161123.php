@@ -51,9 +51,10 @@ class Version1005Date20200312161123 extends SimpleMigrationStep {
 				$table->dropIndex('id');
 			}
 
-			if (!$table->hasIndex('e2e_unique_lock')) {
-				$table->addUniqueIndex(['id'], 'e2e_unique_lock');
-			}
+			// deactivated. a newer migration set id as primary key. oci does not allow a primary key and index for the same column.
+//			if (!$table->hasIndex('e2e_unique_lock')) {
+//				$table->addUniqueIndex(['id'], 'e2e_unique_lock');
+//			}
 		}
 
 		return $schema;

@@ -5,7 +5,7 @@
 	<name>End-to-End Encryption</name>
 	<summary>End-to-end encryption endpoint</summary>
 	<description>Provides the necessary endpoint to enable end-to-end encryption.</description>
-	<version>1.13.0</version>
+	<version>1.13.1</version>
 	<licence>agpl</licence>
 	<author>Bjoern Schiessle</author>
 	<namespace>EndToEndEncryption</namespace>
