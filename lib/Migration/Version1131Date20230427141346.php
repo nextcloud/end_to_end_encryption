@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 /**
  * @copyright Copyright (c) 2023 Daniel Kesselberg <mail@danielkesselberg.de>
  *
@@ -34,7 +33,7 @@ use OCP\Migration\SimpleMigrationStep;
 class Version1131Date20230427141346 extends SimpleMigrationStep {
 	/**
 	 * @param IOutput $output
-	 * @param Closure(): ISchemaWrapper $schemaClosure
+	 * @param Closure $schemaClosure The `\Closure` returns a `ISchemaWrapper`
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
