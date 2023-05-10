@@ -72,7 +72,6 @@ class E2EEnabledPathCache {
 			return $this->perStorageEncryptedStateCache[$storageId][$node->getId()];
 		}
 
-		$parentIds = [];
 		if ($node->getPath() === '/') {
 			// root is never encrypted
 			$this->perStorageEncryptedStateCache[$storageId][$node->getId()] = false;
@@ -83,13 +82,6 @@ class E2EEnabledPathCache {
 			// no need to go further down in the tree
 			$this->perStorageEncryptedStateCache[$storageId][$node->getId()] = true;
 			return true;
-		}
-
-		// go down more, but try first just with the parent path to spare a lot of
-		// queries if already cached
-		$parentId = $node->getFileInfo()['parent'];
-		if (isset($this->perStorageEncryptedStateCache[$storageId][$parentId])) {
-			return $this->perStorageEncryptedStateCache[$storageId][$parentId];
 		}
 
 		try {
