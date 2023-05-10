@@ -69,4 +69,9 @@ class LockMapper extends QBMapper {
 
 		return $this->findEntities($qb);
 	}
+
+	protected function mapRowToEntity(array $row): Entity {
+		unset($row['DOCTRINE_ROWNUM']); // remove doctrine/dbal helper column
+		return parent::mapRowToEntity($row);
+	}
 }
