@@ -67,6 +67,10 @@
     "End-to-End encryption is currently enabled and correctly setup." : "A végpontok közti titkosítás jelenleg engedélyezett és helyesen van beállítva.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "A végpontok közti titkosítás jelenleg le van tiltva. Beállíthatja a(z) {productName} klienseiben.",
     "End-to-End encryption keys reset" : "Végpontok közti titkosítási kulcsok alaphelyzetbe állítva",
-    "Unable to reset End-to-End encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe"
+    "Unable to reset End-to-End encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe",
+    "Could not lock the folder" : "Nem sikerült a mappa zárolása",
+    "Error while uploading files" : "Hiba a fájlok feltöltése során",
+    "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
+    "Error while unlocking the folder" : "Hiba a mappa zárolásának feloldása során"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
