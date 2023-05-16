@@ -14,6 +14,37 @@ function getTag(encrypted) {
 	return encrypted.slice(encrypted.byteLength - ((128 + 7) >> 3))
 }
 
+export async function getRandomAESKey() {
+	return await window.crypto.subtle.generateKey(
+		{
+			name: 'AES-GCM',
+			length: 128,
+		},
+		true,
+		['encrypt', 'decrypt']
+	)
+}
+
+/**
+ * Encrypt file content
+ *
+ * @param {{key: CryptoKey, initializationVector: Uint8Array}} encryptionData
+ * @param {Uint8Array} content
+ * @return {Promise<{content: ArrayBuffer, tag: ArrayBuffer}>}
+ */
+export async function encryptWithAES({ key, initializationVector }, content) {
+	const encrypted = await window.crypto.subtle.encrypt(
+		{ name: 'AES-GCM', iv: initializationVector },
+		key,
+		content,
+	)
+
+	return {
+		content: encrypted,
+		tag: getTag(encrypted),
+	}
+}
+
 class EncryptedFile {
 
 	/**
@@ -40,19 +71,7 @@ class EncryptedFile {
 	 * @return {Promise<{content: ArrayBuffer, tag: ArrayBuffer}>}
 	 */
 	async encrypt(content) {
-		const encrypted = await window.crypto.subtle.encrypt(
-			{
-				name: 'AES-GCM',
-				iv: this.initializationVector,
-			},
-			await this.getEncryptionKey(),
-			content
-		)
-
-		return {
-			content: encrypted,
-			tag: getTag(encrypted),
-		}
+		return encryptWithAES({ key: await this.getEncryptionKey(), initializationVector: this.initializationVector }, content)
 	}
 
 	/**
@@ -60,14 +79,7 @@ class EncryptedFile {
 	 */
 	async getEncryptionKey() {
 		if (this.encryptionKey === null) {
-			this.encryptionKey = await window.crypto.subtle.generateKey(
-				{
-					name: 'AES-GCM',
-					length: 128,
-				},
-				true,
-				['encrypt', 'decrypt']
-			)
+			this.encryptionKey = await getRandomAESKey()
 		}
 
 		return this.encryptionKey
