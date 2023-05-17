@@ -47,6 +47,10 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Végpontok közti titkosítási kulcsok alaphelyzetbe állítva",
     "Unable to reset end-to-end encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe",
     "Select or drop files" : "Válasszon vagy dobjon ide fájlokat",
+    "Could not lock the folder" : "Nem sikerült a mappa zárolása",
+    "Error while uploading files" : "Hiba a fájlok feltöltése során",
+    "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
+    "Error while unlocking the folder" : "Hiba a mappa zárolásának feloldása során",
     "Upload encrypted files to {fileName}" : "Titkosított fájlok feltöltése a következőbe: {fileName}",
     "Metadata-file doesn't exist" : "A metaadatfájl nem létezik",
     "End to End Encryption" : "Végpontok közötti titkosítás",
@@ -69,10 +73,6 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "A végpontok közti titkosítás jelenleg engedélyezett és helyesen van beállítva.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "A végpontok közti titkosítás jelenleg le van tiltva. Beállíthatja a(z) {productName} klienseiben.",
     "End-to-End encryption keys reset" : "Végpontok közti titkosítási kulcsok alaphelyzetbe állítva",
-    "Unable to reset End-to-End encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe",
-    "Could not lock the folder" : "Nem sikerült a mappa zárolása",
-    "Error while uploading files" : "Hiba a fájlok feltöltése során",
-    "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
-    "Error while unlocking the folder" : "Hiba a mappa zárolásának feloldása során"
+    "Unable to reset End-to-End encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe"
 },
 "nplurals=2; plural=(n != 1);");

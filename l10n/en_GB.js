@@ -47,6 +47,10 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "End-to-end encryption keys reset",
     "Unable to reset end-to-end encryption" : "Unable to reset end-to-end encryption",
     "Select or drop files" : "Select or drop files",
+    "Could not lock the folder" : "Could not lock the folder",
+    "Error while uploading files" : "Error while uploading files",
+    "Error while uploading metadata" : "Error while uploading metadata",
+    "Error while unlocking the folder" : "Error while unlocking the folder",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
     "Metadata-file doesn't exist" : "Metadata-file doesn't exist",
     "End to End Encryption" : "End to End Encryption",
@@ -69,10 +73,6 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "End-to-End encryption is currently enabled and correctly setup.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "End-to-End encryption is currently disabled. You can set it up with the {productName} clients.",
     "End-to-End encryption keys reset" : "End-to-End encryption keys reset",
-    "Unable to reset End-to-End encryption" : "Unable to reset End-to-End encryption",
-    "Could not lock the folder" : "Could not lock the folder",
-    "Error while uploading files" : "Error while uploading files",
-    "Error while uploading metadata" : "Error while uploading metadata",
-    "Error while unlocking the folder" : "Error while unlocking the folder"
+    "Unable to reset End-to-End encryption" : "Unable to reset End-to-End encryption"
 },
 "nplurals=2; plural=(n != 1);");

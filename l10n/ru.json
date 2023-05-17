@@ -45,6 +45,10 @@
     "End-to-end encryption keys reset" : "Сброс ключей Сквозного шифрования",
     "Unable to reset end-to-end encryption" : "Невозможно сбросить сквозное шифрование",
     "Select or drop files" : "Выберите или перетащите файлы",
+    "Could not lock the folder" : "Не удалось заблокировать папку",
+    "Error while uploading files" : "Ошибка при загрузке файлов",
+    "Error while uploading metadata" : "Ошибка при загрузке метаданных",
+    "Error while unlocking the folder" : "Ошибка при разблокировке папки",
     "Upload encrypted files to {fileName}" : "Загрузить зашифрованные файлы в {fileName}",
     "Metadata-file doesn't exist" : "Файл метаданных не существует",
     "End to End Encryption" : "Сквозное шифрование",
@@ -67,10 +71,6 @@
     "End-to-End encryption is currently enabled and correctly setup." : "Сквозное шифрование в настоящее время включено и правильно настроено.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Сквозное шифрование в настоящее время отключено. Вы можете настроить его с помощью {productName} клиентов.",
     "End-to-End encryption keys reset" : "Сброс ключей Сквозного шифрования",
-    "Unable to reset End-to-End encryption" : "Невозможно сбросить Сквозное шифрование",
-    "Could not lock the folder" : "Не удалось заблокировать папку",
-    "Error while uploading files" : "Ошибка при загрузке файлов",
-    "Error while uploading metadata" : "Ошибка при загрузке метаданных",
-    "Error while unlocking the folder" : "Ошибка при разблокировке папки"
+    "Unable to reset End-to-End encryption" : "Невозможно сбросить Сквозное шифрование"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }
