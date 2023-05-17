@@ -47,6 +47,10 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Кључеви шифровања од-краја-до-краја су ресетовани",
     "Unable to reset end-to-end encryption" : "Није могло да се ресетује шифровање од-краја-до-краја",
     "Select or drop files" : "Одаберите или превуците фајлове",
+    "Could not lock the folder" : "Не може да се закључа фолдер",
+    "Error while uploading files" : "Грешка приликом отпремања фајлова",
+    "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
+    "Error while unlocking the folder" : "Грешка приликом откључавања фолдера",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
     "Metadata-file doesn't exist" : "Фајл метаподатака не постоји",
     "End to End Encryption" : "Шифровање од-краја-до-краја",
@@ -69,10 +73,6 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "Шифровање од-краја-до-краја је тренутно укључено и исправно подешено.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Шифровање од-краја-до-краја је тренутно искључено. Можете да га подесите са {productName} клијентима.",
     "End-to-End encryption keys reset" : "Кључеви шифровања од-краја-до-краја су ресетовани",
-    "Unable to reset End-to-End encryption" : "Није могло да се ресетује шифровање од-краја-до-краја",
-    "Could not lock the folder" : "Не може да се закључа фолдер",
-    "Error while uploading files" : "Грешка приликом отпремања фајлова",
-    "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
-    "Error while unlocking the folder" : "Грешка приликом откључавања фолдера"
+    "Unable to reset End-to-End encryption" : "Није могло да се ресетује шифровање од-краја-до-краја"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

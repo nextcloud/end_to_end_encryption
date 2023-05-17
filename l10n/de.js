@@ -47,6 +47,10 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Unable to reset end-to-end encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
     "Select or drop files" : "Dateien auswählen oder hierher ziehen",
+    "Could not lock the folder" : "Ordner konnte nicht gesperrt werden",
+    "Error while uploading files" : "Fehler beim Hochladen von Dateien",
+    "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
+    "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners",
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
     "Metadata-file doesn't exist" : "Metadaten-Datei existiert nicht",
     "End to End Encryption" : "Ende-zu-Ende-Verschlüsselung",
@@ -69,10 +73,6 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten.",
     "End-to-End encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
-    "Unable to reset End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
-    "Could not lock the folder" : "Ordner konnte nicht gesperrt werden",
-    "Error while uploading files" : "Fehler beim Hochladen von Dateien",
-    "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
-    "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners"
+    "Unable to reset End-to-End encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden"
 },
 "nplurals=2; plural=(n != 1);");

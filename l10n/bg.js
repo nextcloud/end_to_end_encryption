@@ -47,6 +47,10 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Възстановяване на ключовете за цялостно криптиране",
     "Unable to reset end-to-end encryption" : "Невъзможно възстановяване на цялостното криптиране",
     "Select or drop files" : "Изберете файл или преместете с мишката",
+    "Could not lock the folder" : "Не можа да се заключи папка",
+    "Error while uploading files" : "Грешка при качване на файлове",
+    "Error while uploading metadata" : "Грешка при качване на метаданни",
+    "Error while unlocking the folder" : "Грешка при отключването на папка",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
     "Metadata-file doesn't exist" : "Файл с метаданни не съществува",
     "End to End Encryption" : "Цялостно Криптиране",
@@ -69,10 +73,6 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "Цялостното криптиране в момента е активирано и е настроено правилно.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "В момента цялостното криптиране е деактивирано. Можете да го настроите с клиентите на {productName}.",
     "End-to-End encryption keys reset" : "Възстановяване на ключовете за цялостно криптиране",
-    "Unable to reset End-to-End encryption" : "Невъзможоно възстановяване на цялостното криптиране",
-    "Could not lock the folder" : "Не можа да се заключи папка",
-    "Error while uploading files" : "Грешка при качване на файлове",
-    "Error while uploading metadata" : "Грешка при качване на метаданни",
-    "Error while unlocking the folder" : "Грешка при отключването на папка"
+    "Unable to reset End-to-End encryption" : "Невъзможоно възстановяване на цялостното криптиране"
 },
 "nplurals=2; plural=(n != 1);");
