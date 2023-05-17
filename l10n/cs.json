@@ -45,6 +45,10 @@
     "End-to-end encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
     "Unable to reset end-to-end encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
     "Select or drop files" : "Vyberte nebo přetáhněte soubory",
+    "Could not lock the folder" : "Složku se nedaří zamknout",
+    "Error while uploading files" : "Chyba při nahrávání souborů",
+    "Error while uploading metadata" : "Chyba při nahrávání metadat",
+    "Error while unlocking the folder" : "Chyba při odemykání souboru",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
     "Metadata-file doesn't exist" : "Soubor s metadaty neexistuje ",
     "End to End Encryption" : "Šifrování mezi koncovými body",
@@ -67,10 +71,6 @@
     "End-to-End encryption is currently enabled and correctly setup." : "Šifrování mezi koncovými body je v tuto chvíli zapnuté a správně nastavené.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
     "End-to-End encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
-    "Unable to reset End-to-End encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
-    "Could not lock the folder" : "Složku se nedaří zamknout",
-    "Error while uploading files" : "Chyba při nahrávání souborů",
-    "Error while uploading metadata" : "Chyba při nahrávání metadat",
-    "Error while unlocking the folder" : "Chyba při odemykání souboru"
+    "Unable to reset End-to-End encryption" : "Nedaří se resetovat šifrování mezi koncovými body"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

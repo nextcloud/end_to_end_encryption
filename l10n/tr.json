@@ -45,6 +45,10 @@
     "End-to-end encryption keys reset" : "Uçtan uca şifreleme anahtarları sıfırlandı",
     "Unable to reset end-to-end encryption" : "Uçtan uca şifreleme sıfırlanamadı",
     "Select or drop files" : "Dosyaları seçin ya da sürükleyip bırakın",
+    "Could not lock the folder" : "Klasör kilitlenemedi",
+    "Error while uploading files" : "Dosyalar yüklenirken sorun çıktı",
+    "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı",
+    "Error while unlocking the folder" : "Klasörün kilidi açılırken sorun çıktı",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
     "Metadata-file doesn't exist" : "Üst veri dosyası bulunamadı",
     "End to End Encryption" : "Uçtan uca şifreleme",
@@ -67,10 +71,6 @@
     "End-to-End encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme şu anda etkin ve doğru şekilde ayarlanmış.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu anda devre dışı. {productName} istemcileriyle ayarlayabilirsiniz.",
     "End-to-End encryption keys reset" : "Uçtan uca şifreleme anahtarları sıfırlandı",
-    "Unable to reset End-to-End encryption" : "Uçtan uca şifreleme sıfırlanamadı",
-    "Could not lock the folder" : "Klasör kilitlenemedi",
-    "Error while uploading files" : "Dosyalar yüklenirken sorun çıktı",
-    "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı",
-    "Error while unlocking the folder" : "Klasörün kilidi açılırken sorun çıktı"
+    "Unable to reset End-to-End encryption" : "Uçtan uca şifreleme sıfırlanamadı"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

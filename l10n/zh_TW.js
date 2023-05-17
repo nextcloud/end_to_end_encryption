@@ -47,6 +47,10 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "端到端加密金鑰重設",
     "Unable to reset end-to-end encryption" : "無法重設端到端加密",
     "Select or drop files" : "選取或拖曳檔案",
+    "Could not lock the folder" : "無法鎖定資料夾",
+    "Error while uploading files" : "上傳檔案時發生錯誤",
+    "Error while uploading metadata" : "上傳詮釋資料時發生錯誤",
+    "Error while unlocking the folder" : "解除鎖定資料時發生錯誤",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
     "Metadata-file doesn't exist" : "詮釋資料檔案不存在",
     "End to End Encryption" : "端到端加密",
@@ -69,10 +73,6 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "端到端加密目前已啟用並正確設定。",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "端到端加密目前已停用。您可以使用 {productName} 客戶端進行設定。",
     "End-to-End encryption keys reset" : "端到端加密金鑰重設",
-    "Unable to reset End-to-End encryption" : "無法重設端到端加密",
-    "Could not lock the folder" : "無法鎖定資料夾",
-    "Error while uploading files" : "上傳檔案時發生錯誤",
-    "Error while uploading metadata" : "上傳詮釋資料時發生錯誤",
-    "Error while unlocking the folder" : "解除鎖定資料時發生錯誤"
+    "Unable to reset End-to-End encryption" : "無法重設端到端加密"
 },
 "nplurals=1; plural=0;");
