@@ -47,6 +47,10 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Les claus de xifratge d'extrem a extrem restablertes",
     "Unable to reset end-to-end encryption" : "No es pot restablir el xifratge d'extrem a extrem",
     "Select or drop files" : "Selecciona o deixa anar els fitxers",
+    "Could not lock the folder" : "No s'ha pogut bloquejar la carpeta",
+    "Error while uploading files" : "S'ha produït un error en penjar fitxers",
+    "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
+    "Error while unlocking the folder" : "S'ha produït un error en desbloquejar la carpeta",
     "Upload encrypted files to {fileName}" : "Penja fitxers xifrats a {fileName}",
     "Metadata-file doesn't exist" : "El fitxer de metadades no existeix",
     "End to End Encryption" : "Xifratge d'extrem a extrem",
@@ -69,10 +73,6 @@ OC.L10N.register(
     "End-to-End encryption is currently enabled and correctly setup." : "Actualment, el xifratge d'extrem a extrem està habilitat i configurat correctament.",
     "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Actualment, el xifratge d'extrem a extrem està inhabilitat. Podeu configurar-lo amb els clients {productName}.",
     "End-to-End encryption keys reset" : "Les claus de xifratge d'extrem a extrem restablertes",
-    "Unable to reset End-to-End encryption" : "No es pot restablir el xifratge d'extrem a extrem",
-    "Could not lock the folder" : "No s'ha pogut bloquejar la carpeta",
-    "Error while uploading files" : "S'ha produït un error en penjar fitxers",
-    "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
-    "Error while unlocking the folder" : "S'ha produït un error en desbloquejar la carpeta"
+    "Unable to reset End-to-End encryption" : "No es pot restablir el xifratge d'extrem a extrem"
 },
 "nplurals=2; plural=(n != 1);");
