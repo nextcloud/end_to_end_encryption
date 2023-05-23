@@ -242,7 +242,7 @@ class MetaDataControllerTest extends TestCase {
 		$sendToken = 'sendE2EToken';
 		$metaData = 'JSON-ENCODED-META-DATA';
 		$this->request->expects($this->once())
-			->method('getParam')
+			->method('getHeader')
 			->with('e2e-token')
 			->willReturn($sendToken);
 
