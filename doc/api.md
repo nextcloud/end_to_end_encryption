@@ -419,7 +419,13 @@ metaData: content of the encrypted meta-data file
 
 **Example curl call:**
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d metaData="<encrypted-meta-data>"
+```bash
+curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>" \
+    -X POST \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>" \
+    -d metaData="<encrypted-meta-data>"
+```
 
 ## Get meta-data file
 
@@ -491,7 +497,13 @@ the file with the given file-id
 
 **Example curl call:**
 
-`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d "metaData=<encrypted-meta-data>&e2e-token=<e2e-token-received-during-lock-operation>"
+```bash
+curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>" \
+    -X PUT \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>" \
+    -d metaData="<encrypted-meta-data>"
+```
 
 ## Update filedrop property of meta-data file
 
@@ -564,8 +576,12 @@ DELETE: `<base-url>/meta-data/<file-id>`
 
 **Example curl call:**
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
-
+```bash
+curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>" \
+    -X DELETE \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>"
+```
 
 ## Get server public key
 
