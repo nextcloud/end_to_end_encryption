@@ -103,9 +103,9 @@ export async function uploadFileDrop(folderId, fileDrop, lockToken, shareToken) 
 		{
 			headers: {
 				'x-e2ee-supported': true,
+				'e2e-token': lockToken,
 			},
 			params: {
-				'e2e-token': lockToken,
 				shareToken,
 			},
 		},
