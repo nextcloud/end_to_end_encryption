@@ -49,15 +49,15 @@ OC.L10N.register(
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrovanie end-to-end je momentálne vypnuté. Môžete ho nastaviť pomocou klientov {productName}.",
     "End to end keys reset" : "Reset kľúčov pre šifrovanie End-to-End",
     "Unable to reset end to end encryption" : "Nepodarilo sa resetovať End-to-End šifrovacie kľúče",
-    "End-to-End encryption endpoint" : "End-to-End šifrovací koncový bod",
+    "End-to-End encryption is currently enabled and correctly setup." : "Šifrovanie end-to-end je momentálne povolené a správne nastavené.",
+    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrovanie end-to-end je momentálne vypnuté. Môžete ho nastaviť pomocou klientov {productName}.",
+    "End-to-End encryption keys reset" : "End-to-End šifrovacie kľúče boli resetované",
+    "Unable to reset End-to-End encryption" : "Nepodarilo sa resetovať End-to-End šifrovacie kľúče",
     "End-to-End encryption" : "Šifrovanie End-to-End",
     "Reset End-to-End encryption" : "Resetovať šifrovanie End-to-End",
     "Please read carefully before resetting your End-to-End encryption keys" : "Pozorne si prečítajte predtým ako vrátite šifrovacie kľúče End-to-End do východzieho stavu",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Po resetovaní šifrovacích kľúčov End-to-End budú všetky súbory uložené vo vašom šifrovanom priečinku nedostupné.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Svoje šifrovacie kľúče End-to-End by ste mali resetovať iba v prípade, že ste stratili svoje bezpečné kľúčové slová (mnemotechnická pomôcka).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Šifrovanie end-to-end je momentálne povolené a správne nastavené.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrovanie end-to-end je momentálne vypnuté. Môžete ho nastaviť pomocou klientov {productName}.",
-    "End-to-End encryption keys reset" : "End-to-End šifrovacie kľúče boli resetované",
-    "Unable to reset End-to-End encryption" : "Nepodarilo sa resetovať End-to-End šifrovacie kľúče"
+    "End-to-End encryption endpoint" : "End-to-End šifrovací koncový bod"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

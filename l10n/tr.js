@@ -64,15 +64,15 @@ OC.L10N.register(
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu anda devre dışı. {productName} istemcileriyle ayarlayabilirsiniz.",
     "End to end keys reset" : "Uçtan uca anahtarlarını sıfırlama",
     "Unable to reset end to end encryption" : "Uçtan uca şifreleme sıfırlanamadı",
-    "End-to-End encryption endpoint" : "Uçtan uca şifreleme uç noktası",
+    "End-to-End encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme şu anda etkin ve doğru şekilde ayarlanmış.",
+    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu anda devre dışı. {productName} istemcileriyle ayarlayabilirsiniz.",
+    "End-to-End encryption keys reset" : "Uçtan uca şifreleme anahtarları sıfırlandı",
+    "Unable to reset End-to-End encryption" : "Uçtan uca şifreleme sıfırlanamadı",
     "End-to-End encryption" : "Uçtan uca şifreleme",
     "Reset End-to-End encryption" : "Uçtan uca şifrelemeyi sıfırla",
     "Please read carefully before resetting your End-to-End encryption keys" : "Lütfen uçtan uca şifreleme anahtarlarınızı sıfırlamadan önce dikkatlice okuyun",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Uçtan uca şifreleme anahtarlarınız sıfırlandığında, şifrelenmiş klasörünüzde kayıtlı tüm dosyalar erişilemez olacak.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Uçtan uca şifreleme anahtarlarınızı yalnızca güvenli anahtar sözcüklerinizi (anımsatıcı) kaybettiyseniz sıfırlamanız gerekir.",
-    "End-to-End encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme şu anda etkin ve doğru şekilde ayarlanmış.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu anda devre dışı. {productName} istemcileriyle ayarlayabilirsiniz.",
-    "End-to-End encryption keys reset" : "Uçtan uca şifreleme anahtarları sıfırlandı",
-    "Unable to reset End-to-End encryption" : "Uçtan uca şifreleme sıfırlanamadı"
+    "End-to-End encryption endpoint" : "Uçtan uca şifreleme uç noktası"
 },
 "nplurals=2; plural=(n > 1);");
