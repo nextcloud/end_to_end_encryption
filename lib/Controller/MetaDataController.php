@@ -106,6 +106,10 @@ class MetaDataController extends OCSController {
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 
+		if ($this->lockManager->isLocked($id, $e2eToken)) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
+		}
+
 		try {
 			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken);
 		} catch (MetaDataExistsException $e) {
@@ -164,6 +168,10 @@ class MetaDataController extends OCSController {
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
+
+		if ($this->lockManager->isLocked($id, $e2eToken)) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
+		}
 
 		try {
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}', $e2eToken);
