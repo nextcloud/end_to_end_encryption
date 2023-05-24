@@ -64,15 +64,15 @@ OC.L10N.register(
     "End to end encryption is currently disabled. You can set it up with the {productName} clients." : "Сквозное шифрование в настоящее время отключено. Вы можете настроить его с помощью {productName} клиентов.",
     "End to end keys reset" : "Ключи сквозного шифрования сброшены",
     "Unable to reset end to end encryption" : "Невозможно сбросить сквозное шифрование",
-    "End-to-End encryption endpoint" : "Конечная точка сквозного шифрования",
+    "End-to-End encryption is currently enabled and correctly setup." : "Сквозное шифрование в настоящее время включено и правильно настроено.",
+    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Сквозное шифрование в настоящее время отключено. Вы можете настроить его с помощью {productName} клиентов.",
+    "End-to-End encryption keys reset" : "Сброс ключей Сквозного шифрования",
+    "Unable to reset End-to-End encryption" : "Невозможно сбросить Сквозное шифрование",
     "End-to-End encryption" : "Сквозное шифрование",
     "Reset End-to-End encryption" : "Сброс Сквозного шифрования",
     "Please read carefully before resetting your End-to-End encryption keys" : "Пожалуйста, внимательно прочитайте перед сбросом ключей Сквозного шифрования",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "После сброса ключей Сквозного шифрования все файлы, хранящиеся в вашей зашифрованной папке, станут недоступны.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Сбрасывать ключи Сквозного шифрования следует только в том случае, если вы потеряли надежные ключевые слова (мнемоники).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Сквозное шифрование в настоящее время включено и правильно настроено.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Сквозное шифрование в настоящее время отключено. Вы можете настроить его с помощью {productName} клиентов.",
-    "End-to-End encryption keys reset" : "Сброс ключей Сквозного шифрования",
-    "Unable to reset End-to-End encryption" : "Невозможно сбросить Сквозное шифрование"
+    "End-to-End encryption endpoint" : "Конечная точка сквозного шифрования"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");
