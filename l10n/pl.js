@@ -66,6 +66,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Przeczytaj uważnie przed zresetowaniem kluczy szyfrowania end-to-end",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Po zresetowaniu kluczy szyfrowania end-to-end wszystkie pliki przechowywane w zaszyfrowanym katalogu będą niedostępne.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Klucze szyfrowania end-to-end należy resetować tylko w przypadku zgubienia bezpiecznych słów kluczowych (mnemonika).",
+    "error" : "błąd",
+    "Cancel" : "Anuluj",
+    "Confirm" : "Potwierdź",
     "End-to-End encryption endpoint" : "Punkt końcowy szyfrowania end-to-end"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

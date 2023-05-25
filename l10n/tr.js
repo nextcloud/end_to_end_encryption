@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Lütfen uçtan uca şifreleme anahtarlarınızı sıfırlamadan önce dikkatlice okuyun",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Uçtan uca şifreleme anahtarlarınız sıfırlandığında, şifrelenmiş klasörünüzde kayıtlı tüm dosyalar erişilemez olacak.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Uçtan uca şifreleme anahtarlarınızı yalnızca güvenli anahtar sözcüklerinizi (anımsatıcı) kaybettiyseniz sıfırlamanız gerekir.",
+    "error" : "sorun",
+    "Cancel" : "İptal",
+    "Confirm" : "Onayla",
     "End-to-End encryption endpoint" : "Uçtan uca şifreleme uç noktası"
 },
 "nplurals=2; plural=(n > 1);");

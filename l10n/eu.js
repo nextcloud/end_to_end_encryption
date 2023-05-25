@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Irakurri arretaz zure muturretik muturrerako zifratze gakoak berezarri aurretik mesedez",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Zure muturretik muturrerako zifratze gakoak berezartzen direnean, zifratutako karpetan dauden fitxategi guztiak helezinak izango dira.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Zure muturretik muturrerako zifratze gakoak gako-hitz seguruak (mnemonikoak) galdu badituzu soilik berezarri beharko zenituzke.",
+    "error" : "errorea",
+    "Cancel" : "Utzi",
+    "Confirm" : "Berretsi",
     "End-to-End encryption endpoint" : "Muturretik muturrerako zifratzearen amaiera-puntua"
 },
 "nplurals=2; plural=(n != 1);");

@@ -71,6 +71,13 @@
     "Please read carefully before resetting your End-to-End encryption keys" : "Důkladně si pročtěte a až teprve poté případě vracejte šifrování mezi koncovými body do výchozího stavu",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Jakmile budou klíče pro šifrování mezi koncovými body resetovány, veškeré soubory, uložené ve vaší šifrované složce přestanou být přístupné.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Své klíče pro šifrování mezi koncovými body byste měli resetovat pouze v situaci, kdy ztratíte svá slova zabezpečeného klíče (mnemotechnickou).",
+    "Confirm and reset End-to-End encryption" : "Potvrdit a vrátit šifrování mezi koncovými body do výchozího stavu",
+    "error" : "chyba",
+    "Cancel" : "Storno",
+    "tertiary" : "terciální",
+    "Confirm" : "Potvrdit",
+    "modal" : "dialog",
+    "notecard warning" : "Varování ohledně karty s poznámkou",
     "End-to-End encryption endpoint" : "Koncový bod šifrování mezi koncovými body"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

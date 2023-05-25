@@ -22,6 +22,9 @@ OC.L10N.register(
     "Save" : "Lagre",
     "End-to-end encryption" : "Ende-til-ende -kryptering",
     "Select or drop files" : "Velg eller slipp filer",
-    "End to end encryption" : "Ende-til-ende -kryptering"
+    "End to end encryption" : "Ende-til-ende -kryptering",
+    "error" : "feil",
+    "Cancel" : "Avbryt",
+    "Confirm" : "Bekreft"
 },
 "nplurals=2; plural=(n != 1);");

@@ -21,6 +21,9 @@ OC.L10N.register(
     "Limit app usage to groups." : "Limitar o uso da aplicação a grupos.",
     "Save" : "Guardar",
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
-    "Select or drop files" : "Seleccione ou solte ficheiros"
+    "Select or drop files" : "Seleccione ou solte ficheiros",
+    "error" : "erro",
+    "Cancel" : "Cancelar",
+    "Confirm" : "Confirmar"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
