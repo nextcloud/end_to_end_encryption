@@ -24,6 +24,9 @@ OC.L10N.register(
     "Save" : "Gardar",
     "End-to-end encryption" : "Cifrado de extremo a extremo",
     "Select or drop files" : "Seleccione ou arrastre e solte ficheiros",
-    "Metadata-file doesn't exist" : "Non existe o ficheiro de metadatos"
+    "Metadata-file doesn't exist" : "Non existe o ficheiro de metadatos",
+    "error" : "erro",
+    "Cancel" : "Cancelar",
+    "Confirm" : "Confirmar"
 },
 "nplurals=2; plural=(n != 1);");

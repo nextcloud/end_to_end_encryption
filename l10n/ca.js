@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Si us plau, llegiu atentament abans de restablir les vostres claus de xifratge d'extrem a extrem",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Un cop es restableixin les claus de xifratge d'extrem a extrem, tots els fitxers emmagatzemats a la carpeta xifrada seran inaccessibles.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Només hauríeu de restablir les vostres claus de xifratge d'extrem a extrem si heu perdut les vostres paraules clau segures (recordatori).",
+    "error" : "error",
+    "Cancel" : "Cancelar",
+    "Confirm" : "Confirma",
     "End-to-End encryption endpoint" : "Enllaç de xifratge extrem-a-extrem"
 },
 "nplurals=2; plural=(n != 1);");

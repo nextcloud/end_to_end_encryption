@@ -71,6 +71,9 @@
     "Please read carefully before resetting your End-to-End encryption keys" : "Будь ласка, уважно прочитайте перед скиданням ключів наскрізного шифрування",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Після скидання ключів наскрізного шифрування всі файли, які зберігаються у зашифрованих каталогах, стануть недоступні.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Рекомендується скидати ключі наскрізного шифрування, лише якщо ви загубили парольну фразу на ключі безпеки.",
+    "error" : "помилка",
+    "Cancel" : "Відміна",
+    "Confirm" : "Підтвердити",
     "End-to-End encryption endpoint" : "Точка доступу наскрізного шифрування"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

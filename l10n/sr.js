@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Молимо вас да пажљиво прочитате пре ресетовања вашик кључева шифровања од-краја-до-краја",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Једном када се ресетују ваши кључеви шифровања од-краја-до-краја, сви фајлови који се налазе у вашем шифрованом фолдеру постаће недоступни.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Кључеве шифровања од-краја-до-краја би требало да ресетујете само ако сте изгубили ваше речи безбедносног кључа (подсетника)",
+    "error" : "грешка",
+    "Cancel" : "Откажи",
+    "Confirm" : "Потврди",
     "End-to-End encryption endpoint" : "Крајња тачка шифровања од-краја-до-краја"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

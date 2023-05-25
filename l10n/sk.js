@@ -58,6 +58,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Pozorne si prečítajte predtým ako vrátite šifrovacie kľúče End-to-End do východzieho stavu",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Po resetovaní šifrovacích kľúčov End-to-End budú všetky súbory uložené vo vašom šifrovanom priečinku nedostupné.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Svoje šifrovacie kľúče End-to-End by ste mali resetovať iba v prípade, že ste stratili svoje bezpečné kľúčové slová (mnemotechnická pomôcka).",
+    "error" : "chyba",
+    "Cancel" : "Zrušiť",
+    "Confirm" : "Potvrdiť",
     "End-to-End encryption endpoint" : "End-to-End šifrovací koncový bod"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

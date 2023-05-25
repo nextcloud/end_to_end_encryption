@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Läs noga innan du återställer dina krypteringsnycklar för totalsträckskryptering",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "När dina krypteringsnycklar för totalsträckskryptering har återställts kommer alla filer som lagras i din krypterade mapp att vara oåtkomliga.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Du bör endast återställa dina krypteringsnycklar för totalsträckskryptering om du tappat dina säkra nyckelord (mnemonic).",
+    "error" : "fel",
+    "Cancel" : "Avbryt",
+    "Confirm" : "Bekräfta",
     "End-to-End encryption endpoint" : "Slutpunkt för totalsträckskryptering"
 },
 "nplurals=2; plural=(n != 1);");
