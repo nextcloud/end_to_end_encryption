@@ -24,6 +24,9 @@ OC.L10N.register(
     "Save" : "שמירה",
     "End-to-end encryption" : "הצפנה מקצה לקצה",
     "Select or drop files" : "בחירה או השלכה של קבצים",
-    "Metadata-file doesn't exist" : "קובץ נתוני העל לא קיים"
+    "Metadata-file doesn't exist" : "קובץ נתוני העל לא קיים",
+    "error" : "שגיאה",
+    "Cancel" : "ביטול",
+    "Confirm" : "אימות"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

@@ -24,6 +24,8 @@ OC.L10N.register(
     "Save" : "Vista",
     "End-to-end encryption" : "Enda-í-enda dulritun",
     "Select or drop files" : "Veldu eða slepptu skrám",
-    "Metadata-file doesn't exist" : "Lýsigögn eru ekki til staðar"
+    "Metadata-file doesn't exist" : "Lýsigögn eru ekki til staðar",
+    "error" : "villa",
+    "Confirm" : "Staðfesta"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

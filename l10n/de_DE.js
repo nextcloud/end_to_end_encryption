@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Bitte sorgfältig lesen vor dem Zurücksetzen Ihrer Schlüssel für die Ende-zu-Ende-Verschlüsselung",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Sobald Ihre Ende-zu-Ende-Verschlüsselungsschlüssel zurückgesetzt sind, sind alle in Ihrem verschlüsselten Ordner gespeicherten Dateien unzugänglich.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Sie sollten Ihre Ende-zu-Ende-Verschlüsselungsschlüssel nur zurücksetzen, wenn Sie Ihre sicheren Schlüsselwörter (Gedächtnisstütze) verloren haben.",
+    "error" : "Fehler",
+    "Cancel" : "Abbrechen",
+    "Confirm" : "Bestätigen",
     "End-to-End encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung"
 },
 "nplurals=2; plural=(n != 1);");

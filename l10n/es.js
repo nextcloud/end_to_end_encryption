@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Por favor, lea cuidadosamente antes de reiniciar sus llaves de cifrado de extremo a extremo",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Una vez que sus llaves de cifrado de extremo a extremo se hayan reiniciado, no podrá acceder a ninguno de los archivos almacenados en su carpeta cifrada.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Sólo debería reiniciar sus llaves de cifrado de extremo a extremo si ha perdido las frases (mnemónicos) de su llave segura. ",
+    "error" : "error",
+    "Cancel" : "Cancelar",
+    "Confirm" : "Confirmar",
     "End-to-End encryption endpoint" : "Extremo de cifrado de extremo a extremo"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

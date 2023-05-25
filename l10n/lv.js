@@ -9,6 +9,8 @@ OC.L10N.register(
     "Limit app usage to groups." : "Ierobežot lietotņu lietošanu grupās.",
     "Save" : "Saglabāt",
     "End-to-end encryption" : "No gala līdz galam šifrēšana",
-    "Select or drop files" : "Izvēlies vai ievelc datnes"
+    "Select or drop files" : "Izvēlies vai ievelc datnes",
+    "error" : "kļūda",
+    "Confirm" : "Apstiprināt"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

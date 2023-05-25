@@ -73,6 +73,9 @@ OC.L10N.register(
     "Please read carefully before resetting your End-to-End encryption keys" : "Veuillez lire attentivement avant de réinitialiser vos clés de chiffrement de bout en bout.",
     "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Une fois que vos clés de chiffrement de bout en bout sont réinitialisées, tous les fichiers stockés dans votre dossier chiffré seront inaccessibles.",
     "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Vous ne devez réinitialiser vos clés de chiffrement de bout en bout que si vous avez perdu vos mots-clés sécurisés (phrase secrète).",
+    "error" : "erreur",
+    "Cancel" : "Annuler",
+    "Confirm" : "Confirmer",
     "End-to-End encryption endpoint" : "Point de terminaison du chiffrement de bout en bout"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
