@@ -20,6 +20,8 @@ OC.L10N.register(
     "Save" : "შენახვა",
     "End-to-end encryption" : "End-to-end შიფრაცია",
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები",
-    "End to end encryption" : "End to end შიფრაცია"
+    "End to end encryption" : "End to end შიფრაცია",
+    "Cancel" : "გაუქმება",
+    "Confirm" : "დადასტურება"
 },
 "nplurals=2; plural=(n!=1);");

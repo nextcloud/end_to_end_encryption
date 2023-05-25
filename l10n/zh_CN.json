@@ -27,6 +27,9 @@
     "Save" : "保存",
     "End-to-end encryption" : "端到端加密",
     "Select or drop files" : "选择或拖放文件",
-    "Metadata-file doesn't exist" : "元数据文件不存在"
+    "Metadata-file doesn't exist" : "元数据文件不存在",
+    "error" : "错误",
+    "Cancel" : "取消",
+    "Confirm" : "确认"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -6,6 +6,9 @@
     "Limit to groups" : "Kufizo grupet",
     "Save" : "Ruaj",
     "End-to-end encryption" : "Enkriptim end-to-end ",
-    "Select or drop files" : "Përzgjidh ose hiq skedarët"
+    "Select or drop files" : "Përzgjidh ose hiq skedarët",
+    "error" : "gabim",
+    "Cancel" : "Anuloje",
+    "Confirm" : "Konfirmo"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

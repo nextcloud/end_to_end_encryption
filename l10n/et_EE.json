@@ -1,0 +1,9 @@
+{ "translations": {
+    "Limit to groups" : "Luba gruppidele",
+    "Save" : "Salvesta",
+    "Select or drop files" : "Vali või lohista failid",
+    "error" : "viga",
+    "Cancel" : "Tühista",
+    "Confirm" : "Kinnita"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

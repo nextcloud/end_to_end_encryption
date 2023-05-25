@@ -30,6 +30,9 @@ OC.L10N.register(
     "Select or drop files" : "Valitse tai pudota tiedostoja",
     "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
     "End to End Encryption" : "Päästä päähän -salaus",
-    "End-to-End encryption" : "Päästä päähän -salaus"
+    "End-to-End encryption" : "Päästä päähän -salaus",
+    "error" : "virhe",
+    "Cancel" : "Peruuta",
+    "Confirm" : "Vahvista"
 },
 "nplurals=2; plural=(n != 1);");
