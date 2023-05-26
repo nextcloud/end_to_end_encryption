@@ -29,9 +29,9 @@ OC.L10N.register(
     "Save" : "Gem",
     "End-to-end encryption" : "End-to-end kryptering",
     "Select or drop files" : "Vælg eller slip filer",
-    "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke",
     "error" : "fejl",
     "Cancel" : "Annullér",
-    "Confirm" : "Bekræft"
+    "Confirm" : "Bekræft",
+    "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke"
 },
 "nplurals=2; plural=(n != 1);");
