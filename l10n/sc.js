@@ -29,9 +29,9 @@ OC.L10N.register(
     "Save" : "Sarva",
     "End-to-end encryption" : "Tzifradura end-to-end",
     "Select or drop files" : "Sèbera o iscapa archìvios",
-    "Metadata-file doesn't exist" : "S'archìviu metadatos no esistit",
     "error" : "errore",
     "Cancel" : "Annulla",
-    "Confirm" : "Cunfirma"
+    "Confirm" : "Cunfirma",
+    "Metadata-file doesn't exist" : "S'archìviu metadatos no esistit"
 },
 "nplurals=2; plural=(n != 1);");
