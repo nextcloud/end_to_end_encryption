@@ -28,7 +28,6 @@ OC.L10N.register(
     "Save" : "Guardar",
     "End-to-end encryption" : "Encripción de punta-a-punta",
     "Select or drop files" : "Selecciona o suelta los archivos",
-    "Metadata-file doesn't exist" : "Archivo-Metadatos no existe",
-    "End to end encryption" : "Encripción punto-a-punto"
+    "Metadata-file doesn't exist" : "Archivo-Metadatos no existe"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

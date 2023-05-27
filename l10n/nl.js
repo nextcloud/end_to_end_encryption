@@ -29,7 +29,6 @@ OC.L10N.register(
     "Save" : "Opslaan",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
     "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster",
-    "Metadata-file doesn't exist" : "Metadata-bestand bestaat niet",
-    "End to end encryption" : "End to end encryptie"
+    "Metadata-file doesn't exist" : "Metadata-bestand bestaat niet"
 },
 "nplurals=2; plural=(n != 1);");
