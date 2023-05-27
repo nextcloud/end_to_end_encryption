@@ -29,9 +29,6 @@ OC.L10N.register(
     "Save" : "Αποθήκευση",
     "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
     "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
-    "error" : "σφάλμα ",
-    "Cancel" : "Ακύρωση",
-    "Confirm" : "Επιβεβαίωση",
     "Metadata-file doesn't exist" : "Το αρχείο μεταδεδομένων δεν υπάρχει"
 },
 "nplurals=2; plural=(n != 1);");

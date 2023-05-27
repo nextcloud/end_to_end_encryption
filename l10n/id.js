@@ -5,9 +5,6 @@ OC.L10N.register(
     "File not locked" : "File tidak dikunci",
     "Limit to groups" : "Batasi ke grup",
     "Save" : "Simpan",
-    "Select or drop files" : "Pilih atau drop berkas",
-    "error" : "galat",
-    "Cancel" : "Batal",
-    "Confirm" : "Konfirmasi"
+    "Select or drop files" : "Pilih atau drop berkas"
 },
 "nplurals=1; plural=0;");
