@@ -28,10 +28,6 @@ OC.L10N.register(
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
     "Select or drop files" : "Valitse tai pudota tiedostoja",
-    "End to End Encryption" : "Päästä päähän -salaus",
-    "error" : "virhe",
-    "Cancel" : "Peruuta",
-    "Confirm" : "Vahvista",
     "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
     "End-to-End encryption" : "Päästä päähän -salaus"
 },

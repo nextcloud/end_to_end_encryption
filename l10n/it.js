@@ -29,10 +29,6 @@ OC.L10N.register(
     "Save" : "Salva",
     "End-to-end encryption" : "Cifratura End-To-End",
     "Select or drop files" : "Seleziona o deseleziona file",
-    "End to end encryption" : "Cifratura End to End",
-    "error" : "errore",
-    "Cancel" : "Annulla",
-    "Confirm" : "Conferma",
     "Metadata-file doesn't exist" : "Il file dei metadati non esiste"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
