@@ -21,9 +21,6 @@ OC.L10N.register(
     "Limit app usage to groups." : "アプリの使用をグループに制限する",
     "Save" : "保存",
     "End-to-end encryption" : "End-to-End 暗号化",
-    "Select or drop files" : "ファイルを選択するか、ドラッグ&ドロップしてください",
-    "error" : "エラー",
-    "Cancel" : "キャンセル",
-    "Confirm" : "承認"
+    "Select or drop files" : "ファイルを選択するか、ドラッグ&ドロップしてください"
 },
 "nplurals=1; plural=0;");

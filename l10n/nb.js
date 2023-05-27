@@ -21,10 +21,6 @@ OC.L10N.register(
     "Limit app usage to groups." : "Begrens app-bruk til grupper",
     "Save" : "Lagre",
     "End-to-end encryption" : "Ende-til-ende -kryptering",
-    "Select or drop files" : "Velg eller slipp filer",
-    "End to end encryption" : "Ende-til-ende -kryptering",
-    "error" : "feil",
-    "Cancel" : "Avbryt",
-    "Confirm" : "Bekreft"
+    "Select or drop files" : "Velg eller slipp filer"
 },
 "nplurals=2; plural=(n != 1);");
