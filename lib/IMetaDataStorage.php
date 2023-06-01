@@ -102,4 +102,14 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 */
 	public function clearTouchedFolders(string $token): void;
+
+	/**
+	 * Get the latest received counter.
+	 */
+	public function getCounter(int $id): int;
+
+	/**
+	 * Save the latest received counter in an intermediate file.
+	 */
+	public function saveIntermediateCounter(int $id, int $counter): void;
 }
