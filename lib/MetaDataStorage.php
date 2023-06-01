@@ -45,6 +45,10 @@ class MetaDataStorage implements IMetaDataStorage {
 	private string $metaDataRoot = '/meta-data';
 	private string $metaDataFileName = 'meta.data';
 	private string $intermediateMetaDataFileName = 'intermediate.meta.data';
+	private string $metaDataSignatureFileName = 'meta.data.signature';
+	private string $intermediateMetaDataSignatureFileName = 'intermediate.meta.data.signature';
+	private string $metaDataCounterFileName = 'meta.data.counter';
+	private string $intermediateMetaDataCounterFileName = 'intermediate.meta.data.counter';
 
 	public function __construct(
 		IAppData $appData,
@@ -142,6 +146,11 @@ class MetaDataStorage implements IMetaDataStorage {
 		$intermediateMetaDataFile
 			->putContent($fileKey);
 
+		// Signature can be empty when deleting the metadata, or during filedrop upload.
+		if ($signature !== '') {
+			$this->writeSignature($dir, $this->intermediateMetaDataSignatureFileName, $signature);
+		}
+
 		$this->getTokenFolder($token)->newFile("$id", '');
 	}
 
@@ -195,6 +204,14 @@ class MetaDataStorage implements IMetaDataStorage {
 			$finalFile->putContent($intermediateMetaDataFile->getContent());
 			// After successfully saving, automatically delete the intermediate file
 			$intermediateMetaDataFile->delete();
+
+			if ($dir->fileExists($this->intermediateMetaDataSignatureFileName)) {
+				$intermediateMetaDataSignature = $dir->getFile($this->intermediateMetaDataSignatureFileName);
+				$this->writeSignature($dir, $this->metaDataSignatureFileName, $intermediateMetaDataSignature->getContent());
+				$intermediateMetaDataSignature->delete();
+			}
+
+			$this->saveCounter($id);
 		}
 
 		$this->cleanupLegacyFile($userId, $id);
@@ -214,12 +231,15 @@ class MetaDataStorage implements IMetaDataStorage {
 			return;
 		}
 
-		if (!$dir->fileExists($this->intermediateMetaDataFileName)) {
-			return;
+		if ($dir->fileExists($this->intermediateMetaDataFileName)) {
+			$dir->getFile($this->intermediateMetaDataFileName)
+				->delete();
 		}
 
-		$dir->getFile($this->intermediateMetaDataFileName)
-			->delete();
+		if ($dir->fileExists($this->intermediateMetaDataCounterFileName)) {
+			$dir->getFile($this->intermediateMetaDataCounterFileName)
+				->delete();
+		}
 	}
 
 	private function getFolderNameForFileId(int $id): string {
@@ -342,5 +362,47 @@ class MetaDataStorage implements IMetaDataStorage {
 		} catch (NotFoundException $ex) {
 			return $this->appData->newFolder("/tokens/$token");
 		}
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getCounter(int $id): int {
+		try {
+			$metadataFolder = $this->appData->getFolder($this->getFolderNameForFileId($id));
+			$counterFile = $metadataFolder->getFile($this->metaDataCounterFileName);
+			return (int)$counterFile->getContent();
+		} catch (NotFoundException $ex) {
+			return 0;
+		}
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function saveIntermediateCounter(int $id, int $counter): void {
+		$metadataFolder = $this->appData->getFolder($this->getFolderNameForFileId($id));
+		$metadataFolder->newFile($this->intermediateMetaDataCounterFileName)->putContent($counter);
+	}
+
+	/**
+	 * Save the latest received counter from the intermediate file.
+	 */
+	private function saveCounter(int $id): void {
+		$metadataFolder = $this->appData->getFolder($this->getFolderNameForFileId($id));
+		if (!$metadataFolder->fileExists($this->intermediateMetaDataCounterFileName)) {
+			return;
+		}
+
+		$intermediateCounterFile = $metadataFolder->getFile($this->intermediateMetaDataCounterFileName);
+
+		try {
+			$counterFile = $metadataFolder->getFile($this->metaDataCounterFileName);
+		} catch (NotFoundException $ex) {
+			$counterFile = $metadataFolder->newFile($this->metaDataCounterFileName);
+		}
+
+		$counterFile->putContent($intermediateCounterFile->getContent());
+		$intermediateCounterFile->delete();
 	}
 }

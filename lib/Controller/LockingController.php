@@ -94,6 +94,7 @@ class LockingController extends OCSController {
 	 */
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
+		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
 
 		$ownerId = $this->getOwnerId($shareToken);
 
@@ -114,7 +115,7 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 
-		$newToken = $this->lockManager->lockFile($id, $e2eToken, $ownerId);
+		$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
 		if ($newToken === null) {
 			throw new OCSForbiddenException($this->l10n->t('File already locked'));
 		}

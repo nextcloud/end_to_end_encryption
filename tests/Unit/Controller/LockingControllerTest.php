@@ -135,6 +135,10 @@ class LockingControllerTest extends TestCase {
 			->method('lockFile')
 			->with($fileId, $sendE2E)
 			->willReturn('new-token');
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('X-NC-E2EE-COUNTER')
+			->willReturn('1');
 
 		$response = $this->controller->lockFolder($fileId);
 		$this->assertInstanceOf(DataResponse::class, $response);
@@ -172,6 +176,10 @@ class LockingControllerTest extends TestCase {
 			->willReturnCallback(static function ($string, $args) {
 				return vsprintf($string, $args);
 			});
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('X-NC-E2EE-COUNTER')
+			->willReturn('1');
 
 		$this->expectException(OCSForbiddenException::class);
 		$this->expectExceptionMessage('File already locked');
