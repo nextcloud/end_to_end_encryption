@@ -5,7 +5,7 @@
     "You are not allowed to delete this private key" : "Non ten permisos para eliminar esta clave privada",
     "Could not find the private key belonging to the user %s" : "Non foi posíbel atopar a clave privada pertencente ao usuario %s",
     "Could not find the public key belonging to the user %s" : "Non foi posíbel atopar a clave pública pertencente ao usuario %s",
-    "Common name (CN) does not match the current user" : "O nome común (CN) non coincide co usuario actual ",
+    "Common name (CN) does not match the current user" : "O nome común (NC) non coincide co usuario actual ",
     "Could not find the public key belonging to %s" : "Non foi posíbel atopar a clave pública pertencente a %s",
     "This is not your public key to delete" : "Esta non é a súa clave pública para que poida eliminala",
     "File already locked" : "O ficheiro xa está bloqueado",
