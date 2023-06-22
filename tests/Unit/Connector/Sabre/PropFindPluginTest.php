@@ -55,6 +55,9 @@ class PropFindPluginTest extends TestCase {
 	/** @var Server|\PHPUnit\Framework\MockObject\MockObject */
 	protected $server;
 
+	/** @var E2EEnabledPathCache|\PHPUnit\Framework\MockObject\MockObject */
+	protected $pathCache;
+
 	private PropFindPlugin $plugin;
 
 	protected function setUp(): void {
