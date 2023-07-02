@@ -2,7 +2,10 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "Internal error" : "خطأ داخلي",
+    "You are not allowed to delete this private key" : "لا يسمح لك بحذف هذا المفتاح الخاص",
     "Cannot decode userlist" : "لا يمكن تحليل قائمة المستخدمين userlist",
+    "You are not allowed to remove the lock" : "لا يسمح لك بإزالة القفل",
+    "File not locked" : "الملف غير مؤمن",
     "Cannot read metadata" : "لا يمكن قراءة الميتاداتا",
     "Cannot store metadata" : "لا يمكن تخزين الميتاداتا",
     "Cannot delete metadata" : "لا يمكن حذف الميتاداتا",
