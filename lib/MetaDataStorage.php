@@ -81,7 +81,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData, string $token): void {
+	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData, string $token, string $signature): void {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
 
@@ -109,13 +109,16 @@ class MetaDataStorage implements IMetaDataStorage {
 		$dir->newFile($this->intermediateMetaDataFileName)
 			->putContent($metaData);
 
+		$dir->newFile($this->intermediateMetaDataSignatureFileName)
+			->putContent($signature);
+
 		$this->getTokenFolder($token)->newFile("$id", '');
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey, string $token): void {
+	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey, string $token, string $signature = ''): void {
 		// ToDo check signature for race condition
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
@@ -215,6 +218,25 @@ class MetaDataStorage implements IMetaDataStorage {
 		}
 
 		$this->cleanupLegacyFile($userId, $id);
+	}
+
+	private function writeSignature(ISimpleFolder $dir, string $filename, string $signature): void {
+		try {
+			$signatureFile = $dir->getFile($filename);
+		} catch (NotFoundException $ex) {
+			$signatureFile = $dir->newFile($filename);
+		}
+
+		$signatureFile->putContent($signature);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function readSignature(int $id): string {
+		$folderName = $this->getFolderNameForFileId($id);
+		$dir = $this->appData->getFolder($folderName);
+		return $dir->getFile($this->metaDataSignatureFileName)->getContent();
 	}
 
 	/**

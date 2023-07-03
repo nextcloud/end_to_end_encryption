@@ -92,7 +92,11 @@ class MetaDataController extends OCSController {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot read metadata'));
 		}
-		return new DataResponse(['meta-data' => $metaData]);
+		return new DataResponse(
+			['meta-data' => $metaData],
+			Http::STATUS_OK,
+			['X-NC-E2EE-SIGNATURE' => $this->metaDataStorage->readSignature($id)],
+		);
 	}
 
 	/**
@@ -105,13 +109,14 @@ class MetaDataController extends OCSController {
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
+		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
 
 		if ($this->lockManager->isLocked($id, $e2eToken)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
 		try {
-			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken);
+			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken, $signature);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
@@ -135,13 +140,14 @@ class MetaDataController extends OCSController {
 	 */
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
+		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
 
 		if ($this->lockManager->isLocked($id, $e2eToken)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
 		try {
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken, $signature);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
@@ -174,7 +180,7 @@ class MetaDataController extends OCSController {
 		}
 
 		try {
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}', $e2eToken);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}', $e2eToken, '');
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
