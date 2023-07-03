@@ -189,6 +189,10 @@ class MetaDataControllerTest extends TestCase {
 			->willReturnCallback(static function ($string, $args) {
 				return vsprintf($string, $args);
 			});
+		$this->request->expects($this->any())
+			->method('getHeader')
+			->withConsecutive(['e2e-token'], ['X-NC-E2EE-SIGNATURE'])
+			->willReturn('e2e-token', 'e2eSignature');
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -234,11 +238,12 @@ class MetaDataControllerTest extends TestCase {
 		bool $expectLogger): void {
 		$fileId = 42;
 		$sendToken = 'sendE2EToken';
+		$signature = 'signature';
 		$metaData = 'JSON-ENCODED-META-DATA';
-		$this->request->expects($this->once())
+		$this->request->expects($this->exactly(2))
 			->method('getHeader')
-			->with('e2e-token')
-			->willReturn($sendToken);
+			->withConsecutive(['e2e-token'], ['X-NC-E2EE-SIGNATURE'])
+			->willReturnOnConsecutiveCalls($sendToken, $signature);
 
 		$this->lockManager->expects($this->once())
 			->method('isLocked')
@@ -249,12 +254,12 @@ class MetaDataControllerTest extends TestCase {
 			if ($metaDataStorageException) {
 				$this->metaDataStorage->expects($this->once())
 					->method('updateMetaDataIntoIntermediateFile')
-					->with('john.doe', $fileId, $metaData, $sendToken)
+					->with('john.doe', $fileId, $metaData, $sendToken, $signature)
 					->willThrowException($metaDataStorageException);
 			} else {
 				$this->metaDataStorage->expects($this->once())
 					->method('updateMetaDataIntoIntermediateFile')
-					->with('john.doe', $fileId, $metaData, $sendToken);
+					->with('john.doe', $fileId, $metaData, $sendToken, $signature);
 			}
 		}
 
@@ -310,12 +315,12 @@ class MetaDataControllerTest extends TestCase {
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
 				->method('updateMetaDataIntoIntermediateFile')
-				->with('john.doe', $fileId, '{}', 'e2e-token')
+				->with('john.doe', $fileId, '{}', 'e2e-token', '')
 				->willThrowException($metaDataStorageException);
 		} else {
 			$this->metaDataStorage->expects($this->once())
 				->method('updateMetaDataIntoIntermediateFile')
-				->with('john.doe', $fileId, '{}', 'e2e-token');
+				->with('john.doe', $fileId, '{}', 'e2e-token', '');
 		}
 
 		$this->request->expects($this->once())

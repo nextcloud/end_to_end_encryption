@@ -49,7 +49,7 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MetaDataExistsException
 	 */
-	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData, string $token): void;
+	public function setMetaDataIntoIntermediateFile(string $userId, int $id, string $metaData, string $token, string $signature): void;
 
 	/**
 	 * Update meta data file into intermediate file
@@ -58,7 +58,7 @@ interface IMetaDataStorage {
 	 * @throws NotFoundException
 	 * @throws MissingMetaDataException
 	 */
-	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey, string $token): void;
+	public function updateMetaDataIntoIntermediateFile(string $userId, int $id, string $fileKey, string $token, string $signature = ''): void;
 
 	/**
 	 * Moves intermediate metadata file to final file
@@ -68,6 +68,14 @@ interface IMetaDataStorage {
 	 * @throws MissingMetaDataException
 	 */
 	public function saveIntermediateFile(string $userId, int $id): void;
+
+	/**
+	 * Get the stored signature
+	 *
+	 * @throws NotPermittedException
+	 * @throws NotFoundException
+	 */
+	public function readSignature(int $id): string;
 
 	/**
 	 * Delete the previously set intermediate file
