@@ -35,6 +35,7 @@ use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\OCS\OCSPreconditionFailedException;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
@@ -111,6 +112,14 @@ class MetaDataController extends OCSController {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
 
+		if ($e2eToken === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+		}
+
+		if ($signature === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-SIGNATURE is empty'));
+		}
+
 		if ($this->lockManager->isLocked($id, $e2eToken)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
@@ -141,6 +150,14 @@ class MetaDataController extends OCSController {
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
+
+		if ($e2eToken === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+		}
+
+		if ($signature === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-SIGNATURE is empty'));
+		}
 
 		if ($this->lockManager->isLocked($id, $e2eToken)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
@@ -175,6 +192,10 @@ class MetaDataController extends OCSController {
 	public function deleteMetaData(int $id): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 
+		if ($e2eToken === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+		}
+
 		if ($this->lockManager->isLocked($id, $e2eToken)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
@@ -206,6 +227,10 @@ class MetaDataController extends OCSController {
 	public function addMetadataFileDrop(int $id, string $fileDrop, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$ownerId = $this->getOwnerId($shareToken);
+
+		if ($e2eToken === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+		}
 
 		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));

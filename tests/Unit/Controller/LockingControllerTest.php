@@ -107,7 +107,7 @@ class LockingControllerTest extends TestCase {
 
 	public function testLockFolder(): void {
 		$fileId = 42;
-		$sendE2E = '';
+		$sendE2E = 'e2eToken';
 
 		$this->l10n->expects($this->any())
 			->method('t')
@@ -118,7 +118,7 @@ class LockingControllerTest extends TestCase {
 		$this->request->expects($this->once())
 			->method('getParam')
 			->with('e2e-token', '')
-			->willReturn('');
+			->willReturn($sendE2E);
 
 		$userFolder = $this->createMock(Folder::class);
 		$this->rootFolder->expects($this->once())
@@ -149,11 +149,11 @@ class LockingControllerTest extends TestCase {
 
 	public function testLockFolderException(): void {
 		$fileId = 42;
-		$sendE2E = '';
+		$sendE2E = 'e2eToken';
 		$this->request->expects($this->once())
 			->method('getParam')
 			->with('e2e-token', '')
-			->willReturn('');
+			->willReturn($sendE2E);
 
 		$userFolder = $this->createMock(Folder::class);
 		$this->rootFolder->expects($this->once())
