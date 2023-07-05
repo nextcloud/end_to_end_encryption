@@ -46,6 +46,8 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
+use OCP\AppFramework\OCS\OCSPreconditionFailedException;
+use OCP\AppFramework\OCS\OCSBadRequestException;
 
 class LockingController extends OCSController {
 	private ?string $userId;
@@ -96,6 +98,10 @@ class LockingController extends OCSController {
 		$e2eToken = $this->request->getParam('e2e-token', '');
 		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
 
+		if ($e2eCounter === 0) {
+			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-COUNTER'));
+		}
+
 		$ownerId = $this->getOwnerId($shareToken);
 
 		try {
@@ -139,6 +145,10 @@ class LockingController extends OCSController {
 	public function unlockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$abort = $this->request->getParam('abort') === 'true';
 		$token = $this->request->getHeader('e2e-token');
+
+		if ($token === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+		}
 
 		$ownerId = $this->getOwnerId($shareToken);
 
