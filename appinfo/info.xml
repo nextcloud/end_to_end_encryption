@@ -4,7 +4,11 @@
 	<id>end_to_end_encryption</id>
 	<name>End-to-End Encryption</name>
 	<summary>End-to-end encryption endpoint</summary>
-	<description>Provides the necessary endpoint to enable end-to-end encryption.</description>
+	<description><![CDATA[
+Provides the necessary endpoint to enable end-to-end encryption.
+
+**Notice:** E2EE is currently not compatible to be used together with server-side encryption
+	]]></description>
 	<version>1.14.0</version>
 	<licence>agpl</licence>
 	<author>Bjoern Schiessle</author>
