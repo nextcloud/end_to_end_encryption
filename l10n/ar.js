@@ -27,6 +27,7 @@ OC.L10N.register(
     "Encrypted share" : "مُشاركة مُشفّرة",
     "End-to-End Encryption" : "تشفير من الحدّ للحدّ E2EE",
     "End-to-end encryption endpoint" : "نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "يوفر نقطة النهاية اللازمة لتمكين التشفير من طرف إلى طرف. ** ملاحظة: ** التشفير الثنائي من طرف إلى طرف \"E2EE\" غير متوافق حاليًا ليتم استخدامه مع التشفير من جانب الخادم",
     "Limit to groups" : "مقتصرٌ على المجموعات groups",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "عند تحديد مجموعة واحدة على الأقل، يمكن لأفراد المجموعات المدرجة فقط استخدام تطبيق التشفير من الحدّ للحدّ E2EE.",
     "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات.",
