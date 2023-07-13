@@ -25,6 +25,7 @@
     "Encrypted share" : "Šifrované sdílení",
     "End-to-End Encryption" : "Šifrování mezi koncovými body",
     "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Poskytuje nezbytný koncový bod pro zapnutí šifrování mezi koncovými body.\n\n**Upozornění:** E2EE v tuto chvíli není kompatibilní s používáním pohromadě s šifrováním na straně serveru",
     "Limit to groups" : "Omezit na skupiny",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Pokud je vybrána alespoň jedna skupina, pak aplikaci pro šifrování mezi koncovými body mohou používat pouze lidé z uvedených skupin.",
     "Limit app usage to groups." : "Omezit používání aplikace na skupiny.",

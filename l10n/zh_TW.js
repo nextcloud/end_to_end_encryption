@@ -27,6 +27,7 @@ OC.L10N.register(
     "Encrypted share" : "已加密的分享",
     "End-to-End Encryption" : "終端對終端的加密",
     "End-to-end encryption endpoint" : "端到端加密端點",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "提供必要的端點以啟用端到端加密。\n\n**注意：**E2EE 目前與伺服器端加密並不相容，無法一起啟用",
     "Limit to groups" : "限制給特定群組",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "當至少選取一個群組時，僅列出的群組才可以使用端到端加密應用程式。",
     "Limit app usage to groups." : "限制群組的使用率:",

@@ -27,6 +27,7 @@ OC.L10N.register(
     "Encrypted share" : "Шифровано дељење",
     "End-to-End Encryption" : "Шифровање са краја на крај",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Обезбеђује неопходну крајњи тачку за укључивања шифровања са краја на крај.\n\n**Напомена:** E2EE тренутно није компатибилно са употребом заједно са шифровањем на страни сервера",
     "Limit to groups" : "Ограничи на групе",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Када је изабрана барем једна група, апликацију Шифровање од краја до краја могу да користе само особе из наведених група.",
     "Limit app usage to groups." : "Ограничи коришћење апликације на групе.",
