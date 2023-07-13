@@ -27,6 +27,7 @@ OC.L10N.register(
     "Encrypted share" : "Encrypted share",
     "End-to-End Encryption" : "End-to-End Encryption",
     "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption",
     "Limit to groups" : "Limit to groups",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app.",
     "Limit app usage to groups." : "Limit app usage to groups.",
