@@ -24,7 +24,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Só o propietario pode eliminar o ficheiro de metadatos ",
     "Cannot delete metadata" : "Non é posíbel eliminar os metadatos",
     "Cannot update filedrop" : "Non é posíbel actualizar a entrega de ficheiros (filedrop)",
-    "Encrypted share" : "Recurso compartido cifrado",
+    "Encrypted share" : "Compartición cifrada",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Ofrece o punto final necesario para activar o cifrado de extremo a extremo.\n\n**Aviso:** E2EE actualmente non é compatíbel para usarse xunto co cifrado do servidor",
