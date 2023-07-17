@@ -12,7 +12,6 @@ A more general documentation how to use the API can be found [here](https://gith
   - [Get public keys](#get-public-keys)
   - [Delete public keys](#delete-public-keys)
   - [Lock file](#lock-file)
-  - [Unlock file](#unlock-file)
   - [Get meta-data file](#get-meta-data-file)
   - [Update meta-data file](#update-meta-data-file)
   - [Update filedrop property of meta-data file](#update-filedrop-property-of-meta-data-file)
@@ -345,11 +344,22 @@ e2e-token: if you re-try a previously failed upload, use the token from the firs
 
 First try:
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"`
+````shell
+curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
+    -X POST \
+    -H "OCS-APIRequest:true" \
+    -H "X-NC-E2EE-COUNTER:<incremented-counter-from-the-metadata>
+```
 
 Retry:
 
 `curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"` -d e2e-token="<e2e-token-from-previous-try>"
+curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
+    -X POST \
+    -H "OCS-APIRequest:true" \
+    -d "e2e-token:<e2e-token-from-previous-try> \
+    -H "X-NC-E2EE-COUNTER:<incremented-counter-from-the-metadata>
+```
 
 ## Unlock file
 
@@ -517,6 +527,7 @@ curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryptio
     -X PUT \
     -H "OCS-APIRequest:true" \
     -H "e2e-token:<e2e-token-received-during-lock-operation>" \
+    -H "X-NC-E2EE-SIGNATURE:<metadata-signature>" \
     -d metaData="<encrypted-meta-data>"
 ```
 
