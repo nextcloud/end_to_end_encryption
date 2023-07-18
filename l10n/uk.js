@@ -27,6 +27,7 @@ OC.L10N.register(
     "Encrypted share" : "Шифрований спільний ресурс",
     "End-to-End Encryption" : "Наскрізне шифрування",
     "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Надає відповідні кінцеві точки, щоби увімкнути наскрізне шифрування.\n\n**Увага:** Наразі через несумісність наскрізне шифрування неможливо використовувати разом з шифруванням на стороні сервера.",
     "Limit to groups" : "Обмежити групами",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Якщо вибрано принаймні одну групу, лише люди з перелічених груп можуть використовувати програму наскрізного шифрування.",
     "Limit app usage to groups." : "Обмежте використання програми групами.",
