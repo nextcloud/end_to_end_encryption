@@ -27,6 +27,7 @@ OC.L10N.register(
     "Encrypted share" : "Encrypted share",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Fornece o endpoint necessário para habilitar a criptografia de ponta a ponta.\n\n**Aviso:** E2EE atualmente não é compatível para ser usado junto com a criptografia do lado do servidor",
     "Limit to groups" : "Limitar a grupos",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Quando pelo menos um grupo é selecionado, apenas as pessoas dos grupos listados podem usar o aplicativo de criptografia de ponta a ponta.",
     "Limit app usage to groups." : "Limitar o uso de aplicativos para grupos.",
