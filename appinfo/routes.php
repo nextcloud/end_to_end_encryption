@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 return [
 	'ocs' => [
+		# v1
 		['name' => 'Key#setPrivateKey', 'url' => '/api/v1/private-key', 'verb' => 'POST'],
 		['name' => 'Key#getPrivateKey', 'url' => '/api/v1/private-key', 'verb' => 'GET'],
 		['name' => 'Key#deletePrivateKey', 'url' => '/api/v1/private-key', 'verb' => 'DELETE'],
@@ -33,15 +34,23 @@ return [
 		['name' => 'Key#getPublicKeys', 'url' => '/api/v1/public-key', 'verb' => 'GET'],
 		['name' => 'Key#deletePublicKey', 'url' => '/api/v1/public-key', 'verb' => 'DELETE'],
 		['name' => 'Key#getPublicServerKey', 'url' => '/api/v1/server-key', 'verb' => 'GET'],
-		['name' => 'MetaData#setMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'POST'],
-		['name' => 'MetaData#getMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'GET'],
-		['name' => 'MetaData#updateMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'PUT'],
-		['name' => 'MetaData#deleteMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'DELETE'],
-		['name' => 'MetaData#addMetadataFileDrop', 'url' => '/api/v1/meta-data/{id}/filedrop', 'verb' => 'PUT'],
+		['name' => 'V1\MetaData#setMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'POST'],
+		['name' => 'V1\MetaData#getMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'GET'],
+		['name' => 'V1\MetaData#updateMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'PUT'],
+		['name' => 'V1\MetaData#deleteMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'DELETE'],
+		['name' => 'V1\MetaData#addMetadataFileDrop', 'url' => '/api/v1/meta-data/{id}/filedrop', 'verb' => 'PUT'],
 		['name' => 'Encryption#removeEncryptedFolders', 'url' => '/api/v1/encrypted-files', 'verb' => 'DELETE'],
 		['name' => 'Encryption#setEncryptionFlag', 'url' => '/api/v1/encrypted/{id}', 'verb' => 'PUT'],
 		['name' => 'Encryption#removeEncryptionFlag', 'url' => '/api/v1/encrypted/{id}', 'verb' => 'DELETE'],
-		['name' => 'Locking#lockFolder', 'url' => '/api/v1/lock/{id}', 'verb' => 'POST'],
-		['name' => 'Locking#unlockFolder', 'url' => '/api/v1/lock/{id}', 'verb' => 'DELETE'],
+		['name' => 'V1\Locking#lockFolder', 'url' => '/api/v1/lock/{id}', 'verb' => 'POST'],
+		['name' => 'V1\Locking#unlockFolder', 'url' => '/api/v1/lock/{id}', 'verb' => 'DELETE'],
+		# v2
+		['name' => 'MetaData#setMetaData', 'url' => '/api/v2/meta-data/{id}', 'verb' => 'POST'],
+		['name' => 'MetaData#getMetaData', 'url' => '/api/v2/meta-data/{id}', 'verb' => 'GET'],
+		['name' => 'MetaData#updateMetaData', 'url' => '/api/v2/meta-data/{id}', 'verb' => 'PUT'],
+		['name' => 'MetaData#deleteMetaData', 'url' => '/api/v2/meta-data/{id}', 'verb' => 'DELETE'],
+		['name' => 'MetaData#addMetadataFileDrop', 'url' => '/api/v2/meta-data/{id}/filedrop', 'verb' => 'PUT'],
+		['name' => 'Locking#lockFolder', 'url' => '/api/v2/lock/{id}', 'verb' => 'POST'],
+		['name' => 'Locking#unlockFolder', 'url' => '/api/v2/lock/{id}', 'verb' => 'DELETE'],
 	],
 ];
