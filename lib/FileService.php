@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption;
 
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
+use OCA\Files_Sharing\SharedStorage;
 use OCP\Files\Folder;
 use OCP\Files\Node;
 
@@ -72,6 +73,12 @@ class FileService {
 
 		/** @var Node $intermediateFile */
 		foreach ($intermediateFiles['to_delete'] as $intermediateFile) {
+			// If shared to user, try to unshare it first
+			$storage = $intermediateFile->getStorage();
+			if ($storage->instanceOfStorage(SharedStorage::class) && $storage->unshareStorage()) {
+				continue;
+			}
+			// Otherwise delete it
 			$intermediateFile->delete();
 		}
 
@@ -83,11 +90,17 @@ class FileService {
 	 * @return array{to_save: Node[], to_delete: Node[]}
 	 */
 	private function getIntermediateFiles(Folder $folder): array {
-		$listing = $folder->getDirectoryListing();
 		$result = [
 			'to_save' => [],
 			'to_delete' => [],
 		];
+
+		// Special case when root folder is deleted/unshared
+		if ($this->isIntermediateFileToDelete($folder)) {
+			$result['to_delete'][] = $folder;
+		}
+
+		$listing = $folder->getDirectoryListing();
 
 		foreach ($listing as $node) {
 			if ($this->isIntermediateFileToSave($node)) {
