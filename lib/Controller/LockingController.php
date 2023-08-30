@@ -90,6 +90,12 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 
+		if ($userFolder->getId() === $id) {
+			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			throw $e;
+		}
+
 		$nodes = $userFolder->getById($id);
 		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
