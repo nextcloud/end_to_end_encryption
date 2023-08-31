@@ -97,6 +97,10 @@ export default {
 			publicKey: loadState('end_to_end_encryption', 'publicKey'),
 			/** @type {string} */
 			fileName: loadState('end_to_end_encryption', 'fileName'),
+			/** @type {"v1"|"v2"} */
+			encryptionVersion: Number.parseInt(loadState('end_to_end_encryption', 'encryptionVersion')),
+			/** @type {number} */
+			counter: Number.parseInt(loadState('end_to_end_encryption', 'counter')),
 			/** @type {{file: File, step: string, error: boolean}[]} */
 			uploadedFiles: [],
 			loading: false,
@@ -149,7 +153,7 @@ export default {
 
 			try {
 				logger.debug('Locking the folder', { lockToken: this.lockToken, shareToken: this.shareToken })
-				lockToken = await lock(this.folderId, this.shareToken)
+				lockToken = await lock(this.encryptionVersion, this.counter + 1, this.folderId, this.shareToken)
 			} catch (exception) {
 				logger.error('Could not lock the folder', { exception })
 				showError(t('end_to_end_encryption', 'Could not lock the folder'))
@@ -179,7 +183,7 @@ export default {
 					.filter(({ error }) => !error)
 					.reduce((fileDropEntries, { fileDrop }) => ({ ...fileDropEntries, ...fileDrop }), {})
 
-				await uploadFileDrop(this.folderId, fileDrops, lockToken, this.shareToken)
+				await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, lockToken, this.shareToken)
 			} catch (exception) {
 				logger.error('Error while uploading metadata', { exception })
 				showError(t('end_to_end_encryption', 'Error while uploading metadata'))
@@ -190,7 +194,8 @@ export default {
 				progresses
 					.filter(({ error }) => !error)
 					.forEach(progress => { progress.step = UploadStep.UNLOCKING })
-				await unlock(this.folderId, lockToken, this.shareToken)
+				await unlock(this.encryptionVersion, this.folderId, lockToken, this.shareToken)
+				this.counter++
 				logger.debug('Unlocking the folder', { lockToken, shareToken: this.shareToken })
 				progresses
 					.filter(({ error }) => !error)
