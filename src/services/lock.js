@@ -5,17 +5,20 @@ import { generateOcsUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 
 /**
+ * @param {1|2} encryptionVersion - The encrypted version for the folder
+ * @param {number} counter - The metadata counter received from the initial state
  * @param {string} fileId - The file id to lock
  * @param {?string} shareToken - The optional share token if this is a file drop.
  * @return {Promise<string>} lockToken
  */
-export async function lock(fileId, shareToken) {
+export async function lock(encryptionVersion, counter, fileId, shareToken) {
 	const { data: { ocs: { meta, data } } } = await axios.post(
-		generateOcsUrl('apps/end_to_end_encryption/api/v1/lock/{fileId}', { fileId }),
+		generateOcsUrl('apps/end_to_end_encryption/api/v{encryptionVersion}/lock/{fileId}', { encryptionVersion, fileId }),
 		undefined,
 		{
 			headers: {
 				'x-e2ee-supported': true,
+				'x-nc-e2ee-counter': counter,
 			},
 			params: {
 				shareToken,
@@ -31,13 +34,14 @@ export async function lock(fileId, shareToken) {
 }
 
 /**
+ * @param {1|2} encryptionVersion - The encrypted version for the folder
  * @param {string} fileId - The file id to lock
  * @param {string} lockToken - The optional lock token if the folder was already locked.
  * @param {?string} shareToken - The optional share token if this is a file drop.
  */
-export async function unlock(fileId, lockToken, shareToken) {
+export async function unlock(encryptionVersion, fileId, lockToken, shareToken) {
 	const { data: { ocs: { meta } } } = await axios.delete(
-		generateOcsUrl('apps/end_to_end_encryption/api/v1/lock/{fileId}', { fileId }),
+		generateOcsUrl('apps/end_to_end_encryption/api/v{encryptionVersion}/lock/{fileId}', { encryptionVersion, fileId }),
 		{
 			headers: {
 				'x-e2ee-supported': true,

@@ -19,30 +19,16 @@ use OCP\Util;
 use Psr\Log\LoggerInterface;
 
 class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
-	private IUserManager $userManager;
-	private IUrlGenerator $urlGenerator;
-	private IL10N $l10n;
-	private Defaults $defaults;
-	private IInitialState $initialState;
-	private IKeyStorage $keyStorage;
-	private LoggerInterface $logger;
-
 	public function __construct(
-		IUserManager $userManager,
-		IUrlGenerator $urlGenerator,
-		IL10N $l10n,
-		Defaults $defaults,
-		IInitialState $initialState,
-		IKeyStorage $keyStorage,
-		LoggerInterface $logger
+		private IUserManager $userManager,
+		private IUrlGenerator $urlGenerator,
+		private IL10N $l10n,
+		private Defaults $defaults,
+		private IInitialState $initialState,
+		private IKeyStorage $keyStorage,
+		private LoggerInterface $logger,
+		private MetaDataStorage $metadataStorage,
 	) {
-		$this->userManager = $userManager;
-		$this->urlGenerator = $urlGenerator;
-		$this->l10n = $l10n;
-		$this->defaults = $defaults;
-		$this->initialState = $initialState;
-		$this->keyStorage = $keyStorage;
-		$this->logger = $logger;
 	}
 
 	public function shouldRespond(IShare $share): bool {
@@ -61,10 +47,14 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 			return new TemplateResponse(Application::APP_ID, 'error');
 		}
 
+		$metadata = json_decode($this->metadataStorage->getMetaData($owner->getUID(), $shareNode->getId()), true);
+
 		$this->initialState->provideInitialState('publicKey', $publicKey);
 		$this->initialState->provideInitialState('fileId', $shareNode->getId());
 		$this->initialState->provideInitialState('token', $token);
 		$this->initialState->provideInitialState('fileName', $shareNode->getName());
+		$this->initialState->provideInitialState('encryptionVersion', $metadata['version']);
+		$this->initialState->provideInitialState('counter', $this->metadataStorage->getCounter($shareNode->getId()));
 
 		// OpenGraph Support: http://ogp.me/
 		Util::addHeader('meta', ['property' => "og:title", 'content' => $this->l10n->t("Encrypted share")]);

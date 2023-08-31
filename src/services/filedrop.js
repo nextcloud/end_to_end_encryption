@@ -82,15 +82,17 @@ export async function getFileDropEntry(file, tag, publicKey) {
 }
 
 /**
+ * @param {1|2} encryptionVersion - The encrypted version for the folder
  * @param {string} folderId
  * @param {EncryptedFileMetadata[]} fileDrop
  * @param {string} lockToken
  * @param {string} shareToken
  */
-export async function uploadFileDrop(folderId, fileDrop, lockToken, shareToken) {
+export async function uploadFileDrop(encryptionVersion, folderId, fileDrop, lockToken, shareToken) {
 	const ocsUrl = generateOcsUrl(
-		'apps/end_to_end_encryption/api/v1/meta-data/{folderId}',
+		'apps/end_to_end_encryption/api/v{encryptionVersion}/meta-data/{folderId}',
 		{
+			encryptionVersion,
 			folderId,
 		}
 	)
@@ -103,10 +105,11 @@ export async function uploadFileDrop(folderId, fileDrop, lockToken, shareToken) 
 		{
 			headers: {
 				'x-e2ee-supported': true,
-				'e2e-token': lockToken,
+				...(encryptionVersion === 2 ? { 'e2e-token': lockToken } : {}),
 			},
 			params: {
 				shareToken,
+				...(encryptionVersion === 1 ? { 'e2e-token': lockToken } : {}),
 			},
 		},
 	)
