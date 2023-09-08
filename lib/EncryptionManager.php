@@ -84,7 +84,10 @@ class EncryptionManager {
 	/**
 	 * Check if a file is in a folder marked as encrypted
 	 */
-	public function isEncryptedFile(Node $node): bool {
+	public static function isEncryptedFile(Node $node): bool {
+        // traverse up if node is not a folder to prevent false positives for SSE files
+        // (see E2EEnabledPathCache#isE2EEnabledPath)
+        if (!($node instanceof Folder)) $node = $node->getParent();
 		do {
 			if ($node->isEncrypted()) {
 				return true;
