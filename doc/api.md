@@ -64,7 +64,7 @@ xml body:
 
 **Example curl call:**
 
-`curl -X PROPFIND https://<user>:<password>@<nextcloud>/remote.php/webdav/<folder>/ -d '<d:propfind xmlns:d="DAV:"> <d:prop xmlns:nc="http://nextcloud.org/ns"> <nc:is-encrypted/> </d:prop> </d:propfind>' -H "Content-Type=application/xml" -H OCS-APIRequest=true`
+`curl -X PROPFIND https://<user>:<password>@<nextcloud>/remote.php/webdav/<folder>/ -d '<d:propfind xmlns:d="DAV:"> <d:prop xmlns:nc="http://nextcloud.org/ns"> <nc:is-encrypted/> </d:prop> </d:propfind>' -H "Content-Type=application/xml" -H OCS-APIRequest=true -H x-e2ee-supported=true`
 
 
 ## Store private key
@@ -101,7 +101,7 @@ privateKey: the users private key
 
 **Example curl call:**
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -d privateKey="<urlencoded-private-key>" -H "OCS-APIRequest:true"`
+`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -d privateKey="<urlencoded-private-key>" -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
 
 
 ## Get private key
@@ -136,7 +136,7 @@ GET: `<base-url>/private-key`
 
 **Example curl call:**
 
-`curl -X GET https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true"`
+`curl -X GET https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true" -H "x-e2ee-supported:true" `
 
 
 ## Delete private key
@@ -170,7 +170,7 @@ DELETE: `<base-url>/private-key`
 
 **Example curl call:**
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key -H "OCS-APIRequest:true" -H "x-e2ee-supported:true" `
 
 
 ## Sign public key
@@ -211,7 +211,7 @@ the public key (CN must be the same as the corresponding Nextcloud user name)
 
 **Example curl call:**
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true" -d csr="<urlencoded-csr>"
+`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true" -H "x-e2ee-supported:true" -d csr="<urlencoded-csr>"
 `
 
 ## Get public keys
@@ -301,7 +301,7 @@ DELETE: `<base-url>/public-key`
 
 **Example curl call:**
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
 
 ## Lock file
 
@@ -343,11 +343,11 @@ e2e-token: if you re-try a previously failed upload, use the token from the firs
 
 First try:
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"`
+`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
 
 Retry:
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"` -d e2e-token="<e2e-token-from-previous-try>"
+`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"` -d e2e-token="<e2e-token-from-previous-try>"
 
 ## Unlock file
 
@@ -381,7 +381,7 @@ DELETE: `<base-url>/lock/<file-id>`
 
 First try:
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true" -H "e2e-token:<e2e-token-received-during-lock-operation>`
+`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true" -H "x-e2ee-supported:true" -H "e2e-token:<e2e-token-received-during-lock-operation>`
 
 ## Store meta-data file
 
@@ -419,7 +419,7 @@ metaData: content of the encrypted meta-data file
 
 **Example curl call:**
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d metaData="<encrypted-meta-data>"
+`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"` -d metaData="<encrypted-meta-data>"
 
 ## Get meta-data file
 
@@ -451,7 +451,7 @@ GET: `<base-url>/meta-data/<file-id>`
 
 **Example curl call:**
 
-`curl -X GET https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
+`curl -X GET https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
 
 ## Update meta-data file
 
@@ -491,7 +491,7 @@ the file with the given file-id
 
 **Example curl call:**
 
-`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d "metaData=<encrypted-meta-data>&e2e-token=<e2e-token-received-during-lock-operation>"
+`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"` -d "metaData=<encrypted-meta-data>&e2e-token=<e2e-token-received-during-lock-operation>"
 
 ## Update filedrop property of meta-data file
 
@@ -531,7 +531,7 @@ the file with the given file-id
 
 **Example curl call:**
 
-`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>/filedrop -H "OCS-APIRequest:true"` -d "fileDrop=<filedrop-property>&e2e-token=<e2e-token-received-during-lock-operation>"
+`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>/filedrop -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"` -d "fileDrop=<filedrop-property>&e2e-token=<e2e-token-received-during-lock-operation>"
 
 ## Delete meta-data file
 
@@ -564,7 +564,7 @@ DELETE: `<base-url>/meta-data/<file-id>`
 
 **Example curl call:**
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
 
 
 ## Get server public key
@@ -597,7 +597,7 @@ GET: `<base-url>/server-key`
 
 **Example curl call:**
 
-`curl -X GET https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/server-key -H "OCS-APIRequest:true"`
+`curl -X GET https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/server-key -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
 
 ## Set encryption flag for a folder
 
@@ -624,7 +624,7 @@ PUT: `<base-url>/encrypted/<file-id>`
 ````
 **Example curl call:**
 
-`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true"`
+`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
 
 ## Remove encryption flag for a folder
 
@@ -652,4 +652,4 @@ DELETE: `<base-url>/encrypted/<file-id>`
 
 **Example curl call:**
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true"`
+`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
