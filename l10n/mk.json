@@ -1,4 +1,5 @@
 { "translations": {
+    "Internal error" : "Внатрешна грешка",
     "Limit to groups" : "Ограничување на групи",
     "Limit app usage to groups." : "Ограничување за користење на апликации во групи",
     "Save" : "Зачувај",
