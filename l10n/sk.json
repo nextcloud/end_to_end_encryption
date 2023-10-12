@@ -20,6 +20,7 @@
     "Metadata-file does not exist" : "Súbor s meta údajmi neexistuje",
     "Only the owner can delete the metadata-file" : "Iba vlastník môže zmazať súbor s metadátami",
     "Cannot delete metadata" : "Metadáta nie je možné odstrániť",
+    "Encrypted share" : "Zašifrovaná sprístupnená položka",
     "End-to-End Encryption" : "Šifrovanie po celej dĺžke spojenia",
     "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
     "Limit to groups" : "Povoľ len pre skupiny",
