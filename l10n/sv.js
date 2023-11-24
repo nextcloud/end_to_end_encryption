@@ -51,17 +51,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Fel vid uppladdning av metadata",
     "Error while unlocking the folder" : "Fel vid upplåsning av mappen",
     "Upload encrypted files to {fileName}" : "Ladda upp krypterade filer till {fileName}",
-    "Metadata-file doesn't exist" : "Metadatafil finns inte",
-    "End-to-End encryption endpoint" : "Slutpunkt för totalsträckskryptering",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Tillhandahåller den nödvändiga slutpunkten för att möjliggöra totalsträckskryptering.",
-    "End-to-End encryption" : "Totalsträckskryptering",
-    "Reset End-to-End encryption" : "Återställ totalsträckskryptering",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Läs noga innan du återställer dina krypteringsnycklar för totalsträckskryptering",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "När dina krypteringsnycklar för totalsträckskryptering har återställts kommer alla filer som lagras i din krypterade mapp att vara oåtkomliga.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Du bör endast återställa dina krypteringsnycklar för totalsträckskryptering om du tappat dina säkra nyckelord (mnemonic).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Totalsträckskryptering är för närvarande aktiverad och korrekt inställd.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Totalsträckskryptering är för närvarande inaktiverad. Du kan aktivera det med {productName}-klienterna.",
-    "End-to-End encryption keys reset" : "Krypteringsnycklar för totalsträckskryptering återställs",
-    "Unable to reset End-to-End encryption" : "Det gick inte att återställa totalsträckskryptering"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Tillhandahåller den nödvändiga slutpunkten för att möjliggöra totalsträckskryptering."
 },
 "nplurals=2; plural=(n != 1);");

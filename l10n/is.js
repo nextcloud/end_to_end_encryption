@@ -23,7 +23,6 @@ OC.L10N.register(
     "Save" : "Vista",
     "End-to-end encryption" : "Enda-í-enda dulritun",
     "Select or drop files" : "Veldu eða slepptu skrám",
-    "Metadata-file doesn't exist" : "Lýsigögn eru ekki til staðar",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun."
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

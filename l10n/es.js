@@ -52,17 +52,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Se encontró un error al cargar los metadatos",
     "Error while unlocking the folder" : "Error al desbloquear la carpeta",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
-    "Metadata-file doesn't exist" : "El archivo de metadatos no existe",
-    "End-to-End encryption endpoint" : "Endpoint de cifrado de extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint necesario para habilitar el cifrado de extremo a extremo",
-    "End-to-End encryption" : "Cifrado de extremo a extremo",
-    "Reset End-to-End encryption" : "Reiniciar cifrado de extremo a extremo",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Por favor, lea cuidadosamente antes de reiniciar sus llaves de cifrado de extremo a extremo",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Una vez que sus llaves de cifrado de extremo a extremo se hayan reiniciado, no podrá acceder a ninguno de los archivos almacenados en su carpeta cifrada.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Sólo debería reiniciar sus llaves de cifrado de extremo a extremo si ha perdido las frases (mnemónicos) de su llave segura. ",
-    "End-to-End encryption is currently enabled and correctly setup." : "El cifrado de extremo a extremo se encuentra habilitado y adecuadamente configurado.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "El cifrado de extremo a extremo se encuentra deshabilitado. Puede configurarlo utilizando los clientes {productName}",
-    "End-to-End encryption keys reset" : "Reinicio de las llaves de cifrado de extremo a extremo ",
-    "Unable to reset End-to-End encryption" : "Imposible reiniciar el cifrado de extremo a extremo"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint necesario para habilitar el cifrado de extremo a extremo"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -52,17 +52,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Erro ao carregar metadados",
     "Error while unlocking the folder" : "Erro ao desbloquear a pasta",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
-    "Metadata-file doesn't exist" : "Arquivo de metadados não existe",
-    "End-to-End encryption endpoint" : "Final de criptografia de ponta a ponta",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
-    "End-to-End encryption" : "Criptografia de ponta a ponta",
-    "Reset End-to-End encryption" : "Redefinir criptografia de ponta a ponta",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Leia atentamente antes de redefinir suas chaves de criptografia de ponta a ponta",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Depois que suas chaves de criptografia de ponta a ponta forem redefinidas, todos os arquivos armazenados em sua pasta criptografada ficarão inacessíveis.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Você só deve redefinir suas chaves de criptografia de ponta a ponta se perder suas palavras-chave seguras (mnemônicas).",
-    "End-to-End encryption is currently enabled and correctly setup." : "A criptografia de ponta a ponta está atualmente habilitada e configurada corretamente.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "A criptografia de ponta a ponta está atualmente desabilitada. Você pode configurá-la com os clientes {productName}.",
-    "End-to-End encryption keys reset" : "Redefinição de chaves de criptografia de ponta a ponta",
-    "Unable to reset End-to-End encryption" : "Não é possível redefinir a criptografia de ponta a ponta"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

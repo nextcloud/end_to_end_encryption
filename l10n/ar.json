@@ -50,17 +50,6 @@
     "Error while uploading metadata" : "خطأ خلال رفع البيانات الوصفية metadata",
     "Error while unlocking the folder" : "خطأ خلال فك قفل unlocking المجلد",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
-    "Metadata-file doesn't exist" : "ملف البيانات الوصفية metadata غير موجود",
-    "End-to-End encryption endpoint" : "نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "يُوفّر نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE",
-    "End-to-End encryption" : "تشفير من الحدّ للحد E2EE",
-    "Reset End-to-End encryption" : "إعادة تعيين التشفير من الحدّ للحد E2EE",
-    "Please read carefully before resetting your End-to-End encryption keys" : "رجاءً، إقرأ بعنايةٍ قبل إعادة تعيين مفاتيح التشفير من الحدّ للحد E2EE",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "بمجرد إعادة تعيين مفاتيح التشفير من الحدّ للحد E2EE، سوف لن تتمكن من الوصول إلى جميع الملفات المخزنة على مجلدك المشفر.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "يلزمك إعادة تعيين مفاتيح  التشفير من الحدّ للحد E2EE إذا فقدت مفاتيح مرورك الآمنة (العبارة الاستذكارية mnemonic)",
-    "End-to-End encryption is currently enabled and correctly setup." : " التشفير من الحدّ للحد E2EE مُفعّلٌ الآن و مُعدٌّ كما يجب.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : " التشفير من الحدّ للحد E2EE موقوفٌ الآن. يُمكنك إعداده عن طريق عملاء {productName}.",
-    "End-to-End encryption keys reset" : "تمّت إعادة تعيين مفاتيح التشفير من الحدّ للحد E2EE ",
-    "Unable to reset End-to-End encryption" : "تعذّرت إعادة تعيين التشفير من الحدّ للحد E2EE "
+    "Provides the necessary endpoint to enable end-to-end encryption." : "يُوفّر نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }
