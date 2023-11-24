@@ -51,17 +51,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Грешка при качване на метаданни",
     "Error while unlocking the folder" : "Грешка при отключването на папка",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
-    "Metadata-file doesn't exist" : "Файл с метаданни не съществува",
-    "End-to-End encryption endpoint" : "Крайна точка на цялостно криптиране",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране.",
-    "End-to-End encryption" : "Цялостно криптиране",
-    "Reset End-to-End encryption" : "Възстановяване на цялостното криптиране",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Моля, прочетете внимателно, преди да възстановите вашите ключове за цялостно криптиране",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "След като вашите ключове за цялостно криптиране бъдат възстановени, всички файлове, съхранени във вашата шифрована папка, ще станат недостъпни.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Трябва да възстановите вашите ключове за цялостно криптиране само ако сте си загубили ключовите думи за защита (мнемоника).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Цялостното криптиране в момента е активирано и е настроено правилно.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "В момента цялостното криптиране е деактивирано. Можете да го настроите с клиентите на {productName}.",
-    "End-to-End encryption keys reset" : "Възстановяване на ключовете за цялостно криптиране",
-    "Unable to reset End-to-End encryption" : "Невъзможоно възстановяване на цялостното криптиране"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране."
 },
 "nplurals=2; plural=(n != 1);");

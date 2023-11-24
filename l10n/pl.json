@@ -42,17 +42,6 @@
     "End-to-end encryption keys reset" : "Resetowanie kluczy szyfrowania end-to-end",
     "Unable to reset end-to-end encryption" : "Nie można zresetować szyfrowania end-to-end",
     "Select or drop files" : "Wybierz lub upuść pliki",
-    "Metadata-file doesn't exist" : "Metadane pliku nie istnieją",
-    "End-to-End encryption endpoint" : "Punkt końcowy szyfrowania end-to-end",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end.",
-    "End-to-End encryption" : "Szyfrowanie end-to-end",
-    "Reset End-to-End encryption" : "Zresetuj szyfrowanie end-to-end",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Przeczytaj uważnie przed zresetowaniem kluczy szyfrowania end-to-end",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Po zresetowaniu kluczy szyfrowania end-to-end wszystkie pliki przechowywane w zaszyfrowanym katalogu będą niedostępne.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Klucze szyfrowania end-to-end należy resetować tylko w przypadku zgubienia bezpiecznych słów kluczowych (mnemonika).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Szyfrowanie end-to-end jest obecnie włączone i poprawnie skonfigurowane.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Szyfrowanie typu end-to-end jest obecnie wyłączone. Możesz to skonfigurować z klientami {productName}.",
-    "End-to-End encryption keys reset" : "Resetowanie kluczy szyfrowania end-to-end",
-    "Unable to reset End-to-End encryption" : "Nie można zresetować szyfrowania end-to-end"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end."
 },"pluralForm" :"nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"
 }
