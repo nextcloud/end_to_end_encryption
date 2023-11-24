@@ -27,8 +27,6 @@ OC.L10N.register(
     "Saved groups" : "Tallennetut ryhmät",
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
-    "Select or drop files" : "Valitse tai pudota tiedostoja",
-    "Metadata-file doesn't exist" : "Metadatatiedostoa ei ole",
-    "End-to-End encryption" : "Päästä päähän -salaus"
+    "Select or drop files" : "Valitse tai pudota tiedostoja"
 },
 "nplurals=2; plural=(n != 1);");

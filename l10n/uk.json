@@ -50,17 +50,6 @@
     "Error while uploading metadata" : "Помилка під час завантаження метаданих",
     "Error while unlocking the folder" : "Помилка під час розблокування каталогу",
     "Upload encrypted files to {fileName}" : "Завантажити зашифровані файли до {fileName}",
-    "Metadata-file doesn't exist" : "Файл метаданих відсутній",
-    "End-to-End encryption endpoint" : "Точка доступу наскрізного шифрування",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Забезпечує обов'язкову точку доступу для увімкнення наскрізного шифрування",
-    "End-to-End encryption" : "Наскрізне шифрування",
-    "Reset End-to-End encryption" : "Скинути наскрізне шифрування",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Будь ласка, уважно прочитайте перед скиданням ключів наскрізного шифрування",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Після скидання ключів наскрізного шифрування всі файли, які зберігаються у зашифрованих каталогах, стануть недоступні.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Рекомендується скидати ключі наскрізного шифрування, лише якщо ви загубили парольну фразу на ключі безпеки.",
-    "End-to-End encryption is currently enabled and correctly setup." : "Наскрізне шифрування увімкнено та належним чином налаштовано.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Наскрізне шифрування вимкнено. Ви можете налаштувати його у клієнтах {productName}.",
-    "End-to-End encryption keys reset" : "Ключі наскрізного шифрування скинуто",
-    "Unable to reset End-to-End encryption" : "Не вдалося скинути наскрзне шифрування"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Забезпечує обов'язкову точку доступу для увімкнення наскрізного шифрування"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

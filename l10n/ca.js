@@ -51,17 +51,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
     "Error while unlocking the folder" : "S'ha produït un error en desbloquejar la carpeta",
     "Upload encrypted files to {fileName}" : "Penja fitxers xifrats a {fileName}",
-    "Metadata-file doesn't exist" : "El fitxer de metadades no existeix",
-    "End-to-End encryption endpoint" : "Enllaç de xifratge extrem-a-extrem",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar el xifratge d'extrem a extrem.",
-    "End-to-End encryption" : "Xifratge d'extrem a extrem",
-    "Reset End-to-End encryption" : "Restableix el xifratge d'extrem a extrem",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Si us plau, llegiu atentament abans de restablir les vostres claus de xifratge d'extrem a extrem",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Un cop es restableixin les claus de xifratge d'extrem a extrem, tots els fitxers emmagatzemats a la carpeta xifrada seran inaccessibles.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Només hauríeu de restablir les vostres claus de xifratge d'extrem a extrem si heu perdut les vostres paraules clau segures (recordatori).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Actualment, el xifratge d'extrem a extrem està habilitat i configurat correctament.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Actualment, el xifratge d'extrem a extrem està inhabilitat. Podeu configurar-lo amb els clients {productName}.",
-    "End-to-End encryption keys reset" : "Les claus de xifratge d'extrem a extrem restablertes",
-    "Unable to reset End-to-End encryption" : "No es pot restablir el xifratge d'extrem a extrem"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar el xifratge d'extrem a extrem."
 },
 "nplurals=2; plural=(n != 1);");
