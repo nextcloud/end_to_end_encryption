@@ -52,17 +52,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées",
     "Error while unlocking the folder" : "Erreur lors du déverrouillage du dossier",
     "Upload encrypted files to {fileName}" : "Téléverser des fichiers chiffrés vers {fileName}",
-    "Metadata-file doesn't exist" : "Le fichier de métadonnées n'existe pas",
-    "End-to-End encryption endpoint" : "Point de terminaison du chiffrement de bout en bout",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit la terminaison nécessaire pour permettre un chiffrement de bout en bout.",
-    "End-to-End encryption" : "Chiffrement de bout en bout",
-    "Reset End-to-End encryption" : "Réinitialiser le chiffrement de bout en bout",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Veuillez lire attentivement avant de réinitialiser vos clés de chiffrement de bout en bout.",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Une fois que vos clés de chiffrement de bout en bout sont réinitialisées, tous les fichiers stockés dans votre dossier chiffré seront inaccessibles.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Vous ne devez réinitialiser vos clés de chiffrement de bout en bout que si vous avez perdu vos mots-clés sécurisés (phrase secrète).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Le chiffrement de bout en bout est actuellement activé et correctement configuré.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Le chiffrement de bout en bout est actuellement désactivé. Vous pouvez le configurer avec les clients {productName}.",
-    "End-to-End encryption keys reset" : "Réinitialisation des clés de chiffrement de bout en bout",
-    "Unable to reset End-to-End encryption" : "Impossible de réinitialiser le chiffrement de bout en bout"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit la terminaison nécessaire pour permettre un chiffrement de bout en bout."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

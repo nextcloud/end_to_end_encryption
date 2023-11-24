@@ -28,7 +28,6 @@ OC.L10N.register(
     "Save" : "保存",
     "End-to-end encryption" : "端到端加密",
     "Select or drop files" : "选择或拖放文件",
-    "Metadata-file doesn't exist" : "元数据文件不存在",
     "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端点以启用端到端加密。"
 },
 "nplurals=1; plural=0;");

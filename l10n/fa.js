@@ -52,17 +52,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Error while uploading metadata",
     "Error while unlocking the folder" : "Error while unlocking the folder",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
-    "Metadata-file doesn't exist" : "Metadata-file doesn't exist",
-    "End-to-End encryption endpoint" : "End-to-End encryption endpoint",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Provides the necessary endpoint to enable end-to-end encryption.",
-    "End-to-End encryption" : "End-to-End encryption",
-    "Reset End-to-End encryption" : "Reset End-to-End encryption",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Please read carefully before resetting your End-to-End encryption keys",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic).",
-    "End-to-End encryption is currently enabled and correctly setup." : "End-to-End encryption is currently enabled and correctly setup.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "End-to-End encryption is currently disabled. You can set it up with the {productName} clients.",
-    "End-to-End encryption keys reset" : "End-to-End encryption keys reset",
-    "Unable to reset End-to-End encryption" : "Unable to reset End-to-End encryption"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Provides the necessary endpoint to enable end-to-end encryption."
 },
 "nplurals=2; plural=(n > 1);");

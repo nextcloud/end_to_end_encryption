@@ -28,7 +28,6 @@ OC.L10N.register(
     "Save" : "Gem",
     "End-to-end encryption" : "End-to-end kryptering",
     "Select or drop files" : "Vælg eller slip filer",
-    "Metadata-file doesn't exist" : "Metadata-fil eksisterer ikke",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Giver det nødvendige slutpunkt for at aktivere ende-til-ende-kryptering."
 },
 "nplurals=2; plural=(n != 1);");

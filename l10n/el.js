@@ -28,7 +28,6 @@ OC.L10N.register(
     "Save" : "Αποθήκευση",
     "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
     "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
-    "Metadata-file doesn't exist" : "Το αρχείο μεταδεδομένων δεν υπάρχει",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο."
 },
 "nplurals=2; plural=(n != 1);");
