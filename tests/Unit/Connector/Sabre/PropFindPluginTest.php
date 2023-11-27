@@ -26,8 +26,8 @@ namespace OCA\EndToEndEncryption\Tests\Connector\Sabre;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
-use OCA\EndToEndEncryption\UserAgentManager;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
+use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
@@ -85,8 +85,8 @@ class PropFindPluginTest extends TestCase {
 		$server->expects($this->atLeast(2))
 		 ->method('on')
 		 ->withConsecutive(
-			['afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50],
-			['propFind', [$this->plugin, 'updateProperty'], 105],
+		 	['afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50],
+		 	['propFind', [$this->plugin, 'updateProperty'], 105],
 		 );
 
 		$this->plugin->initialize($server);

@@ -27,8 +27,8 @@ use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\Middleware\Exceptions\CanNotUseAppException;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\RedirectToDefaultAppResponse;
+use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\OCS\OCSException;
 use OCP\AppFramework\OCSController;
@@ -41,9 +41,11 @@ class CanUseAppMiddleware extends Middleware {
 	private IControllerMethodReflector $reflector;
 	private Config $config;
 
-	public function __construct(IUserSession $userSession,
-								IControllerMethodReflector $reflector,
-								Config $config) {
+	public function __construct(
+		IUserSession $userSession,
+		IControllerMethodReflector $reflector,
+		Config $config,
+	) {
 		$this->userSession = $userSession;
 		$this->reflector = $reflector;
 		$this->config = $config;

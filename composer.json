@@ -12,7 +12,7 @@
 		"phpunit/phpunit": "^9.5",
 		"psalm/phar": "^4.22",
 		"nextcloud/coding-standard": "^1.0",
-		"nextcloud/ocp": "dev-master"
+		"nextcloud/ocp": "dev-stable28"
 	},
 	"scripts": {
 		"lint": "find . -name \\*.php -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
@@ -29,7 +29,7 @@
 			"composer/package-versions-deprecated": true
 		},
 		"platform": {
-			"php": "8.0"
+			"php": "8.0.2"
 		}
 	},
 	"autoload-dev": {

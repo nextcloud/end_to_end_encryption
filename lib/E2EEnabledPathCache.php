@@ -24,12 +24,12 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-use OCP\Files\Node;
-use OCP\Files\Storage\IStorage;
-use OCP\Files\IHomeStorage;
-use OCP\Files\Cache\ICache;
 use OCP\Cache\CappedMemoryCache;
+use OCP\Files\Cache\ICache;
+use OCP\Files\IHomeStorage;
+use OCP\Files\Node;
 use OCP\Files\NotFoundException;
+use OCP\Files\Storage\IStorage;
 
 class E2EEnabledPathCache {
 	/**

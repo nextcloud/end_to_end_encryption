@@ -37,9 +37,9 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
+use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
-use OCP\Share\IManager as ShareManager;
 
 class LockingControllerTest extends TestCase {
 
@@ -188,11 +188,13 @@ class LockingControllerTest extends TestCase {
 	 *
 	 * @dataProvider unlockFolderDataProvider
 	 */
-	public function testUnlockFolder(bool $getUserFolderThrows,
-									 bool $userFolderReturnsNodes,
-									 ?\Exception $unlockException,
-									 ?string $expectedExceptionClass,
-									 ?string $expectedExceptionMessage): void {
+	public function testUnlockFolder(
+		bool $getUserFolderThrows,
+		bool $userFolderReturnsNodes,
+		?\Exception $unlockException,
+		?string $expectedExceptionClass,
+		?string $expectedExceptionMessage,
+	): void {
 		$fileId = 42;
 		$sendE2E = 'e2e-token';
 
