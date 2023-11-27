@@ -8,12 +8,12 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Settings;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
-use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\Config;
+use OCA\EndToEndEncryption\IKeyStorage;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\Settings\ISettings;
 use OCP\IUserSession;
+use OCP\Settings\ISettings;
 
 class Personal implements ISettings {
 	private IKeyStorage $keyStorage;

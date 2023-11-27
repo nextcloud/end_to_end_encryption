@@ -45,8 +45,10 @@ class MetaDataStorage implements IMetaDataStorage {
 	private string $metaDataFileName = 'meta.data';
 	private string $intermediateMetaDataFileName = 'intermediate.meta.data';
 
-	public function __construct(IAppData $appData,
-								IRootFolder $rootFolder) {
+	public function __construct(
+		IAppData $appData,
+		IRootFolder $rootFolder,
+	) {
 		$this->appData = $appData;
 		$this->rootFolder = $rootFolder;
 	}

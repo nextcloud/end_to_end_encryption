@@ -24,15 +24,15 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
+use OCP\IDBConnection;
 use OCP\IUserSession;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
-use OCP\IDBConnection;
-use OCP\DB\QueryBuilder\IQueryBuilder;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -49,11 +49,13 @@ class EncryptionManager {
 	private IDBConnection $dbConnection;
 	private LoggerInterface $logger;
 
-	public function __construct(IRootFolder $rootFolder,
-								IUserSession $userSession,
-								IManager $shareManager,
-								IDBConnection $dbConnection,
-								LoggerInterface $logger) {
+	public function __construct(
+		IRootFolder $rootFolder,
+		IUserSession $userSession,
+		IManager $shareManager,
+		IDBConnection $dbConnection,
+		LoggerInterface $logger,
+	) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
 		$this->shareManager = $shareManager;

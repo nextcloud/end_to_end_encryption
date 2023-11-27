@@ -22,11 +22,11 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption;
 
+use OCA\EndToEndEncryption\AppInfo\Application;
+use OCA\EndToEndEncryption\Db\LockMapper;
 use OCP\Files\Config\ICachedMountFileInfo;
 use OCP\Files\Config\IUserMountCache;
 use OCP\Files\Folder;
-use OCA\EndToEndEncryption\AppInfo\Application;
-use OCA\EndToEndEncryption\Db\LockMapper;
 use OCP\Files\IRootFolder;
 use Psr\Log\LoggerInterface;
 
@@ -54,12 +54,14 @@ class RollbackService {
 	private IRootFolder $rootFolder;
 	private LoggerInterface $logger;
 
-	public function __construct(LockMapper $lockMapper,
-								IMetaDataStorage $metaDataStorage,
-								FileService $fileService,
-								IUserMountCache $userMountCache,
-								IRootFolder $rootFolder,
-								LoggerInterface $logger) {
+	public function __construct(
+		LockMapper $lockMapper,
+		IMetaDataStorage $metaDataStorage,
+		FileService $fileService,
+		IUserMountCache $userMountCache,
+		IRootFolder $rootFolder,
+		LoggerInterface $logger,
+	) {
 		$this->lockMapper = $lockMapper;
 		$this->metaDataStorage = $metaDataStorage;
 		$this->fileService = $fileService;

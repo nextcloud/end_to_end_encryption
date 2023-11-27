@@ -38,8 +38,8 @@ use OCP\IUserSession;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
 use PHPUnit_Framework_MockObject_MockObject;
-use Test\TestCase;
 use Psr\Log\LoggerInterface;
+use Test\TestCase;
 
 class EncryptionManagerTest extends TestCase {
 

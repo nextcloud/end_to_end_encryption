@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
+use Exception;
 use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
@@ -35,7 +36,6 @@ use OCP\Files\NotFoundException;
 use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\Files\SimpleFS\ISimpleFolder;
 use Test\TestCase;
-use Exception;
 
 class MetaDataStorageTest extends TestCase {
 
@@ -678,10 +678,12 @@ class MetaDataStorageTest extends TestCase {
 	 *
 	 * @dataProvider getLegacyFileDataProvider
 	 */
-	public function testGetLegacyFile(?Exception $legacyOwnerException,
-									  ?Exception $getFolderException,
-									  ?Exception $getFileException,
-									  bool $expectsNull): void {
+	public function testGetLegacyFile(
+		?Exception $legacyOwnerException,
+		?Exception $getFolderException,
+		?Exception $getFileException,
+		bool $expectsNull,
+	): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
 			->setMethods([
 				'getLegacyOwnerPath',
@@ -754,9 +756,11 @@ class MetaDataStorageTest extends TestCase {
 	 *
 	 * @dataProvider cleanupLegacyFileDataProvider
 	 */
-	public function testCleanupLegacyFile(?Exception $legacyOwnerException,
-										  ?Exception $getFolderException,
-										  bool $expectsDelete): void {
+	public function testCleanupLegacyFile(
+		?Exception $legacyOwnerException,
+		?Exception $getFolderException,
+		bool $expectsDelete,
+	): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
 			->setMethods([
 				'getLegacyOwnerPath',

@@ -24,14 +24,15 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
-use OCP\AppFramework\Http;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\DAV\Upload\FutureFile;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCP\AppFramework\Http;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\Conflict;
@@ -39,17 +40,18 @@ use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 
 class LockPlugin extends APlugin {
 	private LockManager $lockManager;
 	private UserAgentManager $userAgentManager;
 
-	public function __construct(IRootFolder $rootFolder,
-								IUserSession $userSession,
-								LockManager $lockManager,
-								UserAgentManager $userAgentManager,
-								E2EEnabledPathCache $pathCache) {
+	public function __construct(
+		IRootFolder $rootFolder,
+		IUserSession $userSession,
+		LockManager $lockManager,
+		UserAgentManager $userAgentManager,
+		E2EEnabledPathCache $pathCache,
+	) {
 		parent::__construct($rootFolder, $userSession, $pathCache);
 		$this->lockManager = $lockManager;
 		$this->userAgentManager = $userAgentManager;
