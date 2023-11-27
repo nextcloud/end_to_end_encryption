@@ -28,6 +28,9 @@ use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\User\Events\UserDeletedEvent;
 
+/**
+ * @template-implements IEventListener<UserDeletedEvent>
+ */
 class UserDeletedListener implements IEventListener {
 	private IKeyStorage $keyStorage;
 

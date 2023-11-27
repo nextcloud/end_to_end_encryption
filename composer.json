@@ -36,5 +36,8 @@
 		"psr-4": {
 			"OCP\\": "vendor/nextcloud/ocp/OCP"
 		}
+	},
+	"require": {
+		"sabre/dav": "^4.5"
 	}
 }
