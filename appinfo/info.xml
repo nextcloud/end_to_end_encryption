@@ -9,7 +9,7 @@ Provides the necessary endpoint to enable end-to-end encryption.
 
 **Notice:** E2EE is currently not compatible to be used together with server-side encryption
 	]]></description>
-	<version>1.14.0</version>
+	<version>1.15.0</version>
 	<licence>agpl</licence>
 	<author>Bjoern Schiessle</author>
 	<namespace>EndToEndEncryption</namespace>
@@ -23,7 +23,7 @@ Provides the necessary endpoint to enable end-to-end encryption.
 	<repository type="git">https://github.com/nextcloud/end_to_end_encryption.git</repository>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/master/screenshots/e2ee-filelisting.png</screenshot>
 	<dependencies>
-		<nextcloud min-version="28" max-version="28" />
+		<nextcloud min-version="29" max-version="29" />
 	</dependencies>
 	<background-jobs>
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
