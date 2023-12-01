@@ -17,17 +17,17 @@
     "Could not find metadata for \"%s\"" : "Не вдалося знайти метадані для \"%s\"",
     "Cannot read metadata" : "Неможливо прочитати метадані",
     "Cannot store metadata" : "Неможливо зберегти метадані",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не дозволяється редагувати файл. Переконайтесь що файл заблокований, а потім надішліть потрібний токен",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не дозволено редагувати файл. Переконайтесь що файл заблоковано, після того надішліть потрібний токен",
     "Metadata-file does not exist" : "Файл метаданих відсутній",
     "Only the owner can delete the metadata-file" : "Лише власник може вилучати файл метаданих",
     "Cannot delete metadata" : "Неможливо вилучити метадані",
-    "Cannot update filedrop" : "Не вдалося оновити копіювання файлів через перетягування",
-    "Encrypted share" : "Шифрований спільний ресурс",
+    "Cannot update filedrop" : "Не вдалося поновити копіювання файлів через перетягування",
+    "Encrypted share" : "Зашифрований спільний ресурс",
     "End-to-End Encryption" : "Наскрізне шифрування",
     "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Надає відповідні кінцеві точки, щоби увімкнути наскрізне шифрування.\n\n**Увага:** Наразі через несумісність наскрізне шифрування неможливо використовувати разом з шифруванням на стороні сервера.",
     "Limit to groups" : "Обмежити групами",
-    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Якщо вибрано принаймні одну групу, лише люди з перелічених груп можуть використовувати програму наскрізного шифрування.",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Лише користувачі перелічених груп зможуть використовувати функцію наскрізного шифрування.",
     "Limit app usage to groups." : "Обмежте використання програми групами.",
     "Save" : "Зберегти",
     "Saved groups" : "Збережені групи",
@@ -41,7 +41,7 @@
     "Delete existing encrypted files" : "Вилучити наявні зашифровані файли",
     "This is the final warning: Do you really want to reset your keys?" : "Це останнє попередження. Дійсно скинути ваші ключі?",
     "End-to-end encryption is currently enabled and correctly setup." : "Наскрізне шифрування увімкнено та належним чином налаштовано.",
-    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Наскрізне шифрування вимкнено. Ви можете налаштувати його у клієнтах {productName}.",
+    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Наскрізне шифрування вимкнено. Ви можете налаштувати його на стороні клієнтів {productName}.",
     "End-to-end encryption keys reset" : "Ключі наскрізного шифрування скинуто",
     "Unable to reset end-to-end encryption" : "Не вдалося скинути наскрізне шифрування",
     "Select or drop files" : "Виберіть або перетягніть файли",
@@ -50,6 +50,6 @@
     "Error while uploading metadata" : "Помилка під час завантаження метаданих",
     "Error while unlocking the folder" : "Помилка під час розблокування каталогу",
     "Upload encrypted files to {fileName}" : "Завантажити зашифровані файли до {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Забезпечує обов'язкову точку доступу для увімкнення наскрізного шифрування"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Надає обов'язкову точку доступу для увімкнення функціоналу наскрізного шифрування"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }
