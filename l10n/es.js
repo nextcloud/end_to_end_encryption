@@ -27,7 +27,7 @@ OC.L10N.register(
     "Encrypted share" : "Recurso compartido cifrado",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "End-to-end encryption endpoint" : "Endpoint del cifrado extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Provee el endpoint necesario para habilitar cifrado de extremo a extremo.\n\n**Nota:** el cifrado de extremo a extremo actualmente no puede utilizarse si se usa en conjunto con el cifrado del lado del servidor.",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Provee el endpoint necesario para habilitar cifrado de extremo a extremo.\n\n**Advertencia:** el cifrado de extremo a extremo actualmente no puede utilizarse si se usa en conjunto con el cifrado del lado del servidor.",
     "Limit to groups" : "Límite a grupos",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Cuando se ha seleccionado al menos un grupo, solo personas de los grupos seleccionados pueden utilizar la aplicación de cifrado de extremo a extremo.",
     "Limit app usage to groups." : "Limitar uso de apps a grupos.",
