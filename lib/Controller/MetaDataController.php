@@ -43,8 +43,8 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
-use Psr\Log\LoggerInterface;
 use OCP\Share\IManager as ShareManager;
+use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
 	private ?string $userId;

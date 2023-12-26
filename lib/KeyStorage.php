@@ -46,7 +46,7 @@ class KeyStorage implements IKeyStorage {
 	private string $publicKeysRoot = '/public-keys';
 
 	public function __construct(IAppData $appData,
-								IUserSession $userSession) {
+		IUserSession $userSession) {
 		$this->appData = $appData;
 		$this->userSession = $userSession;
 	}

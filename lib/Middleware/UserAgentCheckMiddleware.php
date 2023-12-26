@@ -44,8 +44,8 @@ class UserAgentCheckMiddleware extends Middleware {
 	private UserAgentManager $userAgentManager;
 
 	public function __construct(IControllerMethodReflector $reflector,
-								IRequest $request,
-								UserAgentManager $userAgentManager) {
+		IRequest $request,
+		UserAgentManager $userAgentManager) {
 		$this->reflector = $reflector;
 		$this->request = $request;
 		$this->userAgentManager = $userAgentManager;

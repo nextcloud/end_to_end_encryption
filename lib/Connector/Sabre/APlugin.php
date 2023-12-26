@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
+use Exception;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
@@ -33,7 +34,6 @@ use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\DAV\ServerPlugin;
-use Exception;
 
 abstract class APlugin extends ServerPlugin {
 	protected ?Server $server = null;

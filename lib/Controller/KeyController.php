@@ -29,6 +29,8 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Controller;
 
+use BadMethodCallException;
+use Exception;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\SignatureHandler;
@@ -43,8 +45,6 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
-use Exception;
-use BadMethodCallException;
 use Psr\Log\LoggerInterface;
 
 class KeyController extends OCSController {
@@ -55,12 +55,12 @@ class KeyController extends OCSController {
 	private IL10N $l10n;
 
 	public function __construct(string $AppName,
-								IRequest $request,
-								?string $userId,
-								IKeyStorage $keyStorage,
-								SignatureHandler $signatureHandler,
-								LoggerInterface $logger,
-								IL10N $l10n
+		IRequest $request,
+		?string $userId,
+		IKeyStorage $keyStorage,
+		SignatureHandler $signatureHandler,
+		LoggerInterface $logger,
+		IL10N $l10n
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;

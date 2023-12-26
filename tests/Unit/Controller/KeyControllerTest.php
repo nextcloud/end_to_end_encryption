@@ -36,8 +36,8 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
-use Test\TestCase;
 use Psr\Log\LoggerInterface;
+use Test\TestCase;
 
 class KeyControllerTest extends TestCase {
 
@@ -119,9 +119,9 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @dataProvider getPrivateKeyDataProvider
 	 */
 	public function testGetPrivateKey(?\Exception $keyStorageException,
-									  ?string $expectedException,
-									  ?string $expectedExceptionMessage,
-									  bool $expectLogger): void {
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger): void {
 		$privateKey = 'MY-SECRET-PRIVATE-KEY';
 		if ($keyStorageException) {
 			$this->keyStorage->expects($this->once())
@@ -179,9 +179,9 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @dataProvider deletePrivateKeyDataProvider
 	 */
 	public function testDeletePrivateKey(?\Exception $keyStorageException,
-										 ?string $expectedException,
-										 ?string $expectedExceptionMessage,
-										 bool $expectLogger): void {
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger): void {
 		if ($keyStorageException) {
 			$this->keyStorage->expects($this->once())
 				->method('deletePrivateKey')
@@ -237,11 +237,11 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @dataProvider setPrivateKeyDataProvider
 	 */
 	public function testSetPrivateKey(?\Exception $keyStorageException,
-									  ?string $expectedException,
-									  ?string $expectedExceptionMessage,
-									  bool $expectLogger,
-									  ?array $expectedData,
-									  ?int $expectedStatusCode): void {
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger,
+		?array $expectedData,
+		?int $expectedStatusCode): void {
 		$privateKey = 'MY-SECRET-PRIVATE-KEY';
 		if ($keyStorageException) {
 			$this->keyStorage->expects($this->once())
@@ -465,9 +465,9 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @dataProvider deletePublicKeyDataProvider
 	 */
 	public function testDeletePublicKey(?\Exception $keyStorageException,
-										?string $expectedException,
-										?string $expectedExceptionMessage,
-										bool $expectLogger): void {
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger): void {
 		if ($keyStorageException) {
 			$this->keyStorage->expects($this->once())
 				->method('deletePublicKey')

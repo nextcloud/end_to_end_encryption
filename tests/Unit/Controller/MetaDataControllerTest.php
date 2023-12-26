@@ -36,9 +36,9 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
+use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
-use OCP\Share\IManager as ShareManager;
 
 class MetaDataControllerTest extends TestCase {
 
@@ -104,9 +104,9 @@ class MetaDataControllerTest extends TestCase {
 	 * @dataProvider getMetaDataDataProvider
 	 */
 	public function testGetMetaData(?\Exception $metaDataStorageException,
-									?string $expectedException,
-									?string $expectedExceptionMessage,
-									bool $expectLogger): void {
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger): void {
 		$fileId = 42;
 		$metaData = 'JSON-ENCODED-META-DATA';
 		if ($metaDataStorageException) {
@@ -166,11 +166,11 @@ class MetaDataControllerTest extends TestCase {
 	 * @dataProvider setMetaDataDataProvider
 	 */
 	public function testSetMetaData(?\Exception $metaDataStorageException,
-									?string $expectedException,
-									?string $expectedExceptionMessage,
-									bool $expectLogger,
-									?array $expectedResponseData,
-									?int $expectedResponseCode): void {
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger,
+		?array $expectedResponseData,
+		?int $expectedResponseCode): void {
 		$fileId = 42;
 		$metaData = 'JSON-ENCODED-META-DATA';
 		if ($metaDataStorageException) {
@@ -228,10 +228,10 @@ class MetaDataControllerTest extends TestCase {
 	 * @dataProvider updateMetaDataDataProvider
 	 */
 	public function testUpdateMetaData(bool $isLocked,
-									   ?\Exception $metaDataStorageException,
-									   ?string $expectedException,
-									   ?string $expectedExceptionMessage,
-									   bool $expectLogger): void {
+		?\Exception $metaDataStorageException,
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger): void {
 		$fileId = 42;
 		$sendToken = 'sendE2EToken';
 		$metaData = 'JSON-ENCODED-META-DATA';
@@ -303,9 +303,9 @@ class MetaDataControllerTest extends TestCase {
 	 * @dataProvider deleteMetaDataDataProvider
 	 */
 	public function testDeleteMetaData(?\Exception $metaDataStorageException,
-									   ?string $expectedException,
-									   ?string $expectedExceptionMessage,
-									   bool $expectLogger): void {
+		?string $expectedException,
+		?string $expectedExceptionMessage,
+		bool $expectLogger): void {
 		$fileId = 42;
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
