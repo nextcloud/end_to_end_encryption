@@ -4,15 +4,22 @@ This app provides all the necessary APIs to implement End-to-End encryption
 on the client side. Additionally it makes sure that End-to-End encrypted
 files are not accessible with the web interface and other WebDAV clients.
 
-Here you can find the [API documentation](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md).
+## Documentation
 
-## Limitation
+### Client API
 
-- E2EE is currently not compatible to be used together with server-side encryption
+Here you can find the [API documentation](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md). Also some [typical client operations and how to use the API to perform them](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md) are documented too.
 
-![](doc/screenshots/e2ee-files-listing.png)
+### Server-side Encryption
 
-## Sysadmin documentation
+> [!WARNING]  
+> E2EE is currently not compatible with server-side encryption and thus should **not** be used with the server-side `encryption` app enabled
+
+### Configuring
+
+#### User agent configuraiton
+
+The default user agent configuration is reasonable for all current official stable client releases, but sometimes needs to be adjusted when running custom or development client builds.
 
 ```php
 // config/config.php
@@ -25,3 +32,7 @@ Here you can find the [API documentation](https://github.com/nextcloud/end_to_en
         '/^Mozilla\/5\.0 \(iOS\) Nextcloud\-iOS\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '3.0.5',
     ]
 ```
+
+### Recovery
+
+There are various recovery scenarios where it may be useful to access (decrypt) your files independent of your Nextcloud installation. A separate set of tools called the [`encryption-recovery-tools`](https://github.com/nextcloud/encryption-recovery-tools) can be used for this.
