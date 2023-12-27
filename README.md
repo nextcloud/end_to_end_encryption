@@ -12,7 +12,8 @@ Here you can find the [API documentation](https://github.com/nextcloud/end_to_en
 
 ### Server-side Encryption
 
-- E2EE is currently not compatible with server-side encryption and thus should **not** be used with the server-side `encryption` app enabled
+> [!WARNING]  
+> E2EE is currently not compatible with server-side encryption and thus should **not** be used with the server-side `encryption` app enabled
 
 ### Configuring
 
