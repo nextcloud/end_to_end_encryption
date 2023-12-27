@@ -10,6 +10,10 @@ files are not accessible with the web interface and other WebDAV clients.
 
 Here you can find the [API documentation](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md). Also some [typical client operations and how to use the API to perform them](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md) are documented too.
 
+### Specification (RFC)
+
+The end-to-end encryption implemented by the Nextcloud sync and mobile clients, as well as the functionality provided by this app to faciliate it, is based on the approach documented in the [RFC repository](https://github.com/nextcloud/end_to_end_encryption_rfc/).
+
 ### Server-side Encryption
 
 > [!WARNING]  
