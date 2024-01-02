@@ -22,12 +22,10 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption\Connector\Sabre;
 
-use Exception;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
-use OCP\Files\Node;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\Conflict;
 use Sabre\DAV\Exception\NotFound;
