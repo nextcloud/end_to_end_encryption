@@ -24,9 +24,9 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-use OCP\IUserSession;
-use OCP\IUser;
 use OCP\Capabilities\ICapability;
+use OCP\IUser;
+use OCP\IUserSession;
 
 class Capabilities implements ICapability {
 	private Config $config;

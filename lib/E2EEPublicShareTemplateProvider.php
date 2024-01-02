@@ -6,15 +6,15 @@ use OCA\EndToEndEncryption\AppInfo\Application;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\Defaults;
+use OCP\Files\FileInfo;
 use OCP\Files\NotFoundException;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
-use OCP\Share\IShare;
 use OCP\Share\IPublicShareTemplateProvider;
-use OCP\AppFramework\Services\IInitialState;
-use OCP\Files\FileInfo;
+use OCP\Share\IShare;
 use OCP\Util;
 use Psr\Log\LoggerInterface;
 

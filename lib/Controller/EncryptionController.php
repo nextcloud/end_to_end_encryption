@@ -50,11 +50,11 @@ class EncryptionController extends OCSController {
 	private LoggerInterface $logger;
 
 	public function __construct(string $AppName,
-								IRequest $request,
-								?string $userId,
-								IMetaDataStorage $metaDataStorage,
-								EncryptionManager $manager,
-								LoggerInterface $logger) {
+		IRequest $request,
+		?string $userId,
+		IMetaDataStorage $metaDataStorage,
+		EncryptionManager $manager,
+		LoggerInterface $logger) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;
 		$this->metaDataStorage = $metaDataStorage;

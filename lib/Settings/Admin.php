@@ -8,10 +8,10 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Settings;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
+use OCA\EndToEndEncryption\Config;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Settings\ISettings;
-use OCA\EndToEndEncryption\Config;
 
 class Admin implements ISettings {
 	private Config $config;

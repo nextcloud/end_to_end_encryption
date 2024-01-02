@@ -26,14 +26,12 @@ use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
-use OCP\Files\Node;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\Conflict;
 use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\DAV\ServerPlugin;
-use Exception;
 
 abstract class APlugin extends ServerPlugin {
 	protected ?Server $server = null;
