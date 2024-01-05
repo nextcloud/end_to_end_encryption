@@ -118,6 +118,9 @@ class LockPlugin extends APlugin {
 
 		// Throw an error, if the user-agent does not support end to end encryption
 		$userAgent = $request->getHeader('user-agent');
+		if ($userAgent === '') {
+			$userAgent = '--';
+		}
 		if (!$this->isE2EEnabledUserAgent($userAgent)) {
 			throw new Forbidden('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content');
 		}
