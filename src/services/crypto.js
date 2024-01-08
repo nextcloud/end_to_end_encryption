@@ -1,8 +1,9 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-import { v4 as uuidv4 } from 'uuid'
 import * as x509 from '@peculiar/x509'
+import { bufferToBase64 } from './filedrop'
+import logger from './logger'
 
 /**
  * Gets tag from encrypted data
@@ -14,6 +15,9 @@ function getTag(encrypted) {
 	return encrypted.slice(encrypted.byteLength - ((128 + 7) >> 3))
 }
 
+/**
+ * @return {Promise<CryptoKey>}
+ */
 export async function getRandomAESKey() {
 	return await window.crypto.subtle.generateKey(
 		{
@@ -26,9 +30,25 @@ export async function getRandomAESKey() {
 }
 
 /**
+ * @typedef {object} EncryptionParams
+ * @property {CryptoKey} key - Encryption key of the file (ex: "jtboLmgGR1OQf2uneqCVHpklQLlIwWL5TXAQ0keK")
+ * @property {Uint8Array} initializationVector - Mimetype, if unknown use "application/octet-stream" (ex: "plain/text")
+ */
+
+/**
+ * @return {Promise<EncryptionParams>}
+ */
+export async function getRandomEncryptionParams() {
+	return {
+		key: await getRandomAESKey(),
+		initializationVector: window.crypto.getRandomValues(new Uint8Array(16)),
+	}
+}
+
+/**
  * Encrypt file content
  *
- * @param {{key: CryptoKey, initializationVector: Uint8Array}} encryptionData
+ * @param {EncryptionParams} encryptionData
  * @param {Uint8Array} content
  * @return {Promise<{content: ArrayBuffer, tag: ArrayBuffer}>}
  */
@@ -45,63 +65,37 @@ export async function encryptWithAES({ key, initializationVector }, content) {
 	}
 }
 
-class EncryptedFile {
+/**
+ * @typedef {object} FileEncryptionInfo
+ * @property {string} filename - Original file name (ex: "/foo/test.txt")
+ * @property {string} mimetype - Mimetype, if unknown use "application/octet-stream" (ex: "plain/text")
+ * @property {string} key - Encryption key of the file (ex: "jtboLmgGR1OQf2uneqCVHpklQLlIwWL5TXAQ0keK")
+ * @property {string} nonce - Initialisation vector
+ * @property {string} authenticationTag - Authentication tag of the file (ex: "LYRaJghbZUzBiNWb51ypWw==")
+ */
 
-	/**
-	 * @param {string} fileName
-	 * @param {string} mimetype
-	 */
-	constructor(fileName, mimetype) {
-		this.encryptedFileName = uuidv4().replaceAll('-', '')
-		this.initializationVector = window.crypto.getRandomValues(new Uint8Array(16))
-		this.fileVersion = 1
-		this.metadataKey = 1
-		this.originalFileName = fileName
-		this.mimetype = mimetype
-		if (this.mimetype === 'inode/directory') {
-			this.mimetype = 'httpd/unix-directory'
-		}
-		this.encryptionKey = null
+/**
+ * Encrypt file content
+ *
+ * @param {File} file
+ * @return {Promise<{encryptedFileContent: ArrayBuffer, encryptionInfo: FileEncryptionInfo}>}
+ */
+export async function encryptFile(file) {
+	const blob = await file.arrayBuffer()
+	const encryptionParams = await getRandomEncryptionParams()
+	const { content, tag } = await encryptWithAES(encryptionParams, new Uint8Array(blob))
+	logger.debug(`[FileDrop] File encrypted: ${file.name}`, { file, content, tag, encryptionParams, rawKey: bufferToBase64(await window.crypto.subtle.exportKey('raw', encryptionParams.key)) })
+
+	return {
+		encryptedFileContent: content,
+		encryptionInfo: {
+			filename: file.name,
+			mimetype: file.type,
+			nonce: bufferToBase64(encryptionParams.initializationVector),
+			key: bufferToBase64(await window.crypto.subtle.exportKey('raw', encryptionParams.key)),
+			authenticationTag: bufferToBase64(tag),
+		},
 	}
-
-	/**
-	 * Encrypt file content
-	 *
-	 * @param {Uint8Array} content
-	 * @return {Promise<{content: ArrayBuffer, tag: ArrayBuffer}>}
-	 */
-	async encrypt(content) {
-		return encryptWithAES({ key: await this.getEncryptionKey(), initializationVector: this.initializationVector }, content)
-	}
-
-	/**
-	 * @return {Promise<CryptoKey>}
-	 */
-	async getEncryptionKey() {
-		if (this.encryptionKey === null) {
-			this.encryptionKey = await getRandomAESKey()
-		}
-
-		return this.encryptionKey
-	}
-
-	/**
-	 * Encrypt file content
-	 *
-	 * @param {Uint8Array} content
-	 * @return {Promise<ArrayBuffer>}
-	 */
-	async decrypt(content) {
-		return await window.crypto.subtle.decrypt(
-			{
-				name: 'AES-GCM',
-				iv: this.initializationVector,
-			},
-			await this.getEncryptionKey(),
-			content
-		)
-	}
-
 }
 
 /**
@@ -130,15 +124,10 @@ async function importPublicKey(pem) {
  * @param {BufferSource} buffer
  * @return {Promise<ArrayBuffer>}
  */
-async function encryptStringAsymmetric(publicKey, buffer) {
+export async function encryptStringAsymmetric(publicKey, buffer) {
 	return await window.crypto.subtle.encrypt(
 		{ name: 'RSA-OAEP' },
 		await importPublicKey(publicKey),
 		buffer
 	)
-}
-
-export {
-	EncryptedFile,
-	encryptStringAsymmetric,
 }

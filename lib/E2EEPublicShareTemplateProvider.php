@@ -39,9 +39,25 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 	public function renderPage(IShare $share, string $token, string $path): TemplateResponse {
 		$shareNode = $share->getNode();
 		$owner = $this->userManager->get($share->getShareOwner());
+		if ($owner === null) {
+			$e = new NotFoundException("Cannot find folder's owner");
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			return new TemplateResponse(Application::APP_ID, 'error');
+		}
+
+		$rawMetadata = $this->metadataStorage->getMetaData($owner->getUID(), $shareNode->getId());
+		$metadata = json_decode($rawMetadata, true);
+		$userIds = array_map(fn (array $userEntry): string => $userEntry['userId'], $metadata['users']);
 
 		try {
-			$publicKey = $this->keyStorage->getPublicKey($owner->getUID());
+			$publicKeys = array_reduce(
+				$userIds,
+				function (array $acc, string $userId): array {
+					$acc[$userId] = $this->keyStorage->getPublicKey($userId);
+					return $acc;
+				},
+				[]
+			);
 		} catch (NotFoundException $e) {
 			$this->logger->error($e->getMessage(), ['exception' => $e]);
 			return new TemplateResponse(Application::APP_ID, 'error');
@@ -49,7 +65,7 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 
 		$metadata = json_decode($this->metadataStorage->getMetaData($owner->getUID(), $shareNode->getId()), true);
 
-		$this->initialState->provideInitialState('publicKey', $publicKey);
+		$this->initialState->provideInitialState('publicKeys', $publicKeys);
 		$this->initialState->provideInitialState('fileId', $shareNode->getId());
 		$this->initialState->provideInitialState('token', $token);
 		$this->initialState->provideInitialState('fileName', $shareNode->getName());

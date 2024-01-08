@@ -224,7 +224,7 @@ class MetaDataController extends OCSController {
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
 	 */
-	public function addMetadataFileDrop(int $id, string $fileDrop, ?string $shareToken = null): DataResponse {
+	public function addMetadataFileDrop(int $id, string $filedrop, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$ownerId = $this->getOwnerId($shareToken);
 
@@ -239,8 +239,9 @@ class MetaDataController extends OCSController {
 		try {
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
 			$decodedMetadata = json_decode($metaData, true);
-			$decodedFileDrop = json_decode($fileDrop, true);
-			$decodedMetadata['filedrop'] = array_merge($decodedMetadata['filedrop'] ?? [], $decodedFileDrop);
+			$fileDropArray = $decodedMetadata['filedrop'] ?? [];
+			$fileDropArray = array_merge($fileDropArray, json_decode($filedrop, true));
+			$decodedMetadata['filedrop'] = $fileDropArray;
 			$encodedMetadata = json_encode($decodedMetadata);
 
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata, $e2eToken);
@@ -253,7 +254,7 @@ class MetaDataController extends OCSController {
 			throw new OCSBadRequestException($this->l10n->t('Cannot update filedrop'));
 		}
 
-		return new DataResponse(['meta-data' => $metaData]);
+		return new DataResponse();
 	}
 
 	private function getOwnerId(?string $shareToken = null): string {
