@@ -7,7 +7,7 @@ import axios from '@nextcloud/axios'
 /**
  * @param {1|2} encryptionVersion - The encrypted version for the folder
  * @param {number} counter - The metadata counter received from the initial state
- * @param {string} fileId - The file id to lock
+ * @param {number} fileId - The file id to lock
  * @param {?string} shareToken - The optional share token if this is a file drop.
  * @return {Promise<string>} lockToken
  */
@@ -35,7 +35,7 @@ export async function lock(encryptionVersion, counter, fileId, shareToken) {
 
 /**
  * @param {1|2} encryptionVersion - The encrypted version for the folder
- * @param {string} fileId - The file id to lock
+ * @param {number} fileId - The file id to lock
  * @param {string} lockToken - The optional lock token if the folder was already locked.
  * @param {?string} shareToken - The optional share token if this is a file drop.
  */
