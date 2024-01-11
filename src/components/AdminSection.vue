@@ -10,7 +10,7 @@
 		<p class="settings-hint">
 			{{ t('end_to_end_encryption', 'When at least one group is selected, only people of the listed groups can use the End-to-End encryption app.') }}
 		</p>
-		<NcMultiselect v-model="allowedGroups"
+		<NcSelect v-model="allowedGroups"
 			class="allowed-groups"
 			:options="groups"
 			:placeholder="t('end_to_end_encryption', 'Limit app usage to groups.')"
@@ -35,7 +35,7 @@
 
 <script>
 import axios from '@nextcloud/axios'
-import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import { loadState } from '@nextcloud/initial-state'
@@ -52,7 +52,7 @@ const logger = getLoggerBuilder()
 export default {
 	name: 'AdminSection',
 	components: {
-		NcMultiselect,
+		NcSelect,
 		NcSettingsSection,
 		NcButton,
 	},
