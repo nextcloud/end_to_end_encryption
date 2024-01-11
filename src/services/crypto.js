@@ -90,7 +90,7 @@ export async function encryptFile(file) {
 		encryptedFileContent: content,
 		encryptionInfo: {
 			filename: file.name,
-			mimetype: file.type,
+			mimetype: file.type || 'application/octet-stream',
 			nonce: bufferToBase64(encryptionParams.initializationVector),
 			key: bufferToBase64(await window.crypto.subtle.exportKey('raw', encryptionParams.key)),
 			authenticationTag: bufferToBase64(tag),
