@@ -129,13 +129,10 @@ async function compress(str) {
 async function encryptRandomKeyForUsers(usersPublicKeys, encryptionParams) {
 	return Promise.all(Object.entries(usersPublicKeys).map(async ([userId, publicKey]) => {
 		const rawKey = await window.crypto.subtle.exportKey('raw', encryptionParams.key)
-		const base64Key1 = bufferToBase64(rawKey)
-		const base64Key2 = btoa(base64Key1)
-		const bufferKey = new TextEncoder().encode(base64Key2)
 
 		const encryptedFileDropKey = await encryptStringAsymmetric(
 			publicKey,
-			bufferKey,
+			rawKey,
 		)
 
 		return { userId, encryptedFiledropKey: bufferToBase64(encryptedFileDropKey) }
