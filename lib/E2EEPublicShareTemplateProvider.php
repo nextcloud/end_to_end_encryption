@@ -45,7 +45,12 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 			return new TemplateResponse(Application::APP_ID, 'error');
 		}
 
-		$rawMetadata = $this->metadataStorage->getMetaData($owner->getUID(), $shareNode->getId());
+		$topE2eeFolder = $shareNode;
+		while ($topE2eeFolder->getParent()->isEncrypted()) {
+			$topE2eeFolder = $shareNode->getParent();
+		}
+
+		$rawMetadata = $this->metadataStorage->getMetaData($owner->getUID(), $topE2eeFolder->getId());
 		$metadata = json_decode($rawMetadata, true);
 		$userIds = array_map(fn (array $userEntry): string => $userEntry['userId'], $metadata['users']);
 
@@ -62,8 +67,6 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 			$this->logger->error($e->getMessage(), ['exception' => $e]);
 			return new TemplateResponse(Application::APP_ID, 'error');
 		}
-
-		$metadata = json_decode($this->metadataStorage->getMetaData($owner->getUID(), $shareNode->getId()), true);
 
 		$this->initialState->provideInitialState('publicKeys', $publicKeys);
 		$this->initialState->provideInitialState('fileId', $shareNode->getId());
