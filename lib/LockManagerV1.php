@@ -50,10 +50,10 @@ class LockManagerV1 {
 	private ITimeFactory $timeFactory;
 
 	public function __construct(LockMapper $lockMapper,
-								ISecureRandom $secureRandom,
-								IRootFolder $rootFolder,
-								IUserSession $userSession,
-								ITimeFactory $timeFactory
+		ISecureRandom $secureRandom,
+		IRootFolder $rootFolder,
+		IUserSession $userSession,
+		ITimeFactory $timeFactory
 	) {
 		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;
