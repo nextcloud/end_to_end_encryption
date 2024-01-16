@@ -37,8 +37,10 @@ use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
+use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
+use OCP\AppFramework\OCS\OCSPreconditionFailedException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
@@ -46,8 +48,6 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
-use OCP\AppFramework\OCS\OCSPreconditionFailedException;
-use OCP\AppFramework\OCS\OCSBadRequestException;
 
 class LockingController extends OCSController {
 	private ?string $userId;
