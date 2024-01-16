@@ -404,7 +404,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	 */
 	public function saveIntermediateCounter(int $id, int $counter): void {
 		$metadataFolder = $this->appData->getFolder($this->getFolderNameForFileId($id));
-		$metadataFolder->newFile($this->intermediateMetaDataCounterFileName)->putContent($counter);
+		$metadataFolder->newFile($this->intermediateMetaDataCounterFileName)->putContent((string)$counter);
 	}
 
 	/**
