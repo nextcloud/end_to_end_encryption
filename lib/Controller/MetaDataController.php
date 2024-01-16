@@ -120,7 +120,7 @@ class MetaDataController extends OCSController {
 			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-SIGNATURE is empty'));
 		}
 
-		if ($this->lockManager->isLocked($id, $e2eToken)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
@@ -159,7 +159,7 @@ class MetaDataController extends OCSController {
 			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-SIGNATURE is empty'));
 		}
 
-		if ($this->lockManager->isLocked($id, $e2eToken)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
@@ -196,7 +196,7 @@ class MetaDataController extends OCSController {
 			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
 		}
 
-		if ($this->lockManager->isLocked($id, $e2eToken)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
@@ -232,7 +232,7 @@ class MetaDataController extends OCSController {
 			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
 		}
 
-		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 

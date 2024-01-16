@@ -162,7 +162,7 @@ class LockPlugin extends APlugin {
 			throw new Forbidden('Write access to end-to-end encrypted folder requires token - no token sent');
 		}
 
-		if ($this->lockManager->isLocked($node->getId(), $token)) {
+		if ($this->lockManager->isLocked($node->getId(), $token, null, true)) {
 			throw new FileLocked('Write access to end-to-end encrypted folder requires token - resource not locked or wrong token sent', Http::STATUS_FORBIDDEN);
 		}
 	}

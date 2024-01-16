@@ -136,7 +136,7 @@ class MetaDataController extends OCSController {
 		}
 		// End
 
-		if ($this->lockManager->isLocked($id, $e2eToken)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
@@ -195,7 +195,7 @@ class MetaDataController extends OCSController {
 		$e2eToken = $this->request->getParam('e2e-token');
 		$ownerId = $this->getOwnerId($shareToken);
 
-		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 

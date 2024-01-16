@@ -125,7 +125,7 @@ class LockManager {
 	 * @throws NotFoundException
 	 * @throws \OCP\Files\NotPermittedException
 	 */
-	public function isLocked(int $id, string $token, ?string $ownerId = null): bool {
+	public function isLocked(int $id, string $token, ?string $ownerId = null, bool $requireLock = false): bool {
 		if ($ownerId === null) {
 			$user = $this->userSession->getUser();
 			if ($user === null) {
@@ -133,6 +133,8 @@ class LockManager {
 			}
 			$ownerId = $user->getUid();
 		}
+
+		$lockedByGivenToken = false;
 
 		$userRoot = $this->rootFolder->getUserFolder($ownerId);
 		$nodes = $userRoot->getById($id);
@@ -149,6 +151,8 @@ class LockManager {
 				// If it's locked with a different token, return true
 				if ($lock->getToken() !== $token) {
 					return true;
+				} else {
+					$lockedByGivenToken = true;
 				}
 
 				// If it's locked with the expected token, check the parent node
@@ -156,7 +160,7 @@ class LockManager {
 			}
 		}
 
-		return false;
+		return $requireLock && !$lockedByGivenToken;
 	}
 
 
