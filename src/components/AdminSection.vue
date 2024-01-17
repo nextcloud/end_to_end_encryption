@@ -60,14 +60,19 @@ export default {
 		return {
 			loading: false,
 			loadingGroups: true,
-			groups: loadState('end_to_end_encryption', 'allowed_groups'),
-			allowedGroups: [],
+			allowedGroups: loadState('end_to_end_encryption', 'allowed_groups').map(group => {
+				return {
+					id: group,
+					displayname: group,
+				}
+			}).sort(function(a, b) {
+				return a.displayname.localeCompare(b.displayname)
+			}),
+			groups: [],
 		}
 	},
 	mounted() {
-		this.allowedGroups = loadState('end_to_end_encryption', 'allowed_groups').sort(function(a, b) {
-			return a.displayname.localeCompare(b.displayname)
-		})
+		this.groups = this.allowedGroups
 		this.searchGroup()
 	},
 	methods: {
