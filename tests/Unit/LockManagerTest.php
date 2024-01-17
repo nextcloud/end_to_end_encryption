@@ -137,9 +137,9 @@ class LockManagerTest extends TestCase {
 
 		if ($expectNewToken) {
 			$this->metaDataStorage->expects($this->once())
-				->method('getMetaData')
-				->with('userId', 42)
-				->willReturn('{"counter": 0}');
+				->method('getCounter')
+				->with()
+				->willReturn(0);
 
 			if ($counter > 0) {
 				$this->secureRandom->expects($this->once())
