@@ -104,6 +104,7 @@ export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, loc
 async function compress(str) {
 	const stream = new Blob([str]).stream()
 	const compressedStream = stream.pipeThrough(
+		// eslint-disable-next-line no-undef
 		new CompressionStream('gzip'),
 	)
 
