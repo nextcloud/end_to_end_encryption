@@ -66,8 +66,9 @@ class LockManager {
 
 	/**
 	 * Lock file
+	 * @param bool $noCounterCheck - Needed for filedrop, which updates the metadata without needing to bump the counter
 	 */
-	public function lockFile(int $id, string $token, int $e2eCounter, string $ownerId): ?string {
+	public function lockFile(int $id, string $token, int $e2eCounter, string $ownerId, bool $noCounterCheck = false): ?string {
 		if ($this->isLocked($id, $token, $ownerId)) {
 			return null;
 		}
@@ -77,11 +78,13 @@ class LockManager {
 			return $lock->getToken() === $token ? $token : null;
 		} catch (DoesNotExistException $ex) {
 			try {
-				$storedCounter = $this->metaDataStorage->getCounter($id);
-				if ($storedCounter >= $e2eCounter) {
-					throw new NotPermittedException('Received counter is not greater than the stored one');
-				} else {
-					$this->metaDataStorage->saveIntermediateCounter($id, $e2eCounter);
+				if (!$noCounterCheck) {
+					$storedCounter = $this->metaDataStorage->getCounter($id);
+					if ($storedCounter >= $e2eCounter) {
+						throw new NotPermittedException('Received counter is not greater than the stored one');
+					} else {
+						$this->metaDataStorage->saveIntermediateCounter($id, $e2eCounter);
+					}
 				}
 			} catch (NotFoundException $e) {
 				// Do not check counter if the metadata do not exists yet.

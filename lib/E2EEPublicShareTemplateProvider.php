@@ -73,7 +73,6 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 		$this->initialState->provideInitialState('token', $token);
 		$this->initialState->provideInitialState('fileName', $shareNode->getName());
 		$this->initialState->provideInitialState('encryptionVersion', $metadata['version']);
-		$this->initialState->provideInitialState('counter', $this->metadataStorage->getCounter($shareNode->getId()));
 
 		// OpenGraph Support: http://ogp.me/
 		Util::addHeader('meta', ['property' => "og:title", 'content' => $this->l10n->t("Encrypted share")]);
