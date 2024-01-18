@@ -32,6 +32,7 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
+use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
@@ -70,6 +71,9 @@ class MetaDataControllerTest extends TestCase {
 	/** @var MetaDataController */
 	private $controller;
 
+	/** @var IRootFolder */
+	private $rootFolder;
+
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -82,6 +86,7 @@ class MetaDataControllerTest extends TestCase {
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
 		$this->shareManager = $this->createMock(ShareManager::class);
+		$this->rootFolder = $this->createMock(IRootFolder::class);
 
 		$this->controller = new MetaDataController(
 			$this->appName,
@@ -91,7 +96,8 @@ class MetaDataControllerTest extends TestCase {
 			$this->lockManager,
 			$this->logger,
 			$this->l10n,
-			$this->shareManager
+			$this->shareManager,
+			$this->rootFolder,
 		);
 	}
 
