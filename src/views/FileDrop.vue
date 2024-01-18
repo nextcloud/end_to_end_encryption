@@ -54,7 +54,6 @@ import { translate } from '@nextcloud/l10n'
 import logger from '../services/logger.js'
 import { encryptFile } from '../services/crypto.js'
 import { uploadFile } from '../services/uploadFile.js'
-import { lock, unlock } from '../services/lock.js'
 import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
 
 /**
@@ -67,7 +66,6 @@ const UploadStep = {
 	UPLOADING: 'uploading',
 	UPLOADED: 'uploaded',
 	UPLOADING_METADATA: 'uploading_metadata',
-	UNLOCKING: 'unlocking',
 	DONE: 'done',
 }
 
@@ -100,8 +98,6 @@ export default {
 			fileName: loadState('end_to_end_encryption', 'fileName'),
 			/** @type {1|2} */
 			encryptionVersion: Number.parseInt(loadState('end_to_end_encryption', 'encryptionVersion')),
-			/** @type {number} */
-			counter: Number.parseInt(loadState('end_to_end_encryption', 'counter')),
 			/** @type {{file: File, step: string, error: boolean}[]} */
 			uploadedFiles: [],
 			loading: false,
@@ -150,17 +146,6 @@ export default {
 			this.loading = true
 			/** @type {UploadProgress[]} */
 			let progresses = []
-			let lockToken = null
-
-			try {
-				lockToken = await lock(this.encryptionVersion, this.counter + 1, this.folderId, this.shareToken)
-				logger.debug(`[FileDrop] Folder locked: ${lockToken}`)
-			} catch (exception) {
-				logger.error('[FileDrop] Could not lock the folder', { exception })
-				showError(this.t('end_to_end_encryption', 'Could not lock the folder'))
-				this.loading = false
-				return
-			}
 
 			try {
 				progresses = await Promise.all(
@@ -186,28 +171,16 @@ export default {
 
 				logger.debug('[FileDrop] FileDrop entries computed', { fileDrops })
 
-				await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, lockToken, this.shareToken)
+				await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, this.shareToken)
 			} catch (exception) {
 				logger.error('[FileDrop] Error while uploading metadata', { exception })
-				showError(this.t('end_to_end_encryption', 'Error while uploading metadata'))
+				showError(this.t('end_to_end_encryption', 'Error while uploading metadata ({message})', { message: exception.response.data?.ocs?.meta?.message }))
 				progresses.forEach(progress => { progress.error = true })
 			}
 
-			try {
-				progresses
-					.filter(({ error }) => !error)
-					.forEach(progress => { progress.step = UploadStep.UNLOCKING })
-				await unlock(this.encryptionVersion, this.folderId, lockToken, this.shareToken)
-				this.counter++
-				logger.debug('[FileDrop] Folder unlocked', { lockToken, shareToken: this.shareToken })
-				progresses
-					.filter(({ error }) => !error)
-					.forEach(progress => { progress.step = UploadStep.DONE })
-			} catch (exception) {
-				logger.error('[FileDrop] Error while unlocking the folder', { exception })
-				showError(this.t('end_to_end_encryption', 'Error while unlocking the folder'))
-				progresses.forEach(progress => { progress.error = true })
-			}
+			progresses
+				.filter(({ error }) => !error)
+				.forEach(progress => { progress.step = UploadStep.DONE })
 
 			this.loading = false
 		},

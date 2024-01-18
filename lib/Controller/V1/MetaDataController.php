@@ -29,6 +29,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Controller\V1;
 
+use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\IMetaDataStorageV1;
@@ -39,6 +40,8 @@ use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
+use OCP\Files\Folder;
+use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
@@ -62,7 +65,8 @@ class MetaDataController extends OCSController {
 		LockManagerV1 $lockManager,
 		LoggerInterface $logger,
 		IL10N $l10n,
-		ShareManager $shareManager
+		ShareManager $shareManager,
+		private IRootFolder $rootFolder,
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;
@@ -192,11 +196,28 @@ class MetaDataController extends OCSController {
 	 * @throws OCSNotFoundException
 	 */
 	public function addMetadataFileDrop(int $id, string $fileDrop, ?string $shareToken = null): DataResponse {
-		$e2eToken = $this->request->getParam('e2e-token');
 		$ownerId = $this->getOwnerId($shareToken);
 
-		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId, true)) {
-			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
+		try {
+			$userFolder = $this->rootFolder->getUserFolder($ownerId);
+		} catch (NoUserException $e) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
+		if ($userFolder->getId() === $id) {
+			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			throw $e;
+		}
+
+		$nodes = $userFolder->getById($id);
+		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
+		$lockToken = $this->lockManager->lockFile($id, 'filedrop-token', $ownerId);
+		if ($lockToken === null) {
+			throw new OCSForbiddenException($this->l10n->t('File already locked'));
 		}
 
 		try {
@@ -207,6 +228,7 @@ class MetaDataController extends OCSController {
 			$encodedMetadata = json_encode($decodedMetadata);
 
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata);
+			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
@@ -214,6 +236,8 @@ class MetaDataController extends OCSController {
 		} catch (\Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot update filedrop'));
+		} finally {
+			$this->lockManager->unlockFile($id, $lockToken);
 		}
 
 		return new DataResponse(['meta-data' => $metaData]);
