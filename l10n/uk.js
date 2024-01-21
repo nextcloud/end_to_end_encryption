@@ -30,7 +30,7 @@ OC.L10N.register(
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Надає відповідні кінцеві точки, щоби увімкнути наскрізне шифрування.\n\n**Увага:** Наразі через несумісність наскрізне шифрування неможливо використовувати разом з шифруванням на стороні сервера.",
     "Limit to groups" : "Обмежити групами",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Лише користувачі перелічених груп зможуть використовувати функцію наскрізного шифрування.",
-    "Limit app usage to groups." : "Обмежте використання програми групами.",
+    "Limit app usage to groups." : "Обмежте використання застосунку певними групами.",
     "Save" : "Зберегти",
     "Saved groups" : "Збережені групи",
     "End-to-end encryption" : "Наскрізне шифрування",
