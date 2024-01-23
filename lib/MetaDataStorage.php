@@ -234,7 +234,19 @@ class MetaDataStorage implements IMetaDataStorage {
 	public function readSignature(int $id): string {
 		$folderName = $this->getFolderNameForFileId($id);
 		$dir = $this->appData->getFolder($folderName);
-		return $dir->getFile($this->metaDataSignatureFileName)->getContent();
+
+		try {
+			return $dir->getFile($this->metaDataSignatureFileName)->getContent();
+		} catch (NotFoundException $ex) {
+			$metadata = $dir->getFile($this->metaDataFileName)->getContent();
+			$decodedMetadata = json_decode($metadata, true);
+
+			if ($decodedMetadata['metadata']['version'] === "1.2") {
+				return "";
+			}
+
+			throw $ex;
+		}
 	}
 
 	/**
