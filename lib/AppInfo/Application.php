@@ -37,6 +37,7 @@ use OCA\EndToEndEncryption\Listener\UserDeletedListener;
 use OCA\EndToEndEncryption\MetaDataStorage;
 use OCA\EndToEndEncryption\MetaDataStorageV1;
 use OCA\EndToEndEncryption\Middleware\CanUseAppMiddleware;
+use OCA\EndToEndEncryption\Middleware\ClientHasCapabilityMiddleware;
 use OCA\EndToEndEncryption\Middleware\UserAgentCheckMiddleware;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
@@ -68,6 +69,7 @@ class Application extends App implements IBootstrap {
 		$context->registerCapability(Capabilities::class);
 		$context->registerMiddleware(UserAgentCheckMiddleware::class);
 		$context->registerMiddleware(CanUseAppMiddleware::class);
+		$context->registerMiddleware(ClientHasCapabilityMiddleware::class);
 		$context->registerServiceAlias(IKeyStorage::class, KeyStorage::class);
 		$context->registerServiceAlias(IMetaDataStorageV1::class, MetaDataStorageV1::class);
 		$context->registerServiceAlias(IMetaDataStorage::class, MetaDataStorage::class);
