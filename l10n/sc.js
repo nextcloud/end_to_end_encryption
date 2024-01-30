@@ -28,7 +28,6 @@ OC.L10N.register(
     "Save" : "Sarva",
     "End-to-end encryption" : "Tzifradura end-to-end",
     "Select or drop files" : "Sèbera o iscapa archìvios",
-    "Metadata-file doesn't exist" : "S'archìviu metadatos no esistit",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Frunit su puntu finale netzessàriu pro ativare sa critografia a nodu terminale."
 },
 "nplurals=2; plural=(n != 1);");

@@ -1,6 +1,6 @@
 {
   "name": "end_to_end_encryption",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "Provides the necessary endpoint to enable End-to-End encryption.",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@nextcloud/auth": "^2.0.0",
-    "@nextcloud/axios": "^1.6.0",
+    "@nextcloud/axios": "^2.4.0",
     "@nextcloud/dialogs": "^3.1.4",
     "@nextcloud/initial-state": "^1.2.1",
     "@nextcloud/l10n": "^1.4.1",
@@ -51,6 +51,6 @@
   "homepage": "https://github.com/nextcloud/end_to_end_encryption#readme",
   "engines": {
     "node": "^20.0.0",
-    "npm": "^9.0.0"
+    "npm": "^10.0.0"
   }
 }

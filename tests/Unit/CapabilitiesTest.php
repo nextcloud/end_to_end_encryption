@@ -26,9 +26,9 @@ namespace OCA\EndToEndEncryption\Tests\Unit;
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\IKeyStorage;
-use Test\TestCase;
-use OCP\IUserSession;
 use OCP\IUser;
+use OCP\IUserSession;
+use Test\TestCase;
 
 class CapabilitiesTest extends TestCase {
 	private Capabilities $capabilities;
@@ -75,7 +75,7 @@ class CapabilitiesTest extends TestCase {
 		$this->assertEquals([
 			'end-to-end-encryption' => [
 				'enabled' => true,
-				'api-version' => '2',
+				'api-version' => '1.2',
 				'keys-exist' => true
 			]
 		], $this->capabilities->getCapabilities());

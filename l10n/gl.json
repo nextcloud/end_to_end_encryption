@@ -50,17 +50,6 @@
     "Error while uploading metadata" : "Produciuse un erro ao enviar os metadatos",
     "Error while unlocking the folder" : "Produciuse un erro ao desbloquear o cartafol",
     "Upload encrypted files to {fileName}" : "Enviar ficheiros cifrados a {fileName}",
-    "Metadata-file doesn't exist" : "Non existe o ficheiro de metadatos",
-    "End-to-End encryption endpoint" : "Punto final do cifrado de extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto necesario para activar o cifrado de extremo a extremo.",
-    "End-to-End encryption" : "Cifrado de extremo a extremo",
-    "Reset End-to-End encryption" : "Restabrlecer o cifrado de extremo a extremo",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Lea atentamente antes de restabelecer as chaves de cifrado de extremo a extremo",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Unha vez que se restabelezan as chaves de cifrado de extremo a extremo, non se poderá acceder a ningún dos ficheiros almacenados no cartafol cifrado.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Só debería restabelecer as súas chaves de cifrado de extremo a extremo se perdeu as súas palabras clave seguras (mnemotécnica).",
-    "End-to-End encryption is currently enabled and correctly setup." : "O cifrado de extremo a extremo está activado e configurado correctamente.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "O cifrado de extremo a extremo está desactivado. Pode configuralo cos clientes de {productName}.",
-    "End-to-End encryption keys reset" : "Restabelecer as chaves de cifrado de extremo a extremo",
-    "Unable to reset End-to-End encryption" : "Non é posíbel restabelecer o cifrado de extremo a extremo"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto necesario para activar o cifrado de extremo a extremo."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

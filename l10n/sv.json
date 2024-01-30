@@ -25,6 +25,7 @@
     "Encrypted share" : "Krypterad delning",
     "End-to-End Encryption" : "Totalsträckskryptering",
     "End-to-end encryption endpoint" : "Slutpunkt för totalsträckskryptering",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Tillhandahåller den nödvändiga slutpunkten för att möjliggöra totalsträckskryptering.\n\n**OBS:** E2EE är för närvarande inte kompatibel för att användas tillsammans med server-side-kryptering",
     "Limit to groups" : "Begränsa till grupper",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "När minst en grupp är vald kan endast personer i de listade grupperna använda appen för totalsträckskryptering.",
     "Limit app usage to groups." : "Begränsa appanvändning till grupper.",
@@ -49,17 +50,6 @@
     "Error while uploading metadata" : "Fel vid uppladdning av metadata",
     "Error while unlocking the folder" : "Fel vid upplåsning av mappen",
     "Upload encrypted files to {fileName}" : "Ladda upp krypterade filer till {fileName}",
-    "Metadata-file doesn't exist" : "Metadatafil finns inte",
-    "End-to-End encryption endpoint" : "Slutpunkt för totalsträckskryptering",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Tillhandahåller den nödvändiga slutpunkten för att möjliggöra totalsträckskryptering.",
-    "End-to-End encryption" : "Totalsträckskryptering",
-    "Reset End-to-End encryption" : "Återställ totalsträckskryptering",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Läs noga innan du återställer dina krypteringsnycklar för totalsträckskryptering",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "När dina krypteringsnycklar för totalsträckskryptering har återställts kommer alla filer som lagras i din krypterade mapp att vara oåtkomliga.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Du bör endast återställa dina krypteringsnycklar för totalsträckskryptering om du tappat dina säkra nyckelord (mnemonic).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Totalsträckskryptering är för närvarande aktiverad och korrekt inställd.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Totalsträckskryptering är för närvarande inaktiverad. Du kan aktivera det med {productName}-klienterna.",
-    "End-to-End encryption keys reset" : "Krypteringsnycklar för totalsträckskryptering återställs",
-    "Unable to reset End-to-End encryption" : "Det gick inte att återställa totalsträckskryptering"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Tillhandahåller den nödvändiga slutpunkten för att möjliggöra totalsträckskryptering."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -24,9 +24,9 @@ namespace OCA\EndToEndEncryption\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;
+use OCP\DB\Types;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
-use OCP\DB\Types;
 
 /**
  * Class Version1005Date20200312102456

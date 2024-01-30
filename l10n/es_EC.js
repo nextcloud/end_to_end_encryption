@@ -52,17 +52,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Error al cargar los metadatos",
     "Error while unlocking the folder" : "Error al desbloquear la carpeta",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
-    "Metadata-file doesn't exist" : "El archivo de metadatos no existe",
-    "End-to-End encryption endpoint" : "Extremo de cifrado de extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo.",
-    "End-to-End encryption" : "Cifrado de extremo a extremo",
-    "Reset End-to-End encryption" : "Restablecer cifrado de extremo a extremo",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Por favor, lee detenidamente antes de restablecer tus claves de cifrado de extremo a extremo",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Una vez que se restablezcan tus claves de cifrado de extremo a extremo, todos los archivos almacenados en tu carpeta cifrada serán inaccesibles.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Debes restablecer tus claves de cifrado de extremo a extremo solo si has perdido tus palabras clave seguras (mnemotécnicas).",
-    "End-to-End encryption is currently enabled and correctly setup." : "El cifrado de extremo a extremo está actualmente habilitado y configurado correctamente.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "El cifrado de extremo a extremo está actualmente deshabilitado. Puedes configurarlo con los clientes de {productName}.",
-    "End-to-End encryption keys reset" : "Claves de cifrado de extremo a extremo restablecidas",
-    "Unable to reset End-to-End encryption" : "No se pudo restablecer el cifrado de extremo a extremo"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

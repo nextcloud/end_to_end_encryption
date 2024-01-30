@@ -52,17 +52,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Chyba při nahrávání metadat",
     "Error while unlocking the folder" : "Chyba při odemykání souboru",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
-    "Metadata-file doesn't exist" : "Soubor s metadaty neexistuje ",
-    "End-to-End encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování.",
-    "End-to-End encryption" : "Šifrování mezi koncovými body",
-    "Reset End-to-End encryption" : "Vrátit šifrování mezi koncovými body do výchozího stavu",
-    "Please read carefully before resetting your End-to-End encryption keys" : "Důkladně si pročtěte a až teprve poté případě vracejte šifrování mezi koncovými body do výchozího stavu",
-    "Once your End-to-End encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Jakmile budou klíče pro šifrování mezi koncovými body resetovány, veškeré soubory, uložené ve vaší šifrované složce přestanou být přístupné.",
-    "You should only reset your End-to-End encryption keys if you lost your secure key words (mnemonic)." : "Své klíče pro šifrování mezi koncovými body byste měli resetovat pouze v situaci, kdy ztratíte svá slova zabezpečeného klíče (mnemotechnickou).",
-    "End-to-End encryption is currently enabled and correctly setup." : "Šifrování mezi koncovými body je v tuto chvíli zapnuté a správně nastavené.",
-    "End-to-End encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
-    "End-to-End encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
-    "Unable to reset End-to-End encryption" : "Nedaří se resetovat šifrování mezi koncovými body"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

@@ -6,23 +6,23 @@ Some typical client operation and how to use the API to perform them.
 
 ### Assume that a key pair already exists on the server
 
-1. Check server for a existing private/public key (see [Get private key](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#get-private-key) and [Get public keys](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#get-public-keys))
+1. Check server for a existing private/public key (see [Get private key](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#get-private-key) and [Get public keys](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#get-public-keys))
 2. If the client could download the keys he ask the user for the password to decrypt the private key
 3. Get public system key from server to validate the signature of the users public key.
 
 
 ### Assume that no key pair exists on the server
 
-1. Check server for a existing private/public key (see [Get private key](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#get-private-key) and [Get public keys](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#get-public-keys))
+1. Check server for a existing private/public key (see [Get private key](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#get-private-key) and [Get public keys](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#get-public-keys))
 2. no key was found
 3. Client generates a private key and a public key
-4. Client sends the public key to the server in order to sign it (see [Sign public key](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#sign-public-key)). If signing was successful the signed key will be returned and the client stores it locally
-5. Client sends encrypted private key to the server, so that other clients can pick it up (see [Store private key](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#store-private-key)) 
+4. Client sends the public key to the server in order to sign it (see [Sign public key](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#sign-public-key)). If signing was successful the signed key will be returned and the client stores it locally
+5. Client sends encrypted private key to the server, so that other clients can pick it up (see [Store private key](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#store-private-key)) 
 
 ## Mark a folder as encrypted
 
 1. Create a new empty folder
-2. mark folder as encrypted (see [Set encryption flag for a folder](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#set-encryption-flag-for-a-folder)).
+2. mark folder as encrypted (see [Set encryption flag for a folder](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#set-encryption-flag-for-a-folder)).
 If a folder is marked as encrypted all content in the folder and sub-folder are considered to be encrypted, no need to mark sub-folders
 3. Encrypt all files in the folder and upload them together with the meta-data file
 4. unlock folder
@@ -31,7 +31,7 @@ If a folder is marked as encrypted all content in the folder and sub-folder are 
 
 1. lock folder (only needed if the folder is not empty)
 2. upload all files unencrypted
-3. delete the meta-data file (see [Delete meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/docs/api.md#delete-meta-data-file))
+3. delete the meta-data file (see [Delete meta-data file](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md#delete-meta-data-file))
 4. unlock the folder
 
 ## Upload a file
