@@ -107,6 +107,8 @@ class LockManagerV1 {
 	/**
 	 * Check if a file or a parent folder is locked
 	 *
+	 * @param $requireLock - Specify whether we want to assert that the the folder is locked by the given token.
+	 *
 	 * @throws InvalidPathException
 	 * @throws NotFoundException
 	 * @throws \OCP\Files\NotPermittedException
@@ -146,9 +148,12 @@ class LockManagerV1 {
 			}
 		}
 
-		return $requireLock && !$lockedByGivenToken;
-	}
+		if ($requireLock) {
+			return !$lockedByGivenToken;
+		}
 
+		return false;
+	}
 
 
 	/**
