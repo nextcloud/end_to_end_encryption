@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import * as x509 from '@peculiar/x509'
-import { bufferToBase64 } from './filedrop'
-import logger from './logger'
+import { bufferToBase64 } from './filedrop.js'
+import logger from './logger.js'
 
 /**
  * Gets tag from encrypted data

@@ -18,7 +18,7 @@
 						:class="{ loading }">
 						{{ t('end_to_end_encryption', 'Select or drop files') }}
 						<input type="file"
-							:multiple="true"
+							multiple
 							:disabled="loading"
 							@change="filesChange($event.target?.files)">
 					</label>
@@ -174,7 +174,7 @@ export default {
 				await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, this.shareToken)
 			} catch (exception) {
 				logger.error('[FileDrop] Error while uploading metadata', { exception })
-				showError(this.t('end_to_end_encryption', 'Error while uploading metadata ({message})', { message: exception.response.data?.ocs?.meta?.message }))
+				showError(this.t('end_to_end_encryption', 'Error while uploading metadata'))
 				progresses.forEach(progress => { progress.error = true })
 			}
 
@@ -203,7 +203,7 @@ export default {
 				logger.debug(`[FileDrop] Filedrop entry computed: ${unencryptedFile.name}`, { fileDropEntry: progress.fileDrop[encryptedFileName] })
 
 				progress.step = UploadStep.UPLOADING
-				await uploadFile('/public.php/webdav/', encryptedFileName, encryptedFileContent, this.shareToken)
+				await uploadFile('/public.php/dav/', encryptedFileName, encryptedFileContent, this.shareToken)
 				progress.step = UploadStep.UPLOADED
 				logger.debug(`[FileDrop] File uploaded: ${unencryptedFile.name}`, { encryptedFileContent, encryptionInfo, encryptedFileName, shareToken: this.shareToken })
 			} catch (exception) {
