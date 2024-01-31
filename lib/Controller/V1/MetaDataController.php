@@ -134,12 +134,6 @@ class MetaDataController extends OCSController {
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token');
 
-		// FIXME Temporary fix to handle both routes on single endpoint
-		if (empty($e2eToken)) {
-			$e2eToken = $this->request->getHeader('e2e-token');
-		}
-		// End
-
 		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
