@@ -19,30 +19,16 @@ use OCP\Util;
 use Psr\Log\LoggerInterface;
 
 class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
-	private IUserManager $userManager;
-	private IUrlGenerator $urlGenerator;
-	private IL10N $l10n;
-	private Defaults $defaults;
-	private IInitialState $initialState;
-	private IKeyStorage $keyStorage;
-	private LoggerInterface $logger;
-
 	public function __construct(
-		IUserManager $userManager,
-		IUrlGenerator $urlGenerator,
-		IL10N $l10n,
-		Defaults $defaults,
-		IInitialState $initialState,
-		IKeyStorage $keyStorage,
-		LoggerInterface $logger
+		private IUserManager $userManager,
+		private IUrlGenerator $urlGenerator,
+		private IL10N $l10n,
+		private Defaults $defaults,
+		private IInitialState $initialState,
+		private IKeyStorage $keyStorage,
+		private LoggerInterface $logger,
+		private MetaDataStorage $metadataStorage,
 	) {
-		$this->userManager = $userManager;
-		$this->urlGenerator = $urlGenerator;
-		$this->l10n = $l10n;
-		$this->defaults = $defaults;
-		$this->initialState = $initialState;
-		$this->keyStorage = $keyStorage;
-		$this->logger = $logger;
 	}
 
 	public function shouldRespond(IShare $share): bool {
@@ -53,18 +39,40 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 	public function renderPage(IShare $share, string $token, string $path): TemplateResponse {
 		$shareNode = $share->getNode();
 		$owner = $this->userManager->get($share->getShareOwner());
+		if ($owner === null) {
+			$e = new NotFoundException("Cannot find folder's owner");
+			$this->logger->error($e->getMessage(), ['exception' => $e]);
+			return new TemplateResponse(Application::APP_ID, 'error');
+		}
+
+		$topE2eeFolder = $shareNode;
+		while ($topE2eeFolder->getParent()->isEncrypted()) {
+			$topE2eeFolder = $shareNode->getParent();
+		}
+
+		$rawMetadata = $this->metadataStorage->getMetaData($owner->getUID(), $topE2eeFolder->getId());
+		$metadata = json_decode($rawMetadata, true);
+		$userIds = array_map(fn (array $userEntry): string => $userEntry['userId'], $metadata['users']);
 
 		try {
-			$publicKey = $this->keyStorage->getPublicKey($owner->getUID());
+			$publicKeys = array_reduce(
+				$userIds,
+				function (array $acc, string $userId): array {
+					$acc[$userId] = $this->keyStorage->getPublicKey($userId);
+					return $acc;
+				},
+				[]
+			);
 		} catch (NotFoundException $e) {
 			$this->logger->error($e->getMessage(), ['exception' => $e]);
 			return new TemplateResponse(Application::APP_ID, 'error');
 		}
 
-		$this->initialState->provideInitialState('publicKey', $publicKey);
+		$this->initialState->provideInitialState('publicKeys', $publicKeys);
 		$this->initialState->provideInitialState('fileId', $shareNode->getId());
 		$this->initialState->provideInitialState('token', $token);
 		$this->initialState->provideInitialState('fileName', $shareNode->getName());
+		$this->initialState->provideInitialState('encryptionVersion', $metadata['version']);
 
 		// OpenGraph Support: http://ogp.me/
 		Util::addHeader('meta', ['property' => "og:title", 'content' => $this->l10n->t("Encrypted share")]);

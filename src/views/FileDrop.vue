@@ -18,9 +18,9 @@
 						:class="{ loading }">
 						{{ t('end_to_end_encryption', 'Select or drop files') }}
 						<input type="file"
-							multiple="multiple"
+							multiple
 							:disabled="loading"
-							@change="filesChange($event.target.files)">
+							@change="filesChange($event.target?.files)">
 					</label>
 				</div>
 
@@ -43,6 +43,7 @@
 import Loading from 'vue-material-design-icons/Loading'
 import Check from 'vue-material-design-icons/Check'
 import AlertCircle from 'vue-material-design-icons/AlertCircle'
+import { v4 as uuidv4 } from 'uuid'
 
 import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
@@ -51,9 +52,8 @@ import { showError } from '@nextcloud/dialogs'
 import { translate } from '@nextcloud/l10n'
 
 import logger from '../services/logger.js'
-import { EncryptedFile } from '../services/crypto.js'
+import { encryptFile } from '../services/crypto.js'
 import { uploadFile } from '../services/uploadFile.js'
-import { lock, unlock } from '../services/lock.js'
 import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
 
 /**
@@ -66,7 +66,6 @@ const UploadStep = {
 	UPLOADING: 'uploading',
 	UPLOADED: 'uploaded',
 	UPLOADING_METADATA: 'uploading_metadata',
-	UNLOCKING: 'unlocking',
 	DONE: 'done',
 }
 
@@ -75,7 +74,7 @@ const UploadStep = {
  * @property {File} file
  * @property {UploadStep} step
  * @property {boolean} error
- * @property {Object<string, import('../services/filedrop.js').EncryptedFileMetadata>} fileDrop
+ * @property {Object<string, import('../services/filedrop.js').FileDropPayload>} fileDrop
  */
 
 export default {
@@ -93,10 +92,12 @@ export default {
 			shareToken: loadState('end_to_end_encryption', 'token'),
 			/** @type {number} */
 			folderId: loadState('end_to_end_encryption', 'fileId'),
-			/** @type {string} */
-			publicKey: loadState('end_to_end_encryption', 'publicKey'),
+			/** @type {{[userId: string]: string}} */
+			publicKeys: loadState('end_to_end_encryption', 'publicKeys'),
 			/** @type {string} */
 			fileName: loadState('end_to_end_encryption', 'fileName'),
+			/** @type {1|2} */
+			encryptionVersion: Number.parseInt(loadState('end_to_end_encryption', 'encryptionVersion')),
 			/** @type {{file: File, step: string, error: boolean}[]} */
 			uploadedFiles: [],
 			loading: false,
@@ -110,7 +111,7 @@ export default {
 		 * @param {DragEvent} event
 		 */
 		handleDragOver(event) {
-			if (!event.dataTransfer.types.includes('Files')) {
+			if (!event.dataTransfer?.types.includes('Files')) {
 				return
 			}
 
@@ -122,7 +123,7 @@ export default {
 		 * @param {DragEvent} event
 		 */
 		handleDrop(event) {
-			if (!event.dataTransfer.types.includes('Files')) {
+			if (!event.dataTransfer?.types.includes('Files')) {
 				return
 			}
 
@@ -131,10 +132,10 @@ export default {
 		},
 
 		/**
-		 * @param {FileList} fileList
+		 * @param {FileList?} fileList
 		 */
 		async filesChange(fileList) {
-			if (!fileList.length) {
+			if (!fileList?.length) {
 				return
 			}
 
@@ -145,17 +146,6 @@ export default {
 			this.loading = true
 			/** @type {UploadProgress[]} */
 			let progresses = []
-			let lockToken = null
-
-			try {
-				logger.debug('Locking the folder', { lockToken: this.lockToken, shareToken: this.shareToken })
-				lockToken = await lock(this.folderId, this.shareToken)
-			} catch (exception) {
-				logger.error('Could not lock the folder', { exception })
-				showError(t('end_to_end_encryption', 'Could not lock the folder'))
-				this.loading = false
-				return
-			}
 
 			try {
 				progresses = await Promise.all(
@@ -163,14 +153,14 @@ export default {
 						.from(fileList)
 						.map((file) => this.uploadFile(file))
 				)
+				logger.debug('[FileDrop] Files uploaded', { progresses })
 			} catch (exception) {
-				logger.error('Error while uploading files', { exception })
-				showError(t('end_to_end_encryption', 'Error while uploading files'))
+				logger.error('[FileDrop] Error while uploading files', { exception })
+				showError(this.t('end_to_end_encryption', 'Error while uploading files'))
 				progresses.forEach(progress => { progress.error = true })
 			}
 
 			try {
-				logger.debug('Updating the fileDrop entries', { lockToken, shareToken: this.shareToken })
 				progresses
 					.filter(({ error }) => !error)
 					.forEach(progress => { progress.step = UploadStep.UPLOADING_METADATA })
@@ -179,27 +169,18 @@ export default {
 					.filter(({ error }) => !error)
 					.reduce((fileDropEntries, { fileDrop }) => ({ ...fileDropEntries, ...fileDrop }), {})
 
-				await uploadFileDrop(this.folderId, fileDrops, lockToken, this.shareToken)
+				logger.debug('[FileDrop] FileDrop entries computed', { fileDrops })
+
+				await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, this.shareToken)
 			} catch (exception) {
-				logger.error('Error while uploading metadata', { exception })
-				showError(t('end_to_end_encryption', 'Error while uploading metadata'))
+				logger.error('[FileDrop] Error while uploading metadata', { exception })
+				showError(this.t('end_to_end_encryption', 'Error while uploading metadata'))
 				progresses.forEach(progress => { progress.error = true })
 			}
 
-			try {
-				progresses
-					.filter(({ error }) => !error)
-					.forEach(progress => { progress.step = UploadStep.UNLOCKING })
-				await unlock(this.folderId, lockToken, this.shareToken)
-				logger.debug('Unlocking the folder', { lockToken, shareToken: this.shareToken })
-				progresses
-					.filter(({ error }) => !error)
-					.forEach(progress => { progress.step = UploadStep.DONE })
-			} catch (exception) {
-				logger.error('Error while unlocking the folder', { exception })
-				showError(t('end_to_end_encryption', 'Error while unlocking the folder'))
-				progresses.forEach(progress => { progress.error = true })
-			}
+			progresses
+				.filter(({ error }) => !error)
+				.forEach(progress => { progress.step = UploadStep.DONE })
 
 			this.loading = false
 		},
@@ -210,25 +191,24 @@ export default {
 		 */
 		async uploadFile(unencryptedFile) {
 			/** @type {UploadProgress} */
-			const progress = { file: unencryptedFile, step: UploadStep.NONE, error: false, fileDrop: undefined }
+			const progress = { file: unencryptedFile, step: UploadStep.NONE, error: false, fileDrop: {} }
 			this.uploadedFiles.push(progress)
 
 			try {
 				progress.step = UploadStep.ENCRYPTING
-				logger.debug('Encrypting the file', { unencryptedFile, shareToken: this.shareToken })
-				const file = new EncryptedFile(unencryptedFile.name, unencryptedFile.type)
-				const blob = await unencryptedFile.arrayBuffer()
-				const { content, tag } = await file.encrypt(blob)
+				const { encryptedFileContent, encryptionInfo } = await encryptFile(unencryptedFile)
+				const encryptedFileName = uuidv4().replaceAll('-', '')
 
-				progress.fileDrop = await getFileDropEntry(file, tag, this.publicKey)
+				progress.fileDrop[encryptedFileName] = await getFileDropEntry(encryptionInfo, this.publicKeys)
+				logger.debug(`[FileDrop] Filedrop entry computed: ${unencryptedFile.name}`, { fileDropEntry: progress.fileDrop[encryptedFileName] })
 
 				progress.step = UploadStep.UPLOADING
-				logger.debug('Uploading the file', { unencryptedFile, shareToken: this.shareToken })
-				await uploadFile('/public.php/webdav/', file.encryptedFileName, content, this.shareToken)
+				await uploadFile('/public.php/dav/', encryptedFileName, encryptedFileContent, this.shareToken)
 				progress.step = UploadStep.UPLOADED
+				logger.debug(`[FileDrop] File uploaded: ${unencryptedFile.name}`, { encryptedFileContent, encryptionInfo, encryptedFileName, shareToken: this.shareToken })
 			} catch (exception) {
 				progress.error = true
-				logger.error(`Fail to upload the file (${progress.step})`, { exception })
+				logger.error(`[FileDrop] Fail to upload the file (${progress.step})`, { exception })
 			}
 
 			return progress

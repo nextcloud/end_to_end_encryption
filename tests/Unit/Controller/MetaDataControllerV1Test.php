@@ -23,11 +23,11 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Controller;
 
-use OCA\EndToEndEncryption\Controller\MetaDataController;
+use OCA\EndToEndEncryption\Controller\V1\MetaDataController;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
-use OCA\EndToEndEncryption\IMetaDataStorage;
-use OCA\EndToEndEncryption\LockManager;
+use OCA\EndToEndEncryption\IMetaDataStorageV1;
+use OCA\EndToEndEncryption\LockManagerV1;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -41,7 +41,7 @@ use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
-class MetaDataControllerTest extends TestCase {
+class MetaDataControllerV1Test extends TestCase {
 
 
 	/** @var string */
@@ -53,10 +53,10 @@ class MetaDataControllerTest extends TestCase {
 	/** @var string */
 	private $userId;
 
-	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var IMetaDataStorageV1|\PHPUnit\Framework\MockObject\MockObject */
 	private $metaDataStorage;
 
-	/** @var LockManager|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var LockManagerV1|\PHPUnit\Framework\MockObject\MockObject */
 	private $lockManager;
 
 	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -81,8 +81,8 @@ class MetaDataControllerTest extends TestCase {
 		$this->appName = 'end_to_end_encryption';
 		$this->request = $this->createMock(IRequest::class);
 		$this->userId = 'john.doe';
-		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
-		$this->lockManager = $this->createMock(LockManager::class);
+		$this->metaDataStorage = $this->createMock(IMetaDataStorageV1::class);
+		$this->lockManager = $this->createMock(LockManagerV1::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
 		$this->shareManager = $this->createMock(ShareManager::class);
@@ -195,10 +195,6 @@ class MetaDataControllerTest extends TestCase {
 			->willReturnCallback(static function ($string, $args) {
 				return vsprintf($string, $args);
 			});
-		$this->request->expects($this->any())
-			->method('getHeader')
-			->withConsecutive(['e2e-token'], ['X-NC-E2EE-SIGNATURE'])
-			->willReturn('e2e-token', 'e2eSignature');
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -244,12 +240,11 @@ class MetaDataControllerTest extends TestCase {
 		bool $expectLogger): void {
 		$fileId = 42;
 		$sendToken = 'sendE2EToken';
-		$signature = 'signature';
 		$metaData = 'JSON-ENCODED-META-DATA';
-		$this->request->expects($this->exactly(2))
-			->method('getHeader')
-			->withConsecutive(['e2e-token'], ['X-NC-E2EE-SIGNATURE'])
-			->willReturnOnConsecutiveCalls($sendToken, $signature);
+		$this->request->expects($this->once())
+			->method('getParam')
+			->with('e2e-token')
+			->willReturn($sendToken);
 
 		$this->lockManager->expects($this->once())
 			->method('isLocked')
@@ -260,12 +255,12 @@ class MetaDataControllerTest extends TestCase {
 			if ($metaDataStorageException) {
 				$this->metaDataStorage->expects($this->once())
 					->method('updateMetaDataIntoIntermediateFile')
-					->with('john.doe', $fileId, $metaData, $sendToken, $signature)
+					->with('john.doe', $fileId, $metaData)
 					->willThrowException($metaDataStorageException);
 			} else {
 				$this->metaDataStorage->expects($this->once())
 					->method('updateMetaDataIntoIntermediateFile')
-					->with('john.doe', $fileId, $metaData, $sendToken, $signature);
+					->with('john.doe', $fileId, $metaData);
 			}
 		}
 
@@ -321,18 +316,13 @@ class MetaDataControllerTest extends TestCase {
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
 				->method('updateMetaDataIntoIntermediateFile')
-				->with('john.doe', $fileId, '{}', 'e2e-token', '')
+				->with('john.doe', $fileId, '{}')
 				->willThrowException($metaDataStorageException);
 		} else {
 			$this->metaDataStorage->expects($this->once())
 				->method('updateMetaDataIntoIntermediateFile')
-				->with('john.doe', $fileId, '{}', 'e2e-token', '');
+				->with('john.doe', $fileId, '{}');
 		}
-
-		$this->request->expects($this->once())
-			->method('getHeader')
-			->with('e2e-token')
-			->willReturn('e2e-token');
 
 		$this->l10n->expects($this->any())
 			->method('t')

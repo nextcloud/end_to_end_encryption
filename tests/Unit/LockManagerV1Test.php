@@ -28,8 +28,7 @@ use OCA\EndToEndEncryption\Db\Lock;
 use OCA\EndToEndEncryption\Db\LockMapper;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
-use OCA\EndToEndEncryption\IMetaDataStorage;
-use OCA\EndToEndEncryption\LockManager;
+use OCA\EndToEndEncryption\LockManagerV1;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Files\Folder;
@@ -42,11 +41,11 @@ use OCP\Security\ISecureRandom;
 use Test\TestCase;
 
 /**
- * Class LockManagerTest
+ * Class LockManagerV1Test
  *
  * @group DB
  */
-class LockManagerTest extends TestCase {
+class LockManagerV1Test extends TestCase {
 
 	/** @var LockMapper|\PHPUnit\Framework\MockObject\MockObject */
 	private $lockMapper;
@@ -63,10 +62,7 @@ class LockManagerTest extends TestCase {
 	/** @var ITimeFactory|\PHPUnit\Framework\MockObject\MockObject */
 	private $timeFactory;
 
-	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
-	private $metaDataStorage;
-
-	/** @var LockManager */
+	/** @var LockManagerV1 */
 	private $lockManager;
 
 	protected function setUp(): void {
@@ -77,16 +73,9 @@ class LockManagerTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->timeFactory = $this->createMock(ITimeFactory::class);
-		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 
-		$this->lockManager = new LockManager(
-			$this->lockMapper,
-			$this->secureRandom,
-			$this->rootFolder,
-			$this->userSession,
-			$this->timeFactory,
-			$this->metaDataStorage,
-		);
+		$this->lockManager = new LockManagerV1($this->lockMapper, $this->secureRandom,
+			$this->rootFolder, $this->userSession, $this->timeFactory);
 	}
 
 	/**
@@ -95,27 +84,25 @@ class LockManagerTest extends TestCase {
 	 * @param bool $isLocked
 	 * @param bool $lockDoesNotExist
 	 * @param string $token
-	 * @param int $counter
 	 * @param bool $expectNull
 	 * @param bool $expectNewToken
 	 * @param bool $expectOldToken
 	 */
-	public function testLock(bool $isLocked, bool $lockDoesNotExist, int $counter, string $token, bool $expectNull, bool $expectNewToken, bool $expectOldToken): void {
-		$lockManager = $this->getMockBuilder(LockManager::class)
+	public function testLock(bool $isLocked, bool $lockDoesNotExist, string $token, bool $expectNull, bool $expectNewToken, bool $expectOldToken): void {
+		$lockManager = $this->getMockBuilder(LockManagerV1::class)
 			->setMethods(['isLocked'])
 			->setConstructorArgs([
 				$this->lockMapper,
 				$this->secureRandom,
 				$this->rootFolder,
 				$this->userSession,
-				$this->timeFactory,
-				$this->metaDataStorage,
+				$this->timeFactory
 			])
 			->getMock();
 
 		$lockManager->expects($this->once())
 			->method('isLocked')
-			->with(42, $token, 'userId')
+			->with(42, $token)
 			->willReturn($isLocked);
 
 		if (!$isLocked) {
@@ -136,33 +123,23 @@ class LockManagerTest extends TestCase {
 		}
 
 		if ($expectNewToken) {
-			$this->metaDataStorage->expects($this->once())
-				->method('getCounter')
-				->with()
-				->willReturn(0);
+			$this->secureRandom->expects($this->once())
+				->method('generate')
+				->with(64, ISecureRandom::CHAR_UPPER . ISecureRandom::CHAR_LOWER . ISecureRandom::CHAR_DIGITS)
+				->willReturn('new-token');
 
-			if ($counter > 0) {
-				$this->secureRandom->expects($this->once())
-					->method('generate')
-					->with(64, ISecureRandom::CHAR_UPPER . ISecureRandom::CHAR_LOWER . ISecureRandom::CHAR_DIGITS)
-					->willReturn('new-token');
+			$this->timeFactory->expects($this->once())
+				->method('getTime')
+				->willReturn(1337);
 
-				$this->timeFactory->expects($this->once())
-					->method('getTime')
-					->willReturn(1337);
-
-				$this->lockMapper->expects($this->once())
-					->method('insert')
-					->with($this->callback(static function ($lock) {
-						return ($lock instanceof Lock &&
-								$lock->getId() === 42 &&
-								$lock->getTimestamp() === 1337 &&
-								$lock->getToken() === 'new-token');
-					}));
-			} else {
-				$this->expectException(NotPermittedException::class);
-				$this->expectExceptionMessage('Received counter is not greater than the stored one');
-			}
+			$this->lockMapper->expects($this->once())
+				->method('insert')
+				->with($this->callback(static function ($lock) {
+					return ($lock instanceof Lock &&
+							$lock->getId() === 42 &&
+							$lock->getTimestamp() === 1337 &&
+							$lock->getToken() === 'new-token');
+				}));
 		} else {
 			$this->secureRandom->expects($this->never())
 				->method('generate');
@@ -170,7 +147,7 @@ class LockManagerTest extends TestCase {
 				->method('getTime');
 		}
 
-		$actual = $lockManager->lockFile(42, $token, $counter, 'userId');
+		$actual = $lockManager->lockFile(42, $token);
 
 		if ($expectNull) {
 			$this->assertNull($actual);
@@ -185,11 +162,10 @@ class LockManagerTest extends TestCase {
 
 	public function lockDataProvider(): array {
 		return [
-			[true,  false, 1, 'correct-token123', true,  false, false],
-			[false, true,  1, 'correct-token123', false, true,  false],
-			[false, true,  0, 'correct-token123', false, true,  false],
-			[false, false, 1, 'correct-token123', false, false, true],
-			[false, false, 1, 'wrong-token456',   true,  false, false],
+			[true,  false, 'correct-token123', true,  false, false],
+			[false, true,  'correct-token123', false, true,  false],
+			[false, false, 'correct-token123', false, false, true],
+			[false, false, 'wrong-token456',   true,  false, false],
 		];
 	}
 

@@ -42,20 +42,18 @@ use OCP\Security\ISecureRandom;
  *
  * @package OCA\EndToEndEncryption
  */
-class LockManager {
+class LockManagerV1 {
 	private LockMapper $lockMapper;
 	private ISecureRandom $secureRandom;
 	private IUserSession $userSession;
 	private IRootFolder $rootFolder;
 	private ITimeFactory $timeFactory;
 
-	public function __construct(
-		LockMapper $lockMapper,
+	public function __construct(LockMapper $lockMapper,
 		ISecureRandom $secureRandom,
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		ITimeFactory $timeFactory,
-		private IMetaDataStorage $metaDataStorage,
+		ITimeFactory $timeFactory
 	) {
 		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;
@@ -66,9 +64,8 @@ class LockManager {
 
 	/**
 	 * Lock file
-	 * @param bool $noCounterCheck - Needed for filedrop, which updates the metadata without needing to bump the counter
 	 */
-	public function lockFile(int $id, string $token, int $e2eCounter, string $ownerId, bool $noCounterCheck = false): ?string {
+	public function lockFile(int $id, string $token = '', ?string $ownerId = null): ?string {
 		if ($this->isLocked($id, $token, $ownerId)) {
 			return null;
 		}
@@ -77,19 +74,6 @@ class LockManager {
 			$lock = $this->lockMapper->getByFileId($id);
 			return $lock->getToken() === $token ? $token : null;
 		} catch (DoesNotExistException $ex) {
-			try {
-				if (!$noCounterCheck) {
-					$storedCounter = $this->metaDataStorage->getCounter($id);
-					if ($storedCounter >= $e2eCounter) {
-						throw new NotPermittedException('Received counter is not greater than the stored one');
-					} else {
-						$this->metaDataStorage->saveIntermediateCounter($id, $e2eCounter);
-					}
-				}
-			} catch (NotFoundException $e) {
-				// Do not check counter if the metadata do not exists yet.
-			}
-
 			$newToken = $this->getToken();
 			$lockEntity = new Lock();
 			$lockEntity->setId($id);
@@ -117,7 +101,6 @@ class LockManager {
 			throw new FileLockedException();
 		}
 
-		$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 		$this->lockMapper->delete($lock);
 	}
 

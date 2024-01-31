@@ -59,7 +59,7 @@ class E2EEnabledPathCache {
 	/**
 	 * Get the encryption state for the path
 	 */
-	protected function getEncryptedStates(ICache $cache, $node, IStorage $storage): bool {
+	protected function getEncryptedStates(ICache $cache, Node $node, IStorage $storage): bool {
 		if (!$storage->instanceOfStorage(IHomeStorage::class)) {
 			return false;
 		}

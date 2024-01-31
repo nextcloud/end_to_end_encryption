@@ -679,3 +679,190 @@ namespace OC\Files\Storage\Wrapper{
 		public function getQuota() {}
 	}
 }
+
+namespace OCA\Files_Sharing {
+	interface ISharedStorage extends \OCP\Files\Storage\IStorage
+	{
+	}
+
+	/**
+	 * Convert target path to source path and pass the function call to the correct storage provider
+	 */
+	class SharedStorage extends \OC\Files\Storage\Wrapper\Jail implements \OCA\Files_Sharing\ISharedStorage, \OCP\Files\Storage\IDisableEncryptionStorage
+	{
+	    public function __construct($arguments)
+	    {
+	    }
+	    /**
+	     * @inheritdoc
+	     */
+	    public function instanceOfStorage($class) : bool
+	    {
+	    }
+	    /**
+	     * @return string
+	     */
+	    public function getShareId()
+	    {
+	    }
+	    /**
+	     * get id of the mount point
+	     *
+	     * @return string
+	     */
+	    public function getId() : string
+	    {
+	    }
+	    /**
+	     * Get the permissions granted for a shared file
+	     *
+	     * @param string $path Shared target file path
+	     * @return int CRUDS permissions granted
+	     */
+	    public function getPermissions($path = '') : int
+	    {
+	    }
+	    public function isCreatable($path) : bool
+	    {
+	    }
+	    public function isReadable($path) : bool
+	    {
+	    }
+	    public function isUpdatable($path) : bool
+	    {
+	    }
+	    public function isDeletable($path) : bool
+	    {
+	    }
+	    public function isSharable($path) : bool
+	    {
+	    }
+	    public function fopen($path, $mode)
+	    {
+	    }
+	    /**
+	     * see https://www.php.net/manual/en/function.rename.php
+	     *
+	     * @param string $source
+	     * @param string $target
+	     * @return bool
+	     */
+	    public function rename($source, $target) : bool
+	    {
+	    }
+	    /**
+	     * return mount point of share, relative to data/user/files
+	     *
+	     * @return string
+	     */
+	    public function getMountPoint() : string
+	    {
+	    }
+	    /**
+	     * @param string $path
+	     */
+	    public function setMountPoint($path) : void
+	    {
+	    }
+	    /**
+	     * get the user who shared the file
+	     *
+	     * @return string
+	     */
+	    public function getSharedFrom() : string
+	    {
+	    }
+	    /**
+	     * @return \OCP\Share\IShare
+	     */
+	    public function getShare() : \OCP\Share\IShare
+	    {
+	    }
+	    /**
+	     * return share type, can be "file" or "folder"
+	     *
+	     * @return string
+	     */
+	    public function getItemType() : string
+	    {
+	    }
+	    public function getCache($path = '', $storage = null)
+	    {
+	    }
+	    public function getScanner($path = '', $storage = null)
+	    {
+	    }
+	    public function getOwner($path) : string
+	    {
+	    }
+	    public function getWatcher($path = '', $storage = null) : \OC\Files\Cache\Watcher
+	    {
+	    }
+	    /**
+	     * unshare complete storage, also the grouped shares
+	     *
+	     * @return bool
+	     */
+	    public function unshareStorage() : bool
+	    {
+	    }
+	    /**
+	     * @param string $path
+	     * @param int $type \OCP\Lock\ILockingProvider::LOCK_SHARED or \OCP\Lock\ILockingProvider::LOCK_EXCLUSIVE
+	     * @param \OCP\Lock\ILockingProvider $provider
+	     * @throws \OCP\Lock\LockedException
+	     */
+	    public function acquireLock($path, $type, \OCP\Lock\ILockingProvider $provider)
+	    {
+	    }
+	    /**
+	     * @param string $path
+	     * @param int $type \OCP\Lock\ILockingProvider::LOCK_SHARED or \OCP\Lock\ILockingProvider::LOCK_EXCLUSIVE
+	     * @param \OCP\Lock\ILockingProvider $provider
+	     */
+	    public function releaseLock($path, $type, \OCP\Lock\ILockingProvider $provider)
+	    {
+	    }
+	    /**
+	     * @param string $path
+	     * @param int $type \OCP\Lock\ILockingProvider::LOCK_SHARED or \OCP\Lock\ILockingProvider::LOCK_EXCLUSIVE
+	     * @param \OCP\Lock\ILockingProvider $provider
+	     */
+	    public function changeLock($path, $type, \OCP\Lock\ILockingProvider $provider)
+	    {
+	    }
+	    /**
+	     * @return array [ available, last_checked ]
+	     */
+	    public function getAvailability()
+	    {
+	    }
+	    /**
+	     * @param bool $isAvailable
+	     */
+	    public function setAvailability($isAvailable)
+	    {
+	    }
+	    public function getSourceStorage()
+	    {
+	    }
+	    public function getWrapperStorage()
+	    {
+	    }
+	    public function file_get_contents($path)
+	    {
+	    }
+	    public function file_put_contents($path, $data)
+	    {
+	    }
+	    /**
+	     * @return void
+	     */
+	    public function setMountOptions(array $options)
+	    {
+	    }
+	    public function getUnjailedPath($path)
+	    {
+	    }
+	}
+}

@@ -2,22 +2,23 @@
 
 This are the available OCS API calls for clients to implement end-to-end encryption.
 A more general documentation how to use the API can be found [here](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md).
-* [List files and folders with encryption status](#list-files-and-folders-with-encryption-status)
-* [Store private key](#store-private-key)
-* [Get private key](#get-private-key)
-* [Delete private key](#delete-private-key)
-* [Sign public key](#sign-public-key)
-* [Get public keys](#get-public-keys)
-* [Delete public keys](#delete-public-keys)
-* [Lock file](#lock-file)
-* [Unlock file](#unlock-file)
-* [Store-meta-data file](#store-meta-data-file)
-* [Get meta-data file](#get-meta-data-file)
-* [Update meta-data file](#update-meta-data-file)
-* [Delete meta-data file](#delete-meta-data-file)
-* [Get server public key](#get-server-public-key)
-* [Set encryption flag for a folder](#set-encryption-flag-for-a-folder)
-* [Remove encryption flag for a folder](#remove-encryption-flag-for-a-folder)
+- [End-to-End Encryption API](#end-to-end-encryption-api)
+- [Base URL for all API calls](#base-url-for-all-api-calls)
+  - [List files and folders with encryption status](#list-files-and-folders-with-encryption-status)
+  - [Store private key](#store-private-key)
+  - [Get private key](#get-private-key)
+  - [Delete private key](#delete-private-key)
+  - [Sign public key](#sign-public-key)
+  - [Get public keys](#get-public-keys)
+  - [Delete public keys](#delete-public-keys)
+  - [Lock file](#lock-file)
+  - [Get meta-data file](#get-meta-data-file)
+  - [Update meta-data file](#update-meta-data-file)
+  - [Update filedrop property of meta-data file](#update-filedrop-property-of-meta-data-file)
+  - [Delete meta-data file](#delete-meta-data-file)
+  - [Get server public key](#get-server-public-key)
+  - [Set encryption flag for a folder](#set-encryption-flag-for-a-folder)
+  - [Remove encryption flag for a folder](#remove-encryption-flag-for-a-folder)
 
 
 
@@ -31,7 +32,7 @@ PROPFIND: `https://<nextcloud>/remote.php/webdav/<folder>/`
 
 **Data:**
 
-xml body: 
+xml body:
 ````xml
 <d:propfind xmlns:d="DAV:">
     <d:prop xmlns:nc="http://nextcloud.org/ns">
@@ -343,11 +344,22 @@ e2e-token: if you re-try a previously failed upload, use the token from the firs
 
 First try:
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"`
+````shell
+curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
+    -X POST \
+    -H "OCS-APIRequest:true" \
+    -H "X-NC-E2EE-COUNTER:<incremented-counter-from-the-metadata>
+```
 
 Retry:
 
 `curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"` -d e2e-token="<e2e-token-from-previous-try>"
+curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
+    -X POST \
+    -H "OCS-APIRequest:true" \
+    -d "e2e-token:<e2e-token-from-previous-try> \
+    -H "X-NC-E2EE-COUNTER:<incremented-counter-from-the-metadata>
+```
 
 ## Unlock file
 
@@ -376,12 +388,25 @@ DELETE: `<base-url>/lock/<file-id>`
 </ocs>
 ````
 
-
 **Example curl call:**
 
-First try:
+Unlock:
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 -H "OCS-APIRequest:true" -H "e2e-token:<e2e-token-received-during-lock-operation>`
+````shell
+curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
+    -X DELETE \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>
+```
+
+Unlock and drop pending changes:
+
+````shell
+curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10?abort=true \
+    -X DELETE \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>
+```
 
 ## Store meta-data file
 
@@ -419,7 +444,13 @@ metaData: content of the encrypted meta-data file
 
 **Example curl call:**
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d metaData="<encrypted-meta-data>"
+```bash
+curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>" \
+    -X POST \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>" \
+    -d metaData="<encrypted-meta-data>"
+```
 
 ## Get meta-data file
 
@@ -466,8 +497,8 @@ e2e-token: token to authenticate that you are the client who currently manipulat
 
 200 ok: meta data successfully updated
 
-404 not found: if the meta-data file doesn't exist or if the user can't access 
-the file with the given file-id 
+404 not found: if the meta-data file doesn't exist or if the user can't access
+the file with the given file-id
 
 403 forbidden: if the file was not locked or the client sends the wrong e2e-token
 
@@ -491,7 +522,14 @@ the file with the given file-id
 
 **Example curl call:**
 
-`curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"` -d "metaData=<encrypted-meta-data>&e2e-token=<e2e-token-received-during-lock-operation>"
+```bash
+curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>" \
+    -X PUT \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>" \
+    -H "X-NC-E2EE-SIGNATURE:<metadata-signature>" \
+    -d metaData="<encrypted-meta-data>"
+```
 
 ## Update filedrop property of meta-data file
 
@@ -506,8 +544,8 @@ e2e-token: token to authenticate that you are the client who currently manipulat
 
 200 ok: filedrop successfully updated
 
-404 not found: if the meta-data file doesn't exist or if the user can't access 
-the file with the given file-id 
+404 not found: if the meta-data file doesn't exist or if the user can't access
+the file with the given file-id
 
 403 forbidden: if the file was not locked or the client sends the wrong e2e-token
 
@@ -564,12 +602,16 @@ DELETE: `<base-url>/meta-data/<file-id>`
 
 **Example curl call:**
 
-`curl -X DELETE https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true"`
-
+```bash
+curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id>" \
+    -X DELETE \
+    -H "OCS-APIRequest:true" \
+    -H "e2e-token:<e2e-token-received-during-lock-operation>"
+```
 
 ## Get server public key
 
-This is the key, used to sign the users public keys. By retrieving the server's 
+This is the key, used to sign the users public keys. By retrieving the server's
 public key the clients can check the signature of the users public keys.
 
 GET: `<base-url>/server-key`
