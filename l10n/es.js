@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "Archivo no bloqueado",
     "Could not find metadata for \"%s\"" : "No se han podido encontrar los metadatos para \"%s\"",
     "Cannot read metadata" : "No se pueden leer los metadatos",
-    "Cannot store metadata" : "No se pueden almacenar los metadatos",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No se te permite editar el archivo, asegúrate primero de bloquearlo y, después, envía el token correcto",
+    "Cannot store metadata" : "No se pueden almacenar los metadatos",
     "Metadata-file does not exist" : "El archivo de Metadatos no existe",
     "Only the owner can delete the metadata-file" : "Solo el propietario puede eliminar el archivo de metadatos",
     "Cannot delete metadata" : "No se pueden borrar los metadatos",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Se han reiniciado las llaves de cifrado de extremo a extremo ",
     "Unable to reset end-to-end encryption" : "Imposible reiniciar el cifrado de extremo a extremo",
     "Select or drop files" : "Seleccione o arrastre y suelte archivos",
-    "Could not lock the folder" : "No se ha podido bloquear la carpeta",
     "Error while uploading files" : "Error mientras se cargaban los archivos",
     "Error while uploading metadata" : "Se encontró un error al cargar los metadatos",
-    "Error while unlocking the folder" : "Error al desbloquear la carpeta",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint necesario para habilitar el cifrado de extremo a extremo"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint necesario para habilitar el cifrado de extremo a extremo",
+    "Could not lock the folder" : "No se ha podido bloquear la carpeta",
+    "Error while unlocking the folder" : "Error al desbloquear la carpeta"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

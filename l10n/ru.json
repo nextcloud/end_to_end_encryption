@@ -16,8 +16,8 @@
     "File not locked" : "Файл не заблокирован",
     "Could not find metadata for \"%s\"" : "Не удалось найти метаданные для «%s»",
     "Cannot read metadata" : "Не удалось прочитать метаданные",
-    "Cannot store metadata" : "Не удалось сохранить метаданные",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не разрешено редактировать этот файл. Убедитесь, что файл заблокирован и отправьте верный маркер.",
+    "Cannot store metadata" : "Не удалось сохранить метаданные",
     "Metadata-file does not exist" : "Файл метаданных отсутствует",
     "Only the owner can delete the metadata-file" : "Удалить файл метаданных может только его владелец",
     "Cannot delete metadata" : "Не удалось удалить метаданные",
@@ -45,11 +45,11 @@
     "End-to-end encryption keys reset" : "Сброс ключей Сквозного шифрования",
     "Unable to reset end-to-end encryption" : "Невозможно сбросить сквозное шифрование",
     "Select or drop files" : "Выберите или перетащите файлы",
-    "Could not lock the folder" : "Не удалось заблокировать папку",
     "Error while uploading files" : "Ошибка при загрузке файлов",
     "Error while uploading metadata" : "Ошибка при загрузке метаданных",
-    "Error while unlocking the folder" : "Ошибка при разблокировке папки",
     "Upload encrypted files to {fileName}" : "Загрузить зашифрованные файлы в {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Представляет необходимую конечную точку для использования сквозного шифрования."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Представляет необходимую конечную точку для использования сквозного шифрования.",
+    "Could not lock the folder" : "Не удалось заблокировать папку",
+    "Error while unlocking the folder" : "Ошибка при разблокировке папки"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

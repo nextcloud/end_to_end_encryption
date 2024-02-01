@@ -16,8 +16,8 @@
     "File not locked" : "Файл не заблоковано",
     "Could not find metadata for \"%s\"" : "Не вдалося знайти метадані для \"%s\"",
     "Cannot read metadata" : "Неможливо прочитати метадані",
-    "Cannot store metadata" : "Неможливо зберегти метадані",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Вам не дозволено редагувати файл. Переконайтесь що файл заблоковано, після того надішліть потрібний токен",
+    "Cannot store metadata" : "Неможливо зберегти метадані",
     "Metadata-file does not exist" : "Файл метаданих відсутній",
     "Only the owner can delete the metadata-file" : "Лише власник може вилучати файл метаданих",
     "Cannot delete metadata" : "Неможливо вилучити метадані",
@@ -45,11 +45,11 @@
     "End-to-end encryption keys reset" : "Ключі наскрізного шифрування скинуто",
     "Unable to reset end-to-end encryption" : "Не вдалося скинути наскрізне шифрування",
     "Select or drop files" : "Виберіть або перетягніть файли",
-    "Could not lock the folder" : "Неможливо заблокувати каталог",
     "Error while uploading files" : "Помилка під час завантаження файлів",
     "Error while uploading metadata" : "Помилка під час завантаження метаданих",
-    "Error while unlocking the folder" : "Помилка під час розблокування каталогу",
     "Upload encrypted files to {fileName}" : "Завантажити зашифровані файли до {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Надає обов'язкову точку доступу для увімкнення функціоналу наскрізного шифрування"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Надає обов'язкову точку доступу для увімкнення функціоналу наскрізного шифрування",
+    "Could not lock the folder" : "Неможливо заблокувати каталог",
+    "Error while unlocking the folder" : "Помилка під час розблокування каталогу"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

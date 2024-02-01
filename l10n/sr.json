@@ -16,8 +16,8 @@
     "File not locked" : "Фајл није закључан",
     "Could not find metadata for \"%s\"" : "Не могу да нађем метаподатке за \"%s\"",
     "Cannot read metadata" : "Не могу да се прочитају метаподаци",
-    "Cannot store metadata" : "Не могу да се сачувају метаподаци",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Немате права да измените овај фајл, будите сигурни да сте га прво закључали, а онда пошаљите исправни токен",
+    "Cannot store metadata" : "Не могу да се сачувају метаподаци",
     "Metadata-file does not exist" : "Фајл са метаподацима не постоји",
     "Only the owner can delete the metadata-file" : "Само власник може обрисати фајл метаподатака",
     "Cannot delete metadata" : "Не могу да се обришу метаподаци",
@@ -45,11 +45,11 @@
     "End-to-end encryption keys reset" : "Кључеви шифровања од-краја-до-краја су ресетовани",
     "Unable to reset end-to-end encryption" : "Није могло да се ресетује шифровање од-краја-до-краја",
     "Select or drop files" : "Одаберите или превуците фајлове",
-    "Could not lock the folder" : "Не може да се закључа фолдер",
     "Error while uploading files" : "Грешка приликом отпремања фајлова",
     "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
-    "Error while unlocking the folder" : "Грешка приликом откључавања фолдера",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај.",
+    "Could not lock the folder" : "Не може да се закључа фолдер",
+    "Error while unlocking the folder" : "Грешка приликом откључавања фолдера"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }

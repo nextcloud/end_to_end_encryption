@@ -16,8 +16,8 @@
     "File not locked" : "A fájl nincs zárolva",
     "Could not find metadata for \"%s\"" : "A(z) „%s” metaadatai nem találhatóak",
     "Cannot read metadata" : "A metaadatok nem olvashatók",
-    "Cannot store metadata" : "A metaadatok nem tárolhatók",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Nincs jogosultsága a fájl szerkesztéséhez. Először zárolnia kell, majd el kell küldenie a megfelelő tokent.",
+    "Cannot store metadata" : "A metaadatok nem tárolhatók",
     "Metadata-file does not exist" : "A metaadatfájl nem létezik",
     "Only the owner can delete the metadata-file" : "A metaadatfájlt csak a tulajdonosa törölheti",
     "Cannot delete metadata" : "A metaadatok nem törölhetők",
@@ -44,11 +44,11 @@
     "End-to-end encryption keys reset" : "Végpontok közti titkosítási kulcsok alaphelyzetbe állítva",
     "Unable to reset end-to-end encryption" : "A végpontok közti titkosítás nem állítható alaphelyzetbe",
     "Select or drop files" : "Válasszon vagy dobjon ide fájlokat",
-    "Could not lock the folder" : "Nem sikerült a mappa zárolása",
     "Error while uploading files" : "Hiba a fájlok feltöltése során",
     "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
-    "Error while unlocking the folder" : "Hiba a mappa zárolásának feloldása során",
     "Upload encrypted files to {fileName}" : "Titkosított fájlok feltöltése a következőbe: {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja.",
+    "Could not lock the folder" : "Nem sikerült a mappa zárolása",
+    "Error while unlocking the folder" : "Hiba a mappa zárolásának feloldása során"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

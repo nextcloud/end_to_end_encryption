@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "檔案沒有上鎖",
     "Could not find metadata for \"%s\"" : "不能找到\"%s\"的詮釋資料",
     "Cannot read metadata" : "無法讀取詮釋資料",
-    "Cannot store metadata" : "無法儲存詮釋資料",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "您不被允許編輯檔案，請確認有先鎖定檔案然後傳送正確的符記",
+    "Cannot store metadata" : "無法儲存詮釋資料",
     "Metadata-file does not exist" : "詮釋資料檔案不存在",
     "Only the owner can delete the metadata-file" : "只有擁有者可以刪除詮釋資料檔案",
     "Cannot delete metadata" : "無法刪除詮釋資料",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "端到端加密金鑰重設",
     "Unable to reset end-to-end encryption" : "無法重設端到端加密",
     "Select or drop files" : "選取或拖曳檔案",
-    "Could not lock the folder" : "無法鎖定資料夾",
     "Error while uploading files" : "上傳檔案時發生錯誤",
     "Error while uploading metadata" : "上傳詮釋資料時發生錯誤",
-    "Error while unlocking the folder" : "解除鎖定資料時發生錯誤",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。",
+    "Could not lock the folder" : "無法鎖定資料夾",
+    "Error while unlocking the folder" : "解除鎖定資料時發生錯誤"
 },
 "nplurals=1; plural=0;");
