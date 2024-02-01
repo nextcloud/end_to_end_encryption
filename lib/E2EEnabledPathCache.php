@@ -48,53 +48,53 @@ class E2EEnabledPathCache {
 
 	/**
 	 * Checks if the node is an E2EE folder or inside an E2EE folder.
-     *
-     * @return bool true, if the node is valid and E2EE, false otherwise
+	 *
+	 * @return bool true, if the node is valid and E2EE, false otherwise
 	 */
 	public function isE2EEnabledPath(Node $node): bool {
-        // only checking for $node->isEncrypted() will lead to false-positives for SSE files,
-        // as they have the encryption flag set but are not E2E, so we need to check the folder's flag,
-        // as folders having the encryption flag set are always E2E
-        if ($node instanceof Folder && $node->isEncrypted()) {
-            return true;
-        }
+		// only checking for $node->isEncrypted() will lead to false-positives for SSE files,
+		// as they have the encryption flag set but are not E2E, so we need to check the folder's flag,
+		// as folders having the encryption flag set are always E2E
+		if ($node instanceof Folder && $node->isEncrypted()) {
+			return true;
+		}
 
-        try {
-            $storage = $node->getStorage();
-        } catch (NotFoundException $e) {
-            return false;
-        }
-        // if not home storage, fallback to EncryptionManager
-        if (!$storage->instanceOfStorage(IHomeStorage::class)) {
-            return EncryptionManager::isEncryptedFile($node);
-        }
+		try {
+			$storage = $node->getStorage();
+		} catch (NotFoundException $e) {
+			return false;
+		}
+		// if not home storage, fallback to EncryptionManager
+		if (!$storage->instanceOfStorage(IHomeStorage::class)) {
+			return EncryptionManager::isEncryptedFile($node);
+		}
 
-        // walk path backwards while caching each node's state
+		// walk path backwards while caching each node's state
 		return $this->getEncryptedStates((string) $storage->getCache()->getNumericStorageId(), $node);
 	}
 
 	/**
-     * Determines a node's E2E encryption state by walking up the tree. Caches each node's state on the way.
-     *
-     * @param string $storageId the node's storage id, used for caching
-     * @param Node $node the node to check
-     *
-     * @return bool true, if the node is valid and E2EE, false otherwise
+	 * Determines a node's E2E encryption state by walking up the tree. Caches each node's state on the way.
+	 *
+	 * @param string $storageId the node's storage id, used for caching
+	 * @param Node $node the node to check
+	 *
+	 * @return bool true, if the node is valid and E2EE, false otherwise
 	 */
 	protected function getEncryptedStates(string $storageId, Node $node): bool {
 
-        try {
-            $nodeId = $node->getId();
-        } catch (InvalidPathException|NotFoundException $e) {
-            return false;
-        }
+		try {
+			$nodeId = $node->getId();
+		} catch (InvalidPathException|NotFoundException $e) {
+			return false;
+		}
 
-        // initialize array for storage id if necessary
-        if (!isset($this->perStorageEncryptedStateCache[$storageId])) {
+		// initialize array for storage id if necessary
+		if (!isset($this->perStorageEncryptedStateCache[$storageId])) {
 			$this->perStorageEncryptedStateCache[$storageId] = [];
 		}
-        // return cached state if available
-        else if (isset($this->perStorageEncryptedStateCache[$storageId][$nodeId])) {
+		// return cached state if available
+		else if (isset($this->perStorageEncryptedStateCache[$storageId][$nodeId])) {
 			return $this->perStorageEncryptedStateCache[$storageId][$nodeId];
 		}
 
@@ -104,7 +104,7 @@ class E2EEnabledPathCache {
 			return false;
 		}
 
-        // checking for folder for the same reason as above
+		// checking for folder for the same reason as above
 		if ($node instanceof Folder && $node->isEncrypted()) {
 			// no need to go further up in the tree
 			$this->perStorageEncryptedStateCache[$storageId][$nodeId] = true;
@@ -114,15 +114,15 @@ class E2EEnabledPathCache {
 		try {
 			$parentNode = $node->getParent();
 		} catch (NotFoundException $e) {
-            // node not encrypted and no parent that could be E2EE, so node is not E2EE
+			// node not encrypted and no parent that could be E2EE, so node is not E2EE
 			$this->perStorageEncryptedStateCache[$storageId][$nodeId] = false;
 			return false;
 		}
 
-        // check parent's state
+		// check parent's state
 		$encrypted = $this->getEncryptedStates($storageId, $parentNode);
 
-        // if any parent is E2EE, this node is E2EE as well
+		// if any parent is E2EE, this node is E2EE as well
 		$this->perStorageEncryptedStateCache[$storageId][$nodeId] = $encrypted;
 		return $encrypted;
 	}
