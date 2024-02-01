@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "الملف غير مقفول",
     "Could not find metadata for \"%s\"" : "تعذر العثور على البيانات الوصفية metadata لـ \"%s\"",
     "Cannot read metadata" : "لا يمكن قراءة البيانات الوصفية metadata",
-    "Cannot store metadata" : "لا يمكن تخزين البيانات الوصفية metadata",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "غير مسموح لك بتحرير الملف؛ تأكد من قفله أوّلاً، ثم إرسِل الأَمَارَة token الصحيحة",
+    "Cannot store metadata" : "لا يمكن تخزين البيانات الوصفية metadata",
     "Metadata-file does not exist" : "ملف البيانات الوصفية metadata غير موجود",
     "Only the owner can delete the metadata-file" : "يمكن للمالك فقط حذف ملف البيانات الوصفية metadata",
     "Cannot delete metadata" : "لا يمكن حذف البيانات الوصفية metadata",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "تمّ إعادة تعيين مفاتيح التشفير من الحدّ للحدّ ",
     "Unable to reset end-to-end encryption" : "تعذّرت إعادة تعيين مفاتيح التشفير من الحدّ للحدّ ",
     "Select or drop files" : "اختر أو اسحب ملفات",
-    "Could not lock the folder" : "تعذّر قفل المجلد",
     "Error while uploading files" : "خطأ أثناء رفع الملفات",
     "Error while uploading metadata" : "خطأ خلال رفع البيانات الوصفية metadata",
-    "Error while unlocking the folder" : "خطأ خلال فك قفل unlocking المجلد",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "يُوفّر نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE"
+    "Provides the necessary endpoint to enable end-to-end encryption." : "يُوفّر نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE",
+    "Could not lock the folder" : "تعذّر قفل المجلد",
+    "Error while unlocking the folder" : "خطأ خلال فك قفل unlocking المجلد"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

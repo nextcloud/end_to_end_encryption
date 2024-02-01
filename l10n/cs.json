@@ -16,8 +16,8 @@
     "File not locked" : "Soubor není uzamčen",
     "Could not find metadata for \"%s\"" : "Nedaří se nalézt metadata „%s“",
     "Cannot read metadata" : "Nedaří se číst metadata",
-    "Cannot store metadata" : "Nedaří se uložit metadata ",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Není vám umožněno soubor upravovat – nejprve ho zamkněte a pak odešlete správný token",
+    "Cannot store metadata" : "Nedaří se uložit metadata ",
     "Metadata-file does not exist" : "Soubor s metadaty neexistuje ",
     "Only the owner can delete the metadata-file" : "Pouze jeho vlastník může smazat metadata-file",
     "Cannot delete metadata" : "Nedaří se smazat metadata",
@@ -45,11 +45,11 @@
     "End-to-end encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
     "Unable to reset end-to-end encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
     "Select or drop files" : "Vyberte nebo přetáhněte soubory",
-    "Could not lock the folder" : "Složku se nedaří zamknout",
     "Error while uploading files" : "Chyba při nahrávání souborů",
     "Error while uploading metadata" : "Chyba při nahrávání metadat",
-    "Error while unlocking the folder" : "Chyba při odemykání souboru",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje nezbytný koncový bod pro zapnutí end-to-end šifrování.",
+    "Could not lock the folder" : "Složku se nedaří zamknout",
+    "Error while unlocking the folder" : "Chyba při odemykání souboru"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

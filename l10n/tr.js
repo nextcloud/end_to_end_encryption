@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "Dosya kilitli değil",
     "Could not find metadata for \"%s\"" : "\"%s\" üst verisi bulunamadı",
     "Cannot read metadata" : "Üst veri okunamadı",
-    "Cannot store metadata" : "Üst veri kaydedilemedi",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Dosyayı düzenleme izniniz yok, önce dosyayı kilitlediğinizden emin olun ve sonra doğru kodu gönderin",
+    "Cannot store metadata" : "Üst veri kaydedilemedi",
     "Metadata-file does not exist" : "Üst veri dosyası bulunamadı",
     "Only the owner can delete the metadata-file" : "Üst veri dosyasını yalnızca sahibi silebilir",
     "Cannot delete metadata" : "Üst veri silinemedi",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Uçtan uca şifreleme anahtarları sıfırlandı",
     "Unable to reset end-to-end encryption" : "Uçtan uca şifreleme sıfırlanamadı",
     "Select or drop files" : "Dosyaları seçin ya da sürükleyip bırakın",
-    "Could not lock the folder" : "Klasör kilitlenemedi",
     "Error while uploading files" : "Dosyalar yüklenirken sorun çıktı",
     "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı",
-    "Error while unlocking the folder" : "Klasörün kilidi açılırken sorun çıktı",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar.",
+    "Could not lock the folder" : "Klasör kilitlenemedi",
+    "Error while unlocking the folder" : "Klasörün kilidi açılırken sorun çıktı"
 },
 "nplurals=2; plural=(n > 1);");

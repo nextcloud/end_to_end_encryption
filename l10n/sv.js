@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "Fil inte låst",
     "Could not find metadata for \"%s\"" : "Kunde inte hitta metadata för \"%s\"",
     "Cannot read metadata" : "Kan inte läsa metadata",
-    "Cannot store metadata" : "Kan inte lagra metadata",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du tillåts inte redigera filen, se till att först låsa den och sedan skicka rätt token",
+    "Cannot store metadata" : "Kan inte lagra metadata",
     "Metadata-file does not exist" : "Metadatafil finns inte",
     "Only the owner can delete the metadata-file" : "Bara ägaren kan ta bort metadatafilen",
     "Cannot delete metadata" : "Kan inte radera metadata",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Krypteringsnycklar för totalsträckskryptering återställs",
     "Unable to reset end-to-end encryption" : "Det gick inte att återställa totalsträckskryptering",
     "Select or drop files" : "Välj eller dra filer hit",
-    "Could not lock the folder" : "Kunde inte låsa mappen",
     "Error while uploading files" : "Fel vid uppladdning av filer",
     "Error while uploading metadata" : "Fel vid uppladdning av metadata",
-    "Error while unlocking the folder" : "Fel vid upplåsning av mappen",
     "Upload encrypted files to {fileName}" : "Ladda upp krypterade filer till {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Tillhandahåller den nödvändiga slutpunkten för att möjliggöra totalsträckskryptering."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Tillhandahåller den nödvändiga slutpunkten för att möjliggöra totalsträckskryptering.",
+    "Could not lock the folder" : "Kunde inte låsa mappen",
+    "Error while unlocking the folder" : "Fel vid upplåsning av mappen"
 },
 "nplurals=2; plural=(n != 1);");

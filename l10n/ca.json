@@ -16,8 +16,8 @@
     "File not locked" : "Fitxer no blocat",
     "Could not find metadata for \"%s\"" : "No s’han pogut trobar metadades per a \"%s\"",
     "Cannot read metadata" : "No es poden llegir les metadades",
-    "Cannot store metadata" : "No es poden desar les metadades",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No podeu editar el fitxer, assegureu-vos primer de bloquejar-lo i després envieu el token adequat",
+    "Cannot store metadata" : "No es poden desar les metadades",
     "Metadata-file does not exist" : "El fitxer de metadades no existeix",
     "Only the owner can delete the metadata-file" : "Només el propietari pot suprimir el fitxer de metadades",
     "Cannot delete metadata" : "No es poden suprimir les metadades",
@@ -45,11 +45,11 @@
     "End-to-end encryption keys reset" : "Les claus de xifratge d'extrem a extrem restablertes",
     "Unable to reset end-to-end encryption" : "No es pot restablir el xifratge d'extrem a extrem",
     "Select or drop files" : "Selecciona o deixa anar els fitxers",
-    "Could not lock the folder" : "No s'ha pogut bloquejar la carpeta",
     "Error while uploading files" : "S'ha produït un error en penjar fitxers",
     "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
-    "Error while unlocking the folder" : "S'ha produït un error en desbloquejar la carpeta",
     "Upload encrypted files to {fileName}" : "Pujada de fitxers xifrats a {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar el xifratge d'extrem a extrem."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar el xifratge d'extrem a extrem.",
+    "Could not lock the folder" : "No s'ha pogut bloquejar la carpeta",
+    "Error while unlocking the folder" : "S'ha produït un error en desbloquejar la carpeta"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
