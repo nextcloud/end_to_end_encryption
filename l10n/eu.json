@@ -16,8 +16,8 @@
     "File not locked" : "Fitxategoa ez dago blokeatua",
     "Could not find metadata for \"%s\"" : "Ezin izan da \"%s\"-ren metadaturik aurkitu",
     "Cannot read metadata" : "Ezin dira metadatuak irakurri",
-    "Cannot store metadata" : "Ezin dira metadatuak gorde",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Ezin duzu fitxategian ezer idatzi, blokeatu ezazu lehenengo eta gero bidali token zuzena.",
+    "Cannot store metadata" : "Ezin dira metadatuak gorde",
     "Metadata-file does not exist" : "Metadatuen fitxategia ez dago",
     "Only the owner can delete the metadata-file" : "Jabeak bakarrik ezabatu dezake metadatuen fitxategia",
     "Cannot delete metadata" : "Ezin da metadaturik ezabatu",
@@ -45,11 +45,11 @@
     "End-to-end encryption keys reset" : "Muturretik muturrerako zifratze gakoak berrezarrita",
     "Unable to reset end-to-end encryption" : "Ezin izan da muturretik muturrerako zifratzea berrezarri",
     "Select or drop files" : "Hautatu edo jaregin fitxategiak",
-    "Could not lock the folder" : "Ezin izan da karpeta blokeatu",
     "Error while uploading files" : "Errore bat gertatu da fitxategiak igotzean",
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
-    "Error while unlocking the folder" : "Errore bat gertatu da karpeta desblokeatzean",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko.",
+    "Could not lock the folder" : "Ezin izan da karpeta blokeatu",
+    "Error while unlocking the folder" : "Errore bat gertatu da karpeta desblokeatzean"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

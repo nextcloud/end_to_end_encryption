@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "Datei nicht gesperrt",
     "Could not find metadata for \"%s\"" : "Für \"%s\" konnten keine Metadaten gefunden werden",
     "Cannot read metadata" : "Metadaten können nicht gelesen werden",
-    "Cannot store metadata" : "Metadaten können nicht gespeichert werden",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Sie sind nicht berechtigt, die Datei zu bearbeiten. Stellen Sie sicher, dass Sie sie zuerst sperren und das richtige Token senden.",
+    "Cannot store metadata" : "Metadaten können nicht gespeichert werden",
     "Metadata-file does not exist" : "Metadaten-Datei existiert nicht",
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
     "Cannot delete metadata" : "Metadaten können nicht gelöscht werden",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Unable to reset end-to-end encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
     "Select or drop files" : "Dateien auswählen oder hierher ziehen",
-    "Could not lock the folder" : "Ordner konnte nicht gesperrt werden",
     "Error while uploading files" : "Fehler beim Hochladen von Dateien",
     "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
-    "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners",
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
+    "Could not lock the folder" : "Ordner konnte nicht gesperrt werden",
+    "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners"
 },
 "nplurals=2; plural=(n != 1);");

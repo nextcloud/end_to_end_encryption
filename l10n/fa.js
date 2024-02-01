@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "File not locked",
     "Could not find metadata for \"%s\"" : "Could not find metadata for \"%s\"",
     "Cannot read metadata" : "Cannot read metadata",
-    "Cannot store metadata" : "Cannot store metadata",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "You are not allowed to edit the file, make sure to first lock it, and then send the right token",
+    "Cannot store metadata" : "Cannot store metadata",
     "Metadata-file does not exist" : "Metadata-file does not exist",
     "Only the owner can delete the metadata-file" : "Only the owner can delete the metadata-file",
     "Cannot delete metadata" : "Cannot delete metadata",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "End-to-end encryption keys reset",
     "Unable to reset end-to-end encryption" : "Unable to reset end-to-end encryption",
     "Select or drop files" : "پرونده ها را انتخاب یا رها کنید",
-    "Could not lock the folder" : "Could not lock the folder",
     "Error while uploading files" : "Error while uploading files",
     "Error while uploading metadata" : "Error while uploading metadata",
-    "Error while unlocking the folder" : "Error while unlocking the folder",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Provides the necessary endpoint to enable end-to-end encryption."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Provides the necessary endpoint to enable end-to-end encryption.",
+    "Could not lock the folder" : "Could not lock the folder",
+    "Error while unlocking the folder" : "Error while unlocking the folder"
 },
 "nplurals=2; plural=(n > 1);");
