@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "El archivo no está bloqueado",
     "Could not find metadata for \"%s\"" : "No se encontraron metadatos para \"%s\"",
     "Cannot read metadata" : "No se pueden leer los metadatos",
-    "Cannot store metadata" : "No se pueden almacenar los metadatos",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "No puedes editar el archivo, asegúrate de bloquearlo primero y despues enviar la ficha correcta",
+    "Cannot store metadata" : "No se pueden almacenar los metadatos",
     "Metadata-file does not exist" : "El archivo de metadatos no existe",
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "Cannot delete metadata" : "No se pueden eliminar los metadatos",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Claves de cifrado de extremo a extremo restablecidas",
     "Unable to reset end-to-end encryption" : "No se pudo restablecer el cifrado de extremo a extremo",
     "Select or drop files" : "Selecciona o suelta los archivos",
-    "Could not lock the folder" : "No se pudo bloquear la carpeta",
     "Error while uploading files" : "Error al cargar archivos",
     "Error while uploading metadata" : "Error al cargar los metadatos",
-    "Error while unlocking the folder" : "Error al desbloquear la carpeta",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo.",
+    "Could not lock the folder" : "No se pudo bloquear la carpeta",
+    "Error while unlocking the folder" : "Error al desbloquear la carpeta"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

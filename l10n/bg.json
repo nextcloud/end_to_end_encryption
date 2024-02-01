@@ -16,8 +16,8 @@
     "File not locked" : "Файлът не е заключен",
     "Could not find metadata for \"%s\"" : "Невъзможно откриване на метаданните за „%s“.",
     "Cannot read metadata" : "Не е възможно четене на метаданните",
-    "Cannot store metadata" : "Не е възможно съхраняване на метаданните",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Нямате право да редактирате файла, не забравяйте първо да го заключите и след това да изпратите правилния токен",
+    "Cannot store metadata" : "Не е възможно съхраняване на метаданните",
     "Metadata-file does not exist" : "Файл с метаданни не съществува",
     "Only the owner can delete the metadata-file" : "Само собственикът може да изтрие файл с метаданни",
     "Cannot delete metadata" : "Метаданните не могат да бъдат изтрити",
@@ -44,11 +44,11 @@
     "End-to-end encryption keys reset" : "Възстановяване на ключовете за цялостно криптиране",
     "Unable to reset end-to-end encryption" : "Невъзможно възстановяване на цялостното криптиране",
     "Select or drop files" : "Изберете файл или преместете с мишката",
-    "Could not lock the folder" : "Не можа да се заключи папка",
     "Error while uploading files" : "Грешка при качване на файлове",
     "Error while uploading metadata" : "Грешка при качване на метаданни",
-    "Error while unlocking the folder" : "Грешка при отключването на папка",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране.",
+    "Could not lock the folder" : "Не можа да се заключи папка",
+    "Error while unlocking the folder" : "Грешка при отключването на папка"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

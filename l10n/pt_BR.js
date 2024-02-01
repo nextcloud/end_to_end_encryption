@@ -18,8 +18,8 @@ OC.L10N.register(
     "File not locked" : "O arquivo não bloqueado",
     "Could not find metadata for \"%s\"" : "Não foi possível encontrar metadados para \"%s\"",
     "Cannot read metadata" : "Não é possível ler metadados ",
-    "Cannot store metadata" : "Não é possível armazenar metadados ",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Você não tem permissão para editar o arquivo. Certifique-se de bloqueá-lo e então envie o token correto",
+    "Cannot store metadata" : "Não é possível armazenar metadados ",
     "Metadata-file does not exist" : "Arquivo de metadados não existe",
     "Only the owner can delete the metadata-file" : "Somente o proprietário pode excluir o arquivo de metadados",
     "Cannot delete metadata" : "Não é possível excluir metadados ",
@@ -47,11 +47,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Chaves de criptografia de ponta a ponta redefinidas",
     "Unable to reset end-to-end encryption" : "Não é possível redefinir a criptografia de ponta a ponta",
     "Select or drop files" : "Selecione ou solte arquivos",
-    "Could not lock the folder" : "Não foi possível bloquear a pasta",
     "Error while uploading files" : "Erro ao enviar arquivos",
     "Error while uploading metadata" : "Erro ao carregar metadados",
-    "Error while unlocking the folder" : "Erro ao desbloquear a pasta",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
+    "Could not lock the folder" : "Não foi possível bloquear a pasta",
+    "Error while unlocking the folder" : "Erro ao desbloquear a pasta"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
