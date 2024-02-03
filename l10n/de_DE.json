@@ -18,7 +18,7 @@
     "File not locked" : "Datei nicht gesperrt",
     "Could not find metadata for \"%s\"" : "Für \"%s\" konnten keine Metadaten gefunden werden",
     "Cannot read metadata" : "Metadaten können nicht gelesen werden",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE ist leer",
+    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATUR ist leer",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Sie sind nicht berechtigt, die Datei zu bearbeiten. Stellen Sie sicher, dass Sie sie zuerst sperren und das richtige Token senden.",
     "Cannot store metadata" : "Metadaten können nicht gespeichert werden",
     "Metadata-file does not exist" : "Metadaten-Datei existiert nicht",
