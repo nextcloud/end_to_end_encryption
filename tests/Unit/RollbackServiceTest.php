@@ -208,24 +208,31 @@ class RollbackServiceTest extends TestCase {
 	private function getSampleLocks(): array {
 		$lock1 = new Lock();
 		$lock1->setId(100001);
+		$lock1->setToken('lock-token-100001');
 
 		$lock2 = new Lock();
 		$lock2->setId(100002);
+		$lock2->setToken('lock-token-100002');
 
 		$lock3 = new Lock();
 		$lock3->setId(100003);
+		$lock3->setToken('lock-token-100003');
 
 		$lock4 = new Lock();
 		$lock4->setId(100004);
+		$lock4->setToken('lock-token-100004');
 
 		$lock5 = new Lock();
 		$lock5->setId(100005);
+		$lock5->setToken('lock-token-100005');
 
 		$lock6 = new Lock();
 		$lock6->setId(100006);
+		$lock6->setToken('lock-token-100006');
 
 		$lock7 = new Lock();
 		$lock7->setId(100007);
+		$lock7->setToken('lock-token-100007');
 
 		return [
 			$lock1,

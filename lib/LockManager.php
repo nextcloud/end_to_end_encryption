@@ -49,11 +49,13 @@ class LockManager {
 	private IRootFolder $rootFolder;
 	private ITimeFactory $timeFactory;
 
-	public function __construct(LockMapper $lockMapper,
+	public function __construct(
+		LockMapper $lockMapper,
 		ISecureRandom $secureRandom,
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		ITimeFactory $timeFactory
+		ITimeFactory $timeFactory,
+		private IMetaDataStorage $metaDataStorage,
 	) {
 		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;
@@ -64,8 +66,9 @@ class LockManager {
 
 	/**
 	 * Lock file
+	 * @param bool $noCounterCheck - Needed for filedrop, which updates the metadata without needing to bump the counter
 	 */
-	public function lockFile(int $id, string $token = '', ?string $ownerId = null): ?string {
+	public function lockFile(int $id, string $token, int $e2eCounter, string $ownerId, bool $noCounterCheck = false): ?string {
 		if ($this->isLocked($id, $token, $ownerId)) {
 			return null;
 		}
@@ -74,6 +77,19 @@ class LockManager {
 			$lock = $this->lockMapper->getByFileId($id);
 			return $lock->getToken() === $token ? $token : null;
 		} catch (DoesNotExistException $ex) {
+			try {
+				if (!$noCounterCheck) {
+					$storedCounter = $this->metaDataStorage->getCounter($id);
+					if ($storedCounter >= $e2eCounter) {
+						throw new NotPermittedException('Received counter is not greater than the stored one');
+					} else {
+						$this->metaDataStorage->saveIntermediateCounter($id, $e2eCounter);
+					}
+				}
+			} catch (NotFoundException $e) {
+				// Do not check counter if the metadata do not exists yet.
+			}
+
 			$newToken = $this->getToken();
 			$lockEntity = new Lock();
 			$lockEntity->setId($id);
@@ -101,17 +117,20 @@ class LockManager {
 			throw new FileLockedException();
 		}
 
+		$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 		$this->lockMapper->delete($lock);
 	}
 
 	/**
 	 * Check if a file or a parent folder is locked
 	 *
+	 * @param $requireLock - Specify whether we want to assert that the the folder is locked by the given token.
+	 *
 	 * @throws InvalidPathException
 	 * @throws NotFoundException
 	 * @throws \OCP\Files\NotPermittedException
 	 */
-	public function isLocked(int $id, string $token, ?string $ownerId = null): bool {
+	public function isLocked(int $id, string $token, ?string $ownerId = null, bool $requireLock = false): bool {
 		if ($ownerId === null) {
 			$user = $this->userSession->getUser();
 			if ($user === null) {
@@ -119,6 +138,8 @@ class LockManager {
 			}
 			$ownerId = $user->getUid();
 		}
+
+		$lockedByGivenToken = false;
 
 		$userRoot = $this->rootFolder->getUserFolder($ownerId);
 		$nodes = $userRoot->getById($id);
@@ -135,11 +156,17 @@ class LockManager {
 				// If it's locked with a different token, return true
 				if ($lock->getToken() !== $token) {
 					return true;
+				} else {
+					$lockedByGivenToken = true;
 				}
 
 				// If it's locked with the expected token, check the parent node
 				$node = $node->getParent();
 			}
+		}
+
+		if ($requireLock) {
+			return !$lockedByGivenToken;
 		}
 
 		return false;

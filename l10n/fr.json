@@ -16,8 +16,8 @@
     "File not locked" : "Fichier non verrouillé",
     "Could not find metadata for \"%s\"" : "Impossible de trouver les méta-données pour \"%s\"",
     "Cannot read metadata" : "Impossible de lire les métadonnées",
-    "Cannot store metadata" : "Impossible d'enregistrer les métadonnées",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vous n'êtes pas autorisé à modifier le fichier, assurez-vous d'abord de le verrouiller puis d'envoyer le jeton adéquat",
+    "Cannot store metadata" : "Impossible d'enregistrer les métadonnées",
     "Metadata-file does not exist" : "Le fichier de métadonnées n'existe pas",
     "Only the owner can delete the metadata-file" : "Seul le propriétaire peut supprimer le fichier de méta-données",
     "Cannot delete metadata" : "Impossible de supprimer les métadonnées",
@@ -45,11 +45,11 @@
     "End-to-end encryption keys reset" : "Réinitialisation des clés de chiffrement de bout en bout",
     "Unable to reset end-to-end encryption" : "Impossible de réinitialiser le chiffrement de bout en bout",
     "Select or drop files" : "Sélectionnez ou glissez-déposez vos fichiers",
-    "Could not lock the folder" : "Impossible de verrouiller le dossier",
     "Error while uploading files" : "Erreur lors du téléversement du fichier",
     "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées",
-    "Error while unlocking the folder" : "Erreur lors du déverrouillage du dossier",
     "Upload encrypted files to {fileName}" : "Téléverser des fichiers chiffrés vers {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit la terminaison nécessaire pour permettre un chiffrement de bout en bout."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit la terminaison nécessaire pour permettre un chiffrement de bout en bout.",
+    "Could not lock the folder" : "Impossible de verrouiller le dossier",
+    "Error while unlocking the folder" : "Erreur lors du déverrouillage du dossier"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

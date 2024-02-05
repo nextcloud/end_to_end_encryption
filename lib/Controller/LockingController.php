@@ -32,7 +32,6 @@ namespace OCA\EndToEndEncryption\Controller;
 use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
-use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
@@ -40,6 +39,7 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
+use OCP\AppFramework\OCS\OCSPreconditionFailedException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
@@ -95,6 +95,11 @@ class LockingController extends OCSController {
 	 */
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
+		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
+
+		if ($e2eCounter === 0) {
+			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-COUNTER'));
+		}
 
 		$ownerId = $this->getOwnerId($shareToken);
 
@@ -115,7 +120,7 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 
-		$newToken = $this->lockManager->lockFile($id, $e2eToken, $ownerId);
+		$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
 		if ($newToken === null) {
 			throw new OCSForbiddenException($this->l10n->t('File already locked'));
 		}
@@ -137,7 +142,12 @@ class LockingController extends OCSController {
 	 * @throws OCSNotFoundException
 	 */
 	public function unlockFolder(int $id, ?string $shareToken = null): DataResponse {
+		$abort = $this->request->getParam('abort') === 'true';
 		$token = $this->request->getHeader('e2e-token');
+
+		if ($token === '') {
+			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+		}
 
 		$ownerId = $this->getOwnerId($shareToken);
 
@@ -152,15 +162,18 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
-		$hadChanges = $this->fileService->finalizeChanges($nodes[0]);
-
-		try {
-			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
-		} catch (MissingMetaDataException $ex) {
-			if ($hadChanges) {
-				throw $ex;
+		$touchFoldersIds = $this->metaDataStorage->getTouchedFolders($token);
+		foreach ($touchFoldersIds as $folderId) {
+			if ($abort) {
+				$this->fileService->revertChanges($userFolder->getById($folderId)[0]);
+				$this->metaDataStorage->deleteIntermediateFile($ownerId, $folderId);
+			} else {
+				$this->fileService->finalizeChanges($userFolder->getById($folderId)[0]);
+				$this->metaDataStorage->saveIntermediateFile($ownerId, $folderId);
 			}
 		}
+
+		$this->metaDataStorage->clearTouchedFolders($token);
 
 		try {
 			$this->lockManager->unlockFile($id, $token);
