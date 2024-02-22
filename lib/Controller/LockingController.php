@@ -98,7 +98,7 @@ class LockingController extends OCSController {
 		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
 
 		if ($e2eCounter === 0) {
-			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-COUNTER'));
+			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-COUNTER is missing in the request'));
 		}
 
 		$ownerId = $this->getOwnerId($shareToken);
