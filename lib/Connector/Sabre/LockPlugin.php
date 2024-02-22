@@ -110,7 +110,10 @@ class LockPlugin extends APlugin {
 				}
 
 				// Prevent moving or copying stuff from non-encrypted to encrypted folders
-				if ($this->isE2EEnabledPath($node) xor $this->isE2EEnabledPath($destNode)) {
+				// if original operation is not a DELETE
+				if ($this->isE2EEnabledPath($node) !== $this->isE2EEnabledPath($destNode)
+					&& $request->getHeader('X-Nc-Sabre-Original-Method') !== 'DELETE'
+				) {
 					throw new Forbidden('Cannot copy or move files from non-encrypted folders to end to end encrypted folders or vice versa.');
 				}
 			}
@@ -161,7 +164,7 @@ class LockPlugin extends APlugin {
 			throw new Forbidden('Write access to end-to-end encrypted folder requires token - no token sent');
 		}
 
-		if ($this->lockManager->isLocked($node->getId(), $token)) {
+		if ($this->lockManager->isLocked($node->getId(), $token, null, true)) {
 			throw new FileLocked('Write access to end-to-end encrypted folder requires token - resource not locked or wrong token sent', Http::STATUS_FORBIDDEN);
 		}
 	}

@@ -141,7 +141,6 @@ class RedirectRequestPlugin extends APlugin {
 
 	/**
 	 * @param RequestInterface $request
-	 * @return bool
 	 */
 	public function httpMkColPut(RequestInterface $request): void {
 		$node = $this->getNode($request->getPath(), $request->getMethod());

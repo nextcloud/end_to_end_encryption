@@ -26,6 +26,7 @@ namespace OCA\EndToEndEncryption\Tests\Unit;
 use OCA\EndToEndEncryption\FileService;
 use OCP\Files\Folder;
 use OCP\Files\Node;
+use OCP\Files\Storage\IStorage;
 use OCP\ILogger;
 use Test\TestCase;
 
@@ -149,6 +150,7 @@ class FileServiceTest extends TestCase {
 			$file3,
 			$file4,
 		]);
+		$folder->method('getName')->willReturn('root');
 
 		return [
 			$folder,
@@ -162,6 +164,8 @@ class FileServiceTest extends TestCase {
 	}
 
 	private function getSampleFolderForNonEmpty(): array {
+		$storage = $this->createMock(IStorage::class);
+
 		$file1 = $this->createMock(Node::class);
 		$file1->method('getName')->willReturn('7215ee9c7d9dc229d2921a40e899ec5f.e2e-to-save');
 		$file1->method('getPath')->willReturn('/foo/bar/7215ee9c7d9dc229d2921a40e899ec5f.e2e-to-save');
@@ -176,6 +180,7 @@ class FileServiceTest extends TestCase {
 		$file4 = $this->createMock(Node::class);
 		$file4->method('getName')->willReturn('a9473ded85aa51851deb4859cdd53f98.e2e-to-delete');
 		$file4->method('getPath')->willReturn('/foo/bar/a9473ded85aa51851deb4859cdd53f98.e2e-to-delete');
+		$file4->method('getStorage')->willReturn($storage);
 
 		$folder = $this->createMock(Folder::class);
 		$folder->method('getDirectoryListing')->willReturn([
@@ -184,6 +189,7 @@ class FileServiceTest extends TestCase {
 			$file3,
 			$file4,
 		]);
+		$folder->method('getName')->willReturn('root');
 
 		return [
 			$folder,

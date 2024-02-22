@@ -46,22 +46,20 @@ use Psr\Log\LoggerInterface;
  * A more elaborate approach should keep a journal of modifications
  * and only backup files when they are actually being modified / deleted.
  */
-class RollbackService {
+class RollbackServiceV1 {
 	private LockMapper $lockMapper;
-	private IMetaDataStorage $metaDataStorage;
+	private IMetaDataStorageV1 $metaDataStorage;
 	private FileService $fileService;
 	private IUserMountCache $userMountCache;
 	private IRootFolder $rootFolder;
 	private LoggerInterface $logger;
 
-	public function __construct(
-		LockMapper $lockMapper,
-		IMetaDataStorage $metaDataStorage,
+	public function __construct(LockMapper $lockMapper,
+		IMetaDataStorageV1 $metaDataStorage,
 		FileService $fileService,
 		IUserMountCache $userMountCache,
 		IRootFolder $rootFolder,
-		LoggerInterface $logger,
-	) {
+		LoggerInterface $logger) {
 		$this->lockMapper = $lockMapper;
 		$this->metaDataStorage = $metaDataStorage;
 		$this->fileService = $fileService;
@@ -82,7 +80,6 @@ class RollbackService {
 		foreach ($locks as $lock) {
 			$mountPoints = $this->userMountCache->getMountsForFileId($lock->getId());
 			if (empty($mountPoints)) {
-				$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 				$this->lockMapper->delete($lock);
 				continue;
 			}
@@ -102,7 +99,6 @@ class RollbackService {
 			}
 
 			if (strpos($firstMountPoint->getInternalPath(), 'files_trashbin/files/') === 0) {
-				$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 				$this->lockMapper->delete($lock);
 				continue;
 			}
@@ -130,7 +126,6 @@ class RollbackService {
 				continue;
 			}
 
-			$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 			$this->lockMapper->delete($lock);
 		}
 	}

@@ -107,7 +107,7 @@ class LockingControllerTest extends TestCase {
 
 	public function testLockFolder(): void {
 		$fileId = 42;
-		$sendE2E = '';
+		$sendE2E = 'e2eToken';
 
 		$this->l10n->expects($this->any())
 			->method('t')
@@ -118,7 +118,7 @@ class LockingControllerTest extends TestCase {
 		$this->request->expects($this->once())
 			->method('getParam')
 			->with('e2e-token', '')
-			->willReturn('');
+			->willReturn($sendE2E);
 
 		$userFolder = $this->createMock(Folder::class);
 		$this->rootFolder->expects($this->once())
@@ -135,6 +135,10 @@ class LockingControllerTest extends TestCase {
 			->method('lockFile')
 			->with($fileId, $sendE2E)
 			->willReturn('new-token');
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('X-NC-E2EE-COUNTER')
+			->willReturn('1');
 
 		$response = $this->controller->lockFolder($fileId);
 		$this->assertInstanceOf(DataResponse::class, $response);
@@ -145,11 +149,11 @@ class LockingControllerTest extends TestCase {
 
 	public function testLockFolderException(): void {
 		$fileId = 42;
-		$sendE2E = '';
+		$sendE2E = 'e2eToken';
 		$this->request->expects($this->once())
 			->method('getParam')
 			->with('e2e-token', '')
-			->willReturn('');
+			->willReturn($sendE2E);
 
 		$userFolder = $this->createMock(Folder::class);
 		$this->rootFolder->expects($this->once())
@@ -172,6 +176,10 @@ class LockingControllerTest extends TestCase {
 			->willReturnCallback(static function ($string, $args) {
 				return vsprintf($string, $args);
 			});
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('X-NC-E2EE-COUNTER')
+			->willReturn('1');
 
 		$this->expectException(OCSForbiddenException::class);
 		$this->expectExceptionMessage('File already locked');
@@ -182,6 +190,7 @@ class LockingControllerTest extends TestCase {
 	/**
 	 * @param bool $getUserFolderThrows
 	 * @param bool $userFolderReturnsNodes
+	 * @param bool $abort
 	 * @param \Exception|null $unlockException
 	 * @param string|null $expectedExceptionClass
 	 * @param string|null $expectedExceptionMessage
@@ -191,6 +200,7 @@ class LockingControllerTest extends TestCase {
 	public function testUnlockFolder(
 		bool $getUserFolderThrows,
 		bool $userFolderReturnsNodes,
+		bool $abort,
 		?\Exception $unlockException,
 		?string $expectedExceptionClass,
 		?string $expectedExceptionMessage,
@@ -208,6 +218,11 @@ class LockingControllerTest extends TestCase {
 			->method('getHeader')
 			->with('e2e-token')
 			->willReturn($sendE2E);
+
+		$this->request->expects($this->once())
+			->method('getParam')
+			->with('abort')
+			->willReturn($abort ? 'true' : '');
 
 		if ($getUserFolderThrows) {
 			$this->rootFolder->expects($this->once())
@@ -228,17 +243,31 @@ class LockingControllerTest extends TestCase {
 					->willReturn([]);
 			} else {
 				$node = $this->createMock(Folder::class);
-				$userFolder->expects($this->once())
+				$userFolder->expects($this->exactly(2))
 					->method('getById')
 					->with($fileId)
 					->willReturn([$node]);
 
-				$this->fileService->expects($this->once())
-					->method('finalizeChanges')
-					->with($node);
 				$this->metaDataStorage->expects($this->once())
-					->method('saveIntermediateFile')
-					->with('john.doe', $fileId);
+					->method('getTouchedFolders')
+					->with('e2e-token')
+					->willReturn([$fileId]);
+
+				if ($abort) {
+					$this->fileService->expects($this->once())
+						->method('revertChanges')
+						->with($node);
+					$this->metaDataStorage->expects($this->once())
+						->method('deleteIntermediateFile')
+						->with('john.doe', $fileId);
+				} else {
+					$this->fileService->expects($this->once())
+						->method('finalizeChanges')
+						->with($node);
+					$this->metaDataStorage->expects($this->once())
+						->method('saveIntermediateFile')
+						->with('john.doe', $fileId);
+				}
 
 				if ($unlockException) {
 					$this->lockManager->expects($this->once())
@@ -267,11 +296,12 @@ class LockingControllerTest extends TestCase {
 
 	public function unlockFolderDataProvider(): array {
 		return [
-			[false, true, null, null, null],
-			[true, false, null, OCSForbiddenException::class, 'You are not allowed to remove the lock'],
-			[false, false, null, OCSForbiddenException::class, 'You are not allowed to remove the lock'],
-			[false, true, new FileLockedException(), OCSForbiddenException::class, 'You are not allowed to remove the lock'],
-			[false, true, new FileNotLockedException(), OCSNotFoundException::class, 'File not locked']
+			[false, true, false, null, null, null],
+			[false, true, true, null, null, null],
+			[true, false, false, null, OCSForbiddenException::class, 'You are not allowed to remove the lock'],
+			[false, false, false, null, OCSForbiddenException::class, 'You are not allowed to remove the lock'],
+			[false, true, false, new FileLockedException(), OCSForbiddenException::class, 'You are not allowed to remove the lock'],
+			[false, true, false, new FileNotLockedException(), OCSNotFoundException::class, 'File not locked']
 		];
 	}
 }
