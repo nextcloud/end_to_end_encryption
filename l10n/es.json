@@ -9,7 +9,6 @@
     "Could not find the public key belonging to %s" : "No se ha podido encontrar la clave pública perteneciente a %s",
     "This is not your public key to delete" : "Esta no es su clave pública para borrar",
     "Cannot decode userlist" : "No se puede decodificar la lista de usuarios",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "No tienes permiso para crear el bloqueo",
     "You are not allowed to lock the root" : "No tiene permitido bloquear la raíz",
     "File already locked" : "El archivo ya está bloqueado",
@@ -53,6 +52,7 @@
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint necesario para habilitar el cifrado de extremo a extremo",
     "Could not lock the folder" : "No se ha podido bloquear la carpeta",
-    "Error while unlocking the folder" : "Error al desbloquear la carpeta"
+    "Error while unlocking the folder" : "Error al desbloquear la carpeta",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

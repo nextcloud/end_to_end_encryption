@@ -11,7 +11,6 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Could not find the public key belonging to %s",
     "This is not your public key to delete" : "This is not your public key to delete",
     "Cannot decode userlist" : "Cannot decode userlist",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "You are not allowed to create the lock",
     "You are not allowed to lock the root" : "You are not allowed to lock the root",
     "File already locked" : "File already locked",
@@ -55,6 +54,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Provides the necessary endpoint to enable end-to-end encryption.",
     "Could not lock the folder" : "Could not lock the folder",
-    "Error while unlocking the folder" : "Error while unlocking the folder"
+    "Error while unlocking the folder" : "Error while unlocking the folder",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=2; plural=(n != 1);");
