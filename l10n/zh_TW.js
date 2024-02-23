@@ -11,7 +11,6 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "無法找到屬於%s的公鑰",
     "This is not your public key to delete" : "這不是您要刪除的公開金鑰",
     "Cannot decode userlist" : "無法解碼使用者清單",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "您無權建立鎖",
     "You are not allowed to lock the root" : "您不被允許鎖定 root",
     "File already locked" : "檔案已經被鎖定",
@@ -55,6 +54,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。",
     "Could not lock the folder" : "無法鎖定資料夾",
-    "Error while unlocking the folder" : "解除鎖定資料時發生錯誤"
+    "Error while unlocking the folder" : "解除鎖定資料時發生錯誤",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=1; plural=0;");

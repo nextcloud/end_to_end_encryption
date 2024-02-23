@@ -11,7 +11,6 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Kunne ikke finne offentlig nøkkel tilhørende %s",
     "This is not your public key to delete" : "Dette er ikke din offentlige nøkkel å slette",
     "Cannot decode userlist" : "Kan ikke dekode brukerlisten",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "Du har ikke lov til å opprette låsen",
     "You are not allowed to lock the root" : "Du har ikke lov til å låse roten",
     "File already locked" : "Filen er allerede låst",
@@ -55,6 +54,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "Last opp krypterte filer til {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Gir det nødvendige endepunktet for å aktivere ende-til-ende-kryptering.",
     "Could not lock the folder" : "Kunne ikke låse mappen",
-    "Error while unlocking the folder" : "Feil under opplåsing av mappen"
+    "Error while unlocking the folder" : "Feil under opplåsing av mappen",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=2; plural=(n != 1);");

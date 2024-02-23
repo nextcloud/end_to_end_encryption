@@ -11,7 +11,6 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Der öffentliche Schlüssel des Benutzers %s konnte nicht gefunden werden",
     "This is not your public key to delete" : "Dies ist nicht Ihr öffentlicher Schlüssel und kann daher nicht gelöscht werden",
     "Cannot decode userlist" : "Benutzerliste kann nicht entschlüsselt werden",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "Sie dürfen die Sperre nicht erstellen",
     "You are not allowed to lock the root" : "Sie dürfen das Hauptverzeichnis nicht sperren",
     "File already locked" : "Datei ist bereits gesperrt",
@@ -55,6 +54,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
     "Could not lock the folder" : "Ordner konnte nicht gesperrt werden",
-    "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners"
+    "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=2; plural=(n != 1);");
