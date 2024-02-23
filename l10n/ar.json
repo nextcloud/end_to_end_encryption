@@ -9,7 +9,6 @@
     "Could not find the public key belonging to %s" : "تعذر العثور على المفتاح العام لـ %s",
     "This is not your public key to delete" : "هذا ليس مفتاحك العام ليمكنك حذفه",
     "Cannot decode userlist" : "لا يمكن تحليل قائمة المستخدمين userlist",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "ليس مسموحاً لك بإنشاء قُفْلٍ lock",
     "You are not allowed to lock the root" : "ليس مسموحاً لك بقفل الجذر",
     "File already locked" : "الملف مقفل بالفعل",
@@ -53,6 +52,7 @@
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "يُوفّر نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE",
     "Could not lock the folder" : "تعذّر قفل المجلد",
-    "Error while unlocking the folder" : "خطأ خلال فك قفل unlocking المجلد"
+    "Error while unlocking the folder" : "خطأ خلال فك قفل unlocking المجلد",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

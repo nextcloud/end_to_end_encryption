@@ -11,7 +11,6 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "%s kullanıcısına ait herkese açık anahtar bulunamadı",
     "This is not your public key to delete" : "Silinecek herkese açık anahtar sizin değil",
     "Cannot decode userlist" : "Kullanıcı listesinin kodu çözülemedi",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "Kilit ekleme izniniz yok",
     "You are not allowed to lock the root" : "Root kullanıcısını kilitleme izniniz yok",
     "File already locked" : "Dosya zaten kilitlenmiş",
@@ -55,6 +54,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar.",
     "Could not lock the folder" : "Klasör kilitlenemedi",
-    "Error while unlocking the folder" : "Klasörün kilidi açılırken sorun çıktı"
+    "Error while unlocking the folder" : "Klasörün kilidi açılırken sorun çıktı",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=2; plural=(n > 1);");
