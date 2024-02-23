@@ -11,7 +11,6 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Не могу да нађем јавни кључ који припада %s",
     "This is not your public key to delete" : "Ово није Ваш јавни кључ да га обришете",
     "Cannot decode userlist" : "Не може да се декодира листа корисника",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "Није вам дозвољено да креирате катанац",
     "You are not allowed to lock the root" : "Није вам дозвољено да закључате корен",
     "File already locked" : "Фајл већ закључан",
@@ -55,6 +54,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај.",
     "Could not lock the folder" : "Не може да се закључа фолдер",
-    "Error while unlocking the folder" : "Грешка приликом откључавања фолдера"
+    "Error while unlocking the folder" : "Грешка приликом откључавања фолдера",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
