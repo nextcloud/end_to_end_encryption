@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "تعذر العثور على المفتاح العام لـ %s",
     "This is not your public key to delete" : "هذا ليس مفتاحك العام ليمكنك حذفه",
     "Cannot decode userlist" : "لا يمكن تحليل قائمة المستخدمين userlist",
+    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER ناقصة في الطلب",
     "You are not allowed to create the lock" : "ليس مسموحاً لك بإنشاء قُفْلٍ lock",
     "You are not allowed to lock the root" : "ليس مسموحاً لك بقفل الجذر",
     "File already locked" : "الملف مقفل بالفعل",
