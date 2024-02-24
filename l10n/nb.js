@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Kunne ikke finne offentlig nøkkel tilhørende %s",
     "This is not your public key to delete" : "Dette er ikke din offentlige nøkkel å slette",
     "Cannot decode userlist" : "Kan ikke dekode brukerlisten",
+    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER mangler i forespørselen",
     "You are not allowed to create the lock" : "Du har ikke lov til å opprette låsen",
     "You are not allowed to lock the root" : "Du har ikke lov til å låse roten",
     "File already locked" : "Filen er allerede låst",
