@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Не могу да нађем јавни кључ који припада %s",
     "This is not your public key to delete" : "Ово није Ваш јавни кључ да га обришете",
     "Cannot decode userlist" : "Не може да се декодира листа корисника",
+    "X-NC-E2EE-COUNTER is missing in the request" : "У захтеву недостаје X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "Није вам дозвољено да креирате катанац",
     "You are not allowed to lock the root" : "Није вам дозвољено да закључате корен",
     "File already locked" : "Фајл већ закључан",
