@@ -11,13 +11,16 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Impossible de trouver la clef publique appartenant à %s",
     "This is not your public key to delete" : "Ce n'est pas votre clé publique à supprimer",
     "Cannot decode userlist" : "Impossible de décoder la liste des utilisateurs",
+    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER est manquant dans la requête",
     "You are not allowed to create the lock" : "Vous n'êtes pas autorisé à créer le verrou",
     "You are not allowed to lock the root" : "Vous n'êtes pas autorisé à verrouiller la racine",
     "File already locked" : "Fichier déjà verrouillé",
+    "e2e-token is empty" : "e2e-token est vide",
     "You are not allowed to remove the lock" : "Vous n'êtes pas autorisé à enlever le verrou",
     "File not locked" : "Fichier non verrouillé",
     "Could not find metadata for \"%s\"" : "Impossible de trouver les méta-données pour \"%s\"",
     "Cannot read metadata" : "Impossible de lire les métadonnées",
+    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE est vide",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vous n'êtes pas autorisé à modifier le fichier, assurez-vous d'abord de le verrouiller puis d'envoyer le jeton adéquat",
     "Cannot store metadata" : "Impossible d'enregistrer les métadonnées",
     "Metadata-file does not exist" : "Le fichier de métadonnées n'existe pas",
@@ -52,6 +55,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "Téléverser des fichiers chiffrés vers {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit la terminaison nécessaire pour permettre un chiffrement de bout en bout.",
     "Could not lock the folder" : "Impossible de verrouiller le dossier",
-    "Error while unlocking the folder" : "Erreur lors du déverrouillage du dossier"
+    "Error while unlocking the folder" : "Erreur lors du déverrouillage du dossier",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
