@@ -75,6 +75,10 @@ class ClientHasCapabilityMiddleware extends Middleware {
 			return;
 		}
 
+		if ($decodedMetadata['metadata']['version'] === 1.2) {
+			return;
+		}
+
 		throw new OCSForbiddenException('Client version cannot handle the requested encryption version.');
 	}
 }
