@@ -1,15 +1,29 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "This is someone else's private key" : "Esta ye la clave privada de daquién",
+    "Could not find the private key of the user %s" : "Nun se pudo atopar la clave privada del usuariu «%s»",
     "Internal error" : "Error internu",
     "You are not allowed to delete this private key" : "Nun tienes permisu pa desaniciar esta clave privada",
+    "Could not find the private key belonging to the user %s" : "Nun se pudo atopar la clave privada que pertenez al usuariu «%s»",
+    "Could not find the public key belonging to the user %s" : "Nun se pudo atopar la clave pública que pertenez al usuariu «%s»",
     "End-to-End Encryption" : "Cifráu de puntu a puntu",
+    "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Forne'l puntu d'entrada necesariu p'activar el cifráu d'estremu a estremu.\n\n**Avisu**: anguaño E2EE nun ye compatible pa usalu xunto col cifráu del sirividor",
     "Save" : "Guardar",
-    "End-to-end encryption" : "Cifráu de puntu a puntu",
-    "End-to-end encryption is currently enabled and correctly setup." : "El cifráu de puntu a puntu ta activáu ya configuráu correutamente.",
-    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "El cifráu de puntu a puntu ta desactiváu. Pues configuralu colos veceros de {productName}.",
+    "End-to-end encryption" : "Cifráu d'estremu a estremu",
+    "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
+    "End-to-end encryption is currently enabled and correctly setup." : "El cifráu d'estremu a estremu ta activáu ya configuráu correutamente.",
+    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "El cifráu d'estremu a estremu ta desactiváu. Pues configuralu colos veceros de {productName}.",
+    "End-to-end encryption keys reset" : "Reafitáronse les claves del cifráu d'estremu a estremu",
+    "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
+    "Select or drop files" : "Seleiciona o suelta los ficheros",
     "Error while uploading files" : "Hebo un error al xubir los ficheros",
     "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
-    "Error while unlocking the folder" : "Hebo un error mentanto se desbloquiaba la carpeta"
+    "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Forne'l puntu d'entrada necesariu p'activar el cifráu d'estremu a estremu.",
+    "Could not lock the folder" : "Nun se pudo bloquiar la carpeta",
+    "Error while unlocking the folder" : "Hebo un error mentanto se desbloquiaba la carpeta",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=2; plural=(n != 1);");
