@@ -33,13 +33,13 @@ PROPFIND: `https://<nextcloud>/remote.php/webdav/<folder>/`
 **Data:**
 
 xml body:
-````xml
+```xml
 <d:propfind xmlns:d="DAV:">
     <d:prop xmlns:nc="http://nextcloud.org/ns">
         <nc:is-encrypted/>
     </d:prop>
 </d:propfind>
-````
+```
 
 **Results:**
 
@@ -49,7 +49,7 @@ xml body:
 
 **Response body on success**
 
-````xml
+```xml
 ...
 <d:response>
     <d:href>/remote.php/webdav/folder/0/</d:href>
@@ -61,7 +61,7 @@ xml body:
     </d:propstat>
 </d:response>
 ...
-````
+```
 
 **Example curl call:**
 
@@ -86,7 +86,7 @@ privateKey: the users private key
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -98,7 +98,7 @@ privateKey: the users private key
   <private-key>encrypted-private-key</private-key>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -121,7 +121,7 @@ GET: `<base-url>/private-key`
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -133,7 +133,7 @@ GET: `<base-url>/private-key`
   <private-key>encrypted-private-key</private-key>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -156,7 +156,7 @@ DELETE: `<base-url>/private-key`
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -167,7 +167,7 @@ DELETE: `<base-url>/private-key`
  <data>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -196,7 +196,7 @@ the public key (CN must be the same as the corresponding Nextcloud user name)
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -208,7 +208,7 @@ the public key (CN must be the same as the corresponding Nextcloud user name)
   <public-key>public-key</public-key>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -235,7 +235,7 @@ users: Json encoded list of users for which the server should return the public 
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -252,7 +252,7 @@ users: Json encoded list of users for which the server should return the public 
   </public-keys>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -287,7 +287,7 @@ DELETE: `<base-url>/public-key`
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -298,7 +298,7 @@ DELETE: `<base-url>/public-key`
  <data>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -325,7 +325,7 @@ e2e-token: if you re-try a previously failed upload, use the token from the firs
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -337,14 +337,14 @@ e2e-token: if you re-try a previously failed upload, use the token from the firs
   <e2e-token>fdkjfjdhgkjdhkjghdfhgk</e2e-token>
  </data>
 </ocs>
-````
+```
 
 
 **Example curl call:**
 
 First try:
 
-````shell
+```shell
 curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
     -X POST \
     -H "OCS-APIRequest:true" \
@@ -353,7 +353,8 @@ curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption
 
 Retry:
 
-`curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"` -d e2e-token="<e2e-token-from-previous-try>"
+```shell
+curl -X POST https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/<file-id> -H "OCS-APIRequest:true"` -d e2e-token="<e2e-token-from-previous-try>"
 curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
     -X POST \
     -H "OCS-APIRequest:true" \
@@ -377,7 +378,7 @@ DELETE: `<base-url>/lock/<file-id>`
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -386,13 +387,13 @@ DELETE: `<base-url>/lock/<file-id>`
   <message>OK</message>
  </meta>
 </ocs>
-````
+```
 
 **Example curl call:**
 
 Unlock:
 
-````shell
+```shell
 curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10 \
     -X DELETE \
     -H "OCS-APIRequest:true" \
@@ -401,7 +402,7 @@ curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption
 
 Unlock and drop pending changes:
 
-````shell
+```shell
 curl https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/lock/10?abort=true \
     -X DELETE \
     -H "OCS-APIRequest:true" \
@@ -428,7 +429,7 @@ metaData: content of the encrypted meta-data file
 
 **Response body on success**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -440,7 +441,7 @@ metaData: content of the encrypted meta-data file
   <meta-data>encrypted-meta-data</meta-data>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -466,7 +467,7 @@ GET: `<base-url>/meta-data/<file-id>`
 
 **Result body on success:**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -478,7 +479,7 @@ GET: `<base-url>/meta-data/<file-id>`
   <meta-data>encrypted-meta-data</meta-data>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -505,7 +506,7 @@ the file with the given file-id
 400 bad request: unpredictable internal error
 
 **Result body on success:**
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -517,7 +518,7 @@ the file with the given file-id
   <meta-data>encrypted-meta-data</meta-data>
  </data>
 </ocs>
-````
+```
 
 
 **Example curl call:**
@@ -552,7 +553,7 @@ the file with the given file-id
 400 bad request: unpredictable internal error
 
 **Result body on success:**
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -564,7 +565,7 @@ the file with the given file-id
   <meta-data>encrypted-meta-data</meta-data>
  </data>
 </ocs>
-````
+```
 
 
 **Example curl call:**
@@ -587,7 +588,7 @@ DELETE: `<base-url>/meta-data/<file-id>`
 
 **Result body on success:**
 
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -598,7 +599,7 @@ DELETE: `<base-url>/meta-data/<file-id>`
  <data>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -623,7 +624,7 @@ GET: `<base-url>/server-key`
 400 bad request: unpredictable internal error
 
 **Result body on success:**
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -635,7 +636,7 @@ GET: `<base-url>/server-key`
   <public-key>server-public-key</public-key>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
@@ -652,7 +653,7 @@ PUT: `<base-url>/encrypted/<file-id>`
 404 not found: if the ID could not be resolved to a valid folder
 
 **Result body on success:**
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -663,7 +664,7 @@ PUT: `<base-url>/encrypted/<file-id>`
  <data>
  </data>
 </ocs>
-````
+```
 **Example curl call:**
 
 `curl -X PUT https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryption/api/v1/encrypted/<file-id> -H "OCS-APIRequest:true"`
@@ -679,7 +680,7 @@ DELETE: `<base-url>/encrypted/<file-id>`
 404 not found: if the ID could not be resolved to a valid folder
 
 **Result body on success:**
-````xml
+```xml
 <?xml version="1.0"?>
 <ocs>
  <meta>
@@ -690,7 +691,7 @@ DELETE: `<base-url>/encrypted/<file-id>`
  <data>
  </data>
 </ocs>
-````
+```
 
 **Example curl call:**
 
