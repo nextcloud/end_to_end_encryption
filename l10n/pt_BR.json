@@ -9,13 +9,16 @@
     "Could not find the public key belonging to %s" : "Não foi possível encontrar a chave pública pertencente a %s",
     "This is not your public key to delete" : "Esta não é sua chave pública a excluir",
     "Cannot decode userlist" : "Não é possível decodificar a lista de usuários ",
+    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER está faltando na solicitação",
     "You are not allowed to create the lock" : "Você não tem permissão para criar o bloqueio ",
     "You are not allowed to lock the root" : "Você não tem permissão para bloquear o root",
     "File already locked" : "Arquivo já bloqueado",
+    "e2e-token is empty" : "e2e-token está vazio",
     "You are not allowed to remove the lock" : "Você não ter permissão para remover o bloqueio",
     "File not locked" : "O arquivo não bloqueado",
     "Could not find metadata for \"%s\"" : "Não foi possível encontrar metadados para \"%s\"",
     "Cannot read metadata" : "Não é possível ler metadados ",
+    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE está vazio",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Você não tem permissão para editar o arquivo. Certifique-se de bloqueá-lo e então envie o token correto",
     "Cannot store metadata" : "Não é possível armazenar metadados ",
     "Metadata-file does not exist" : "Arquivo de metadados não existe",
@@ -50,6 +53,7 @@
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o endpoint necessário para ativar a criptografia ponto-a-ponto.",
     "Could not lock the folder" : "Não foi possível bloquear a pasta",
-    "Error while unlocking the folder" : "Erro ao desbloquear a pasta"
+    "Error while unlocking the folder" : "Erro ao desbloquear a pasta",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
