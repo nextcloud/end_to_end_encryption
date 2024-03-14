@@ -25,4 +25,4 @@ OC.L10N.register(
     "Select or drop files" : "בחירה או השלכה של קבצים",
     "Provides the necessary endpoint to enable end-to-end encryption." : "מספק את נקודת הקצה הנוכחית כדי להפעיל הצפנה מקצה לקצה."
 },
-"nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");
+"nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");
