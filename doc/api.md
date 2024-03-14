@@ -12,6 +12,8 @@ A more general documentation how to use the API can be found [here](https://gith
   - [Get public keys](#get-public-keys)
   - [Delete public keys](#delete-public-keys)
   - [Lock file](#lock-file)
+  - [Unlock file](#unlock-file)
+  - [Store meta-data file](#store-meta-data-file)
   - [Get meta-data file](#get-meta-data-file)
   - [Update meta-data file](#update-meta-data-file)
   - [Update filedrop property of meta-data file](#update-filedrop-property-of-meta-data-file)
