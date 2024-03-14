@@ -34,6 +34,7 @@ use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Cache\ICache;
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Storage\IStorage;
 use OCP\IUserSession;
@@ -563,7 +564,7 @@ class LockPluginTest extends TestCase {
 			])
 			->getMock();
 
-		$node = $this->createMock(Node::class);
+		$node = $this->createMock(Folder::class);
 		$node->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(true);
@@ -586,16 +587,14 @@ class LockPluginTest extends TestCase {
 			])
 			->getMock();
 
-		$encryptedParentParentNode = $this->createMock(Node::class);
+		$encryptedParentParentNode = $this->createMock(Folder::class);
 		$encryptedParentParentNode->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(true);
 		$encryptedParentParentNode->method('getId')
 			->willReturn(1);
-		$encryptedParentParentNode->method('getFileInfo')
-			->willReturn(['parent' => 0]);
 
-		$parentNode = $this->createMock(Node::class);
+		$parentNode = $this->createMock(Folder::class);
 		$parentNode->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(false);
@@ -604,13 +603,8 @@ class LockPluginTest extends TestCase {
 			->willReturn($encryptedParentParentNode);
 		$parentNode->method('getId')
 			->willReturn(2);
-		$parentNode->method('getFileInfo')
-			->willReturn(['parent' => 1]);
 
 		$fileNode = $this->createMock(Node::class);
-		$fileNode->expects($this->atLeastOnce())
-			->method('isEncrypted')
-			->willReturn(false);
 		$cache = $this->createMock(ICache::class);
 		$cache->method('getNumericStorageId')
 			->willReturn(1);
@@ -649,16 +643,14 @@ class LockPluginTest extends TestCase {
 			])
 			->getMock();
 
-		$encryptedParentParentNode = $this->createMock(Node::class);
+		$encryptedParentParentNode = $this->createMock(Folder::class);
 		$encryptedParentParentNode->method('getId')
 			->willReturn(1);
-		$encryptedParentParentNode->method('getFileInfo')
-			->willReturn(['parent' => 0]);
 		$encryptedParentParentNode->expects($this->once())
 			->method('getPath')
 			->willReturn('/');
 
-		$parentNode = $this->createMock(Node::class);
+		$parentNode = $this->createMock(Folder::class);
 		$parentNode->expects($this->once())
 			->method('isEncrypted')
 			->willReturn(false);
@@ -667,8 +659,6 @@ class LockPluginTest extends TestCase {
 			->willReturn($encryptedParentParentNode);
 		$parentNode->method('getId')
 			->willReturn(2);
-		$parentNode->method('getFileInfo')
-			->willReturn(['parent' => 1]);
 
 		$cache = $this->createMock(ICache::class);
 		$cache->method('getNumericStorageId')
@@ -680,9 +670,6 @@ class LockPluginTest extends TestCase {
 			->willReturn($cache);
 
 		$fileNode = $this->createMock(Node::class);
-		$fileNode->expects($this->atLeastOnce())
-			->method('isEncrypted')
-			->willReturn(false);
 		$fileNode->expects($this->once())
 			->method('getParent')
 			->willReturn($parentNode);
@@ -691,8 +678,6 @@ class LockPluginTest extends TestCase {
 			->willReturn('/data/rere/re');
 		$fileNode->method('getId')
 			->willReturn(3);
-		$fileNode->method('getFileInfo')
-			->willReturn(['parent' => 2]);
 		$fileNode->method('getStorage')
 			->willReturn($storage);
 
