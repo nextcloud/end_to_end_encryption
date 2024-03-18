@@ -173,8 +173,8 @@ class EncryptionManagerTest extends TestCase {
 	 * @return PHPUnit_Framework_MockObject_MockObject[]
 	 */
 	public function constructNestedNodes(): array {
-		$node1 = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();
-		$node2 = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();
+		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
 		$node3 = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();
 		$node1->expects($this->any())->method('getParent')->willReturn($node2);
 		$node1->expects($this->any())->method('getPath')->willReturn('/data/user');
