@@ -9,7 +9,7 @@ Provides the necessary endpoint to enable end-to-end encryption.
 
 **Notice:** E2EE is currently not compatible to be used together with server-side encryption
 	]]></description>
-	<version>1.14.3</version>
+	<version>1.14.4</version>
 	<licence>agpl</licence>
 	<author>Bjoern Schiessle</author>
 	<namespace>EndToEndEncryption</namespace>
