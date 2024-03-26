@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "%s kullanıcısına ait herkese açık anahtar bulunamadı",
     "This is not your public key to delete" : "Silinecek herkese açık anahtar sizin değil",
     "Cannot decode userlist" : "Kullanıcı listesinin kodu çözülemedi",
+    "X-NC-E2EE-COUNTER is missing in the request" : "İstekte X-NC-E2EE-COUNTER eksik",
     "You are not allowed to create the lock" : "Kilit ekleme izniniz yok",
     "You are not allowed to lock the root" : "Root kullanıcısını kilitleme izniniz yok",
     "File already locked" : "Dosya zaten kilitlenmiş",
