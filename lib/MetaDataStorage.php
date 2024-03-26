@@ -247,6 +247,10 @@ class MetaDataStorage implements IMetaDataStorage {
 				return "";
 			}
 
+			if ($decodedMetadata['metadata']['version'] === 1.2) {
+				return "";
+			}
+
 			throw $ex;
 		}
 	}
