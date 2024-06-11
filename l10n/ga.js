@@ -2,6 +2,7 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "Internal error" : "Earráid inmheánach",
+    "End-to-End Encryption" : "Criptiú Ceann go Deireadh",
     "Limit to groups" : "Teorainn do ghrúpaí",
     "Save" : "Sábháil",
     "Select or drop files" : "Roghnaigh nó scaoil comhaid"
