@@ -15,10 +15,12 @@ OC.L10N.register(
     "You are not allowed to create the lock" : "Non ten permiso para crear o bloqueo",
     "You are not allowed to lock the root" : "Non ten permiso para bloquear a raíz",
     "File already locked" : "O ficheiro xa está bloqueado",
+    "e2e-token is empty" : "e2e-token está baleiro",
     "You are not allowed to remove the lock" : "Non ten permiso para retirar o bloqueo",
     "File not locked" : "Ficheiro sen bloquear",
     "Could not find metadata for \"%s\"" : "Non foi posíbel atopar os metadatos para «%s»",
     "Cannot read metadata" : "Non é posíbel ler os metadatos",
+    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE está baleiro",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Non ten permiso para editar o ficheiro, asegúrese antes de bloquealo, e a seguir envíe o testemuño correcto",
     "Cannot store metadata" : "Non é posíbel almacenar os metadatos",
     "Metadata-file does not exist" : "Non existe o ficheiro de metadatos",
@@ -53,6 +55,7 @@ OC.L10N.register(
     "Upload encrypted files to {fileName}" : "Enviar ficheiros cifrados a {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto necesario para activar o cifrado de extremo a extremo.",
     "Could not lock the folder" : "Non foi posíbel bloquear o cartafol",
-    "Error while unlocking the folder" : "Produciuse un erro ao desbloquear o cartafol"
+    "Error while unlocking the folder" : "Produciuse un erro ao desbloquear o cartafol",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=2; plural=(n != 1);");
