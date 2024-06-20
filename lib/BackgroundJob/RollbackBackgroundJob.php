@@ -38,8 +38,8 @@ class RollbackBackgroundJob extends TimedJob {
 	private RollbackService $rollbackService;
 
 	public function __construct(IConfig $config,
-								ITimeFactory $time,
-								RollbackService $rollbackService) {
+		ITimeFactory $time,
+		RollbackService $rollbackService) {
 		parent::__construct($time);
 		$this->config = $config;
 		$this->rollbackService = $rollbackService;

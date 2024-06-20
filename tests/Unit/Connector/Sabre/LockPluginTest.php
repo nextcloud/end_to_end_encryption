@@ -23,20 +23,20 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Connector\Sabre;
 
+use OC\Files\Node\Node;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\DAV\Upload\FutureFile;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
+use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
-use OCP\Files\IRootFolder;
-use OC\Files\Node\Node;
-use OCP\IUserSession;
 use OCP\Files\Cache\ICache;
+use OCP\Files\IRootFolder;
 use OCP\Files\Storage\IStorage;
+use OCP\IUserSession;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
@@ -270,10 +270,10 @@ class LockPluginTest extends TestCase {
 	 * @param bool $expectsFileLocked
 	 */
 	public function testCheckLockForWrite(string $method,
-										  ?string $token,
-										  bool $isLocked,
-										  bool $expectsForbidden,
-										  bool $expectsFileLocked): void {
+		?string $token,
+		bool $isLocked,
+		bool $expectsForbidden,
+		bool $expectsFileLocked): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
 			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
 			->setConstructorArgs([
@@ -393,16 +393,16 @@ class LockPluginTest extends TestCase {
 	 * @param bool $expectsFileLocked
 	 */
 	public function testCheckLockForWriteCopyMove(string $method,
-												  ?string $token,
-												  bool $isSrcE2E,
-												  bool $isDestE2E,
-												  bool $isSrcFutureFile,
-												  bool $isSrcLocked,
-												  bool $isDestLocked,
-												  bool $expectsReturn,
-												  bool $expectsForbidden1,
-												  bool $expectsForbidden2,
-												  bool $expectsFileLocked): void {
+		?string $token,
+		bool $isSrcE2E,
+		bool $isDestE2E,
+		bool $isSrcFutureFile,
+		bool $isSrcLocked,
+		bool $isDestLocked,
+		bool $expectsReturn,
+		bool $expectsForbidden1,
+		bool $expectsForbidden2,
+		bool $expectsFileLocked): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
 			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
 			->setConstructorArgs([

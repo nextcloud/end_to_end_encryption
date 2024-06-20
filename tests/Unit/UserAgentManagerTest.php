@@ -25,8 +25,8 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
 use OCA\EndToEndEncryption\UserAgentManager;
-use Test\TestCase;
 use OCP\IConfig;
+use Test\TestCase;
 
 class UserAgentManagerTest extends TestCase {
 
@@ -37,7 +37,7 @@ class UserAgentManagerTest extends TestCase {
 	 * @dataProvider supportsEndToEndEncryptionDataProvider
 	 */
 	public function testSupportsEndToEndEncryption(string $client,
-												   bool $expected): void {
+		bool $expected): void {
 		$supportedUAs = $this->getSupportedUserAgents();
 		$userAgentManager = $this->getUserAgentManager(['getSupportedUserAgents']);
 		$userAgentManager->expects($this->once())
