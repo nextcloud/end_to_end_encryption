@@ -23,8 +23,8 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption;
 
 use OCP\IConfig;
-use OCP\IUser;
 use OCP\IGroupManager;
+use OCP\IUser;
 
 class Config {
 	private IConfig $config;
