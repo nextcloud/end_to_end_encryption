@@ -206,6 +206,26 @@ class KeyController extends OCSController {
 	}
 
 	/**
+	 * Set public key
+	 *
+	 * @NoAdminRequired
+	 * @E2ERestrictUserAgent
+	 * @throws OCSBadRequestException
+	 */
+	public function setPublicKey(string $publicKey): DataResponse {
+		try {
+			$this->keyStorage->setPublicKey($publicKey, $this->userId);
+		} catch (KeyExistsException $e) {
+			return new DataResponse([], Http::STATUS_CONFLICT);
+		} catch (Exception $e) {
+			$this->logger->error("Fail to set user public key", ['exception' => $e, 'app' => $this->appName]);
+			throw new OCSBadRequestException($this->l10n->t('Internal error'));
+		}
+
+		return new DataResponse(['public-key' => $publicKey]);
+	}
+
+	/**
 	 * Delete the users public key
 	 *
 	 * @NoAdminRequired

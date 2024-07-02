@@ -30,6 +30,7 @@ return [
 		['name' => 'Key#setPrivateKey', 'url' => '/api/v{apiVersion}/private-key', 'verb' => 'POST', 'requirements' => array('apiVersion' => '[1-2]')],
 		['name' => 'Key#getPrivateKey', 'url' => '/api/v{apiVersion}/private-key', 'verb' => 'GET', 'requirements' => array('apiVersion' => '[1-2]')],
 		['name' => 'Key#deletePrivateKey', 'url' => '/api/v{apiVersion}/private-key', 'verb' => 'DELETE', 'requirements' => array('apiVersion' => '[1-2]')],
+		['name' => 'Key#setPublicKey', 'url' => '/api/v{apiVersion}/public-key', 'verb' => 'PUT', 'requirements' => array('apiVersion' => '[1-2]')],
 		['name' => 'Key#createPublicKey', 'url' => '/api/v{apiVersion}/public-key', 'verb' => 'POST', 'requirements' => array('apiVersion' => '[1-2]')],
 		['name' => 'Key#getPublicKeys', 'url' => '/api/v{apiVersion}/public-key', 'verb' => 'GET', 'requirements' => array('apiVersion' => '[1-2]')],
 		['name' => 'Key#deletePublicKey', 'url' => '/api/v{apiVersion}/public-key', 'verb' => 'DELETE', 'requirements' => array('apiVersion' => '[1-2]')],
