@@ -14,6 +14,7 @@ OC.L10N.register(
     "You are not allowed to create the lock" : "Nie możesz utworzyć blokady",
     "You are not allowed to lock the root" : "Nie możesz zablokować roota",
     "File already locked" : "Plik jest już zablokowany",
+    "e2e-token is empty" : "Token e2e jest pusty",
     "You are not allowed to remove the lock" : "Nie możesz usunąć blokady",
     "File not locked" : "Plik niezablokowany",
     "Could not find metadata for \"%s\"" : "Nie można znaleźć metadanych dla \"%s\"",
@@ -44,6 +45,11 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Resetowanie kluczy szyfrowania end-to-end",
     "Unable to reset end-to-end encryption" : "Nie można zresetować szyfrowania end-to-end",
     "Select or drop files" : "Wybierz lub upuść pliki",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end."
+    "Error while uploading files" : "Błąd podczas przesyłania plików",
+    "Error while uploading metadata" : "Błąd podczas przesyłania metadanych",
+    "Upload encrypted files to {fileName}" : "Prześlij zaszyfrowane pliki do {fileName}",
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end.",
+    "Could not lock the folder" : "Nie udało się zablokować folderu",
+    "Error while unlocking the folder" : "Błąd podczas odblokowywania folderu"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");
