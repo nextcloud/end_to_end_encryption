@@ -24,7 +24,7 @@
     "@nextcloud/vue": "^7.6.0",
     "@peculiar/x509": "^1.9.2",
     "debounce": "^1.2.1",
-    "uuid": "^8.3.2",
+    "uuid": "^10.0.0",
     "vue-material-design-icons": "^5.1.2"
   },
   "devDependencies": {
