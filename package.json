@@ -22,7 +22,7 @@
     "@nextcloud/logger": "^2.2.1",
     "@nextcloud/router": "^2.2.1",
     "@nextcloud/vue": "^7.6.0",
-    "@peculiar/x509": "^1.9.2",
+    "@peculiar/x509": "^1.9.7",
     "debounce": "^1.2.1",
     "uuid": "^8.3.2",
     "vue-material-design-icons": "^5.1.2"
