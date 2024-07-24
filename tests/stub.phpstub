@@ -866,3 +866,105 @@ namespace OCA\Files_Sharing {
 	    }
 	}
 }
+
+namespace OCA\Files_Trashbin\Events {
+
+	use OCP\EventDispatcher\Event;
+	use OCP\Files\Node;
+
+	class MoveToTrashEvent extends Event {
+		/** @var bool */
+		private $moveToTrashBin;
+
+		/** @var Node */
+		private $node;
+
+		public function __construct(Node $node) {
+			$this->moveToTrashBin = true;
+			$this->node = $node;
+		}
+
+		/**
+		* get Node which will be deleted
+		*
+		* @return Node
+		*/
+		public function getNode() {
+			return $this->node;
+		}
+
+		/**
+		* disable trash bin for this operation
+		*/
+		public function disableTrashBin() {
+			$this->moveToTrashBin = false;
+		}
+
+		/**
+		* should the file be moved to the trash bin?
+		*
+		* @return bool
+		*/
+		public function shouldMoveToTrashBin() {
+			return $this->moveToTrashBin;
+		}
+	}
+}
+
+namespace OCA\Files_Versions\Events {
+
+	use OCP\EventDispatcher\Event;
+	use OCP\Files\Node;
+
+	/**
+	* Class CreateVersionEvent
+	*
+	* Event to allow other apps to disable versions for specific files
+	*
+	* @package OCA\Files_Versions
+	*/
+	class CreateVersionEvent extends Event {
+
+
+		/** @var bool */
+		private $createVersion;
+
+		/** @var Node */
+		private $node;
+
+		/**
+		* CreateVersionEvent constructor.
+		*
+		* @param Node $node
+		*/
+		public function __construct(Node $node) {
+			$this->createVersion = true;
+			$this->node = $node;
+		}
+
+		/**
+		* get Node of the file which should be versioned
+		*
+		* @return Node
+		*/
+		public function getNode(): Node {
+			return $this->node;
+		}
+
+		/**
+		* disable versions for this file
+		*/
+		public function disableVersions(): void {
+			$this->createVersion = false;
+		}
+
+		/**
+		* should a version be created for this file?
+		*
+		* @return bool
+		*/
+		public function shouldCreateVersion(): bool {
+			return $this->createVersion;
+		}
+	}
+}

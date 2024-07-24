@@ -29,6 +29,9 @@ use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
+/**
+ * @template-extends QBMapper<Entity>
+ */
 class LockMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'e2e_encryption_lock');
