@@ -4,9 +4,11 @@
   -->
 
 <template>
-	<NcSettingsSection :title="t('end_to_end_encryption', 'End-to-end encryption')"
+	<NcSettingsSection :name="t('end_to_end_encryption', 'End-to-end encryption')"
 		:description="encryptionState">
-		<NcButton :disabled="!hasKey" type="warning" @click="startResetProcess()">
+		<NcButton :disabled="!hasKey || shouldDisplayWarning"
+			:type="(hasKey && !shouldDisplayWarning) ? 'error' : 'secondary'"
+			@click="startResetProcess()">
 			{{ t('end_to_end_encryption', 'Reset end-to-end encryption') }}
 		</NcButton>
 
@@ -23,30 +25,9 @@
 				{{ t('end_to_end_encryption', 'Delete existing encrypted files') }}
 			</NcCheckboxRadioSwitch>
 
-			<NcButton type="error" @click="showModal">
+			<NcButton type="error" @click="showDialog">
 				{{ t('end_to_end_encryption', "Confirm and reset end-to-end encryption") }}
 			</NcButton>
-
-			<NcModal v-if="modal"
-				size="small"
-				class="modal"
-				@close="closeModal">
-				<div class="modal-container">
-					<p>
-						<strong>
-							{{ t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?') }}
-						</strong>
-					</p>
-					<div class="button-row">
-						<NcButton type="tertiary" @click="closeModal">
-							{{ t('end_to_end_encryption', "Cancel") }}
-						</NcButton>
-						<NcButton type="error" @click="resetEncryption">
-							{{ t('end_to_end_encryption', "Confirm") }}
-						</NcButton>
-					</div>
-				</div>
-			</NcModal>
 		</div>
 	</NcSettingsSection>
 </template>
@@ -56,9 +37,8 @@ import axios from '@nextcloud/axios'
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import { loadState } from '@nextcloud/initial-state'
-import { showError, showSuccess } from '@nextcloud/dialogs'
+import { showError, showSuccess, DialogBuilder } from '@nextcloud/dialogs'
 import { generateOcsUrl } from '@nextcloud/router'
 
 import logger from '../services/logger.js'
@@ -68,23 +48,43 @@ export default {
 	components: {
 		NcSettingsSection,
 		NcButton,
-		NcModal,
 		NcCheckboxRadioSwitch,
 	},
+
 	data() {
 		return {
 			hasKey: loadState('end_to_end_encryption', 'hasKey'),
 			shouldDisplayWarning: false,
-			modal: false,
 			deleteEncryptedFiles: false,
 		}
 	},
+
 	computed: {
+		confirmationDialog() {
+			const builder = new DialogBuilder()
+			return builder
+				.setName(t('end_to_end_encryption', 'Confirm resetting keys'))
+				.setText(t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?'))
+				.addButton({
+					label: t('end_to_end_encryption', 'Cancel'),
+					type: 'tertiary',
+					callback: () => {
+						this.deleteEncryptedFiles = false
+						this.shouldDisplayWarning = false
+					},
+				})
+				.addButton({
+					label: t('end_to_end_encryption', 'Reset keys'),
+					type: 'error',
+					callback: this.resetEncryption.bind(this),
+				})
+				.build()
+		},
 		encryptionState() {
 			if (this.hasKey) {
 				return t(
 					'end_to_end_encryption',
-					'End-to-end encryption is currently enabled and correctly setup.'
+					'End-to-end encryption is currently enabled and correctly setup.',
 				)
 			} else {
 				return t(
@@ -94,24 +94,22 @@ export default {
 						productName: OCA.Theming
 							? OCA.Theming.name
 							: 'Nextcloud',
-					}
+					},
 				)
 			}
 		},
 	},
 	methods: {
+		showDialog() {
+			this.confirmationDialog
+				.show()
+		},
 		startResetProcess() {
 			this.shouldDisplayWarning = true
 		},
-		showModal() {
-			this.modal = true
-		},
-		closeModal() {
-			this.modal = false
-		},
 		async deletePrivateKey() {
 			const { data } = await axios.delete(
-				generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key')
+				generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'),
 			)
 
 			return this.handleResponse({
@@ -121,7 +119,7 @@ export default {
 		},
 		async deletePublicKey() {
 			const { data } = await axios.delete(
-				generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key')
+				generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'),
 			)
 
 			return this.handleResponse({
@@ -133,8 +131,8 @@ export default {
 			if (this.deleteEncryptedFiles) {
 				const { data } = await axios.delete(
 					generateOcsUrl(
-						'/apps/end_to_end_encryption/api/v1/encrypted-files'
-					)
+						'/apps/end_to_end_encryption/api/v1/encrypted-files',
+					),
 				)
 
 				return this.handleResponse({
@@ -155,20 +153,19 @@ export default {
 					showSuccess(
 						t(
 							'end_to_end_encryption',
-							'End-to-end encryption keys reset'
-						)
+							'End-to-end encryption keys reset',
+						),
 					)
 				}
 			} catch (e) {
 				this.handleResponse({
 					errorMessage: t(
 						'end_to_end_encryption',
-						'Unable to reset end-to-end encryption'
+						'Unable to reset end-to-end encryption',
 					),
 					error: e,
 				})
 			} finally {
-				this.closeModal()
 				this.shouldDisplayWarning = false
 				this.hasKey = false
 			}

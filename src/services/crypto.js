@@ -25,7 +25,7 @@ export async function getRandomAESKey() {
 			length: 128,
 		},
 		true,
-		['encrypt', 'decrypt']
+		['encrypt', 'decrypt'],
 	)
 }
 
@@ -115,7 +115,7 @@ async function importPublicKey(pem) {
 			hash: 'SHA-256',
 		},
 		true,
-		['encrypt']
+		['encrypt'],
 	)
 }
 
@@ -128,6 +128,6 @@ export async function encryptStringAsymmetric(publicKey, buffer) {
 	return await window.crypto.subtle.encrypt(
 		{ name: 'RSA-OAEP' },
 		await importPublicKey(publicKey),
-		buffer
+		buffer,
 	)
 }

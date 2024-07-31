@@ -13,6 +13,7 @@ updates:
 
 - package-ecosystem: npm
   directory: "/"
+  versioning-strategy: increase
   schedule:
     interval: weekly
     day: saturday
@@ -31,6 +32,7 @@ updates:
     time: "03:00"
     timezone: Europe/Paris
   target-branch: stable29
+  versioning-strategy: increase
   labels:
     - "3. to review"
     - "dependencies"
@@ -47,6 +49,7 @@ updates:
     time: "03:00"
     timezone: Europe/Paris
   target-branch: stable28
+  versioning-strategy: increase
   labels:
     - "3. to review"
     - "dependencies"

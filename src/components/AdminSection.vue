@@ -5,28 +5,25 @@
   -->
 
 <template>
-	<NcSettingsSection :title="t('end_to_end_encryption', 'End-to-End Encryption')" class="admin-e2ee">
+	<NcSettingsSection :name="t('end_to_end_encryption', 'End-to-End Encryption')" class="admin-e2ee">
 		<h3>{{ t('end_to_end_encryption', 'Limit to groups') }}</h3>
 		<p class="settings-hint">
 			{{ t('end_to_end_encryption', 'When at least one group is selected, only people of the listed groups can use the End-to-End encryption app.') }}
 		</p>
-		<NcMultiselect v-model="allowedGroups"
-			class="allowed-groups"
-			:options="groups"
-			:placeholder="t('end_to_end_encryption', 'Limit app usage to groups.')"
+		<NcSelect v-model="allowedGroups"
+			class="admin-e2ee__group-select"
 			:disabled="loading"
-			:multiple="true"
-			:searchable="true"
-			:tag-width="60"
-			track-by="id"
+			:input-label="t('end_to_end_encryption', 'Limit app usage to groups')"
 			label="displayname"
 			:loading="loadingGroups"
-			:show-no-options="false"
-			:close-on-select="false"
+			:options="groups"
+			multiple
+			searchable
 			@search-change="searchGroup" />
 
-		<NcButton type="primary"
+		<NcButton class="admin-e2ee__save-button"
 			:loading="loading"
+			type="primary"
 			@click="saveChanges">
 			{{ t('end_to_end_encryption', 'Save') }}
 		</NcButton>
@@ -35,9 +32,9 @@
 
 <script>
 import axios from '@nextcloud/axios'
-import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
-import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import { loadState } from '@nextcloud/initial-state'
 import { showSuccess } from '@nextcloud/dialogs'
 import { generateOcsUrl } from '@nextcloud/router'
@@ -52,9 +49,9 @@ const logger = getLoggerBuilder()
 export default {
 	name: 'AdminSection',
 	components: {
-		NcMultiselect,
-		NcSettingsSection,
 		NcButton,
+		NcSelect,
+		NcSettingsSection,
 	},
 	data() {
 		return {
@@ -111,17 +108,18 @@ export default {
 }
 </script>
 
-<style lang="scss" scopped>
-h3 {
-	margin-top: 0;
-	font-size: 18px;
-}
+<style scoped lang="scss">
+.admin-e2ee {
+	&__headline {
+		margin-block: 0.5em 1em;
+	}
 
-.button-vue {
-	margin-top: 1rem;
-}
+	&__group-select {
+		max-width: 300px;
+	}
 
-.allowed-groups {
-	width: 300px;
+	&__save-button {
+		margin-block-start: 1em;
+	}
 }
 </style>
