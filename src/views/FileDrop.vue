@@ -1,4 +1,3 @@
-
 <!--
   - SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
   - SPDX-License-Identifier: AGPL-3.0-or-later
@@ -9,7 +8,7 @@
 			@dragover.native.prevent="handleDragOver"
 			@dragleave.native="highlightDropZone = false">
 			<div class="uploader-form"
-				:class="{highlight: highlightDropZone}">
+				:class="{ highlight: highlightDropZone }">
 				<div class="uploader-form__label">
 					<div class="uploader-form__icon icon-folder" />
 					{{ t("end_to_end_encryption", "Upload encrypted files to {fileName}", { fileName }) }}
@@ -28,9 +27,9 @@
 					<li v-for="({file, step, error}, index) in uploadedFiles"
 						:key="index"
 						class="uploader-form__file-list__item">
-						<AlertCircle v-if="error" />
-						<Check v-else-if="step === UploadStep.DONE" />
-						<Loading v-else />
+						<IconAlertCircle v-if="error" :size="20" />
+						<IconCheck v-else-if="step === UploadStep.DONE" :size="20" />
+						<NcLoadingIcon v-else />
 						<b>{{ file.name }}</b>
 					</li>
 				</ul>
@@ -40,21 +39,20 @@
 </template>
 
 <script>
-import Loading from 'vue-material-design-icons/Loading'
-import Check from 'vue-material-design-icons/Check'
-import AlertCircle from 'vue-material-design-icons/AlertCircle'
 import { v4 as uuidv4 } from 'uuid'
-
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import { loadState } from '@nextcloud/initial-state'
 import { showError } from '@nextcloud/dialogs'
 import { translate } from '@nextcloud/l10n'
-
-import logger from '../services/logger.js'
 import { encryptFile } from '../services/crypto.js'
 import { uploadFile } from '../services/uploadFile.js'
 import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
+import logger from '../services/logger.js'
+
+import IconCheck from 'vue-material-design-icons/Check.vue'
+import IconAlertCircle from 'vue-material-design-icons/AlertCircle.vue'
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
 
 /**
  * @readonly
@@ -82,9 +80,9 @@ export default {
 	components: {
 		NcContent,
 		NcAppContent,
-		Loading,
-		Check,
-		AlertCircle,
+		NcLoadingIcon,
+		IconCheck,
+		IconAlertCircle,
 	},
 	data() {
 		return {
@@ -151,7 +149,7 @@ export default {
 				progresses = await Promise.all(
 					Array
 						.from(fileList)
-						.map((file) => this.uploadFile(file))
+						.map((file) => this.uploadFile(file)),
 				)
 				logger.debug('[FileDrop] Files uploaded', { progresses })
 			} catch (exception) {

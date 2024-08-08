@@ -71,7 +71,7 @@ export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, sha
 		{
 			encryptionVersion,
 			folderId,
-		}
+		},
 	)
 
 	const { data: { ocs: { meta } } } = await axios.put(

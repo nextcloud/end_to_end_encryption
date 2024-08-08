@@ -1,8 +1,10 @@
 {
+  "private": true,
   "name": "end_to_end_encryption",
   "version": "1.16.0",
   "description": "Provides the necessary endpoint to enable End-to-End encryption.",
-  "private": true,
+  "author": "Nextcloud GmbH and Nextcloud contributors",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --config webpack.js",
     "dev": "NODE_ENV=development webpack --progress --config webpack.js",
@@ -15,36 +17,35 @@
   },
   "dependencies": {
     "@nextcloud/auth": "^2.3.0",
-    "@nextcloud/axios": "^2.4.0",
-    "@nextcloud/dialogs": "^4.1.0",
-    "@nextcloud/initial-state": "^1.2.1",
-    "@nextcloud/l10n": "^1.4.1",
-    "@nextcloud/logger": "^2.2.1",
-    "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^7.6.0",
+    "@nextcloud/axios": "^2.5.0",
+    "@nextcloud/dialogs": "^5.3.5",
+    "@nextcloud/initial-state": "^2.2.0",
+    "@nextcloud/l10n": "^3.1.0",
+    "@nextcloud/logger": "^3.0.2",
+    "@nextcloud/router": "^3.0.1",
+    "@nextcloud/vue": "^8.15.1",
     "@peculiar/x509": "^1.11.0",
-    "debounce": "^1.2.1",
+    "debounce": "^2.1.0",
     "uuid": "^10.0.0",
-    "vue-material-design-icons": "^5.1.2"
+    "vue": "^2.7.16",
+    "vue-material-design-icons": "^5.3.0"
   },
   "devDependencies": {
-    "@nextcloud/babel-config": "^1.0.0",
-    "@nextcloud/browserslist-config": "^2.2.0",
-    "@nextcloud/eslint-config": "^8.0.0",
+    "@nextcloud/babel-config": "^1.2.0",
+    "@nextcloud/browserslist-config": "^3.0.1",
+    "@nextcloud/eslint-config": "^8.4.1",
     "@nextcloud/stylelint-config": "^3.0.1",
-    "@nextcloud/webpack-vue-config": "^5.4.0",
+    "@nextcloud/webpack-vue-config": "^6.0.1",
     "@relative-ci/agent": "^3.1.3",
     "@vue/test-utils": "^2.4.6",
-    "jest": "^28.1.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
     "jest-serializer-vue": "^2.0.2",
     "vue-jest": "^3.0.7"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/nextcloud/end_to_end_encryption/issues"
   },
