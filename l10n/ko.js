@@ -26,7 +26,7 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "종단간 암호화 종단점",
     "Limit to groups" : "그룹으로 제한",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "그룹을 하나 이상 선택할 경우, 선택한 그룹의 구성원만 종단간 암호화 앱을 사용할 수 있습니다.",
-    "Limit app usage to groups." : "앱 사용을 그룹으로 제한합니다.",
+    "Limit app usage to groups" : "앱 사용을 그룹으로 제한합니다.",
     "Save" : "저장",
     "Saved groups" : "저장된 그룹",
     "End-to-end encryption" : "종단간 암호화",
@@ -38,10 +38,12 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "키가 제거되면 연결된 기기에서 문제가 발생할 수 있습니다. 따라서, 연결 해제 후 기기를 다시 연결하십시오.",
     "Delete existing encrypted files" : "현재 암호화된 파일 제거",
     "This is the final warning: Do you really want to reset your keys?" : "마지막 경고입니다! - 키를 초기화하시겠습니까?",
+    "Cancel" : "취소",
     "End-to-end encryption is currently enabled and correctly setup." : "현재 종단간 암호화가 활성화되었으며, 올바르게 설정되어 있습니다.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "종단간 암호화가 현재 비활성화 상태입니다. {productName} 클라이언트를 통해 이를 설정할 수 있습니다.",
     "End-to-end encryption keys reset" : "종단간 암호화 키 초기화",
     "Unable to reset end-to-end encryption" : "종단간 암호화 키를 초기화할 수 없음",
-    "Select or drop files" : "파일을 선택하거나 끌어다 놓기"
+    "Select or drop files" : "파일을 선택하거나 끌어다 놓기",
+    "Limit app usage to groups." : "앱 사용을 그룹으로 제한합니다."
 },
 "nplurals=1; plural=0;");

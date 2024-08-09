@@ -24,10 +24,12 @@ OC.L10N.register(
     "End-to-End Encryption" : "Critografia a nodu terminale",
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale",
     "Limit to groups" : "Lìmita a grupos",
-    "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos.",
+    "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Save" : "Sarva",
     "End-to-end encryption" : "Tzifradura end-to-end",
+    "Cancel" : "Annulla",
     "Select or drop files" : "Sèbera o iscapa archìvios",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Frunit su puntu finale netzessàriu pro ativare sa critografia a nodu terminale."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Frunit su puntu finale netzessàriu pro ativare sa critografia a nodu terminale.",
+    "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos."
 },
 "nplurals=2; plural=(n != 1);");

@@ -28,7 +28,7 @@
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Предоставляет необходимую конечную точку для включения сквозного шифрования.\n\n**Примечание.** E2EE в настоящее время несовместим с шифрованием на стороне сервера.",
     "Limit to groups" : "Разрешить использование только участникам этих групп",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Если выбрана хотя бы одна группа, только люди из перечисленных групп могут использовать приложение Сквозного шифрования.",
-    "Limit app usage to groups." : "Разрешить использование только участникам этих групп.",
+    "Limit app usage to groups" : "Разрешить использовать приложение только участникам этих групп",
     "Save" : "Сохранить",
     "Saved groups" : "Сохранённые группы",
     "End-to-end encryption" : "Сквозное шифрование",
@@ -40,6 +40,7 @@
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Любое все еще подключенное устройство может вызвать проблемы после удаления ключей, поэтому лучше отключить и снова подключить устройства.",
     "Delete existing encrypted files" : "Удалить существующие зашифрованные файлы",
     "This is the final warning: Do you really want to reset your keys?" : "Это последнее предупреждение: Вы действительно хотите сбросить свои ключи?",
+    "Cancel" : "Отмена",
     "End-to-end encryption is currently enabled and correctly setup." : "Сквозное шифрование в настоящее время включено и правильно настроено.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Сквозное шифрование в настоящее время отключено. Вы можете настроить его с помощью {productName} клиентов.",
     "End-to-end encryption keys reset" : "Сброс ключей Сквозного шифрования",
@@ -49,6 +50,7 @@
     "Error while uploading metadata" : "Ошибка при загрузке метаданных",
     "Upload encrypted files to {fileName}" : "Загрузить зашифрованные файлы в {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Представляет необходимую конечную точку для использования сквозного шифрования.",
+    "Limit app usage to groups." : "Разрешить использование только участникам этих групп.",
     "Could not lock the folder" : "Не удалось заблокировать папку",
     "Error while unlocking the folder" : "Ошибка при разблокировке папки"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"

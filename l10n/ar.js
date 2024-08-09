@@ -33,7 +33,6 @@ OC.L10N.register(
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "يوفر نقطة النهاية اللازمة لتمكين التشفير من طرف إلى طرف. ** ملاحظة: ** التشفير الثنائي من طرف إلى طرف \"E2EE\" غير متوافق حاليًا ليتم استخدامه مع التشفير من جانب الخادم",
     "Limit to groups" : "مقتصرٌ على المجموعات groups",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "عند تحديد مجموعة واحدة على الأقل، يمكن لأفراد المجموعات المدرجة فقط استخدام تطبيق التشفير من الحدّ للحدّ E2EE.",
-    "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات.",
     "Save" : "حفظ",
     "Saved groups" : "مجموعات محفوظة",
     "End-to-end encryption" : "التشفير من الحدّ للحدّ E2EE",
@@ -54,6 +53,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "خطأ خلال رفع البيانات الوصفية metadata",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "يُوفّر نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE",
+    "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات.",
     "Could not lock the folder" : "تعذّر قفل المجلد",
     "Error while unlocking the folder" : "خطأ خلال فك قفل unlocking المجلد",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"

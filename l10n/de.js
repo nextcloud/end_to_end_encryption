@@ -30,7 +30,7 @@ OC.L10N.register(
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Stellt den erforderlichen Endpunkt bereit, um Ende-zu-Ende-Verschlüsselung zu ermöglichen.\n\n**Hinweis:** E2EE kann aktuell nicht zusammen mit serverseitiger Verschlüsselung verwendet werden",
     "Limit to groups" : "Auf Gruppen beschränken",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Wenn mindestens eine Gruppe ausgewählt ist, können nur Personen der aufgelisteten Gruppen die Ende-zu-Ende-Verschlüsselungs-App benutzen.",
-    "Limit app usage to groups." : "App-Verwendung auf Gruppen beschränken.",
+    "Limit app usage to groups" : "App-Verwendung auf Gruppen beschränken",
     "Save" : "Speichern",
     "Saved groups" : "Gespeicherte Gruppen",
     "End-to-end encryption" : "Ende-zu-Ende-Verschlüsselung",
@@ -51,6 +51,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
+    "Limit app usage to groups." : "App-Verwendung auf Gruppen beschränken.",
     "Could not lock the folder" : "Ordner konnte nicht gesperrt werden",
     "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners"
 },
