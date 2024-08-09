@@ -24,10 +24,11 @@ OC.L10N.register(
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
     "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
     "Limit to groups" : "Περιορισμός σε ομάδες",
-    "Limit app usage to groups." : "Περιορισμός χρήσης της εφαρμογής σε ομάδες.",
+    "Limit app usage to groups" : "Περιορίστε τη χρήση της εφαρμογής σε ομάδες",
     "Save" : "Αποθήκευση",
     "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
     "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο.",
+    "Limit app usage to groups." : "Περιορισμός χρήσης της εφαρμογής σε ομάδες."
 },
 "nplurals=2; plural=(n != 1);");

@@ -27,7 +27,7 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
     "Limit to groups" : "Povoľ len pre skupiny",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Keď je vybratá aspoň jedna skupina, aplikáciu End-to-End šifrovanie môžu používať iba ľudia z uvedených skupín.",
-    "Limit app usage to groups." : "Obmedziť používanie aplikácie na skupiny.",
+    "Limit app usage to groups" : "Obmedziť používanie aplikácií pre skupiny",
     "Save" : "Uložiť",
     "Saved groups" : "Uložené skupiny",
     "End-to-end encryption" : "Šifrovanie end-to-end",
@@ -36,7 +36,9 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Akékoľvek stále pripojené zariadenie môže po odstránení kľúčov spôsobovať problémy, preto je lepšie zariadenia odpojiť a znova pripojiť.",
     "Delete existing encrypted files" : "Zmazať existujúce šifrované súbory",
     "This is the final warning: Do you really want to reset your keys?" : "Toto je posledné varovanie: Naozaj chcete resetovať svoje kľúče?",
+    "Cancel" : "Zrušiť",
     "Select or drop files" : "Vyberte alebo položte súbory",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje potrebný koncový bod na povolenie šifrovania medzi koncovými bodmi."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje potrebný koncový bod na povolenie šifrovania medzi koncovými bodmi.",
+    "Limit app usage to groups." : "Obmedziť používanie aplikácie na skupiny."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

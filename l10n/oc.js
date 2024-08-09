@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "End-to-End Encryption" : "Chiframent del cap a la fin",
     "Limit to groups" : "Limitar als grops",
-    "Save" : "Enregistrar"
+    "Save" : "Enregistrar",
+    "Cancel" : "Anullar"
 },
 "nplurals=2; plural=(n > 1);");

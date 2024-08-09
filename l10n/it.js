@@ -24,10 +24,12 @@ OC.L10N.register(
     "End-to-End Encryption" : "Cifratura End-To-End",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
     "Limit to groups" : "Limita a gruppi",
-    "Limit app usage to groups." : "Limita utilizzo delle applicazioni a gruppi.",
+    "Limit app usage to groups" : "Limita l'utilizzo dell'applicazione a gruppi",
     "Save" : "Salva",
     "End-to-end encryption" : "Cifratura End-To-End",
+    "Cancel" : "Annulla",
     "Select or drop files" : "Seleziona o deseleziona file",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornisce il terminatore necessario per abilitare la crittografia end-to-end."
+    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornisce il terminatore necessario per abilitare la crittografia end-to-end.",
+    "Limit app usage to groups." : "Limita utilizzo delle applicazioni a gruppi."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
