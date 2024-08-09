@@ -24,8 +24,10 @@ OC.L10N.register(
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
     "Limit to groups" : "Limitar a grupos",
+    "Limit app usage to groups" : "Limitar el uso de aplicaciones a grupos",
     "Save" : "Guardar",
     "End-to-end encryption" : "Encripción de punta-a-punta",
+    "Cancel" : "Cancelar",
     "Select or drop files" : "Selecciona o suelta los archivos",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el endpoint para habilitar en cifrado de punto a punto."
 },

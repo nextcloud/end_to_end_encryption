@@ -22,11 +22,13 @@ OC.L10N.register(
     "End-to-End Encryption" : "Päästä päähän -salaus",
     "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste",
     "Limit to groups" : "Rajoita ryhmiin",
-    "Limit app usage to groups." : "Rajoita sovelluksen käyttö ryhmiin.",
+    "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",
     "Save" : "Tallenna",
     "Saved groups" : "Tallennetut ryhmät",
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
-    "Select or drop files" : "Valitse tai pudota tiedostoja"
+    "Cancel" : "Peruuta",
+    "Select or drop files" : "Valitse tai pudota tiedostoja",
+    "Limit app usage to groups." : "Rajoita sovelluksen käyttö ryhmiin."
 },
 "nplurals=2; plural=(n != 1);");

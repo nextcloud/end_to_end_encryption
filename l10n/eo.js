@@ -18,6 +18,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "Tutvoja ĉifrado",
     "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
     "Limit to groups" : "Limigi al grupoj",
+    "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
     "Save" : "Konservi",
     "Select or drop files" : "Elekti aŭ demeti dosierojn"
 },
