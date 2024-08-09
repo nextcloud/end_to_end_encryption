@@ -29,7 +29,6 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране",
     "Limit to groups" : "Ограничен достъп",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Когато е избрана поне една група, само хората от изброените групи могат да използват приложението за цялостно криптиране.",
-    "Limit app usage to groups." : "Ограничаване използването на приложението от групи.",
     "Save" : "Запиши",
     "Saved groups" : "Записани групи",
     "End-to-end encryption" : "Криптиране",
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Грешка при качване на метаданни",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране.",
+    "Limit app usage to groups." : "Ограничаване използването на приложението от групи.",
     "Could not lock the folder" : "Не можа да се заключи папка",
     "Error while unlocking the folder" : "Грешка при отключването на папка"
 },

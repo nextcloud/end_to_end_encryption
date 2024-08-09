@@ -28,7 +28,7 @@
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Beharrezko amaiera-puntua eskaintzen du muturreko zifratzea gaitzeko.\n\n**Oharra:** E2EE ez da bateragarria zerbitzariaren aldeko zifratzearekin batera erabiltzeko",
     "Limit to groups" : "Mugatu taldeetara",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Gutxienez talde bat hautatuta badago, zerrendatutako taldeetako pertsonek soilik erabili dezakete muturretik muturrerako enkripzio aplikazioa.",
-    "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei.",
+    "Limit app usage to groups" : "Mugatu aplikazioaren erabilera taldeei",
     "Save" : "Gorde",
     "Saved groups" : "Gordetako taldeak",
     "End-to-end encryption" : "Muturretik muturrerako zifratzea",
@@ -40,6 +40,7 @@
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Edozein konektatutako gailuek arazoak sor ditzakete gakoak ezabatu ostean. Hobeto da gailuak deskonektatu eta berriro konektatzea.",
     "Delete existing encrypted files" : "Ezabatu dauden fitxategi enkriptatuak",
     "This is the final warning: Do you really want to reset your keys?" : "Azken abisua da: Benetan zure gakoak berezarri nahi dituzu?",
+    "Cancel" : "Utzi",
     "End-to-end encryption is currently enabled and correctly setup." : "Muturretik muturrerako zifratzea gaituta eta ondo konfiguratuta dago.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Muturretik muturrerako zifratzea desgaituta dago. {productName} bezeroekin konfiguratu dezakezu.",
     "End-to-end encryption keys reset" : "Muturretik muturrerako zifratze gakoak berrezarrita",
@@ -49,6 +50,7 @@
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
     "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko.",
+    "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei.",
     "Could not lock the folder" : "Ezin izan da karpeta blokeatu",
     "Error while unlocking the folder" : "Errore bat gertatu da karpeta desblokeatzean"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
