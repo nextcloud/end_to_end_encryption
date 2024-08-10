@@ -1,0 +1,7 @@
+{ "translations": {
+    "Internal error" : "ข้อผิดพลาดภายใน",
+    "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
+    "Save" : "บันทึก",
+    "Cancel" : "ยกเลิก"
+},"pluralForm" :"nplurals=1; plural=0;"
+}

@@ -19,6 +19,7 @@
     "Save" : "Guardar",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
     "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
+    "Cancel" : "Encaboxar",
     "End-to-end encryption is currently enabled and correctly setup." : "El cifráu d'estremu a estremu ta activáu ya configuráu correutamente.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "El cifráu d'estremu a estremu ta desactiváu. Pues configuralu colos veceros de {productName}.",
     "End-to-end encryption keys reset" : "Reafitáronse les claves del cifráu d'estremu a estremu",
