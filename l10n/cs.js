@@ -42,6 +42,7 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Jakékoli z připojených zařízení může po smazání klíčů způsobovat problémy, takže je lepší zařízení odpojit a připojit znovu zpět.",
     "Delete existing encrypted files" : "Smazat existující šifrované soubory",
     "This is the final warning: Do you really want to reset your keys?" : "Toto je poslední varování: Opravdu chcete resetovat své klíče?",
+    "Cancel" : "Storno",
     "End-to-end encryption is currently enabled and correctly setup." : "Šifrování mezi koncovými body je v tuto chvíli zapnuté a správně nastavené.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
     "End-to-end encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",

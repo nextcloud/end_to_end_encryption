@@ -42,6 +42,7 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Jedes noch angeschlossene Gerät könnte nach dem Löschen der Schlüssel Probleme verursachen, daher ist es besser, die Geräte zu trennen und erneut anzuschließen.",
     "Delete existing encrypted files" : "Vorhandene verschlüsselte Dateien löschen",
     "This is the final warning: Do you really want to reset your keys?" : "Dies ist die letzte Warnung: Willst du deine Schlüssel wirklich zurücksetzen?",
+    "Cancel" : "Abbrechen",
     "End-to-end encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten.",
     "End-to-end encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
