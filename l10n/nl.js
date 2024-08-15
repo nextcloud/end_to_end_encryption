@@ -29,7 +29,6 @@ OC.L10N.register(
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
     "Cancel" : "Annuleren",
     "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Levert de noodzakelijke functionaliteit voor end-to-end versleuteling.",
     "Limit app usage to groups." : "Beperkt gebruik programma tot groepen."
 },
 "nplurals=2; plural=(n != 1);");

@@ -54,10 +54,7 @@
     "Error while uploading files" : "Earráid agus comhaid á n-uaslódáil",
     "Error while uploading metadata" : "Earráid agus meiteashonraí á n-uaslódáil",
     "Upload encrypted files to {fileName}" : "Uaslódáil comhaid chriptithe go {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Soláthraíonn sé an críochphointe riachtanach chun criptiú deireadh go deireadh a chumasú.",
-    "Limit app usage to groups." : "Teorainn úsáid aipeanna go grúpaí.",
-    "Could not lock the folder" : "Níorbh fhéidir an fillteán a ghlasáil",
-    "Error while unlocking the folder" : "Earráid agus an fillteán á dhíghlasáil",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Teorainn úsáid aipeanna go grúpaí."
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"
 }

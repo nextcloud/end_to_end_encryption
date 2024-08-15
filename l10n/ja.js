@@ -54,10 +54,7 @@ OC.L10N.register(
     "Error while uploading files" : "ファイルのアップロード中にエラーが発生しました",
     "Error while uploading metadata" : "メタデータのアップロード中にエラーが発生しました",
     "Upload encrypted files to {fileName}" : "暗号化されたファイルを {fileName} にアップロードします",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "End-to-End 暗号化を有効にするために必要なエンドポイントを提供します。",
-    "Limit app usage to groups." : "アプリの使用をグループに制限する",
-    "Could not lock the folder" : "フォルダーをロックできませんでした",
-    "Error while unlocking the folder" : "フォルダーのロック解除中にエラーが発生しました",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "アプリの使用をグループに制限する"
 },
 "nplurals=1; plural=0;");

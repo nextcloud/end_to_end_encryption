@@ -29,7 +29,6 @@ OC.L10N.register(
     "End-to-end encryption" : "端到端加密",
     "Cancel" : "取消",
     "Select or drop files" : "选择或拖放文件",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端点以启用端到端加密。",
     "Limit app usage to groups." : "限制可使用应用的分组"
 },
 "nplurals=1; plural=0;");

@@ -50,9 +50,6 @@ OC.L10N.register(
     "Error while uploading files" : "Грешка при качване на файлове",
     "Error while uploading metadata" : "Грешка при качване на метаданни",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Предоставя необходимата крайна точка за активиране на цялостно криптиране.",
-    "Limit app usage to groups." : "Ограничаване използването на приложението от групи.",
-    "Could not lock the folder" : "Не можа да се заключи папка",
-    "Error while unlocking the folder" : "Грешка при отключването на папка"
+    "Limit app usage to groups." : "Ограничаване използването на приложението от групи."
 },
 "nplurals=2; plural=(n != 1);");

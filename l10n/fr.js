@@ -54,10 +54,7 @@ OC.L10N.register(
     "Error while uploading files" : "Erreur lors du téléversement du fichier",
     "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées",
     "Upload encrypted files to {fileName}" : "Téléverser des fichiers chiffrés vers {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fournit la terminaison nécessaire pour permettre un chiffrement de bout en bout.",
-    "Limit app usage to groups." : "Limiter l'utilisation de l'application aux groupes.",
-    "Could not lock the folder" : "Impossible de verrouiller le dossier",
-    "Error while unlocking the folder" : "Erreur lors du déverrouillage du dossier",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Limiter l'utilisation de l'application aux groupes."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

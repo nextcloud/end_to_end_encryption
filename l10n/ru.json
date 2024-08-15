@@ -49,9 +49,6 @@
     "Error while uploading files" : "Ошибка при загрузке файлов",
     "Error while uploading metadata" : "Ошибка при загрузке метаданных",
     "Upload encrypted files to {fileName}" : "Загрузить зашифрованные файлы в {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Представляет необходимую конечную точку для использования сквозного шифрования.",
-    "Limit app usage to groups." : "Разрешить использование только участникам этих групп.",
-    "Could not lock the folder" : "Не удалось заблокировать папку",
-    "Error while unlocking the folder" : "Ошибка при разблокировке папки"
+    "Limit app usage to groups." : "Разрешить использование только участникам этих групп."
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

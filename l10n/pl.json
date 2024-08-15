@@ -47,9 +47,6 @@
     "Error while uploading files" : "Błąd podczas przesyłania plików",
     "Error while uploading metadata" : "Błąd podczas przesyłania metadanych",
     "Upload encrypted files to {fileName}" : "Prześlij zaszyfrowane pliki do {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Zapewnia ustawienie niezbędnego punktu końcowego, aby umożliwić szyfrowanie end-to-end.",
-    "Limit app usage to groups." : " Ogranicz wykorzystanie aplikacji do wybranych grup.",
-    "Could not lock the folder" : "Nie udało się zablokować folderu",
-    "Error while unlocking the folder" : "Błąd podczas odblokowywania folderu"
+    "Limit app usage to groups." : " Ogranicz wykorzystanie aplikacji do wybranych grup."
 },"pluralForm" :"nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"
 }
