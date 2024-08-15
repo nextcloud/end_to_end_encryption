@@ -56,10 +56,7 @@ OC.L10N.register(
     "Error while uploading files" : "Error while uploading files",
     "Error while uploading metadata" : "Error while uploading metadata",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Provides the necessary endpoint to enable end-to-end encryption.",
-    "Limit app usage to groups." : "Limit app usage to groups.",
-    "Could not lock the folder" : "Could not lock the folder",
-    "Error while unlocking the folder" : "Error while unlocking the folder",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Limit app usage to groups."
 },
 "nplurals=2; plural=(n != 1);");

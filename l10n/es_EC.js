@@ -51,9 +51,6 @@ OC.L10N.register(
     "Error while uploading files" : "Error al cargar archivos",
     "Error while uploading metadata" : "Error al cargar los metadatos",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo.",
-    "Limit app usage to groups." : "Limitar el uso de la aplicación a grupos.",
-    "Could not lock the folder" : "No se pudo bloquear la carpeta",
-    "Error while unlocking the folder" : "Error al desbloquear la carpeta"
+    "Limit app usage to groups." : "Limitar el uso de la aplicación a grupos."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

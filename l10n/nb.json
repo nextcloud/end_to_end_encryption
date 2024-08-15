@@ -52,10 +52,7 @@
     "Error while uploading files" : "Feil under opplasting av filer",
     "Error while uploading metadata" : "Feil under opplasting av metadata",
     "Upload encrypted files to {fileName}" : "Last opp krypterte filer til {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Gir det nødvendige endepunktet for å aktivere ende-til-ende-kryptering.",
-    "Limit app usage to groups." : "Begrens app-bruk til grupper",
-    "Could not lock the folder" : "Kunne ikke låse mappen",
-    "Error while unlocking the folder" : "Feil under opplåsing av mappen",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Begrens app-bruk til grupper"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

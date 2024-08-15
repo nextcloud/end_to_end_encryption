@@ -27,7 +27,6 @@
     "End-to-end encryption" : "Celovito šifriranje E2E",
     "Cancel" : "Prekliči",
     "Select or drop files" : "Izberite ali povlecite datoteke",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Omogoča obvezne končne točke za celovito šifriranje.",
     "Limit app usage to groups." : "Omeji uporabo programov za skupine."
 },"pluralForm" :"nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);"
 }

@@ -24,7 +24,6 @@ OC.L10N.register(
     "End-to-end encryption" : "הצפנה מקצה לקצה",
     "Cancel" : "ביטול",
     "Select or drop files" : "בחירה או השלכה של קבצים",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "מספק את נקודת הקצה הנוכחית כדי להפעיל הצפנה מקצה לקצה.",
     "Limit app usage to groups." : "להגביל את השימוש ביישומון לקבוצות."
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

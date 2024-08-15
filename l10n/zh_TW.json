@@ -54,10 +54,7 @@
     "Error while uploading files" : "上傳檔案時發生錯誤",
     "Error while uploading metadata" : "上傳詮釋資料時發生錯誤",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。",
-    "Limit app usage to groups." : "限制群組的使用率:",
-    "Could not lock the folder" : "無法鎖定資料夾",
-    "Error while unlocking the folder" : "解除鎖定資料時發生錯誤",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "限制群組的使用率:"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

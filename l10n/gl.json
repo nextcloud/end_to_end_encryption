@@ -54,10 +54,7 @@
     "Error while uploading files" : "Produciuse un erro ao enviar os ficheiros",
     "Error while uploading metadata" : "Produciuse un erro ao enviar os metadatos",
     "Upload encrypted files to {fileName}" : "Enviar ficheiros cifrados a {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Fornece o punto final necesario para activar o cifrado de extremo a extremo.",
-    "Limit app usage to groups." : "Limitar o uso de aplicacións a grupos",
-    "Could not lock the folder" : "Non foi posíbel bloquear o cartafol",
-    "Error while unlocking the folder" : "Produciuse un erro ao desbloquear o cartafol",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Limitar o uso de aplicacións a grupos"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

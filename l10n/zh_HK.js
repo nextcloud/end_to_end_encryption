@@ -56,10 +56,7 @@ OC.L10N.register(
     "Error while uploading files" : "上傳檔案時發生錯誤",
     "Error while uploading metadata" : "上元數據像時發生錯誤",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "提供必要的端點以啟用端到端加密。",
-    "Limit app usage to groups." : "將應用程式使用限制為群組。",
-    "Could not lock the folder" : "無法鎖上資料夾",
-    "Error while unlocking the folder" : "解鎖資料夾時發生錯誤",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "將應用程式使用限制為群組。"
 },
 "nplurals=1; plural=0;");

@@ -56,10 +56,7 @@ OC.L10N.register(
     "Error while uploading files" : "خطأ أثناء رفع الملفات",
     "Error while uploading metadata" : "خطأ خلال رفع البيانات الوصفية metadata",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "يُوفّر نقطة حدّية endpoint للتشفير من الحدّ للحد E2EE",
-    "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات.",
-    "Could not lock the folder" : "تعذّر قفل المجلد",
-    "Error while unlocking the folder" : "خطأ خلال فك قفل unlocking المجلد",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات."
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");
