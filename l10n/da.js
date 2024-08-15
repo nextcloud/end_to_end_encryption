@@ -29,7 +29,6 @@ OC.L10N.register(
     "End-to-end encryption" : "End-to-end kryptering",
     "Cancel" : "Annullér",
     "Select or drop files" : "Vælg eller slip filer",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Giver det nødvendige slutpunkt for at aktivere ende-til-ende-kryptering.",
     "Limit app usage to groups." : "Begræns app-brug til grupper."
 },
 "nplurals=2; plural=(n != 1);");

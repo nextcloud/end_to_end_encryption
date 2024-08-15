@@ -28,9 +28,6 @@
     "Error while uploading files" : "Hebo un error al xubir los ficheros",
     "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
     "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Forne'l puntu d'entrada necesariu p'activar el cifráu d'estremu a estremu.",
-    "Could not lock the folder" : "Nun se pudo bloquiar la carpeta",
-    "Error while unlocking the folder" : "Hebo un error mentanto se desbloquiaba la carpeta",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

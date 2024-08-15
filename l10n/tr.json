@@ -54,10 +54,7 @@
     "Error while uploading files" : "Dosyalar yüklenirken sorun çıktı",
     "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Uçtan uca şifreleme için gerekli olan uç noktayı sağlar.",
-    "Limit app usage to groups." : "Uygulamayı belirli gruplar kullanabilsin.",
-    "Could not lock the folder" : "Klasör kilitlenemedi",
-    "Error while unlocking the folder" : "Klasörün kilidi açılırken sorun çıktı",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Uygulamayı belirli gruplar kullanabilsin."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -27,7 +27,6 @@
     "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
     "Cancel" : "Ακύρωση",
     "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Παρέχει τα απαραίτητα για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο.",
     "Limit app usage to groups." : "Περιορισμός χρήσης της εφαρμογής σε ομάδες."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

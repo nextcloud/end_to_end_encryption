@@ -51,9 +51,6 @@ OC.L10N.register(
     "Error while uploading files" : "Errore bat gertatu da fitxategiak igotzean",
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Ematen du beharrezko amaiera-puntua muturretik muturrerako enkriptatzea gaitzeko.",
-    "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei.",
-    "Could not lock the folder" : "Ezin izan da karpeta blokeatu",
-    "Error while unlocking the folder" : "Errore bat gertatu da karpeta desblokeatzean"
+    "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei."
 },
 "nplurals=2; plural=(n != 1);");

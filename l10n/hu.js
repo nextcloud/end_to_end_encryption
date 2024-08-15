@@ -50,9 +50,6 @@ OC.L10N.register(
     "Error while uploading files" : "Hiba a fájlok feltöltése során",
     "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
     "Upload encrypted files to {fileName}" : "Titkosított fájlok feltöltése a következőbe: {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "A végpontok közötti titkosítás lehetővé tételéhez szükséges végpontot biztosítja.",
-    "Limit app usage to groups." : "Az alkalmazás használatának csoportokra korlátozása.",
-    "Could not lock the folder" : "Nem sikerült a mappa zárolása",
-    "Error while unlocking the folder" : "Hiba a mappa zárolásának feloldása során"
+    "Limit app usage to groups." : "Az alkalmazás használatának csoportokra korlátozása."
 },
 "nplurals=2; plural=(n != 1);");
