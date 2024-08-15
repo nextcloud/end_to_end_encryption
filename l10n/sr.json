@@ -52,10 +52,7 @@
     "Error while uploading files" : "Грешка приликом отпремања фајлова",
     "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Обезбеђује неопходне крајње тачке да се укључи шифровање са краја на крај.",
-    "Limit app usage to groups." : "Ограничи коришћење апликације на групе.",
-    "Could not lock the folder" : "Не може да се закључа фолдер",
-    "Error while unlocking the folder" : "Грешка приликом откључавања фолдера",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Ограничи коришћење апликације на групе."
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }

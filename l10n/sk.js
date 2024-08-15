@@ -38,7 +38,6 @@ OC.L10N.register(
     "This is the final warning: Do you really want to reset your keys?" : "Toto je posledné varovanie: Naozaj chcete resetovať svoje kľúče?",
     "Cancel" : "Zrušiť",
     "Select or drop files" : "Vyberte alebo položte súbory",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Poskytuje potrebný koncový bod na povolenie šifrovania medzi koncovými bodmi.",
     "Limit app usage to groups." : "Obmedziť používanie aplikácie na skupiny."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

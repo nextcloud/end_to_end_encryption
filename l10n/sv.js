@@ -56,10 +56,7 @@ OC.L10N.register(
     "Error while uploading files" : "Fel vid uppladdning av filer",
     "Error while uploading metadata" : "Fel vid uppladdning av metadata",
     "Upload encrypted files to {fileName}" : "Ladda upp krypterade filer till {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Tillhandahåller den nödvändiga endpointen för att möjliggöra end-to-end-kryptering.",
-    "Limit app usage to groups." : "Begränsa appanvändning till grupper.",
-    "Could not lock the folder" : "Kunde inte låsa mappen",
-    "Error while unlocking the folder" : "Fel vid upplåsning av mappen",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "Begränsa appanvändning till grupper."
 },
 "nplurals=2; plural=(n != 1);");

@@ -22,7 +22,6 @@
     "End-to-end encryption" : "Enda-í-enda dulritun",
     "Cancel" : "Hætta við",
     "Select or drop files" : "Veldu eða slepptu skrám",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Gefur nauðsynlegan tengipunkt fyrir enda-í-enda dulritun.",
     "Limit app usage to groups." : "Takmarka notkun forrits við tiltekna hópa."
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }

@@ -51,9 +51,6 @@ OC.L10N.register(
     "Error while uploading files" : "S'ha produït un error en penjar fitxers",
     "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
     "Upload encrypted files to {fileName}" : "Pujada de fitxers xifrats a {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Proporciona el punt d’entrada necessari per habilitar el xifratge d'extrem a extrem.",
-    "Limit app usage to groups." : "Limita l'ús de l'aplicació només pels grups.",
-    "Could not lock the folder" : "No s'ha pogut bloquejar la carpeta",
-    "Error while unlocking the folder" : "S'ha produït un error en desbloquejar la carpeta"
+    "Limit app usage to groups." : "Limita l'ús de l'aplicació només pels grups."
 },
 "nplurals=2; plural=(n != 1);");

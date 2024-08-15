@@ -56,10 +56,7 @@ OC.L10N.register(
     "Error while uploading files" : "Fehler beim Hochladen von Dateien",
     "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption." : "Stellt den erforderlichen Endpunkt bereit, um die Ende-zu-Ende-Verschlüsselung zu aktivieren.",
-    "Limit app usage to groups." : "App-Verwendung auf Gruppen beschränken.",
-    "Could not lock the folder" : "Ordner konnte nicht gesperrt werden",
-    "Error while unlocking the folder" : "Fehler beim Entsperren des Ordners",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Limit app usage to groups." : "App-Verwendung auf Gruppen beschränken."
 },
 "nplurals=2; plural=(n != 1);");
