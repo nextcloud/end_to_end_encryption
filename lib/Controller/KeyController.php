@@ -218,7 +218,7 @@ class KeyController extends OCSController {
 		} catch (KeyExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (Exception $e) {
-			$this->logger->error("Fail to set user public key", ['exception' => $e, 'app' => $this->appName]);
+			$this->logger->error('Fail to set user public key', ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 

@@ -31,7 +31,7 @@ class Personal implements ISettings {
 	}
 
 	public function getForm(): TemplateResponse {
-		assert($this->userId !== null, "We are always logged in inside the setting app");
+		assert($this->userId !== null, 'We are always logged in inside the setting app');
 
 		$hasKey = $this->keyStorage->publicKeyExists($this->userId)
 			&& $this->keyStorage->privateKeyExists($this->userId);
@@ -40,7 +40,7 @@ class Personal implements ISettings {
 		return new TemplateResponse(
 			Application::APP_ID,
 			'settings',
-			["canUseApp" => !$this->config->isDisabledForUser($this->userSession->getUser())]
+			['canUseApp' => !$this->config->isDisabledForUser($this->userSession->getUser())]
 		);
 	}
 

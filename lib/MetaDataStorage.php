@@ -241,16 +241,16 @@ class MetaDataStorage implements IMetaDataStorage {
 			$metadata = $dir->getFile($this->metaDataFileName)->getContent();
 			$decodedMetadata = json_decode($metadata, true);
 
-			if ($decodedMetadata['metadata']['version'] === "1.2") {
-				return "";
+			if ($decodedMetadata['metadata']['version'] === '1.2') {
+				return '';
 			}
 
 			if ($decodedMetadata['metadata']['version'] === 1.2) {
-				return "";
+				return '';
 			}
 
 			if ($decodedMetadata['metadata']['version'] === 1) {
-				return "";
+				return '';
 			}
 
 			throw $ex;
@@ -294,7 +294,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	protected function verifyOwner(string $userId, int $id): void {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
-		} catch (NoUserException | NotPermittedException $ex) {
+		} catch (NoUserException|NotPermittedException $ex) {
 			throw new NotFoundException('No user-root for '. $userId);
 		}
 
@@ -349,7 +349,7 @@ class MetaDataStorage implements IMetaDataStorage {
 		try {
 			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
 			$legacyFolder->delete();
-		} catch (NotFoundException | NotPermittedException $e) {
+		} catch (NotFoundException|NotPermittedException $e) {
 			return;
 		}
 	}

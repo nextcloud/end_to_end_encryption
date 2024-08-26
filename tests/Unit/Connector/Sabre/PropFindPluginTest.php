@@ -49,7 +49,7 @@ class PropFindPluginTest extends TestCase {
 	/** @var UserAgentManager|\PHPUnit\Framework\MockObject\MockObject */
 	private $userAgentManager;
 
-	/** @var  IRequest|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
 	private $request;
 
 	/** @var Server|\PHPUnit\Framework\MockObject\MockObject */
@@ -83,11 +83,11 @@ class PropFindPluginTest extends TestCase {
 		$server = $this->createMock(Server::class);
 
 		$server->expects($this->atLeast(2))
-		 ->method('on')
-		 ->withConsecutive(
-		 	['afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50],
-		 	['propFind', [$this->plugin, 'updateProperty'], 105],
-		 );
+			->method('on')
+			->withConsecutive(
+				['afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50],
+				['propFind', [$this->plugin, 'updateProperty'], 105],
+			);
 
 		$this->plugin->initialize($server);
 	}

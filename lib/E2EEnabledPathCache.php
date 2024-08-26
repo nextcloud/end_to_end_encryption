@@ -68,7 +68,7 @@ class E2EEnabledPathCache {
 		}
 
 		// walk path backwards while caching each node's state
-		return $this->getEncryptedStates((string) $storage->getCache()->getNumericStorageId(), $node);
+		return $this->getEncryptedStates((string)$storage->getCache()->getNumericStorageId(), $node);
 	}
 
 	/**
