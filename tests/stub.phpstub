@@ -65,6 +65,7 @@ namespace Sabre\DAV {
         public function set(string $key, string $value, int $stuff) {}
         public function getPath(): string {}
         public function setPath(string $string): void {}
+	    public function handle($propertyName, $valueOrCallBack)
     }
 
     class Server {

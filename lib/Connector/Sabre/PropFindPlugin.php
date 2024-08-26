@@ -37,6 +37,8 @@ use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
 
 class PropFindPlugin extends APlugin {
+	public const IS_ENCRYPTED_PROPERTYNAME = '{http://nextcloud.org/ns}is-encrypted';
+
 	private UserAgentManager $userAgentManager;
 	private IRequest $request;
 	protected ?Server $server = null;
@@ -59,7 +61,17 @@ class PropFindPlugin extends APlugin {
 
 		$this->server = $server;
 		$this->server->on('afterMethod:PROPFIND', [$this, 'checkAccess'], 50);
+		$this->server->on('propFind', [$this, 'setEncryptedProperty'], 104);
 		$this->server->on('propFind', [$this, 'updateProperty'], 105);
+	}
+
+	public function setEncryptedProperty(PropFind $propFind, \Sabre\DAV\INode $node) {
+		// Only folders can be e2e encrypted, so we only respond for directories.
+		if ($node instanceof Directory) {
+			$propFind->handle(self::IS_ENCRYPTED_PROPERTYNAME, function () use ($node) {
+				return $node->getFileInfo()->isEncrypted() ? '1' : '0';
+			});
+		}
 	}
 
 	/**
