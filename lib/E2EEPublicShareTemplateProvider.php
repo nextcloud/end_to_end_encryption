@@ -75,17 +75,17 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 		$this->initialState->provideInitialState('encryptionVersion', $metadata['version']);
 
 		// OpenGraph Support: http://ogp.me/
-		Util::addHeader('meta', ['property' => "og:title", 'content' => $this->l10n->t("Encrypted share")]);
-		Util::addHeader('meta', ['property' => "og:description", 'content' => $this->defaults->getName() . ($this->defaults->getSlogan() !== '' ? ' - ' . $this->defaults->getSlogan() : '')]);
-		Util::addHeader('meta', ['property' => "og:site_name", 'content' => $this->defaults->getName()]);
-		Util::addHeader('meta', ['property' => "og:url", 'content' => $this->urlGenerator->linkToRouteAbsolute('files_sharing.sharecontroller.showShare', ['token' => $token])]);
-		Util::addHeader('meta', ['property' => "og:type", 'content' => "object"]);
+		Util::addHeader('meta', ['property' => 'og:title', 'content' => $this->l10n->t('Encrypted share')]);
+		Util::addHeader('meta', ['property' => 'og:description', 'content' => $this->defaults->getName() . ($this->defaults->getSlogan() !== '' ? ' - ' . $this->defaults->getSlogan() : '')]);
+		Util::addHeader('meta', ['property' => 'og:site_name', 'content' => $this->defaults->getName()]);
+		Util::addHeader('meta', ['property' => 'og:url', 'content' => $this->urlGenerator->linkToRouteAbsolute('files_sharing.sharecontroller.showShare', ['token' => $token])]);
+		Util::addHeader('meta', ['property' => 'og:type', 'content' => 'object']);
 
 		$csp = new ContentSecurityPolicy();
 		$csp->addAllowedFrameDomain('\'self\'');
 
 		$response = new PublicTemplateResponse(Application::APP_ID, 'filesdrop', []);
-		$response->setHeaderTitle($this->l10n->t("Encrypted share"));
+		$response->setHeaderTitle($this->l10n->t('Encrypted share'));
 
 		$response->setContentSecurityPolicy($csp);
 		return $response;

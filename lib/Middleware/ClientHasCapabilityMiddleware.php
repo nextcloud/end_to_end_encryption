@@ -71,7 +71,7 @@ class ClientHasCapabilityMiddleware extends Middleware {
 			return;
 		}
 
-		if ($decodedMetadata['metadata']['version'] === "1.2") {
+		if ($decodedMetadata['metadata']['version'] === '1.2') {
 			return;
 		}
 

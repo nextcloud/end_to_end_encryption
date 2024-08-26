@@ -69,7 +69,7 @@ class UserAgentCheckMiddleware extends Middleware {
 			return;
 		}
 
-		if ($this->request->getHeader('x-e2ee-supported') === "true") {
+		if ($this->request->getHeader('x-e2ee-supported') === 'true') {
 			return;
 		}
 

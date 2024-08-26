@@ -87,7 +87,7 @@ class LockPlugin extends APlugin {
 		if (!$this->isFile($url, $node)) {
 			return;
 		}
-		/** @var File|Directory|FutureFile $node*/
+		/** @var File|Directory|FutureFile $node */
 
 		// We don't care if we are not inside an end to end encrypted folder
 		if ($method === 'COPY' || $method === 'MOVE') {

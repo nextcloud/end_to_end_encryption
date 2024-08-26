@@ -59,18 +59,18 @@ class CapabilitiesTest extends TestCase {
 			->willReturn($user);
 		$user
 			->method('getUID')
-			->willReturn("test");
+			->willReturn('test');
 		$this->config->expects($this->once())
 			->method('isDisabledForUser')
 			->with($user)
 			->willReturn(false);
 		$this->keyStorage->expects($this->once())
 			->method('publicKeyExists')
-			->with("test")
+			->with('test')
 			->willReturn(true);
 		$this->keyStorage->expects($this->once())
 			->method('privateKeyExists')
-			->with("test")
+			->with('test')
 			->willReturn(true);
 		$this->assertEquals([
 			'end-to-end-encryption' => [

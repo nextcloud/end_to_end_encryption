@@ -43,22 +43,22 @@ use Test\TestCase;
 
 class EncryptionManagerTest extends TestCase {
 
-	/** @var  IRootFolder|PHPUnit_Framework_MockObject_MockObject */
+	/** @var IRootFolder|PHPUnit_Framework_MockObject_MockObject */
 	private $rootFolderInterface;
 
-	/** @var  Folder|PHPUnit_Framework_MockObject_MockObject */
+	/** @var Folder|PHPUnit_Framework_MockObject_MockObject */
 	private $rootFolder;
 
-	/** @var  IStorage|PHPUnit_Framework_MockObject_MockObject */
+	/** @var IStorage|PHPUnit_Framework_MockObject_MockObject */
 	private $storage;
 
-	/** @var  ICache|PHPUnit_Framework_MockObject_MockObject */
+	/** @var ICache|PHPUnit_Framework_MockObject_MockObject */
 	private $fileCache;
 
-	/** @var  IUserSession|PHPUnit_Framework_MockObject_MockObject */
+	/** @var IUserSession|PHPUnit_Framework_MockObject_MockObject */
 	private $userSession;
 
-	/** @var  IManager|PHPUnit_Framework_MockObject_MockObject */
+	/** @var IManager|PHPUnit_Framework_MockObject_MockObject */
 	private $shareManager;
 
 	/** @var IDBConnection|PHPUnit_Framework_MockObject_MockObject */
@@ -213,18 +213,18 @@ class EncryptionManagerTest extends TestCase {
 			->willReturn($user);
 
 		$this->shareManager->method('getSharesBy')
-			 ->willReturnMap([
-			 	['userId123', IShare::TYPE_USER, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_GROUP, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_USERGROUP, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_LINK, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_EMAIL, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_REMOTE, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_CIRCLE, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_GUEST, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1, []],
-			 	['userId123', IShare::TYPE_ROOM, $node1, false, 1, []],
-			 ]);
+			->willReturnMap([
+				['userId123', IShare::TYPE_USER, $node1, false, 1, []],
+				['userId123', IShare::TYPE_GROUP, $node1, false, 1, []],
+				['userId123', IShare::TYPE_USERGROUP, $node1, false, 1, []],
+				['userId123', IShare::TYPE_LINK, $node1, false, 1, []],
+				['userId123', IShare::TYPE_EMAIL, $node1, false, 1, []],
+				['userId123', IShare::TYPE_REMOTE, $node1, false, 1, []],
+				['userId123', IShare::TYPE_CIRCLE, $node1, false, 1, []],
+				['userId123', IShare::TYPE_GUEST, $node1, false, 1, []],
+				['userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1, []],
+				['userId123', IShare::TYPE_ROOM, $node1, false, 1, []],
+			]);
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}
