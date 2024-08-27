@@ -86,6 +86,7 @@ class PropFindPluginTest extends TestCase {
 			->method('on')
 			->withConsecutive(
 				['afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50],
+				['propFind', [$this->plugin, 'setEncryptedProperty'], 104],
 				['propFind', [$this->plugin, 'updateProperty'], 105],
 			);
 
