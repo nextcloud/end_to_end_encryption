@@ -1,4 +1,5 @@
 { "translations": {
+    "Internal error" : "Error interno",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
     "Select or drop files" : "Seleccione o suelte los archivos"
