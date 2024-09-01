@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Internal error" : "Error interno",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
     "Select or drop files" : "Seleccione o suelte los archivos"
