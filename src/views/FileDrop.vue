@@ -201,7 +201,7 @@ export default {
 				logger.debug(`[FileDrop] Filedrop entry computed: ${unencryptedFile.name}`, { fileDropEntry: progress.fileDrop[encryptedFileName] })
 
 				progress.step = UploadStep.UPLOADING
-				await uploadFile('/public.php/dav/', encryptedFileName, encryptedFileContent, this.shareToken)
+				await uploadFile(`/public.php/dav/files/${this.shareToken}`, encryptedFileName, encryptedFileContent, this.shareToken)
 				progress.step = UploadStep.UPLOADED
 				logger.debug(`[FileDrop] File uploaded: ${unencryptedFile.name}`, { encryptedFileContent, encryptionInfo, encryptedFileName, shareToken: this.shareToken })
 			} catch (exception) {
