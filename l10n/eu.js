@@ -51,6 +51,7 @@ OC.L10N.register(
     "Error while uploading files" : "Errore bat gertatu da fitxategiak igotzean",
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei."
 },
 "nplurals=2; plural=(n != 1);");
