@@ -27,23 +27,16 @@ use OCA\EndToEndEncryption\FileService;
 use OCP\Files\Folder;
 use OCP\Files\Node;
 use OCP\Files\Storage\IStorage;
-use OCP\ILogger;
 use Test\TestCase;
 
 class FileServiceTest extends TestCase {
-
-	/** @var ILogger|\PHPUnit\Framework\MockObject\MockObject */
-	private $logger;
-
 	/** @var FileService */
 	private $fileService;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->logger = $this->createMock(ILogger::class);
-
-		$this->fileService = new FileService($this->logger);
+		$this->fileService = new FileService();
 	}
 
 	public function testRevertChangesEmpty(): void {
