@@ -1,4 +1,10 @@
+<!--
+  - SPDX-FileCopyrightText: 2017 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 # End-to-End Encryption App
+
+[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/end_to_end_encryption)](https://api.reuse.software/info/github.com/nextcloud/end_to_end_encryption)
 
 This app provides all the necessary APIs to implement End-to-End encryption
 on the client side. Additionally it makes sure that End-to-End encrypted
