@@ -47,7 +47,7 @@
     "Cancel" : "إلغاء",
     "Reset keys" : "إعادة تعيين المفاتيح",
     "End-to-end encryption is currently enabled and correctly setup." : "التشفير الطرفي  مُفعّلٌ  حاليًا و مُعدٌّ كما يجب.",
-    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "التشفير الطرفي موقوفٌ حاليًا. يُمكنك إعداده عن طريق عملاء {productName}.",
+    "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "التشفير الطرفي معطل حاليًا. يُمكنك إعداده عن طريق عملاء {productName}.",
     "End-to-end encryption keys reset" : "تمّ إعادة تعيين مفاتيح التشفير الطرفي ",
     "Unable to reset end-to-end encryption" : "تعذّرت إعادة تعيين مفاتيح التشفير الطرفي",
     "Select or drop files" : "اختر أو اسحب ملفات",
