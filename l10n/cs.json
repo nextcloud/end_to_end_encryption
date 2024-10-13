@@ -41,6 +41,7 @@
     "Check on all connected devices if you can retrieve your mnemonic." : "Podívejte se po všech připojených zařízeních, zda byste z nich nezískali svou mnemotechnickou zpět.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Jakékoli z připojených zařízení může po smazání klíčů způsobovat problémy, takže je lepší zařízení odpojit a připojit znovu zpět.",
     "Delete existing encrypted files" : "Smazat existující šifrované soubory",
+    "Confirm resetting keys" : "Potvrďte resetování klíčů",
     "This is the final warning: Do you really want to reset your keys?" : "Toto je poslední varování: Opravdu chcete resetovat své klíče?",
     "Cancel" : "Storno",
     "Reset keys" : "Vrátit klíče na výchozí",
