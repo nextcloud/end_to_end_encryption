@@ -11,6 +11,7 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Nedaří se nalézt veřejný klíč náležející k %s",
     "This is not your public key to delete" : "Chcete smazat veřejný klíč, který není váš",
     "Cannot decode userlist" : "Nedaří se dekódovat seznam uživatelů",
+    "X-NC-E2EE-COUNTER is missing in the request" : "V požadavku chybí X-NC-E2EE-COUNTER",
     "You are not allowed to create the lock" : "Nemáte oprávnění provést uzamčení",
     "You are not allowed to lock the root" : "Nemáte oprávnění uzamknout kořen",
     "File already locked" : "Soubor už je uzamčen",
