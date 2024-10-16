@@ -56,6 +56,7 @@ OC.L10N.register(
     "Error while uploading files" : "Chyba při nahrávání souborů",
     "Error while uploading metadata" : "Chyba při nahrávání metadat",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Limit app usage to groups." : "Omezit používání aplikace na skupiny."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
