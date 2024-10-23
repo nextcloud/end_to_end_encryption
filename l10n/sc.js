@@ -29,6 +29,8 @@ OC.L10N.register(
     "End-to-end encryption" : "Tzifradura end-to-end",
     "Cancel" : "Annulla",
     "Select or drop files" : "Sèbera o iscapa archìvios",
+    "Error while uploading files" : "Errore carrighende is archìvios noos",
+    "Upload encrypted files to {fileName}" : "Càrriga archìvios tzifrados a {fileName}",
     "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos."
 },
 "nplurals=2; plural=(n != 1);");
