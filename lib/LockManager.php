@@ -129,7 +129,7 @@ class LockManager {
 		$userRoot = $this->rootFolder->getUserFolder($ownerId);
 		$nodes = $userRoot->getById($id);
 		foreach ($nodes as $node) {
-			while ($node->getPath() !== '/') {
+			while ($node->getPath() !== $userRoot->getPath()) {
 				try {
 					$lock = $this->lockMapper->getByFileId($node->getId());
 				} catch (DoesNotExistException $ex) {
