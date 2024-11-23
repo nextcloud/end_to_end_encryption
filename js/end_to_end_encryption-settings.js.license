@@ -60,8 +60,11 @@ This file is generated from multiple sources. Included packages:
 - @vueuse/core
 	- version: 11.0.1
 	- license: MIT
+- @vueuse/shared
+	- version: 11.0.1
+	- license: MIT
 - @nextcloud/vue
-	- version: 8.18.0
+	- version: 8.21.0
 	- license: AGPL-3.0-or-later
 - axios
 	- version: 1.7.5
