@@ -34,11 +34,6 @@ Here you can find the [API documentation](https://github.com/nextcloud/end_to_en
 
 The end-to-end encryption implemented by the Nextcloud sync and mobile clients, as well as the functionality provided by this app to faciliate it, is based on the approach documented in the [RFC repository](https://github.com/nextcloud/end_to_end_encryption_rfc/).
 
-### Server-side Encryption
-
-> [!WARNING]  
-> E2EE is currently not compatible with server-side encryption and thus should **not** be used with the server-side `encryption` app enabled
-
 ### Installing
 
 1. Make sure the Server-Side Encryption app is disabled (or uninstalled)
