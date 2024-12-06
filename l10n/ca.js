@@ -30,7 +30,6 @@ OC.L10N.register(
     "Encrypted share" : "Compartició xifrada",
     "End-to-End Encryption" : "Xifratge d'extrem a extrem",
     "End-to-end encryption endpoint" : "Extrem xifratge extrem-a-extrem",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punt final necessari per habilitar el xifratge d'extrem a extrem.\n\n**Avís:** E2EE actualment no és compatible per utilitzar-lo juntament amb el xifratge del servidor",
     "Limit to groups" : "Limita a grups",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Quan se selecciona almenys un grup, només les persones dels grups llistats poden utilitzar l'aplicació de xifratge d'extrem a extrem.",
     "Limit app usage to groups" : "Limita l’ús de l’aplicació als grups",
@@ -57,6 +56,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
     "Upload encrypted files to {fileName}" : "Pujada de fitxers xifrats a {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-CONTADOR",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punt final necessari per habilitar el xifratge d'extrem a extrem.\n\n**Avís:** E2EE actualment no és compatible per utilitzar-lo juntament amb el xifratge del servidor",
     "Limit app usage to groups." : "Limita l'ús de l'aplicació només pels grups."
 },
 "nplurals=2; plural=(n != 1);");

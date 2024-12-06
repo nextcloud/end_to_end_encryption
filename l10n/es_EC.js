@@ -27,7 +27,6 @@ OC.L10N.register(
     "Encrypted share" : "Compartir cifrado",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "End-to-end encryption endpoint" : "Extremo de cifrado de extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo.\n      \n      **Aviso:** Actualmente, el cifrado E2EE no es compatible para ser utilizado junto con el cifrado en el servidor",
     "Limit to groups" : "Limitar a grupos",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Cuando se selecciona al menos un grupo, solo las personas de los grupos enumerados pueden utilizar la aplicación de cifrado de extremo a extremo.",
     "Limit app usage to groups" : "Limitar el uso de aplicaciones a grupos",
@@ -51,6 +50,7 @@ OC.L10N.register(
     "Error while uploading files" : "Error al cargar archivos",
     "Error while uploading metadata" : "Error al cargar los metadatos",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo.\n      \n      **Aviso:** Actualmente, el cifrado E2EE no es compatible para ser utilizado junto con el cifrado en el servidor",
     "Limit app usage to groups." : "Limitar el uso de la aplicación a grupos."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
