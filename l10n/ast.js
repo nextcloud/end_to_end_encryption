@@ -17,7 +17,6 @@ OC.L10N.register(
     "Cannot delete metadata" : "Nun se puen desaniciar los metadatos",
     "End-to-End Encryption" : "Cifráu de puntu a puntu",
     "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Forne'l puntu d'entrada necesariu p'activar el cifráu d'estremu a estremu.\n\n**Avisu**: anguaño E2EE nun ye compatible pa usalu xunto col cifráu del sirividor",
     "Save" : "Guardar",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
     "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
@@ -30,6 +29,7 @@ OC.L10N.register(
     "Error while uploading files" : "Hebo un error al xubir los ficheros",
     "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
     "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Forne'l puntu d'entrada necesariu p'activar el cifráu d'estremu a estremu.\n\n**Avisu**: anguaño E2EE nun ye compatible pa usalu xunto col cifráu del sirividor"
 },
 "nplurals=2; plural=(n != 1);");

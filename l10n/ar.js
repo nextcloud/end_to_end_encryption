@@ -30,7 +30,6 @@ OC.L10N.register(
     "Encrypted share" : "مُشاركة مُشفّرة",
     "End-to-End Encryption" : "التشفير الطرفي E2EE",
     "End-to-end encryption endpoint" : "نقطة نهائية endpoint للتشفير الطرفي E2EE",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "يوفر نقطة النهاية اللازمة لتمكين التشفير من طرف إلى طرف. ** ملاحظة: ** التشفير الطرفي \"E2EE\" غير متوافق حاليًا ليتم استخدامه مع التشفير من جانب الخادم",
     "Limit to groups" : "مقتصر على المجموعات التالية",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "عند تحديد مجموعة واحدة على الأقل، يمكن لأفراد المجموعات المدرجة فقط استخدام تطبيق التشفير الطرفي E2EE.",
     "Limit app usage to groups" : "قصر استخدام التطبيق على بعض المجموعات",
@@ -57,6 +56,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "خطأ خلال رفع البيانات الوصفية metadata",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "يوفر نقطة النهاية اللازمة لتمكين التشفير من طرف إلى طرف. ** ملاحظة: ** التشفير الطرفي \"E2EE\" غير متوافق حاليًا ليتم استخدامه مع التشفير من جانب الخادم",
     "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات."
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

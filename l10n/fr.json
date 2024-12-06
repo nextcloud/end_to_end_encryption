@@ -28,7 +28,6 @@
     "Encrypted share" : "Partage chiffré",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
     "End-to-end encryption endpoint" : "Terminaison de chiffrement de bout en bout",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Fournit un point de terminaison nécessaire pour activer le chiffrement de bout en bout.\n\n**Note :** E2EE n'est actuellement pas compatible pour être utilisé ensemble avec le chiffrement côté serveur",
     "Limit to groups" : "Limiter à des groupes",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Lorsque au moins un groupe est sélectionné, seules les personnes des groupes répertoriés peuvent utiliser le chiffrement de bout en bout.",
     "Limit app usage to groups" : "Limiter l'utilisation de l'application à des groupes",
@@ -55,6 +54,7 @@
     "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées",
     "Upload encrypted files to {fileName}" : "Téléverser des fichiers chiffrés vers {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Fournit un point de terminaison nécessaire pour activer le chiffrement de bout en bout.\n\n**Note :** E2EE n'est actuellement pas compatible pour être utilisé ensemble avec le chiffrement côté serveur",
     "Limit app usage to groups." : "Limiter l'utilisation de l'application aux groupes."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

@@ -27,7 +27,6 @@ OC.L10N.register(
     "Encrypted share" : "Partekatze zifratua",
     "End-to-End Encryption" : "Muturretik muturrerako zifratzea",
     "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Beharrezko amaiera-puntua eskaintzen du muturreko zifratzea gaitzeko.\n\n**Oharra:** E2EE ez da bateragarria zerbitzariaren aldeko zifratzearekin batera erabiltzeko",
     "Limit to groups" : "Mugatu taldeetara",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Gutxienez talde bat hautatuta badago, zerrendatutako taldeetako pertsonek soilik erabili dezakete muturretik muturrerako enkripzio aplikazioa.",
     "Limit app usage to groups" : "Mugatu aplikazioaren erabilera taldeei",
@@ -52,6 +51,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Beharrezko amaiera-puntua eskaintzen du muturreko zifratzea gaitzeko.\n\n**Oharra:** E2EE ez da bateragarria zerbitzariaren aldeko zifratzearekin batera erabiltzeko",
     "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei."
 },
 "nplurals=2; plural=(n != 1);");

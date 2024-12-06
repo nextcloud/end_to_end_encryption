@@ -30,7 +30,6 @@ OC.L10N.register(
     "Encrypted share" : "加密分享",
     "End-to-End Encryption" : "端到端加密",
     "End-to-end encryption endpoint" : "端到端加密端點",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "提供必要的端點以啟用端到端加密。\n\n**注意：**E2EE 目前與伺服器端加密並不相容，無法一起啟用",
     "Limit to groups" : "限制於群組",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "選擇一或多個群組後，只有列出群組中的人可以使用端到端加密應用程式。",
     "Limit app usage to groups" : "限制特定群組使用應用程式",
@@ -57,6 +56,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "上元數據像時發生錯誤",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "提供必要的端點以啟用端到端加密。\n\n**注意：**E2EE 目前與伺服器端加密並不相容，無法一起啟用",
     "Limit app usage to groups." : "將應用程式使用限制為群組。"
 },
 "nplurals=1; plural=0;");

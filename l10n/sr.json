@@ -28,7 +28,6 @@
     "Encrypted share" : "Шифровано дељење",
     "End-to-End Encryption" : "Шифровање са краја на крај",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Обезбеђује неопходну крајњи тачку за укључивања шифровања са краја на крај.\n\n**Напомена:** E2EE тренутно није компатибилно са употребом заједно са шифровањем на страни сервера",
     "Limit to groups" : "Ограничи на групе",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Када је изабрана барем једна група, апликацију Шифровање од краја до краја могу да користе само особе из наведених група.",
     "Limit app usage to groups" : "Ограничи коришћење апликације на групе",
@@ -55,6 +54,7 @@
     "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Обезбеђује неопходну крајњи тачку за укључивања шифровања са краја на крај.\n\n**Напомена:** E2EE тренутно није компатибилно са употребом заједно са шифровањем на страни сервера",
     "Limit app usage to groups." : "Ограничи коришћење апликације на групе."
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }
