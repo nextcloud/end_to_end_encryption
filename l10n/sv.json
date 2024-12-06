@@ -28,7 +28,6 @@
     "Encrypted share" : "Krypterad delning",
     "End-to-End Encryption" : "End-to-end-kryptering",
     "End-to-end encryption endpoint" : "Endpoint för end-to-end-kryptering",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Tillhandahåller den nödvändiga endpointen för att möjliggöra end-to-end-kryptering.\n\n**OBS:** E2EE är för närvarande inte kompatibelt att användas tillsammans med server-side-kryptering",
     "Limit to groups" : "Begränsa till grupper",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "När minst en grupp är vald kan endast personer i de listade grupperna använda appen för end-to-end-kryptering.",
     "Limit app usage to groups" : "Begränsa appanvändning till grupper",
@@ -55,6 +54,7 @@
     "Error while uploading metadata" : "Fel vid uppladdning av metadata",
     "Upload encrypted files to {fileName}" : "Ladda upp krypterade filer till {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Tillhandahåller den nödvändiga endpointen för att möjliggöra end-to-end-kryptering.\n\n**OBS:** E2EE är för närvarande inte kompatibelt att användas tillsammans med server-side-kryptering",
     "Limit app usage to groups." : "Begränsa appanvändning till grupper."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

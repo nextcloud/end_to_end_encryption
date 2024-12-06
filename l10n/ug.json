@@ -28,7 +28,6 @@
     "Encrypted share" : "شىفىرلانغان ئورتاقلىشىش",
     "End-to-End Encryption" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش",
     "End-to-end encryption endpoint" : "ئاخىرىدىن مەخپىيلەشتۈرۈش ئاخىرقى نۇقتىسى",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "ئاخىرىغىچە مەخپىيلەشتۈرۈشنى قوزغىتىش ئۈچۈن زۆرۈر بولغان ئاخىرقى نۇقتا بىلەن تەمىنلەيدۇ.\n\n** ئەسكەرتىش: ** E2EE نۆۋەتتە مۇلازىمېتىر تەرەپ شىفىرلاش بىلەن بىللە ئىشلىتىشكە ماس كەلمەيدۇ",
     "Limit to groups" : "گۇرۇپپىلارغا چەك قويۇڭ",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "كەم دېگەندە بىر گۇرۇپپا تاللانغاندا ، تىزىملىكتىكى كىشىلەرلا ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش دېتالىنى ئىشلىتەلەيدۇ.",
     "Limit app usage to groups" : "گۇرۇپپىلارغا ئەپ ئىشلىتىشنى چەكلەڭ",
@@ -55,6 +54,7 @@
     "Error while uploading metadata" : "مېتا سانلىق مەلۇمات يوللىغاندا خاتالىق",
     "Upload encrypted files to {fileName}" : "شىفىرلانغان ھۆججەتلەرنى {fileName} غا يۈكلەڭ",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "ئاخىرىغىچە مەخپىيلەشتۈرۈشنى قوزغىتىش ئۈچۈن زۆرۈر بولغان ئاخىرقى نۇقتا بىلەن تەمىنلەيدۇ.\n\n** ئەسكەرتىش: ** E2EE نۆۋەتتە مۇلازىمېتىر تەرەپ شىفىرلاش بىلەن بىللە ئىشلىتىشكە ماس كەلمەيدۇ",
     "Limit app usage to groups." : "گۇرۇپپىلارغا ئەپ ئىشلىتىشنى چەكلەڭ."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
