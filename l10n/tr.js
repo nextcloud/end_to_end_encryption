@@ -30,7 +30,6 @@ OC.L10N.register(
     "Encrypted share" : "Şifrelenmiş paylaşım",
     "End-to-End Encryption" : "Uçtan uca şifreleme",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Uçtan uca şifrelemeyi kullanıma almak için gerekli uç noktayı sağlar.\n\n**Uyarı:** E2EE şu anda sunucu tarafı şifreleme ile birlikte kullanılamaz",
     "Limit to groups" : "Şu gruplarla sınırlansın",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "En az bir grup seçildiğinde, yalnızca belirtilen gruplardaki kişiler uçtan uca şifreleme uygulamasını kullanabilir.",
     "Limit app usage to groups" : "Uygulama kullanımı şu gruplarla sınırlansın",
@@ -57,6 +56,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Uçtan uca şifrelemeyi kullanıma almak için gerekli uç noktayı sağlar.\n\n**Uyarı:** E2EE şu anda sunucu tarafı şifreleme ile birlikte kullanılamaz",
     "Limit app usage to groups." : "Uygulamayı belirli gruplar kullanabilsin."
 },
 "nplurals=2; plural=(n > 1);");

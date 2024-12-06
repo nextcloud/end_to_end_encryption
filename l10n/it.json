@@ -25,7 +25,6 @@
     "Encrypted share" : "Condivisione crittografata",
     "End-to-End Encryption" : "Cifratura End-To-End",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Fornisce l'endpoint necessario per abilitare la crittografia end-to-end.\n\n**Nota:** E2EE non è attualmente compatibile per essere utilizzato insieme alla crittografia lato server",
     "Limit to groups" : "Limita a gruppi",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Se viene selezionato almeno un gruppo, solo le persone appartenenti ai gruppi elencati potranno utilizzare l'app di crittografia end-to-end.",
     "Limit app usage to groups" : "Limita l'utilizzo dell'applicazione a gruppi",
@@ -47,6 +46,7 @@
     "Select or drop files" : "Seleziona o deseleziona file",
     "Error while uploading files" : "Errore durante il caricamento dei file",
     "Error while uploading metadata" : "Errore durante il caricamento dei metadati",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Fornisce l'endpoint necessario per abilitare la crittografia end-to-end.\n\n**Nota:** E2EE non è attualmente compatibile per essere utilizzato insieme alla crittografia lato server",
     "Limit app usage to groups." : "Limita utilizzo delle applicazioni a gruppi."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

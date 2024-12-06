@@ -28,7 +28,6 @@
     "Encrypted share" : "Compartición cifrada",
     "End-to-End Encryption" : "Cifrado de extremo a extremo",
     "End-to-end encryption endpoint" : "Punto final do cifrado de extremo a extremo",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Ofrece o punto final necesario para activar o cifrado de extremo a extremo.\n\n**Aviso:** E2EE actualmente non é compatíbel para usarse xunto co cifrado do servidor",
     "Limit to groups" : "Límite para grupos",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Cando se selecciona polo menos un grupo, só as persoas dos grupos indicados poden usar a aplicación de cifrado de extremo a extremo.",
     "Limit app usage to groups" : "Limitar o uso de aplicacións a grupos",
@@ -55,6 +54,7 @@
     "Error while uploading metadata" : "Produciuse un erro ao enviar os metadatos",
     "Upload encrypted files to {fileName}" : "Enviar ficheiros cifrados a {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Ofrece o punto final necesario para activar o cifrado de extremo a extremo.\n\n**Aviso:** E2EE actualmente non é compatíbel para usarse xunto co cifrado do servidor",
     "Limit app usage to groups." : "Limitar o uso de aplicacións a grupos"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

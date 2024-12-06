@@ -28,7 +28,6 @@
     "Encrypted share" : "Roinn criptithe",
     "End-to-End Encryption" : "Criptiú Ceann go Deireadh",
     "End-to-end encryption endpoint" : "Críochphointe criptithe ceann go ceann",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Soláthraíonn sé an críochphointe riachtanach chun criptiú deireadh go deireadh a chumasú.\n\n**Fógra:** Níl E2EE comhoiriúnach faoi láthair le húsáid in éineacht le criptiúchán ar thaobh an fhreastalaí",
     "Limit to groups" : "Teorainn do ghrúpaí",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Nuair a roghnaítear grúpa amháin ar a laghad, ní féidir ach le daoine de na grúpaí liostaithe úsáid a bhaint as an aip criptithe ó cheann go ceann.",
     "Limit app usage to groups" : "Teorainn úsáid aipeanna go grúpaí",
@@ -55,6 +54,7 @@
     "Error while uploading metadata" : "Earráid agus meiteashonraí á n-uaslódáil",
     "Upload encrypted files to {fileName}" : "Uaslódáil comhaid chriptithe go {fileName}",
     "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Soláthraíonn sé an críochphointe riachtanach chun criptiú deireadh go deireadh a chumasú.\n\n**Fógra:** Níl E2EE comhoiriúnach faoi láthair le húsáid in éineacht le criptiúchán ar thaobh an fhreastalaí",
     "Limit app usage to groups." : "Teorainn úsáid aipeanna go grúpaí."
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"
 }
