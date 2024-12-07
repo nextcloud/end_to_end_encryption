@@ -30,6 +30,7 @@ OC.L10N.register(
     "Encrypted share" : "已加密的分享",
     "End-to-End Encryption" : "終端對終端的加密",
     "End-to-end encryption endpoint" : "端到端加密端點",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。",
     "Limit to groups" : "限制給特定群組",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "當至少選取一個群組時，僅列出的群組才可以使用端到端加密應用程式。",
     "Limit app usage to groups" : "限制特定群組使用應用程式",
