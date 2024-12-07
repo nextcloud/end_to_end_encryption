@@ -30,6 +30,7 @@ OC.L10N.register(
     "Encrypted share" : "مُشاركة مُشفّرة",
     "End-to-End Encryption" : "التشفير الطرفي E2EE",
     "End-to-end encryption endpoint" : "نقطة نهائية endpoint للتشفير الطرفي E2EE",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "يوفر هذا التطبيق جميع واجهات برمجة التطبيقات API اللازمة لتنفيذ التشفير من الحدّ للحدّ من جهة العميل. بالإضافة إلى ذلك، فإنه ينفذ \"الإفلات الآمن للملفات\" Secure FileDrop ويتأكد من أن الملفات المشفرة من الحدّ للحدّ لا يمكن الوصول إليها عبر واجهة الويب أو عبر عملاء WebDAV الآخرين.",
     "Limit to groups" : "مقتصر على المجموعات التالية",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "عند تحديد مجموعة واحدة على الأقل، يمكن لأفراد المجموعات المدرجة فقط استخدام تطبيق التشفير الطرفي E2EE.",
     "Limit app usage to groups" : "قصر استخدام التطبيق على بعض المجموعات",

@@ -28,6 +28,7 @@
     "Encrypted share" : "加密分享",
     "End-to-End Encryption" : "端到端加密",
     "End-to-end encryption endpoint" : "端到端加密端點",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用提供所有必要的 API 以在客戶端實現端對端加密。\n此外，它還實現了安全文件傳送，並確保端對端加密的文件無法通過網頁界面或其他 WebDAV 客戶端訪問。",
     "Limit to groups" : "限制於群組",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "選擇一或多個群組後，只有列出群組中的人可以使用端到端加密應用程式。",
     "Limit app usage to groups" : "限制特定群組使用應用程式",
