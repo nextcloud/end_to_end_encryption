@@ -28,6 +28,7 @@
     "Encrypted share" : "Krypterad delning",
     "End-to-End Encryption" : "End-to-end-kryptering",
     "End-to-end encryption endpoint" : "Endpoint för end-to-end-kryptering",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Denna app tillhandahåller alla nödvändiga API:er för att implementera End-to-End-kryptering på klientsidan.\nDessutom implementerar den Secure FileDrop och säkerställer att End-to-End-krypterade filer varken är åtkomliga via webbgränssnittet eller andra WebDAV-klienter.",
     "Limit to groups" : "Begränsa till grupper",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "När minst en grupp är vald kan endast personer i de listade grupperna använda appen för end-to-end-kryptering.",
     "Limit app usage to groups" : "Begränsa appanvändning till grupper",

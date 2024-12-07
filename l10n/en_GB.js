@@ -30,6 +30,7 @@ OC.L10N.register(
     "Encrypted share" : "Encrypted share",
     "End-to-End Encryption" : "End-to-End Encryption",
     "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients.",
     "Limit to groups" : "Limit to groups",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app.",
     "Limit app usage to groups" : "Limit app usage to groups",
