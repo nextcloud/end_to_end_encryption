@@ -30,6 +30,7 @@ OC.L10N.register(
     "Encrypted share" : "Roinn criptithe",
     "End-to-End Encryption" : "Criptiú Ceann go Deireadh",
     "End-to-end encryption endpoint" : "Críochphointe criptithe ceann go ceann",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Soláthraíonn an aip seo na APIanna riachtanacha go léir chun criptiú Deireadh go Deireadh a chur i bhfeidhm ar thaobh an chliaint.\nIna theannta sin cuireann sé Secure FileDrop i bhfeidhm agus cinntíonn sé nach bhfuil rochtain ar chomhaid chriptithe ó cheann ceann go ceann tríd an gcomhéadan gréasáin ná trí chliaint WebDAV eile.",
     "Limit to groups" : "Teorainn do ghrúpaí",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Nuair a roghnaítear grúpa amháin ar a laghad, ní féidir ach le daoine de na grúpaí liostaithe úsáid a bhaint as an aip criptithe ó cheann go ceann.",
     "Limit app usage to groups" : "Teorainn úsáid aipeanna go grúpaí",
