@@ -1,13 +1,13 @@
+/* eslint-disable jsdoc/require-jsdoc */
 /**
- *
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 export function registerWebDavProxy() {
 	const OriginalXHR = window.XMLHttpRequest
 
 	// Create a custom XHR class that overrides specific methods
-	/**
-	 *
-	 */
 	function CustomXHR() {
 		const xhr = new OriginalXHR()
 
@@ -54,18 +54,10 @@ export function registerWebDavProxy() {
 
 const e2eeFolders = []
 
-/**
- *
- * @param url
- */
 function isInE2eeFolder(url: string): boolean {
 	return true
 }
 
-/**
- *
- * @param event
- */
 async function handleGet(event: FetchEvent) {
 	console.log('[E2EE SW]', 'IMPLEMENT GET HANDLER')
 
@@ -79,10 +71,6 @@ async function handleGet(event: FetchEvent) {
 	event.respondWith(new Response(decryptedResponse))
 }
 
-/**
- *
- * @param event
- */
 async function handlePropFind(event: FetchEvent) {
 	const originalResponse = await fetch(event.request)
 	console.log('[E2EE SW]', originalResponse)

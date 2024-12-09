@@ -1,10 +1,14 @@
+/**
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
 /* eslint-disable jsdoc/require-jsdoc */
 import { getAppRootUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
-import { OCSResponse } from '@nextcloud/typings/ocs'
+import type { OCSResponse } from '@nextcloud/typings/ocs'
 
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md
-// API usage: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md
 
 const apiRootPath = getAppRootUrl('end_to_end_encryption') + '/api/v2'
 const Url = {
@@ -21,25 +25,16 @@ export async function setPrivateKey(privateKey: string): Promise<void> {
 }
 
 export async function getPrivateKey(): Promise<string> {
-	try {
-		const response = await axios.get<OCSResponse<{'private-key': string}>>(Url.PrivateKey)
-		return response.data.ocs.data['private-key']
-	} catch (error) {
-		if (error.response.status === 404) {
-			// const privateKey = await generatePrivateKey()
-			// await setPrivateKey(privateKey)
-			// return privateKey
-		}
-		throw error
-	}
+	const response = await axios.get<OCSResponse<{'private-key': string}>>(Url.PrivateKey)
+	return response.data.ocs.data['private-key']
 }
 
 export async function deletePrivateKey(): Promise<void> {
 	await axios.delete(Url.PrivateKey)
 }
 
-export async function signPublicKey(certificate: string): Promise<string> {
-	const response = await axios.post<OCSResponse<{'public-key': string}>>(Url.PublicKey, certificate)
+export async function signPublicKey(certificate: ArrayBuffer): Promise<string> {
+	const response = await axios.post<OCSResponse<{'public-key': string}>>(Url.PublicKey, { csr: certificate })
 	return response.data.ocs.data['public-key']
 }
 
@@ -55,6 +50,7 @@ export async function deletePublicKey(): Promise<void> {
 	await axios.delete(Url.PublicKey)
 }
 
+// TODO: maybe store the tokens somewhere to be able to unlock the file later if the browser was closed.
 export async function lockFile(fileId: string, counter: number, e2eToken?: string): Promise<string> {
 	const response = await axios.post<OCSResponse<{'e2e-token': string}>>(
 		`${Url.Lock}/${fileId}`,
