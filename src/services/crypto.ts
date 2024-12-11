@@ -7,10 +7,8 @@
 
 import * as x509 from '@peculiar/x509'
 
-// TODO: What to do with the salt?
 export async function encryptWithAES(content: BufferSource, key: CryptoKey) {
 	const iv = self.crypto.getRandomValues(new Uint8Array(16))
-	const salt = 'TODO'
 
 	const encryptedContent = await self.crypto.subtle.encrypt(
 		{ name: 'AES-GCM', iv },
@@ -21,13 +19,10 @@ export async function encryptWithAES(content: BufferSource, key: CryptoKey) {
 	return {
 		encryptedContent,
 		iv,
-		salt,
 	}
 }
 
-// TODO: Check
-// TODO: What to do with the salt?
-export async function decryptWithAES(content: BufferSource, iv: BufferSource, salt: string, key: CryptoKey) {
+export async function decryptWithAES(content: BufferSource, iv: BufferSource, key: CryptoKey) {
 	return await self.crypto.subtle.decrypt(
 		{ name: 'AES-GCM', iv },
 		key,
@@ -70,5 +65,36 @@ export async function exportX509Certificate(key: CryptoKey): Promise<ArrayBuffer
 
 // TODO: Implement
 export async function validateX09CertificateSignature(publicKey: CryptoKey, serverPublicKey: CryptoKey): Promise<boolean> {
+	await self.crypto.subtle.verify(
+		{
+			name: 'RSA-OAEP',
+			hash: 'SHA-256',
+		},
+		serverPublicKey,
+		await exportX509Certificate(publicKey), // What is the signature?
+		await exportX509Certificate(publicKey),
+	)
 	return true
+}
+
+export async function mnemonicToPrivateKey(mnemonic: string, salt: ArrayBuffer): Promise<CryptoKey> {
+	const keyMaterial = await crypto.subtle.importKey(
+		'raw',
+		new TextEncoder().encode(mnemonic),
+		{ name: 'PBKDF2' },
+		false,
+		['deriveKey'],
+	)
+
+	return await crypto.subtle.deriveKey(
+		{
+			name: 'PBKDF2',
+			salt,
+			hash: 'SHA-1',
+		},
+		keyMaterial,
+		{ name: 'AES-GCM', length: 256 },
+		false,
+		['encrypt'],
+	)
 }

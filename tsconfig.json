@@ -1,11 +1,11 @@
 {
 	"extends": "@vue/tsconfig/tsconfig.json",
 	"include": [
-		"./src/webdav-service-worker.ts",
+		"./src/*.ts",
 	],
 	"compilerOptions": {
 		"lib": [
-			"WebWorker",
+			"DOM",
 			"ESNext",
 		],
 		"rootDir": "src",

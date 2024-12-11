@@ -4,77 +4,89 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-export function registerWebDavProxy() {
-	const OriginalXHR = window.XMLHttpRequest
+import { parseStat, parseXML } from 'webdav'
+import { XMLBuilder } from 'fast-xml-parser'
 
-	// Create a custom XHR class that overrides specific methods
-	function CustomXHR() {
-		const xhr = new OriginalXHR()
+import type { Metadata } from '../models'
+import { getMetadata } from './api'
 
-		// Intercept the `open` method
-		const originalOpen = xhr.open
-		xhr.open = function(method, url, ...rest) {
-			console.log(`Intercepted XHR Request: ${method} ${url}`)
-			// You can modify the URL or other properties here
-			this._interceptedURL = url
-			originalOpen.call(this, method, url, ...rest)
-		}
+const originalFetch = window.fetch
 
-		// Intercept the `send` method
-		const originalSend = xhr.send
-		xhr.send = async function(body) {
-			console.log(`Sending XHR Request to ${this._interceptedURL}`, body)
+window.fetch = async (input: RequestInfo | URL, config: RequestInit = {}) => {
+	const request = new Request(input, config)
 
-			const url = event.request.url
-
-			console.debug('[E2EE SW]', event, url)
-
-			if (!url.includes('/remote.php/')) {
-				return
-			}
-
-			switch (event.request.method) {
-			case 'GET':
-				handleGet(event)
-				break
-			case 'PROPFIND':
-				handlePropFind(event)
-				break
-			}
-
-			originalSend.call(this, modifiedBody)
-		}
-
-		return xhr
+	if (!(request.url.includes('/remote.php/') && (request.method === 'GET' || request.method === 'PROPFIND'))) {
+		return await originalFetch(input, config)
 	}
 
-	// Replace the global `XMLHttpRequest` with the custom version
-	window.XMLHttpRequest = CustomXHR
+	config.headers = new Headers(config.headers)
+	config.headers.set('X-E2EE-SUPPORTED', 'true')
+	const response = await originalFetch(input, config)
+
+	console.debug('[E2EE WebDAV proxy]', request.url, request)
+
+	switch (config.method) {
+	case 'PROPFIND':
+		return handlePropFind(request, response)
+	case 'GET':
+	default:
+		return handleGet(request, response)
+	}
 }
 
-const e2eeFolders = []
+const e2eeFoldersMetadata: Record<string, Metadata> = {}
 
 function isInE2eeFolder(url: string): boolean {
-	return true
-}
-
-async function handleGet(event: FetchEvent) {
-	console.log('[E2EE SW]', 'IMPLEMENT GET HANDLER')
-
-	if (!isInE2eeFolder(event.request.url)) {
-		return
+	for (const folder in e2eeFoldersMetadata) {
+		if (url.startsWith(folder)) {
+			return true
+		}
 	}
 
-	const originalResponse = await fetch(event.request)
-	console.log('[E2EE SW]', originalResponse)
-	const decryptedResponse = originalResponse.body // TODO: decrypt(originalResponse)
-	event.respondWith(new Response(decryptedResponse))
+	return false
 }
 
-async function handlePropFind(event: FetchEvent) {
-	const originalResponse = await fetch(event.request)
-	console.log('[E2EE SW]', originalResponse)
+async function handleGet(request: Request, response: Response) {
+	if (!isInE2eeFolder(request.url)) {
+		return response
+	}
 
-	const decryptedResponse = originalResponse.body // TODO: proxy(originalResponse)
-	event.respondWith(new Response(decryptedResponse))
+	return new Response(response.body, response) // TODO: decrypt(response)
+}
+
+async function handlePropFind(request: Request, response: Response) {
+	const path = new URL(request.url).pathname
+	const body = await response.text()
+	const xml = await parseXML(body)
+	const stat = parseStat(xml, path, true)
+	const isEncrypted = stat.props?.['is-encrypted'] === 1
+
+	if (!isEncrypted) {
+		return response
+	}
+
+	console.log('[E2EE SW]', 'PROPFIND xml', xml)
+
+	e2eeFoldersMetadata[path] = await getMetadata(stat.props?.fileid ?? '')
+
+	// xml.multistatus.response.forEach((childNode, i) => {
+	// 	if (childNode.href === path) {
+	// 		return
+	// 	}
+
+	// 	if (xml.multistatus.response[i].propstat === undefined) {
+	// 		return
+	// 	}
+
+	// 	// TODO: replace basename, filename, size, creationDate, and type in xml
+	// 	xml.multistatus.response[i].href = 'TODO'
+	// 	xml.multistatus.response[i].propstat.prop.displayname = 'TODO'
+	// 	xml.multistatus.response[i].propstat.prop.creationdate = 'TODO'
+	// 	xml.multistatus.response[i].propstat.prop.getcontenttype = 'TODO'
+	// })
+
+	const builder = new XMLBuilder()
+	const xmlContent = builder.build(xml)
+
+	return new Response(xmlContent, response) // TODO: proxy(originalResponse)
 }

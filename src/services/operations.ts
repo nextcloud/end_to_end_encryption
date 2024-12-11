@@ -36,29 +36,24 @@ export async function initializeUserKeys(): Promise<{publicKey: CryptoKey, priva
 	}
 
 	const publicKeys = await getPublicKeys()
-	const rawPublicKey = publicKeys[user.uid]
-	const encryptedPrivateKeyInfo = await getPrivateKey()
 
-	let publicKey: CryptoKey
+	let publicKey = publicKeys[user.uid]
 	let privateKey: CryptoKey
 
-	if (encryptedPrivateKeyInfo !== undefined && rawPublicKey !== undefined) {
-		publicKey = await loadX509Certificate(stringToBuffer(rawPublicKey))
-		privateKey = await decryptPrivateKey(encryptedPrivateKeyInfo, await promptUserForMnemonic())
-	} else {
+	if (publicKey === undefined) {
 		const keyPair = await generateX509Certificate()
-		const signedRawPublicKey = await signPublicKey(await exportX509Certificate(keyPair.publicKey))
-		publicKey = await loadX509Certificate(stringToBuffer(signedRawPublicKey))
+		publicKey = await signPublicKey(keyPair.publicKey)
 		privateKey = keyPair.privateKey
 
 		const mnemonic = generateMnemonic()
 		await setPrivateKey(await encryptPrivateKey(privateKey, mnemonic))
 		await showMnemonic(mnemonic)
 		// TODO: save mnemonic
+	} else {
+		privateKey = await decryptPrivateKey(await getPrivateKey(), await promptUserForMnemonic())
 	}
 
-	const serverPublicKey = await getServerPublicKey()
-	validateX09CertificateSignature(publicKey, await loadX509Certificate(stringToBuffer(serverPublicKey)))
+	validateX09CertificateSignature(publicKey, await getServerPublicKey())
 
 	// TODO: save key pair
 	return { publicKey, privateKey }
