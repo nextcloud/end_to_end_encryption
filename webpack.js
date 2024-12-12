@@ -9,6 +9,7 @@ const path = require('path')
 const isDev = process.env.NODE_ENV === 'development'
 
 webpackConfig.entry = {
+	files: path.join(__dirname, 'src', 'files.js'),
 	settings: path.join(__dirname, 'src', 'settings.js'),
 	adminSettings: path.join(__dirname, 'src', 'settings-admin.js'),
 	filedrop: path.join(__dirname, 'src', 'filedrop.js'),
@@ -29,7 +30,7 @@ if (!isDev) {
 			select2: 'MIT',
 		},
 	}))
-	
+
 	webpackConfig.optimization.minimizer = [{
 		apply: (compiler) => {
 			// Lazy load the Terser plugin
@@ -44,7 +45,7 @@ if (!isDev) {
 						passes: 2,
 					},
 				},
-		  }).apply(compiler)
+			}).apply(compiler)
 		},
 	}]
 }
