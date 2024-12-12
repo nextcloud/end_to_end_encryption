@@ -6,16 +6,16 @@
 
 import { DAVResult, parseStat, parseXML } from 'webdav'
 import { XMLBuilder } from 'fast-xml-parser'
+import { basename, dirname } from 'path'
 
 import { decryptMetadataInfo } from './metadataUtils'
 import { getMetadata, getPrivateKey } from './api'
 import { decryptPrivateKey } from './privateKeyUtils'
 import { promptUserForMnemonic } from './mnemonicDialogs'
 import { getCurrentUser } from '@nextcloud/auth'
-import { FileEncryptionInfo, Metadata, MetadataInfo } from '../models'
-import { decryptWithAES, loadAESPrivateKey } from './crypto'
-import { basename, dirname } from 'path'
-import { base64ToBuffer } from './utils'
+import { FileEncryptionInfo, MetadataInfo } from '../models'
+import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
+import { base64ToBuffer, stringToBuffer } from './utils'
 
 const originalFetch = window.fetch
 let privateKey: CryptoKey|undefined
@@ -155,8 +155,10 @@ async function getFolderMetadataInfo(fileId: string): Promise<MetadataInfo> {
 export async function decryptFile(response: Response, fileEncryptionInfo: FileEncryptionInfo): Promise<Response> {
 	const filePrivateKey = await loadAESPrivateKey(base64ToBuffer(fileEncryptionInfo.key))
 
+	const responseBody = new Uint8Array(await response.arrayBuffer())
+
 	const decryptedFileContent = await decryptWithAES(
-		await response.arrayBuffer(),
+		responseBody,
 		filePrivateKey,
 		{ iv: base64ToBuffer(fileEncryptionInfo.nonce) },
 	)
