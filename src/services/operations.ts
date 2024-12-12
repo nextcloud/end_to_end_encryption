@@ -7,10 +7,8 @@
 
 import { generateMnemonic } from 'bip39'
 
-import { getCurrentUser } from '@nextcloud/auth'
-
 import { decryptPrivateKey, encryptPrivateKey } from './utils.ts'
-import { generateX509Certificate, validateX09CertificateSignature } from './crypto.ts'
+import { validateX09CertificateSignature } from './crypto.ts'
 import {
 	deleteMetadata,
 	getMetadata,
@@ -28,16 +26,10 @@ import { promptUserForMnemonic, showMnemonic } from './mnemonicDialogs.ts'
 
 // API usage: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md
 
-export async function initializeUserKeys(): Promise<{publicKey: CryptoKey, privateKey: CryptoKey}> {
-	const user = getCurrentUser()
-
-	if (user === null) {
-		throw new Error('No user logged in')
-	}
-
+export async function initializeUserKeys(userId: string): Promise<{publicKey: CryptoKey, privateKey: CryptoKey}> {
 	const publicKeys = await getPublicKeys()
 
-	let publicKey = publicKeys[user.uid]
+	let publicKey = publicKeys[userId]
 	let privateKey: CryptoKey
 
 	if (publicKey === undefined) {

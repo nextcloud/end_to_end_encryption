@@ -3,13 +3,18 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Metadata } from '../models'
+import { Metadata, MetadataInfo } from '../models'
 import { decryptWithAES, decryptWithRSA, loadAESPrivateKey } from './crypto.ts'
 import { base64ToBuffer } from './utils'
+import { getMetadata } from './api'
 
 /* eslint-disable jsdoc/require-jsdoc */
 
-export async function decryptMetadataInfo(metadata: Metadata, userId: string, privateKey: CryptoKey) {
+export async function getMetadataInfo(fileId: string, userId: string, privateKey: CryptoKey): Promise<MetadataInfo> {
+	return await decryptMetadataInfo(await getMetadata(fileId), uid, privateKey)
+}
+
+export async function decryptMetadataInfo(metadata: Metadata, userId: string, privateKey: CryptoKey): Promise<MetadataInfo> {
 	const [encryptedMetadata, iv] = metadata.metadata.ciphertext.split('|')
 
 	const compressedMetadataInfo = await decryptWithAES(

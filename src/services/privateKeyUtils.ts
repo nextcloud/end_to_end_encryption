@@ -6,7 +6,7 @@
 /* eslint-disable jsdoc/require-jsdoc */
 
 import type { PrivateKeyInfo } from '../models.ts'
-import { decryptWithAES, encryptWithAES, exportKey, loadRSAPrivateKey } from './crypto.ts'
+import { decryptWithAES, encryptWithAES, exportRSAKey, loadRSAPrivateKey } from './crypto.ts'
 import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from './utils.ts'
 
 const PEM_HEADER = '-----BEGIN PRIVATE KEY-----'
@@ -16,7 +16,7 @@ export async function encryptPrivateKey(privateKey: CryptoKey, mnemonic: string)
 	const salt = self.crypto.getRandomValues(new Uint8Array(40))
 
 	const encryptedPrivateKeyInfo = await encryptWithAES(
-		stringToBuffer(bufferToBase64(await exportKey(privateKey))),
+		stringToBuffer(bufferToBase64(await exportRSAKey(privateKey))),
 		await mnemonicToPrivateKey(mnemonic, salt),
 	)
 

@@ -6,6 +6,7 @@
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
+import propfindRequest from './propfindRequest.js'
 
 const API_ROOT = 'http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2'
 
@@ -25,6 +26,9 @@ export const restHandlers = [
 				},
 			},
 		})
+	}),
+	http.all('https://nextcloud.local/remote.php/dav/files/test', () => {
+		return HttpResponse.xml(propfindRequest)
 	}),
 ]
 

@@ -17,7 +17,7 @@ export async function encryptWithAES(content: BufferSource, key: CryptoKey, opti
 	)
 
 	return {
-		encryptedContent,
+		encryptedContent: new Uint8Array(encryptedContent),
 		iv,
 	}
 }
@@ -109,7 +109,7 @@ export async function loadRSAPrivateKey(key: ArrayBuffer): Promise<CryptoKey> {
 	)
 }
 
-export async function exportKey(key: CryptoKey): Promise<Uint8Array> {
+export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array> {
 	if (key.type === 'public') {
 		return new Uint8Array(await self.crypto.subtle.exportKey('spki', key))
 	} else {
@@ -125,8 +125,8 @@ export async function validateX09CertificateSignature(publicKey: CryptoKey, serv
 			hash: 'SHA-256',
 		},
 		serverPublicKey,
-		await exportKey(publicKey), // What is the signature?
-		await exportKey(publicKey),
+		await exportRSAKey(publicKey), // What is the signature?
+		await exportRSAKey(publicKey),
 	)
 	return true
 }

@@ -11,9 +11,9 @@ import { decryptPrivateKey } from './privateKeyUtils.ts'
 
 const metadata: Metadata = {
 	metadata: {
-		authenticationTag: '5fEQnn7rRSYn0WGikdhp3Q==',
-		ciphertext: 'Dik989hvcKN8RwxPEswYh2czOUvdnUIhSspF+wFp7L1kQy+Vxf1Xh9yeN508XvdjS2NyJPGvsV14if30W4gDieUbkHYZ53hkQY7q2kOlGAnqYdi9DzeotA2wqZldhg1ICLXHaWhir3XZxxM7DtZBL1duUPCs5vhJpec8sDXxcqhqzALN7/scEvZt2+3v+yIsix1uRzq/+CdJcQI1xdaievap7bDW65XbGRUlS1YvpbCoaU3EImszrvXOOuE99PrI4NQOyxg64QJj77Z0m1mKc0+h0SkRiFcNxi19IAnRgGXzSsObqJ0ny8sbSjT8LZwnRndj1tTtiJR4C2vvS93yX7ecGlbn4Cke0RoCMhnQfORa5fEQnn7rRSYn0WGikdhp3Q==|WxVNOaGIXDZD62pW5cg4Ug==',
-		nonce: 'WxVNOaGIXDZD62pW5cg4Ug==',
+		authenticationTag: '/Jfdn9mViRy7lFJnyaNsnQ==',
+		ciphertext: 'oND/1RFakDsO3ZkFg/bi9pfu7qvCPz2UlcbF2sT458zfaZ+C2nswnRVjoKVIu70qV1lG7QMlcPd7dRZH8DGGYC8cyKcObIrTUo5i1vidWtXxJrTJwmotnRnzd3jf896Wm37sUld+kaZoyveSYI7x6P9TwdgB2hTvHEraTnKDQXsSDrY7RhxrIyMJnuZKU7DIAC8bBghjXDUF8AHT21RUQq7ILVsmjh575rke0GTskegXX1Qra9UNql6z8lGyN/uF26Hrek7YwKP3ef9VC+cFg5/jozspGjf2DQBsYG6X4+oD03Q0xHmdZ7t7VpAcPhWUJuIBdI+/M229REofdZNbQ0Uj61SolU0r8q/rZjxZ9Ev1zvDVOOyOFGrLJvFiO/6oN+BBywHpI62oLPyX3Z/ZlYkcu5RSZ8mjbJ0=|Rv40Cy2YkO4T2GU0e1ZRkQ==',
+		nonce: 'Rv40Cy2YkO4T2GU0e1ZRkQ==',
 	},
 	users: [
 		{

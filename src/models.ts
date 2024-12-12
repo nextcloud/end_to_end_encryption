@@ -16,8 +16,23 @@ export type Metadata = {
 	version: '2.0',
 }
 
+export type FileEncryptionInfo = {
+	authenticationTag: string // Example: 'nJHAcpZwSS1BCIkGbmtbNg==',
+	filename: string // Example: 'test.txt',
+	key: string // Example: 'Hj+q7e53ZeQdHKPyF7FKeg==',
+	mimetype: string // Example: 'text/plain',
+	nonce: string // Example: 'sqqtY0eRjhuwf+qTv5Kg2g=='
+}
+
+export type MetadataInfo = {
+	counter: number, // Example: 3
+	files: Record<string, FileEncryptionInfo>, // Example: 'ad3b12554e0d4364854ae3e21b170152'
+	folders: Record<string, string>, // TODO: Example: { fa666d819a6c4315abba421172f0a0b1: 'Test' }
+	keyChecksums: string[] // Example: ['9a60be9846978884033fcdfb978fbdd428221b20583bca6bfcb425f1b540152a']
+}
+
 export type PrivateKeyInfo = {
-	encryptedPrivateKey: ArrayBuffer,
-	iv: ArrayBuffer,
-	salt: ArrayBuffer,
+	encryptedPrivateKey: Uint8Array,
+	iv: Uint8Array,
+	salt: Uint8Array,
 }

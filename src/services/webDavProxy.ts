@@ -4,13 +4,21 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { parseStat, parseXML } from 'webdav'
+import { DAVResult, parseStat, parseXML } from 'webdav'
 import { XMLBuilder } from 'fast-xml-parser'
 
-import type { Metadata } from '../models'
-import { getMetadata } from './api'
+import { decryptMetadataInfo } from './metadataUtils'
+import { getMetadata, getPrivateKey } from './api'
+import { decryptPrivateKey } from './privateKeyUtils'
+import { promptUserForMnemonic } from './mnemonicDialogs'
+import { getCurrentUser } from '@nextcloud/auth'
+import { FileEncryptionInfo, Metadata, MetadataInfo } from '../models'
+import { decryptWithAES, loadAESPrivateKey } from './crypto'
+import { basename, dirname } from 'path'
+import { base64ToBuffer } from './utils'
 
 const originalFetch = window.fetch
+let privateKey: CryptoKey|undefined
 
 window.fetch = async (input: RequestInfo | URL, config: RequestInit = {}) => {
 	const request = new Request(input, config)
@@ -21,72 +29,137 @@ window.fetch = async (input: RequestInfo | URL, config: RequestInit = {}) => {
 
 	config.headers = new Headers(config.headers)
 	config.headers.set('X-E2EE-SUPPORTED', 'true')
-	const response = await originalFetch(input, config)
-
-	console.debug('[E2EE WebDAV proxy]', request.url, request)
 
 	switch (config.method) {
 	case 'PROPFIND':
-		return handlePropFind(request, response)
+		return handlePropFind(request, await originalFetch(input, config))
 	case 'GET':
 	default:
-		return handleGet(request, response)
+		return handleGet(request)
 	}
 }
 
-const e2eeFoldersMetadata: Record<string, Metadata> = {}
+const metadataInfos: Record<string, MetadataInfo> = {}
 
-function isInE2eeFolder(url: string): boolean {
-	for (const folder in e2eeFoldersMetadata) {
-		if (url.startsWith(folder)) {
-			return true
-		}
-	}
+async function handleGet(request: Request) {
+	console.log('GET', request.url)
 
-	return false
-}
+	const parentPath = dirname(request.url)
+	const propfindResponse = await fetch(parentPath, { method: 'PROPFIND' })
+	const xml = await parseXML(await propfindResponse.text())
+	const stat = parseStat(xml, parentPath, true)
 
-async function handleGet(request: Request, response: Response) {
-	if (!isInE2eeFolder(request.url)) {
+	if (stat.props?.['is-encrypted'] !== 1) {
 		return response
 	}
 
-	return new Response(response.body, response) // TODO: decrypt(response)
+	const metadataInfo = await getFolderMetadataInfo(stat.props.fileid as string)
+
+	const filename = basename(request.url)
+	const fileInfo = Object.entries(metadataInfo.files).find(([_, file]) => file.filename === filename)
+
+	if (fileInfo === undefined) {
+		throw new Error('Could not find file in metadata')
+	}
+
+	const [randomFileId, fileEncryptionInfo] = fileInfo
+
+	request.url.replace(filename, randomFileId)
+
+	const encryptedFileResponse = await originalFetch(request)
+
+	return await decryptFile(encryptedFileResponse, metadataInfo, fileEncryptionInfo)
 }
 
 async function handlePropFind(request: Request, response: Response) {
 	const path = new URL(request.url).pathname
-	const body = await response.text()
-	const xml = await parseXML(body)
+	const xml = await parseXML(await response.text())
 	const stat = parseStat(xml, path, true)
-	const isEncrypted = stat.props?.['is-encrypted'] === 1
 
-	if (!isEncrypted) {
+	if (stat.props?.['is-encrypted'] !== 1) {
 		return response
 	}
 
-	console.log('[E2EE SW]', 'PROPFIND xml', xml)
+	if (privateKey === undefined) {
+		// TODO: Store the private key?
+		privateKey = await decryptPrivateKey(await getPrivateKey(), await promptUserForMnemonic())
+	}
 
-	e2eeFoldersMetadata[path] = await getMetadata(stat.props?.fileid ?? '')
+	const currentUser = getCurrentUser()
+	if (!currentUser) {
+		throw new Error('No user logged in')
+	}
 
-	// xml.multistatus.response.forEach((childNode, i) => {
-	// 	if (childNode.href === path) {
-	// 		return
-	// 	}
+	replacePlaceholderInPropfind(
+		xml,
+		path,
+		await getFolderMetadataInfo(stat.props.fileid as string),
+	)
 
-	// 	if (xml.multistatus.response[i].propstat === undefined) {
-	// 		return
-	// 	}
+	return new Response(new XMLBuilder().build(xml), response)
+}
 
-	// 	// TODO: replace basename, filename, size, creationDate, and type in xml
-	// 	xml.multistatus.response[i].href = 'TODO'
-	// 	xml.multistatus.response[i].propstat.prop.displayname = 'TODO'
-	// 	xml.multistatus.response[i].propstat.prop.creationdate = 'TODO'
-	// 	xml.multistatus.response[i].propstat.prop.getcontenttype = 'TODO'
-	// })
+export function replacePlaceholderInPropfind(xml: DAVResult, folderPath: string, metadataInfo: MetadataInfo): void {
+	xml.multistatus.response.forEach((childNode) => {
+		if (childNode.href === folderPath) {
+			return
+		}
 
-	const builder = new XMLBuilder()
-	const xmlContent = builder.build(xml)
+		if (childNode.propstat === undefined) {
+			return
+		}
 
-	return new Response(xmlContent, response) // TODO: proxy(originalResponse)
+		const randomFileId = childNode.propstat.prop.displayname
+
+		let name: string|undefined
+
+		if (metadataInfo.files[randomFileId]) {
+			name = metadataInfo.files[randomFileId].filename
+			childNode.propstat.prop.getcontenttype = metadataInfo.files[randomFileId].mimetype
+		} else if (metadataInfo.folders[randomFileId]) {
+			name = metadataInfo.folders[randomFileId]
+			childNode.propstat.prop.getcontenttype = 'httpd/unix-directory'
+		} else {
+			return
+		}
+
+		childNode.href = childNode.href.replace(randomFileId, name)
+		childNode.propstat.prop.displayname = name
+	})
+}
+
+async function getFolderMetadataInfo(fileId: string): Promise<MetadataInfo> {
+	if (metadataInfos[fileId]) {
+		return metadataInfos[fileId]
+	}
+
+	const currentUser = getCurrentUser()
+	if (!currentUser) {
+		throw new Error('No user logged in')
+
+	}
+	if (privateKey === undefined) {
+		// TODO: Store the private key?
+		privateKey = await decryptPrivateKey(await getPrivateKey(), await promptUserForMnemonic())
+	}
+
+	metadataInfos[fileId] = await decryptMetadataInfo(
+		await getMetadata(fileId),
+		currentUser.uid,
+		privateKey,
+	)
+
+	return metadataInfos[fileId]
+}
+
+export async function decryptFile(response: Response, fileEncryptionInfo: FileEncryptionInfo): Promise<Response> {
+	const filePrivateKey = await loadAESPrivateKey(base64ToBuffer(fileEncryptionInfo.key))
+
+	const decryptedFileContent = await decryptWithAES(
+		await response.arrayBuffer(),
+		filePrivateKey,
+		{ iv: base64ToBuffer(fileEncryptionInfo.nonce) },
+	)
+
+	return new Response(decryptedFileContent, response)
 }

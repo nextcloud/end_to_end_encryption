@@ -4,8 +4,8 @@
  */
 export const getCurrentUser = function() {
 	return {
-		uid: 'test',
-		displayName: 'Test',
+		uid: 'admin',
+		displayName: 'Admin',
 		isAdmin: false,
 	}
 }

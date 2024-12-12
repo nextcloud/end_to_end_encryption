@@ -10,7 +10,7 @@ import type { OCSResponse } from '@nextcloud/typings/ocs'
 
 import type { Metadata, PrivateKeyInfo } from '../models'
 import { base64ToBuffer, bufferToBase64, stringToBuffer } from './utils'
-import { exportX509Certificate, loadX509Certificate } from './crypto'
+import { exportRSAKey, loadRSAPublicKey } from './crypto'
 
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md
 
@@ -58,10 +58,10 @@ export async function deletePrivateKey(): Promise<void> {
 export async function signPublicKey(certificate: CryptoKey): Promise<CryptoKey> {
 	const response = await axios.post<OCSResponse<{'public-key': string}>>(
 		generateOcsUrl(Url.PublicKey),
-		{ csr: await exportX509Certificate(certificate) },
+		{ csr: await exportRSAKey(certificate) },
 		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 	)
-	return await loadX509Certificate(stringToBuffer(response.data.ocs.data['public-key']))
+	return await loadRSAPublicKey(stringToBuffer(response.data.ocs.data['public-key']))
 }
 
 export async function getPublicKeys<T extends string>(userIds?: T[]): Promise<Record<T, CryptoKey>> {
@@ -77,7 +77,7 @@ export async function getPublicKeys<T extends string>(userIds?: T[]): Promise<Re
 
 	for (const userId in response.data.ocs.data['public-keys']) {
 		const publicKey = response.data.ocs.data['public-keys'][userId]
-		keys[userId] = await loadX509Certificate(stringToBuffer(publicKey))
+		keys[userId] = await loadRSAPublicKey(stringToBuffer(publicKey))
 	}
 
 	return keys
@@ -183,7 +183,7 @@ export async function getServerPublicKey(): Promise<CryptoKey> {
 		generateOcsUrl(Url.ServerKey),
 		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 	)
-	return await loadX509Certificate(stringToBuffer(response.data.ocs.data['public-key']))
+	return await loadRSAPublicKey(stringToBuffer(response.data.ocs.data['public-key']))
 }
 
 export async function setEncrypted(fileId: string): Promise<void> {
