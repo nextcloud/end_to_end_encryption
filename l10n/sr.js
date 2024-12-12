@@ -30,6 +30,7 @@ OC.L10N.register(
     "Encrypted share" : "Шифровано дељење",
     "End-to-End Encryption" : "Шифровање са краја на крај",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ова апликација обезбеђује потребне API-је за имплементацију шифровања с краја на крај на страни клијента.\nУз то, имплементира и безбедно упуштање фајлова и обезбеђује да  фајловима шифровани с краја на крај не може нити да се приступи из веб интерфејса нити осталим WebDAV клијентима.",
     "Limit to groups" : "Ограничи на групе",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Када је изабрана барем једна група, апликацију Шифровање од краја до краја могу да користе само особе из наведених група.",
     "Limit app usage to groups" : "Ограничи коришћење апликације на групе",
