@@ -9,8 +9,8 @@ import { generateMnemonic } from 'bip39'
 
 import { getCurrentUser } from '@nextcloud/auth'
 
-import { decryptPrivateKey, encryptPrivateKey, stringToBuffer } from './utils.ts'
-import { exportX509Certificate, generateX509Certificate, loadX509Certificate, validateX09CertificateSignature } from './crypto.ts'
+import { decryptPrivateKey, encryptPrivateKey } from './utils.ts'
+import { generateX509Certificate, validateX09CertificateSignature } from './crypto.ts'
 import {
 	deleteMetadata,
 	getMetadata,
@@ -41,9 +41,10 @@ export async function initializeUserKeys(): Promise<{publicKey: CryptoKey, priva
 	let privateKey: CryptoKey
 
 	if (publicKey === undefined) {
-		const keyPair = await generateX509Certificate()
-		publicKey = await signPublicKey(keyPair.publicKey)
-		privateKey = keyPair.privateKey
+		const csrAndPrivateKey = await generateCSRAndPrivateKey()
+		publicKey = await signPublicKey(csrAndPrivateKey.csr)
+		privateKey = csrAndPrivateKey.privateKey
+		// TODO: Check that the returned public key is matching private key
 
 		const mnemonic = generateMnemonic()
 		await setPrivateKey(await encryptPrivateKey(privateKey, mnemonic))

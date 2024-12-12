@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
-
 import * as x509 from '@peculiar/x509'
 
-export async function encryptWithAES(content: BufferSource, key: CryptoKey) {
+/* eslint-disable jsdoc/require-jsdoc */
+
+export async function encryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}) {
 	const iv = self.crypto.getRandomValues(new Uint8Array(16))
 
 	const encryptedContent = await self.crypto.subtle.encrypt(
-		{ name: 'AES-GCM', iv },
+		{ name: 'AES-GCM', iv, ...options },
 		key,
 		content,
 	)
@@ -22,34 +22,71 @@ export async function encryptWithAES(content: BufferSource, key: CryptoKey) {
 	}
 }
 
-export async function decryptWithAES(content: BufferSource, iv: BufferSource, key: CryptoKey) {
+export async function decryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}): Promise<ArrayBuffer> {
 	return await self.crypto.subtle.decrypt(
-		{ name: 'AES-GCM', iv },
+		{ name: 'AES-GCM', ...options },
 		key,
 		content,
 	)
 }
 
-// TODO: Check
-export async function generateX509Certificate(): Promise<CryptoKeyPair> {
-	return await self.crypto.subtle.generateKey(
-		{
-			name: 'RSA-OAEP',
-			modulusLength: 2048,
-			publicExponent: new Uint8Array([1, 0, 1]),
-			hash: 'SHA-256',
-		},
-		true,
-		['encrypt', 'decrypt'],
+export async function decryptWithRSA(content: BufferSource, key: CryptoKey): Promise<ArrayBuffer> {
+	return await self.crypto.subtle.decrypt(
+		{ name: 'RSA-OAEP' },
+		key,
+		content,
 	)
 }
 
-export async function loadX509Certificate(key: ArrayBuffer): Promise<CryptoKey> {
-	const certificate = new x509.X509Certificate(key)
+export async function generateCSRAndPrivateKey(userId: string): Promise<{ privateKey: CryptoKey; csr: string }> {
+	const keyPair = await crypto.subtle.generateKey(
+		{
+			name: 'RSASSA-PKCS1-v1_5', // AES 256 GCM
+			modulusLength: 2048,
+			publicExponent: new Uint8Array([1, 0, 1]),
+			hash: { name: 'SHA-256' },
+		},
+		true,
+		[],
+	)
 
+	// const csr = await x509.Pkcs10CertificateRequestGenerator.create({
+	// 	name: `CN=${userId}`,
+	// 	keys: keyPair,
+	// 	signingAlgorithm: {
+	// 		name: 'RSASSA-PKCS1-v1_5',
+	// 		hash: { name: 'SHA-256' },
+	// 	},
+	// 	// extensions: [
+	// 	// 	new x509.KeyUsagesExtension(x509.KeyUsageFlags.digitalSignature | x509.KeyUsageFlags.keyEncipherment),
+	// 	// 	await x509.SubjectKeyIdentifierExtension.create(keyPair.publicKey),
+	// 	// ],
+	// })
+
+	return {
+		privateKey: keyPair.privateKey,
+		// privateKey: await loadRSAPrivateKey(await exportKey(keyPair.privateKey)),
+		csr: '', // csr.toString('base64'),
+	}
+}
+
+export async function loadAESPrivateKey(key: ArrayBuffer): Promise<CryptoKey> {
+	return await self.crypto.subtle.importKey(
+		'raw',
+		key,
+		{
+			name: 'AES-GCM',
+			length: 128,
+		},
+		true,
+		['decrypt', 'encrypt'],
+	)
+}
+
+export async function loadRSAPublicKey(key: ArrayBuffer): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'spki',
-		certificate.publicKey.rawData,
+		key,
 		{
 			name: 'RSA-OAEP',
 			hash: 'SHA-256',
@@ -59,8 +96,25 @@ export async function loadX509Certificate(key: ArrayBuffer): Promise<CryptoKey> 
 	)
 }
 
-export async function exportX509Certificate(key: CryptoKey): Promise<ArrayBuffer> {
-	return await self.crypto.subtle.exportKey('spki', key)
+export async function loadRSAPrivateKey(key: ArrayBuffer): Promise<CryptoKey> {
+	return await self.crypto.subtle.importKey(
+		'pkcs8',
+		key,
+		{
+			name: 'RSA-OAEP',
+			hash: 'SHA-256',
+		},
+		true,
+		['decrypt'],
+	)
+}
+
+export async function exportKey(key: CryptoKey): Promise<Uint8Array> {
+	if (key.type === 'public') {
+		return new Uint8Array(await self.crypto.subtle.exportKey('spki', key))
+	} else {
+		return new Uint8Array(await self.crypto.subtle.exportKey('pkcs8', key))
+	}
 }
 
 // TODO: Implement
@@ -71,30 +125,8 @@ export async function validateX09CertificateSignature(publicKey: CryptoKey, serv
 			hash: 'SHA-256',
 		},
 		serverPublicKey,
-		await exportX509Certificate(publicKey), // What is the signature?
-		await exportX509Certificate(publicKey),
+		await exportKey(publicKey), // What is the signature?
+		await exportKey(publicKey),
 	)
 	return true
-}
-
-export async function mnemonicToPrivateKey(mnemonic: string, salt: ArrayBuffer): Promise<CryptoKey> {
-	const keyMaterial = await crypto.subtle.importKey(
-		'raw',
-		new TextEncoder().encode(mnemonic),
-		{ name: 'PBKDF2' },
-		false,
-		['deriveKey'],
-	)
-
-	return await crypto.subtle.deriveKey(
-		{
-			name: 'PBKDF2',
-			salt,
-			hash: 'SHA-1',
-		},
-		keyMaterial,
-		{ name: 'AES-GCM', length: 256 },
-		false,
-		['encrypt'],
-	)
 }

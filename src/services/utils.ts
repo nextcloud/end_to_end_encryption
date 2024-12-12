@@ -5,43 +5,18 @@
 
 /* eslint-disable jsdoc/require-jsdoc */
 
-import type { PrivateKeyInfo } from '../models'
-import { decryptWithAES, encryptWithAES, exportX509Certificate, loadX509Certificate, mnemonicToPrivateKey } from './crypto'
-
-export async function encryptPrivateKey(privateKey: CryptoKey, mnemonic: string): Promise<PrivateKeyInfo> {
-	const salt = self.crypto.getRandomValues(new Uint8Array(16))
-
-	const encryptedPrivateKeyInfo = await encryptWithAES(
-		await exportX509Certificate(privateKey),
-		await mnemonicToPrivateKey(mnemonic, salt),
-	)
-
-	return {
-		encryptedPrivateKey: encryptedPrivateKeyInfo.encryptedContent,
-		iv: encryptedPrivateKeyInfo.iv,
-		salt,
-	}
+export function bufferToString(buffer: Uint8Array): string {
+	return String.fromCharCode.apply(null, buffer)
 }
 
-export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic: string): Promise<CryptoKey> {
-	const rawPrivateKey = await decryptWithAES(
-		privateKeyInfo.encryptedPrivateKey,
-		privateKeyInfo.iv,
-		await mnemonicToPrivateKey(mnemonic, privateKeyInfo.salt),
-	)
-
-	return loadX509Certificate(rawPrivateKey)
+export function stringToBuffer(str: string): Uint8Array {
+	return Uint8Array.from(str, c => c.charCodeAt(0))
 }
 
-export function stringToBuffer(str: string): ArrayBuffer {
-	const enc = new TextEncoder()
-	return enc.encode(str)
+export function bufferToBase64(buffer: Uint8Array): string {
+	return btoa(bufferToString(buffer))
 }
 
-export function base64ToBuffer(base64Str: string): ArrayBuffer {
+export function base64ToBuffer(base64Str: string): Uint8Array {
 	return stringToBuffer(atob(base64Str))
-}
-
-export function bufferToBase64(buffer: ArrayBuffer): string {
-	return btoa(String.fromCharCode(...new Uint8Array(buffer)))
 }
