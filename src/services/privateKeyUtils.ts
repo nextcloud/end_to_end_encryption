@@ -7,11 +7,30 @@
 
 import logger from './logger.ts'
 import type { PrivateKeyInfo } from '../models.ts'
-import { decryptWithAES, loadRSAPrivateKey } from './crypto.ts'
-import { base64ToBuffer, bufferToString } from './utils.ts'
+import { decryptWithAES, encryptWithAES, exportRSAKey, loadRSAPrivateKey } from './crypto.ts'
+import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from './utils.ts'
 
 const PEM_HEADER = '-----BEGIN PRIVATE KEY-----'
 const PEM_FOOTER = '-----END PRIVATE KEY-----'
+
+export async function encryptPrivateKey(privateKey: CryptoKey, mnemonic: string): Promise<PrivateKeyInfo> {
+	const salt = self.crypto.getRandomValues(new Uint8Array(40))
+
+	logger.debug('Encrypting private key', { mnemonic, salt })
+
+	const encryptedPrivateKeyInfo = await encryptWithAES(
+		stringToBuffer(bufferToBase64(await exportRSAKey(privateKey))),
+		await mnemonicToPrivateKey(mnemonic, salt),
+	)
+
+	logger.debug('Private key encrypted', { encryptedPrivateKeyInfo })
+
+	return {
+		encryptedPrivateKey: encryptedPrivateKeyInfo.encryptedContent,
+		iv: encryptedPrivateKeyInfo.iv,
+		salt,
+	}
+}
 
 export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic: string): Promise<CryptoKey> {
 	logger.debug('Decrypting private key', { privateKeyInfo, mnemonic })
