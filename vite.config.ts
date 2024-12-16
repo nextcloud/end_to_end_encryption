@@ -12,6 +12,7 @@ import { createAppConfig } from '@nextcloud/vite-config'
 declare const __dirname: string
 
 export default createAppConfig({
+	files: join(__dirname, 'src', 'files.ts'),
 	settings: join(__dirname, 'src', 'settings.js'),
 	adminSettings: join(__dirname, 'src', 'settings-admin.js'),
 	filedrop: join(__dirname, 'src', 'filedrop.js'),
