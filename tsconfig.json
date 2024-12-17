@@ -1,0 +1,20 @@
+{
+	"extends": "@vue/tsconfig/tsconfig.json",
+	"include": [
+		"./src/*.ts",
+		"./src/components/MnemonicPromptDialog.vue"
+	],
+	"compilerOptions": {
+		"lib": [
+			"DOM",
+			"ESNext",
+		],
+		"rootDir": "src",
+		"allowSyntheticDefaultImports": true,
+		"noImplicitAny": false,
+		"allowImportingTsExtensions": true
+	},
+	"vueCompilerOptions": {
+		"target": 2.7
+	}
+}

@@ -48,7 +48,7 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 	 * @dataProvider beforeControllerDataProvider
 	 */
 	public function testBeforeController(bool $hasAnnotation, bool $supportsE2E, bool $expectException, bool $forceSupport) {
-		$this->request->expects($hasAnnotation ? $this->exactly($supportsE2E ? 1 : 2) : $this->never())
+		$this->request->expects($hasAnnotation ? $this->once() : $this->never())
 			->method('getHeader')
 			->willReturnMap([
 				['user-agent', 'user-agent-string'],

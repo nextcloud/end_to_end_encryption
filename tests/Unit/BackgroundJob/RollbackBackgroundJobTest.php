@@ -16,17 +16,10 @@ use Test\TestCase;
 
 class RollbackBackgroundJobTest extends TestCase {
 
-	/** @var IConfig|\PHPUnit\Framework\MockObject\MockObject */
-	private $config;
-
-	/** @var ITimeFactory|\PHPUnit\Framework\MockObject\MockObject */
-	private $timeFactory;
-
-	/** @var RollbackService|\PHPUnit\Framework\MockObject\MockObject */
-	private $rollbackService;
-
-	/** @var RollbackBackgroundJob */
-	private $rollbackBackgroundJob;
+	private IConfig&\PHPUnit\Framework\MockObject\MockObject $config;
+	private ITimeFactory&\PHPUnit\Framework\MockObject\MockObject $timeFactory;
+	private RollbackService&\PHPUnit\Framework\MockObject\MockObject $rollbackService;
+	private RollbackBackgroundJob $rollbackBackgroundJob;
 
 	protected function setUp(): void {
 		parent::setUp();

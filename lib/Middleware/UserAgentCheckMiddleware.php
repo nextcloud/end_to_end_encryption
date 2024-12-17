@@ -49,10 +49,6 @@ class UserAgentCheckMiddleware extends Middleware {
 			return;
 		}
 
-		if ($this->request->getHeader('x-e2ee-supported') === 'true') {
-			return;
-		}
-
 		throw new OCSForbiddenException('Client "' . $userAgent . '" is not allowed to access end-to-end encrypted content.');
 	}
 }

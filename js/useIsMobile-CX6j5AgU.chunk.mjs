@@ -1,0 +1,1 @@
+import{j as o,J as d}from"./_plugin-vue2_normalizer-CM8922Se.chunk.mjs";const n=1024,i=n/2,e=s=>document.documentElement.clientWidth<s,t=o(e(n)),r=o(e(i));window.addEventListener("resize",()=>{t.value=e(n),r.value=e(i)},{passive:!0});function a(){return d(t)}d(t);export{a as u};

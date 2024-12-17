@@ -18,12 +18,14 @@ use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\IMetaDataStorageV1;
 use OCA\EndToEndEncryption\KeyStorage;
+use OCA\EndToEndEncryption\Listener\LoadAdditionalListener;
 use OCA\EndToEndEncryption\Listener\UserDeletedListener;
 use OCA\EndToEndEncryption\MetaDataStorage;
 use OCA\EndToEndEncryption\MetaDataStorageV1;
 use OCA\EndToEndEncryption\Middleware\CanUseAppMiddleware;
 use OCA\EndToEndEncryption\Middleware\ClientHasCapabilityMiddleware;
 use OCA\EndToEndEncryption\Middleware\UserAgentCheckMiddleware;
+use OCA\Files\Event\LoadAdditionalScriptsEvent;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
 use OCA\Files_Versions\Events\CreateVersionEvent;
 use OCP\AppFramework\App;
@@ -59,6 +61,7 @@ class Application extends App implements IBootstrap {
 		$context->registerServiceAlias(IMetaDataStorageV1::class, MetaDataStorageV1::class);
 		$context->registerServiceAlias(IMetaDataStorage::class, MetaDataStorage::class);
 		$context->registerEventListener(UserDeletedEvent::class, UserDeletedListener::class);
+		$context->registerEventListener(LoadAdditionalScriptsEvent::class, LoadAdditionalListener::class);
 		$context->registerPublicShareTemplateProvider(E2EEPublicShareTemplateProvider::class);
 	}
 
