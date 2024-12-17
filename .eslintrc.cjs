@@ -4,7 +4,7 @@
  */
 module.exports = {
 	extends: [
-		'@nextcloud',
+		"@nextcloud/eslint-config/typescript"
 	],
 	globals: {
 		appName: true,
