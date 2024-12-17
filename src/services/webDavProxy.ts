@@ -192,7 +192,6 @@ async function getFileIdForPath(path: string): Promise<string> {
 	logger.debug('Getting file id', { path })
 
 	const response = (await davClient.stat(decodeURI(path).replace('remote.php/dav/', ''), { details: true, data: getDefaultPropfind() })) as ResponseDataDetailed<FileStat>
-	console.log(response)
 	const node = resultToNode(response.data) as Node
 
 	if (!node.fileid) {

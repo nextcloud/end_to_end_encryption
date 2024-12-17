@@ -524,7 +524,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->logger->expects($this->once())
 			->method('critical')
-			->willReturn($exception->getMessage());
+			->with($exception->getMessage());
 
 		$this->expectException(OCSBadRequestException::class);
 		$this->expectExceptionMessage('Internal error');
