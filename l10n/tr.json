@@ -28,6 +28,7 @@
     "Encrypted share" : "Şifrelenmiş paylaşım",
     "End-to-End Encryption" : "Uçtan uca şifreleme",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Bu uygulama, istemci tarafında uçtan uca şifreleme kullanabilmek için gereken tüm API uygulamalarını sağlar.\nAyrıca güvenli dosya bırakmayı kullanır ve uçtan uca şifrelenmiş dosyaların internet arayüzü veya diğer WebDAV istemcileri aracılığıyla erişilebilir olmadığından emin olur.",
     "Limit to groups" : "Şu gruplarla sınırlansın",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "En az bir grup seçildiğinde, yalnızca belirtilen gruplardaki kişiler uçtan uca şifreleme uygulamasını kullanabilir.",
     "Limit app usage to groups" : "Uygulama kullanımı şu gruplarla sınırlansın",
