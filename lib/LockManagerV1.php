@@ -38,7 +38,7 @@ class LockManagerV1 {
 		ISecureRandom $secureRandom,
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		ITimeFactory $timeFactory
+		ITimeFactory $timeFactory,
 	) {
 		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;

@@ -38,7 +38,7 @@ class KeyController extends OCSController {
 		IKeyStorage $keyStorage,
 		SignatureHandler $signatureHandler,
 		LoggerInterface $logger,
-		IL10N $l10n
+		IL10N $l10n,
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;

@@ -46,7 +46,7 @@ class LockingController extends OCSController {
 		FileService $fileService,
 		LoggerInterface $logger,
 		IL10N $l10n,
-		ShareManager $shareManager
+		ShareManager $shareManager,
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;

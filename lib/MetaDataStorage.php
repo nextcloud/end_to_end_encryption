@@ -279,7 +279,7 @@ class MetaDataStorage implements IMetaDataStorage {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
 		} catch (NoUserException|NotPermittedException $ex) {
-			throw new NotFoundException('No user-root for '. $userId);
+			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
 		$ownerNodes = $userFolder->getById($id);
@@ -349,7 +349,7 @@ class MetaDataStorage implements IMetaDataStorage {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
 		} catch (NoUserException $ex) {
-			throw new NotFoundException('No user-root for '. $userId);
+			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
 		$ownerNodes = $userFolder->getById($id);
