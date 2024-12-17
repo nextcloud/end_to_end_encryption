@@ -42,7 +42,7 @@ SPDX-FileCopyrightText = "2018 Nextcloud translators <https://www.transifex.com/
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 [[annotations]]
-path = ["img/app.svg", "js/end_to_end_encryption-data_image_svg_xml_*SPDX-FileCopyrightText_202020_20Google_20Inc_20-_20SPDX-*.js"]
+path = ["img/app.svg"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2018-2024 Google LLC"
 SPDX-License-Identifier = "Apache-2.0"
@@ -51,4 +51,10 @@ SPDX-License-Identifier = "Apache-2.0"
 path = ["tsconfig.json"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2024 Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = ["js/**.mjs.map"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2019 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
