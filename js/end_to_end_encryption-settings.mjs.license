@@ -1,0 +1,14 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-FileCopyrightText: John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+
+This file is generated from multiple sources. Included packages:
+- @nextcloud/vue
+	- version: 8.21.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
