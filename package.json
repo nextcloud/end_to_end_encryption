@@ -29,7 +29,7 @@
     "debounce": "^2.1.0",
     "uuid": "^10.0.0",
     "vue": "^2.7.16",
-    "vue-material-design-icons": "^5.3.0"
+    "vue-material-design-icons": "^5.3.1"
   },
   "devDependencies": {
     "@nextcloud/babel-config": "^1.2.0",
