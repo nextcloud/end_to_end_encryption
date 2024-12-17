@@ -36,7 +36,7 @@ abstract class APlugin extends ServerPlugin {
 	public function __construct(
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		E2EEnabledPathCache $pathCache
+		E2EEnabledPathCache $pathCache,
 	) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
