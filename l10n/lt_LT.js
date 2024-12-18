@@ -26,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Apriboti iki grupių",
     "Limit app usage to groups" : "Programos panaudojimas ribojamas grupėms",
     "Save" : "Įrašyti",
+    "Submit" : "Pateikti",
     "End-to-end encryption" : "Ištisinis šifravimas",
     "Cancel" : "Atsisakyti",
     "Select or drop files" : "Pasirinkite arba vilkite failus"

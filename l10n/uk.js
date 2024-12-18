@@ -35,6 +35,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Обмежити використання застосунку певними групами",
     "Save" : "Зберегти",
     "Saved groups" : "Збережені групи",
+    "Submit" : "Відправити",
     "End-to-end encryption" : "Наскрізне шифрування",
     "Reset end-to-end encryption" : "Скинути наскрізне шифрування",
     "Please read carefully before resetting your end-to-end encryption keys" : "Будь ласка, уважно прочитайте перед скиданням ключів наскрізного шифрування",

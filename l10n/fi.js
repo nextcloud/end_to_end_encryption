@@ -25,6 +25,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",
     "Save" : "Tallenna",
     "Saved groups" : "Tallennetut ryhmät",
+    "Submit" : "Lähetä",
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
     "Cancel" : "Peruuta",

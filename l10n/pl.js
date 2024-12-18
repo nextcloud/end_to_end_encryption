@@ -31,6 +31,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Ogranicz korzystanie z aplikacji dla grup",
     "Save" : "Zapisz",
     "Saved groups" : "Zapisano grupy",
+    "Submit" : "Wyślij",
     "End-to-end encryption" : "Szyfrowanie End-to-End",
     "Reset end-to-end encryption" : "Zresetuj szyfrowanie end-to-end",
     "Please read carefully before resetting your end-to-end encryption keys" : "Przeczytaj uważnie przed zresetowaniem kluczy szyfrowania end-to-end",

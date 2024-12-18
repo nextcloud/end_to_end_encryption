@@ -32,6 +32,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Mugatu aplikazioaren erabilera taldeei",
     "Save" : "Gorde",
     "Saved groups" : "Gordetako taldeak",
+    "Submit" : "Bidali",
     "End-to-end encryption" : "Muturretik muturrerako zifratzea",
     "Reset end-to-end encryption" : "Berrezarri muturretik muturrerako zifratzea",
     "Please read carefully before resetting your end-to-end encryption keys" : "Irakurri arretaz zure muturretik muturrerako zifratze gakoak berezarri aurretik mesedez",

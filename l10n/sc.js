@@ -26,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Lìmita a grupos",
     "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Save" : "Sarva",
+    "Submit" : "Imbia",
     "End-to-end encryption" : "Tzifradura end-to-end",
     "Cancel" : "Annulla",
     "Select or drop files" : "Sèbera o iscapa archìvios",
