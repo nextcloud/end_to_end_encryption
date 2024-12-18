@@ -21,6 +21,7 @@ OC.L10N.register(
     "Limit to groups" : "Takmarka við hópa",
     "Limit app usage to groups" : "Takmarka notkun forrits við tiltekna hópa",
     "Save" : "Vista",
+    "Submit" : "Senda inn",
     "End-to-end encryption" : "Enda-í-enda dulritun",
     "Cancel" : "Hætta við",
     "Select or drop files" : "Veldu eða slepptu skrám",

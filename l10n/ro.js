@@ -5,6 +5,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "Criptare integrală",
     "Limit to groups" : "Limitează pentru grupuri",
     "Save" : "Salvează",
+    "Submit" : "Trimite",
     "Cancel" : "Anulare",
     "Select or drop files" : "Selectează sau plasează fișiere",
     "Limit app usage to groups." : "Limitare utilizare aplicație la grupuri"

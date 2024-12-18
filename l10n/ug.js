@@ -35,6 +35,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "گۇرۇپپىلارغا ئەپ ئىشلىتىشنى چەكلەڭ",
     "Save" : "ساقلا",
     "Saved groups" : "ساقلانغان گۇرۇپپىلار",
+    "Submit" : "يوللاڭ",
     "End-to-end encryption" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش",
     "Reset end-to-end encryption" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى ئەسلىگە كەلتۈرۈڭ",
     "Please read carefully before resetting your end-to-end encryption keys" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش كۇنۇپكىسىنى ئەسلىگە كەلتۈرۈشتىن بۇرۇن ئەستايىدىل ئوقۇپ چىقىڭ",

@@ -26,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Limitar a grupos",
     "Limit app usage to groups" : "Limitar el uso de aplicaciones a grupos",
     "Save" : "Guardar",
+    "Submit" : "Enviar",
     "End-to-end encryption" : "Encripción de punta-a-punta",
     "Cancel" : "Cancelar",
     "Select or drop files" : "Selecciona o suelta los archivos"
