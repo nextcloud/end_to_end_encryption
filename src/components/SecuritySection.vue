@@ -6,14 +6,60 @@
 <template>
 	<NcSettingsSection :name="t('end_to_end_encryption', 'End-to-end encryption')"
 		:description="encryptionState">
-		<NcButton :disabled="!hasKey || shouldDisplayWarning"
+		<NcButton v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
+			class="margin-bottom"
+			:disabled="!hasKey"
+			type="secondary"
+			@click="shouldDisplayE2EEInBrowserWarning = true">
+			{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
+		</NcButton>
+		<NcNoteCard v-else
+			class="notecard"
+			type="warning"
+			:show-alert="true"
+			:heading="t('end_to_end_encryption', 'Enabling E2EE in the browser can weaken security')">
+			<NcButton v-if="userConfig['e2eeInBrowserEnabled'] === false"
+				class="close-button"
+				:aria-label="t('end_to_end_encryption', 'Close')"
+				type="tertiary-no-background"
+				@click="shouldDisplayE2EEInBrowserWarning = false">
+				<template #icon>
+					<IconClose :size="20" />
+				</template>
+			</NcButton>
+
+			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
+
+			<NcCheckboxRadioSwitch :disabled="!hasKey"
+				data-cy-e2ee-settings-setting="e2ee_in_browser_enabled"
+				:checked="userConfig.e2eeInBrowserEnabled"
+				class="margin-bottom"
+				type="switch"
+				@update:checked="value => setConfig('e2eeInBrowserEnabled', value)">
+				{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
+			</NcCheckboxRadioSwitch>
+		</NcNoteCard>
+
+		<NcButton v-if="!shouldDisplayWarning"
+			:disabled="!hasKey"
 			:type="(hasKey && !shouldDisplayWarning) ? 'error' : 'secondary'"
 			@click="startResetProcess()">
 			{{ t('end_to_end_encryption', 'Reset end-to-end encryption') }}
 		</NcButton>
+		<NcNoteCard v-else
+			class="notecard"
+			type="warning"
+			:show-alert="true"
+			:heading="t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys')">
+			<NcButton class="close-button"
+				:aria-label="t('end_to_end_encryption', 'Close')"
+				type="tertiary-no-background"
+				@click="shouldDisplayWarning = false">
+				<template #icon>
+					<IconClose :size="20" />
+				</template>
+			</NcButton>
 
-		<div v-if="shouldDisplayWarning && hasKey" class="notecard warning" role="alert">
-			<p><strong>{{ t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys') }}</strong></p>
 			<ul>
 				<li>{{ t('end_to_end_encryption', 'Once your end-to-end encryption keys are reset, all files stored in your encrypted folder will be inaccessible.') }}</li>
 				<li>{{ t('end_to_end_encryption', 'You should only reset your end-to-end encryption keys if you lost your secure key words (mnemonic).') }}</li>
@@ -28,27 +74,34 @@
 			<NcButton type="error" @click="showDialog">
 				{{ t('end_to_end_encryption', "Confirm and reset end-to-end encryption") }}
 			</NcButton>
-		</div>
+		</NcNoteCard>
 	</NcSettingsSection>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
+import IconClose from 'vue-material-design-icons/Close.vue'
+
 import axios from '@nextcloud/axios'
+import { translate as t } from '@nextcloud/l10n'
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
 import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess, DialogBuilder } from '@nextcloud/dialogs'
-import { generateOcsUrl } from '@nextcloud/router'
+import { generateOcsUrl, generateUrl } from '@nextcloud/router'
 
 import logger from '../services/logger.js'
 
-export default {
+export default defineComponent({
 	name: 'SecuritySection',
 	components: {
 		NcSettingsSection,
 		NcButton,
 		NcCheckboxRadioSwitch,
+		NcNoteCard,
+		IconClose,
 	},
 
 	data() {
@@ -56,6 +109,8 @@ export default {
 			hasKey: loadState('end_to_end_encryption', 'hasKey'),
 			shouldDisplayWarning: false,
 			deleteEncryptedFiles: false,
+			shouldDisplayE2EEInBrowserWarning: false,
+			userConfig: loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false }),
 		}
 	},
 
@@ -178,23 +233,27 @@ export default {
 			}
 			return true
 		},
+
+		async setConfig(key: string, value: string) {
+			await axios.put(generateUrl('apps/end_to_end_encryption/api/v1/config/{key}', { key }), {
+				value: (typeof value === 'string') ? value : JSON.stringify(value),
+			})
+			this.userConfig[key] = value
+		},
+
+		t,
 	},
-}
+})
 </script>
 
 <style lang="scss" scoped>
 .notecard {
-	color: var(--color-text-light) !important;
-	background-color: var(--note-background) !important;
-	border: 1px solid var(--color-border);
-	border-left: 4px solid var(--note-theme);
-	border-radius: var(--border-radius);
-	box-shadow: rgba(43, 42, 51, 0.05) 0 1px 2px 0;
-	margin: 1rem 0;
-	padding: 1rem !important;
-	&.warning {
-		--note-background: rgba(var(--color-warning-rgb), 0.2);
-		--note-theme: var(--color-warning);
+	position: relative;
+
+	.close-button {
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
 }
 

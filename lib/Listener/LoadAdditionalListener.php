@@ -10,8 +10,10 @@ namespace OCA\EndToEndEncryption\Listener;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\IConfig;
 use OCP\Util;
 
 /**
@@ -19,13 +21,24 @@ use OCP\Util;
  */
 class LoadAdditionalListener implements IEventListener {
 
-	public function __construct() {
+	public function __construct(
+		private IInitialState $initialState,
+		private IConfig $config,
+		private ?string $userId,
+	) {
 	}
 
 	public function handle(Event $event): void {
 		if (!($event instanceof LoadAdditionalScriptsEvent)) {
 			return;
 		}
+
+		$this->initialState->provideInitialState(
+			'userConfig',
+			[
+				'e2eeInBrowserEnabled' => $this->config->getUserValue($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true',
+			]
+		);
 
 		Util::addInitScript(Application::APP_ID, 'end_to_end_encryption-files');
 	}
