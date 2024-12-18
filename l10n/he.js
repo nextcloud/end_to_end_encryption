@@ -21,6 +21,7 @@ OC.L10N.register(
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",
     "Save" : "שמירה",
+    "Submit" : "שליחה",
     "End-to-end encryption" : "הצפנה מקצה לקצה",
     "Cancel" : "ביטול",
     "Select or drop files" : "בחירה או השלכה של קבצים",

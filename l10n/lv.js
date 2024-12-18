@@ -7,6 +7,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "No gala līdz galam šifrēšana",
     "Limit to groups" : "Grupu ierobežojums",
     "Save" : "Saglabāt",
+    "Submit" : "Iesniegt",
     "End-to-end encryption" : "No gala līdz galam šifrēšana",
     "Cancel" : "Atcelt",
     "Select or drop files" : "Izvēlies vai ievelc datnes",

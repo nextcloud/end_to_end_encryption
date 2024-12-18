@@ -35,6 +35,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "アプリの使用をグループに制限する",
     "Save" : "保存",
     "Saved groups" : "保存されたグループ",
+    "Submit" : "提出する",
     "End-to-end encryption" : "End-to-End 暗号化",
     "Reset end-to-end encryption" : "End-to-End 暗号化をリセット",
     "Please read carefully before resetting your end-to-end encryption keys" : "End-to-End 暗号化キーをリセットする前に、よくお読みください",
