@@ -34,6 +34,7 @@
     "Limit app usage to groups" : "限制特定群組使用應用程式",
     "Save" : "保存",
     "Saved groups" : "已保存的群組",
+    "Submit" : "遞交",
     "End-to-end encryption" : "端點對端點加密",
     "Reset end-to-end encryption" : "重設端到端加密",
     "Please read carefully before resetting your end-to-end encryption keys" : "在重設伺服器端加密之前，請仔細閱讀：",

@@ -32,6 +32,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "محدودیت استفاده از کاره به گروه‌ها",
     "Save" : "ذخیره",
     "Saved groups" : "Saved groups",
+    "Submit" : "ارسال",
     "End-to-end encryption" : "رمزگذاری نهایی به پایان",
     "Reset end-to-end encryption" : "Reset end-to-end encryption",
     "Please read carefully before resetting your end-to-end encryption keys" : "Please read carefully before resetting your end-to-end encryption keys",

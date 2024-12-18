@@ -26,6 +26,7 @@ OC.L10N.register(
     "Limit to groups" : "Περιορισμός σε ομάδες",
     "Limit app usage to groups" : "Περιορίστε τη χρήση της εφαρμογής σε ομάδες",
     "Save" : "Αποθήκευση",
+    "Submit" : "Υποβολή",
     "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
     "Cancel" : "Ακύρωση",
     "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",

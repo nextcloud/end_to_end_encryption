@@ -18,6 +18,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "End-to-End შიფრაცია",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Save" : "შენახვა",
+    "Submit" : "გაგზავნა",
     "End-to-end encryption" : "End-to-end შიფრაცია",
     "Cancel" : "გაუქმება",
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები"

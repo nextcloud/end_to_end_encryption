@@ -18,6 +18,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
+    "Submit" : "Enviar",
     "End-to-end encryption" : "Encripción de punta-a-punta",
     "Select or drop files" : "Selecciona o suelta los archivos"
 },

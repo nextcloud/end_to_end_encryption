@@ -36,6 +36,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Teorainn úsáid aipeanna go grúpaí",
     "Save" : "Sábháil",
     "Saved groups" : "Grúpaí sábháilte",
+    "Submit" : "Cuir isteach",
     "End-to-end encryption" : "Criptiú ceann go deireadh",
     "Reset end-to-end encryption" : "Athshocraigh criptiú ceann go ceann",
     "Please read carefully before resetting your end-to-end encryption keys" : "Léigh go cúramach le do thoil sula athshocraíonn tú d’eochracha criptithe ceann go ceann",

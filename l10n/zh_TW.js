@@ -36,6 +36,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "限制特定群組使用應用程式",
     "Save" : "儲存",
     "Saved groups" : "已儲存的群組",
+    "Submit" : "提交",
     "End-to-end encryption" : "端點對端點加密",
     "Reset end-to-end encryption" : "重設端到端加密",
     "Please read carefully before resetting your end-to-end encryption keys" : "請在重設您的端到端加密金鑰前仔細閱讀",

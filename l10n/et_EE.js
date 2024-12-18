@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Limit to groups" : "Luba gruppidele",
     "Save" : "Salvesta",
+    "Submit" : "Saada",
     "Cancel" : "Tühista",
     "Select or drop files" : "Vali või lohista failid"
 },

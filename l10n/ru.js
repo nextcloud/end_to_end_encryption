@@ -33,6 +33,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Разрешить использовать приложение только участникам этих групп",
     "Save" : "Сохранить",
     "Saved groups" : "Сохранённые группы",
+    "Submit" : "Отправить ответ",
     "End-to-end encryption" : "Сквозное шифрование",
     "Reset end-to-end encryption" : "Сбросить cквозное шифрование",
     "Please read carefully before resetting your end-to-end encryption keys" : "Пожалуйста, внимательно прочитайте перед сбросом ключей cквозного шифрования",
