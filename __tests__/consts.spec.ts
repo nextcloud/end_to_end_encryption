@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Metadata, PrivateKeyInfo } from '../src/models'
+import { Metadata, MetadataInfo, PrivateKeyInfo } from '../src/models'
 import { base64ToBuffer } from '../src/services/utils'
 
 export const mnemonic = 'farm toilet escape army regular funny board consider same leaf fiction spray'
@@ -30,6 +30,15 @@ export const metadata: Metadata = {
 	version: '2.0',
 }
 
+export const subfolderMetadata: Metadata = {
+	metadata: {
+		authenticationTag: "yOQBGLKWppAOSOcumNjxKw==",
+		ciphertext: "NPDibGicEBOy+0iZrWU8euHD/XiSw83turQ+U934WyBq/QcMLz+iSvRYbPQMqDGRmugndMu4VWw1FbombaSPADYP5v7YXX9Dnyha6tYTTL0UM1dPsZhKeXFrCuLf7sgi9U2YjrYBrFEOtaiPsJryCllFndUND9x1aBjdXO7uN118j3LL9stPKZrXy+HkWc4sUoh3PeolZ+tBInAxufa7xQM7mer0KhBCIuwiGKeVYZGBG/AiP7yFLfdEhA7443W2ipP8Xwzhf6MsfWQDHk/v0g4UAPfdWfGYwi5cExtna+ZnFfKkq5eH10yk13YVM8ouIO5D7lqSv18xwSTA1vO8I+bKpTi7bpdLXWeoXLr87MJtQm86zmST/w00dEaBhfoBh+twTSXf5iboTl5wydcFZZGmGAExVB9sRDPpXgy9lnECVgDFHX+pYXORR3Lu/yowXAqNZ77pR2eOhUMOUtvq1S1jTi7uaEE5GhL00k6ACJ46yYkqWKzU3pnHwG+DW96MlDt28O0J3BYwtQ1JGzTypKR8f+2SFZOkMyAOh/yENgiyWdut66Khq7HdfqBEPMjkARiylqaQDkjnLpjY8Ss=|BMiGbM3RtkbqZ2iTwTlgZA==",
+		nonce: "BMiGbM3RtkbqZ2iTwTlgZA=="
+	},
+	version: "2.0"
+}
+
 export const metadataInfo = {
 	counter: 4,
 	files: {
@@ -45,6 +54,34 @@ export const metadataInfo = {
 	keyChecksums: [
 		'9a60be9846978884033fcdfb978fbdd428221b20583bca6bfcb425f1b540152a',
 	],
+}
+
+export const subfolderMetadataInfo: MetadataInfo = {
+	counter: 4,
+	files: {
+		"5244e6768c70400c964d91056c750670": {
+			authenticationTag: "swfNcKdIcM6y1AYj3LgOpg==",
+			filename: "07-09-2018 11.40.15.jpg",
+			key: "aeDBvHvfTyWTU0u0OrbzkQ==",
+			mimetype: "image/jpeg",
+			nonce: "r5Nfe0Mm1BKfo1Vf/Hva2w==",
+		},
+		"638e4fa2de864c57b29c314f97893809":  {
+			authenticationTag: "g2r6iLASJ67/KUzoKju9JQ==",
+			filename: "subtest.txt",
+			key: "lcyO0qqwkEXuycW77rV/oA==",
+			mimetype: "text/plain",
+			nonce: "5ZeFEHxcmccd5muVjB48fQ==",
+		},
+		"c2b37010a2b74f7484bede9d7ed177b2":  {
+			authenticationTag: "69rSQH2U6wHcZwg9sNa1CA==",
+			filename: "test.txt",
+			key: "qPDus8B+41GJ3/spuvH22g==",
+			mimetype: "text/plain",
+			nonce: "frsXpvPw0H/BTock9aZlXQ==",
+		},
+	},
+	folders: {},
 }
 
 export const encryptedFileContent = 'O13d2Y5O7qYDTerGfZyRwHKWcEktQQiJBm5rWzY='
