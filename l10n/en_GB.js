@@ -37,6 +37,8 @@ OC.L10N.register(
     "Save" : "Save",
     "Saved groups" : "Saved groups",
     "Submit" : "Submit",
+    "Enter your 12 words mnemonic" : "Enter your 12 words mnemonic",
+    "Mnemonic" : "Mnemonic",
     "End-to-end encryption" : "End-to-end encryption",
     "Reset end-to-end encryption" : "Reset end-to-end encryption",
     "Please read carefully before resetting your end-to-end encryption keys" : "Please read carefully before resetting your end-to-end encryption keys",
