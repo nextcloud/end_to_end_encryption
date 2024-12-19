@@ -37,6 +37,8 @@ OC.L10N.register(
     "Save" : "保存",
     "Saved groups" : "已保存的群組",
     "Submit" : "遞交",
+    "Enter your 12 words mnemonic" : "輸入您的 12 個字助記字串",
+    "Mnemonic" : "助記字串",
     "End-to-end encryption" : "端點對端點加密",
     "Reset end-to-end encryption" : "重設端到端加密",
     "Please read carefully before resetting your end-to-end encryption keys" : "在重設伺服器端加密之前，請仔細閱讀：",
