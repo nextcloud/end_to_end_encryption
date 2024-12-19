@@ -1,15 +1,20 @@
 SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: Apache-2.0
 SPDX-License-Identifier: GPL-3.0-or-later
 SPDX-License-Identifier: MIT
 SPDX-FileCopyrightText: Alkemics
 SPDX-FileCopyrightText: Amit Gupta (https://amitkumargupta.work/)
 SPDX-FileCopyrightText: Amit Gupta (https://solothought.com)
+SPDX-FileCopyrightText: Austin Andrews
 SPDX-FileCopyrightText: Christoph Wurst <christoph@winzerhof-wurst.at>
 SPDX-FileCopyrightText: John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
 SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
 SPDX-FileCopyrightText: Perry Mitchell <perry@perrymitchell.net>
 
 This file is generated from multiple sources. Included packages:
+- @mdi/svg
+	- version: 7.4.47
+	- license: Apache-2.0
 - @nextcloud/files
 	- version: 3.10.1
 	- license: AGPL-3.0-or-later
@@ -37,6 +42,12 @@ This file is generated from multiple sources. Included packages:
 - cancelable-promise
 	- version: 4.3.1
 	- license: MIT
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
 - end_to_end_encryption
 	- version: 2.0.0-dev.0
 	- license: AGPL-3.0-or-later
