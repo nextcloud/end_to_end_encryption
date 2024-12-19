@@ -37,6 +37,8 @@ OC.L10N.register(
     "Save" : "Speichern",
     "Saved groups" : "Gespeicherte Gruppen",
     "Submit" : "Übermitteln",
+    "Enter your 12 words mnemonic" : "Die 12-Wörter-Gedächtnisstütze eingeben",
+    "Mnemonic" : "Gedächtnisstütze",
     "End-to-end encryption" : "Ende-zu-Ende-Verschlüsselung",
     "Reset end-to-end encryption" : "Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Please read carefully before resetting your end-to-end encryption keys" : "Bitte vor dem Zurücksetzen Ihrer Schlüssel für die Ende-zu-Ende-Verschlüsselung aufmerksam lesen",
