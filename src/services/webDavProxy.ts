@@ -144,7 +144,7 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, folderPath: string
 		}
 
 		const identifier = childNode.propstat.prop.displayname
-		let name: string|undefined
+		let name = identifier
 
 		if (relevantMetadataInfo.files[identifier]) {
 			name = relevantMetadataInfo.files[identifier].filename
@@ -152,11 +152,11 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, folderPath: string
 		} else if (relevantMetadataInfo.folders[identifier]) {
 			name = relevantMetadataInfo.folders[identifier]
 			childNode.propstat.prop.getcontenttype = 'httpd/unix-directory'
-		} else {
-			return
 		}
 
 		childNode.propstat.prop.displayname = name
+		// TODO: Enable more feature by keeping permissions
+		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/(R)|(D)|(N)|(V)|(W)|(CK)/g, '')
 	})
 }
 
