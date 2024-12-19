@@ -6,8 +6,8 @@
 import type { Metadata, MetadataInfo } from '../models'
 import logger from './logger.ts'
 import { getMetadata } from './api'
-import { base64ToBuffer } from './utils'
-import { decryptWithAES, decryptWithRSA, loadAESPrivateKey } from './crypto.ts'
+import { base64ToBuffer } from './utils.ts'
+import { decryptWithAES, decryptWithRSA, exportAESKey, loadAESPrivateKey, sha256Hash } from './crypto.ts'
 
 /* eslint-disable jsdoc/require-jsdoc */
 
@@ -27,7 +27,24 @@ export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey
 		{ iv: base64ToBuffer(iv) },
 	)
 
-	return JSON.parse(await unzipBuffer(compressedMetadataInfo))
+	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo))
+
+	verifyMetadataInfo(metadataInfo, metadataPrivateKey)
+
+	return metadataInfo
+}
+
+export async function verifyMetadataInfo(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
+	if (metadataInfo.keyChecksums === undefined) {
+		return
+	}
+
+	const privateKeyBuffer = await exportAESKey(metadataPrivateKey)
+	const privateKeyHash = await sha256Hash(privateKeyBuffer)
+
+	if (!metadataInfo.keyChecksums.includes(privateKeyHash)) {
+		throw new Error('Key checksum is not in keyChecksums')
+	}
 }
 
 async function unzipBuffer(buffer: ArrayBuffer): Promise<string> {
@@ -53,5 +70,5 @@ export async function getMetadataPrivateKey(metadata: Metadata, userId: string, 
 
 	const encryptedMetadataPrivateKey = base64ToBuffer(userInfo.encryptedMetadataKey)
 	const rawMetadataPrivateKey = await decryptWithRSA(encryptedMetadataPrivateKey, privateKey)
-	return await loadAESPrivateKey(rawMetadataPrivateKey)
+	return await loadAESPrivateKey(new Uint8Array(rawMetadataPrivateKey))
 }

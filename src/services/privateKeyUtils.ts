@@ -27,7 +27,7 @@ export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic
 	return loadPemKey(atob(bufferToString(new Uint8Array(rawPrivateKey))))
 }
 
-async function mnemonicToPrivateKey(mnemonic: string, salt: ArrayBuffer): Promise<CryptoKey> {
+async function mnemonicToPrivateKey(mnemonic: string, salt: Uint8Array): Promise<CryptoKey> {
 	const keyMaterial = await crypto.subtle.importKey(
 		'raw',
 		new TextEncoder().encode(mnemonic.replaceAll(' ', '')),

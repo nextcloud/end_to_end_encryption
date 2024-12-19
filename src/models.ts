@@ -33,7 +33,7 @@ export type MetadataInfo = {
 	counter: number, // Example: 3
 	files: Record<string, FileEncryptionInfo>, // Example: 'ad3b12554e0d4364854ae3e21b170152'
 	folders: Record<string, string>, // TODO: Example: { fa666d819a6c4315abba421172f0a0b1: 'Test' }
-	keyChecksums: string[] // Example: ['9a60be9846978884033fcdfb978fbdd428221b20583bca6bfcb425f1b540152a']
+	keyChecksums?: string[] // Example: ['9a60be9846978884033fcdfb978fbdd428221b20583bca6bfcb425f1b540152a']
 }
 
 export type PrivateKeyInfo = {

@@ -14,7 +14,7 @@ import logger from './logger.js'
  * @return {ArrayBuffer}
  */
 function getTag(encrypted) {
-	return encrypted.slice(encrypted.byteLength - ((128 + 7) >> 3))
+	return encrypted.slice(encrypted.byteLength - 16)
 }
 
 /**
