@@ -17,6 +17,10 @@ export function bufferToBase64(buffer: Uint8Array): string {
 	return btoa(bufferToString(buffer))
 }
 
+export function bufferToHex(buffer: Uint8Array): string {
+	return Array.from(buffer).map(byte => byte.toString(16).padStart(2, '0')).join('')
+}
+
 export function base64ToBuffer(base64Str: string): Uint8Array {
 	return stringToBuffer(atob(base64Str))
 }

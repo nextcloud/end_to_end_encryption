@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { bufferToBase64, bufferToHex } from './utils'
+
 /* eslint-disable jsdoc/require-jsdoc */
 
 export async function encryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}) {
@@ -36,7 +38,7 @@ export async function decryptWithRSA(content: BufferSource, key: CryptoKey): Pro
 	)
 }
 
-export async function loadAESPrivateKey(key: ArrayBuffer): Promise<CryptoKey> {
+export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'raw',
 		key,
@@ -49,7 +51,7 @@ export async function loadAESPrivateKey(key: ArrayBuffer): Promise<CryptoKey> {
 	)
 }
 
-export async function loadRSAPrivateKey(key: ArrayBuffer): Promise<CryptoKey> {
+export async function loadRSAPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'pkcs8',
 		key,
@@ -68,4 +70,15 @@ export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array> {
 	} else {
 		return new Uint8Array(await self.crypto.subtle.exportKey('pkcs8', key))
 	}
+}
+
+export async function exportAESKey(key: CryptoKey): Promise<Uint8Array> {
+	return new Uint8Array(await self.crypto.subtle.exportKey('raw', key))
+}
+
+export async function sha256Hash(buffer: Uint8Array): Promise<string> {
+	console.log(bufferToBase64(buffer))
+	const hashBuffer = await self.crypto.subtle.digest('SHA-256', buffer)
+	console.log(bufferToHex(new Uint8Array(hashBuffer)))
+	return bufferToHex(new Uint8Array(hashBuffer))
 }
