@@ -32,6 +32,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Ограничаване използването на приложението от групи",
     "Save" : "Запиши",
     "Saved groups" : "Записани групи",
+    "Submit" : "Изпращане",
     "End-to-end encryption" : "Криптиране",
     "Reset end-to-end encryption" : "Възстановяване на цялостното криптиране",
     "Please read carefully before resetting your end-to-end encryption keys" : "Моля, прочетете внимателно, преди да възстановите вашите ключове за цялостно криптиране",

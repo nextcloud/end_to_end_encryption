@@ -4,6 +4,7 @@ OC.L10N.register(
     "Limit to groups" : "Nemet d'ar strolladoù",
     "Limit app usage to groups" : "Lakaat ar meziant da veza implijet gant ar strolladoù nemetken",
     "Save" : "Enrollañ",
+    "Submit" : "Kinnig",
     "End-to-end encryption" : "Sifradur penn-da-benn",
     "Cancel" : "Nullañ",
     "Limit app usage to groups." : "Bevenna implij ar meziant da strolladoù."
