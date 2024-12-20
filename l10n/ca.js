@@ -35,6 +35,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Limita l’ús de l’aplicació als grups",
     "Save" : "Desa",
     "Saved groups" : "Grups guardats",
+    "Submit" : "Envia",
     "End-to-end encryption" : "Xifratge d'extrem a extrem",
     "Reset end-to-end encryption" : "Restableix el xifratge d'extrem a extrem",
     "Please read carefully before resetting your end-to-end encryption keys" : "Si us plau, llegiu atentament abans de restablir les vostres claus de xifratge d'extrem a extrem",
