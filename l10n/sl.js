@@ -27,7 +27,9 @@ OC.L10N.register(
     "Limit app usage to groups" : "Omeji uporabo programa na skupine",
     "Save" : "Shrani",
     "Submit" : "Pošlji",
+    "I understand the risks" : "Razumem tveganje",
     "End-to-end encryption" : "Celovito šifriranje E2E",
+    "Close" : "Zapri",
     "Cancel" : "Prekliči",
     "Select or drop files" : "Izberite ali povlecite datoteke",
     "Limit app usage to groups." : "Omeji uporabo programov za skupine."

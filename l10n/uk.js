@@ -37,6 +37,7 @@ OC.L10N.register(
     "Saved groups" : "Збережені групи",
     "Submit" : "Відправити",
     "End-to-end encryption" : "Наскрізне шифрування",
+    "Close" : "Закрити",
     "Reset end-to-end encryption" : "Скинути наскрізне шифрування",
     "Please read carefully before resetting your end-to-end encryption keys" : "Будь ласка, уважно прочитайте перед скиданням ключів наскрізного шифрування",
     "Once your end-to-end encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "Після скидання ключів наскрізного шифрування всі файли, які зберігаються у зашифрованих каталогах, стануть недоступні.",

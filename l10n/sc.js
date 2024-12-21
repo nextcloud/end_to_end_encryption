@@ -28,6 +28,7 @@ OC.L10N.register(
     "Save" : "Sarva",
     "Submit" : "Imbia",
     "End-to-end encryption" : "Tzifradura end-to-end",
+    "Close" : "Serra",
     "Cancel" : "Annulla",
     "Select or drop files" : "Sèbera o iscapa archìvios",
     "Error while uploading files" : "Errore carrighende is archìvios noos",

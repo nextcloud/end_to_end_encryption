@@ -1,0 +1,7 @@
+{ "translations": {
+    "Internal error" : "අභ්‍යන්තර දෝෂයකි",
+    "Save" : "සුරකින්න",
+    "Close" : "වසන්න",
+    "Cancel" : "අවලංගු"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

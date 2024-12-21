@@ -28,6 +28,7 @@ OC.L10N.register(
     "Save" : "Spremi",
     "Submit" : "Šalji",
     "End-to-end encryption" : "Cjelovito šifriranje",
+    "Close" : "Zatvori",
     "Cancel" : "Odustani",
     "Select or drop files" : "Odaberi ili ispusti datoteke",
     "Limit app usage to groups." : "Ograničite primjenu aplikacije na grupe."

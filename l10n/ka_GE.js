@@ -20,6 +20,7 @@ OC.L10N.register(
     "Save" : "შენახვა",
     "Submit" : "გაგზავნა",
     "End-to-end encryption" : "End-to-end შიფრაცია",
+    "Close" : "დახურვა",
     "Cancel" : "გაუქმება",
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები"
 },

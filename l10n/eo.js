@@ -21,6 +21,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
     "Save" : "Konservi",
     "Submit" : "Sendi",
+    "Close" : "Malfermi",
     "Select or drop files" : "Elekti aŭ demeti dosierojn"
 },
 "nplurals=2; plural=(n != 1);");
