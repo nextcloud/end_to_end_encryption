@@ -28,6 +28,7 @@ OC.L10N.register(
     "Save" : "Guardar",
     "Submit" : "Enviar",
     "End-to-end encryption" : "Encripción de punta-a-punta",
+    "Close" : "Cerrar",
     "Cancel" : "Cancelar",
     "Select or drop files" : "Selecciona o suelta los archivos"
 },

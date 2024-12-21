@@ -37,6 +37,7 @@ OC.L10N.register(
     "Saved groups" : "保存されたグループ",
     "Submit" : "提出する",
     "End-to-end encryption" : "End-to-End 暗号化",
+    "Close" : "閉じる",
     "Reset end-to-end encryption" : "End-to-End 暗号化をリセット",
     "Please read carefully before resetting your end-to-end encryption keys" : "End-to-End 暗号化キーをリセットする前に、よくお読みください",
     "Once your end-to-end encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "End-to-End 暗号化キーがリセットされると、暗号化されたフォルダーに保存されているすべてのファイルにアクセスできなくなります。",

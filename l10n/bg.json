@@ -32,6 +32,7 @@
     "Saved groups" : "Записани групи",
     "Submit" : "Изпращане",
     "End-to-end encryption" : "Криптиране",
+    "Close" : "Затваряне",
     "Reset end-to-end encryption" : "Възстановяване на цялостното криптиране",
     "Please read carefully before resetting your end-to-end encryption keys" : "Моля, прочетете внимателно, преди да възстановите вашите ключове за цялостно криптиране",
     "Once your end-to-end encryption keys are reset, all files stored in your encrypted folder will be inaccessible." : "След като вашите ключове за цялостно криптиране бъдат възстановени, всички файлове, съхранени във вашата шифрована папка, ще станат недостъпни.",
