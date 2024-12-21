@@ -45,7 +45,7 @@
     "@nextcloud/stylelint-config": "^3.0.1",
     "@nextcloud/vite-config": "^1.4.2",
     "@nextcloud/webpack-vue-config": "^6.0.1",
-    "@relative-ci/agent": "^4.2.11",
+    "@relative-ci/agent": "^4.2.14",
     "@testing-library/jest-dom": "^6.6.3",
     "@vitejs/plugin-vue2": "^2.3.3",
     "@vue/test-utils": "^2.4.6",
