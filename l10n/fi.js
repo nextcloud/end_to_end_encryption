@@ -27,6 +27,7 @@ OC.L10N.register(
     "Saved groups" : "Tallennetut ryhmät",
     "Submit" : "Lähetä",
     "End-to-end encryption" : "Päästä päähän -salaus",
+    "Close" : "Sulje",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
     "Cancel" : "Peruuta",
     "Select or drop files" : "Valitse tai pudota tiedostoja",

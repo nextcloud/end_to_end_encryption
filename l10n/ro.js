@@ -6,6 +6,7 @@ OC.L10N.register(
     "Limit to groups" : "Limitează pentru grupuri",
     "Save" : "Salvează",
     "Submit" : "Trimite",
+    "Close" : "Închide",
     "Cancel" : "Anulare",
     "Select or drop files" : "Selectează sau plasează fișiere",
     "Limit app usage to groups." : "Limitare utilizare aplicație la grupuri"

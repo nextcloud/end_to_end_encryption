@@ -6,6 +6,7 @@ OC.L10N.register(
     "Save" : "Enrollañ",
     "Submit" : "Kinnig",
     "End-to-end encryption" : "Sifradur penn-da-benn",
+    "Close" : "Serriñ",
     "Cancel" : "Nullañ",
     "Limit app usage to groups." : "Bevenna implij ar meziant da strolladoù."
 },
