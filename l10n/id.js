@@ -6,6 +6,7 @@ OC.L10N.register(
     "Limit to groups" : "Batasi ke grup",
     "Limit app usage to groups" : "Batas pemakaian aplikasi untuk grup",
     "Save" : "Simpan",
+    "Close" : "Tutup",
     "Cancel" : "Batal",
     "Select or drop files" : "Pilih atau drop berkas"
 },

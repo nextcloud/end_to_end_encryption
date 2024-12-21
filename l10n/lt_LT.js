@@ -28,6 +28,7 @@ OC.L10N.register(
     "Save" : "Įrašyti",
     "Submit" : "Pateikti",
     "End-to-end encryption" : "Ištisinis šifravimas",
+    "Close" : "Užverti",
     "Cancel" : "Atsisakyti",
     "Select or drop files" : "Pasirinkite arba vilkite failus"
 },

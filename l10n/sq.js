@@ -9,6 +9,7 @@ OC.L10N.register(
     "Save" : "Ruaj",
     "Submit" : "Dërgo",
     "End-to-end encryption" : "Enkriptim end-to-end ",
+    "Close" : "Mbylleni",
     "Cancel" : "Anuloje",
     "Select or drop files" : "Përzgjidh ose hiq skedarët"
 },
