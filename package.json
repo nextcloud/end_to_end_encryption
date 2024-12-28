@@ -33,7 +33,7 @@
     "@peculiar/x509": "^1.12.3",
     "debounce": "^2.1.0",
     "fast-xml-parser": "^4.5.0",
-    "uuid": "^10.0.0",
+    "uuid": "^11.0.3",
     "vue": "^2.7.16",
     "vue-material-design-icons": "^5.3.1",
     "webdav": "^5.7.1"
