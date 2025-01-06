@@ -8,10 +8,7 @@
 import logger from './logger.ts'
 import type { PrivateKeyInfo } from '../models.ts'
 import { decryptWithAES, loadRSAPrivateKey } from './crypto.ts'
-import { base64ToBuffer, bufferToString } from './utils.ts'
-
-const PEM_HEADER = '-----BEGIN PRIVATE KEY-----'
-const PEM_FOOTER = '-----END PRIVATE KEY-----'
+import { bufferToString, pemToBuffer } from './utils.ts'
 
 export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic: string): Promise<CryptoKey> {
 	logger.debug('Decrypting private key', { privateKeyInfo, mnemonic })
@@ -24,7 +21,8 @@ export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic
 		{ iv: privateKeyInfo.iv, tagLength: 128 },
 	)
 
-	return loadPemKey(atob(bufferToString(new Uint8Array(rawPrivateKey))))
+	const pemKey = atob(bufferToString(new Uint8Array(rawPrivateKey)))
+	return loadRSAPrivateKey(pemToBuffer(pemKey))
 }
 
 async function mnemonicToPrivateKey(mnemonic: string, salt: Uint8Array): Promise<CryptoKey> {
@@ -48,17 +46,4 @@ async function mnemonicToPrivateKey(mnemonic: string, salt: Uint8Array): Promise
 		true,
 		['decrypt', 'encrypt'],
 	)
-}
-
-async function loadPemKey(pem: string): Promise<CryptoKey> {
-	logger.debug('Loading PEM key', { pem })
-
-	const pemContents = pem
-		.substring(
-			PEM_HEADER.length,
-			pem.length - PEM_FOOTER.length - 1,
-		)
-		.replace(/\n/g, '')
-
-	return loadRSAPrivateKey(base64ToBuffer(pemContents))
 }
