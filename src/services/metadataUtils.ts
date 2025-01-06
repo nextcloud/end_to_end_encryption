@@ -11,11 +11,6 @@ import { decryptWithAES, decryptWithRSA, exportAESKey, loadAESPrivateKey, sha256
 
 /* eslint-disable jsdoc/require-jsdoc */
 
-export async function getMetadataInfo(fileId: string, metadataPrivateKey: CryptoKey): Promise<MetadataInfo> {
-	logger.debug('Getting metadata info', { fileId })
-	return await decryptMetadataInfo(await getMetadata(fileId), metadataPrivateKey)
-}
-
 export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey: CryptoKey): Promise<MetadataInfo> {
 	logger.debug('Decrypting metadata info', { metadata })
 
@@ -29,12 +24,12 @@ export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey
 
 	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo))
 
-	verifyMetadataInfo(metadataInfo, metadataPrivateKey)
+	verifyMetadataKey(metadataInfo, metadataPrivateKey)
 
 	return metadataInfo
 }
 
-export async function verifyMetadataInfo(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
+export async function verifyMetadataKey(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
 	if (metadataInfo.keyChecksums === undefined) {
 		return
 	}
