@@ -10,7 +10,7 @@ import { metadata, metadataInfo, mnemonic, privateKeyInfo, subfolderMetadata, su
 import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils.ts'
 import { decryptPrivateKey } from './privateKeyUtils.ts'
 
-test('Metadata is correctly decrypted', async () => {
+test('Metadata info is correctly decrypted', async () => {
 	const privateKey = await decryptPrivateKey(privateKeyInfo, mnemonic)
 	const metadataPrivateKey = await getMetadataPrivateKey(metadata, 'admin', privateKey)
 	const decryptedMetadataInfo = await decryptMetadataInfo(metadata, metadataPrivateKey)
