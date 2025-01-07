@@ -5,7 +5,6 @@
 
 import type { Metadata, MetadataInfo } from '../models'
 import logger from './logger.ts'
-import { getMetadata } from './api'
 import { base64ToBuffer } from './utils.ts'
 import { decryptWithAES, decryptWithRSA, exportAESKey, loadAESPrivateKey, sha256Hash } from './crypto.ts'
 

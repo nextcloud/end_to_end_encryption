@@ -25,15 +25,10 @@ export function base64ToBuffer(base64Str: string): Uint8Array {
 	return stringToBuffer(atob(base64Str))
 }
 
-const PEM_HEADER = '-----BEGIN PRIVATE KEY-----'
-const PEM_FOOTER = '-----END PRIVATE KEY-----'
-
 export function pemToBuffer(pem: string): Uint8Array {
 	const pemContents = pem
-		.substring(
-			PEM_HEADER.length,
-			pem.length - PEM_FOOTER.length - 1,
-		)
+		.replace(/-----BEGIN ((PRIVATE KEY)|(PUBLIC KEY)|(CERTIFICATE))-----/, '')
+		.replace(/-----END ((PRIVATE KEY)|(PUBLIC KEY)|(CERTIFICATE))-----/, '')
 		.replace(/\n/g, '')
 
 	return base64ToBuffer(pemContents)

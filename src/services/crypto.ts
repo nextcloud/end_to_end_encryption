@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { bufferToBase64, bufferToHex } from './utils'
+import x509 from '@peculiar/x509'
+
+import { bufferToHex } from './utils'
 
 /* eslint-disable jsdoc/require-jsdoc */
 
@@ -51,6 +53,19 @@ export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	)
 }
 
+export async function loadServerPublicKey(key: Uint8Array): Promise<CryptoKey> {
+	return await self.crypto.subtle.importKey(
+		'spki',
+		key,
+		{
+			name: 'RSASSA-PKCS1-v1_5',
+			hash: 'SHA-256', // TODO: get from server?
+		},
+		true,
+		['verify'],
+	)
+}
+
 export async function loadRSAPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'pkcs8',
@@ -77,8 +92,19 @@ export async function exportAESKey(key: CryptoKey): Promise<Uint8Array> {
 }
 
 export async function sha256Hash(buffer: Uint8Array): Promise<string> {
-	console.log(bufferToBase64(buffer))
 	const hashBuffer = await self.crypto.subtle.digest('SHA-256', buffer)
-	console.log(bufferToHex(new Uint8Array(hashBuffer)))
 	return bufferToHex(new Uint8Array(hashBuffer))
+}
+
+export async function verifyCertificateSignature(certificate: string, publicKey: CryptoKey): Promise<boolean> {
+	let cert = new x509.X509Certificate(certificate)
+
+	const verificationResult = await self.crypto.subtle.verify(
+		cert.signatureAlgorithm,
+		publicKey,
+		cert.signature,
+		new Uint8Array(cert.tbs),
+	)
+
+	return verificationResult
 }

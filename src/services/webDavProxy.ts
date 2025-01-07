@@ -16,7 +16,7 @@ import { getClient, getDefaultPropfind, resultToNode } from '@nextcloud/files/da
 import type { FileEncryptionInfo, Metadata, MetadataInfo } from '../models'
 import logger from './logger.ts'
 import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils'
-import { getMetadata, getPrivateKey } from './api'
+import { getMetadata, getPrivateKey, getServerPublicKey } from './api'
 import { decryptPrivateKey } from './privateKeyUtils'
 import { promptUserForMnemonic } from './mnemonicDialogs'
 import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
@@ -25,6 +25,7 @@ import { base64ToBuffer } from './utils'
 let originalFetch: typeof window.fetch
 const davClient = getClient() as WebDAVClient
 let privateKey: CryptoKey|undefined
+let serverPublicKey: CryptoKey|undefined
 const metadataCache: Record<string, Metadata> = {}
 
 export function setupWebDavDecryptionProxy() {
@@ -91,8 +92,12 @@ async function handlePropFind(request: Request) {
 			return new Response(body, response)
 		}
 
+		if (serverPublicKey === undefined) {
+			serverPublicKey = await getServerPublicKey()
+		}
+
 		// Update cache for this path
-		metadataCache[path] = await getMetadata(stat.props?.fileid as string)
+		metadataCache[path] = await getMetadata(stat.props?.fileid as string, serverPublicKey)
 
 		const rootMetadata = await getRootMetadataForPath(metadataPath)
 
@@ -208,7 +213,11 @@ async function getMetadataForPath(path: string): Promise<Metadata> {
 		return metadataCache[path]
 	}
 
-	metadataCache[path] = await getMetadata(await getFileIdForPath(path))
+	if (serverPublicKey === undefined) {
+		serverPublicKey = await getServerPublicKey()
+	}
+
+	metadataCache[path] = await getMetadata(await getFileIdForPath(path), serverPublicKey)
 
 	return metadataCache[path]
 }
@@ -225,7 +234,7 @@ async function getRootMetadataForPath(path: string): Promise<Metadata|undefined>
 	}
 
 	while (path !== '/') {
-		metadataCache[path] ??= await getMetadata(await getFileIdForPath(path))
+		metadataCache[path] = await getMetadataForPath(path)
 
 		if (metadataCache[path].users !== undefined) {
 			return metadataCache[path]
