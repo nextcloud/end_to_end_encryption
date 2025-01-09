@@ -39,7 +39,7 @@ class PropFindPlugin extends APlugin {
 		private UserAgentManager $userAgentManager,
 		private IRequest $request,
 		private IMetaDataStorage $metaDataStorage,
-		private Folder $userFolder,
+		private ?Folder $userFolder,
 	) {
 		parent::__construct($rootFolder, $userSession, $pathCache);
 	}
@@ -83,15 +83,17 @@ class PropFindPlugin extends APlugin {
 			});
 		}
 
-		$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
-			if ($node instanceof File) {
-				$isEncrypted = $this->userFolder->getFirstNodeById($node->getFileInfo()->getParentId())->isEncrypted() ? '1' : '0';
-			} else {
-				$isEncrypted = $node->getFileInfo()->isEncrypted();
-			}
+		if ($this->userFolder !== null) {
+			$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
+				if ($node instanceof File) {
+					$isEncrypted = $this->userFolder->getFirstNodeById($node->getFileInfo()->getParentId())->isEncrypted() ? '1' : '0';
+				} else {
+					$isEncrypted = $node->getFileInfo()->isEncrypted();
+				}
 
-			return $isEncrypted ? '1' : '0';
-		});
+				return $isEncrypted ? '1' : '0';
+			});
+		}
 	}
 
 	/**
