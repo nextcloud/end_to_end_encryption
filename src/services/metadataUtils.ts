@@ -22,14 +22,21 @@ export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey
 		{ iv: base64ToBuffer(iv) },
 	)
 
-	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo))
+	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo)) as MetadataInfo
 
-	verifyMetadataKey(metadataInfo, metadataPrivateKey)
+	validateKeyChecksums(metadataInfo, metadata)
+	validateMetadataKey(metadataInfo, metadataPrivateKey)
 
 	return metadataInfo
 }
 
-export async function verifyMetadataKey(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
+function validateKeyChecksums(metadataInfo: MetadataInfo, metadata: Metadata): void {
+	if (metadataInfo.keyChecksums?.length !== metadata.users?.length) {
+		throw new Error('Key checksums length does not match users length')
+	}
+}
+
+export async function validateMetadataKey(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
 	if (metadataInfo.keyChecksums === undefined) {
 		return
 	}
