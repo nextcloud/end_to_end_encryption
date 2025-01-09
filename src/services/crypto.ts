@@ -77,8 +77,6 @@ export async function exportAESKey(key: CryptoKey): Promise<Uint8Array> {
 }
 
 export async function sha256Hash(buffer: Uint8Array): Promise<string> {
-	console.log(bufferToBase64(buffer))
 	const hashBuffer = await self.crypto.subtle.digest('SHA-256', buffer)
-	console.log(bufferToHex(new Uint8Array(hashBuffer)))
 	return bufferToHex(new Uint8Array(hashBuffer))
 }
