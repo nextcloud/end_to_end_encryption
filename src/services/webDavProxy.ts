@@ -34,7 +34,7 @@ export function setupWebDavDecryptionProxy() {
 	window.fetch = async (input: RequestInfo | URL, config: RequestInit = {}): Promise<Response> => {
 		let request = new Request(input, config)
 
-		if (!(request.url.includes('/remote.php/') && (request.method === 'GET' || request.method === 'PROPFIND'))) {
+		if (!(request.url.includes('/remote.php/dav/files/') && (request.method === 'GET' || request.method === 'PROPFIND'))) {
 			return originalFetch(request)
 		}
 
