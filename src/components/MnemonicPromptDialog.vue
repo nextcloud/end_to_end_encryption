@@ -50,7 +50,7 @@ const buttons = computed(() => [
 			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 
 			<NcCheckboxRadioSwitch v-model="confirmToggle"
-				required="true"
+				:required="true"
 				data-cy-e2ee-mnemonic-prompt="i_understand_the_risks"
 				type="switch">
 				{{ t('end_to_end_encryption', 'I understand the risks') }}
