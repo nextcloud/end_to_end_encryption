@@ -6,17 +6,21 @@
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
-import { rootFolderMetadata, serverPublicKey, subfolderMetadata } from './consts.spec'
+import { rootFolderMetadata, rootFolderMetadataSignature, serverPublicKey, subfolderMetadata, subFolderMetadataSignature } from './consts.spec'
 
 export const restHandlers = [
 	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/server-key', () => {
 		return HttpResponse.json({ ocs: { data: { 'public-key': serverPublicKey } } })
 	}),
 	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/meta-data/89', () => {
-		return HttpResponse.json({ ocs: { data: { 'meta-data': JSON.stringify(rootFolderMetadata) } } })
+		const response = HttpResponse.json({ ocs: { data: { 'meta-data': JSON.stringify(rootFolderMetadata) } } })
+		response.headers.set('x-nc-e2ee-signature', rootFolderMetadataSignature)
+		return response
 	}),
 	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/meta-data/266', () => {
-		return HttpResponse.json({ ocs: { data: { 'meta-data': JSON.stringify(subfolderMetadata) } } })
+		const response = HttpResponse.json({ ocs: { data: { 'meta-data': JSON.stringify(subfolderMetadata) } } })
+		response.headers.set('x-nc-e2ee-signature', subFolderMetadataSignature)
+		return response
 	}),
 ]
 
