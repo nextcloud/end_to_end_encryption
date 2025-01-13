@@ -5,12 +5,12 @@
 
 import { expect, test } from 'vitest'
 
-import { metadata } from '../../__tests__/consts.spec.ts'
+import { rootFolderMetadata } from '../../__tests__/consts.spec.ts'
 
 import { getMetadata, getServerPublicKey } from './api.ts'
 
 test("Users' certificates are correctly verified", async () => {
 	const serverPublicKey = await getServerPublicKey()
 	const fetchedMetadata = await getMetadata('89', serverPublicKey)
-	expect(fetchedMetadata).toEqual(metadata)
+	expect(fetchedMetadata).toEqual(rootFolderMetadata)
 })

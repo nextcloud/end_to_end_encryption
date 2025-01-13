@@ -5,21 +5,21 @@
 
 import { expect, test } from 'vitest'
 
-import { metadata, metadataInfo, mnemonic, privateKeyInfo, subfolderMetadata, subfolderMetadataInfo } from '../../__tests__/consts.spec.ts'
+import { rootFolderMetadata, rootFolderMetadataInfo, adminMnemonic, adminPrivateKeyInfo, subfolderMetadata, subfolderMetadataInfo } from '../../__tests__/consts.spec.ts'
 
 import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils.ts'
 import { decryptPrivateKey } from './privateKeyUtils.ts'
 
 test('Metadata info is correctly decrypted', async () => {
-	const privateKey = await decryptPrivateKey(privateKeyInfo, mnemonic)
-	const metadataPrivateKey = await getMetadataPrivateKey(metadata, 'admin', privateKey)
-	const decryptedMetadataInfo = await decryptMetadataInfo(metadata, metadataPrivateKey)
-	expect(decryptedMetadataInfo).toEqual(metadataInfo)
+	const privateKey = await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic)
+	const metadataPrivateKey = await getMetadataPrivateKey(rootFolderMetadata, 'admin', privateKey)
+	const decryptedMetadataInfo = await decryptMetadataInfo(rootFolderMetadata, metadataPrivateKey)
+	expect(decryptedMetadataInfo).toEqual(rootFolderMetadataInfo)
 })
 
 test('Subfolder metadata is correctly decrypted', async () => {
-	const privateKey = await decryptPrivateKey(privateKeyInfo, mnemonic)
-	const metadataPrivateKey = await getMetadataPrivateKey(metadata, 'admin', privateKey)
+	const privateKey = await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic)
+	const metadataPrivateKey = await getMetadataPrivateKey(rootFolderMetadata, 'admin', privateKey)
 	const decryptedSubfolderMetadataInfo = await decryptMetadataInfo(subfolderMetadata, metadataPrivateKey)
 	expect(decryptedSubfolderMetadataInfo).toEqual(subfolderMetadataInfo)
 })

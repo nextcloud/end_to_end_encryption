@@ -13,19 +13,31 @@ import { bufferToString, pemToBuffer } from './utils.ts'
 export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic: string): Promise<CryptoKey> {
 	logger.debug('Decrypting private key', { privateKeyInfo, mnemonic })
 
-	const mnemonicPrivateKey = await mnemonicToPrivateKey(mnemonic, privateKeyInfo.salt)
+	// We need to support the old mnemonic formats for backwards compatibility
+	const mnemonicPrivateKeys = await Promise.all([
+		await mnemonicToPrivateKey(mnemonic, privateKeyInfo.salt, { hash: 'SHA-256', iterations: 600000 }),
+		await mnemonicToPrivateKey(mnemonic, privateKeyInfo.salt, { hash: 'SHA-1', iterations: 1024 }),
+		await mnemonicToPrivateKey(mnemonic, privateKeyInfo.salt, { hash: 'SHA-1', iterations: 600000 }),
+	])
 
-	const rawPrivateKey = await decryptWithAES(
-		privateKeyInfo.encryptedPrivateKey,
-		mnemonicPrivateKey,
-		{ iv: privateKeyInfo.iv, tagLength: 128 },
-	)
+	for (const mnemonicPrivateKey of mnemonicPrivateKeys) {
+		try {
+			const rawPrivateKey = await decryptWithAES(
+				privateKeyInfo.encryptedPrivateKey,
+				mnemonicPrivateKey,
+				{ iv: privateKeyInfo.iv, tagLength: 128 },
+			)
 
-	const pemKey = atob(bufferToString(new Uint8Array(rawPrivateKey)))
-	return loadRSAPrivateKey(pemToBuffer(pemKey))
+			const pemKey = atob(bufferToString(new Uint8Array(rawPrivateKey)))
+			return loadRSAPrivateKey(pemToBuffer(pemKey))
+		} catch {
+		}
+	}
+
+	throw new Error('Failed to decrypt private key')
 }
 
-async function mnemonicToPrivateKey(mnemonic: string, salt: Uint8Array): Promise<CryptoKey> {
+async function mnemonicToPrivateKey(mnemonic: string, salt: Uint8Array, params: Partial<Pbkdf2Params>): Promise<CryptoKey> {
 	const keyMaterial = await crypto.subtle.importKey(
 		'raw',
 		new TextEncoder().encode(mnemonic.replaceAll(' ', '')),
@@ -38,8 +50,7 @@ async function mnemonicToPrivateKey(mnemonic: string, salt: Uint8Array): Promise
 		{
 			name: 'PBKDF2',
 			salt,
-			hash: 'SHA-1', // TODO: Futur - 'SHA-256'
-			iterations: 1024, // TODO: Futur - 600000
+			...params,
 		},
 		keyMaterial,
 		{ name: 'AES-GCM', length: 256 },
