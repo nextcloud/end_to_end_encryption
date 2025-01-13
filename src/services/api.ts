@@ -9,8 +9,8 @@ import axios from '@nextcloud/axios'
 import type { OCSResponse } from '@nextcloud/typings/ocs'
 
 import type { Metadata, PrivateKeyInfo } from '../models.ts'
-import { base64ToBuffer, pemToBuffer } from './utils.ts'
-import { loadServerPublicKey, validateCertificateSignature } from './crypto.ts'
+import { base64ToBuffer, pemToBuffer, stringToBuffer } from './utils.ts'
+import { loadServerPublicKey, validateCertificateSignature, validateCMSSignature } from './crypto.ts'
 
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md
 
@@ -43,9 +43,29 @@ export async function getMetadata(fileId: string, serverPublicKey: CryptoKey): P
 
 	const metadata = JSON.parse(response.data.ocs.data['meta-data']) as Metadata
 
+	await validateMetadataSignature(metadata, response.headers['x-nc-e2ee-signature'])
 	await validateUserCertificates(metadata, serverPublicKey)
 
 	return metadata
+}
+
+async function validateMetadataSignature(metadata: Metadata, signature: string): Promise<void> {
+	const signedData = JSON.stringify(metadata, (key, value) => {
+		if (key === 'filedrop') {
+			return undefined
+		}
+		return value
+	})
+
+	const verificationResult = await validateCMSSignature(
+		stringToBuffer(btoa(signedData)),
+		base64ToBuffer(signature),
+		metadata.users ?? [],
+	)
+
+	if (!verificationResult) {
+		throw new Error('Metadata signature verification failed')
+	}
 }
 
 async function validateUserCertificates(metadata: Metadata, serverPublicKey: CryptoKey): Promise<void> {
@@ -69,5 +89,6 @@ export async function getServerPublicKey(): Promise<CryptoKey> {
 		generateOcsUrl(Url.ServerKey),
 		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 	)
+
 	return await loadServerPublicKey(pemToBuffer(response.data.ocs.data['public-key']))
 }

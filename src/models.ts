@@ -18,6 +18,7 @@ export type Metadata = {
 		// The metadata-key is encrypted with RSA/ECB/OAEPWithSHA-256AndMGF1Padding
 		encryptedMetadataKey: string, // Base64 encoded. Example:: "KS9P5Et+i94PAdpTtR9pyyuTlV6/3e3E/Zzwu8ua1j/e6uHUfQDxpXsksgX95Q/Hin0caoYfwwyWVs2/wtdkHttBdjywzcNfz5yDblrdKAYoyeuCavNatA3OuFDJVcMiisiskD6GMz6o3V21ZqpHwTry05dv4jZMs88lzTOLeDJ7bmmv5Pjyfbg8lxk6oW85LJkUku3+szv+kz+as18Pk+Oe1MylLP+Zktw+1Pckem32h19MacefZI/tkZLmdmjPtKNQGqlefeTXHKnIOzykdPjBG9CJ7zS0MPN7nv0ZgXeSoEi6fUHwkzmg8GxGSjLoL6L7BhLxw7Z8YWZ1MAYyCA=="
 	}[],
+	filedrop?: Record<string, FileDropEntry>,
 	version: '2.0',
 }
 
@@ -40,4 +41,16 @@ export type PrivateKeyInfo = {
 	encryptedPrivateKey: Uint8Array,
 	iv: Uint8Array,
 	salt: Uint8Array,
+}
+
+type FileDropEntry = {
+	ciphertext: string, // encrypted metadata (AES/GCM/NoPadding, 128 bit key size) of folder (see below for the plaintext structure). first gzipped, then encrypted, then base64 encoded."
+	nonce: string,
+	authenticationTag: string,
+	users: [
+		{
+			userId: string
+			encryptedFiledropKey: string, // The metadata-key is encrypted with RSA/ECB/OAEPWithSHA-256AndMGF1Padding
+		}
+	],
 }

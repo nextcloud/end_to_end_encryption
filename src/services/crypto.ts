@@ -4,8 +4,9 @@
  */
 
 import { X509Certificate } from '@peculiar/x509'
+import { Certificate, CryptoEngine, SignedData, ContentInfo } from 'pkijs'
 
-import { bufferToHex } from './utils'
+import { bufferToHex, pemToBuffer } from './utils'
 
 /* eslint-disable jsdoc/require-jsdoc */
 
@@ -113,4 +114,44 @@ function getPatchedCrypto(): Crypto {
 			},
 		},
 	}
+}
+
+export async function validateCMSSignature(signedData: Uint8Array, cmsBuffer: Uint8Array, users: {userId: string, certificate: string}[]): Promise<boolean> {
+	// Parse the CMS buffer
+	const cmsContent = ContentInfo.fromBER(cmsBuffer)
+	const originalSignedData = new SignedData({ schema: cmsContent.content })
+
+	// Get the signer certificate from the users array
+	const signerInfo = originalSignedData.signerInfos[0]
+	const signerUserId = signerInfo.sid.issuer.typesAndValues.find(({ type }) => type === '2.5.4.3' /** Common name OID */).value.valueBlock.value
+	const signer = users.find(({ userId }) => userId === signerUserId)
+	if (signer === undefined) {
+		throw new Error('Signer not found in the users array')
+	}
+	const signerCertificate = Certificate.fromBER(pemToBuffer(signer.certificate))
+
+	const verificationResult = await originalSignedData.verify(
+		{
+			signer: 0,
+			trustedCerts: [signerCertificate],
+			data: signedData as unknown as ArrayBuffer,
+			checkChain: true,
+		},
+		getPatchedCryptoEngine(),
+	)
+
+	return verificationResult
+}
+
+class CustomCryptoEngine extends CryptoEngine {
+
+	verify(algorithm: globalThis.AlgorithmIdentifier | RsaPssParams | EcdsaParams, key: CryptoKey, signature: BufferSource, data: ArrayBuffer): Promise<boolean> {
+		return super.verify(algorithm, key, signature, new Uint8Array(data))
+	}
+
+}
+
+// Return a patched crypto engine because pkijs' default engine does not give the correct data type to the subtle.verify method
+function getPatchedCryptoEngine() {
+	return new CustomCryptoEngine({ crypto: self.crypto })
 }
