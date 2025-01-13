@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { bufferToBase64, bufferToHex } from './utils'
+import { X509Certificate } from '@peculiar/x509'
+
+import { bufferToHex } from './utils'
 
 /* eslint-disable jsdoc/require-jsdoc */
 
@@ -51,6 +53,19 @@ export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	)
 }
 
+export async function loadServerPublicKey(key: Uint8Array): Promise<CryptoKey> {
+	return await self.crypto.subtle.importKey(
+		'spki',
+		key,
+		{
+			name: 'RSASSA-PKCS1-v1_5',
+			hash: 'SHA-256', // TODO: get from server?
+		},
+		true,
+		['verify'],
+	)
+}
+
 export async function loadRSAPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'pkcs8',
@@ -79,4 +94,23 @@ export async function exportAESKey(key: CryptoKey): Promise<Uint8Array> {
 export async function sha256Hash(buffer: Uint8Array): Promise<string> {
 	const hashBuffer = await self.crypto.subtle.digest('SHA-256', buffer)
 	return bufferToHex(new Uint8Array(hashBuffer))
+}
+
+export async function validateCertificateSignature(certificate: string, publicKey: CryptoKey): Promise<boolean> {
+	const cert = new X509Certificate(certificate)
+
+	return cert.verify({ publicKey }, getPatchedCrypto())
+}
+
+// Return a patched crypto because x509's default does not give the correct data type to the subtle.verify method
+function getPatchedCrypto(): Crypto {
+	return {
+		...self.crypto,
+		subtle: {
+			...self.crypto.subtle,
+			async verify(algorithm: globalThis.AlgorithmIdentifier | RsaPssParams | EcdsaParams, key: CryptoKey, signature: ArrayBuffer, data: ArrayBuffer): Promise<boolean> {
+				return self.crypto.subtle.verify(algorithm, key, new Uint8Array(signature), new Uint8Array(data))
+			},
+		},
+	}
 }

@@ -36,7 +36,7 @@ export default createAppConfig({
 				provider: 'v8',
 				reporter: ['lcov', 'text'],
 			},
-			setupFiles: ['__tests__/setup-testing-library'],
+			setupFiles: ['__tests__/setup-testing-library.ts', '__tests__/api-mock.ts'],
 			server: {
 				deps: {
 					inline: [/@nextcloud\//],
