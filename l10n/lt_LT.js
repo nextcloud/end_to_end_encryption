@@ -13,12 +13,15 @@ OC.L10N.register(
     "Cannot decode userlist" : "Nepavyksta dekoduoti naudotojų sąrašo",
     "You are not allowed to create the lock" : "Jums nėra leidžiama sukurti užraktą",
     "File already locked" : "Failas jau užrakintas",
+    "e2e-token is empty" : "e2e-token yra tuščias",
     "You are not allowed to remove the lock" : "Jums nėra leidžiama pašalinti užraktą",
     "File not locked" : "Failas nėra užrakintas",
     "Could not find metadata for \"%s\"" : "Nepavyko rasti metaduomenų, skirtų \"%s\"",
     "Cannot read metadata" : "Nepavyksta perskaityti metaduomenų",
+    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE yra tuščias",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Jums nėra leidžiama taisyti šį failą, nepamirškite, iš pradžių, jį užrakinti, o tuomet išsiųsti tinkamą prieigos raktą",
     "Cannot store metadata" : "Nepavyksta saugoti metaduomenų",
+    "Metadata-file does not exist" : "Nėra metaduomenų failo",
     "Only the owner can delete the metadata-file" : "Metaduomenų failą gali ištrinti tik savininkas",
     "Cannot delete metadata" : "Nepavyksta ištrinti metaduomenų",
     "End-to-End Encryption" : "Ištisinis šifravimas",
@@ -29,7 +32,11 @@ OC.L10N.register(
     "Submit" : "Pateikti",
     "End-to-end encryption" : "Ištisinis šifravimas",
     "Close" : "Užverti",
+    "Delete existing encrypted files" : "Ištrinti esamus šifruotus failus",
+    "This is the final warning: Do you really want to reset your keys?" : "Tai yra paskutinis įspėjimas: Ar tikrai norite atstatyti raktus?",
     "Cancel" : "Atsisakyti",
-    "Select or drop files" : "Pasirinkite arba vilkite failus"
+    "Reset keys" : "Atstatyti raktus",
+    "Select or drop files" : "Pasirinkite arba vilkite failus",
+    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");
