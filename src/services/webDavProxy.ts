@@ -49,11 +49,12 @@ async function handleGet(request: Request): Promise<Response> {
 	const responsePromise = originalFetch(request)
 
 	try {
+		// TODO: Optimize, this will make a propfind request for every GET request even when not encrypted.
 		const metadataInfo = await state.getMetadataInfo(dirname(path))
 
 		const fileInfo = metadataInfo.files[basename(request.url)]
 		if (fileInfo === undefined) {
-			logger.debug('Could not find file in metadata', { path, metadata })
+			logger.debug('Could not find file in metadata', { path, metadataInfo })
 			throw new Error('Could not find file in metadata')
 		}
 
@@ -72,12 +73,12 @@ async function handlePropFind(request: Request) {
 	const xml = await parseXML(body)
 	const stat = parseStat(xml, path, true)
 
-	if (stat.type === 'directory') {
-		if (stat.props?.['is-encrypted'] !== 1) {
-			logger.debug('Folder is not e2ee', { xml })
-			return new Response(body, response)
-		}
+	if (stat.props?.['e2ee-is-encrypted'] !== 1) {
+		logger.debug('Node is not e2ee', { xml })
+		return new Response(body, response)
+	}
 
+	if (stat.type === 'directory') {
 		const rawMetadata = stat.props['e2ee-metadata'] as string|undefined
 		const metadataSignature = stat.props['e2ee-metadata-signature'] as string|undefined
 		if (rawMetadata !== undefined && metadataSignature !== undefined) {
