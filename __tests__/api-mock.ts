@@ -6,21 +6,27 @@
 import { afterAll, afterEach, beforeAll } from 'vitest'
 import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
-import { rootFolderMetadata, rootFolderMetadataSignature, serverPublicKey, subfolderMetadata, subFolderMetadataSignature } from './consts.spec'
+import { adminPrivateKeyInfo, rootFolderPropfindResponse, serverPublicKey, subFolderPropfindResponse } from './consts.spec'
+import { bufferToBase64 } from '../src/services/bufferUtils'
 
 export const restHandlers = [
 	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/server-key', () => {
 		return HttpResponse.json({ ocs: { data: { 'public-key': serverPublicKey } } })
 	}),
-	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/meta-data/89', () => {
-		const response = HttpResponse.json({ ocs: { data: { 'meta-data': JSON.stringify(rootFolderMetadata) } } })
-		response.headers.set('x-nc-e2ee-signature', rootFolderMetadataSignature)
-		return response
+	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+		return HttpResponse.json({ ocs: { data: { 'private-key': Object.values(adminPrivateKeyInfo).map(bufferToBase64).join('|') } } })
 	}),
-	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/meta-data/266', () => {
-		const response = HttpResponse.json({ ocs: { data: { 'meta-data': JSON.stringify(subfolderMetadata) } } })
-		response.headers.set('x-nc-e2ee-signature', subFolderMetadataSignature)
-		return response
+
+	http.all('http://nextcloud.local//remote.php/dav/files/admin/New%20folder', ({ request }) => {
+		if (request.method === 'PROPFIND') {
+			return HttpResponse.xml(rootFolderPropfindResponse)
+		}
+	}),
+
+	http.all('http://nextcloud.local//remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1', ({ request }) => {
+		if (request.method === 'PROPFIND') {
+			return HttpResponse.xml(subFolderPropfindResponse)
+		}
 	}),
 ]
 

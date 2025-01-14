@@ -6,7 +6,8 @@
 import { X509Certificate } from '@peculiar/x509'
 import { Certificate, CryptoEngine, SignedData, ContentInfo } from 'pkijs'
 
-import { bufferToHex, pemToBuffer } from './utils'
+import { bufferToHex, pemToBuffer } from './bufferUtils'
+import type { UserWithAccess } from '../models'
 
 /* eslint-disable jsdoc/require-jsdoc */
 
@@ -116,7 +117,7 @@ function getPatchedCrypto(): Crypto {
 	}
 }
 
-export async function validateCMSSignature(signedData: Uint8Array, cmsBuffer: Uint8Array, users: {userId: string, certificate: string}[]): Promise<boolean> {
+export async function validateCMSSignature(signedData: Uint8Array, cmsBuffer: Uint8Array, users: UserWithAccess[]): Promise<boolean> {
 	// Parse the CMS buffer
 	const cmsContent = ContentInfo.fromBER(cmsBuffer)
 	const originalSignedData = new SignedData({ schema: cmsContent.content })

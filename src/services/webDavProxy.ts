@@ -5,28 +5,17 @@
 
 /* eslint-disable jsdoc/require-jsdoc */
 
-import { type DAVResult, type FileStat, type ResponseDataDetailed, type WebDAVClient, parseStat, parseXML } from 'webdav'
+import { type DAVResult, parseStat, parseXML } from 'webdav'
 import { XMLBuilder } from 'fast-xml-parser'
 import { basename, dirname } from 'path'
 
-import { type Node } from '@nextcloud/files'
-import { getCurrentUser } from '@nextcloud/auth'
-import { getClient, getDefaultPropfind, resultToNode } from '@nextcloud/files/dav'
-
-import type { FileEncryptionInfo, Metadata, MetadataInfo } from '../models'
+import { state } from './state.ts'
+import { isRootMetadata, type FileEncryptionInfo, type MetadataInfo } from '../models'
 import logger from './logger.ts'
-import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils'
-import { getMetadata, getPrivateKey, getServerPublicKey } from './api'
-import { decryptPrivateKey } from './privateKeyUtils'
-import { promptUserForMnemonic } from './mnemonicDialogs'
 import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
-import { base64ToBuffer } from './utils'
+import { base64ToBuffer } from './bufferUtils.ts'
 
 let originalFetch: typeof window.fetch
-const davClient = getClient() as WebDAVClient
-let privateKey: CryptoKey|undefined
-let serverPublicKey: CryptoKey|undefined
-const metadataCache: Record<string, Metadata> = {}
 
 export function setupWebDavDecryptionProxy() {
 	originalFetch = window.fetch
@@ -57,23 +46,23 @@ export function setupWebDavDecryptionProxy() {
 
 async function handleGet(request: Request): Promise<Response> {
 	const path = new URL(request.url).pathname
+	const responsePromise = originalFetch(request)
 
-	const rootMetadata = await getRootMetadataForPath(path)
-	if (rootMetadata === undefined) {
-		logger.debug('File is not part of e2ee folder', { path })
-		return originalFetch(request)
+	try {
+		// TODO: Optimize, this will make a propfind request for every GET request even when not encrypted.
+		const metadataInfo = await state.getMetadataInfo(dirname(path))
+
+		const fileInfo = metadataInfo.files[basename(request.url)]
+		if (fileInfo === undefined) {
+			logger.debug('Could not find file in metadata', { path, metadataInfo })
+			throw new Error('Could not find file in metadata')
+		}
+
+		logger.debug('Fetching encrypted file', { request })
+		return await decryptFile(await responsePromise, fileInfo)
+	} catch (error) {
+		return await responsePromise
 	}
-
-	const metadataInfo = await getMetadataInfoForPath(dirname(path), rootMetadata)
-
-	const fileInfo = metadataInfo.files[basename(request.url)]
-	if (fileInfo === undefined) {
-		logger.debug('Could not find metadata info', { path, metadataInfo })
-		throw new Error('Could not find file in metadata')
-	}
-
-	logger.debug('Fetching encrypted file', { request })
-	return await decryptFile(await originalFetch(request), fileInfo)
 }
 
 async function handlePropFind(request: Request) {
@@ -84,66 +73,55 @@ async function handlePropFind(request: Request) {
 	const xml = await parseXML(body)
 	const stat = parseStat(xml, path, true)
 
-	let metadataPath = path
-
-	if (stat.type === 'directory') {
-		if (stat.props?.['is-encrypted'] !== 1) {
-			logger.debug('Folder is not e2ee', { xml })
-			return new Response(body, response)
-		}
-
-		if (serverPublicKey === undefined) {
-			serverPublicKey = await getServerPublicKey()
-		}
-
-		// Update cache for this path
-		metadataCache[path] = await getMetadata(stat.props?.fileid as string, serverPublicKey)
-
-		const rootMetadata = await getRootMetadataForPath(metadataPath)
-
-		if (rootMetadata === undefined) {
-			logger.debug('Cannot find root E2EE folder', { path })
-			return new Response(body, response)
-		}
-
-		const metadataInfo = await getMetadataInfoForPath(metadataPath, rootMetadata)
-
-		let parentMetadataInfo: MetadataInfo|undefined
-		try {
-			parentMetadataInfo = await getMetadataInfoForPath(dirname(metadataPath), rootMetadata)
-		} catch (e) {}
-
-		replacePlaceholdersInPropfind(xml, path, metadataInfo, parentMetadataInfo)
+	if (stat.props?.['e2ee-is-encrypted'] !== 1) {
+		logger.debug('Node is not e2ee', { xml })
+		return new Response(body, response)
 	}
 
-	if (stat.type === 'file') {
-		metadataPath = dirname(path)
+	if (stat.type === 'directory') {
+		const rawMetadata = stat.props['e2ee-metadata'] as string|undefined
+		const metadataSignature = stat.props['e2ee-metadata-signature'] as string|undefined
+		if (rawMetadata !== undefined && metadataSignature !== undefined) {
+			await state.setMetadata(
+				path,
+				rawMetadata,
+				metadataSignature,
+			)
+		}
 
-		const rootMetadata = await getRootMetadataForPath(metadataPath)
+		const metadata = await state.getMetadata(path)
+		const metadataInfo = await state.getMetadataInfo(path)
 
-		if (rootMetadata === undefined) {
-			logger.debug('Cannot find root E2EE folder', { path })
+		if (isRootMetadata(metadata)) {
+			replacePlaceholdersInPropfind(xml, path, metadataInfo)
+		} else {
+			const parentMetadataInfo = await state.getMetadataInfo(dirname(path))
+			replacePlaceholdersInPropfind(xml, path, metadataInfo, parentMetadataInfo)
+		}
+	} else if (stat.type === 'file') {
+		const parentMetadataInfo = await state.getMetadataInfo(dirname(path))
+
+		if (parentMetadataInfo === undefined) {
+			logger.debug('Cannot find metadata for parent folder', { path })
 			return new Response(body, response)
 		}
 
-		replacePlaceholdersInPropfind(xml, path, undefined, await getMetadataInfoForPath(metadataPath, rootMetadata))
+		replacePlaceholdersInPropfind(xml, path, undefined, parentMetadataInfo)
 	}
 
 	return new Response(new XMLBuilder().build(xml), response)
 }
 
-export function replacePlaceholdersInPropfind(xml: DAVResult, folderPath: string, metadataInfo?: MetadataInfo, parentMetadataInfo?: MetadataInfo): void {
-	logger.debug('Updating PROPFIND info', { folderPath, metadataInfo, parentMetadataInfo, xml })
+export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decryptedMetadata?: MetadataInfo, decryptedParentMetadata?: MetadataInfo): void {
+	logger.debug('Updating PROPFIND info', { path, decryptedMetadata, decryptedParentMetadata, xml })
 
 	xml.multistatus.response.forEach((childNode) => {
 		if (childNode.propstat === undefined) {
 			return
 		}
 
-		let relevantMetadataInfo = metadataInfo
-		if (childNode.href === folderPath && parentMetadataInfo) {
-			relevantMetadataInfo = parentMetadataInfo
-		}
+		const relevantMetadataInfo = childNode.href === path ? decryptedParentMetadata : decryptedMetadata
+
 		if (relevantMetadataInfo === undefined) {
 			return
 		}
@@ -173,75 +151,4 @@ export async function decryptFile(response: Response, fileEncryptionInfo: FileEn
 	)
 
 	return new Response(decryptedFileContent, response)
-}
-
-async function getMetadataInfoForPath(path: string, rootMetadata: Metadata): Promise<MetadataInfo> {
-	logger.debug('Getting metadata info', { path })
-
-	const currentUser = getCurrentUser()
-	if (!currentUser) {
-		throw new Error('No user logged in')
-	}
-
-	if (privateKey === undefined) {
-		privateKey = await decryptPrivateKey(await getPrivateKey(), await promptUserForMnemonic())
-	}
-
-	return await decryptMetadataInfo(
-		await getMetadataForPath(path),
-		await getMetadataPrivateKey(rootMetadata, currentUser.uid, privateKey),
-	)
-}
-
-async function getFileIdForPath(path: string): Promise<string> {
-	logger.debug('Getting file id', { path })
-
-	const response = (await davClient.stat(decodeURI(path).replace('remote.php/dav/', ''), { details: true, data: getDefaultPropfind() })) as ResponseDataDetailed<FileStat>
-	const node = resultToNode(response.data) as Node
-
-	if (!node.fileid) {
-		throw new Error('File ID not found')
-	}
-
-	return String(node.fileid)
-}
-
-async function getMetadataForPath(path: string): Promise<Metadata> {
-	logger.debug('Getting metadata', { path, metadataCache })
-
-	if (metadataCache[path]) {
-		return metadataCache[path]
-	}
-
-	if (serverPublicKey === undefined) {
-		serverPublicKey = await getServerPublicKey()
-	}
-
-	metadataCache[path] = await getMetadata(await getFileIdForPath(path), serverPublicKey)
-
-	return metadataCache[path]
-}
-
-async function getRootMetadataForPath(path: string): Promise<Metadata|undefined> {
-	logger.debug('Getting root metadata', { path, metadataCache })
-
-	const metadataEntry = Object.entries(metadataCache)
-		.filter(([, metadata]) => metadata.users !== undefined)
-		.find(([rootPath]) => path.startsWith(rootPath))
-
-	if (metadataEntry) {
-		return metadataEntry[1]
-	}
-
-	while (path !== '/') {
-		metadataCache[path] = await getMetadataForPath(path)
-
-		if (metadataCache[path].users !== undefined) {
-			return metadataCache[path]
-		}
-
-		path = dirname(path)
-	}
-
-	return undefined
 }

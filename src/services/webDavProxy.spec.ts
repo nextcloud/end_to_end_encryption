@@ -6,15 +6,17 @@
 import { expect, test } from 'vitest'
 import { parseXML } from 'webdav'
 
-import { base64ToBuffer } from './utils.ts'
+import { base64ToBuffer } from './bufferUtils.ts'
 import { decryptFile, replacePlaceholdersInPropfind } from './webDavProxy.ts'
-import { encryptedFileContent, rootFolderMetadataInfo, propFindResponse } from '../../__tests__/consts.spec.ts'
+import { encryptedFileContent, rootFolderMetadataInfo, rootFolderPropfindResponse } from '../../__tests__/consts.spec.ts'
 
 test('Correctly replace file info in PROPFIND', async () => {
-	const xml = await parseXML(propFindResponse)
+	const xml = await parseXML(rootFolderPropfindResponse)
 	replacePlaceholdersInPropfind(xml, '/remote.php/dav/files/admin/New%20folder/', rootFolderMetadataInfo)
 	expect(xml.multistatus.response[1].propstat?.prop.displayname).toBe('test.txt')
 	expect(xml.multistatus.response[1].propstat?.prop.getcontenttype).toBe('text/plain')
+	expect(xml.multistatus.response[2].propstat?.prop.displayname).toBe('Test')
+	expect(xml.multistatus.response[2].propstat?.prop.getcontenttype).toBe('httpd/unix-directory')
 })
 
 test('Correctly decrypt file on GET', async () => {

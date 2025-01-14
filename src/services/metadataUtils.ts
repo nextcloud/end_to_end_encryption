@@ -5,7 +5,7 @@
 
 import type { Metadata, MetadataInfo } from '../models'
 import logger from './logger.ts'
-import { base64ToBuffer } from './utils.ts'
+import { base64ToBuffer } from './bufferUtils.ts'
 import { decryptWithAES, decryptWithRSA, exportAESKey, loadAESPrivateKey, sha256Hash } from './crypto.ts'
 
 /* eslint-disable jsdoc/require-jsdoc */
@@ -24,7 +24,7 @@ export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey
 	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo)) as MetadataInfo
 
 	validateKeyChecksums(metadataInfo, metadata)
-	validateMetadataKey(metadataInfo, metadataPrivateKey)
+	await validateMetadataKeyChecksum(metadataInfo, metadataPrivateKey)
 
 	return metadataInfo
 }
@@ -35,7 +35,7 @@ function validateKeyChecksums(metadataInfo: MetadataInfo, metadata: Metadata): v
 	}
 }
 
-export async function validateMetadataKey(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
+async function validateMetadataKeyChecksum(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
 	if (metadataInfo.keyChecksums === undefined) {
 		return
 	}

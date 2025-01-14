@@ -8,9 +8,9 @@ import { generateOcsUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import type { OCSResponse } from '@nextcloud/typings/ocs'
 
-import type { Metadata, PrivateKeyInfo } from '../models.ts'
-import { base64ToBuffer, pemToBuffer, stringToBuffer } from './utils.ts'
-import { loadServerPublicKey, validateCertificateSignature, validateCMSSignature } from './crypto.ts'
+import type { PrivateKeyInfo } from '../models.ts'
+import { base64ToBuffer, pemToBuffer } from './bufferUtils.ts'
+import { loadServerPublicKey } from './crypto.ts'
 
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md
 
@@ -33,55 +33,6 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo> {
 		iv: base64ToBuffer(iv),
 		salt: base64ToBuffer(salt),
 	}
-}
-
-export async function getMetadata(fileId: string, serverPublicKey: CryptoKey): Promise<Metadata> {
-	const response = await axios.get<OCSResponse<{'meta-data': string}>>(
-		generateOcsUrl(Url.Metadata, { fileId }),
-		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
-	)
-
-	const metadata = JSON.parse(response.data.ocs.data['meta-data']) as Metadata
-
-	await validateMetadataSignature(metadata, response.headers['x-nc-e2ee-signature'])
-	await validateUserCertificates(metadata, serverPublicKey)
-
-	return metadata
-}
-
-async function validateMetadataSignature(metadata: Metadata, signature: string): Promise<void> {
-	const signedData = JSON.stringify(metadata, (key, value) => {
-		if (key === 'filedrop') {
-			return undefined
-		}
-		return value
-	})
-
-	const verificationResult = await validateCMSSignature(
-		stringToBuffer(btoa(signedData)),
-		base64ToBuffer(signature),
-		metadata.users ?? [],
-	)
-
-	if (!verificationResult) {
-		throw new Error('Metadata signature verification failed')
-	}
-}
-
-async function validateUserCertificates(metadata: Metadata, serverPublicKey: CryptoKey): Promise<void> {
-	if (metadata.users === undefined) {
-		return
-	}
-
-	const verifications = metadata.users.map(async ({ userId, certificate }) => {
-		const result = await validateCertificateSignature(certificate, serverPublicKey)
-
-		if (!result) {
-			throw new Error(`Certificate verification failed for user ${userId}`)
-		}
-	})
-
-	await Promise.all(verifications)
 }
 
 export async function getServerPublicKey(): Promise<CryptoKey> {

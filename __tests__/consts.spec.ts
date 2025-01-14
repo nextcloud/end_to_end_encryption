@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Metadata, MetadataInfo, PrivateKeyInfo } from '../src/models'
-import { base64ToBuffer } from '../src/services/utils'
+import { Metadata, MetadataInfo, PrivateKeyInfo, RootMetadata } from '../src/models.ts'
+import { base64ToBuffer } from '../src/services/bufferUtils.ts'
 
 // Legacy mnemonic with 1024 iterations and using sha-1
 export const adminMnemonic = 'farm toilet escape army regular funny board consider same leaf fiction spray'
@@ -23,7 +23,7 @@ export const alicePrivateKeyInfo: PrivateKeyInfo = {
 	salt: base64ToBuffer('ev54oc6R4fw0Em2OTXXXIltX6i6sKJWZCPXPhq/dL9TNJKcmew9ZWQ=='),
 }
 
-export const rootFolderMetadata: Metadata = {
+export const rootFolderMetadata: RootMetadata = {
 	metadata: {
 		authenticationTag: '9lHh8Du2Mg/OcSxFtI132Q==',
 		ciphertext: 'SoLCWKckjiBWIOXXSnLW41LK6qtIVo3aZv6ozko5k0tkzq0IGKC1IB5Gm0hvibq/2UVRB+RjP1IQwg1SlHHnpRoOSih7pMUl9VbH6nAvoyNJz4N3uoS19NRCuD7obWlsULN2tdA8mvuhAPdSssFpJFNk4rjEigYNPTsDIxtrBZ/cFFS3oRQxlgoR9Eta52/cgghufxW9ytX7pGetuWL8+AbtqlKnrA6K5IhkROcK2drm6Snu6a1QdQ/SOO4wWUlWvmHBrUEaYouNPg11X9xBx+MQIQzU2IgrmVBvYIpXrhbWeYepkbRLYeYvXSXklsg4sdK9j0XPU682q1DbhJEYTosj82a5VVZJ5v1agRK3tudxb2enbQtfBQlfagIe9SJA9n/sAjK2n7eIanjNs0yo1MhslYp55zMH4J1kztGuhnHGOJ1ZIr/i36XrESGfoiGruLyhL4kC9lHh8Du2Mg/OcSxFtI132Q==|KTVo3l7fG4jgdi7R4hINcg==',
@@ -104,7 +104,7 @@ export const subFolderMetadataSignature = 'MIIGRwYJKoZIhvcNAQcCoIIGODCCBjQCAQExD
 
 export const encryptedFileContent = 'O13d2Y5O7qYDTerGfZyRwHKWcEktQQiJBm5rWzY='
 
-export const propFindResponse = `<?xml version="1.0"?>
+export const rootFolderPropfindResponse = `<?xml version="1.0"?>
 <d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns"
 	xmlns:nc="http://nextcloud.org/ns">
 	<d:response>
@@ -139,6 +139,9 @@ export const propFindResponse = `<?xml version="1.0"?>
 				<nc:system-tags />
 				<nc:rich-workspace></nc:rich-workspace>
 				<nc:rich-workspace-file></nc:rich-workspace-file>
+				<nc:e2ee-is-encrypted>1</nc:e2ee-metadata>
+				<nc:e2ee-metadata>${JSON.stringify(rootFolderMetadata)}</nc:e2ee-metadata>
+				<nc:e2ee-metadata-signature>${rootFolderMetadataSignature}</nc:e2ee-metadata-signature>
 			</d:prop>
 			<d:status>HTTP/1.1 200 OK</d:status>
 		</d:propstat>
@@ -243,6 +246,154 @@ export const propFindResponse = `<?xml version="1.0"?>
 			<d:status>HTTP/1.1 404 Not Found</d:status>
 		</d:propstat>
 	</d:response>
+</d:multistatus>`
+
+export const subFolderPropfindResponse = `<?xml version="1.0"?>
+<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns"
+    xmlns:nc="http://nextcloud.org/ns">
+    <d:response>
+        <d:href>/remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1/</d:href>
+        <d:propstat>
+            <d:prop>
+                <d:getetag>&quot;67607985e3022&quot;</d:getetag>
+                <d:getlastmodified>Mon, 16 Dec 2024 19:03:33 GMT</d:getlastmodified>
+                <d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+                <d:displayname>fa666d819a6c4315abba421172f0a0b1</d:displayname>
+                <d:quota-available-bytes>-3</d:quota-available-bytes>
+                <d:resourcetype>
+                    <d:collection />
+                </d:resourcetype>
+                <nc:has-preview>false</nc:has-preview>
+                <nc:is-encrypted>1</nc:is-encrypted>
+                <nc:mount-type></nc:mount-type>
+                <oc:comments-unread>0</oc:comments-unread>
+                <oc:favorite>0</oc:favorite>
+                <oc:fileid>266</oc:fileid>
+                <oc:owner-display-name>admin</oc:owner-display-name>
+                <oc:owner-id>admin</oc:owner-id>
+                <oc:permissions>RGDNVCK</oc:permissions>
+                <oc:size>778399</oc:size>
+                <nc:hidden>false</nc:hidden>
+                <nc:is-mount-root>false</nc:is-mount-root>
+                <nc:e2ee-is-encrypted>1</nc:e2ee-metadata>
+                <nc:e2ee-metadata>${JSON.stringify(subfolderMetadata)}</nc:e2ee-metadata>
+                <nc:e2ee-metadata-signature>${subFolderMetadataSignature}</nc:e2ee-metadata-signature>
+                <nc:reminder-due-date></nc:reminder-due-date>
+                <nc:sharees />
+                <nc:share-attributes>[]</nc:share-attributes>
+                <oc:share-types />
+                <x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">31</x1:share-permissions>
+                <nc:system-tags />
+                <nc:rich-workspace></nc:rich-workspace>
+                <nc:rich-workspace-file></nc:rich-workspace-file>
+            </d:prop>
+            <d:status>HTTP/1.1 200 OK</d:status>
+        </d:propstat>
+        <d:propstat>
+            <d:prop>
+                <d:getcontentlength />
+                <d:getcontenttype />
+                <nc:metadata-blurhash />
+                <nc:metadata-files-live-photo />
+                <nc:note />
+            </d:prop>
+            <d:status>HTTP/1.1 404 Not Found</d:status>
+        </d:propstat>
+    </d:response>
+    <d:response>
+        <d:href>
+            /remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1/5244e6768c70400c964d91056c750670</d:href>
+        <d:propstat>
+            <d:prop>
+                <d:getcontentlength>778366</d:getcontentlength>
+                <d:getcontenttype>application/octet-stream</d:getcontenttype>
+                <d:getetag>&quot;5973f83d5fff986e9b99dc9646e29805&quot;</d:getetag>
+                <d:getlastmodified>Fri, 26 Oct 2018 17:08:43 GMT</d:getlastmodified>
+                <d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+                <d:displayname>5244e6768c70400c964d91056c750670</d:displayname>
+                <d:resourcetype />
+                <nc:has-preview>false</nc:has-preview>
+                <nc:mount-type></nc:mount-type>
+                <oc:comments-unread>0</oc:comments-unread>
+                <oc:favorite>0</oc:favorite>
+                <oc:fileid>302</oc:fileid>
+                <oc:owner-display-name>admin</oc:owner-display-name>
+                <oc:owner-id>admin</oc:owner-id>
+                <oc:permissions>RGDNVW</oc:permissions>
+                <oc:size>778366</oc:size>
+                <nc:hidden>false</nc:hidden>
+                <nc:is-mount-root>false</nc:is-mount-root>
+                <nc:reminder-due-date></nc:reminder-due-date>
+                <nc:sharees />
+                <nc:share-attributes>[]</nc:share-attributes>
+                <oc:share-types />
+                <x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">19</x1:share-permissions>
+                <nc:system-tags />
+            </d:prop>
+            <d:status>HTTP/1.1 200 OK</d:status>
+        </d:propstat>
+        <d:propstat>
+            <d:prop>
+                <d:quota-available-bytes />
+                <nc:is-encrypted />
+                <nc:metadata-blurhash />
+                <nc:metadata-files-live-photo />
+                <nc:e2ee-metadata />
+                <nc:e2ee-metadata-signature />
+                <nc:note />
+                <nc:rich-workspace />
+                <nc:rich-workspace-file />
+            </d:prop>
+            <d:status>HTTP/1.1 404 Not Found</d:status>
+        </d:propstat>
+    </d:response>
+    <d:response>
+        <d:href>
+            /remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1/638e4fa2de864c57b29c314f97893809</d:href>
+        <d:propstat>
+            <d:prop>
+                <d:getcontentlength>33</d:getcontentlength>
+                <d:getcontenttype>application/octet-stream</d:getcontenttype>
+                <d:getetag>&quot;e3aea19d91a57699da4f6e8eba6e3990&quot;</d:getetag>
+                <d:getlastmodified>Thu, 12 Dec 2024 17:37:42 GMT</d:getlastmodified>
+                <d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+                <d:displayname>638e4fa2de864c57b29c314f97893809</d:displayname>
+                <d:resourcetype />
+                <nc:has-preview>false</nc:has-preview>
+                <nc:mount-type></nc:mount-type>
+                <oc:comments-unread>0</oc:comments-unread>
+                <oc:favorite>0</oc:favorite>
+                <oc:fileid>285</oc:fileid>
+                <oc:owner-display-name>admin</oc:owner-display-name>
+                <oc:owner-id>admin</oc:owner-id>
+                <oc:permissions>RGDNVW</oc:permissions>
+                <oc:size>33</oc:size>
+                <nc:hidden>false</nc:hidden>
+                <nc:is-mount-root>false</nc:is-mount-root>
+                <nc:reminder-due-date></nc:reminder-due-date>
+                <nc:sharees />
+                <nc:share-attributes>[]</nc:share-attributes>
+                <oc:share-types />
+                <x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">19</x1:share-permissions>
+                <nc:system-tags />
+            </d:prop>
+            <d:status>HTTP/1.1 200 OK</d:status>
+        </d:propstat>
+        <d:propstat>
+            <d:prop>
+                <d:quota-available-bytes />
+                <nc:is-encrypted />
+                <nc:metadata-blurhash />
+                <nc:metadata-files-live-photo />
+                <nc:e2ee-metadata />
+                <nc:e2ee-metadata-signature />
+                <nc:note />
+                <nc:rich-workspace />
+                <nc:rich-workspace-file />
+            </d:prop>
+            <d:status>HTTP/1.1 404 Not Found</d:status>
+        </d:propstat>
+    </d:response>
 </d:multistatus>`
 
 export const serverPublicKey = `

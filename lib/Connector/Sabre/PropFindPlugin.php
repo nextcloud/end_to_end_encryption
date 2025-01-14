@@ -11,8 +11,11 @@ namespace OCA\EndToEndEncryption\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
+use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\E2EEnabledPathCache;
+use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\UserAgentManager;
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
@@ -23,19 +26,22 @@ use Sabre\HTTP\RequestInterface;
 
 class PropFindPlugin extends APlugin {
 	public const IS_ENCRYPTED_PROPERTYNAME = '{http://nextcloud.org/ns}is-encrypted';
+	public const E2EE_IS_ENCRYPTED = '{http://nextcloud.org/ns}e2ee-is-encrypted';
+	public const E2EE_METADATA_PROPERTYNAME = '{http://nextcloud.org/ns}e2ee-metadata';
+	public const E2EE_METADATA_SIGNATURE_PROPERTYNAME = '{http://nextcloud.org/ns}e2ee-metadata-signature';
 
-	private UserAgentManager $userAgentManager;
-	private IRequest $request;
 	protected ?Server $server = null;
 
-	public function __construct(IRootFolder $rootFolder,
+	public function __construct(
+		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		UserAgentManager $userAgentManager,
-		IRequest $request,
-		E2EEnabledPathCache $pathCache) {
+		E2EEnabledPathCache $pathCache,
+		private UserAgentManager $userAgentManager,
+		private IRequest $request,
+		private IMetaDataStorage $metaDataStorage,
+		private Folder $userFolder,
+	) {
 		parent::__construct($rootFolder, $userSession, $pathCache);
-		$this->userAgentManager = $userAgentManager;
-		$this->request = $request;
 	}
 
 	/**
@@ -46,17 +52,46 @@ class PropFindPlugin extends APlugin {
 
 		$this->server = $server;
 		$this->server->on('afterMethod:PROPFIND', [$this, 'checkAccess'], 50);
-		$this->server->on('propFind', [$this, 'setEncryptedProperty'], 104);
+		$this->server->on('propFind', [$this, 'setE2EEProperties'], 104);
 		$this->server->on('propFind', [$this, 'updateProperty'], 105);
 	}
 
-	public function setEncryptedProperty(PropFind $propFind, \Sabre\DAV\INode $node) {
+	public function setE2EEProperties(PropFind $propFind, \Sabre\DAV\INode $node) {
+		if (!($node instanceof Directory || $node instanceof File)) {
+			return;
+		}
+
 		// Only folders can be e2e encrypted, so we only respond for directories.
 		if ($node instanceof Directory) {
 			$propFind->handle(self::IS_ENCRYPTED_PROPERTYNAME, function () use ($node) {
 				return $node->getFileInfo()->isEncrypted() ? '1' : '0';
 			});
+
+			$propFind->handle(self::E2EE_METADATA_PROPERTYNAME, function () use ($node) {
+				if ($node->getFileInfo()->isEncrypted()) {
+					return $this->metaDataStorage->getMetaData(
+						$this->userSession->getUser()->getUID(),
+						$node->getId(),
+					);
+				}
+			});
+
+			$propFind->handle(self::E2EE_METADATA_SIGNATURE_PROPERTYNAME, function () use ($node) {
+				if ($node->getFileInfo()->isEncrypted()) {
+					return $this->metaDataStorage->readSignature($node->getId());
+				}
+			});
 		}
+
+		$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
+			if ($node instanceof File) {
+				$isEncrypted = $this->userFolder->getFirstNodeById($node->getFileInfo()->getParentId())->isEncrypted() ? '1' : '0';
+			} else {
+				$isEncrypted = $node->getFileInfo()->isEncrypted();
+			}
+
+			return $isEncrypted ? '1' : '0';
+		});
 	}
 
 	/**
@@ -75,7 +110,7 @@ class PropFindPlugin extends APlugin {
 		$supportE2EEncryption = $this->userAgentManager->supportsEndToEndEncryption($userAgent);
 		if (!$supportE2EEncryption && $node instanceof Directory) {
 			// encrypted files have only read permissions
-			$isEncrypted = $propFind->get('{http://nextcloud.org/ns}is-encrypted');
+			$isEncrypted = $propFind->get(self::IS_ENCRYPTED_PROPERTYNAME);
 			if ($isEncrypted === '1') {
 				$propFind->set('{http://owncloud.org/ns}permissions', '', 200);
 			}
@@ -88,7 +123,7 @@ class PropFindPlugin extends APlugin {
 		}
 
 		// Check client support
-		$encryptionProperty = '{http://nextcloud.org/ns}is-encrypted';
+		$encryptionProperty = self::IS_ENCRYPTED_PROPERTYNAME;
 		$userAgent = $this->request->getHeader('USER_AGENT');
 		$supportE2EEncryption = $this->userAgentManager->supportsEndToEndEncryption($userAgent);
 
