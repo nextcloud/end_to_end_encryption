@@ -5,7 +5,7 @@
 
 import type { Metadata, MetadataInfo } from '../models'
 import logger from './logger.ts'
-import { base64ToBuffer } from './utils.ts'
+import { base64ToBuffer } from './bufferUtils.ts'
 import { decryptWithAES, decryptWithRSA, exportAESKey, loadAESPrivateKey, sha256Hash } from './crypto.ts'
 
 /* eslint-disable jsdoc/require-jsdoc */

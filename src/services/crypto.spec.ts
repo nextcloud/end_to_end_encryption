@@ -5,7 +5,7 @@
 
 import { expect, test } from 'vitest'
 
-import { base64ToBuffer } from './utils.ts'
+import { base64ToBuffer } from './bufferUtils.ts'
 import { sha256Hash } from './crypto.ts'
 
 test('sha256Hash correctly returns a hex string', async () => {

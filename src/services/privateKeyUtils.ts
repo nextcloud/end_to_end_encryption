@@ -8,7 +8,7 @@
 import logger from './logger.ts'
 import type { PrivateKeyInfo } from '../models.ts'
 import { decryptWithAES, loadRSAPrivateKey } from './crypto.ts'
-import { bufferToString, pemToBuffer } from './utils.ts'
+import { bufferToString, pemToBuffer } from './bufferUtils.ts'
 
 export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic: string): Promise<CryptoKey> {
 	logger.debug('Decrypting private key', { privateKeyInfo, mnemonic })
