@@ -24,7 +24,7 @@ export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey
 	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo)) as MetadataInfo
 
 	validateKeyChecksums(metadataInfo, metadata)
-	validateMetadataKey(metadataInfo, metadataPrivateKey)
+	await validateMetadataKeyChecksum(metadataInfo, metadataPrivateKey)
 
 	return metadataInfo
 }
@@ -35,7 +35,7 @@ function validateKeyChecksums(metadataInfo: MetadataInfo, metadata: Metadata): v
 	}
 }
 
-export async function validateMetadataKey(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
+async function validateMetadataKeyChecksum(metadataInfo: MetadataInfo, metadataPrivateKey: CryptoKey): Promise<void> {
 	if (metadataInfo.keyChecksums === undefined) {
 		return
 	}
