@@ -1,0 +1,42 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Andrey Sitnik <andrey@sitnik.ru>
+SPDX-FileCopyrightText: Antoni Andre <antoniandre.web@gmail.com>
+SPDX-FileCopyrightText: John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: Rob Cresswell <robcresswell@pm.me>
+SPDX-FileCopyrightText: Thorsten Lünborg
+SPDX-FileCopyrightText: uuid developers
+
+This file is generated from multiple sources. Included packages:
+- @linusborg/vue-simple-portal
+	- version: 0.1.5
+	- license: Apache-2.0
+- @nextcloud/vue
+	- version: 8.21.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- nanoid
+	- version: 3.3.8
+	- license: MIT
+- splitpanes
+	- version: 2.4.1
+	- license: MIT
+- uuid
+	- version: 10.0.0
+	- license: MIT
+- uuid
+	- version: 10.0.0
+	- license: MIT
+- uuid
+	- version: 10.0.0
+	- license: MIT
+- uuid
+	- version: 10.0.0
+	- license: MIT
+- vue-material-design-icons
+	- version: 5.3.1
+	- license: MIT

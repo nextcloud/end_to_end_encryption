@@ -1,0 +1,176 @@
+SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: BSD-3-Clause
+SPDX-License-Identifier: GPL-3.0-or-later
+SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: Alkemics
+SPDX-FileCopyrightText: Amit Gupta (https://amitkumargupta.work/)
+SPDX-FileCopyrightText: Amit Gupta (https://solothought.com)
+SPDX-FileCopyrightText: Austin Andrews
+SPDX-FileCopyrightText: Christoph Wurst <christoph@winzerhof-wurst.at>
+SPDX-FileCopyrightText: John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
+SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: Paul Miller (https://paulmillr.com)
+SPDX-FileCopyrightText: Perry Mitchell <perry@perrymitchell.net>
+SPDX-FileCopyrightText: Yury Strozhevsky
+
+This file is generated from multiple sources. Included packages:
+- @mdi/svg
+	- version: 7.4.47
+	- license: Apache-2.0
+- @nextcloud/files
+	- version: 3.10.1
+	- license: AGPL-3.0-or-later
+- @nextcloud/files
+	- version: 3.10.1
+	- license: AGPL-3.0-or-later
+- @nextcloud/sharing
+	- version: 0.2.3
+	- license: GPL-3.0-or-later
+- @nextcloud/vue
+	- version: 8.21.0
+	- license: AGPL-3.0-or-later
+- @nextcloud/vue
+	- version: 8.21.0
+	- license: AGPL-3.0-or-later
+- @nextcloud/vue
+	- version: 8.21.0
+	- license: AGPL-3.0-or-later
+- @nextcloud/vue
+	- version: 8.21.0
+	- license: AGPL-3.0-or-later
+- @noble/hashes
+	- version: 1.7.0
+	- license: MIT
+- @noble/hashes
+	- version: 1.7.0
+	- license: MIT
+- @noble/hashes
+	- version: 1.7.0
+	- license: MIT
+- @noble/hashes
+	- version: 1.7.0
+	- license: MIT
+- @noble/hashes
+	- version: 1.7.0
+	- license: MIT
+- @noble/hashes
+	- version: 1.7.0
+	- license: MIT
+- @noble/hashes
+	- version: 1.7.0
+	- license: MIT
+- bytestreamjs
+	- version: 2.0.1
+	- license: BSD-3-Clause
+- bytestreamjs
+	- version: 2.0.1
+	- license: BSD-3-Clause
+- cancelable-promise
+	- version: 4.3.1
+	- license: MIT
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- end_to_end_encryption
+	- version: 2.0.0-dev.0
+	- license: AGPL-3.0-or-later
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- fast-xml-parser
+	- version: 4.5.0
+	- license: MIT
+- pkijs
+	- version: 3.2.4
+	- license: BSD-3-Clause
+- strnum
+	- version: 1.0.5
+	- license: MIT
+- webdav
+	- version: 5.7.1
+	- license: MIT
