@@ -14,7 +14,6 @@ use OCA\DAV\Connector\Sabre\Exception\FileLocked;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\DAV\Upload\FutureFile;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\LockManager;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\AppFramework\Http;
@@ -34,8 +33,8 @@ class LockPlugin extends APlugin {
 		IUserSession $userSession,
 		LockManager $lockManager,
 		UserAgentManager $userAgentManager,
-		E2EEnabledPathCache $pathCache) {
-		parent::__construct($rootFolder, $userSession, $pathCache);
+	) {
+		parent::__construct($rootFolder, $userSession);
 		$this->lockManager = $lockManager;
 		$this->userAgentManager = $userAgentManager;
 	}
