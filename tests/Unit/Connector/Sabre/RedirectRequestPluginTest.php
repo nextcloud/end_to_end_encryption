@@ -10,7 +10,6 @@ namespace OCA\EndToEndEncryption\Tests\Unit\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
 use Sabre\DAV\Server;
@@ -19,15 +18,8 @@ use Test\TestCase;
 
 class RedirectRequestPluginTest extends TestCase {
 
-	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
-	private $rootFolder;
-
-	/** @var IUserSession|\PHPUnit\Framework\MockObject\MockObject */
-	private $userSession;
-
-	/** @var E2EEnabledPathCache|\PHPUnit\Framework\MockObject\MockObject */
-	private $pathCache;
-
+	private IRootFolder&\PHPUnit\Framework\MockObject\MockObject $rootFolder;
+	private IUserSession&\PHPUnit\Framework\MockObject\MockObject $userSession;
 	private RedirectRequestPlugin $plugin;
 
 	protected function setUp(): void {
@@ -35,9 +27,8 @@ class RedirectRequestPluginTest extends TestCase {
 
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->userSession = $this->createMock(IUserSession::class);
-		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
 
-		$this->plugin = new RedirectRequestPlugin($this->rootFolder, $this->userSession, $this->pathCache);
+		$this->plugin = new RedirectRequestPlugin($this->rootFolder, $this->userSession);
 	}
 
 	public function testInitialize(): void {
@@ -65,7 +56,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
-				$this->pathCache,
 			])
 			->getMock();
 
@@ -113,7 +103,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
-				$this->pathCache,
 			])
 			->getMock();
 
@@ -160,7 +149,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
-				$this->pathCache,
 			])
 			->getMock();
 
@@ -194,7 +182,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
-				$this->pathCache,
 			])
 			->getMock();
 
@@ -232,7 +219,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
-				$this->pathCache,
 			])
 			->getMock();
 
@@ -275,7 +261,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
-				$this->pathCache,
 			])
 			->getMock();
 
@@ -309,7 +294,6 @@ class RedirectRequestPluginTest extends TestCase {
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
-				$this->pathCache,
 			])
 			->getMock();
 

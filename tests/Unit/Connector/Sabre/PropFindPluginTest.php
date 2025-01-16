@@ -11,7 +11,6 @@ namespace OCA\EndToEndEncryption\Tests\Connector\Sabre;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Folder;
@@ -32,7 +31,6 @@ class PropFindPluginTest extends TestCase {
 	private UserAgentManager&\PHPUnit\Framework\MockObject\MockObject $userAgentManager;
 	private IRequest&\PHPUnit\Framework\MockObject\MockObject $request;
 	protected Server&\PHPUnit\Framework\MockObject\MockObject $server;
-	protected E2EEnabledPathCache&\PHPUnit\Framework\MockObject\MockObject $pathCache;
 	protected IMetaDataStorage&\PHPUnit\Framework\MockObject\MockObject $metaDataStorage;
 	protected Folder&\PHPUnit\Framework\MockObject\MockObject $userFolder;
 	private PropFindPlugin $plugin;
@@ -44,14 +42,13 @@ class PropFindPluginTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 		$this->request = $this->createMock(IRequest::class);
-		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
+		$this->server = $this->createMock(Server::class);
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->userFolder = $this->createMock(Folder::class);
 
 		$this->plugin = new PropFindPlugin(
 			$this->rootFolder,
 			$this->userSession,
-			$this->pathCache,
 			$this->userAgentManager,
 			$this->request,
 			$this->metaDataStorage,

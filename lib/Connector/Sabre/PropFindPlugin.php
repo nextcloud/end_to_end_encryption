@@ -12,7 +12,6 @@ namespace OCA\EndToEndEncryption\Connector\Sabre;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Folder;
@@ -35,13 +34,12 @@ class PropFindPlugin extends APlugin {
 	public function __construct(
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		E2EEnabledPathCache $pathCache,
 		private UserAgentManager $userAgentManager,
 		private IRequest $request,
 		private IMetaDataStorage $metaDataStorage,
 		private ?Folder $userFolder,
 	) {
-		parent::__construct($rootFolder, $userSession, $pathCache);
+		parent::__construct($rootFolder, $userSession);
 	}
 
 	/**
@@ -61,14 +59,14 @@ class PropFindPlugin extends APlugin {
 			return;
 		}
 
-		// Only folders can be e2e encrypted, so we only respond for directories.
+		// Some properties are only for folders.
 		if ($node instanceof Directory) {
 			$propFind->handle(self::IS_ENCRYPTED_PROPERTYNAME, function () use ($node) {
-				return $node->getFileInfo()->isEncrypted() ? '1' : '0';
+				return $this->isE2EEnabledPath($node) ? '1' : '0';
 			});
 
 			$propFind->handle(self::E2EE_METADATA_PROPERTYNAME, function () use ($node) {
-				if ($node->getFileInfo()->isEncrypted()) {
+				if ($this->isE2EEnabledPath($node)) {
 					return $this->metaDataStorage->getMetaData(
 						$this->userSession->getUser()->getUID(),
 						$node->getId(),
@@ -77,21 +75,16 @@ class PropFindPlugin extends APlugin {
 			});
 
 			$propFind->handle(self::E2EE_METADATA_SIGNATURE_PROPERTYNAME, function () use ($node) {
-				if ($node->getFileInfo()->isEncrypted()) {
+				if ($this->isE2EEnabledPath($node)) {
 					return $this->metaDataStorage->readSignature($node->getId());
 				}
 			});
 		}
 
+		// This property was introduced to expose encryption status for both files and folders.
 		if ($this->userFolder !== null) {
 			$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
-				if ($node instanceof File) {
-					$isEncrypted = $this->userFolder->getFirstNodeById($node->getFileInfo()->getParentId())->isEncrypted() ? '1' : '0';
-				} else {
-					$isEncrypted = $node->getFileInfo()->isEncrypted();
-				}
-
-				return $isEncrypted ? '1' : '0';
+				return $this->isE2EEnabledPath($node) ? '1' : '0';
 			});
 		}
 	}
