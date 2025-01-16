@@ -26,7 +26,6 @@ namespace OCA\EndToEndEncryption\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
@@ -47,8 +46,8 @@ class PropFindPlugin extends APlugin {
 		IUserSession $userSession,
 		UserAgentManager $userAgentManager,
 		IRequest $request,
-		E2EEnabledPathCache $pathCache) {
-		parent::__construct($rootFolder, $userSession, $pathCache);
+	) {
+		parent::__construct($rootFolder, $userSession);
 		$this->userAgentManager = $userAgentManager;
 		$this->request = $request;
 	}
@@ -69,7 +68,7 @@ class PropFindPlugin extends APlugin {
 		// Only folders can be e2e encrypted, so we only respond for directories.
 		if ($node instanceof Directory) {
 			$propFind->handle(self::IS_ENCRYPTED_PROPERTYNAME, function () use ($node) {
-				return $node->getFileInfo()->isEncrypted() ? '1' : '0';
+				return $this->isE2EEnabledPath($node) ? '1' : '0';
 			});
 		}
 	}
