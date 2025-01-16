@@ -18,6 +18,7 @@ use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\IMetaDataStorageV1;
 use OCA\EndToEndEncryption\KeyStorage;
+use OCA\EndToEndEncryption\Listener\AllowBlobMediaInCSPListener;
 use OCA\EndToEndEncryption\Listener\LoadAdditionalListener;
 use OCA\EndToEndEncryption\Listener\UserDeletedListener;
 use OCA\EndToEndEncryption\MetaDataStorage;
@@ -34,6 +35,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\SabrePluginEvent;
+use OCP\Security\CSP\AddContentSecurityPolicyEvent;
 use OCP\User\Events\UserDeletedEvent;
 
 class Application extends App implements IBootstrap {
@@ -62,6 +64,7 @@ class Application extends App implements IBootstrap {
 		$context->registerServiceAlias(IMetaDataStorage::class, MetaDataStorage::class);
 		$context->registerEventListener(UserDeletedEvent::class, UserDeletedListener::class);
 		$context->registerEventListener(LoadAdditionalScriptsEvent::class, LoadAdditionalListener::class);
+		$context->registerEventListener(AddContentSecurityPolicyEvent::class, AllowBlobMediaInCSPListener::class);
 		$context->registerPublicShareTemplateProvider(E2EEPublicShareTemplateProvider::class);
 	}
 

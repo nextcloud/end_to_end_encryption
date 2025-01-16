@@ -1,5 +1,5 @@
 /**
- * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -13,6 +13,7 @@ import { FileAction, Node, FileType, DefaultType } from '@nextcloud/files'
 import { isDownloadable } from './permissions.ts'
 
 async function downloadNodes([file]: Node[]) {
+	// Decryption happens in the proxy.
 	const response = await fetch(file.encodedSource)
 	const decryptedFileContent = await response.arrayBuffer()
 	const blob = new Blob([decryptedFileContent], { type: file.mime })

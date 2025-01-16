@@ -58,7 +58,6 @@ async function handleGet(request: Request): Promise<Response> {
 			throw new Error('Could not find file in metadata')
 		}
 
-		logger.debug('Fetching encrypted file', { request })
 		return await decryptFile(await responsePromise, fileInfo)
 	} catch (error) {
 		return await responsePromise
@@ -144,11 +143,15 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decr
 }
 
 export async function decryptFile(response: Response, fileEncryptionInfo: FileEncryptionInfo): Promise<Response> {
+	logger.debug('Decrypting encrypted file', { response, fileEncryptionInfo })
 	const decryptedFileContent = await decryptWithAES(
 		new Uint8Array(await response.arrayBuffer()),
 		await loadAESPrivateKey(base64ToBuffer(fileEncryptionInfo.key)),
 		{ iv: base64ToBuffer(fileEncryptionInfo.nonce) },
 	)
 
-	return new Response(decryptedFileContent, response)
+	const headers = new Headers(response.headers)
+	headers.set('Content-Type', fileEncryptionInfo.mimetype)
+
+	return new Response(decryptedFileContent, { ...response, headers })
 }

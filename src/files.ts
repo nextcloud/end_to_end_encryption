@@ -26,10 +26,10 @@ if (userConfig.e2eeInBrowserEnabled) {
 }
 
 function disableFileAction(actionId: string) {
-	logger.debug('Disabling file action', { actionId })
+	logger.debug(`Inhibiting ${actionId} actions for e2ee files`)
 	const actions = getFileActions()
 
-	const action = actions.find(action => action.id === actionId) as any
+	const action = actions.find(action => action.id === actionId) as unknown as { _action: { enabled: (nodes: Node[], view: View) => boolean } }
 	const originalEnabled = action._action.enabled
 
 	action._action.enabled = (nodes: Node[], view: View) => {
