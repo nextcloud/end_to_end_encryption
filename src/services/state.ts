@@ -5,6 +5,7 @@
  */
 
 import { dirname } from 'path'
+import type { WebDAVClient } from 'webdav'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import { getClient, getDefaultPropfind } from '@nextcloud/files/dav'
@@ -17,7 +18,7 @@ import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils.ts'
 import logger from './logger.ts'
 import { validateMetadataSignature, validateUserCertificates } from './security.ts'
 
-const davClient = getClient()
+const davClient = getClient() as WebDAVClient
 
 export const state = {
 	_userPrivateKey: undefined as CryptoKey | undefined,
