@@ -14,7 +14,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.1.5
 	- license: Apache-2.0
 - @nextcloud/vue
-	- version: 8.21.0
+	- version: 8.22.0
 	- license: AGPL-3.0-or-later
 - end_to_end_encryption
 	- version: 2.0.0-dev.0
@@ -24,15 +24,6 @@ This file is generated from multiple sources. Included packages:
 	- license: MIT
 - splitpanes
 	- version: 2.4.1
-	- license: MIT
-- uuid
-	- version: 10.0.0
-	- license: MIT
-- uuid
-	- version: 10.0.0
-	- license: MIT
-- uuid
-	- version: 10.0.0
 	- license: MIT
 - uuid
 	- version: 10.0.0
