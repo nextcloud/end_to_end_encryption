@@ -26,7 +26,6 @@ namespace OCA\EndToEndEncryption\Tests\Connector\Sabre;
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\EndToEndEncryption\Connector\Sabre\PropFindPlugin;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
@@ -55,9 +54,6 @@ class PropFindPluginTest extends TestCase {
 	/** @var Server|\PHPUnit\Framework\MockObject\MockObject */
 	protected $server;
 
-	/** @var E2EEnabledPathCache|\PHPUnit\Framework\MockObject\MockObject */
-	protected $pathCache;
-
 	private PropFindPlugin $plugin;
 
 	protected function setUp(): void {
@@ -68,14 +64,12 @@ class PropFindPluginTest extends TestCase {
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 		$this->request = $this->createMock(IRequest::class);
 		$this->server = $this->createMock(Server::class);
-		$this->pathCache = $this->createMock(E2EEnabledPathCache::class);
 
 		$this->plugin = new PropFindPlugin(
 			$this->rootFolder,
 			$this->userSession,
 			$this->userAgentManager,
 			$this->request,
-			$this->pathCache
 		);
 	}
 

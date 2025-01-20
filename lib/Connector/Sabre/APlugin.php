@@ -24,7 +24,7 @@ namespace OCA\EndToEndEncryption\Connector\Sabre;
 
 use OCA\DAV\Connector\Sabre\Directory;
 use OCA\DAV\Connector\Sabre\File;
-use OCA\EndToEndEncryption\E2EEnabledPathCache;
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
 use Sabre\DAV\Exception\Conflict;
@@ -37,7 +37,6 @@ abstract class APlugin extends ServerPlugin {
 	protected ?Server $server = null;
 	protected IRootFolder $rootFolder;
 	protected IUserSession $userSession;
-	protected E2EEnabledPathCache $pathCache;
 
 	/**
 	 * Should plugin be applied to the current node?
@@ -51,11 +50,9 @@ abstract class APlugin extends ServerPlugin {
 	public function __construct(
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		E2EEnabledPathCache $pathCache
 	) {
 		$this->rootFolder = $rootFolder;
 		$this->userSession = $userSession;
-		$this->pathCache = $pathCache;
 	}
 
 	/**
@@ -100,7 +97,12 @@ abstract class APlugin extends ServerPlugin {
 	 */
 	protected function isE2EEnabledPath(INode $node): bool {
 		if ($node instanceof \OCA\DAV\Connector\Sabre\Node) {
-			return $this->pathCache->isE2EEnabledPath($node->getNode());
+			$node = $node->getNode();
+			if ($node instanceof Folder) {
+				return $node->isEncrypted();
+			} else {
+				return $node->getParent()->isEncrypted();
+			}
 		}
 		return false;
 	}
