@@ -56,7 +56,6 @@ OC.L10N.register(
     "Error while uploading files" : "Error mientras se cargaban los archivos",
     "Error while uploading metadata" : "Se encontró un error al cargar los metadatos",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Provee el endpoint necesario para habilitar cifrado de extremo a extremo.\n\n**Advertencia:** el cifrado de extremo a extremo actualmente no puede utilizarse si se usa en conjunto con el cifrado del lado del servidor.",
     "Limit app usage to groups." : "Limitar uso de apps a grupos."
 },

@@ -66,7 +66,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
     "Download unencrypted" : "Unverschlüsselt herunterladen",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Stellt den erforderlichen Endpunkt bereit, um Ende-zu-Ende-Verschlüsselung zu ermöglichen.\n\n**Hinweis:** E2EE kann aktuell nicht zusammen mit serverseitiger Verschlüsselung verwendet werden",
     "Limit app usage to groups." : "App-Verwendung auf Gruppen beschränken."
 },

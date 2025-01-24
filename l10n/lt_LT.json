@@ -34,7 +34,6 @@
     "This is the final warning: Do you really want to reset your keys?" : "Tai yra paskutinis įspėjimas: Ar tikrai norite atstatyti raktus?",
     "Cancel" : "Atsisakyti",
     "Reset keys" : "Atstatyti raktus",
-    "Select or drop files" : "Pasirinkite arba vilkite failus",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER"
+    "Select or drop files" : "Pasirinkite arba vilkite failus"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }

@@ -56,7 +56,6 @@
     "Error while uploading files" : "S'ha produït un error en penjar fitxers",
     "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
     "Upload encrypted files to {fileName}" : "Pujada de fitxers xifrats a {fileName}",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-CONTADOR",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punt final necessari per habilitar el xifratge d'extrem a extrem.\n\n**Avís:** E2EE actualment no és compatible per utilitzar-lo juntament amb el xifratge del servidor",
     "Limit app usage to groups." : "Limita l'ús de l'aplicació només pels grups."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
