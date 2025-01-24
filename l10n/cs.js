@@ -66,7 +66,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Chyba při nahrávání metadat",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
     "Download unencrypted" : "Stáhnout nešifrovaně",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Poskytuje nezbytný koncový bod pro zapnutí šifrování mezi koncovými body.\n\n**Upozornění:** E2EE v tuto chvíli není kompatibilní s používáním pohromadě s šifrováním na straně serveru",
     "Limit app usage to groups." : "Omezit používání aplikace na skupiny."
 },

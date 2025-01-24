@@ -66,7 +66,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Earráid agus meiteashonraí á n-uaslódáil",
     "Upload encrypted files to {fileName}" : "Uaslódáil comhaid chriptithe go {fileName}",
     "Download unencrypted" : "Íosluchtaigh gan criptithe",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Soláthraíonn sé an críochphointe riachtanach chun criptiú deireadh go deireadh a chumasú.\n\n**Fógra:** Níl E2EE comhoiriúnach faoi láthair le húsáid in éineacht le criptiúchán ar thaobh an fhreastalaí",
     "Limit app usage to groups." : "Teorainn úsáid aipeanna go grúpaí."
 },

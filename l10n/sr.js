@@ -66,7 +66,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
     "Download unencrypted" : "Преузми дешифровано",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Обезбеђује неопходну крајњи тачку за укључивања шифровања са краја на крај.\n\n**Напомена:** E2EE тренутно није компатибилно са употребом заједно са шифровањем на страни сервера",
     "Limit app usage to groups." : "Ограничи коришћење апликације на групе."
 },
