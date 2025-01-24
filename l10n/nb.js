@@ -58,7 +58,6 @@ OC.L10N.register(
     "Error while uploading files" : "Feil under opplasting av filer",
     "Error while uploading metadata" : "Feil under opplasting av metadata",
     "Upload encrypted files to {fileName}" : "Last opp krypterte filer til {fileName}",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Gir det nødvendige endepunktet for å aktivere ende-til-ende-kryptering.\n\n**Merknad:** E2EE er for øyeblikket ikke kompatibel for bruk sammen med kryptering på serversiden",
     "Limit app usage to groups." : "Begrens app-bruk til grupper"
 },

@@ -66,7 +66,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "خطأ خلال رفع البيانات الوصفية metadata",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
     "Download unencrypted" : "تنزيل غير مشفر",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "يوفر نقطة النهاية اللازمة لتمكين التشفير من طرف إلى طرف. ** ملاحظة: ** التشفير الطرفي \"E2EE\" غير متوافق حاليًا ليتم استخدامه مع التشفير من جانب الخادم",
     "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات."
 },

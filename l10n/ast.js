@@ -32,7 +32,6 @@ OC.L10N.register(
     "Error while uploading files" : "Hebo un error al xubir los ficheros",
     "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
     "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Forne'l puntu d'entrada necesariu p'activar el cifráu d'estremu a estremu.\n\n**Avisu**: anguaño E2EE nun ye compatible pa usalu xunto col cifráu del sirividor"
 },
 "nplurals=2; plural=(n != 1);");

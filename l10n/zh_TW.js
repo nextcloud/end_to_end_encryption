@@ -66,7 +66,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "上傳詮釋資料時發生錯誤",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
     "Download unencrypted" : "下載未加密",
-    "X-NC-E2EE-COUNTER" : "X-NC-E2EE-COUNTER",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "提供必要的端點以啟用端到端加密。\n\n**注意：**E2EE 目前與伺服器端加密並不相容，無法一起啟用",
     "Limit app usage to groups." : "限制群組的使用率:"
 },
