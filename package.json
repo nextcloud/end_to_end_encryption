@@ -49,7 +49,7 @@
     "@relative-ci/agent": "^4.2.14",
     "@testing-library/jest-dom": "^6.6.3",
     "@vitejs/plugin-vue2": "^2.3.3",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/coverage-v8": "^3.0.4",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.57.1",
@@ -57,7 +57,7 @@
     "jest-serializer-vue": "^3.1.0",
     "jsdom": "^26.0.0",
     "msw": "^2.7.0",
-    "vitest": "^2.1.8",
+    "vitest": "^3.0.4",
     "vue-jest": "^3.0.7"
   },
   "browserslist": [
