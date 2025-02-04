@@ -9,15 +9,15 @@ OC.L10N.register(
     "Could not find the public key belonging to the user %s" : "Kunne ikke finde den offentlige nøgle tilhørende brugeren %s",
     "Common name (CN) does not match the current user" : "Common name (CN) matcher ikke den aktuelle bruger",
     "Could not find the public key belonging to %s" : "Kunne ikke finde den offentlige nøgle tilhørende %s",
-    "This is not your public key to delete" : "Dette er ikke din offentlige nøgle at slette",
+    "This is not your public key to delete" : "Dette er ikke din offentlige nøgle til at slette",
     "Cannot decode userlist" : "Kan ikke afkode brugerlisten",
-    "You are not allowed to create the lock" : "Du må ikke oprette låsen",
+    "You are not allowed to create the lock" : "Du har ikke tilladelse til at oprette låsen",
     "File already locked" : "Fil allerede låst",
     "You are not allowed to remove the lock" : "Du har ikke adgang til at fjerne låsen",
     "File not locked" : "Fil ikke låst",
     "Could not find metadata for \"%s\"" : "Kunne ikke finde metadata for \"%s\"",
     "Cannot read metadata" : "Kan ikke læse metadata",
-    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke adgang til at redigere filen - sørg for først at låse den, og send så den rette nøgle",
+    "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke adgang til at redigere filen - sørg først for at låse den, og send så den rette nøgle",
     "Cannot store metadata" : "Kan ikke gemme metadata",
     "Only the owner can delete the metadata-file" : "Kun ejeren kan slette metadata-filen",
     "Cannot delete metadata" : "Kan ikke slette metadata",
@@ -31,6 +31,6 @@ OC.L10N.register(
     "Close" : "Luk",
     "Cancel" : "Annullér",
     "Select or drop files" : "Vælg eller slip filer",
-    "Limit app usage to groups." : "Begræns app-brug til grupper."
+    "Limit app usage to groups." : "Begræns app anvendelse til grupper."
 },
 "nplurals=2; plural=(n != 1);");
