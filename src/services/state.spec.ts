@@ -29,8 +29,8 @@ test("Correctly fetch user's private key", async () => {
 })
 
 test("Correctly fetch server's public key", async () => {
-	const userPrivateKey = await state.getServerPublicKey()
-	expect(userPrivateKey instanceof CryptoKey).toBeTruthy()
+	const serverPublicKeyPEM = await state.getServerPublicKeyPEM()
+	expect(serverPublicKeyPEM).toBeTypeOf('string')
 })
 
 test('Correctly fetch root folder metadata', async () => {

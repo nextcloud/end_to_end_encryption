@@ -35,11 +35,11 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo> {
 	}
 }
 
-export async function getServerPublicKey(): Promise<CryptoKey> {
+export async function getServerPublicKey(): Promise<string> {
 	const response = await axios.get<OCSResponse<{'public-key': string}>>(
 		generateOcsUrl(Url.ServerKey),
 		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 	)
 
-	return await loadServerPublicKey(pemToBuffer(response.data.ocs.data['public-key']))
+	return await response.data.ocs.data['public-key']
 }

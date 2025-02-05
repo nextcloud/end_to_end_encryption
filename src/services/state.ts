@@ -22,7 +22,7 @@ const davClient = getClient() as WebDAVClient
 
 export const state = {
 	_userPrivateKey: undefined as CryptoKey | undefined,
-	_serverPublicKey: undefined as CryptoKey | undefined,
+	_serverPublicKey: undefined as string | undefined,
 	_metadataCache: {} as Record<string, Metadata>,
 
 	async getUserPrivateKey(): Promise<CryptoKey> {
@@ -30,7 +30,7 @@ export const state = {
 		return this._userPrivateKey
 	},
 
-	async getServerPublicKey(): Promise<CryptoKey> {
+	async getServerPublicKeyPEM(): Promise<string> {
 		this._serverPublicKey ??= await getServerPublicKey()
 		return this._serverPublicKey
 	},
@@ -59,7 +59,7 @@ export const state = {
 
 		if (isRootMetadata(metadata)) {
 			await validateMetadataSignature(metadata, metadataSignature, metadata)
-			await validateUserCertificates(metadata, await this.getServerPublicKey())
+			await validateUserCertificates(metadata, await this.getServerPublicKeyPEM())
 		} else {
 			await validateMetadataSignature(metadata, metadataSignature, await this.getRootMetadata(dirname(path)))
 		}
