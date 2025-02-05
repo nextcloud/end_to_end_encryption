@@ -29,9 +29,9 @@ export async function validateMetadataSignature(metadata: Metadata, signature: s
 	return verificationResult
 }
 
-export async function validateUserCertificates(metadata: RootMetadata, serverPublicKey: CryptoKey): Promise<true[]> {
+export async function validateUserCertificates(metadata: RootMetadata, serverPublicKeyPEM: string): Promise<true[]> {
 	const verifications = metadata.users.map(async ({ userId, certificate }) => {
-		const result = await validateCertificateSignature(certificate, serverPublicKey)
+		const result = await validateCertificateSignature(certificate, serverPublicKeyPEM)
 
 		if (!result) {
 			throw new Error(`Certificate verification failed for user ${userId}`)
