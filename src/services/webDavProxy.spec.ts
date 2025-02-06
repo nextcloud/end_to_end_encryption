@@ -13,10 +13,13 @@ import { encryptedFileContent, rootFolderMetadataInfo, rootFolderPropfindRespons
 test('Correctly replace file info in PROPFIND', async () => {
 	const xml = await parseXML(rootFolderPropfindResponse)
 	replacePlaceholdersInPropfind(xml, '/remote.php/dav/files/admin/New%20folder/', rootFolderMetadataInfo)
+	expect(xml.multistatus.response[0].propstat?.prop.permissions).toBe('G')
 	expect(xml.multistatus.response[1].propstat?.prop.displayname).toBe('test.txt')
 	expect(xml.multistatus.response[1].propstat?.prop.getcontenttype).toBe('text/plain')
+	expect(xml.multistatus.response[1].propstat?.prop.permissions).toBe('G')
 	expect(xml.multistatus.response[2].propstat?.prop.displayname).toBe('Test')
 	expect(xml.multistatus.response[2].propstat?.prop.getcontenttype).toBe('httpd/unix-directory')
+	expect(xml.multistatus.response[2].propstat?.prop.permissions).toBe('G')
 })
 
 test('Correctly decrypt file on GET', async () => {
