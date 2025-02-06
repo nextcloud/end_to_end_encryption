@@ -32,7 +32,7 @@ test('Users certificates validation against server public key works', async () =
 	await expect(validateUserCertificates(rootFolderMetadata, await getServerPublicKey())).resolves.toEqual([true, true])
 })
 
-test('Users certificates validation against server public key works', async () => {
+test('Altered users certificates validation against server public key does not works', async () => {
 	rootFolderMetadata.users[0].certificate = rootFolderMetadata.users[0].certificate.replace('a', 'b')
 	await expect(validateUserCertificates(rootFolderMetadata, await getServerPublicKey())).rejects.toThrow()
 })
