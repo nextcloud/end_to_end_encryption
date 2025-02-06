@@ -121,19 +121,17 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decr
 
 		const relevantMetadataInfo = childNode.href === path ? decryptedParentMetadata : decryptedMetadata
 
-		if (relevantMetadataInfo === undefined) {
-			return
-		}
-
 		const identifier = childNode.propstat.prop.displayname
 		let name = identifier
 
-		if (relevantMetadataInfo.files[identifier]) {
-			name = relevantMetadataInfo.files[identifier].filename
-			childNode.propstat.prop.getcontenttype = relevantMetadataInfo.files[identifier].mimetype
-		} else if (relevantMetadataInfo.folders[identifier]) {
-			name = relevantMetadataInfo.folders[identifier]
-			childNode.propstat.prop.getcontenttype = 'httpd/unix-directory'
+		if (relevantMetadataInfo !== undefined) {
+			if (relevantMetadataInfo.files[identifier]) {
+				name = relevantMetadataInfo.files[identifier].filename
+				childNode.propstat.prop.getcontenttype = relevantMetadataInfo.files[identifier].mimetype
+			} else if (relevantMetadataInfo.folders[identifier]) {
+				name = relevantMetadataInfo.folders[identifier]
+				childNode.propstat.prop.getcontenttype = 'httpd/unix-directory'
+			}
 		}
 
 		childNode.propstat.prop.displayname = name

@@ -55,13 +55,13 @@ export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	)
 }
 
-export async function loadServerPublicKey(key: Uint8Array): Promise<CryptoKey> {
+export async function loadServerPublicKey(key: Uint8Array, hash: 'SHA-1'|'SHA-256'): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'spki',
 		key,
 		{
 			name: 'RSASSA-PKCS1-v1_5',
-			hash: 'SHA-256', // TODO: get from server?
+			hash,
 		},
 		true,
 		['verify'],
@@ -98,8 +98,12 @@ export async function sha256Hash(buffer: Uint8Array): Promise<string> {
 	return bufferToHex(new Uint8Array(hashBuffer))
 }
 
-export async function validateCertificateSignature(certificate: string, publicKey: CryptoKey): Promise<boolean> {
+export async function validateCertificateSignature(certificate: string, publicKeyPEM: string): Promise<boolean> {
 	const cert = new X509Certificate(certificate)
+	const publicKey = await loadServerPublicKey(
+		pemToBuffer(publicKeyPEM),
+		cert.signatureAlgorithm.hash.name as 'SHA-1'|'SHA-256',
+	)
 
 	return cert.verify({ publicKey }, getPatchedCrypto())
 }
