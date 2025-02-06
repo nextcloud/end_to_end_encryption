@@ -19,6 +19,8 @@ A more general documentation how to use the API can be found [here](https://gith
   - [Unlock file](#unlock-file)
   - [Store meta-data file](#store-meta-data-file)
   - [Get meta-data file](#get-meta-data-file)
+    - [Using the main API](#using-the-main-api)
+    - [Using the WebDAV API](#using-the-webdav-api)
   - [Update meta-data file](#update-meta-data-file)
   - [Update filedrop property of meta-data file](#update-filedrop-property-of-meta-data-file)
   - [Delete meta-data file](#delete-meta-data-file)
@@ -466,6 +468,8 @@ curl "https://<user>:<password>@<nextcloud>/ocs/v2.php/apps/end_to_end_encryptio
 
 ## Get meta-data file
 
+### Using the main API
+
 GET: `<base-url>/meta-data/<file-id>`
 
 **Results:**
@@ -495,6 +499,24 @@ GET: `<base-url>/meta-data/<file-id>`
 **Example curl call:**
 
 `curl -X GET https://<user>:<password>@nextcloud/ocs/v2.php/apps/end_to_end_encryption/api/v1/meta-data/<file-id> -H "OCS-APIRequest:true" -H "x-e2ee-supported:true"`
+
+### Using the WebDAV API
+
+Alternatively, you can request the metadata and its signature in PROPFIND requests.
+
+```shell
+    curl 'https://cloud.example.com/remote.php/dav/files/username/E2EE_folder' \
+      --user username:password \
+      -H "x-e2ee-supported:true" \
+      --request PROPFIND \
+      --data '<?xml version="1.0" encoding="UTF-8"?>
+        <d:propfind xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns">
+          <d:prop>
+            <nc:e2ee-metadata/>
+            <nc:e2ee-metadata-signature/>
+          </d:prop>
+        </d:propfind>'
+```
 
 ## Update meta-data file
 
