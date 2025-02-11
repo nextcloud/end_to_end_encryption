@@ -7,7 +7,7 @@ OC.L10N.register(
     "You are not allowed to delete this private key" : "Você não tem permissão para apagar esta chave privada",
     "Could not find the private key belonging to the user %s" : "Não foi possível encontrar a chave privada pertencente ao utilizador %s",
     "Could not find the public key belonging to the user %s" : "Não foi possível encontrar a chave pública pertencente ao utilizador %s",
-    "Common name (CN) does not match the current user" : "Nome comum (CN) não corresponde ao do utilizador actual",
+    "Common name (CN) does not match the current user" : "Nome comum (CN) não corresponde ao do utilizador atual",
     "Could not find the public key belonging to %s" : "Não foi possível encontrar a chave pública pertencente a %s",
     "File already locked" : "Ficheiro já está bloqueado",
     "You are not allowed to remove the lock" : "Não tem permissão para remover o bloqueio",
@@ -23,7 +23,7 @@ OC.L10N.register(
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
     "Close" : "Fechar",
     "Cancel" : "Cancelar",
-    "Select or drop files" : "Seleccione ou solte ficheiros",
+    "Select or drop files" : "Selecione ou solte ficheiros",
     "Download unencrypted" : "Transferir sem encriptação",
     "Limit app usage to groups." : "Limitar o uso da aplicação a grupos."
 },
