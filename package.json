@@ -37,7 +37,7 @@
     "uuid": "^11.0.5",
     "vue": "^2.7.16",
     "vue-material-design-icons": "^5.3.1",
-    "webdav": "^5.7.1"
+    "webdav": "^5.8.0"
   },
   "devDependencies": {
     "@nextcloud/babel-config": "^1.2.0",
