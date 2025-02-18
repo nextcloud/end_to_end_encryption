@@ -11,7 +11,7 @@ OC.L10N.register(
     "End-to-end encryption" : "No gala līdz galam šifrēšana",
     "Close" : "Aizvērt",
     "Cancel" : "Atcelt",
-    "Select or drop files" : "Izvēlies vai ievelc datnes",
+    "Select or drop files" : "Atlasīt vai ievilkt datnes",
     "Limit app usage to groups." : "Ierobežot lietotņu lietošanu grupās."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");
