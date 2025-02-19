@@ -49,5 +49,5 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.0.5
 	- license: MIT
 - webdav
-	- version: 5.7.1
+	- version: 5.8.0
 	- license: MIT
