@@ -19,7 +19,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 7.4.47
 	- license: Apache-2.0
 - @nextcloud/files
-	- version: 3.10.1
+	- version: 3.10.2
 	- license: AGPL-3.0-or-later
 - @nextcloud/sharing
 	- version: 0.2.4
