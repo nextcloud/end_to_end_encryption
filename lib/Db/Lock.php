@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Db;
 
 use OCP\AppFramework\Db\Entity;
+use OCP\DB\Types;
 
 /**
  * @method int getId()
@@ -24,8 +25,8 @@ class Lock extends Entity {
 	protected ?string $token = null;
 
 	public function __construct() {
-		$this->addType('id', 'int');
-		$this->addType('timestamp', 'int');
-		$this->addType('token', 'string');
+		$this->addType('id', Types::INTEGER);
+		$this->addType('timestamp', Types::INTEGER);
+		$this->addType('token', Types::STRING);
 	}
 }
