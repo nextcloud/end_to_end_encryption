@@ -34,7 +34,7 @@
     "debounce": "^2.1.0",
     "fast-xml-parser": "^4.5.1",
     "pkijs": "^3.2.4",
-    "uuid": "^11.0.5",
+    "uuid": "^11.1.0",
     "vue": "^2.7.16",
     "vue-material-design-icons": "^5.3.1",
     "webdav": "^5.8.0"
