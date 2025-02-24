@@ -4,7 +4,6 @@ SPDX-License-Identifier: BSD-3-Clause
 SPDX-License-Identifier: GPL-3.0-or-later
 SPDX-License-Identifier: MIT
 SPDX-FileCopyrightText: Alkemics
-SPDX-FileCopyrightText: Amit Gupta (https://amitkumargupta.work/)
 SPDX-FileCopyrightText: Amit Gupta (https://solothought.com)
 SPDX-FileCopyrightText: Austin Andrews
 SPDX-FileCopyrightText: Christoph Wurst <christoph@winzerhof-wurst.at>
@@ -40,14 +39,11 @@ This file is generated from multiple sources. Included packages:
 	- version: 2.0.0-dev.0
 	- license: AGPL-3.0-or-later
 - fast-xml-parser
-	- version: 4.5.1
+	- version: 5.0.6
 	- license: MIT
 - pkijs
 	- version: 3.2.4
 	- license: BSD-3-Clause
-- strnum
-	- version: 1.0.5
-	- license: MIT
 - webdav
 	- version: 5.8.0
 	- license: MIT
