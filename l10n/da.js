@@ -29,7 +29,7 @@ OC.L10N.register(
     "Submit" : "Tilføj",
     "End-to-end encryption" : "End-to-end kryptering",
     "Close" : "Luk",
-    "Cancel" : "Annullér",
+    "Cancel" : "Annuller",
     "Select or drop files" : "Vælg eller slip filer",
     "Limit app usage to groups." : "Begræns app anvendelse til grupper."
 },
