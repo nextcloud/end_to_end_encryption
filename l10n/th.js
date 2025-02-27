@@ -5,7 +5,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
     "Save" : "บันทึก",
     "Submit" : "ส่ง",
-    "Close" : "ปิด",
-    "Cancel" : "ยกเลิก"
+    "Cancel" : "ยกเลิก",
+    "Close" : "ปิด"
 },
 "nplurals=1; plural=0;");

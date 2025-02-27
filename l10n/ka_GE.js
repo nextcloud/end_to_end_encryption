@@ -19,9 +19,9 @@ OC.L10N.register(
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Save" : "შენახვა",
     "Submit" : "გაგზავნა",
+    "Cancel" : "გაუქმება",
     "End-to-end encryption" : "End-to-end შიფრაცია",
     "Close" : "დახურვა",
-    "Cancel" : "გაუქმება",
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები"
 },
 "nplurals=2; plural=(n!=1);");

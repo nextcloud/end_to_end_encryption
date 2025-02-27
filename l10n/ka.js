@@ -7,8 +7,8 @@ OC.L10N.register(
     "Save" : "Save",
     "Submit" : "Submit",
     "I understand the risks" : "I understand the risks",
-    "Close" : "Close",
     "Cancel" : "Cancel",
+    "Close" : "Close",
     "Select or drop files" : "Select or drop files"
 },
 "nplurals=2; plural=(n!=1);");

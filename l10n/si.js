@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Internal error" : "අභ්‍යන්තර දෝෂයකි",
     "Save" : "සුරකින්න",
-    "Close" : "වසන්න",
-    "Cancel" : "අවලංගු"
+    "Cancel" : "අවලංගු",
+    "Close" : "වසන්න"
 },
 "nplurals=2; plural=(n != 1);");

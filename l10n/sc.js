@@ -27,11 +27,11 @@ OC.L10N.register(
     "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Save" : "Sarva",
     "Submit" : "Imbia",
+    "Cancel" : "Annulla",
     "End-to-end encryption" : "Tzifradura end-to-end",
     "Close" : "Serra",
-    "Cancel" : "Annulla",
-    "Select or drop files" : "Sèbera o iscapa archìvios",
     "Error while uploading files" : "Errore carrighende is archìvios noos",
+    "Select or drop files" : "Sèbera o iscapa archìvios",
     "Upload encrypted files to {fileName}" : "Càrriga archìvios tzifrados a {fileName}",
     "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos."
 },

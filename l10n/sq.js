@@ -8,9 +8,9 @@ OC.L10N.register(
     "Limit to groups" : "Kufizo grupet",
     "Save" : "Ruaj",
     "Submit" : "Dërgo",
+    "Cancel" : "Anuloje",
     "End-to-end encryption" : "Enkriptim end-to-end ",
     "Close" : "Mbylleni",
-    "Cancel" : "Anuloje",
     "Select or drop files" : "Përzgjidh ose hiq skedarët"
 },
 "nplurals=2; plural=(n != 1);");
