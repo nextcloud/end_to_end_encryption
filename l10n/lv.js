@@ -8,9 +8,9 @@ OC.L10N.register(
     "Limit to groups" : "Grupu ierobežojums",
     "Save" : "Saglabāt",
     "Submit" : "Iesniegt",
+    "Cancel" : "Atcelt",
     "End-to-end encryption" : "No gala līdz galam šifrēšana",
     "Close" : "Aizvērt",
-    "Cancel" : "Atcelt",
     "Select or drop files" : "Atlasīt vai ievilkt datnes",
     "Limit app usage to groups." : "Ierobežot lietotņu lietošanu grupās."
 },

@@ -19,15 +19,15 @@
     "Cannot delete metadata" : "Metatietoja ei voi poistaa",
     "End-to-End Encryption" : "Päästä päähän -salaus",
     "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste",
+    "Saved groups" : "Tallennetut ryhmät",
     "Limit to groups" : "Rajoita ryhmiin",
     "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",
     "Save" : "Tallenna",
-    "Saved groups" : "Tallennetut ryhmät",
     "Submit" : "Lähetä",
+    "Cancel" : "Peruuta",
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Close" : "Sulje",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
-    "Cancel" : "Peruuta",
     "Select or drop files" : "Valitse tai pudota tiedostoja",
     "Limit app usage to groups." : "Rajoita sovelluksen käyttö ryhmiin."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
