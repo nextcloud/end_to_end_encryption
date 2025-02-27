@@ -28,9 +28,9 @@ OC.L10N.register(
     "Save" : "保存",
     "Submit" : "提交",
     "I understand the risks" : "我了解风险",
+    "Cancel" : "取消",
     "End-to-end encryption" : "端到端加密",
     "Close" : "关闭",
-    "Cancel" : "取消",
     "Select or drop files" : "选择或拖放文件",
     "Limit app usage to groups." : "限制可使用应用的分组"
 },

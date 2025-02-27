@@ -5,7 +5,7 @@ OC.L10N.register(
     "Limit to groups" : "Limitar als grops",
     "Save" : "Enregistrar",
     "Submit" : "Transmetre",
-    "Close" : "Plegar",
-    "Cancel" : "Anullar"
+    "Cancel" : "Anullar",
+    "Close" : "Plegar"
 },
 "nplurals=2; plural=(n > 1);");

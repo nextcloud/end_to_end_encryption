@@ -27,9 +27,9 @@ OC.L10N.register(
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Save" : "Opslaan",
     "Submit" : "Verwerken",
+    "Cancel" : "Annuleren",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
     "Close" : "Sluit",
-    "Cancel" : "Annuleren",
     "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster",
     "Limit app usage to groups." : "Beperkt gebruik programma tot groepen."
 },
