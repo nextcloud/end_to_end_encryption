@@ -6,8 +6,8 @@ OC.L10N.register(
     "Limit app usage to groups" : "Ограничување за користење на апликации во групи",
     "Save" : "Зачувај",
     "Submit" : "Испрати",
-    "Close" : "Затвори",
     "Cancel" : "Откажи",
+    "Close" : "Затвори",
     "Select or drop files" : "Изберете или испуштете датотеки",
     "Limit app usage to groups." : "Ограничување за користење на апликации во групи"
 },

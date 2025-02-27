@@ -28,9 +28,9 @@ OC.L10N.register(
     "Save" : "Shrani",
     "Submit" : "Pošlji",
     "I understand the risks" : "Razumem tveganje",
+    "Cancel" : "Prekliči",
     "End-to-end encryption" : "Celovito šifriranje E2E",
     "Close" : "Zapri",
-    "Cancel" : "Prekliči",
     "Select or drop files" : "Izberite ali povlecite datoteke",
     "Limit app usage to groups." : "Omeji uporabo programov za skupine."
 },

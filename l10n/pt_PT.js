@@ -20,9 +20,9 @@ OC.L10N.register(
     "Limit to groups" : "Limitado a grupos",
     "Save" : "Guardar",
     "Submit" : "Submeter",
+    "Cancel" : "Cancelar",
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
     "Close" : "Fechar",
-    "Cancel" : "Cancelar",
     "Select or drop files" : "Selecione ou solte ficheiros",
     "Download unencrypted" : "Transferir sem encriptação",
     "Limit app usage to groups." : "Limitar o uso da aplicação a grupos."
