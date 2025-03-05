@@ -36,7 +36,7 @@
     "Save" : "Spara",
     "Submit" : "Skicka",
     "Enter your 12 words mnemonic" : "Ange dina 12 krypteringsord",
-    "Decrypting your files in the browser can weaken security" : "Dekryptera dina filer i webbläsaren kan försvaga säkerheten",
+    "Decrypting your files in the browser can weaken security" : "Att dekryptera dina filer i webbläsaren kan försvaga säkerheten",
     "The server could serve malicious source code to extract the secret that protects your files." : "Servern kan tillhandahålla skadlig källkod för att extrahera hemligheten som skyddar dina filer.",
     "I understand the risks" : "Jag förstår riskerna",
     "Mnemonic" : "Krypteringsord",
