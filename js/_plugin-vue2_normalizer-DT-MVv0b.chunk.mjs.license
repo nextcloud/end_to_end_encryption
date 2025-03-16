@@ -65,7 +65,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 11.3.0
 	- license: MIT
 - axios
-	- version: 1.7.5
+	- version: 1.8.3
 	- license: MIT
 - dompurify
 	- version: 3.2.4
