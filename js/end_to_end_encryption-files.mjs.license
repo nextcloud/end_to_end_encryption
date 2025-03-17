@@ -42,7 +42,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 5.0.8
 	- license: MIT
 - pkijs
-	- version: 3.2.4
+	- version: 3.2.5
 	- license: BSD-3-Clause
 - webdav
 	- version: 5.8.0
