@@ -44,7 +44,7 @@
     "@nextcloud/browserslist-config": "^3.0.1",
     "@nextcloud/eslint-config": "^8.4.2",
     "@nextcloud/stylelint-config": "^3.0.1",
-    "@nextcloud/vite-config": "^1.5.1",
+    "@nextcloud/vite-config": "^1.5.3",
     "@nextcloud/webpack-vue-config": "^6.0.1",
     "@relative-ci/agent": "^4.3.0",
     "@testing-library/jest-dom": "^6.6.3",
