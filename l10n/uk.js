@@ -26,7 +26,7 @@ OC.L10N.register(
     "Metadata-file does not exist" : "Файл метаданих відсутній",
     "Only the owner can delete the metadata-file" : "Лише власник може вилучати файл метаданих",
     "Cannot delete metadata" : "Неможливо вилучити метадані",
-    "Cannot update filedrop" : "Не вдалося поновити копіювання файлів через перетягування",
+    "Cannot update filedrop" : "Не вдалося поновити копіювання файлів після перетягування",
     "Encrypted share" : "Зашифрований спільний ресурс",
     "End-to-End Encryption" : "Наскрізне шифрування",
     "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
@@ -55,7 +55,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Вилучити наявні зашифровані файли",
     "Error while uploading files" : "Помилка під час завантаження файлів",
     "Error while uploading metadata" : "Помилка під час завантаження метаданих",
-    "Select or drop files" : "Виберіть або перетягніть файли",
+    "Select or drop files" : "Вибрати або перетягнути файли",
     "Upload encrypted files to {fileName}" : "Завантажити зашифровані файли до {fileName}",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Надає відповідні кінцеві точки, щоби увімкнути наскрізне шифрування.\n\n**Увага:** Наразі через несумісність наскрізне шифрування неможливо використовувати разом з шифруванням на стороні сервера.",
     "Limit app usage to groups." : "Обмежте використання застосунку певними групами."
