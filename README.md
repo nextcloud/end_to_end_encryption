@@ -68,7 +68,7 @@ The end-to-end encryption implemented by the Nextcloud sync and mobile clients, 
 
 - E2EE focuses on protecting your file-based data, but not other application data (e.g. calendars).
 
-##### User agent configuraiton
+##### User agent configuration
 
 The default user agent configuration is reasonable for all current official stable client releases, but sometimes needs to be adjusted when running custom or development client builds.
 
