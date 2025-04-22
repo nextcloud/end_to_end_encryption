@@ -51,8 +51,9 @@ The end-to-end encryption implemented by the Nextcloud sync and mobile clients, 
 
 #### Establishing a folder to encrypt
 
-1. Within your favorite client app, create a dedicated folder - or folders - that you wish to have be encrypted.
-2. Place the data (including other folders which will be encrypted)
+Encryption must be actively enabled for folders. This can be done in any of the officially supported client apps (desktop, Android, iOS).
+
+In the desktop client, the option to encrypt can be found in the context menu (right click) of subfolders of a folder synchronization. Please note that it's neither possible to encrypt the root folder of a folder synchronization, nor to encrypt a subfolder with existing content.
 
 #### Troubleshooting
 
