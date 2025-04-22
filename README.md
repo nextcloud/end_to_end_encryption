@@ -53,7 +53,7 @@ The end-to-end encryption implemented by the Nextcloud sync and mobile clients, 
 
 Encryption must be actively enabled for folders. This can be done in any of the officially supported client apps (desktop, Android, iOS).
 
-In the desktop client, the option to encrypt can be found in the context menu (right click) of subfolders of a folder synchronization. Please note that E2EE can currently only be enabled for empty subfolders of a folder synchronization. It's neither possible to encrypt the root folder of a of a folder synchronization, nor to encrypt a subfolder with existing content.
+In the desktop client, the option to encrypt can be found in the context menu (right click) of subfolders of a folder synchronization. Please note that it's neither possible to encrypt the root folder of a folder synchronization, nor to encrypt a subfolder with existing content.
 
 #### Troubleshooting
 
