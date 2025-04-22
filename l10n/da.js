@@ -27,6 +27,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Save" : "Gem",
     "Submit" : "Tilføj",
+    "I understand the risks" : "Jeg forstår risikoen",
     "Cancel" : "Annuller",
     "End-to-end encryption" : "End-to-end kryptering",
     "Close" : "Luk",
