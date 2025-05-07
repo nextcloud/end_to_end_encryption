@@ -14,7 +14,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.1.5
 	- license: Apache-2.0
 - @nextcloud/vue
-	- version: 8.24.0
+	- version: 8.26.0
 	- license: AGPL-3.0-or-later
 - end_to_end_encryption
 	- version: 2.0.0-dev.0
