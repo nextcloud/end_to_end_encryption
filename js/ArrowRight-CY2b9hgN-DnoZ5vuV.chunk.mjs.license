@@ -15,7 +15,7 @@ SPDX-FileCopyrightText: whitequark <whitequark@whitequark.org>
 
 This file is generated from multiple sources. Included packages:
 - @nextcloud/vue
-	- version: 8.24.0
+	- version: 8.26.0
 	- license: AGPL-3.0-or-later
 - @peculiar/asn1-cms
 	- version: 2.3.13
