@@ -56,8 +56,11 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.0.1
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.26.0
+	- version: 8.26.1
 	- license: AGPL-3.0-or-later
+- @vitejs/plugin-vue2
+	- version: 2.3.3
+	- license: MIT
 - @vueuse/core
 	- version: 11.3.0
 	- license: MIT
@@ -90,6 +93,9 @@ This file is generated from multiple sources. Included packages:
 	- license: MIT
 - toastify-js
 	- version: 1.12.0
+	- license: MIT
+- vite
+	- version: 5.4.19
 	- license: MIT
 - vite-plugin-node-polyfills
 	- version: 0.23.0
