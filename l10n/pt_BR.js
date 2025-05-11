@@ -26,7 +26,7 @@ OC.L10N.register(
     "Metadata-file does not exist" : "Arquivo de metadados não existe",
     "Only the owner can delete the metadata-file" : "Somente o proprietário pode excluir o arquivo de metadados",
     "Cannot delete metadata" : "Não é possível excluir metadados ",
-    "Cannot update filedrop" : "Não é possível atualizar filedrop",
+    "Cannot update filedrop" : "Não é possível atualizar depósito de arquivos",
     "Encrypted share" : "Compartilhamento criptografado",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
