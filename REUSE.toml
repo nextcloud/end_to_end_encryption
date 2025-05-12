@@ -58,3 +58,9 @@ path = ["js/**.mjs.map"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2019 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = ["vendor-bin/cs-fixer/*", "vendor-bin/phpunit/*", "vendor-bin/psalm/*"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2025 Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
