@@ -21,10 +21,6 @@
 	</projectFiles>
 	<extraFiles>
 		<directory name="vendor" />
-		<ignoreFiles>
-			<directory name="vendor/phpunit/php-code-coverage" />
-			<directory name="vendor/psalm" />
-		</ignoreFiles>
 	</extraFiles>
 	<issueHandlers>
 		<UndefinedMagicMethod>
