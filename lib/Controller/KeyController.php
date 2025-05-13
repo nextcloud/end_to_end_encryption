@@ -53,6 +53,8 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
+	 *
+	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>
 	 * @throws OCSBadRequestException
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
@@ -76,6 +78,8 @@ class KeyController extends OCSController {
 	 * Delete the users private key
 	 *
 	 * @NoAdminRequired
+	 *
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSBadRequestException
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
@@ -100,6 +104,8 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
+	 *
+	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
 	 * @throws OCSBadRequestException
 	 */
 	public function setPrivateKey(string $privateKey): DataResponse {
@@ -121,6 +127,7 @@ class KeyController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 * @param string $users a json encoded list of users
+	 * @return DataResponse<Http::STATUS_OK, array{public-keys: array<string, string>}, array{}>
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
 	 */
@@ -154,6 +161,7 @@ class KeyController extends OCSController {
 	 *
 	 * @param string $csr request to create a valid public key
 	 *
+	 * @return DataResponse<Http::STATUS_OK, array{public-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
 	 */
@@ -188,6 +196,8 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
+	 *
+	 * @return DataResponse<Http::STATUS_OK, array{public-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
 	 * @throws OCSBadRequestException
 	 */
 	public function setPublicKey(string $publicKey): DataResponse {
@@ -208,7 +218,7 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 *
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 *
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
@@ -236,7 +246,7 @@ class KeyController extends OCSController {
 	 * Get the public server key so that the clients can verify the
 	 * signature of the users public keys
 	 *
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, array{public-key: string}, array{}>
 	 *
 	 * @throws OCSBadRequestException
 	 */

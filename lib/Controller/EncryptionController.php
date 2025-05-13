@@ -9,6 +9,7 @@ namespace OCA\EndToEndEncryption\Controller;
 
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\IMetaDataStorage;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
@@ -45,6 +46,8 @@ class EncryptionController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
+	 *
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSNotFoundException
 	 */
 	public function setEncryptionFlag(int $id): DataResponse {
@@ -62,6 +65,8 @@ class EncryptionController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
+	 *
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSNotFoundException
 	 */
 	public function removeEncryptionFlag(int $id): DataResponse {
@@ -84,6 +89,8 @@ class EncryptionController extends OCSController {
 	 * Remove encrypted files
 	 *
 	 * @NoAdminRequired
+	 *
+	 * @return DataResponse<Http::STATUS_OK, array{deletedIds: list<int>}, array{}>
 	 * @throws OCSNotFoundException
 	 */
 	public function removeEncryptedFolders(): DataResponse {
