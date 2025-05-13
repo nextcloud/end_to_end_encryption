@@ -24,6 +24,15 @@ class Capabilities implements ICapability {
 		$this->keyStorage = $keyStorage;
 	}
 
+	/**
+	 * @return array{
+	 *     end-to-end-encryption?: array{
+	 *         enabled: true,
+	 *         api-version: string,
+	 *         keys-exist: bool,
+	 *	   },
+	 * }
+	 */
 	public function getCapabilities(): array {
 		$user = $this->userSession->getUser();
 		if (!($user instanceof IUser) || $this->config->isDisabledForUser($user)) {
@@ -33,14 +42,12 @@ class Capabilities implements ICapability {
 		$keysExist = $this->keyStorage->publicKeyExists($user->getUID()) &&
 			$this->keyStorage->privateKeyExists($user->getUID());
 
-		$capabilities = ['end-to-end-encryption' =>
-			[
+		return [
+			'end-to-end-encryption' => [
 				'enabled' => true,
 				'api-version' => '2.0',
 				'keys-exist' => $keysExist,
 			]
 		];
-
-		return $capabilities;
 	}
 }
