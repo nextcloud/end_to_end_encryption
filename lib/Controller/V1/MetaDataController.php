@@ -61,6 +61,7 @@ class MetaDataController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
+	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
 	 */
@@ -82,6 +83,7 @@ class MetaDataController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 *
+	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
 	 * @throws OCSNotFoundException
 	 * @throws OCSBadRequestException
 	 */
@@ -104,7 +106,7 @@ class MetaDataController extends OCSController {
 	 * Update metadata
 	 *
 	 * @NoAdminRequired
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException
@@ -136,7 +138,7 @@ class MetaDataController extends OCSController {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id file id
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 *
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
@@ -162,7 +164,7 @@ class MetaDataController extends OCSController {
 	 *
 	 * @PublicPage
 	 * @NoAdminRequired
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
 	 * @throws OCSForbiddenException
 	 * @throws OCSBadRequestException
 	 * @throws OCSNotFoundException

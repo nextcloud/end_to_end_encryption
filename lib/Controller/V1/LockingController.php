@@ -14,6 +14,7 @@ use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorageV1;
 use OCA\EndToEndEncryption\LockManagerV1;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -68,7 +69,7 @@ class LockingController extends OCSController {
 	 *
 	 * @param int $id file ID
 	 *
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>
 	 * @throws OCSForbiddenException
 	 */
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
@@ -110,7 +111,7 @@ class LockingController extends OCSController {
 	 *
 	 * @param int $id file ID
 	 *
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
 	 */
