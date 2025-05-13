@@ -61,9 +61,13 @@ class MetaDataController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
+	 * @param int $id File ID
+	 * @param ?string $shareToken Token of the share if available
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
-	 * @throws OCSNotFoundException
-	 * @throws OCSBadRequestException
+	 * @throws OCSNotFoundException Metadata-file not found
+	 * @throws OCSBadRequestException Cannot read metadata
+	 *
+	 * 200: Metadata returned
 	 */
 	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
 		try {
@@ -83,9 +87,14 @@ class MetaDataController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 *
+	 * @param int $id File ID
+	 * @param string $metaData New metadata
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
-	 * @throws OCSNotFoundException
-	 * @throws OCSBadRequestException
+	 * @throws OCSNotFoundException File not found
+	 * @throws OCSBadRequestException Cannot store metadata
+	 *
+	 * 200: Metadata set successfully
+	 * 409: Metadata already exists
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		try {
@@ -106,10 +115,14 @@ class MetaDataController extends OCSController {
 	 * Update metadata
 	 *
 	 * @NoAdminRequired
+	 * @param int $id File ID
+	 * @param string $metaData New metadata
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
-	 * @throws OCSForbiddenException
-	 * @throws OCSBadRequestException
-	 * @throws OCSNotFoundException
+	 * @throws OCSForbiddenException User is not allowed to edit the file
+	 * @throws OCSBadRequestException Cannot store metadata
+	 * @throws OCSNotFoundException Metadata-file does not exist
+	 *
+	 * 200: Metadata updated successfully
 	 */
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token');
@@ -140,9 +153,11 @@ class MetaDataController extends OCSController {
 	 * @param int $id file id
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 *
-	 * @throws OCSForbiddenException
-	 * @throws OCSNotFoundException
-	 * @throws OCSBadRequestException
+	 * @throws OCSForbiddenException Only the owner can delete the metadata-file
+	 * @throws OCSNotFoundException Metadata for the file not found
+	 * @throws OCSBadRequestException Cannot delete metadata
+	 *
+	 * 200: Metadata deleted successfully
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		try {
@@ -164,10 +179,15 @@ class MetaDataController extends OCSController {
 	 *
 	 * @PublicPage
 	 * @NoAdminRequired
+	 * @param int $id File ID
+	 * @param string $fileDrop File drop metadata
+	 * @param ?string $shareToken Token of the share if available
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
-	 * @throws OCSForbiddenException
-	 * @throws OCSBadRequestException
-	 * @throws OCSNotFoundException
+	 * @throws OCSForbiddenException User is not allowed to create the lock
+	 * @throws OCSBadRequestException Cannot update filedrop
+	 * @throws OCSNotFoundException Metadata-file does not exist
+	 *
+	 * 200: File drop metadata added successfully
 	 */
 	public function addMetadataFileDrop(int $id, string $fileDrop, ?string $shareToken = null): DataResponse {
 		$ownerId = $this->getOwnerId($shareToken);

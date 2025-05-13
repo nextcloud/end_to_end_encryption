@@ -47,8 +47,11 @@ class EncryptionController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
+	 * @param int $id File ID
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
-	 * @throws OCSNotFoundException
+	 * @throws OCSNotFoundException File not found
+	 *
+	 * 200: Encryption flag set successfully
 	 */
 	public function setEncryptionFlag(int $id): DataResponse {
 		try {
@@ -66,8 +69,11 @@ class EncryptionController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
+	 * @param int $id File ID
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
-	 * @throws OCSNotFoundException
+	 * @throws OCSNotFoundException File not found
+	 *
+	 * 200: Encryption flag removed successfully
 	 */
 	public function removeEncryptionFlag(int $id): DataResponse {
 		try {
@@ -91,7 +97,9 @@ class EncryptionController extends OCSController {
 	 * @NoAdminRequired
 	 *
 	 * @return DataResponse<Http::STATUS_OK, array{deletedIds: list<int>}, array{}>
-	 * @throws OCSNotFoundException
+	 * @throws OCSNotFoundException Folders not found
+	 *
+	 * 200: Encrypted folders removed successfully
 	 */
 	public function removeEncryptedFolders(): DataResponse {
 		try {
