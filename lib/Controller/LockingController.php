@@ -119,8 +119,7 @@ class LockingController extends OCSController {
 	 * @throws OCSForbiddenException
 	 * @throws OCSNotFoundException
 	 */
-	public function unlockFolder(int $id, ?string $shareToken = null): DataResponse {
-		$abort = $this->request->getParam('abort') === 'true';
+	public function unlockFolder(int $id, ?string $shareToken = null, ?string $abort = null): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
 
 		if ($token === '') {
@@ -142,7 +141,7 @@ class LockingController extends OCSController {
 
 		$touchFoldersIds = $this->metaDataStorage->getTouchedFolders($token);
 		foreach ($touchFoldersIds as $folderId) {
-			if ($abort) {
+			if ($abort === 'true') {
 				$this->fileService->revertChanges($userFolder->getById($folderId)[0]);
 				$this->metaDataStorage->deleteIntermediateFile($ownerId, $folderId);
 			} else {
