@@ -7,6 +7,8 @@
 	xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 	errorBaseline="tests/psalm-baseline.xml"
 	phpVersion="8.1"
+	findUnusedCode="false"
+	ensureOverrideAttribute="false"
 >
 	<stubs>
 		<file name="tests/stub.phpstub" preloadClasses="true"/>
@@ -19,10 +21,6 @@
 	</projectFiles>
 	<extraFiles>
 		<directory name="vendor" />
-		<ignoreFiles>
-			<directory name="vendor/phpunit/php-code-coverage" />
-			<directory name="vendor/psalm" />
-		</ignoreFiles>
 	</extraFiles>
 	<issueHandlers>
 		<UndefinedMagicMethod>
@@ -30,20 +28,6 @@
 				<referencedMethod name="/Db\\.*::.*/" />
 			</errorLevel>
 		</UndefinedMagicMethod>
-		<UndefinedInterfaceMethod>
-			<errorLevel type="suppress">
-				<!-- FIXME Deprecated event handling -->
-				<referencedMethod name="OCP\IUserManager::listen" />
-				<referencedMethod name="OCP\IGroupManager::listen" />
-			</errorLevel>
-		</UndefinedInterfaceMethod>
-		<UndefinedClass>
-			<errorLevel type="suppress">
-				<referencedClass name="OCA\Files\Event\LoadAdditionalScriptsEvent"/>
-				<referencedClass name="OC\AppFramework\OCS\V1Response"/>
-				<referencedClass name="OC\Security\CSP\ContentSecurityPolicyNonceManager" />
-			</errorLevel>
-		</UndefinedClass>
 		<UndefinedDocblockClass>
 			<errorLevel type="suppress">
 				<referencedClass name="OC\AppFramework\OCS\BaseResponse"/>

@@ -204,11 +204,6 @@ class LockingControllerTest extends TestCase {
 			->with('e2e-token')
 			->willReturn($sendE2E);
 
-		$this->request->expects($this->once())
-			->method('getParam')
-			->with('abort')
-			->willReturn($abort ? 'true' : '');
-
 		if ($getUserFolderThrows) {
 			$this->rootFolder->expects($this->once())
 				->method('getUserFolder')
@@ -271,9 +266,9 @@ class LockingControllerTest extends TestCase {
 			$this->expectException($expectedExceptionClass);
 			$this->expectExceptionMessage($expectedExceptionMessage);
 
-			$this->controller->unlockFolder($fileId);
+			$this->controller->unlockFolder($fileId, null, $abort ? 'true' : '');
 		} else {
-			$response = $this->controller->unlockFolder($fileId);
+			$response = $this->controller->unlockFolder($fileId, null, $abort ? 'true' : '');
 			$this->assertInstanceOf(DataResponse::class, $response);
 			$this->assertEquals([], $response->getData());
 		}

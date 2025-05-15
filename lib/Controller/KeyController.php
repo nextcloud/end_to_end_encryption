@@ -53,9 +53,13 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 * @throws OCSBadRequestException
-	 * @throws OCSForbiddenException
-	 * @throws OCSNotFoundException
+	 *
+	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>
+	 * @throws OCSBadRequestException Internal error
+	 * @throws OCSForbiddenException Not allowed to get private key
+	 * @throws OCSNotFoundException Private key not found
+	 *
+	 * 200: Private key returned
 	 */
 	public function getPrivateKey(): DataResponse {
 		try {
@@ -76,9 +80,13 @@ class KeyController extends OCSController {
 	 * Delete the users private key
 	 *
 	 * @NoAdminRequired
-	 * @throws OCSBadRequestException
-	 * @throws OCSForbiddenException
-	 * @throws OCSNotFoundException
+	 *
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
+	 * @throws OCSBadRequestException Internal error
+	 * @throws OCSForbiddenException Not allowed to delete public key
+	 * @throws OCSNotFoundException Private key not found
+	 *
+	 * 200: Private key deleted successfully
 	 */
 	public function deletePrivateKey(): DataResponse {
 		try {
@@ -100,7 +108,13 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 * @throws OCSBadRequestException
+	 *
+	 * @param string $privateKey The new private key
+	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
+	 * @throws OCSBadRequestException Internal error
+	 *
+	 * 200: Private key set successfully
+	 * 409: Private key already exists
 	 */
 	public function setPrivateKey(string $privateKey): DataResponse {
 		try {
@@ -121,8 +135,11 @@ class KeyController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 * @param string $users a json encoded list of users
-	 * @throws OCSBadRequestException
-	 * @throws OCSNotFoundException
+	 * @return DataResponse<Http::STATUS_OK, array{public-keys: array<string, string>}, array{}>
+	 * @throws OCSBadRequestException Internal error
+	 * @throws OCSNotFoundException Public key not found
+	 *
+	 * 200: Public keys returned
 	 */
 	public function getPublicKeys(string $users = ''): DataResponse {
 		$usersArray = $this->jsonDecode($users);
@@ -154,8 +171,12 @@ class KeyController extends OCSController {
 	 *
 	 * @param string $csr request to create a valid public key
 	 *
-	 * @throws OCSForbiddenException
-	 * @throws OCSBadRequestException
+	 * @return DataResponse<Http::STATUS_OK, array{public-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
+	 * @throws OCSForbiddenException Common name (CN) does not match the current user
+	 * @throws OCSBadRequestException Internal error
+	 *
+	 * 200: Public key created successfully
+	 * 409: Public key already exists
 	 */
 	public function createPublicKey(string $csr): DataResponse {
 		if ($this->keyStorage->publicKeyExists($this->userId)) {
@@ -188,7 +209,13 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
-	 * @throws OCSBadRequestException
+	 *
+	 * @param string $publicKey The new public key
+	 * @return DataResponse<Http::STATUS_OK, array{public-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
+	 * @throws OCSBadRequestException Internal error
+	 *
+	 * 200: Public key set successfully
+	 * 409: Public key already exists
 	 */
 	public function setPublicKey(string $publicKey): DataResponse {
 		try {
@@ -208,11 +235,13 @@ class KeyController extends OCSController {
 	 *
 	 * @NoAdminRequired
 	 *
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 *
-	 * @throws OCSForbiddenException
-	 * @throws OCSBadRequestException
-	 * @throws OCSNotFoundException
+	 * @throws OCSForbiddenException Not allowed to delete public key
+	 * @throws OCSBadRequestException Internal error
+	 * @throws OCSNotFoundException Public key not found
+	 *
+	 * 200: Public key deleted successfully
 	 */
 	public function deletePublicKey(): ?DataResponse {
 		try {
@@ -236,9 +265,11 @@ class KeyController extends OCSController {
 	 * Get the public server key so that the clients can verify the
 	 * signature of the users public keys
 	 *
-	 * @return DataResponse
+	 * @return DataResponse<Http::STATUS_OK, array{public-key: string}, array{}>
 	 *
-	 * @throws OCSBadRequestException
+	 * @throws OCSBadRequestException Internal error
+	 *
+	 * 200: Server public key returned
 	 */
 	public function getPublicServerKey(): DataResponse {
 		try {

@@ -14,6 +14,7 @@ use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorageV1;
 use OCA\EndToEndEncryption\LockManagerV1;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -67,9 +68,11 @@ class LockingController extends OCSController {
 	 * @PublicPage
 	 *
 	 * @param int $id file ID
+	 * @param ?string $shareToken Token of the share if available
+	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>
+	 * @throws OCSForbiddenException User is not allowed to create the lock
 	 *
-	 * @return DataResponse
-	 * @throws OCSForbiddenException
+	 * 200: Folder locked successfully
 	 */
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
@@ -109,10 +112,13 @@ class LockingController extends OCSController {
 	 * @PublicPage
 	 *
 	 * @param int $id file ID
+	 * @param ?string $shareToken Token of the share if available
 	 *
-	 * @return DataResponse
-	 * @throws OCSForbiddenException
-	 * @throws OCSNotFoundException
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
+	 * @throws OCSForbiddenException User is not allowed to remove the lock
+	 * @throws OCSNotFoundException File not locked
+	 *
+	 * 200: Folder unlocked successfully
 	 */
 	public function unlockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
