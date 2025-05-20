@@ -13,6 +13,7 @@ use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -67,9 +68,12 @@ class LockingController extends OCSController {
 	 * @PublicPage
 	 *
 	 * @param int $id file ID
+	 * @param ?string $shareToken Token of the share if available
 	 *
-	 * @return DataResponse
-	 * @throws OCSForbiddenException
+	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>
+	 * @throws OCSForbiddenException User is not allowed to create the lock
+	 *
+	 * 200: Folder locked successfully
 	 */
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
@@ -114,13 +118,16 @@ class LockingController extends OCSController {
 	 * @PublicPage
 	 *
 	 * @param int $id file ID
+	 * @param ?string $shareToken Token of the share if available
+	 * @param null|'true' $abort Abort changes during unlock
 	 *
-	 * @return DataResponse
-	 * @throws OCSForbiddenException
-	 * @throws OCSNotFoundException
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
+	 * @throws OCSForbiddenException User is not allowed to remove the lock
+	 * @throws OCSNotFoundException Folder not locked
+	 *
+	 * 200: Folder unlocked successfully
 	 */
-	public function unlockFolder(int $id, ?string $shareToken = null): DataResponse {
-		$abort = $this->request->getParam('abort') === 'true';
+	public function unlockFolder(int $id, ?string $shareToken = null, ?string $abort = null): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
 
 		if ($token === '') {
@@ -142,7 +149,7 @@ class LockingController extends OCSController {
 
 		$touchFoldersIds = $this->metaDataStorage->getTouchedFolders($token);
 		foreach ($touchFoldersIds as $folderId) {
-			if ($abort) {
+			if ($abort === 'true') {
 				$this->fileService->revertChanges($userFolder->getById($folderId)[0]);
 				$this->metaDataStorage->deleteIntermediateFile($ownerId, $folderId);
 			} else {
