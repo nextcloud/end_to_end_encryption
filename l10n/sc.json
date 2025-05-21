@@ -30,7 +30,6 @@
     "Close" : "Serra",
     "Error while uploading files" : "Errore carrighende is archìvios noos",
     "Select or drop files" : "Sèbera o iscapa archìvios",
-    "Upload encrypted files to {fileName}" : "Càrriga archìvios tzifrados a {fileName}",
-    "Limit app usage to groups." : "Lìmita s'impreu de s'aplicatzione a grupos."
+    "Upload encrypted files to {fileName}" : "Càrriga archìvios tzifrados a {fileName}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -24,7 +24,6 @@
     "Cancel" : "Hætta við",
     "End-to-end encryption" : "Enda-í-enda dulritun",
     "Close" : "Loka",
-    "Select or drop files" : "Veldu eða slepptu skrám",
-    "Limit app usage to groups." : "Takmarka notkun forrits við tiltekna hópa."
+    "Select or drop files" : "Veldu eða slepptu skrám"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }

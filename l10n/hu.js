@@ -52,7 +52,6 @@ OC.L10N.register(
     "Error while uploading files" : "Hiba a fájlok feltöltése során",
     "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
     "Select or drop files" : "Válasszon vagy dobjon ide fájlokat",
-    "Upload encrypted files to {fileName}" : "Titkosított fájlok feltöltése a következőbe: {fileName}",
-    "Limit app usage to groups." : "Az alkalmazás használatának csoportokra korlátozása."
+    "Upload encrypted files to {fileName}" : "Titkosított fájlok feltöltése a következőbe: {fileName}"
 },
 "nplurals=2; plural=(n != 1);");

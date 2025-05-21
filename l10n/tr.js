@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Dosyaları seçin ya da sürükleyip bırakın",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
     "Download unencrypted" : "Şifresini çözmeden indir",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Uçtan uca şifrelemeyi kullanıma almak için gerekli uç noktayı sağlar.\n\n**Uyarı:** E2EE şu anda sunucu tarafı şifreleme ile birlikte kullanılamaz",
-    "Limit app usage to groups." : "Uygulamayı belirli gruplar kullanabilsin."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Uçtan uca şifrelemeyi kullanıma almak için gerekli uç noktayı sağlar.\n\n**Uyarı:** E2EE şu anda sunucu tarafı şifreleme ile birlikte kullanılamaz"
 },
 "nplurals=2; plural=(n > 1);");

@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Одаберите или превуците фајлове",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
     "Download unencrypted" : "Преузми дешифровано",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Обезбеђује неопходну крајњи тачку за укључивања шифровања са краја на крај.\n\n**Напомена:** E2EE тренутно није компатибилно са употребом заједно са шифровањем на страни сервера",
-    "Limit app usage to groups." : "Ограничи коришћење апликације на групе."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Обезбеђује неопходну крајњи тачку за укључивања шифровања са краја на крај.\n\n**Напомена:** E2EE тренутно није компатибилно са употребом заједно са шифровањем на страни сервера"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

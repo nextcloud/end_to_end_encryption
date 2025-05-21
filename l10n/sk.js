@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Vyberte alebo položte súbory",
     "Upload encrypted files to {fileName}" : "Nahrať šifrované súbory do {fileName}",
     "Download unencrypted" : "Stiahnuť nezašifrované",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Poskytuje potrebný endpoint pre šifrovanie typu end-to-end.\n\n**Upozornenie:** E2EE momentálne nie je kompatibilné pre použitie spolu so šifrovaním na strane servera",
-    "Limit app usage to groups." : "Obmedziť používanie aplikácie na skupiny."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Poskytuje potrebný endpoint pre šifrovanie typu end-to-end.\n\n**Upozornenie:** E2EE momentálne nie je kompatibilné pre použitie spolu so šifrovaním na strane servera"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

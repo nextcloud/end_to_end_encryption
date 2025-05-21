@@ -30,7 +30,6 @@ OC.L10N.register(
     "Cancel" : "Odustani",
     "End-to-end encryption" : "Cjelovito šifriranje",
     "Close" : "Zatvori",
-    "Select or drop files" : "Odaberi ili ispusti datoteke",
-    "Limit app usage to groups." : "Ograničite primjenu aplikacije na grupe."
+    "Select or drop files" : "Odaberi ili ispusti datoteke"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

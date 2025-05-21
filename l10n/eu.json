@@ -51,7 +51,6 @@
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
     "Select or drop files" : "Hautatu edo jaregin fitxategiak",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Beharrezko amaiera-puntua eskaintzen du muturreko zifratzea gaitzeko.\n\n**Oharra:** E2EE ez da bateragarria zerbitzariaren aldeko zifratzearekin batera erabiltzeko",
-    "Limit app usage to groups." : "Mugatu aplikazio-erabilera taldeei."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Beharrezko amaiera-puntua eskaintzen du muturreko zifratzea gaitzeko.\n\n**Oharra:** E2EE ez da bateragarria zerbitzariaren aldeko zifratzearekin batera erabiltzeko"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

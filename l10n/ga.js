@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Roghnaigh nó scaoil comhaid",
     "Upload encrypted files to {fileName}" : "Uaslódáil comhaid chriptithe go {fileName}",
     "Download unencrypted" : "Íosluchtaigh gan criptithe",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Soláthraíonn sé an críochphointe riachtanach chun criptiú deireadh go deireadh a chumasú.\n\n**Fógra:** Níl E2EE comhoiriúnach faoi láthair le húsáid in éineacht le criptiúchán ar thaobh an fhreastalaí",
-    "Limit app usage to groups." : "Teorainn úsáid aipeanna go grúpaí."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Soláthraíonn sé an críochphointe riachtanach chun criptiú deireadh go deireadh a chumasú.\n\n**Fógra:** Níl E2EE comhoiriúnach faoi láthair le húsáid in éineacht le criptiúchán ar thaobh an fhreastalaí"
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");

@@ -50,7 +50,6 @@ OC.L10N.register(
     "Error while uploading files" : "Błąd podczas przesyłania plików",
     "Error while uploading metadata" : "Błąd podczas przesyłania metadanych",
     "Select or drop files" : "Wybierz lub upuść pliki",
-    "Upload encrypted files to {fileName}" : "Prześlij zaszyfrowane pliki do {fileName}",
-    "Limit app usage to groups." : " Ogranicz wykorzystanie aplikacji do wybranych grup."
+    "Upload encrypted files to {fileName}" : "Prześlij zaszyfrowane pliki do {fileName}"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

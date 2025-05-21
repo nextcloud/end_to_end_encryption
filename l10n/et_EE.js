@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Vali või lohista failid",
     "Upload encrypted files to {fileName}" : "Laadi krüptitud failid siia: {fileName}",
     "Download unencrypted" : "Laadi alla krüptimata variandina",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Tagab vajaliku otspunkti läbiva krüptimise kasutamiseks.\n\n**Märkus:** Hetkel ei saa läbivat krüptimist kasutada koos serveripoolse krüptimisega",
-    "Limit app usage to groups." : "Piira rakenduse kasutamist gruppidega."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Tagab vajaliku otspunkti läbiva krüptimise kasutamiseks.\n\n**Märkus:** Hetkel ei saa läbivat krüptimist kasutada koos serveripoolse krüptimisega"
 },
 "nplurals=2; plural=(n != 1);");

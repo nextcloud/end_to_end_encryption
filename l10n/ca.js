@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Selecciona o deixa anar els fitxers",
     "Upload encrypted files to {fileName}" : "Pujada de fitxers xifrats a {fileName}",
     "Download unencrypted" : "Baixa sense xifrar",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punt final necessari per habilitar el xifratge d'extrem a extrem.\n\n**Avís:** E2EE actualment no és compatible per utilitzar-lo juntament amb el xifratge del servidor",
-    "Limit app usage to groups." : "Limita l'ús de l'aplicació només pels grups."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punt final necessari per habilitar el xifratge d'extrem a extrem.\n\n**Avís:** E2EE actualment no és compatible per utilitzar-lo juntament amb el xifratge del servidor"
 },
 "nplurals=2; plural=(n != 1);");

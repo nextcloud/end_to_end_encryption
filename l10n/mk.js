@@ -8,7 +8,6 @@ OC.L10N.register(
     "Submit" : "Испрати",
     "Cancel" : "Откажи",
     "Close" : "Затвори",
-    "Select or drop files" : "Изберете или испуштете датотеки",
-    "Limit app usage to groups." : "Ограничување за користење на апликации во групи"
+    "Select or drop files" : "Изберете или испуштете датотеки"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");
