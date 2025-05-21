@@ -31,7 +31,6 @@ OC.L10N.register(
     "Cancel" : "取消",
     "End-to-end encryption" : "端到端加密",
     "Close" : "关闭",
-    "Select or drop files" : "选择或拖放文件",
-    "Limit app usage to groups." : "限制可使用应用的分组"
+    "Select or drop files" : "选择或拖放文件"
 },
 "nplurals=1; plural=0;");

@@ -31,7 +31,6 @@ OC.L10N.register(
     "Cancel" : "Annuller",
     "End-to-end encryption" : "End-to-end kryptering",
     "Close" : "Luk",
-    "Select or drop files" : "Vælg eller slip filer",
-    "Limit app usage to groups." : "Begræns app anvendelse til grupper."
+    "Select or drop files" : "Vælg eller slip filer"
 },
 "nplurals=2; plural=(n != 1);");

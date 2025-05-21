@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Select or drop files",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
     "Download unencrypted" : "Download unencrypted",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption",
-    "Limit app usage to groups." : "Limit app usage to groups."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption"
 },
 "nplurals=2; plural=(n != 1);");

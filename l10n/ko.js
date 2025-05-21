@@ -46,7 +46,6 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "우선 연결된 모든 기기를 점검하여 연상기호(mnemonic)를 다시 찾을 수 있는지 확인하십시오.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "키가 제거되면 연결된 기기에서 문제가 발생할 수 있습니다. 따라서, 연결 해제 후 기기를 다시 연결하십시오.",
     "Delete existing encrypted files" : "현재 암호화된 파일 제거",
-    "Select or drop files" : "파일을 선택하거나 끌어다 놓기",
-    "Limit app usage to groups." : "앱 사용을 그룹으로 제한합니다."
+    "Select or drop files" : "파일을 선택하거나 끌어다 놓기"
 },
 "nplurals=1; plural=0;");

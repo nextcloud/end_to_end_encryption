@@ -24,7 +24,6 @@ OC.L10N.register(
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
     "Close" : "Fechar",
     "Select or drop files" : "Selecione ou solte ficheiros",
-    "Download unencrypted" : "Transferir sem encriptação",
-    "Limit app usage to groups." : "Limitar o uso da aplicação a grupos."
+    "Download unencrypted" : "Transferir sem encriptação"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

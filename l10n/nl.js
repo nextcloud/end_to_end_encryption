@@ -30,7 +30,6 @@ OC.L10N.register(
     "Cancel" : "Annuleren",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
     "Close" : "Sluit",
-    "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster",
-    "Limit app usage to groups." : "Beperkt gebruik programma tot groepen."
+    "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster"
 },
 "nplurals=2; plural=(n != 1);");
