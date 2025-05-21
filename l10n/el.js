@@ -31,7 +31,6 @@ OC.L10N.register(
     "Cancel" : "Ακύρωση",
     "End-to-end encryption" : "Κρυπτογράφηση από άκρο σε άκρο",
     "Close" : "Κλείσιμο",
-    "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
-    "Limit app usage to groups." : "Περιορισμός χρήσης της εφαρμογής σε ομάδες."
+    "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία"
 },
 "nplurals=2; plural=(n != 1);");

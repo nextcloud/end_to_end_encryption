@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "پرونده‌ها را انتخاب یا رها کنید",
     "Upload encrypted files to {fileName}" : "بارگذاری پرونده‌های رمزگذاری‌شده به {fileName}",
     "Download unencrypted" : "دریافت بدون رمزگذاری",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "نقطه پایانی لازم برای فعال‌سازی رمزنگاری سراسری را ارائه می‌دهد.\n\n**توجه:** رمزنگاری سرتاسری در حال حاضر سازگار با رمزنگاری سمت سرور نیست.",
-    "Limit app usage to groups." : "محدود کردن استفاده از برنامه به گروه‌ها."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "نقطه پایانی لازم برای فعال‌سازی رمزنگاری سراسری را ارائه می‌دهد.\n\n**توجه:** رمزنگاری سرتاسری در حال حاضر سازگار با رمزنگاری سمت سرور نیست."
 },
 "nplurals=2; plural=(n > 1);");

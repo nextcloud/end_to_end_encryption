@@ -25,7 +25,6 @@ OC.L10N.register(
     "Cancel" : "ביטול",
     "End-to-end encryption" : "הצפנה מקצה לקצה",
     "Close" : "סגירה",
-    "Select or drop files" : "בחירה או השלכה של קבצים",
-    "Limit app usage to groups." : "להגביל את השימוש ביישומון לקבוצות."
+    "Select or drop files" : "בחירה או השלכה של קבצים"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

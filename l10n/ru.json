@@ -52,7 +52,6 @@
     "Error while uploading metadata" : "Ошибка при загрузке метаданных",
     "Select or drop files" : "Выберите или перетащите файлы",
     "Upload encrypted files to {fileName}" : "Загрузить зашифрованные файлы в {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Предоставляет необходимую конечную точку для включения сквозного шифрования.\n\n**Примечание.** E2EE в настоящее время несовместим с шифрованием на стороне сервера.",
-    "Limit app usage to groups." : "Разрешить использование только участникам этих групп."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Предоставляет необходимую конечную точку для включения сквозного шифрования.\n\n**Примечание.** E2EE в настоящее время несовместим с шифрованием на стороне сервера."
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

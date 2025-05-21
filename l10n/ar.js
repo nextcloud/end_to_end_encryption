@@ -66,7 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "اختر أو اسحب ملفات",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
     "Download unencrypted" : "تنزيل غير مشفر",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "يوفر نقطة النهاية اللازمة لتمكين التشفير من طرف إلى طرف. ** ملاحظة: ** التشفير الطرفي \"E2EE\" غير متوافق حاليًا ليتم استخدامه مع التشفير من جانب الخادم",
-    "Limit app usage to groups." : "يقتصر استخدام التطبيق على المجموعات."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "يوفر نقطة النهاية اللازمة لتمكين التشفير من طرف إلى طرف. ** ملاحظة: ** التشفير الطرفي \"E2EE\" غير متوافق حاليًا ليتم استخدامه مع التشفير من جانب الخادم"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

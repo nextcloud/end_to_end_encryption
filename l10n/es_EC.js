@@ -53,7 +53,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Error al cargar los metadatos",
     "Select or drop files" : "Selecciona o suelta los archivos",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo.\n      \n      **Aviso:** Actualmente, el cifrado E2EE no es compatible para ser utilizado junto con el cifrado en el servidor",
-    "Limit app usage to groups." : "Limitar el uso de la aplicación a grupos."
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Proporciona el punto final necesario para habilitar el cifrado de extremo a extremo.\n      \n      **Aviso:** Actualmente, el cifrado E2EE no es compatible para ser utilizado junto con el cifrado en el servidor"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -51,7 +51,6 @@ OC.L10N.register(
     "Error while uploading files" : "Грешка при качване на файлове",
     "Error while uploading metadata" : "Грешка при качване на метаданни",
     "Select or drop files" : "Изберете файл или преместете с мишката",
-    "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
-    "Limit app usage to groups." : "Ограничаване използването на приложението от групи."
+    "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}"
 },
 "nplurals=2; plural=(n != 1);");

@@ -30,7 +30,6 @@ OC.L10N.register(
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Close" : "Sulje",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
-    "Select or drop files" : "Valitse tai pudota tiedostoja",
-    "Limit app usage to groups." : "Rajoita sovelluksen käyttö ryhmiin."
+    "Select or drop files" : "Valitse tai pudota tiedostoja"
 },
 "nplurals=2; plural=(n != 1);");
