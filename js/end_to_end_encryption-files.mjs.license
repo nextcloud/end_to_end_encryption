@@ -39,7 +39,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 2.0.0-dev.0
 	- license: AGPL-3.0-or-later
 - fast-xml-parser
-	- version: 5.2.2
+	- version: 5.2.3
 	- license: MIT
 - pkijs
 	- version: 3.2.5
