@@ -31,7 +31,7 @@
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "See rakendus tagab kõik vajalikud liidestused, et kliendipoolne läbib krüptimine saaks toimida.\nLisaks võtab ta kasutusele Secure FileDrop meetodi, mis tagab, et läbivalt krüptitud failid pole kättesaadavad ei veebiliidesest ega muude WebDAVi klientidega.",
     "Saved groups" : "Salvestatud grupid",
     "Limit to groups" : "Luba gruppidele",
-    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Kui vähemalt üks grupp on valitud, siis vaid loetletud grupi/gruppide liikmed saavad kasutada Läbiv krüptimise rakendust.",
+    "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Kui vähemalt üks grupp on valitud, siis vaid loetletud grupi/gruppide liikmed saavad kasutada Läbiva krüptimise rakendust.",
     "Limit app usage to groups" : "Piira rakenduse kasutamist gruppidega",
     "Save" : "Salvesta",
     "Submit" : "Saada",
