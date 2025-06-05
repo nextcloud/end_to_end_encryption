@@ -5,6 +5,7 @@ OC.L10N.register(
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
     "Submit" : "Enviar",
+    "Cancel" : "Cancel",
     "Close" : "Cerrar",
     "Select or drop files" : "Seleccione o suelte los archivos"
 },
