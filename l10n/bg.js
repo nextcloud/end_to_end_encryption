@@ -33,6 +33,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Ограничаване използването на приложението от групи",
     "Save" : "Запиши",
     "Submit" : "Изпращане",
+    "I understand the risks" : "Разбирам рисковете",
     "This is the final warning: Do you really want to reset your keys?" : "Това е последното предупреждение: Наистина ли искате да възстановите вашите ключове?",
     "Cancel" : "Отказ",
     "End-to-end encryption is currently enabled and correctly setup." : "Цялостното криптиране в момента е активирано и е настроено правилно.",
