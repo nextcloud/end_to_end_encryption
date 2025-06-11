@@ -65,7 +65,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Fel vid uppladdning av metadata",
     "Select or drop files" : "Välj eller dra filer hit",
     "Upload encrypted files to {fileName}" : "Ladda upp krypterade filer till {fileName}",
-    "Download unencrypted" : "Ladda ner okrypterat",
+    "Download unencrypted" : "Ladda ner okrypterad",
     "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Tillhandahåller den nödvändiga endpointen för att möjliggöra end-to-end-kryptering.\n\n**OBS:** E2EE är för närvarande inte kompatibelt att användas tillsammans med server-side-kryptering"
 },
 "nplurals=2; plural=(n != 1);");
