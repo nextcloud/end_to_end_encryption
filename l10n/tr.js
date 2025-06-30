@@ -46,7 +46,7 @@ OC.L10N.register(
     "This is the final warning: Do you really want to reset your keys?" : "Bu son uyarıdır: Anahtarlarınızı sıfırlamak istediğinize emin misiniz?",
     "Cancel" : "İptal",
     "Reset keys" : "Anahtarları sıfırla",
-    "End-to-end encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme etkinleştirilmiş ve doğru şekilde ayarlanmış.",
+    "End-to-end encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme açık ve doğru şekilde ayarlanmış.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu kapalı. {productName} istemcileriyle ayarlayabilirsiniz.",
     "End-to-end encryption keys reset" : "Uçtan uca şifreleme anahtarları sıfırlandı",
     "Unable to reset end-to-end encryption" : "Uçtan uca şifreleme sıfırlanamadı",
@@ -66,6 +66,6 @@ OC.L10N.register(
     "Select or drop files" : "Dosyaları seçin ya da sürükleyip bırakın",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
     "Download unencrypted" : "Şifresini çözmeden indir",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Uçtan uca şifrelemeyi etkinleştirmek için gerekli uç noktayı sağlar.\n\n**Uyarı:** E2EE şu anda sunucu tarafı şifreleme ile birlikte kullanılamaz"
+    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Uçtan uca şifrelemeyi açmak için gerekli uç noktayı sağlar.\n\n**Uyarı:** E2EE şu anda sunucu tarafı şifreleme ile birlikte kullanılamaz"
 },
 "nplurals=2; plural=(n > 1);");
