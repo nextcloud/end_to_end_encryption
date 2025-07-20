@@ -1,6 +1,5 @@
 SPDX-License-Identifier: AGPL-3.0-or-later
 SPDX-License-Identifier: BSD-3-Clause
-SPDX-License-Identifier: GPL-3.0-or-later
 SPDX-License-Identifier: MIT
 SPDX-FileCopyrightText: Anthony Fu <anthonyfu117@hotmail.com>
 SPDX-FileCopyrightText: Anthony Fu <https://github.com/antfu>
@@ -12,7 +11,6 @@ SPDX-FileCopyrightText: John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
 SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
 SPDX-FileCopyrightText: Paul Vorbach <paul@vorb.de> (http://vorb.de)
 SPDX-FileCopyrightText: Paul Vorbach <paul@vorba.ch> (http://paul.vorba.ch)
-SPDX-FileCopyrightText: Roeland Jago Douma
 SPDX-FileCopyrightText: atomiks
 SPDX-FileCopyrightText: debounce developers
 
@@ -26,11 +24,8 @@ This file is generated from multiple sources. Included packages:
 - @floating-ui/utils
 	- version: 0.2.5
 	- license: MIT
-- @nextcloud/capabilities
-	- version: 1.2.0
-	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.27.0
+	- version: 8.28.0
 	- license: AGPL-3.0-or-later
 - @nextcloud/vue-select
 	- version: 3.25.1
