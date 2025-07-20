@@ -1,0 +1,2 @@
+import{ac as d,V as s,s as i}from"./_plugin-vue2_normalizer-w1liuLeq.chunk.mjs";function n(o,p,t=!1){const e=d().proxy;return t&&e.$props[o]===void 0&&e.$props.modelValue===void 0&&s.util.warn('Missing required prop: "modelValue" or old "'.concat(o,'"')),i({get(){return e.$props[o]!==void 0?e.$props[o]:e.$props.modelValue},set(r){e.$emit("update:modelValue",r),e.$emit("update:model-value",r),e.$emit(p,r)}})}export{n as u};
+//# sourceMappingURL=useModelMigration-EhAWvqDD-DyRlaKkX.chunk.mjs.map
