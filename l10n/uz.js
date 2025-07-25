@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Internal error" : "Ichki xato",
     "Save" : "Save",
-    "Cancel" : "Cancel",
-    "Close" : "Close"
+    "Cancel" : "Bekor qilish",
+    "Close" : "Yopish"
 },
 "nplurals=1; plural=0;");
