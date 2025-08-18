@@ -31,6 +31,9 @@ class KeyStorage implements IKeyStorage {
 	private string $privateKeysRoot = '/private-keys';
 	private string $publicKeysRoot = '/public-keys';
 
+	private ?ISimpleFolder $privateKeysRootFolder = null;
+	private ?ISimpleFolder $publicKeysRootFolder = null;
+
 	public function __construct(IAppData $appData,
 		IUserSession $userSession) {
 		$this->appData = $appData;
@@ -216,20 +219,24 @@ class KeyStorage implements IKeyStorage {
 	 * @return array{privateKeysRoot: ISimpleFolder, publicKeysRoot: ISimpleFolder}
 	 */
 	protected function verifyFolderStructure(): array {
-		try {
-			$privateKeysRoot = $this->appData->getFolder($this->privateKeysRoot);
-		} catch (NotFoundException) {
-			$privateKeysRoot = $this->appData->newFolder($this->privateKeysRoot);
+		if (!$this->privateKeysRootFolder) {
+			try {
+				$this->privateKeysRootFolder = $this->appData->getFolder($this->privateKeysRoot);
+			} catch (NotFoundException) {
+				$this->privateKeysRootFolder = $this->appData->newFolder($this->privateKeysRoot);
+			}
 		}
-		try {
-			$publicKeysRoot = $this->appData->getFolder($this->publicKeysRoot);
-		} catch (NotFoundException) {
-			$publicKeysRoot = $this->appData->newFolder($this->publicKeysRoot);
+		if (!$this->publicKeysRootFolder) {
+			try {
+				$this->publicKeysRootFolder = $this->appData->getFolder($this->publicKeysRoot);
+			} catch (NotFoundException) {
+				$this->publicKeysRootFolder = $this->appData->newFolder($this->publicKeysRoot);
+			}
 		}
 
 		return [
-			'privateKeysRoot' => $privateKeysRoot,
-			'publicKeysRoot' => $publicKeysRoot,
+			'privateKeysRoot' => $this->privateKeysRootFolder,
+			'publicKeysRoot' => $this->publicKeysRootFolder,
 		];
 	}
 
