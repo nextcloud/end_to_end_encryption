@@ -119,10 +119,10 @@ class LockManagerV1Test extends TestCase {
 			$this->lockMapper->expects($this->once())
 				->method('insert')
 				->with($this->callback(static function ($lock) {
-					return ($lock instanceof Lock &&
-							$lock->getId() === 42 &&
-							$lock->getTimestamp() === 1337 &&
-							$lock->getToken() === 'new-token');
+					return ($lock instanceof Lock
+							&& $lock->getId() === 42
+							&& $lock->getTimestamp() === 1337
+							&& $lock->getToken() === 'new-token');
 				}));
 		} else {
 			$this->secureRandom->expects($this->never())
