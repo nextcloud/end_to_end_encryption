@@ -52,22 +52,9 @@ class KeyStorageTest extends TestCase {
 			->with('jane.public.key')
 			->willReturn($node);
 
-		$privateFolder = $this->createMock(ISimpleFolder::class);
-
-		$matcher = $this->exactly(2);
-		$this->appData->expects($matcher)
+		$this->appData->expects($this->once())
 			->method('getFolder')
-			->willReturnCallback(function (string $value) use ($matcher, $privateFolder, $publicFolder): ISimpleFolder {
-				switch ($matcher->getInvocationCount()) {
-					case 1:
-						$this->assertEquals($value, '/private-keys');
-						return $privateFolder;
-					case 2:
-						$this->assertEquals($value, '/public-keys');
-						return $publicFolder;
-				}
-				$this->fail();
-			});
+			->willReturn($publicFolder);
 
 		$actual = $this->keyStorage->getPublicKey('jane');
 		$this->assertEquals('public-key-content', $actual);
@@ -88,22 +75,9 @@ class KeyStorageTest extends TestCase {
 			->with('jane.public.key')
 			->willReturn($exists);
 
-		$privateFolder = $this->createMock(ISimpleFolder::class);
-
-		$matcher = $this->exactly(2);
-		$this->appData->expects($matcher)
+		$this->appData->expects($this->once())
 			->method('getFolder')
-			->willReturnCallback(function (string $value) use ($matcher, $privateFolder, $folder): ISimpleFolder {
-				switch ($matcher->getInvocationCount()) {
-					case 1:
-						$this->assertEquals($value, '/private-keys');
-						return $privateFolder;
-					case 2:
-						$this->assertEquals($value, '/public-keys');
-						return $folder;
-				}
-				$this->fail();
-			});
+			->willReturn($folder);
 
 		$actual = $keyStorage->publicKeyExists('jane');
 		$this->assertEquals($expected, $actual);
@@ -132,22 +106,10 @@ class KeyStorageTest extends TestCase {
 			->with('jane.public.key')
 			->willReturn($exists);
 
-		$privateFolder = $this->createMock(ISimpleFolder::class);
-
 		$matcher = $this->exactly(2);
-		$this->appData->expects($matcher)
+		$this->appData->expects($this->once())
 			->method('getFolder')
-			->willReturnCallback(function (string $value) use ($matcher, $privateFolder, $folder): ISimpleFolder {
-				switch ($matcher->getInvocationCount()) {
-					case 1:
-						$this->assertEquals($value, '/private-keys');
-						return $privateFolder;
-					case 2:
-						$this->assertEquals($value, '/public-keys');
-						return $folder;
-				}
-				$this->fail();
-			});
+			->willReturn($folder);
 
 		if ($expectsNewFile) {
 			$node = $this->createMock(ISimpleFile::class);
@@ -203,22 +165,10 @@ class KeyStorageTest extends TestCase {
 
 			if (!$expectsNotPermittedException) {
 				$folder = $this->createMock(ISimpleFolder::class);
-				$privateFolder = $this->createMock(ISimpleFolder::class);
 
-				$matcher = $this->exactly(2);
-				$this->appData->expects($matcher)
+				$this->appData->expects($this->once())
 					->method('getFolder')
-					->willReturnCallback(function (string $value) use ($matcher, $privateFolder, $folder): ISimpleFolder {
-						switch ($matcher->getInvocationCount()) {
-							case 1:
-								$this->assertEquals($value, '/private-keys');
-								return $privateFolder;
-							case 2:
-								$this->assertEquals($value, '/public-keys');
-								return $folder;
-						}
-						$this->fail();
-					});
+					->willReturn($folder);
 
 				if ($expectDelete) {
 					$folder->expects($this->once())
@@ -285,22 +235,10 @@ class KeyStorageTest extends TestCase {
 
 			if (!$expectsForbiddenException) {
 				$privateFolder = $this->createMock(ISimpleFolder::class);
-				$publicFolder = $this->createMock(ISimpleFolder::class);
 
-				$matcher = $this->exactly(2);
-				$this->appData->expects($matcher)
+				$this->appData->expects($this->once())
 					->method('getFolder')
-					->willReturnCallback(function (string $value) use ($matcher, $privateFolder, $publicFolder): ISimpleFolder {
-						switch ($matcher->getInvocationCount()) {
-							case 1:
-								$this->assertEquals($value, '/private-keys');
-								return $privateFolder;
-							case 2:
-								$this->assertEquals($value, '/public-keys');
-								return $publicFolder;
-						}
-						$this->fail();
-					});
+					->willReturn($privateFolder);
 
 				$node = $this->createMock(ISimpleFile::class);
 				$node->expects($this->once())
@@ -366,21 +304,9 @@ class KeyStorageTest extends TestCase {
 					->with('correct-userId.private.key')
 					->willReturn($exists);
 
-				$matcher = $this->exactly(2);
-				$publicFolder = $this->createMock(ISimpleFolder::class);
-				$this->appData->expects($matcher)
+				$this->appData->expects($this->once())
 					->method('getFolder')
-					->willReturnCallback(function (string $value) use ($matcher, $folder, $publicFolder): ISimpleFolder {
-						switch ($matcher->getInvocationCount()) {
-							case 1:
-								$this->assertEquals($value, '/private-keys');
-								return $folder;
-							case 2:
-								$this->assertEquals($value, '/public-keys');
-								return $publicFolder;
-						}
-						$this->fail();
-					});
+					->willReturn($folder);
 			}
 		}
 
@@ -438,21 +364,9 @@ class KeyStorageTest extends TestCase {
 					->with('correct-userId.private.key')
 					->willReturn($fileExists);
 
-				$matcher = $this->exactly(2);
-				$publicFolder = $this->createMock(ISimpleFolder::class);
-				$this->appData->expects($matcher)
+				$this->appData->expects($this->once())
 					->method('getFolder')
-					->willReturnCallback(function (string $value) use ($matcher, $folder, $publicFolder): ISimpleFolder {
-						switch ($matcher->getInvocationCount()) {
-							case 1:
-								$this->assertEquals($value, '/private-keys');
-								return $folder;
-							case 2:
-								$this->assertEquals($value, '/public-keys');
-								return $publicFolder;
-						}
-						$this->fail();
-					});
+					->willReturn($folder);
 
 				if ($expectsPutContent) {
 					$node = $this->createMock(ISimpleFile::class);
@@ -520,21 +434,9 @@ class KeyStorageTest extends TestCase {
 
 			if (!$expectsNotPermittedException) {
 				$folder = $this->createMock(ISimpleFolder::class);
-				$matcher = $this->exactly(2);
-				$publicFolder = $this->createMock(ISimpleFolder::class);
-				$this->appData->expects($matcher)
+				$this->appData->expects($this->once())
 					->method('getFolder')
-					->willReturnCallback(function (string $value) use ($matcher, $folder, $publicFolder): ISimpleFolder {
-						switch ($matcher->getInvocationCount()) {
-							case 1:
-								$this->assertEquals($value, '/private-keys');
-								return $folder;
-							case 2:
-								$this->assertEquals($value, '/public-keys');
-								return $publicFolder;
-						}
-						$this->fail();
-					});
+					->willReturn($folder);
 
 				if ($fileExists) {
 					$node = $this->createMock(ISimpleFile::class);
@@ -595,11 +497,11 @@ class KeyStorageTest extends TestCase {
 			->willReturnCallback(function (string $value) use ($matcher, $publicKeyFolder, $privateKeyFolder): ISimpleFolder {
 				switch ($matcher->getInvocationCount()) {
 					case 1:
-						$this->assertEquals($value, '/private-keys');
-						return $privateKeyFolder;
-					case 2:
 						$this->assertEquals($value, '/public-keys');
 						return $publicKeyFolder;
+					case 2:
+						$this->assertEquals($value, '/private-keys');
+						return $privateKeyFolder;
 				}
 				$this->fail();
 			});
@@ -659,9 +561,9 @@ class KeyStorageTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider verifyFolderStructureDataProvider
+	 * @dataProvider getRootFoldersDataProvider
 	 */
-	public function testVerifyFolderStructure(bool $privateKeyExists, bool $publicKeyExists, bool $expectPrivateNewFolder, bool $expectPublicNewFolder): void {
+	public function testGetRootFolders(bool $privateKeyExists, bool $publicKeyExists, bool $expectPrivateNewFolder, bool $expectPublicNewFolder): void {
 		$matcher = $this->exactly(2);
 		$this->appData->expects($matcher)
 			->method('getFolder')
@@ -714,10 +616,11 @@ class KeyStorageTest extends TestCase {
 				->method('newFolder');
 		}
 
-		self::invokePrivate($this->keyStorage, 'verifyFolderStructure');
+		self::invokePrivate($this->keyStorage, 'getPrivateKeysRootFolder');
+		self::invokePrivate($this->keyStorage, 'getPublicKeysRootFolder');
 	}
 
-	public function verifyFolderStructureDataProvider(): array {
+	public function getRootFoldersDataProvider(): array {
 		return [
 			[false, false, true,  true],
 			[false, true,  true,  false],
