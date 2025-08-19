@@ -14,6 +14,7 @@ use OCP\Files\ForbiddenException;
 use OCP\Files\IAppData;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\IUser;
 use OCP\IUserSession;
 
@@ -30,6 +31,9 @@ class KeyStorage implements IKeyStorage {
 	private string $privateKeysRoot = '/private-keys';
 	private string $publicKeysRoot = '/public-keys';
 
+	private ?ISimpleFolder $privateKeysRootFolder = null;
+	private ?ISimpleFolder $publicKeysRootFolder = null;
+
 	public function __construct(IAppData $appData,
 		IUserSession $userSession) {
 		$this->appData = $appData;
@@ -40,38 +44,34 @@ class KeyStorage implements IKeyStorage {
 	 * @inheritDoc
 	 */
 	public function getPublicKey(string $uid): string {
-		$this->verifyFolderStructure();
+		$publicKeysRoot = $this->getPublicKeysRootFolder();
 
 		$fileName = $this->getFileNameForPublicKey($uid);
-		return $this->appData->getFolder($this->publicKeysRoot)
-			->getFile($fileName)
-			->getContent();
+		return $publicKeysRoot->getFile($fileName)->getContent();
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function publicKeyExists(string $uid): bool {
-		$this->verifyFolderStructure();
+		$publicKeysRoot = $this->getPublicKeysRootFolder();
 
 		$fileName = $this->getFileNameForPublicKey($uid);
-		return $this->appData->getFolder($this->publicKeysRoot)
-			->fileExists($fileName);
+		return $publicKeysRoot->fileExists($fileName);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function setPublicKey(string $publicKey, string $uid): void {
-		$this->verifyFolderStructure();
+		$publicKeysRoot = $this->getPublicKeysRootFolder();
 
 		$fileName = $this->getFileNameForPublicKey($uid);
-		$publicKeyRoot = $this->appData->getFolder($this->publicKeysRoot);
-		if ($publicKeyRoot->fileExists($fileName)) {
+		if ($publicKeysRoot->fileExists($fileName)) {
 			throw new KeyExistsException('Public key already exists');
 		}
 
-		$publicKeyRoot
+		$publicKeysRoot
 			->newFile($fileName)
 			->putContent($publicKey);
 	}
@@ -80,7 +80,7 @@ class KeyStorage implements IKeyStorage {
 	 * @inheritDoc
 	 */
 	public function deletePublicKey(string $uid): void {
-		$this->verifyFolderStructure();
+		$publicKeysRoot = $this->getPublicKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
@@ -88,9 +88,8 @@ class KeyStorage implements IKeyStorage {
 		}
 
 		$fileName = $this->getFileNameForPublicKey($uid);
-		$publicKeyRoot = $this->appData->getFolder($this->publicKeysRoot);
 		try {
-			$file = $publicKeyRoot->getFile($fileName);
+			$file = $publicKeysRoot->getFile($fileName);
 		} catch (NotFoundException $ex) {
 			return;
 		}
@@ -102,7 +101,7 @@ class KeyStorage implements IKeyStorage {
 	 * @inheritDoc
 	 */
 	public function getPrivateKey(string $uid): string {
-		$this->verifyFolderStructure();
+		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
@@ -110,16 +109,14 @@ class KeyStorage implements IKeyStorage {
 		}
 
 		$fileName = $this->getFileNameForPrivateKey($uid);
-		return $this->appData->getFolder($this->privateKeysRoot)
-			->getFile($fileName)
-			->getContent();
+		return $privateKeysRoot->getFile($fileName)->getContent();
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function privateKeyExists(string $uid): bool {
-		$this->verifyFolderStructure();
+		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
@@ -127,15 +124,14 @@ class KeyStorage implements IKeyStorage {
 		}
 
 		$fileName = $this->getFileNameForPrivateKey($uid);
-		return $this->appData->getFolder($this->privateKeysRoot)
-			->fileExists($fileName);
+		return $privateKeysRoot->fileExists($fileName);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function setPrivateKey(string $privateKey, string $uid): void {
-		$this->verifyFolderStructure();
+		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
@@ -143,7 +139,6 @@ class KeyStorage implements IKeyStorage {
 		}
 
 		$fileName = $this->getFileNameForPrivateKey($uid);
-		$privateKeysRoot = $this->appData->getFolder($this->privateKeysRoot);
 		if ($privateKeysRoot->fileExists($fileName)) {
 			throw new KeyExistsException('Private key already exists');
 		}
@@ -157,7 +152,7 @@ class KeyStorage implements IKeyStorage {
 	 * @inheritDoc
 	 */
 	public function deletePrivateKey(string $uid): void {
-		$this->verifyFolderStructure();
+		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
@@ -165,10 +160,9 @@ class KeyStorage implements IKeyStorage {
 		}
 
 		$fileName = $this->getFileNameForPrivateKey($uid);
-		$privateKeysRoot = $this->appData->getFolder($this->privateKeysRoot);
 		try {
 			$file = $privateKeysRoot->getFile($fileName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			return;
 		}
 
@@ -179,7 +173,6 @@ class KeyStorage implements IKeyStorage {
 	 * @inheritDoc
 	 */
 	public function deleteUserKeys(IUser $user): void {
-		$this->verifyFolderStructure();
 		$uid = $user->getUID();
 
 		$this->deleteUsersPublicKey($uid);
@@ -192,13 +185,12 @@ class KeyStorage implements IKeyStorage {
 	 * @throws NotPermittedException
 	 */
 	protected function deleteUsersPublicKey(string $uid): void {
+		$publicKeysRoot = $this->getPublicKeysRootFolder();
 		$fileName = $this->getFileNameForPublicKey($uid);
 
 		try {
-			$this->appData->getFolder($this->publicKeysRoot)
-				->getFile($fileName)
-				->delete();
-		} catch (NotFoundException $e) {
+			$publicKeysRoot->getFile($fileName)->delete();
+		} catch (NotFoundException) {
 			return;
 		}
 	}
@@ -209,13 +201,12 @@ class KeyStorage implements IKeyStorage {
 	 * @throws NotPermittedException
 	 */
 	protected function deleteUsersPrivateKey(string $uid): void {
+		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 		$fileName = $this->getFileNameForPrivateKey($uid);
 
 		try {
-			$this->appData->getFolder($this->privateKeysRoot)
-				->getFile($fileName)
-				->delete();
-		} catch (NotFoundException $e) {
+			$privateKeysRoot->getFile($fileName)->delete();
+		} catch (NotFoundException) {
 			return;
 		}
 	}
@@ -224,14 +215,32 @@ class KeyStorage implements IKeyStorage {
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 */
-	protected function verifyFolderStructure(): void {
-		$keyStorageRoot = $this->appData->getFolder('/');
-		if (!$keyStorageRoot->fileExists($this->privateKeysRoot)) {
-			$this->appData->newFolder($this->privateKeysRoot);
+	protected function getPrivateKeysRootFolder(): ISimpleFolder {
+		if (!$this->privateKeysRootFolder) {
+			try {
+				$this->privateKeysRootFolder = $this->appData->getFolder($this->privateKeysRoot);
+			} catch (NotFoundException) {
+				$this->privateKeysRootFolder = $this->appData->newFolder($this->privateKeysRoot);
+			}
 		}
-		if (!$keyStorageRoot->fileExists($this->publicKeysRoot)) {
-			$this->appData->newFolder($this->publicKeysRoot);
+
+		return $this->privateKeysRootFolder;
+	}
+
+	/**
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 */
+	protected function getPublicKeysRootFolder(): ISimpleFolder {
+		if (!$this->publicKeysRootFolder) {
+			try {
+				$this->publicKeysRootFolder = $this->appData->getFolder($this->publicKeysRoot);
+			} catch (NotFoundException) {
+				$this->publicKeysRootFolder = $this->appData->newFolder($this->publicKeysRoot);
+			}
 		}
+
+		return $this->publicKeysRootFolder;
 	}
 
 	private function getFileNameForPublicKey(string $uid): string {
