@@ -39,8 +39,8 @@ class Capabilities implements ICapability {
 			return [];
 		}
 
-		$keysExist = $this->keyStorage->publicKeyExists($user->getUID()) &&
-			$this->keyStorage->privateKeyExists($user->getUID());
+		$keysExist = $this->keyStorage->publicKeyExists($user->getUID())
+			&& $this->keyStorage->privateKeyExists($user->getUID());
 
 		return [
 			'end-to-end-encryption' => [
