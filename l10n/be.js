@@ -2,7 +2,9 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "Internal error" : "Унутраная памылка",
+    "Saved groups" : "Захаваныя групы",
     "Save" : "Захаваць",
+    "Submit" : "Адправіць",
     "Cancel" : "Скасаваць",
     "Close" : "Закрыць"
 },
