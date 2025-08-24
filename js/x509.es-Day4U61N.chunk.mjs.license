@@ -1,9 +1,7 @@
 SPDX-License-Identifier: 0BSD
-SPDX-License-Identifier: AGPL-3.0-or-later
 SPDX-License-Identifier: Apache-2.0
 SPDX-License-Identifier: BSD-3-Clause
 SPDX-License-Identifier: MIT
-SPDX-FileCopyrightText: John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
 SPDX-FileCopyrightText: Microsoft Corp.
 SPDX-FileCopyrightText: Peculiar Ventures LLC
 SPDX-FileCopyrightText: PeculiarVentures
@@ -14,9 +12,6 @@ SPDX-FileCopyrightText: Yury Strozhevsky
 SPDX-FileCopyrightText: whitequark <whitequark@whitequark.org>
 
 This file is generated from multiple sources. Included packages:
-- @nextcloud/vue
-	- version: 8.27.0
-	- license: AGPL-3.0-or-later
 - @peculiar/asn1-cms
 	- version: 2.3.13
 	- license: MIT
