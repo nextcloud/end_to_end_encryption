@@ -14,10 +14,10 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"@composer bin all install --ansi"
+			"[ $COMPOSER_DEV_MODE -eq 0 ] || composer bin all install --ansi"
 		],
 		"post-update-cmd": [
-			"@composer bin all update --ansi"
+			"[ $COMPOSER_DEV_MODE -eq 0 ] || composer bin all update --ansi"
 		],
 		"lint": "find . -name \\*.php -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
 		"cs:check": "php-cs-fixer fix --dry-run --diff",
