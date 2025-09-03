@@ -7,7 +7,6 @@ SPDX-FileCopyrightText: Alkemics
 SPDX-FileCopyrightText: Amit Gupta (https://solothought.com)
 SPDX-FileCopyrightText: Austin Andrews
 SPDX-FileCopyrightText: Christoph Wurst <christoph@winzerhof-wurst.at>
-SPDX-FileCopyrightText: John Molakvoæ (skjnldsv) <skjnldsv@protonmail.com>
 SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
 SPDX-FileCopyrightText: Paul Miller (https://paulmillr.com)
 SPDX-FileCopyrightText: Perry Mitchell <perry@perrymitchell.net>
@@ -24,7 +23,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.2.4
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.27.0
+	- version: 8.29.2
 	- license: AGPL-3.0-or-later
 - @noble/hashes
 	- version: 1.7.0
