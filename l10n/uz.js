@@ -4,6 +4,7 @@ OC.L10N.register(
     "Internal error" : "Ichki xato",
     "End-to-End Encryption" : "End-to-end shifrlash",
     "Save" : "Save",
+    "Submit" : "Submit",
     "Cancel" : "Bekor qilish",
     "Close" : "Yopish"
 },
