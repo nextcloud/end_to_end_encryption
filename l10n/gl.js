@@ -7,7 +7,7 @@ OC.L10N.register(
     "You are not allowed to delete this private key" : "Vde. non ten permiso para eliminar esta chave privada",
     "Could not find the private key belonging to the user %s" : "Non foi posíbel atopar a chave privada pertencente ao usuario %s",
     "Could not find the public key belonging to the user %s" : "Non foi posíbel atopar a chave pública pertencente ao usuario %s",
-    "Common name (CN) does not match the current user" : "O nome común (NC) non coincide co usuario actual ",
+    "Common name (CN) does not match the current user" : "O nome común (CN) non coincide co usuario actual ",
     "Could not find the public key belonging to %s" : "Non foi posíbel atopar a chave pública pertencente a %s",
     "This is not your public key to delete" : "Esta non é a súa chave pública para que poida eliminala",
     "Cannot decode userlist" : "No se pode descodificar a lista de usuarios ",
