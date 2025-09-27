@@ -45,7 +45,7 @@ OC.L10N.register(
     "Confirm resetting keys" : "Confirmar o restabelecemento das chaves",
     "This is the final warning: Do you really want to reset your keys?" : "Esta é a última advertencia: Confirma que quere restabelecer as súas chaves?",
     "Cancel" : "Cancelar",
-    "Reset keys" : "Restablecer as chaves",
+    "Reset keys" : "Restabelecer as chaves",
     "End-to-end encryption is currently enabled and correctly setup." : "O cifrado de extremo a extremo está activado e configurado correctamente.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "O cifrado de extremo a extremo está desactivado. Pode configuralo cos clientes de {productName}.",
     "End-to-end encryption keys reset" : "Restabelecer as chaves de cifrado de extremo a extremo",
