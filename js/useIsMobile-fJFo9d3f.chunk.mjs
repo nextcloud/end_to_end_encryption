@@ -1,0 +1,2 @@
+import{l as s,x as a,W as o}from"./_plugin-vue2_normalizer-DVBM9JFL.chunk.mjs";function d(){try{return s("core","capabilities")}catch(n){return console.debug("Could not find capabilities initial state fall back to _oc_capabilities"),"_oc_capabilities"in window?window._oc_capabilities:{}}}const e=1024,c=e/2,i=n=>document.documentElement.clientWidth<n,t=a(i(e)),l=a(i(c));window.addEventListener("resize",()=>{t.value=i(e),l.value=i(c)},{passive:!0});function u(){return o(t)}o(t);export{d as e,u};
+//# sourceMappingURL=useIsMobile-fJFo9d3f.chunk.mjs.map
