@@ -33,7 +33,7 @@ updates:
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
-  target-branch: stable30
+  target-branch: stable32
   versioning-strategy: increase
   labels:
     - "3. to review"
@@ -50,24 +50,7 @@ updates:
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
-  target-branch: stable29
-  versioning-strategy: increase
-  labels:
-    - "3. to review"
-    - "dependencies"
-  ignore:
-    # ignore all GitHub linguist patch updates
-    - dependency-name: "*"
-      update-types: ["version-update:semver-major", "version-update:semver-minor"]
-
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  target-branch: stable28
+  target-branch: stable31
   versioning-strategy: increase
   labels:
     - "3. to review"
