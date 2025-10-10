@@ -47,7 +47,7 @@
     "@nextcloud/vite-config": "^1.7.1",
     "@nextcloud/webpack-vue-config": "^6.3.0",
     "@relative-ci/agent": "^4.3.1",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^6.9.1",
     "@vitejs/plugin-vue2": "^2.3.4",
     "@vitest/coverage-v8": "^3.2.4",
     "@vue/test-utils": "^2.4.6",
