@@ -63,7 +63,6 @@
     "Error while uploading metadata" : "Erro ao fazer upload de metadados",
     "Select or drop files" : "Selecione ou solte arquivos",
     "Upload encrypted files to {fileName}" : "Fazer upload de arquivos criptografados para {fileName}",
-    "Download unencrypted" : "Baixar não criptografado",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Fornece o endpoint necessário para habilitar a criptografia de ponta-a-ponta.\n\n**Aviso:** Criptografia de ponta-a-ponta atualmente não é compatível para ser usado junto com a criptografia do lado do servidor"
+    "Download unencrypted" : "Baixar não criptografado"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

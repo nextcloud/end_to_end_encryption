@@ -65,7 +65,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Σφάλμα κατά τη μεταφόρτωση μεταδεδομένων",
     "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
     "Upload encrypted files to {fileName}" : "Μεταφόρτωση κρυπτογραφημένων αρχείων στο {fileName}",
-    "Download unencrypted" : "Λήψη μη κρυπτογραφημένων",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Παρέχει το απαραίτητο άκρο για την ενεργοποίηση της κρυπτογράφησης από άκρο σε άκρο.\n\n**Παρατήρηση:** Το E2EE προς το παρόν δεν είναι συμβατό για χρήση μαζί με την κρυπτογράφηση από την πλευρά του διακομιστή"
+    "Download unencrypted" : "Λήψη μη κρυπτογραφημένων"
 },
 "nplurals=2; plural=(n != 1);");
