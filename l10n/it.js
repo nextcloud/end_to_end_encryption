@@ -58,7 +58,6 @@ OC.L10N.register(
     "Error while uploading files" : "Errore durante il caricamento dei file",
     "Error while uploading metadata" : "Errore durante il caricamento dei metadati",
     "Select or drop files" : "Seleziona o deseleziona file",
-    "Upload encrypted files to {fileName}" : "Carica i file crittografati su {fileName}",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Fornisce l'endpoint necessario per abilitare la crittografia end-to-end.\n\n**Nota:** E2EE non è attualmente compatibile per essere utilizzato insieme alla crittografia lato server"
+    "Upload encrypted files to {fileName}" : "Carica i file crittografati su {fileName}"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

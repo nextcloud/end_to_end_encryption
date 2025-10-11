@@ -57,7 +57,6 @@ OC.L10N.register(
     "Error while uploading files" : "ھۆججەت يوللاشتا خاتالىق",
     "Error while uploading metadata" : "مېتا سانلىق مەلۇمات يوللىغاندا خاتالىق",
     "Select or drop files" : "ھۆججەتلەرنى تاللاڭ ياكى تاشلاڭ",
-    "Upload encrypted files to {fileName}" : "شىفىرلانغان ھۆججەتلەرنى {fileName} غا يۈكلەڭ",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "ئاخىرىغىچە مەخپىيلەشتۈرۈشنى قوزغىتىش ئۈچۈن زۆرۈر بولغان ئاخىرقى نۇقتا بىلەن تەمىنلەيدۇ.\n\n** ئەسكەرتىش: ** E2EE نۆۋەتتە مۇلازىمېتىر تەرەپ شىفىرلاش بىلەن بىللە ئىشلىتىشكە ماس كەلمەيدۇ"
+    "Upload encrypted files to {fileName}" : "شىفىرلانغان ھۆججەتلەرنى {fileName} غا يۈكلەڭ"
 },
 "nplurals=2; plural=(n != 1);");

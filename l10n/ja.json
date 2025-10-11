@@ -63,7 +63,6 @@
     "Error while uploading metadata" : "メタデータのアップロード中にエラーが発生しました",
     "Select or drop files" : "ファイルを選択するか、ドラッグ&ドロップしてください",
     "Upload encrypted files to {fileName}" : "暗号化されたファイルを {fileName} にアップロードします",
-    "Download unencrypted" : "暗号化されていない状態でダウンロードする",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "End-to-End 暗号化を有効にするために必要なエンドポイントを提供します。\n\n**注意:** E2EEは現在、サーバー側の暗号化と併用できません"
+    "Download unencrypted" : "暗号化されていない状態でダウンロードする"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

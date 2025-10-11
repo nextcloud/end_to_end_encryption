@@ -65,7 +65,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Chyba při nahrávání metadat",
     "Select or drop files" : "Vyberte nebo přetáhněte soubory",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
-    "Download unencrypted" : "Stáhnout nešifrovaně",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Poskytuje nezbytný koncový bod pro zapnutí šifrování mezi koncovými body.\n\n**Upozornění:** E2EE v tuto chvíli není kompatibilní s používáním pohromadě s šifrováním na straně serveru"
+    "Download unencrypted" : "Stáhnout nešifrovaně"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
