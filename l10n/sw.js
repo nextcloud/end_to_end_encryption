@@ -65,7 +65,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "Hitilafu wakati wa kupakia metadata",
     "Select or drop files" : " Chagua au udondoshe faili",
     "Upload encrypted files to {fileName}" : "Pakia faili zilizosimbwa kwa {fileName}",
-    "Download unencrypted" : "Pakua bila usimbaji fiche",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Hutoa sehemu ya mwisho inayohitajika ili kuwezesha usimbaji fiche kutoka mwanzo hadi mwisho.\n\n**Ilani:** E2EE kwa sasa haioani na kutumiwa pamoja na usimbaji fiche wa upande wa seva"
+    "Download unencrypted" : "Pakua bila usimbaji fiche"
 },
 "nplurals=2; plural=(n != 1);");

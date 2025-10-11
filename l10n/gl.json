@@ -63,7 +63,6 @@
     "Error while uploading metadata" : "Produciuse un erro ao enviar os metadatos",
     "Select or drop files" : "Seleccione ou arrastre e solte ficheiros",
     "Upload encrypted files to {fileName}" : "Enviar ficheiros cifrados a {fileName}",
-    "Download unencrypted" : "Descargar sen cifrar",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "Ofrece o punto final necesario para activar o cifrado de extremo a extremo.\n\n**Aviso:** E2EE actualmente non é compatíbel para usarse xunto co cifrado do servidor"
+    "Download unencrypted" : "Descargar sen cifrar"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

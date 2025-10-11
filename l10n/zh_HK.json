@@ -63,7 +63,6 @@
     "Error while uploading metadata" : "上元數據像時發生錯誤",
     "Select or drop files" : "選擇或拖曳檔案至此",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
-    "Download unencrypted" : "下載未加密",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "提供必要的端點以啟用端到端加密。\n\n**注意：**E2EE 目前與伺服器端加密並不相容，無法一起啟用"
+    "Download unencrypted" : "下載未加密"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

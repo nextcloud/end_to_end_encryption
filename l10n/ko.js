@@ -65,7 +65,6 @@ OC.L10N.register(
     "Error while uploading metadata" : "메타데이터 업로드 중 오류 발생",
     "Select or drop files" : "파일을 선택하거나 끌어다 놓기",
     "Upload encrypted files to {fileName}" : "{fileName}에 암호화된 파일 업로드",
-    "Download unencrypted" : "암호화 해제된 파일 다운로드",
-    "Provides the necessary endpoint to enable end-to-end encryption.\n\n**Notice:** E2EE is currently not compatible to be used together with server-side encryption" : "종단간 암호화를 활성화하는 데 필요한 엔드포인트를 제공합니다.\n\n**안내: ** 현재 E2EE는 서버 사이드 암호화와 호환되지 않아 함께 사용할 수 없습니다."
+    "Download unencrypted" : "암호화 해제된 파일 다운로드"
 },
 "nplurals=1; plural=0;");
