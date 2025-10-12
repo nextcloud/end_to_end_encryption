@@ -31,7 +31,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 2.5.2
 	- license: GPL-3.0-or-later
 - @nextcloud/axios
-	- version: 2.5.1
+	- version: 2.5.2
 	- license: GPL-3.0-or-later
 - @nextcloud/browser-storage
 	- version: 0.4.0
@@ -55,7 +55,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.0.1
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.31.0
+	- version: 8.32.0
 	- license: AGPL-3.0-or-later
 - @vitejs/plugin-vue2
 	- version: 2.3.4
@@ -70,7 +70,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.12.2
 	- license: MIT
 - dompurify
-	- version: 3.2.6
+	- version: 3.2.7
 	- license: (MPL-2.0 OR Apache-2.0)
 - escape-html
 	- version: 1.0.3
