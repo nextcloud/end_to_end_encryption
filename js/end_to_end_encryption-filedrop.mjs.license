@@ -13,13 +13,13 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.1.5
 	- license: Apache-2.0
 - @nextcloud/vue
-	- version: 8.29.2
+	- version: 8.32.0
 	- license: AGPL-3.0-or-later
 - end_to_end_encryption
 	- version: 1.18.0
 	- license: AGPL-3.0-or-later
 - nanoid
-	- version: 3.3.8
+	- version: 3.3.11
 	- license: MIT
 - splitpanes
 	- version: 2.4.1
