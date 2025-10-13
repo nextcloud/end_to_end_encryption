@@ -30,7 +30,7 @@
     "@nextcloud/logger": "^3.0.2",
     "@nextcloud/router": "^3.0.1",
     "@nextcloud/vue": "^8.27.0",
-    "@peculiar/x509": "^1.12.3",
+    "@peculiar/x509": "^1.12.4",
     "debounce": "^2.1.0",
     "fast-xml-parser": "^5.2.5",
     "pkijs": "^3.2.5",
