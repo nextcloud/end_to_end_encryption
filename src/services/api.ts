@@ -19,6 +19,9 @@ const Url = {
 	ServerKey: API_ROOT + '/server-key',
 }
 
+/**
+ * Fetches the private key for the current user.
+ */
 export async function getPrivateKey(): Promise<PrivateKeyInfo> {
 	const response = await axios.get<OCSResponse<{ 'private-key': string }>>(
 		generateOcsUrl(Url.PrivateKey),
@@ -33,6 +36,9 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo> {
 	}
 }
 
+/**
+ * Fetches the server public key in PEM format.
+ */
 export async function getServerPublicKey(): Promise<string> {
 	const response = await axios.get<OCSResponse<{ 'public-key': string }>>(
 		generateOcsUrl(Url.ServerKey),

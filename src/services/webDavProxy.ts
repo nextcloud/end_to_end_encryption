@@ -17,6 +17,9 @@ import { state } from './state.ts'
 
 let originalFetch: typeof window.fetch
 
+/**
+ * Sets up a proxy for WebDAV requests to handle decryption of files and metadata.
+ */
 export function setupWebDavDecryptionProxy() {
 	originalFetch = window.fetch
 	logger.debug('Setting up WebDAV decryption proxy')
@@ -44,6 +47,11 @@ export function setupWebDavDecryptionProxy() {
 	}
 }
 
+/**
+ * Callback to handle GET requests.
+ *
+ * @param request - The fetch request
+ */
 async function handleGet(request: Request): Promise<Response> {
 	const path = new URL(request.url).pathname
 	const responsePromise = originalFetch(request)
@@ -64,6 +72,9 @@ async function handleGet(request: Request): Promise<Response> {
 	}
 }
 
+/**
+ * @param request - The fetch request
+ */
 async function handlePropFind(request: Request) {
 	logger.debug('Fetching raw PROPFIND', { request })
 	const response = await originalFetch(request)
@@ -111,6 +122,12 @@ async function handlePropFind(request: Request) {
 	return new Response(new XMLBuilder().build(xml), response)
 }
 
+/**
+ * @param xml - The XML response
+ * @param path - The path of the file or folder
+ * @param decryptedMetadata - The decrypted metadata for the file or folder
+ * @param decryptedParentMetadata - The decrypted metadata for the parent folder
+ */
 export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decryptedMetadata?: MetadataInfo, decryptedParentMetadata?: MetadataInfo): void {
 	logger.debug('Updating PROPFIND info', { path, decryptedMetadata, decryptedParentMetadata, xml })
 
@@ -140,6 +157,12 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decr
 	})
 }
 
+/**
+ * Decrypts a file from a fetch response using the provided file encryption info.
+ *
+ * @param response - The fetch response
+ * @param fileEncryptionInfo - The file encryption info
+ */
 export async function decryptFile(response: Response, fileEncryptionInfo: FileEncryptionInfo): Promise<Response> {
 	logger.debug('Decrypting encrypted file', { response, fileEncryptionInfo })
 	const decryptedFileContent = await decryptWithAES(

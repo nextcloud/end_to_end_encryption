@@ -70,6 +70,9 @@ export type PrivateKeyInfo = {
 	salt: Uint8Array
 }
 
+/**
+ * @param metadata - The metadata to check of being root metadata
+ */
 export function isRootMetadata(metadata: Metadata): metadata is RootMetadata {
 	return metadata.users !== undefined
 }

@@ -24,6 +24,11 @@ if (userConfig.e2eeInBrowserEnabled) {
 	disableFileAction('move-copy')
 }
 
+/**
+ * Disable a file action by monkey patching a custom enabled function.
+ *
+ * @param actionId - The ID of the action to disable
+ */
 function disableFileAction(actionId: string) {
 	logger.debug(`Inhibiting ${actionId} actions for e2ee files`)
 	const actions = getFileActions()

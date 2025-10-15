@@ -21,6 +21,10 @@ const confirmToggle = ref(false)
 
 const isFormValid = computed(() => confirmToggle.value === true && mnemonic.value.trim().split(/\s+/g).length === 12)
 
+/**
+ * The submit callback.
+ * Emits the close event with the mnemonic.
+ */
 function submit() {
 	emit('close', mnemonic.value)
 }

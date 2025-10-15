@@ -9,6 +9,12 @@ import { bufferToString, pemToBuffer } from './bufferUtils.ts'
 import { decryptWithAES, loadRSAPrivateKey } from './crypto.ts'
 import logger from './logger.ts'
 
+/**
+ * Decrypts the user's private key using their mnemonic.
+ *
+ * @param privateKeyInfo - The encrypted private key info
+ * @param mnemonic - The user's mnemonic
+ */
 export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic: string): Promise<CryptoKey> {
 	logger.debug('Decrypting private key', { privateKeyInfo, mnemonic })
 
@@ -38,6 +44,13 @@ export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic
 	throw new Error('Failed to decrypt private key')
 }
 
+/**
+ * Derives a private key from the given mnemonic using PBKDF2.
+ *
+ * @param mnemonic - The user's mnemonic
+ * @param salt - The salt to use for key derivation
+ * @param params - Additional parameters for key derivation
+ */
 async function mnemonicToPrivateKey(mnemonic: string, salt: Uint8Array, params: Partial<Pbkdf2Params>): Promise<CryptoKey> {
 	const keyMaterial = await crypto.subtle.importKey(
 		'raw',

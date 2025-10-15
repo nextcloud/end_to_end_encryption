@@ -8,6 +8,9 @@ import MnemonicPromptDialog from '../components/MnemonicPromptDialog.vue'
 
 import '@nextcloud/dialogs/style.css'
 
+/**
+ * Prompts the user for their mnemonic using a dialog.
+ */
 export async function promptUserForMnemonic(): Promise<string> {
 	const promiseWithResolvers = Promise.withResolvers<string>()
 

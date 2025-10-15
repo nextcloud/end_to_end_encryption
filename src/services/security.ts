@@ -8,6 +8,13 @@ import type { Metadata, RootMetadata } from '../models.ts'
 import { base64ToBuffer, stringToBuffer } from './bufferUtils.ts'
 import { validateCertificateSignature, validateCMSSignature } from './crypto.ts'
 
+/**
+ * Validates the signature of the given metadata using the provided root metadata.
+ *
+ * @param metadata - The metadata to validate
+ * @param signature - The base64-encoded signature of the metadata
+ * @param rootMetadata - The root metadata
+ */
 export async function validateMetadataSignature(metadata: Metadata, signature: string, rootMetadata: RootMetadata): Promise<true> {
 	const signedData = JSON.stringify(metadata, (key, value) => {
 		if (key === 'filedrop') {
@@ -29,6 +36,12 @@ export async function validateMetadataSignature(metadata: Metadata, signature: s
 	return verificationResult
 }
 
+/**
+ * Verifies all user certificates in the given metadata against the server public key.
+ *
+ * @param metadata - The root metadata
+ * @param serverPublicKeyPEM - The server public key in PEM format
+ */
 export async function validateUserCertificates(metadata: RootMetadata, serverPublicKeyPEM: string): Promise<true[]> {
 	const verifications = metadata.users.map(async ({ userId, certificate }) => {
 		const result = await validateCertificateSignature(certificate, serverPublicKeyPEM)

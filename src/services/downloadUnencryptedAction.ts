@@ -10,7 +10,13 @@ import { DefaultType, FileAction, FileType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
 import { isDownloadable } from './permissions.ts'
 
-async function downloadNodes([file]: Node[]) {
+/**
+ * Trigger downloading of given file (only the first node is downloaded).
+ *
+ * @param files - Array with one file to download
+ */
+async function downloadNodes(files: Node[]) {
+	const [file] = files
 	// Decryption happens in the proxy.
 	const response = await fetch(file.encodedSource)
 	const decryptedFileContent = await response.arrayBuffer()
