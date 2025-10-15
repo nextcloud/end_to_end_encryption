@@ -3,15 +3,14 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
+import type { Node, View } from '@nextcloud/files'
 
-import { loadState } from '@nextcloud/initial-state'
-import { registerFileAction, getFileActions, Node, View } from '@nextcloud/files'
+import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
-
-import { setupWebDavDecryptionProxy } from './services/webDavProxy.ts'
+import { loadState } from '@nextcloud/initial-state'
 import downloadUnencryptedAction from './services/downloadUnencryptedAction.ts'
 import logger from './services/logger.ts'
+import { setupWebDavDecryptionProxy } from './services/webDavProxy.ts'
 
 const userConfig = loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false })
 

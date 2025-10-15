@@ -1,12 +1,12 @@
-/* eslint-disable jsdoc/require-jsdoc */
 /**
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Metadata, RootMetadata } from '../models'
-import { validateCertificateSignature, validateCMSSignature } from './crypto.ts'
+import type { Metadata, RootMetadata } from '../models.ts'
+
 import { base64ToBuffer, stringToBuffer } from './bufferUtils.ts'
+import { validateCertificateSignature, validateCMSSignature } from './crypto.ts'
 
 export async function validateMetadataSignature(metadata: Metadata, signature: string, rootMetadata: RootMetadata): Promise<true> {
 	const signedData = JSON.stringify(metadata, (key, value) => {

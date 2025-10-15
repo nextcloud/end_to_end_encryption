@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { UserWithAccess } from '../models.ts'
+
 import { X509Certificate } from '@peculiar/x509'
-import { Certificate, CryptoEngine, SignedData, ContentInfo } from 'pkijs'
-
-import { bufferToHex, pemToBuffer } from './bufferUtils'
-import type { UserWithAccess } from '../models'
-
-/* eslint-disable jsdoc/require-jsdoc */
+import { Certificate, ContentInfo, CryptoEngine, SignedData } from 'pkijs'
+import { bufferToHex, pemToBuffer } from './bufferUtils.ts'
 
 export async function encryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}) {
 	const iv = self.crypto.getRandomValues(new Uint8Array(16))

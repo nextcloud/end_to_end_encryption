@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
+import type { DAVResult } from 'webdav'
+import type { FileEncryptionInfo, MetadataInfo } from '../models.ts'
 
-import { type DAVResult, parseStat, parseXML } from 'webdav'
 import { XMLBuilder } from 'fast-xml-parser'
 import { basename, dirname } from 'path'
-
-import { state } from './state.ts'
-import { isRootMetadata, type FileEncryptionInfo, type MetadataInfo } from '../models'
-import logger from './logger.ts'
-import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
+import { parseStat, parseXML } from 'webdav'
+import { isRootMetadata } from '../models.ts'
 import { base64ToBuffer } from './bufferUtils.ts'
+import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
+import logger from './logger.ts'
+import { state } from './state.ts'
 
 let originalFetch: typeof window.fetch
 

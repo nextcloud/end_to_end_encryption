@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Metadata, MetadataInfo } from '../models'
-import logger from './logger.ts'
+import type { Metadata, MetadataInfo } from '../models.ts'
+
 import { base64ToBuffer } from './bufferUtils.ts'
 import { decryptWithAES, decryptWithRSA, exportAESKey, loadAESPrivateKey, sha256Hash } from './crypto.ts'
-
-/* eslint-disable jsdoc/require-jsdoc */
+import logger from './logger.ts'
 
 export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey: CryptoKey): Promise<MetadataInfo> {
 	logger.debug('Decrypting metadata info', { metadata })

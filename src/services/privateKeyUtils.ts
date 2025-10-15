@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
-
-import logger from './logger.ts'
 import type { PrivateKeyInfo } from '../models.ts'
-import { decryptWithAES, loadRSAPrivateKey } from './crypto.ts'
+
 import { bufferToString, pemToBuffer } from './bufferUtils.ts'
+import { decryptWithAES, loadRSAPrivateKey } from './crypto.ts'
+import logger from './logger.ts'
 
 export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic: string): Promise<CryptoKey> {
 	logger.debug('Decrypting private key', { privateKeyInfo, mnemonic })

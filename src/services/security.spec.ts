@@ -4,10 +4,9 @@
  */
 
 import { expect, test } from 'vitest'
-
-import { validateMetadataSignature, validateUserCertificates } from './security.ts'
 import { rootFolderMetadata, rootFolderMetadataSignature } from '../../__tests__/consts.spec.ts'
 import { getServerPublicKey } from './api.ts'
+import { validateMetadataSignature, validateUserCertificates } from './security.ts'
 
 test('Metadata validation works with a valid signature', async () => {
 	await expect(validateMetadataSignature(rootFolderMetadata, rootFolderMetadataSignature, rootFolderMetadata)).resolves.toBeTruthy()

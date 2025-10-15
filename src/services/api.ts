@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
-import { generateOcsUrl } from '@nextcloud/router'
-import axios from '@nextcloud/axios'
 import type { OCSResponse } from '@nextcloud/typings/ocs'
-
 import type { PrivateKeyInfo } from '../models.ts'
-import { base64ToBuffer, pemToBuffer } from './bufferUtils.ts'
-import { loadServerPublicKey } from './crypto.ts'
+
+import axios from '@nextcloud/axios'
+import { generateOcsUrl } from '@nextcloud/router'
+import { base64ToBuffer } from './bufferUtils.ts'
 
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md
 

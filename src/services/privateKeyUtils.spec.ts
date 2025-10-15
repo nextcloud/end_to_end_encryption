@@ -4,9 +4,8 @@
  */
 
 import { expect, test } from 'vitest'
-
-import { decryptPrivateKey } from './privateKeyUtils.ts'
 import { adminMnemonic, adminPrivateKeyInfo, aliceMnemonic, alicePrivateKeyInfo } from '../../__tests__/consts.spec.ts'
+import { decryptPrivateKey } from './privateKeyUtils.ts'
 
 test('Can decrypt admin\'s private key', async () => {
 	const privateKey = await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic)

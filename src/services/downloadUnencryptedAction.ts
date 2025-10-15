@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
+import type { Node } from '@nextcloud/files'
 
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
-
+import { DefaultType, FileAction, FileType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
-import { FileAction, Node, FileType, DefaultType } from '@nextcloud/files'
-
 import { isDownloadable } from './permissions.ts'
 
 async function downloadNodes([file]: Node[]) {

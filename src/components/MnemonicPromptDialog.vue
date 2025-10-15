@@ -3,16 +3,13 @@
 	- SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
-<!-- eslint-disable jsdoc/require-jsdoc -->
-
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-
 import { t } from '@nextcloud/l10n'
-import NcDialog from '@nextcloud/vue/dist/Components/NcDialog.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
-import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import { computed, ref } from 'vue'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcDialog from '@nextcloud/vue/components/NcDialog'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 
 const emit = defineEmits<{
 	(e: 'close', mnemonic: string): void

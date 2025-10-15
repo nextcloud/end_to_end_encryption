@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
-
 type FileDropEntry = {
 	ciphertext: string, // encrypted metadata (AES/GCM/NoPadding, 128 bit key size) of folder (see below for the plaintext structure). first gzipped, then encrypted, then base64 encoded."
 	nonce: string,

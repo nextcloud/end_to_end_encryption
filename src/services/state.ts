@@ -1,21 +1,20 @@
-/* eslint-disable jsdoc/require-jsdoc */
 /**
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { dirname } from 'path'
 import type { WebDAVClient } from 'webdav'
+import type { Metadata, MetadataInfo, RootMetadata } from '../models.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import { getClient, getDefaultPropfind } from '@nextcloud/files/dav'
-
-import { isRootMetadata, type Metadata, type MetadataInfo, type RootMetadata } from '../models.ts'
-import { decryptPrivateKey } from './privateKeyUtils'
+import { dirname } from 'path'
+import { isRootMetadata } from '../models.ts'
 import { getPrivateKey, getServerPublicKey } from './api.ts'
-import { promptUserForMnemonic } from './mnemonicDialogs.ts'
-import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils.ts'
 import logger from './logger.ts'
+import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils.ts'
+import { promptUserForMnemonic } from './mnemonicDialogs.ts'
+import { decryptPrivateKey } from './privateKeyUtils.ts'
 import { validateMetadataSignature, validateUserCertificates } from './security.ts'
 
 const davClient = getClient() as WebDAVClient

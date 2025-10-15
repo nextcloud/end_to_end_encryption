@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
-
 export function bufferToString(buffer: Uint8Array): string {
 	return String.fromCharCode(...buffer)
 }

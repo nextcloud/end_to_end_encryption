@@ -39,20 +39,19 @@
 </template>
 
 <script>
-import { v4 as uuidv4 } from 'uuid'
-import { loadState } from '@nextcloud/initial-state'
 import { showError } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
 import { translate } from '@nextcloud/l10n'
+import { v4 as uuidv4 } from 'uuid'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcContent from '@nextcloud/vue/components/NcContent'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+import IconAlertCircle from 'vue-material-design-icons/AlertCircle.vue'
+import IconCheck from 'vue-material-design-icons/Check.vue'
 import { encryptFile } from '../services/crypto.js'
-import { uploadFile } from '../services/uploadFile.js'
 import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
 import logger from '../services/logger.js'
-
-import IconCheck from 'vue-material-design-icons/Check.vue'
-import IconAlertCircle from 'vue-material-design-icons/AlertCircle.vue'
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import { uploadFile } from '../services/uploadFile.js'
 
 /**
  * @readonly

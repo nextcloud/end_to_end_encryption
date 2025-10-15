@@ -32,14 +32,14 @@
 
 <script>
 import axios from '@nextcloud/axios'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
-import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
-import { loadState } from '@nextcloud/initial-state'
 import { showSuccess } from '@nextcloud/dialogs'
-import { generateOcsUrl } from '@nextcloud/router'
+import { loadState } from '@nextcloud/initial-state'
 import { getLoggerBuilder } from '@nextcloud/logger'
+import { generateOcsUrl } from '@nextcloud/router'
 import debounce from 'debounce'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
+import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 
 const logger = getLoggerBuilder()
 	.setApp('end_to_end_encryption')
