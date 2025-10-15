@@ -10,7 +10,8 @@
 		<p class="settings-hint">
 			{{ t('end_to_end_encryption', 'When at least one group is selected, only people of the listed groups can use the End-to-End encryption app.') }}
 		</p>
-		<NcSelect v-model="allowedGroups"
+		<NcSelect
+			v-model="allowedGroups"
 			class="admin-e2ee__group-select"
 			:disabled="loading"
 			:input-label="t('end_to_end_encryption', 'Limit app usage to groups')"
@@ -21,9 +22,10 @@
 			searchable
 			@search-change="searchGroup" />
 
-		<NcButton class="admin-e2ee__save-button"
+		<NcButton
+			class="admin-e2ee__save-button"
 			:loading="loading"
-			type="primary"
+			variant="primary"
 			@click="saveChanges">
 			{{ t('end_to_end_encryption', 'Save') }}
 		</NcButton>

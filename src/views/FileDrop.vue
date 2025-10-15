@@ -4,19 +4,23 @@
   -->
 <template>
 	<NcContent app-name="end_to_end_encryption">
-		<NcAppContent @drop.native.prevent="handleDrop"
+		<NcAppContent
+			@drop.native.prevent="handleDrop"
 			@dragover.native.prevent="handleDragOver"
 			@dragleave.native="highlightDropZone = false">
-			<div class="uploader-form"
+			<div
+				class="uploader-form"
 				:class="{ highlight: highlightDropZone }">
 				<div class="uploader-form__label">
 					<div class="uploader-form__icon icon-folder" />
 					{{ t("end_to_end_encryption", "Upload encrypted files to {fileName}", { fileName }) }}
 
-					<label class="uploader-form__input button primary"
+					<label
+						class="uploader-form__input button primary"
 						:class="{ loading }">
 						{{ t('end_to_end_encryption', 'Select or drop files') }}
-						<input type="file"
+						<input
+							type="file"
 							multiple
 							:disabled="loading"
 							@change="filesChange($event.target?.files)">
@@ -24,7 +28,8 @@
 				</div>
 
 				<ul class="uploader-form__file-list">
-					<li v-for="({file, step, error}, index) in uploadedFiles"
+					<li
+						v-for="({ file, step, error }, index) in uploadedFiles"
 						:key="index"
 						class="uploader-form__file-list__item">
 						<IconAlertCircle v-if="error" :size="20" />

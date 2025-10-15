@@ -4,24 +4,28 @@
   -->
 
 <template>
-	<NcSettingsSection :name="t('end_to_end_encryption', 'End-to-end encryption')"
+	<NcSettingsSection
+		:name="t('end_to_end_encryption', 'End-to-end encryption')"
 		:description="encryptionState">
-		<NcButton v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
+		<NcButton
+			v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
 			class="margin-bottom"
 			:disabled="!hasKey"
-			type="secondary"
+			variant="secondary"
 			@click="shouldDisplayE2EEInBrowserWarning = true">
 			{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
 		</NcButton>
-		<NcNoteCard v-else
+		<NcNoteCard
+			v-else
 			class="notecard"
 			type="warning"
 			:show-alert="true"
 			:heading="t('end_to_end_encryption', 'Enabling E2EE in the browser can weaken security')">
-			<NcButton v-if="userConfig['e2eeInBrowserEnabled'] === false"
+			<NcButton
+				v-if="userConfig['e2eeInBrowserEnabled'] === false"
 				class="close-button"
 				:aria-label="t('end_to_end_encryption', 'Close')"
-				type="tertiary-no-background"
+				variant="tertiary-no-background"
 				@click="shouldDisplayE2EEInBrowserWarning = false">
 				<template #icon>
 					<IconClose :size="20" />
@@ -30,7 +34,8 @@
 
 			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 
-			<NcCheckboxRadioSwitch :disabled="!hasKey"
+			<NcCheckboxRadioSwitch
+				:disabled="!hasKey"
 				data-cy-e2ee-settings-setting="e2ee_in_browser_enabled"
 				:checked="userConfig.e2eeInBrowserEnabled"
 				class="margin-bottom"
@@ -40,20 +45,23 @@
 			</NcCheckboxRadioSwitch>
 		</NcNoteCard>
 
-		<NcButton v-if="!shouldDisplayWarning"
+		<NcButton
+			v-if="!shouldDisplayWarning"
 			:disabled="!hasKey"
-			:type="(hasKey && !shouldDisplayWarning) ? 'error' : 'secondary'"
+			:variant="(hasKey && !shouldDisplayWarning) ? 'error' : 'secondary'"
 			@click="startResetProcess()">
 			{{ t('end_to_end_encryption', 'Reset end-to-end encryption') }}
 		</NcButton>
-		<NcNoteCard v-else
+		<NcNoteCard
+			v-else
 			class="notecard"
 			type="warning"
 			:show-alert="true"
 			:heading="t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys')">
-			<NcButton class="close-button"
+			<NcButton
+				class="close-button"
 				:aria-label="t('end_to_end_encryption', 'Close')"
-				type="tertiary-no-background"
+				variant="tertiary-no-background"
 				@click="shouldDisplayWarning = false">
 				<template #icon>
 					<IconClose :size="20" />
@@ -71,7 +79,7 @@
 				{{ t('end_to_end_encryption', 'Delete existing encrypted files') }}
 			</NcCheckboxRadioSwitch>
 
-			<NcButton type="error" @click="showDialog">
+			<NcButton variant="error" @click="showDialog">
 				{{ t('end_to_end_encryption', "Confirm and reset end-to-end encryption") }}
 			</NcButton>
 		</NcNoteCard>
