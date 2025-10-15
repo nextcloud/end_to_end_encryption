@@ -5,7 +5,7 @@
 	"license": "AGPL",
 	"authors": [
 		{
-			"name": "Georg Ehrke"
+			"name": "Nextcloud GmbH and Nextcloud contributors"
 		}
 	],
 	"require-dev": {
