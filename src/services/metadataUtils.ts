@@ -62,7 +62,7 @@ async function unzipBuffer(buffer: ArrayBuffer): Promise<string> {
 export async function getMetadataPrivateKey(metadata: Metadata, userId: string, privateKey: CryptoKey): Promise<CryptoKey> {
 	logger.debug('Getting metadata private key', { metadata, userId })
 
-	const userInfo = metadata.users?.find(user => user.userId === userId)
+	const userInfo = metadata.users?.find((user) => user.userId === userId)
 
 	if (!userInfo) {
 		throw new Error('User not found in metadata')

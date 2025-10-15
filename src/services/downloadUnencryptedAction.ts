@@ -34,17 +34,17 @@ export default new FileAction({
 			return false
 		}
 
-		if (nodes.some(node => node.attributes['e2ee-is-encrypted'] !== 1)) {
+		if (nodes.some((node) => node.attributes['e2ee-is-encrypted'] !== 1)) {
 			return false
 		}
 
 		// We can only download dav ressource
-		if (nodes.some(node => !node.isDavRessource)) {
+		if (nodes.some((node) => !node.isDavRessource)) {
 			return false
 		}
 
 		// We can only download files
-		if (nodes.some(node => node.type !== FileType.File)) {
+		if (nodes.some((node) => node.type !== FileType.File)) {
 			return false
 		}
 

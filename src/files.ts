@@ -28,11 +28,11 @@ function disableFileAction(actionId: string) {
 	logger.debug(`Inhibiting ${actionId} actions for e2ee files`)
 	const actions = getFileActions()
 
-	const action = actions.find(action => action.id === actionId) as unknown as { _action: { enabled: (nodes: Node[], view: View) => boolean } }
+	const action = actions.find((action) => action.id === actionId) as unknown as { _action: { enabled: (nodes: Node[], view: View) => boolean } }
 	const originalEnabled = action._action.enabled
 
 	action._action.enabled = (nodes: Node[], view: View) => {
-		if (nodes.some(node => node.attributes['e2ee-is-encrypted'] === 1)) {
+		if (nodes.some((node) => node.attributes['e2ee-is-encrypted'] === 1)) {
 			return false
 		}
 

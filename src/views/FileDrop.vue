@@ -88,6 +88,7 @@ export default {
 		IconCheck,
 		IconAlertCircle,
 	},
+
 	data() {
 		return {
 			/** @type {string} */
@@ -150,22 +151,23 @@ export default {
 			let progresses = []
 
 			try {
-				progresses = await Promise.all(
-					Array
-						.from(fileList)
-						.map((file) => this.uploadFile(file)),
-				)
+				progresses = await Promise.all(Array
+					.from(fileList)
+					.map((file) => this.uploadFile(file)))
 				logger.debug('[FileDrop] Files uploaded', { progresses })
 			} catch (exception) {
 				logger.error('[FileDrop] Error while uploading files', { exception })
 				showError(this.t('end_to_end_encryption', 'Error while uploading files'))
-				progresses.forEach(progress => { progress.error = true })
+
+				for (const progress of progresses) {
+					progress.error = true
+				}
 			}
 
 			try {
 				progresses
 					.filter(({ error }) => !error)
-					.forEach(progress => { progress.step = UploadStep.UPLOADING_METADATA })
+					.forEach((progress) => { progress.step = UploadStep.UPLOADING_METADATA })
 
 				const fileDrops = progresses
 					.filter(({ error }) => !error)
@@ -177,12 +179,15 @@ export default {
 			} catch (exception) {
 				logger.error('[FileDrop] Error while uploading metadata', { exception })
 				showError(this.t('end_to_end_encryption', 'Error while uploading metadata'))
-				progresses.forEach(progress => { progress.error = true })
+
+				for (const progress of progresses) {
+					progress.error = true
+				}
 			}
 
 			progresses
 				.filter(({ error }) => !error)
-				.forEach(progress => { progress.step = UploadStep.DONE })
+				.forEach((progress) => { progress.step = UploadStep.DONE })
 
 			this.loading = false
 		},

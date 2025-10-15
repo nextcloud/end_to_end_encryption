@@ -55,11 +55,12 @@ export default {
 		NcSelect,
 		NcSettingsSection,
 	},
+
 	data() {
 		return {
 			loading: false,
 			loadingGroups: true,
-			allowedGroups: loadState('end_to_end_encryption', 'allowed_groups').map(group => {
+			allowedGroups: loadState('end_to_end_encryption', 'allowed_groups').map((group) => {
 				return {
 					id: group,
 					displayname: group,
@@ -67,13 +68,16 @@ export default {
 			}).sort(function(a, b) {
 				return a.displayname.localeCompare(b.displayname)
 			}),
+
 			groups: [],
 		}
 	},
+
 	mounted() {
 		this.groups = this.allowedGroups
 		this.searchGroup()
 	},
+
 	methods: {
 		searchGroup: debounce(async function(query) {
 			this.loadingGroups = true
@@ -92,10 +96,11 @@ export default {
 				this.loadingGroups = false
 			}
 		}, 500),
+
 		saveChanges() {
 			this.loading = true
 			this.loadingGroups = true
-			const groups = this.allowedGroups.map(group => {
+			const groups = this.allowedGroups.map((group) => {
 				return group.id
 			})
 			OCP.AppConfig.setValue('end_to_end_encryption', 'allowed_groups', JSON.stringify(groups), {

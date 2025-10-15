@@ -35,11 +35,11 @@ export function setupWebDavDecryptionProxy() {
 		request = new Request(request, { headers })
 
 		switch (request.method) {
-		case 'PROPFIND':
-			return handlePropFind(request)
-		case 'GET':
-		default:
-			return handleGet(request)
+			case 'PROPFIND':
+				return handlePropFind(request)
+			case 'GET':
+			default:
+				return handleGet(request)
 		}
 	}
 }
@@ -59,7 +59,7 @@ async function handleGet(request: Request): Promise<Response> {
 		}
 
 		return await decryptFile(await responsePromise, fileInfo)
-	} catch (error) {
+	} catch {
 		return await responsePromise
 	}
 }
@@ -78,8 +78,8 @@ async function handlePropFind(request: Request) {
 	}
 
 	if (stat.type === 'directory') {
-		const rawMetadata = stat.props['e2ee-metadata'] as string|undefined
-		const metadataSignature = stat.props['e2ee-metadata-signature'] as string|undefined
+		const rawMetadata = stat.props['e2ee-metadata'] as string | undefined
+		const metadataSignature = stat.props['e2ee-metadata-signature'] as string | undefined
 		if (rawMetadata !== undefined && metadataSignature !== undefined) {
 			await state.setMetadata(
 				path,

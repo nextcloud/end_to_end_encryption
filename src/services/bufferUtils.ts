@@ -8,7 +8,7 @@ export function bufferToString(buffer: Uint8Array): string {
 }
 
 export function stringToBuffer(str: string): Uint8Array {
-	return Uint8Array.from(str, c => c.charCodeAt(0))
+	return Uint8Array.from(str, (c) => c.charCodeAt(0))
 }
 
 export function bufferToBase64(buffer: Uint8Array): string {
@@ -16,7 +16,9 @@ export function bufferToBase64(buffer: Uint8Array): string {
 }
 
 export function bufferToHex(buffer: Uint8Array): string {
-	return Array.from(buffer).map(byte => byte.toString(16).padStart(2, '0')).join('')
+	return Array.from(buffer)
+		.map((byte) => byte.toString(16).padStart(2, '0'))
+		.join('')
 }
 
 export function base64ToBuffer(base64Str: string): Uint8Array {

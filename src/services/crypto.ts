@@ -147,11 +147,9 @@ export async function validateCMSSignature(signedData: Uint8Array, cmsBuffer: Ui
 }
 
 class CustomCryptoEngine extends CryptoEngine {
-
 	verify(algorithm: globalThis.AlgorithmIdentifier | RsaPssParams | EcdsaParams, key: CryptoKey, signature: BufferSource, data: ArrayBuffer): Promise<boolean> {
 		return super.verify(algorithm, key, signature, new Uint8Array(data))
 	}
-
 }
 
 // Return a patched crypto engine because pkijs' default engine does not give the correct data type to the subtle.verify method

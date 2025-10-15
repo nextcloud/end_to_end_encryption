@@ -141,6 +141,7 @@ export default defineComponent({
 				})
 				.build()
 		},
+
 		encryptionState() {
 			if (this.hasKey) {
 				return t(
@@ -160,41 +161,38 @@ export default defineComponent({
 			}
 		},
 	},
+
 	methods: {
 		showDialog() {
 			this.confirmationDialog
 				.show()
 		},
+
 		startResetProcess() {
 			this.shouldDisplayWarning = true
 		},
+
 		async deletePrivateKey() {
-			const { data } = await axios.delete(
-				generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'),
-			)
+			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'))
 
 			return this.handleResponse({
 				status: data.ocs?.meta?.status,
 				error: null,
 			})
 		},
+
 		async deletePublicKey() {
-			const { data } = await axios.delete(
-				generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'),
-			)
+			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'))
 
 			return this.handleResponse({
 				status: data.ocs?.meta?.status,
 				error: null,
 			})
 		},
+
 		async deleteFiles() {
 			if (this.deleteEncryptedFiles) {
-				const { data } = await axios.delete(
-					generateOcsUrl(
-						'/apps/end_to_end_encryption/api/v1/encrypted-files',
-					),
-				)
+				const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/encrypted-files'))
 
 				return this.handleResponse({
 					status: data.ocs?.meta?.status,
@@ -203,6 +201,7 @@ export default defineComponent({
 			}
 			return true
 		},
+
 		async resetEncryption() {
 			try {
 				let success = true
@@ -211,12 +210,10 @@ export default defineComponent({
 				success = success && (await this.deleteFiles())
 
 				if (success) {
-					showSuccess(
-						t(
-							'end_to_end_encryption',
-							'End-to-end encryption keys reset',
-						),
-					)
+					showSuccess(t(
+						'end_to_end_encryption',
+						'End-to-end encryption keys reset',
+					))
 				}
 			} catch (e) {
 				this.handleResponse({
@@ -231,6 +228,7 @@ export default defineComponent({
 				this.hasKey = false
 			}
 		},
+
 		async handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)

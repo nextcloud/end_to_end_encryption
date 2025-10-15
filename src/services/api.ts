@@ -20,7 +20,7 @@ const Url = {
 }
 
 export async function getPrivateKey(): Promise<PrivateKeyInfo> {
-	const response = await axios.get<OCSResponse<{'private-key': string}>>(
+	const response = await axios.get<OCSResponse<{ 'private-key': string }>>(
 		generateOcsUrl(Url.PrivateKey),
 		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 	)
@@ -34,7 +34,7 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo> {
 }
 
 export async function getServerPublicKey(): Promise<string> {
-	const response = await axios.get<OCSResponse<{'public-key': string}>>(
+	const response = await axios.get<OCSResponse<{ 'public-key': string }>>(
 		generateOcsUrl(Url.ServerKey),
 		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 	)

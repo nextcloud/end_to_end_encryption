@@ -86,7 +86,7 @@ export const state = {
 		const cachedRootMetadata = Object.entries(state._metadataCache)
 			.filter(([metadataPath]) => path.startsWith(metadataPath))
 			.map(([, metadata]) => metadata)
-			.find(metadata => isRootMetadata(metadata))
+			.find((metadata) => isRootMetadata(metadata))
 
 		if (cachedRootMetadata) {
 			logger.debug('Found root metadata in cache', { path, state })

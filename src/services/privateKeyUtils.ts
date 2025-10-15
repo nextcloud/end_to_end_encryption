@@ -29,7 +29,9 @@ export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic
 
 			const pemKey = atob(bufferToString(new Uint8Array(rawPrivateKey)))
 			return loadRSAPrivateKey(pemToBuffer(pemKey))
-		} catch {
+		} catch (error) {
+			logger.debug('Failed to decrypt private key with mnemonic', { error })
+			// Try the next one
 		}
 	}
 
