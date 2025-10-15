@@ -55,7 +55,7 @@ import IconAlertCircle from 'vue-material-design-icons/AlertCircle.vue'
 import IconCheck from 'vue-material-design-icons/Check.vue'
 import { encryptFile } from '../services/crypto.js'
 import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
-import logger from '../services/logger.js'
+import logger from '../services/logger.ts'
 import { uploadFile } from '../services/uploadFile.js'
 
 /**

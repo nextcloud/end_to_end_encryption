@@ -5,7 +5,7 @@
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
 import { encryptStringAsymmetric, encryptWithAES, getRandomEncryptionParams } from './crypto.js'
-import logger from './logger.js'
+import logger from './logger.ts'
 
 /**
  * @typedef {object} FileMetadata

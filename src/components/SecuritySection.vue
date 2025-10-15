@@ -98,7 +98,7 @@ import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwit
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import IconClose from 'vue-material-design-icons/Close.vue'
-import logger from '../services/logger.js'
+import logger from '../services/logger.ts'
 
 export default defineComponent({
 	name: 'SecuritySection',
