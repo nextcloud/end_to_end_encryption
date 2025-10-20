@@ -46,13 +46,13 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.12.3
 	- license: MIT
 - asn1js
-	- version: 3.0.5
+	- version: 3.0.6
 	- license: BSD-3-Clause
 - ipaddr.js
 	- version: 2.2.0
 	- license: MIT
 - pvtsutils
-	- version: 1.3.5
+	- version: 1.3.6
 	- license: MIT
 - pvutils
 	- version: 1.1.3
