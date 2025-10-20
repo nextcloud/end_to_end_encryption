@@ -20,6 +20,7 @@ use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
+use PHPUnit\Framework\MockObject\MockObject;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
@@ -28,10 +29,10 @@ use Test\TestCase;
 
 class LockPluginTest extends TestCase {
 
-	private IRootFolder&\PHPUnit\Framework\MockObject\MockObject $rootFolder;
-	private IUserSession&\PHPUnit\Framework\MockObject\MockObject $userSession;
-	private LockManager&\PHPUnit\Framework\MockObject\MockObject $lockManager;
-	private UserAgentManager&\PHPUnit\Framework\MockObject\MockObject $userAgentManager;
+	private IRootFolder&MockObject $rootFolder;
+	private IUserSession&MockObject $userSession;
+	private LockManager&MockObject $lockManager;
+	private UserAgentManager&MockObject $userAgentManager;
 	private LockPlugin $plugin;
 
 	protected function setUp(): void {
