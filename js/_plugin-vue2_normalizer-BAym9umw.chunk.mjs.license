@@ -94,7 +94,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.12.0
 	- license: MIT
 - vite
-	- version: 7.1.9
+	- version: 7.1.10
 	- license: MIT
 - vite-plugin-node-polyfills
 	- version: 0.24.0
