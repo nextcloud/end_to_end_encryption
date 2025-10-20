@@ -36,6 +36,7 @@
 import axios from '@nextcloud/axios'
 import { showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
 import { getLoggerBuilder } from '@nextcloud/logger'
 import { generateOcsUrl } from '@nextcloud/router'
 import debounce from 'debounce'
@@ -54,6 +55,12 @@ export default {
 		NcButton,
 		NcSelect,
 		NcSettingsSection,
+	},
+
+	setup() {
+		return {
+			t,
+		}
 	},
 
 	data() {

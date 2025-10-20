@@ -32,11 +32,11 @@ function submit() {
 const buttons = computed(() => [
 	{
 		label: t('end_to_en_encryption', 'Submit'),
-		nativeType: 'submit',
-		type: 'primary',
+		type: 'submit',
+		variant: 'primary',
 		disabled: !isFormValid.value,
 		callback: submit,
-	},
+	} as const,
 ])
 </script>
 
@@ -48,8 +48,8 @@ const buttons = computed(() => [
 		:is-form="true"
 		@submit="submit">
 		<NcNoteCard
+			show-alert
 			type="warning"
-			:show-alert="true"
 			:heading="t('end_to_end_encryption', 'Decrypting your files in the browser can weaken security')">
 			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 
@@ -63,10 +63,10 @@ const buttons = computed(() => [
 		</NcNoteCard>
 
 		<NcTextField
-			:value.sync="mnemonic"
-			required="true"
+			v-model="mnemonic"
+			autofocus
+			required
 			pattern="^(\w+\s+){11}\w+$"
-			:label="t('end_to_end_encryption', 'Mnemonic')"
-			:autofocus="true" />
+			:label="t('end_to_end_encryption', 'Mnemonic')" />
 	</NcDialog>
 </template>

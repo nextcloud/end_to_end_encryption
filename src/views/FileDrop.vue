@@ -5,9 +5,9 @@
 <template>
 	<NcContent app-name="end_to_end_encryption">
 		<NcAppContent
-			@drop.native.prevent="handleDrop"
-			@dragover.native.prevent="handleDragOver"
-			@dragleave.native="highlightDropZone = false">
+			@drop.prevent="handleDrop"
+			@dragover.prevent="handleDragOver"
+			@dragleave="highlightDropZone = false">
 			<div
 				class="uploader-form"
 				:class="{ highlight: highlightDropZone }">

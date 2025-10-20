@@ -37,10 +37,10 @@
 			<NcCheckboxRadioSwitch
 				:disabled="!hasKey"
 				data-cy-e2ee-settings-setting="e2ee_in_browser_enabled"
-				:checked="userConfig.e2eeInBrowserEnabled"
+				:model-value="userConfig.e2eeInBrowserEnabled"
 				class="margin-bottom"
 				type="switch"
-				@update:checked="value => setConfig('e2eeInBrowserEnabled', value)">
+				@update:model-value="value => setConfig('e2eeInBrowserEnabled', value)">
 				{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
 			</NcCheckboxRadioSwitch>
 		</NcNoteCard>
@@ -75,7 +75,7 @@
 				<li>{{ t('end_to_end_encryption', 'Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again.') }}</li>
 			</ul>
 
-			<NcCheckboxRadioSwitch :checked.sync="deleteEncryptedFiles" type="switch" class="margin-bottom">
+			<NcCheckboxRadioSwitch v-model="deleteEncryptedFiles" type="switch" class="margin-bottom">
 				{{ t('end_to_end_encryption', 'Delete existing encrypted files') }}
 			</NcCheckboxRadioSwitch>
 
@@ -90,7 +90,7 @@
 import axios from '@nextcloud/axios'
 import { DialogBuilder, showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
-import { translate as t } from '@nextcloud/l10n'
+import { t } from '@nextcloud/l10n'
 import { generateOcsUrl, generateUrl } from '@nextcloud/router'
 import { defineComponent } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
@@ -108,6 +108,12 @@ export default defineComponent({
 		NcCheckboxRadioSwitch,
 		NcNoteCard,
 		IconClose,
+	},
+
+	setup() {
+		return {
+			t,
+		}
 	},
 
 	data() {
@@ -244,8 +250,6 @@ export default defineComponent({
 			})
 			this.userConfig[key] = value
 		},
-
-		t,
 	},
 })
 </script>

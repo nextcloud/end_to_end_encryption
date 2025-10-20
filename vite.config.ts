@@ -12,10 +12,10 @@ import { join } from 'path'
 declare const __dirname: string
 
 export default createAppConfig({
-	files: join(__dirname, 'src', 'files.ts'),
-	settings: join(__dirname, 'src', 'settings.js'),
+	files: join(__dirname, 'src', 'main-files.ts'),
+	filedrop: join(__dirname, 'src', 'main-filedrop.js'),
+	settings: join(__dirname, 'src', 'settings-user.js'),
 	adminSettings: join(__dirname, 'src', 'settings-admin.js'),
-	filedrop: join(__dirname, 'src', 'filedrop.js'),
 }, {
 	inlineCSS: { relativeCSSInjection: true },
 	extractLicenseInformation: true,
