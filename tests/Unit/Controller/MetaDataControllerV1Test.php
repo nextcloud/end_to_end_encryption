@@ -23,41 +23,25 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class MetaDataControllerV1Test extends TestCase {
 
 
-	/** @var string */
-	private $appName;
+	private string $appName;
+	private string $userId;
 
-	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
-	private $request;
-
-	/** @var string */
-	private $userId;
-
-	/** @var IMetaDataStorageV1|\PHPUnit\Framework\MockObject\MockObject */
-	private $metaDataStorage;
-
-	/** @var LockManagerV1|\PHPUnit\Framework\MockObject\MockObject */
-	private $lockManager;
-
-	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-	private $logger;
-
-	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
-	private $l10n;
-
-	/** @var ShareManager|\PHPUnit\Framework\MockObject\MockObject */
-	private $shareManager;
-
-	/** @var MetaDataController */
-	private $controller;
-
-	/** @var IRootFolder */
-	private $rootFolder;
+	private IRequest&MockObject $request;
+	private IMetaDataStorageV1&MockObject $metaDataStorage;
+	private LockManagerV1&MockObject $lockManager;
+	private LoggerInterface&MockObject $logger;
+	private IL10N&MockObject $l10n;
+	private ShareManager&MockObject $shareManager;
+	private MetaDataController&MockObject $controller;
+	private IRootFolder&MockObject $rootFolder;
 
 
 	protected function setUp(): void {
@@ -86,18 +70,13 @@ class MetaDataControllerV1Test extends TestCase {
 		);
 	}
 
-	/**
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
-	 *
-	 * @dataProvider getMetaDataDataProvider
-	 */
-	public function testGetMetaData(?\Exception $metaDataStorageException,
+	#[DataProvider('getMetaDataDataProvider')]
+	public function testGetMetaData(
+		?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
-		bool $expectLogger): void {
+		bool $expectLogger,
+	): void {
 		$fileId = 42;
 		$metaData = 'JSON-ENCODED-META-DATA';
 		if ($metaDataStorageException) {
@@ -138,7 +117,7 @@ class MetaDataControllerV1Test extends TestCase {
 		}
 	}
 
-	public function getMetaDataDataProvider(): array {
+	public static function getMetaDataDataProvider(): array {
 		return [
 			[null, null, null, false],
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', false],
@@ -146,22 +125,15 @@ class MetaDataControllerV1Test extends TestCase {
 		];
 	}
 
-	/**
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
-	 * @param array|null $expectedResponseData
-	 * @param int|null $expectedResponseCode
-	 *
-	 * @dataProvider setMetaDataDataProvider
-	 */
-	public function testSetMetaData(?\Exception $metaDataStorageException,
+	#[DataProvider('setMetaDataDataProvider')]
+	public function testSetMetaData(
+		?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
 		bool $expectLogger,
 		?array $expectedResponseData,
-		?int $expectedResponseCode): void {
+		?int $expectedResponseCode,
+	): void {
 		$fileId = 42;
 		$metaData = 'JSON-ENCODED-META-DATA';
 		if ($metaDataStorageException) {
@@ -200,7 +172,7 @@ class MetaDataControllerV1Test extends TestCase {
 		}
 	}
 
-	public function setMetaDataDataProvider(): array {
+	public static function setMetaDataDataProvider(): array {
 		return [
 			[null, null, null, false, ['meta-data' => 'JSON-ENCODED-META-DATA'], 200],
 			[new MetaDataExistsException(), null, null, false, [], 409],
@@ -209,20 +181,14 @@ class MetaDataControllerV1Test extends TestCase {
 		];
 	}
 
-	/**
-	 * @param bool $isLocked
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
-	 *
-	 * @dataProvider updateMetaDataDataProvider
-	 */
-	public function testUpdateMetaData(bool $isLocked,
+	#[DataProvider('updateMetaDataDataProvider')]
+	public function testUpdateMetaData(
+		bool $isLocked,
 		?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
-		bool $expectLogger): void {
+		bool $expectLogger,
+	): void {
 		$fileId = 42;
 		$sendToken = 'sendE2EToken';
 		$metaData = 'JSON-ENCODED-META-DATA';
@@ -275,7 +241,7 @@ class MetaDataControllerV1Test extends TestCase {
 		}
 	}
 
-	public function updateMetaDataDataProvider(): array {
+	public static function updateMetaDataDataProvider(): array {
 		return [
 			[false, null, null, null, false],
 			[true, null, OCSForbiddenException::class, 'You are not allowed to edit the file, make sure to first lock it, and then send the right token', false],
@@ -285,18 +251,13 @@ class MetaDataControllerV1Test extends TestCase {
 		];
 	}
 
-	/**
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
-	 *
-	 * @dataProvider deleteMetaDataDataProvider
-	 */
-	public function testDeleteMetaData(?\Exception $metaDataStorageException,
+	#[DataProvider('deleteMetaDataDataProvider')]
+	public function testDeleteMetaData(
+		?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
-		bool $expectLogger): void {
+		bool $expectLogger
+	): void {
 		$fileId = 42;
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
@@ -333,7 +294,7 @@ class MetaDataControllerV1Test extends TestCase {
 		}
 	}
 
-	public function deleteMetaDataDataProvider(): array {
+	public static function deleteMetaDataDataProvider(): array {
 		return [
 			[null, null, null, false],
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', false],
