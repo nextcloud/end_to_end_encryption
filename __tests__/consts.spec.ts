@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Metadata, MetadataInfo, PrivateKeyInfo, RootMetadata } from '../src/models.ts'
+import type { Metadata, MetadataInfo, PrivateKeyInfo, RootMetadata } from '../src/models.ts'
+
 import { base64ToBuffer } from '../src/services/bufferUtils.ts'
 
 // Legacy mnemonic with 1024 iterations and using sha-1

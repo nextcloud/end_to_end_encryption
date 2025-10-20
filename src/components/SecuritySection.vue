@@ -4,24 +4,28 @@
   -->
 
 <template>
-	<NcSettingsSection :name="t('end_to_end_encryption', 'End-to-end encryption')"
+	<NcSettingsSection
+		:name="t('end_to_end_encryption', 'End-to-end encryption')"
 		:description="encryptionState">
-		<NcButton v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
+		<NcButton
+			v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
 			class="margin-bottom"
 			:disabled="!hasKey"
-			type="secondary"
+			variant="secondary"
 			@click="shouldDisplayE2EEInBrowserWarning = true">
 			{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
 		</NcButton>
-		<NcNoteCard v-else
+		<NcNoteCard
+			v-else
 			class="notecard"
 			type="warning"
 			:show-alert="true"
 			:heading="t('end_to_end_encryption', 'Enabling E2EE in the browser can weaken security')">
-			<NcButton v-if="userConfig['e2eeInBrowserEnabled'] === false"
+			<NcButton
+				v-if="userConfig['e2eeInBrowserEnabled'] === false"
 				class="close-button"
 				:aria-label="t('end_to_end_encryption', 'Close')"
-				type="tertiary-no-background"
+				variant="tertiary-no-background"
 				@click="shouldDisplayE2EEInBrowserWarning = false">
 				<template #icon>
 					<IconClose :size="20" />
@@ -30,7 +34,8 @@
 
 			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 
-			<NcCheckboxRadioSwitch :disabled="!hasKey"
+			<NcCheckboxRadioSwitch
+				:disabled="!hasKey"
 				data-cy-e2ee-settings-setting="e2ee_in_browser_enabled"
 				:checked="userConfig.e2eeInBrowserEnabled"
 				class="margin-bottom"
@@ -40,20 +45,23 @@
 			</NcCheckboxRadioSwitch>
 		</NcNoteCard>
 
-		<NcButton v-if="!shouldDisplayWarning"
+		<NcButton
+			v-if="!shouldDisplayWarning"
 			:disabled="!hasKey"
-			:type="(hasKey && !shouldDisplayWarning) ? 'error' : 'secondary'"
+			:variant="(hasKey && !shouldDisplayWarning) ? 'error' : 'secondary'"
 			@click="startResetProcess()">
 			{{ t('end_to_end_encryption', 'Reset end-to-end encryption') }}
 		</NcButton>
-		<NcNoteCard v-else
+		<NcNoteCard
+			v-else
 			class="notecard"
 			type="warning"
 			:show-alert="true"
 			:heading="t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys')">
-			<NcButton class="close-button"
+			<NcButton
+				class="close-button"
 				:aria-label="t('end_to_end_encryption', 'Close')"
-				type="tertiary-no-background"
+				variant="tertiary-no-background"
 				@click="shouldDisplayWarning = false">
 				<template #icon>
 					<IconClose :size="20" />
@@ -71,7 +79,7 @@
 				{{ t('end_to_end_encryption', 'Delete existing encrypted files') }}
 			</NcCheckboxRadioSwitch>
 
-			<NcButton type="error" @click="showDialog">
+			<NcButton variant="error" @click="showDialog">
 				{{ t('end_to_end_encryption', "Confirm and reset end-to-end encryption") }}
 			</NcButton>
 		</NcNoteCard>
@@ -79,20 +87,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import IconClose from 'vue-material-design-icons/Close.vue'
-
 import axios from '@nextcloud/axios'
-import { translate as t } from '@nextcloud/l10n'
-import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import { DialogBuilder, showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
-import { showError, showSuccess, DialogBuilder } from '@nextcloud/dialogs'
+import { translate as t } from '@nextcloud/l10n'
 import { generateOcsUrl, generateUrl } from '@nextcloud/router'
-
-import logger from '../services/logger.js'
+import { defineComponent } from 'vue'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
+import IconClose from 'vue-material-design-icons/Close.vue'
+import logger from '../services/logger.ts'
 
 export default defineComponent({
 	name: 'SecuritySection',
@@ -135,6 +141,7 @@ export default defineComponent({
 				})
 				.build()
 		},
+
 		encryptionState() {
 			if (this.hasKey) {
 				return t(
@@ -154,41 +161,38 @@ export default defineComponent({
 			}
 		},
 	},
+
 	methods: {
 		showDialog() {
 			this.confirmationDialog
 				.show()
 		},
+
 		startResetProcess() {
 			this.shouldDisplayWarning = true
 		},
+
 		async deletePrivateKey() {
-			const { data } = await axios.delete(
-				generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'),
-			)
+			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'))
 
 			return this.handleResponse({
 				status: data.ocs?.meta?.status,
 				error: null,
 			})
 		},
+
 		async deletePublicKey() {
-			const { data } = await axios.delete(
-				generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'),
-			)
+			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'))
 
 			return this.handleResponse({
 				status: data.ocs?.meta?.status,
 				error: null,
 			})
 		},
+
 		async deleteFiles() {
 			if (this.deleteEncryptedFiles) {
-				const { data } = await axios.delete(
-					generateOcsUrl(
-						'/apps/end_to_end_encryption/api/v1/encrypted-files',
-					),
-				)
+				const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/encrypted-files'))
 
 				return this.handleResponse({
 					status: data.ocs?.meta?.status,
@@ -197,6 +201,7 @@ export default defineComponent({
 			}
 			return true
 		},
+
 		async resetEncryption() {
 			try {
 				let success = true
@@ -205,12 +210,10 @@ export default defineComponent({
 				success = success && (await this.deleteFiles())
 
 				if (success) {
-					showSuccess(
-						t(
-							'end_to_end_encryption',
-							'End-to-end encryption keys reset',
-						),
-					)
+					showSuccess(t(
+						'end_to_end_encryption',
+						'End-to-end encryption keys reset',
+					))
 				}
 			} catch (e) {
 				this.handleResponse({
@@ -225,6 +228,7 @@ export default defineComponent({
 				this.hasKey = false
 			}
 		},
+
 		async handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)

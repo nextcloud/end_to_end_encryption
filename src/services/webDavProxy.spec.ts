@@ -5,10 +5,9 @@
 
 import { expect, test } from 'vitest'
 import { parseXML } from 'webdav'
-
+import { encryptedFileContent, rootFolderMetadataInfo, rootFolderPropfindResponse } from '../../__tests__/consts.spec.ts'
 import { base64ToBuffer } from './bufferUtils.ts'
 import { decryptFile, replacePlaceholdersInPropfind } from './webDavProxy.ts'
-import { encryptedFileContent, rootFolderMetadataInfo, rootFolderPropfindResponse } from '../../__tests__/consts.spec.ts'
 
 test('Correctly replace file info in PROPFIND', async () => {
 	const xml = await parseXML(rootFolderPropfindResponse)

@@ -4,7 +4,6 @@
  */
 
 import { expect, test } from 'vitest'
-
 import { base64ToBuffer, bufferToBase64, bufferToString, pemToBuffer } from './bufferUtils.ts'
 
 test('Strings are correctly converted back and forth', async () => {

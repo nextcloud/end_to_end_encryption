@@ -4,9 +4,9 @@
  */
 
 import type { UserConfig } from 'vitest/node'
-import { join } from 'path'
 
 import { createAppConfig } from '@nextcloud/vite-config'
+import { join } from 'path'
 
 // replaced by vite
 declare const __dirname: string

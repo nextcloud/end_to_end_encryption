@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
-
 import { spawnDialog } from '@nextcloud/dialogs'
-import '@nextcloud/dialogs/style.css'
-
 import MnemonicPromptDialog from '../components/MnemonicPromptDialog.vue'
 
+import '@nextcloud/dialogs/style.css'
+
+/**
+ * Prompts the user for their mnemonic using a dialog.
+ */
 export async function promptUserForMnemonic(): Promise<string> {
 	const promiseWithResolvers = Promise.withResolvers<string>()
 

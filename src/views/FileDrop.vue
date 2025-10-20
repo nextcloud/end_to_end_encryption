@@ -4,19 +4,23 @@
   -->
 <template>
 	<NcContent app-name="end_to_end_encryption">
-		<NcAppContent @drop.native.prevent="handleDrop"
+		<NcAppContent
+			@drop.native.prevent="handleDrop"
 			@dragover.native.prevent="handleDragOver"
 			@dragleave.native="highlightDropZone = false">
-			<div class="uploader-form"
+			<div
+				class="uploader-form"
 				:class="{ highlight: highlightDropZone }">
 				<div class="uploader-form__label">
 					<div class="uploader-form__icon icon-folder" />
 					{{ t("end_to_end_encryption", "Upload encrypted files to {fileName}", { fileName }) }}
 
-					<label class="uploader-form__input button primary"
+					<label
+						class="uploader-form__input button primary"
 						:class="{ loading }">
 						{{ t('end_to_end_encryption', 'Select or drop files') }}
-						<input type="file"
+						<input
+							type="file"
 							multiple
 							:disabled="loading"
 							@change="filesChange($event.target?.files)">
@@ -24,7 +28,8 @@
 				</div>
 
 				<ul class="uploader-form__file-list">
-					<li v-for="({file, step, error}, index) in uploadedFiles"
+					<li
+						v-for="({ file, step, error }, index) in uploadedFiles"
 						:key="index"
 						class="uploader-form__file-list__item">
 						<IconAlertCircle v-if="error" :size="20" />
@@ -39,20 +44,19 @@
 </template>
 
 <script>
-import { v4 as uuidv4 } from 'uuid'
-import { loadState } from '@nextcloud/initial-state'
 import { showError } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
 import { translate } from '@nextcloud/l10n'
-import { encryptFile } from '../services/crypto.js'
-import { uploadFile } from '../services/uploadFile.js'
-import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
-import logger from '../services/logger.js'
-
-import IconCheck from 'vue-material-design-icons/Check.vue'
+import { v4 as uuidv4 } from 'uuid'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcContent from '@nextcloud/vue/components/NcContent'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import IconAlertCircle from 'vue-material-design-icons/AlertCircle.vue'
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import IconCheck from 'vue-material-design-icons/Check.vue'
+import { encryptFile } from '../services/crypto.js'
+import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
+import logger from '../services/logger.ts'
+import { uploadFile } from '../services/uploadFile.js'
 
 /**
  * @readonly
@@ -84,6 +88,7 @@ export default {
 		IconCheck,
 		IconAlertCircle,
 	},
+
 	data() {
 		return {
 			/** @type {string} */
@@ -146,22 +151,23 @@ export default {
 			let progresses = []
 
 			try {
-				progresses = await Promise.all(
-					Array
-						.from(fileList)
-						.map((file) => this.uploadFile(file)),
-				)
+				progresses = await Promise.all(Array
+					.from(fileList)
+					.map((file) => this.uploadFile(file)))
 				logger.debug('[FileDrop] Files uploaded', { progresses })
 			} catch (exception) {
 				logger.error('[FileDrop] Error while uploading files', { exception })
 				showError(this.t('end_to_end_encryption', 'Error while uploading files'))
-				progresses.forEach(progress => { progress.error = true })
+
+				for (const progress of progresses) {
+					progress.error = true
+				}
 			}
 
 			try {
 				progresses
 					.filter(({ error }) => !error)
-					.forEach(progress => { progress.step = UploadStep.UPLOADING_METADATA })
+					.forEach((progress) => { progress.step = UploadStep.UPLOADING_METADATA })
 
 				const fileDrops = progresses
 					.filter(({ error }) => !error)
@@ -173,12 +179,15 @@ export default {
 			} catch (exception) {
 				logger.error('[FileDrop] Error while uploading metadata', { exception })
 				showError(this.t('end_to_end_encryption', 'Error while uploading metadata'))
-				progresses.forEach(progress => { progress.error = true })
+
+				for (const progress of progresses) {
+					progress.error = true
+				}
 			}
 
 			progresses
 				.filter(({ error }) => !error)
-				.forEach(progress => { progress.step = UploadStep.DONE })
+				.forEach((progress) => { progress.step = UploadStep.DONE })
 
 			this.loading = false
 		},

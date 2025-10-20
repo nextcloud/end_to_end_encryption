@@ -4,9 +4,7 @@
  */
 
 import { expect, test } from 'vitest'
-
-import { rootFolderMetadata, rootFolderMetadataInfo, adminMnemonic, adminPrivateKeyInfo, subfolderMetadata, subfolderMetadataInfo } from '../../__tests__/consts.spec.ts'
-
+import { adminMnemonic, adminPrivateKeyInfo, rootFolderMetadata, rootFolderMetadataInfo, subfolderMetadata, subfolderMetadataInfo } from '../../__tests__/consts.spec.ts'
 import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils.ts'
 import { decryptPrivateKey } from './privateKeyUtils.ts'
 

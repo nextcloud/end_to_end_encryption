@@ -3,16 +3,20 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
+import type { Node } from '@nextcloud/files'
 
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
-
+import { DefaultType, FileAction, FileType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
-import { FileAction, Node, FileType, DefaultType } from '@nextcloud/files'
-
 import { isDownloadable } from './permissions.ts'
 
-async function downloadNodes([file]: Node[]) {
+/**
+ * Trigger downloading of given file (only the first node is downloaded).
+ *
+ * @param files - Array with one file to download
+ */
+async function downloadNodes(files: Node[]) {
+	const [file] = files
 	// Decryption happens in the proxy.
 	const response = await fetch(file.encodedSource)
 	const decryptedFileContent = await response.arrayBuffer()
@@ -36,17 +40,17 @@ export default new FileAction({
 			return false
 		}
 
-		if (nodes.some(node => node.attributes['e2ee-is-encrypted'] !== 1)) {
+		if (nodes.some((node) => node.attributes['e2ee-is-encrypted'] !== 1)) {
 			return false
 		}
 
 		// We can only download dav ressource
-		if (nodes.some(node => !node.isDavRessource)) {
+		if (nodes.some((node) => !node.isDavRessource)) {
 			return false
 		}
 
 		// We can only download files
-		if (nodes.some(node => node.type !== FileType.File)) {
+		if (nodes.some((node) => node.type !== FileType.File)) {
 			return false
 		}
 

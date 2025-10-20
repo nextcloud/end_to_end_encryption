@@ -4,7 +4,6 @@
  */
 
 import { expect, test } from 'vitest'
-
 import { base64ToBuffer } from './bufferUtils.ts'
 import { sha256Hash, validateCertificateSignature } from './crypto.ts'
 

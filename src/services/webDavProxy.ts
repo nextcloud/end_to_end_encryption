@@ -3,20 +3,23 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-/* eslint-disable jsdoc/require-jsdoc */
+import type { DAVResult } from 'webdav'
+import type { FileEncryptionInfo, MetadataInfo } from '../models.ts'
 
-import { type DAVResult, parseStat, parseXML } from 'webdav'
 import { XMLBuilder } from 'fast-xml-parser'
 import { basename, dirname } from 'path'
-
-import { state } from './state.ts'
-import { isRootMetadata, type FileEncryptionInfo, type MetadataInfo } from '../models'
-import logger from './logger.ts'
-import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
+import { parseStat, parseXML } from 'webdav'
+import { isRootMetadata } from '../models.ts'
 import { base64ToBuffer } from './bufferUtils.ts'
+import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
+import logger from './logger.ts'
+import { state } from './state.ts'
 
 let originalFetch: typeof window.fetch
 
+/**
+ * Sets up a proxy for WebDAV requests to handle decryption of files and metadata.
+ */
 export function setupWebDavDecryptionProxy() {
 	originalFetch = window.fetch
 	logger.debug('Setting up WebDAV decryption proxy')
@@ -35,15 +38,20 @@ export function setupWebDavDecryptionProxy() {
 		request = new Request(request, { headers })
 
 		switch (request.method) {
-		case 'PROPFIND':
-			return handlePropFind(request)
-		case 'GET':
-		default:
-			return handleGet(request)
+			case 'PROPFIND':
+				return handlePropFind(request)
+			case 'GET':
+			default:
+				return handleGet(request)
 		}
 	}
 }
 
+/**
+ * Callback to handle GET requests.
+ *
+ * @param request - The fetch request
+ */
 async function handleGet(request: Request): Promise<Response> {
 	const path = new URL(request.url).pathname
 	const responsePromise = originalFetch(request)
@@ -59,11 +67,14 @@ async function handleGet(request: Request): Promise<Response> {
 		}
 
 		return await decryptFile(await responsePromise, fileInfo)
-	} catch (error) {
+	} catch {
 		return await responsePromise
 	}
 }
 
+/**
+ * @param request - The fetch request
+ */
 async function handlePropFind(request: Request) {
 	logger.debug('Fetching raw PROPFIND', { request })
 	const response = await originalFetch(request)
@@ -78,8 +89,8 @@ async function handlePropFind(request: Request) {
 	}
 
 	if (stat.type === 'directory') {
-		const rawMetadata = stat.props['e2ee-metadata'] as string|undefined
-		const metadataSignature = stat.props['e2ee-metadata-signature'] as string|undefined
+		const rawMetadata = stat.props['e2ee-metadata'] as string | undefined
+		const metadataSignature = stat.props['e2ee-metadata-signature'] as string | undefined
 		if (rawMetadata !== undefined && metadataSignature !== undefined) {
 			await state.setMetadata(
 				path,
@@ -111,6 +122,12 @@ async function handlePropFind(request: Request) {
 	return new Response(new XMLBuilder().build(xml), response)
 }
 
+/**
+ * @param xml - The XML response
+ * @param path - The path of the file or folder
+ * @param decryptedMetadata - The decrypted metadata for the file or folder
+ * @param decryptedParentMetadata - The decrypted metadata for the parent folder
+ */
 export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decryptedMetadata?: MetadataInfo, decryptedParentMetadata?: MetadataInfo): void {
 	logger.debug('Updating PROPFIND info', { path, decryptedMetadata, decryptedParentMetadata, xml })
 
@@ -140,6 +157,12 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decr
 	})
 }
 
+/**
+ * Decrypts a file from a fetch response using the provided file encryption info.
+ *
+ * @param response - The fetch response
+ * @param fileEncryptionInfo - The file encryption info
+ */
 export async function decryptFile(response: Response, fileEncryptionInfo: FileEncryptionInfo): Promise<Response> {
 	logger.debug('Decrypting encrypted file', { response, fileEncryptionInfo })
 	const decryptedFileContent = await decryptWithAES(

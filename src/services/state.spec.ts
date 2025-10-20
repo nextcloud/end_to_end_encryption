@@ -4,9 +4,8 @@
  */
 
 import { expect, test, vi } from 'vitest'
-
-import { state } from './state.ts'
 import { adminMnemonic, rootFolderMetadata, subfolderMetadata } from '../../__tests__/consts.spec.ts'
+import { state } from './state.ts'
 import { setupWebDavDecryptionProxy } from './webDavProxy.ts'
 
 vi.mock('@nextcloud/auth', async () => {

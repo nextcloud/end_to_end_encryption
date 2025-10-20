@@ -3,14 +3,19 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { UserWithAccess } from '../models.ts'
+
 import { X509Certificate } from '@peculiar/x509'
-import { Certificate, CryptoEngine, SignedData, ContentInfo } from 'pkijs'
+import { Certificate, ContentInfo, CryptoEngine, SignedData } from 'pkijs'
+import { bufferToHex, pemToBuffer } from './bufferUtils.ts'
 
-import { bufferToHex, pemToBuffer } from './bufferUtils'
-import type { UserWithAccess } from '../models'
-
-/* eslint-disable jsdoc/require-jsdoc */
-
+/**
+ * Encrypts content using AES-GCM encryption algorithm
+ *
+ * @param content - The content to encrypt
+ * @param key - The AES crypto key to use for encryption
+ * @param options - Optional AES-GCM parameters
+ */
 export async function encryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}) {
 	const iv = self.crypto.getRandomValues(new Uint8Array(16))
 
@@ -26,6 +31,13 @@ export async function encryptWithAES(content: BufferSource, key: CryptoKey, opti
 	}
 }
 
+/**
+ * Decrypts content using AES-GCM decryption algorithm
+ *
+ * @param content - The encrypted content to decrypt
+ * @param key - The AES crypto key to use for decryption
+ * @param options - Optional AES-GCM parameters including the initialization vector
+ */
 export async function decryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}): Promise<ArrayBuffer> {
 	return await self.crypto.subtle.decrypt(
 		{ name: 'AES-GCM', ...options },
@@ -34,6 +46,12 @@ export async function decryptWithAES(content: BufferSource, key: CryptoKey, opti
 	)
 }
 
+/**
+ * Decrypts content using RSA-OAEP decryption algorithm
+ *
+ * @param content - The encrypted content to decrypt
+ * @param key - The RSA private key to use for decryption
+ */
 export async function decryptWithRSA(content: BufferSource, key: CryptoKey): Promise<ArrayBuffer> {
 	return await self.crypto.subtle.decrypt(
 		{ name: 'RSA-OAEP' },
@@ -42,6 +60,11 @@ export async function decryptWithRSA(content: BufferSource, key: CryptoKey): Pro
 	)
 }
 
+/**
+ * Imports a raw AES key for encryption and decryption
+ *
+ * @param key - The raw AES key
+ */
 export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'raw',
@@ -55,7 +78,13 @@ export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	)
 }
 
-export async function loadServerPublicKey(key: Uint8Array, hash: 'SHA-1'|'SHA-256'): Promise<CryptoKey> {
+/**
+ * Imports a server's RSA public key for signature verification
+ *
+ * @param key - The SPKI-formatted public key
+ * @param hash - The hash algorithm used ('SHA-1' or 'SHA-256')
+ */
+export async function loadServerPublicKey(key: Uint8Array, hash: 'SHA-1' | 'SHA-256'): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'spki',
 		key,
@@ -68,6 +97,11 @@ export async function loadServerPublicKey(key: Uint8Array, hash: 'SHA-1'|'SHA-25
 	)
 }
 
+/**
+ * Imports an RSA private key for decryption
+ *
+ * @param key - The PKCS8-formatted private key
+ */
 export async function loadRSAPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'pkcs8',
@@ -81,6 +115,11 @@ export async function loadRSAPrivateKey(key: Uint8Array): Promise<CryptoKey> {
 	)
 }
 
+/**
+ * Exports an RSA key to a raw format
+ *
+ * @param key - The CryptoKey to export (public or private)
+ */
 export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array> {
 	if (key.type === 'public') {
 		return new Uint8Array(await self.crypto.subtle.exportKey('spki', key))
@@ -89,26 +128,47 @@ export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array> {
 	}
 }
 
+/**
+ * Exports an AES key to raw format
+ *
+ * @param key - The AES CryptoKey to export
+ */
 export async function exportAESKey(key: CryptoKey): Promise<Uint8Array> {
 	return new Uint8Array(await self.crypto.subtle.exportKey('raw', key))
 }
 
+/**
+ * Computes the SHA-256 hash of a buffer
+ *
+ * @param buffer - The data to hash
+ */
 export async function sha256Hash(buffer: Uint8Array): Promise<string> {
 	const hashBuffer = await self.crypto.subtle.digest('SHA-256', buffer)
 	return bufferToHex(new Uint8Array(hashBuffer))
 }
 
+/**
+ * Validates a certificate's signature using a public key
+ *
+ * @param certificate - The X.509 certificate to validate
+ * @param publicKeyPEM - The public key in PEM format to use for validation
+ */
 export async function validateCertificateSignature(certificate: string, publicKeyPEM: string): Promise<boolean> {
 	const cert = new X509Certificate(certificate)
 	const publicKey = await loadServerPublicKey(
 		pemToBuffer(publicKeyPEM),
-		cert.signatureAlgorithm.hash.name as 'SHA-1'|'SHA-256',
+		cert.signatureAlgorithm.hash.name as 'SHA-1' | 'SHA-256',
 	)
 
 	return cert.verify({ publicKey }, getPatchedCrypto())
 }
 
-// Return a patched crypto because x509's default does not give the correct data type to the subtle.verify method
+/**
+ * Returns a patched crypto object that ensures proper data types for the subtle.verify method
+ *
+ * The x509 library's default crypto implementation doesn't convert data to the correct type,
+ * so this wrapper ensures signatures and data are passed as Uint8Array instances.
+ */
 function getPatchedCrypto(): Crypto {
 	return {
 		...self.crypto,
@@ -121,6 +181,14 @@ function getPatchedCrypto(): Crypto {
 	}
 }
 
+/**
+ * Validates a CMS (Cryptographic Message Syntax) signature
+ *
+ * @param signedData - The data that was signed
+ * @param cmsBuffer - The CMS signature buffer
+ * @param users - Array of users with access to verify the signer's identity
+ * @throws Error if the signer is not found in the users array
+ */
 export async function validateCMSSignature(signedData: Uint8Array, cmsBuffer: Uint8Array, users: UserWithAccess[]): Promise<boolean> {
 	// Parse the CMS buffer
 	const cmsContent = ContentInfo.fromBER(cmsBuffer)
@@ -148,15 +216,32 @@ export async function validateCMSSignature(signedData: Uint8Array, cmsBuffer: Ui
 	return verificationResult
 }
 
+/**
+ * Custom crypto engine that extends PKI.js CryptoEngine with proper data type handling
+ *
+ * This class ensures that the data parameter is converted to Uint8Array for the verify method,
+ * which is required by the Web Crypto API but not handled correctly by the default PKI.js engine.
+ */
 class CustomCryptoEngine extends CryptoEngine {
-
+	/**
+	 * Verifies a digital signature with proper data type conversion
+	 *
+	 * @param algorithm - The algorithm identifier for verification
+	 * @param key - The CryptoKey to use for verification
+	 * @param signature - The signature to verify
+	 * @param data - The data that was signed
+	 */
 	verify(algorithm: globalThis.AlgorithmIdentifier | RsaPssParams | EcdsaParams, key: CryptoKey, signature: BufferSource, data: ArrayBuffer): Promise<boolean> {
 		return super.verify(algorithm, key, signature, new Uint8Array(data))
 	}
-
 }
 
-// Return a patched crypto engine because pkijs' default engine does not give the correct data type to the subtle.verify method
+/**
+ * Returns a patched crypto engine that ensures proper data types for signature verification
+ *
+ * The PKI.js library's default crypto engine doesn't convert data to the correct type,
+ * so this wrapper provides a CustomCryptoEngine that handles the conversion.
+ */
 function getPatchedCryptoEngine() {
 	return new CustomCryptoEngine({ crypto: self.crypto })
 }

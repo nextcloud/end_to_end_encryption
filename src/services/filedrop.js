@@ -5,7 +5,7 @@
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
 import { encryptStringAsymmetric, encryptWithAES, getRandomEncryptionParams } from './crypto.js'
-import logger from './logger.js'
+import logger from './logger.ts'
 
 /**
  * @typedef {object} FileMetadata
@@ -104,10 +104,7 @@ export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, sha
  */
 async function compress(str) {
 	const stream = new Blob([str]).stream()
-	const compressedStream = stream.pipeThrough(
-		// eslint-disable-next-line no-undef
-		new CompressionStream('gzip'),
-	)
+	const compressedStream = stream.pipeThrough(new CompressionStream('gzip'))
 
 	const chunks = []
 	const reader = compressedStream.getReader()

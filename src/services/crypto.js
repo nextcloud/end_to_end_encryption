@@ -5,7 +5,7 @@
 
 import * as x509 from '@peculiar/x509'
 import { bufferToBase64 } from './filedrop.js'
-import logger from './logger.js'
+import logger from './logger.ts'
 
 /**
  * Gets tag from encrypted data

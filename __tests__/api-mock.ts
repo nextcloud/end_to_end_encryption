@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { afterAll, afterEach, beforeAll } from 'vitest'
-import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
+import { afterAll, afterEach, beforeAll } from 'vitest'
+import { bufferToBase64 } from '../src/services/bufferUtils.ts'
 import { adminPrivateKeyInfo, rootFolderPropfindResponse, serverPublicKey, subFolderPropfindResponse } from './consts.spec'
-import { bufferToBase64 } from '../src/services/bufferUtils'
 
 export const restHandlers = [
 	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/server-key', () => {
