@@ -22,7 +22,7 @@ class LockMapperTest extends TestCase {
 
 		// make sure that DB is empty
 		$qb = self::$realDatabase->getQueryBuilder();
-		$qb->delete('e2e_encryption_lock')->execute();
+		$qb->delete('e2e_encryption_lock')->executeStatement();
 
 		$this->lockMapper = new LockMapper(self::$realDatabase);
 	}
