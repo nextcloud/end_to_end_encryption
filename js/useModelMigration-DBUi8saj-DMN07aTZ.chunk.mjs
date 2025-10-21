@@ -1,2 +1,0 @@
-import{ak as t,V as d,x as s}from"./_plugin-vue2_normalizer-sB7H5_Rv.chunk.mjs";function n(o,r,a=!1){const e=t().proxy;return a&&e.$props[o]===void 0&&e.$props.modelValue===void 0&&d.util.warn('Missing required prop: "modelValue" or old "'.concat(o,'"')),s({get(){return e.$props[o]!==void 0?e.$props[o]:e.$props.modelValue},set(p){e.$emit("update:modelValue",p),e.$emit("update:model-value",p),e.$emit(r,p)}})}export{n as u};
-//# sourceMappingURL=useModelMigration-DBUi8saj-DMN07aTZ.chunk.mjs.map
