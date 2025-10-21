@@ -1,8 +1,8 @@
 {
 	"extends": "@vue/tsconfig/tsconfig.json",
 	"include": [
-		"./src/*.ts",
-		"./src/components/MnemonicPromptDialog.vue"
+		"./src/**/*.ts",
+		"./src/components/**/*.vue"
 	],
 	"compilerOptions": {
 		"lib": [
@@ -15,6 +15,6 @@
 		"allowImportingTsExtensions": true
 	},
 	"vueCompilerOptions": {
-		"target": 2.7
+		"target": 3.6
 	}
 }
