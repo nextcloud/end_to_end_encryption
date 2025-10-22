@@ -18,8 +18,9 @@ export default createAppConfig({
 	adminSettings: join(__dirname, 'src', 'settings-admin.js'),
 }, {
 	inlineCSS: { relativeCSSInjection: true },
-	extractLicenseInformation: true,
-	thirdPartyLicense: false,
+	extractLicenseInformation: {
+		includeSourceMaps: true,
+	},
 	config: {
 		// Setup for vitest unit tests
 		test: {
