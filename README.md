@@ -27,6 +27,10 @@ on the client side and in the browser.
       - [Data not being encrypted](#data-not-being-encrypted)
       - [User agent configuration](#user-agent-configuration)
       - [Recovery](#recovery)
+  - [Development](#development)
+    - [Building the app](#building-the-app)
+    - [Contributing](#contributing)
+      - [Contribution guidelines](#contribution-guidelines)
 
 ## Screenshots
 
@@ -123,3 +127,42 @@ The default user agent configuration is reasonable for all current official stab
 ##### Recovery
 
 There are various recovery scenarios where it may be useful to access (decrypt) your files independent of your Nextcloud installation. A separate set of tools called the [`encryption-recovery-tools`](https://github.com/nextcloud/encryption-recovery-tools) can be used for this.
+
+
+## Development
+There are many ways to contribute, of which development is only one! Find out [how to get involved](https://nextcloud.com/contribute/), including as a translator, designer, tester, helping others, and much more! 😍
+
+Specific to this app we summarize the basic steps how to get involved below.
+
+### Building the app
+This is is built using PHP on the backend side as well as Typescript and Vue.js on the frontend side.
+For building the frontend you need to install the currently active Node.js version (see `engines` in the `package.json`).
+To built the app from a fresh checkout of the repository run:
+
+1. `npm ci` to install the frontend dependencies
+2. `npm run build` to build the frontend
+
+When developing there are some more commands which might be useful for you:
+
+- `npm run dev` to build the frontend in development mode enabling support for the Vue devtools.
+- `npm run watch` similar to `dev` but rebuilds as soon as there are code changes in the sources.
+- `npm run lint` to check for linting issues (e.g. code style). Always check this before contributing code.
+- `npm run stylelint` similar as `lint` but for the `<style>` section of our Vue files.
+- `npm run test` to run our frontend unit tests.
+
+### Contributing
+#### Contribution guidelines
+All contributions to this repository are considered to be licensed under the AGPLv3 or any later version.
+
+Nextcloud doesn't require a CLA (Contributor License Agreement).
+The copyright belongs to all the individual contributors.
+Therefore we recommend that every contributor adds the following line to the [AUTHORS](AUTHORS) file if they made substantial changes to the code:
+
+```
+- <your name> <your email address>
+```
+
+**We can only accept contributions from authors that agree on the [Developer Certificate of Origin](https://developercertificate.org/)!**
+For this please make sure to sign-off your commits if you want to contribute code (`git commit -s`).
+
+Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduct/). This document offers some guidance to ensure Nextcloud participants can cooperate effectively in a positive and inspiring atmosphere and to explain how together we can strengthen and support each other.
