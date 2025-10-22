@@ -1,8 +1,83 @@
 <!--
-  - SPDX-FileCopyrightText: 2019 Joas Schilling <coding@schilljs.com>
-  - SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
+  - SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
   - SPDX-License-Identifier: AGPL-3.0-or-later
   -->
+
+<script setup lang="ts">
+import type { OCSResponse } from '@nextcloud/typings/ocs'
+
+import axios from '@nextcloud/axios'
+import { showSuccess } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
+import { generateOcsUrl } from '@nextcloud/router'
+import debounce from 'debounce'
+import { onMounted, ref } from 'vue'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
+import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
+import logger from '../services/logger.ts'
+
+interface IGroup {
+	id: string
+	displayname: string
+}
+
+const loading = ref(false)
+const loadingGroups = ref(true)
+const allowedGroups = ref(loadState<string[]>('end_to_end_encryption', 'allowed_groups').map((group) => {
+	return {
+		id: group,
+		displayname: group,
+	}
+}).sort(function(a, b) {
+	return a.displayname.localeCompare(b.displayname)
+}))
+const groups = ref([...allowedGroups.value])
+
+/**
+ * Searches for groups matching the query
+ */
+const searchGroup = debounce(async function(query?: string) {
+	loadingGroups.value = true
+	try {
+		const { data } = await axios.get<OCSResponse<{ groups: IGroup[] }>>(generateOcsUrl('cloud/groups/details'), {
+			params: {
+				search: query,
+				limit: 20,
+				offset: 0,
+			},
+		})
+		groups.value = data.ocs.data.groups.sort(function(a, b) {
+			return a.displayname.localeCompare(b.displayname)
+		})
+	} catch (error) {
+		logger.error('Could not fetch groups', { error })
+	} finally {
+		loadingGroups.value = false
+	}
+}, 500)
+
+onMounted(() => searchGroup())
+
+/**
+ * Saves the allowed groups to the config on the server
+ */
+function saveChanges() {
+	loading.value = true
+	loadingGroups.value = true
+	const groups = allowedGroups.value.map((group) => {
+		return group.id
+	})
+	globalThis.OCP.AppConfig.setValue('end_to_end_encryption', 'allowed_groups', JSON.stringify(groups), {
+		success() {
+			loading.value = false
+			loadingGroups.value = false
+			showSuccess(t('end_to_end_encryption', 'Saved groups'))
+		},
+	})
+}
+</script>
 
 <template>
 	<NcSettingsSection :name="t('end_to_end_encryption', 'End-to-End Encryption')" class="admin-e2ee">
@@ -31,96 +106,6 @@
 		</NcButton>
 	</NcSettingsSection>
 </template>
-
-<script>
-import axios from '@nextcloud/axios'
-import { showSuccess } from '@nextcloud/dialogs'
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
-import { getLoggerBuilder } from '@nextcloud/logger'
-import { generateOcsUrl } from '@nextcloud/router'
-import debounce from 'debounce'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
-import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
-
-const logger = getLoggerBuilder()
-	.setApp('end_to_end_encryption')
-	.detectUser()
-	.build()
-
-export default {
-	name: 'AdminSection',
-	components: {
-		NcButton,
-		NcSelect,
-		NcSettingsSection,
-	},
-
-	setup() {
-		return {
-			t,
-		}
-	},
-
-	data() {
-		return {
-			loading: false,
-			loadingGroups: true,
-			allowedGroups: loadState('end_to_end_encryption', 'allowed_groups').map((group) => {
-				return {
-					id: group,
-					displayname: group,
-				}
-			}).sort(function(a, b) {
-				return a.displayname.localeCompare(b.displayname)
-			}),
-
-			groups: [],
-		}
-	},
-
-	mounted() {
-		this.groups = this.allowedGroups
-		this.searchGroup()
-	},
-
-	methods: {
-		searchGroup: debounce(async function(query) {
-			this.loadingGroups = true
-			try {
-				const response = await axios.get(generateOcsUrl('cloud/groups/details'), {
-					search: query,
-					limit: 20,
-					offset: 0,
-				})
-				this.groups = response.data.ocs.data.groups.sort(function(a, b) {
-					return a.displayname.localeCompare(b.displayname)
-				})
-			} catch (err) {
-				logger.error('Could not fetch groups', err)
-			} finally {
-				this.loadingGroups = false
-			}
-		}, 500),
-
-		saveChanges() {
-			this.loading = true
-			this.loadingGroups = true
-			const groups = this.allowedGroups.map((group) => {
-				return group.id
-			})
-			OCP.AppConfig.setValue('end_to_end_encryption', 'allowed_groups', JSON.stringify(groups), {
-				success: function() {
-					this.loading = false
-					this.loadingGroups = false
-					showSuccess(t('end_to_end_encryption', 'Saved groups'))
-				}.bind(this),
-			})
-		},
-	},
-}
-</script>
 
 <style scoped lang="scss">
 .admin-e2ee {
