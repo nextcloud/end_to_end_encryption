@@ -30,7 +30,7 @@ OC.L10N.register(
     "Encrypted share" : "Verschlüsselte Freigabe",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine End-to-End-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind.",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind.",
     "Saved groups" : "Gespeicherte Gruppen",
     "Limit to groups" : "Auf Gruppen beschränken",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Wenn mindestens eine Gruppe ausgewählt ist, können nur Personen der aufgelisteten Gruppen die Ende-zu-Ende-Verschlüsselungs-App benutzen.",
