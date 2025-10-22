@@ -9,9 +9,32 @@
 This app provides all the necessary APIs to implement End-to-End encryption
 on the client side and in the browser.
 
+## Table of contents
+
+- [Screenshots](#screenshots)
+  - [Nextcloud Web](#nextcloud-web)
+  - [Nextcloud Android App](#nextcloud-android-app)
+  - [Additional Screenshots](#additional-screenshots)
+- [Documentation](#documentation)
+  - [Client API](#client-api)
+  - [Specification (RFC)](#specification-rfc)
+  - [Installing](#installing)
+  - [Configuring](#configuring)
+  - [Using](#using)
+    - [Establishing a folder to encrypt](#establishing-a-folder-to-encrypt)
+    - [Troubleshooting](#troubleshooting)
+      - [General](#general)
+      - [Data not being encrypted](#data-not-being-encrypted)
+      - [User agent configuration](#user-agent-configuration)
+      - [Recovery](#recovery)
+  - [Development](#development)
+    - [Building the app](#building-the-app)
+    - [Contributing](#contributing)
+      - [Contribution guidelines](#contribution-guidelines)
+
 ## Screenshots
 
-### Nextcloud Web 
+### Nextcloud Web
 
 Found under *Personal settings -> Security*:
 
@@ -23,8 +46,25 @@ When the E2EE server app has been successfully enabled and the client app awaits
 
 ![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/42618c90-a5e6-40ad-b99d-cce86c20b018)
 
-## Documentation
+### Additional Screenshots
+#### Nextcloud Web
 
+*Personal -> Security*
+
+![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/7d55571f-5da6-40e0-aa69-141590378f84)
+
+#### Nextcloud Web
+
+*Admininistration settings -> Security*
+
+![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/bca6dec4-66fd-4ffa-a869-d7ef01f4a096)
+
+#### Nextcloud Desktop Client
+
+![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/95f31620-084d-47a6-a227-6a8bedf5da47)
+
+
+## Documentation
 ### Client API
 
 Here you can find the [API documentation](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md). Also some [typical client operations and how to use the API to perform them](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md) are documented too.
@@ -46,16 +86,16 @@ The end-to-end encryption implemented by the Nextcloud sync and mobile clients, 
 > [!CAUTION]  
 > The mnenomnic is *not* recoverable by a server administrator. If you lose your mnemonic you *will* lose access to your encrypted data.
 
-### Using
 
+### Using
 #### Establishing a folder to encrypt
 
 Encryption must be actively enabled for folders. This can be done in any of the officially supported client apps (desktop, Android, iOS).
 
 In the desktop client, the option to encrypt can be found in the context menu (right click) of subfolders of a folder synchronization. Please note that it's neither possible to encrypt the root folder of a folder synchronization, nor to encrypt a subfolder with existing content.
 
-#### Troubleshooting
 
+#### Troubleshooting
 ##### General
 
 - Since all encryption is handled by the clients, it is important that all client versions in-use be kept relatively aligned (in terms of release version/period) to maintain end-to-end compatibility.
@@ -88,20 +128,41 @@ The default user agent configuration is reasonable for all current official stab
 
 There are various recovery scenarios where it may be useful to access (decrypt) your files independent of your Nextcloud installation. A separate set of tools called the [`encryption-recovery-tools`](https://github.com/nextcloud/encryption-recovery-tools) can be used for this.
 
-## Additional Screenshots
 
-### Nextcloud Web
+## Development
+There are many ways to contribute, of which development is only one! Find out [how to get involved](https://nextcloud.com/contribute/), including as a translator, designer, tester, helping others, and much more! 😍
 
-*Personal -> Security*
+Specific to this app we summarize the basic steps how to get involved below.
 
-![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/7d55571f-5da6-40e0-aa69-141590378f84)
+### Building the app
+This is is built using PHP on the backend side as well as Typescript and Vue.js on the frontend side.
+For building the frontend you need to install the currently active Node.js version (see `engines` in the `package.json`).
+To built the app from a fresh checkout of the repository run:
 
-### Nextcloud Web
+1. `npm ci` to install the frontend dependencies
+2. `npm run build` to build the frontend
 
-*Admininistration settings -> Security*
+When developing there are some more commands which might be useful for you:
 
-![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/bca6dec4-66fd-4ffa-a869-d7ef01f4a096)
+- `npm run dev` to build the frontend in development mode enabling support for the Vue devtools.
+- `npm run watch` similar to `dev` but rebuilds as soon as there are code changes in the sources.
+- `npm run lint` to check for linting issues (e.g. code style). Always check this before contributing code.
+- `npm run stylelint` similar as `lint` but for the `<style>` section of our Vue files.
+- `npm run test` to run our frontend unit tests.
 
-### Nextcloud Desktop Client
+### Contributing
+#### Contribution guidelines
+All contributions to this repository are considered to be licensed under the AGPLv3 or any later version.
 
-![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/95f31620-084d-47a6-a227-6a8bedf5da47)
+Nextcloud doesn't require a CLA (Contributor License Agreement).
+The copyright belongs to all the individual contributors.
+Therefore we recommend that every contributor adds the following line to the [AUTHORS](AUTHORS) file if they made substantial changes to the code:
+
+```
+- <your name> <your email address>
+```
+
+**We can only accept contributions from authors that agree on the [Developer Certificate of Origin](https://developercertificate.org/)!**
+For this please make sure to sign-off your commits if you want to contribute code (`git commit -s`).
+
+Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduct/). This document offers some guidance to ensure Nextcloud participants can cooperate effectively in a positive and inspiring atmosphere and to explain how together we can strengthen and support each other.
