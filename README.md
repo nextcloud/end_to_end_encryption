@@ -9,9 +9,28 @@
 This app provides all the necessary APIs to implement End-to-End encryption
 on the client side and in the browser.
 
+## Table of contents
+
+- [Screenshots](#screenshots)
+  - [Nextcloud Web](#nextcloud-web)
+  - [Nextcloud Android App](#nextcloud-android-app)
+  - [Additional Screenshots](#additional-screenshots)
+- [Documentation](#documentation)
+  - [Client API](#client-api)
+  - [Specification (RFC)](#specification-rfc)
+  - [Installing](#installing)
+  - [Configuring](#configuring)
+  - [Using](#using)
+    - [Establishing a folder to encrypt](#establishing-a-folder-to-encrypt)
+    - [Troubleshooting](#troubleshooting)
+      - [General](#general)
+      - [Data not being encrypted](#data-not-being-encrypted)
+      - [User agent configuration](#user-agent-configuration)
+      - [Recovery](#recovery)
+
 ## Screenshots
 
-### Nextcloud Web 
+### Nextcloud Web
 
 Found under *Personal settings -> Security*:
 
@@ -23,8 +42,25 @@ When the E2EE server app has been successfully enabled and the client app awaits
 
 ![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/42618c90-a5e6-40ad-b99d-cce86c20b018)
 
-## Documentation
+### Additional Screenshots
+#### Nextcloud Web
 
+*Personal -> Security*
+
+![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/7d55571f-5da6-40e0-aa69-141590378f84)
+
+#### Nextcloud Web
+
+*Admininistration settings -> Security*
+
+![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/bca6dec4-66fd-4ffa-a869-d7ef01f4a096)
+
+#### Nextcloud Desktop Client
+
+![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/95f31620-084d-47a6-a227-6a8bedf5da47)
+
+
+## Documentation
 ### Client API
 
 Here you can find the [API documentation](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md). Also some [typical client operations and how to use the API to perform them](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md) are documented too.
@@ -46,16 +82,16 @@ The end-to-end encryption implemented by the Nextcloud sync and mobile clients, 
 > [!CAUTION]  
 > The mnenomnic is *not* recoverable by a server administrator. If you lose your mnemonic you *will* lose access to your encrypted data.
 
-### Using
 
+### Using
 #### Establishing a folder to encrypt
 
 Encryption must be actively enabled for folders. This can be done in any of the officially supported client apps (desktop, Android, iOS).
 
 In the desktop client, the option to encrypt can be found in the context menu (right click) of subfolders of a folder synchronization. Please note that it's neither possible to encrypt the root folder of a folder synchronization, nor to encrypt a subfolder with existing content.
 
-#### Troubleshooting
 
+#### Troubleshooting
 ##### General
 
 - Since all encryption is handled by the clients, it is important that all client versions in-use be kept relatively aligned (in terms of release version/period) to maintain end-to-end compatibility.
@@ -87,21 +123,3 @@ The default user agent configuration is reasonable for all current official stab
 ##### Recovery
 
 There are various recovery scenarios where it may be useful to access (decrypt) your files independent of your Nextcloud installation. A separate set of tools called the [`encryption-recovery-tools`](https://github.com/nextcloud/encryption-recovery-tools) can be used for this.
-
-## Additional Screenshots
-
-### Nextcloud Web
-
-*Personal -> Security*
-
-![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/7d55571f-5da6-40e0-aa69-141590378f84)
-
-### Nextcloud Web
-
-*Admininistration settings -> Security*
-
-![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/bca6dec4-66fd-4ffa-a869-d7ef01f4a096)
-
-### Nextcloud Desktop Client
-
-![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/95f31620-084d-47a6-a227-6a8bedf5da47)
