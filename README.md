@@ -102,7 +102,7 @@ In the desktop client, the option to encrypt can be found in the context menu (r
 - Since most operations are performed by the clients, in most cases potential bugs will need to be addressed in the clients (though sometimes in coordination with development occurring here with the server app).
 - Be careful not to configure different mnemonics across your devices. They must all share the same mnemonic (created on the first device you provision E2EE on) or undefined behavior will occur.
 - Keep in mind that using end-to-end encryption has trade-offs. Some functions will never be supported because they are inherently incompatible with the threat model of E2EE. In other cases, functionality may not yet be implemented in your favorite client (in this case you're encouraged to visit the Issues of your respective client and upvote the existing enhancement idea and/or submit your own where one does not already exist).
-- E2EE files are inaccessible (by design) from the Nextcloud Web UI (client) in order to minimize needing to trust the server.
+- E2EE files can currently only be read (using the viewer app) and downloaded from the Nextcloud Web UI (client).
 
 ##### Data not being encrypted
 
