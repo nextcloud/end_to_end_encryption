@@ -1,12 +1,188 @@
 <!--
-  - SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
+  - SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
   - SPDX-License-Identifier: AGPL-3.0-or-later
   -->
+
+<script setup lang="ts">
+import type { OCSResponse } from '@nextcloud/typings/ocs'
+
+import axios from '@nextcloud/axios'
+import { getCapabilities } from '@nextcloud/capabilities'
+import { DialogBuilder, showError, showSuccess } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
+import { generateOcsUrl, generateUrl } from '@nextcloud/router'
+import { computed, ref } from 'vue'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
+import IconClose from 'vue-material-design-icons/Close.vue'
+import logger from '../services/logger.ts'
+
+const hasKey = ref(loadState('end_to_end_encryption', 'hasKey'))
+const shouldDisplayWarning = ref(false)
+const deleteEncryptedFiles = ref(false)
+const shouldDisplayE2EEInBrowserWarning = ref(false)
+const userConfig = ref(loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false }))
+
+const confirmationDialog = new DialogBuilder()
+	.setName(t('end_to_end_encryption', 'Confirm resetting keys'))
+	.setText(t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?'))
+	.addButton({
+		label: t('end_to_end_encryption', 'Cancel'),
+		variant: 'tertiary',
+		callback: () => {
+			deleteEncryptedFiles.value = false
+			shouldDisplayWarning.value = false
+		},
+	})
+	.addButton({
+		label: t('end_to_end_encryption', 'Reset keys'),
+		variant: 'error',
+		callback: resetEncryption,
+	})
+	.build()
+
+const settingsSectionDescription = computed(() => {
+	if (hasKey.value) {
+		return t(
+			'end_to_end_encryption',
+			'End-to-end encryption is currently enabled and correctly setup.',
+		)
+	} else {
+		return t(
+			'end_to_end_encryption',
+			'End-to-end encryption is currently disabled. You can set it up with the {productName} clients.',
+			{
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				productName: (getCapabilities() as any).theming?.productName ?? 'Nextcloud',
+			},
+		)
+	}
+})
+
+/**
+ * Shows the confirmation dialog
+ */
+async function showDialog() {
+	await confirmationDialog.show()
+}
+
+/**
+ *
+ */
+function startResetProcess() {
+	shouldDisplayWarning.value = true
+}
+
+/**
+ * Deletes the private key from the server
+ */
+async function deletePrivateKey() {
+	const { data } = await axios.delete<OCSResponse>(generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'))
+
+	return handleResponse({
+		status: data.ocs?.meta?.status,
+		errorMessage: data.ocs?.meta?.message ?? t('end_to_end_encryption', 'Unable to delete private key'),
+		error: null,
+	})
+}
+
+/**
+ * Deletes the public key from the server
+ */
+async function deletePublicKey() {
+	const { data } = await axios.delete<OCSResponse>(generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'))
+
+	return handleResponse({
+		status: data.ocs?.meta?.status,
+		errorMessage: data.ocs?.meta?.message ?? t('end_to_end_encryption', 'Unable to delete encrypted files'),
+		error: null,
+	})
+}
+
+/**
+ * Delete encrypted files from the server if requested
+ */
+async function deleteFiles() {
+	if (deleteEncryptedFiles.value) {
+		const { data } = await axios.delete<OCSResponse>(generateOcsUrl('/apps/end_to_end_encryption/api/v1/encrypted-files'))
+
+		return handleResponse({
+			status: data.ocs?.meta?.status,
+			errorMessage: data.ocs?.meta?.message ?? t('end_to_end_encryption', 'Unable to delete encrypted files'),
+			error: null,
+		})
+	}
+	return true
+}
+
+/**
+ * Reset the end-to-end encryption keys locally
+ */
+async function resetEncryption() {
+	try {
+		let success = true
+		success = success && (await deletePrivateKey())
+		success = success && (await deletePublicKey())
+		success = success && (await deleteFiles())
+
+		if (success) {
+			showSuccess(t(
+				'end_to_end_encryption',
+				'End-to-end encryption keys reset',
+			))
+		}
+	} catch (e) {
+		handleResponse({
+			errorMessage: t(
+				'end_to_end_encryption',
+				'Unable to reset end-to-end encryption',
+			),
+			error: e,
+		})
+	} finally {
+		shouldDisplayWarning.value = false
+		hasKey.value = false
+	}
+}
+
+/**
+ * Handles the response from the server
+ *
+ * @param status The status of the response
+ * @param status.status - 'ok' if the request was successful
+ * @param status.errorMessage - The error message to show if the request failed
+ * @param status.error - The error object
+ */
+async function handleResponse(status: { status?: 'ok' | 'failure', errorMessage: string, error: unknown }) {
+	if (status.status !== 'ok') {
+		showError(status.errorMessage)
+		logger.error(status.errorMessage, { error: status.error })
+		return false
+	}
+	return true
+}
+
+/**
+ * Sets a configuration value
+ *
+ * @param key - The configuration key
+ * @param value - The configuration value
+ */
+async function setConfig(key: string, value: string) {
+	await axios.put(generateUrl('apps/end_to_end_encryption/api/v1/config/{key}', { key }), {
+		value: (typeof value === 'string') ? value : JSON.stringify(value),
+	})
+	userConfig.value[key] = value
+}
+</script>
 
 <template>
 	<NcSettingsSection
 		:name="t('end_to_end_encryption', 'End-to-end encryption')"
-		:description="encryptionState">
+		:description="settingsSectionDescription">
 		<NcButton
 			v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
 			class="margin-bottom"
@@ -86,174 +262,6 @@
 	</NcSettingsSection>
 </template>
 
-<script lang="ts">
-import axios from '@nextcloud/axios'
-import { DialogBuilder, showError, showSuccess } from '@nextcloud/dialogs'
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
-import { generateOcsUrl, generateUrl } from '@nextcloud/router'
-import { defineComponent } from 'vue'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
-import IconClose from 'vue-material-design-icons/Close.vue'
-import logger from '../services/logger.ts'
-
-export default defineComponent({
-	name: 'SecuritySection',
-	components: {
-		NcSettingsSection,
-		NcButton,
-		NcCheckboxRadioSwitch,
-		NcNoteCard,
-		IconClose,
-	},
-
-	setup() {
-		return {
-			t,
-		}
-	},
-
-	data() {
-		return {
-			hasKey: loadState('end_to_end_encryption', 'hasKey'),
-			shouldDisplayWarning: false,
-			deleteEncryptedFiles: false,
-			shouldDisplayE2EEInBrowserWarning: false,
-			userConfig: loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false }),
-		}
-	},
-
-	computed: {
-		confirmationDialog() {
-			const builder = new DialogBuilder()
-			return builder
-				.setName(t('end_to_end_encryption', 'Confirm resetting keys'))
-				.setText(t('end_to_end_encryption', 'This is the final warning: Do you really want to reset your keys?'))
-				.addButton({
-					label: t('end_to_end_encryption', 'Cancel'),
-					type: 'tertiary',
-					callback: () => {
-						this.deleteEncryptedFiles = false
-						this.shouldDisplayWarning = false
-					},
-				})
-				.addButton({
-					label: t('end_to_end_encryption', 'Reset keys'),
-					type: 'error',
-					callback: this.resetEncryption.bind(this),
-				})
-				.build()
-		},
-
-		encryptionState() {
-			if (this.hasKey) {
-				return t(
-					'end_to_end_encryption',
-					'End-to-end encryption is currently enabled and correctly setup.',
-				)
-			} else {
-				return t(
-					'end_to_end_encryption',
-					'End-to-end encryption is currently disabled. You can set it up with the {productName} clients.',
-					{
-						productName: OCA.Theming
-							? OCA.Theming.name
-							: 'Nextcloud',
-					},
-				)
-			}
-		},
-	},
-
-	methods: {
-		showDialog() {
-			this.confirmationDialog
-				.show()
-		},
-
-		startResetProcess() {
-			this.shouldDisplayWarning = true
-		},
-
-		async deletePrivateKey() {
-			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'))
-
-			return this.handleResponse({
-				status: data.ocs?.meta?.status,
-				error: null,
-			})
-		},
-
-		async deletePublicKey() {
-			const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'))
-
-			return this.handleResponse({
-				status: data.ocs?.meta?.status,
-				error: null,
-			})
-		},
-
-		async deleteFiles() {
-			if (this.deleteEncryptedFiles) {
-				const { data } = await axios.delete(generateOcsUrl('/apps/end_to_end_encryption/api/v1/encrypted-files'))
-
-				return this.handleResponse({
-					status: data.ocs?.meta?.status,
-					error: null,
-				})
-			}
-			return true
-		},
-
-		async resetEncryption() {
-			try {
-				let success = true
-				success = success && (await this.deletePrivateKey())
-				success = success && (await this.deletePublicKey())
-				success = success && (await this.deleteFiles())
-
-				if (success) {
-					showSuccess(t(
-						'end_to_end_encryption',
-						'End-to-end encryption keys reset',
-					))
-				}
-			} catch (e) {
-				this.handleResponse({
-					errorMessage: t(
-						'end_to_end_encryption',
-						'Unable to reset end-to-end encryption',
-					),
-					error: e,
-				})
-			} finally {
-				this.shouldDisplayWarning = false
-				this.hasKey = false
-			}
-		},
-
-		async handleResponse({ status, errorMessage, error }) {
-			if (status !== 'ok') {
-				showError(errorMessage)
-				logger.error(errorMessage, { error })
-				return false
-			}
-			return true
-		},
-
-		async setConfig(key: string, value: string) {
-			await axios.put(generateUrl('apps/end_to_end_encryption/api/v1/config/{key}', { key }), {
-				value: (typeof value === 'string') ? value : JSON.stringify(value),
-			})
-			this.userConfig[key] = value
-		},
-	},
-})
-</script>
-
 <style lang="scss" scoped>
 .notecard {
 	position: relative;
@@ -261,13 +269,13 @@ export default defineComponent({
 	.close-button {
 		position: absolute;
 		top: 0;
-		right: 0;
+		inset-inline-end: 0;
 	}
 }
 
 li {
 	list-style-type: initial;
-	margin-left: 1rem;
+	margin-inline-start: 1rem;
 	padding: 0.25rem 0;
 }
 
@@ -279,7 +287,7 @@ li {
 	padding: 16px;
 	button {
 		margin-top: 16px;
-		margin-left: 8px;
+		margin-inline-start: 8px;
 	}
 }
 

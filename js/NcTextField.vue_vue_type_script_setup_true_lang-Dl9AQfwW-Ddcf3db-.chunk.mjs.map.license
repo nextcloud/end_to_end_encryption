@@ -78,6 +78,9 @@ This file is generated from multiple sources. Included packages:
 - dompurify
 	- version: 3.2.7
 	- license: (MPL-2.0 OR Apache-2.0)
+- end_to_end_encryption
+	- version: 1.19.0-dev.0
+	- license: AGPL-3.0-or-later
 - escape-html
 	- version: 1.0.3
 	- license: MIT
