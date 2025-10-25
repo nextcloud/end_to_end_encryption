@@ -48,6 +48,8 @@ OC.L10N.register(
     "Reset keys" : "Restabelecer as chaves",
     "End-to-end encryption is currently enabled and correctly setup." : "O cifrado de extremo a extremo está activado e configurado correctamente.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "O cifrado de extremo a extremo está desactivado. Pode configuralo cos clientes de {productName}.",
+    "Unable to delete private key" : "Non é posíbel eliminar a chave privada",
+    "Unable to delete encrypted files" : "Non é posíbel eliminar os ficheiros cifrados",
     "End-to-end encryption keys reset" : "Restabelecer as chaves de cifrado de extremo a extremo",
     "Unable to reset end-to-end encryption" : "Non é posíbel restabelecer o cifrado de extremo a extremo",
     "End-to-end encryption" : "Cifrado de extremo a extremo",
