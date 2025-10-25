@@ -41,7 +41,7 @@
     "@peculiar/x509": "^1.14.0",
     "debounce": "^2.2.0",
     "fast-xml-parser": "^5.3.0",
-    "pkijs": "^3.3.0",
+    "pkijs": "^3.3.1",
     "uuid": "^13.0.0",
     "vue": "^3.5.22",
     "vue-material-design-icons": "^5.3.1",
