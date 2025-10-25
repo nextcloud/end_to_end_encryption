@@ -48,6 +48,8 @@ OC.L10N.register(
     "Reset keys" : "Redefinir chaves",
     "End-to-end encryption is currently enabled and correctly setup." : "A criptografia de ponta-a-ponta está atualmente habilitada e configurada corretamente.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "A criptografia de ponta-a-ponta está desativada no momento. Você pode configurá-la com os clientes {productName}.",
+    "Unable to delete private key" : "Não é possível excluir a chave privada",
+    "Unable to delete encrypted files" : "Não é possível excluir arquivos criptografados",
     "End-to-end encryption keys reset" : "Chaves de criptografia de ponta-a-ponta redefinidas",
     "Unable to reset end-to-end encryption" : "Não é possível redefinir a criptografia de ponta-a-ponta",
     "End-to-end encryption" : "Criptografia de ponta-a-ponta",

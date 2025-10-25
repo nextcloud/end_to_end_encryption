@@ -46,6 +46,8 @@
     "Reset keys" : "Schlüssel zurücksetzen",
     "End-to-end encryption is currently enabled and correctly setup." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit aktiviert und korrekt eingerichtet.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Die Ende-zu-Ende-Verschlüsselung ist derzeit deaktiviert. Du kannst sie mit den {productName}-Clients einrichten.",
+    "Unable to delete private key" : "Privater Schlüssel kann nicht gelöscht werden",
+    "Unable to delete encrypted files" : "Verschlüsselte Dateien konnten nicht gelöscht werden.",
     "End-to-end encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Unable to reset end-to-end encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
     "End-to-end encryption" : "Ende-zu-Ende-Verschlüsselung",
