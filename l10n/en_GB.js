@@ -48,6 +48,8 @@ OC.L10N.register(
     "Reset keys" : "Reset keys",
     "End-to-end encryption is currently enabled and correctly setup." : "End-to-end encryption is currently enabled and correctly setup.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "End-to-end encryption is currently disabled. You can set it up with the {productName} clients.",
+    "Unable to delete private key" : "Unable to delete private key",
+    "Unable to delete encrypted files" : "Unable to delete encrypted files",
     "End-to-end encryption keys reset" : "End-to-end encryption keys reset",
     "Unable to reset end-to-end encryption" : "Unable to reset end-to-end encryption",
     "End-to-end encryption" : "End-to-end encryption",
