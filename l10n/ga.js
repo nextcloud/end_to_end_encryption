@@ -48,6 +48,8 @@ OC.L10N.register(
     "Reset keys" : "Eochracha a athshocrú",
     "End-to-end encryption is currently enabled and correctly setup." : "Tá criptiú ceann go ceann cumasaithe faoi láthair agus socraithe i gceart.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Tá criptiú ceann go ceann díchumasaithe faoi láthair. Is féidir leat é a shocrú leis na cliaint {productName}.",
+    "Unable to delete private key" : "Ní féidir an eochair phríobháideach a scriosadh",
+    "Unable to delete encrypted files" : "Ní féidir comhaid chriptithe a scriosadh",
     "End-to-end encryption keys reset" : "Eochracha criptithe ceann go deireadh a athshocrú",
     "Unable to reset end-to-end encryption" : "Ní féidir criptiú ceann go ceann a athshocrú",
     "End-to-end encryption" : "Criptiú ceann go deireadh",
