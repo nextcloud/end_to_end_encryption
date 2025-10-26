@@ -46,6 +46,8 @@
     "Reset keys" : "Vrátit klíče na výchozí",
     "End-to-end encryption is currently enabled and correctly setup." : "Šifrování mezi koncovými body je v tuto chvíli zapnuté a správně nastavené.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Šifrování mezi koncovými body je nyní vypnuté. Je možné ho nastavit pomocí {productName} klientů.",
+    "Unable to delete private key" : "Soukromý klíč nebylo možné smazat",
+    "Unable to delete encrypted files" : "Nebylo možné smazat šifrované soubory",
     "End-to-end encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
     "Unable to reset end-to-end encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
     "End-to-end encryption" : "Šifrování end-to-end",

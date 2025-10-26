@@ -46,6 +46,8 @@
     "Reset keys" : "Скинути ключі",
     "End-to-end encryption is currently enabled and correctly setup." : "Наскрізне шифрування увімкнено та належним чином налаштовано.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Наскрізне шифрування вимкнено. Ви можете налаштувати його на стороні клієнтів {productName}.",
+    "Unable to delete private key" : "Не вдалося вилучити приватний ключ",
+    "Unable to delete encrypted files" : "Не вдалося вилучити зашифровані файли",
     "End-to-end encryption keys reset" : "Ключі наскрізного шифрування скинуто",
     "Unable to reset end-to-end encryption" : "Не вдалося скинути наскрізне шифрування",
     "End-to-end encryption" : "Наскрізне шифрування",
