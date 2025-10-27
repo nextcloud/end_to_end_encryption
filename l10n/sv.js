@@ -48,6 +48,8 @@ OC.L10N.register(
     "Reset keys" : "Återställ nycklar",
     "End-to-end encryption is currently enabled and correctly setup." : "End-to-end-kryptering är för närvarande aktiverad och korrekt inställd.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "End-to-end-kryptering är för närvarande inaktiverad. Du kan aktivera det med {productName}-klienterna.",
+    "Unable to delete private key" : "Kunde inte ta bort den privata nyckeln",
+    "Unable to delete encrypted files" : "Kunde inte ta bort krypterade filer",
     "End-to-end encryption keys reset" : "Krypteringsnycklar för end-to-end-kryptering har återställs",
     "Unable to reset end-to-end encryption" : "Det gick inte att återställa end-to-end-kryptering",
     "End-to-end encryption" : "End-to-end-kryptering",
