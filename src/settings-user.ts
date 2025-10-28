@@ -4,7 +4,7 @@
  */
 
 import { createApp } from 'vue'
-import SecuritySection from './components/SecuritySection.vue'
+import SettingsUser from './views/SettingsUser.vue'
 
-const app = createApp(SecuritySection)
+const app = createApp(SettingsUser)
 app.mount('#security-end-to-end')
