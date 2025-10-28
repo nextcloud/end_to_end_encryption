@@ -65,9 +65,9 @@ export type MetadataInfo = {
 }
 
 export type PrivateKeyInfo = {
-	encryptedPrivateKey: Uint8Array
-	iv: Uint8Array
-	salt: Uint8Array
+	encryptedPrivateKey: Uint8Array<ArrayBuffer>
+	iv: Uint8Array<ArrayBuffer>
+	salt: Uint8Array<ArrayBuffer>
 }
 
 /**

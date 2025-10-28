@@ -15,7 +15,7 @@ import { isDownloadable } from './permissions.ts'
  *
  * @param files - Array with one file to download
  */
-async function downloadNodes(files: Node[]) {
+async function downloadNodes(files: [Node]) {
 	const [file] = files
 	// Decryption happens in the proxy.
 	const response = await fetch(file.encodedSource)

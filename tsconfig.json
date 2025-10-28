@@ -4,6 +4,9 @@
 		"./src/**/*.ts",
 		"./src/**/*.vue"
 	],
+	"exclude": [
+		"./src/**/*.spec.ts"
+	],
 	"compilerOptions": {
 		"lib": [
 			"DOM",

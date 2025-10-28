@@ -30,9 +30,9 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo> {
 	const encryptedPrivateKeyInfo = response.data.ocs.data['private-key']
 	const [encryptedPrivateKey, iv, salt] = encryptedPrivateKeyInfo.split('|')
 	return {
-		encryptedPrivateKey: base64ToBuffer(encryptedPrivateKey),
-		iv: base64ToBuffer(iv),
-		salt: base64ToBuffer(salt),
+		encryptedPrivateKey: base64ToBuffer(encryptedPrivateKey!),
+		iv: base64ToBuffer(iv!),
+		salt: base64ToBuffer(salt!),
 	}
 }
 

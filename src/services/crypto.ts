@@ -65,7 +65,7 @@ export async function decryptWithRSA(content: BufferSource, key: CryptoKey): Pro
  *
  * @param key - The raw AES key
  */
-export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
+export async function loadAESPrivateKey(key: Uint8Array<ArrayBuffer>): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'raw',
 		key,
@@ -84,7 +84,7 @@ export async function loadAESPrivateKey(key: Uint8Array): Promise<CryptoKey> {
  * @param key - The SPKI-formatted public key
  * @param hash - The hash algorithm used ('SHA-1' or 'SHA-256')
  */
-export async function loadServerPublicKey(key: Uint8Array, hash: 'SHA-1' | 'SHA-256'): Promise<CryptoKey> {
+export async function loadServerPublicKey(key: Uint8Array<ArrayBuffer>, hash: 'SHA-1' | 'SHA-256'): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'spki',
 		key,
@@ -102,7 +102,7 @@ export async function loadServerPublicKey(key: Uint8Array, hash: 'SHA-1' | 'SHA-
  *
  * @param key - The PKCS8-formatted private key
  */
-export async function loadRSAPrivateKey(key: Uint8Array): Promise<CryptoKey> {
+export async function loadRSAPrivateKey(key: Uint8Array<ArrayBuffer>): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'pkcs8',
 		key,
@@ -120,7 +120,7 @@ export async function loadRSAPrivateKey(key: Uint8Array): Promise<CryptoKey> {
  *
  * @param key - The CryptoKey to export (public or private)
  */
-export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array> {
+export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array<ArrayBuffer>> {
 	if (key.type === 'public') {
 		return new Uint8Array(await self.crypto.subtle.exportKey('spki', key))
 	} else {
@@ -133,7 +133,7 @@ export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array> {
  *
  * @param key - The AES CryptoKey to export
  */
-export async function exportAESKey(key: CryptoKey): Promise<Uint8Array> {
+export async function exportAESKey(key: CryptoKey): Promise<Uint8Array<ArrayBuffer>> {
 	return new Uint8Array(await self.crypto.subtle.exportKey('raw', key))
 }
 
@@ -142,7 +142,7 @@ export async function exportAESKey(key: CryptoKey): Promise<Uint8Array> {
  *
  * @param buffer - The data to hash
  */
-export async function sha256Hash(buffer: Uint8Array): Promise<string> {
+export async function sha256Hash(buffer: Uint8Array<ArrayBuffer>): Promise<string> {
 	const hashBuffer = await self.crypto.subtle.digest('SHA-256', buffer)
 	return bufferToHex(new Uint8Array(hashBuffer))
 }
@@ -189,13 +189,17 @@ function getPatchedCrypto(): Crypto {
  * @param users - Array of users with access to verify the signer's identity
  * @throws Error if the signer is not found in the users array
  */
-export async function validateCMSSignature(signedData: Uint8Array, cmsBuffer: Uint8Array, users: UserWithAccess[]): Promise<boolean> {
+export async function validateCMSSignature(signedData: Uint8Array<ArrayBuffer>, cmsBuffer: Uint8Array<ArrayBuffer>, users: UserWithAccess[]): Promise<boolean> {
 	// Parse the CMS buffer
 	const cmsContent = ContentInfo.fromBER(cmsBuffer)
 	const originalSignedData = new SignedData({ schema: cmsContent.content })
 
 	// Get the signer certificate from the users array
 	const signerInfo = originalSignedData.signerInfos[0]
+	if (signerInfo === undefined) {
+		throw new Error('Signer not found in the users array')
+	}
+
 	const signerUserId = signerInfo.sid.issuer.typesAndValues.find(({ type }) => type === '2.5.4.3' /** Common name OID */).value.valueBlock.value
 	const signer = users.find(({ userId }) => userId === signerUserId)
 	if (signer === undefined) {
