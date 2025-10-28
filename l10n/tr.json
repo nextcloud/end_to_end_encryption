@@ -46,6 +46,8 @@
     "Reset keys" : "Anahtarları sıfırla",
     "End-to-end encryption is currently enabled and correctly setup." : "Uçtan uca şifreleme açık ve doğru şekilde ayarlanmış.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Uçtan uca şifreleme şu kapalı. {productName} istemcileriyle ayarlayabilirsiniz.",
+    "Unable to delete private key" : "Kişisel anahtar silinemedi",
+    "Unable to delete encrypted files" : "Şifrelenmiş dosyalar silinemedi",
     "End-to-end encryption keys reset" : "Uçtan uca şifreleme anahtarları sıfırlandı",
     "Unable to reset end-to-end encryption" : "Uçtan uca şifreleme sıfırlanamadı",
     "End-to-end encryption" : "Uçtan uca şifreleme",
