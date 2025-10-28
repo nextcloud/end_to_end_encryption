@@ -4,7 +4,7 @@
  */
 
 import { createApp } from 'vue'
-import AdminSection from './components/AdminSection.vue'
+import SettingsAdmin from './views/SettingsAdmin.vue'
 
-const app = createApp(AdminSection)
+const app = createApp(SettingsAdmin)
 app.mount('#security-admin-end-to-end')
