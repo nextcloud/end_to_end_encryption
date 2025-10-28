@@ -13,7 +13,7 @@ export function bufferToString(buffer: Uint8Array): string {
 /**
  * @param str - The string to convert to a buffer (Uint8Array)
  */
-export function stringToBuffer(str: string): Uint8Array {
+export function stringToBuffer(str: string): Uint8Array<ArrayBuffer> {
 	return Uint8Array.from(str, (c) => c.charCodeAt(0))
 }
 
@@ -36,14 +36,14 @@ export function bufferToHex(buffer: Uint8Array): string {
 /**
  * @param base64Str - The base64 string to convert to a buffer (Uint8Array)
  */
-export function base64ToBuffer(base64Str: string): Uint8Array {
+export function base64ToBuffer(base64Str: string): Uint8Array<ArrayBuffer> {
 	return stringToBuffer(atob(base64Str))
 }
 
 /**
  * @param pem - The PEM formatted key to convert to a buffer (Uint8Array)
  */
-export function pemToBuffer(pem: string): Uint8Array {
+export function pemToBuffer(pem: string): Uint8Array<ArrayBuffer> {
 	const pemContents = pem
 		.replace(/-----BEGIN ((PRIVATE KEY)|(PUBLIC KEY)|(CERTIFICATE))-----/, '')
 		.replace(/-----END ((PRIVATE KEY)|(PUBLIC KEY)|(CERTIFICATE))-----/, '')

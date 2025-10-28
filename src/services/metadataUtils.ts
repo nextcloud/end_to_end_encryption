@@ -21,9 +21,9 @@ export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey
 	const [encryptedMetadata, iv] = metadata.metadata.ciphertext.split('|')
 
 	const compressedMetadataInfo = await decryptWithAES(
-		base64ToBuffer(encryptedMetadata),
+		base64ToBuffer(encryptedMetadata!),
 		metadataPrivateKey,
-		{ iv: base64ToBuffer(iv) },
+		{ iv: base64ToBuffer(iv!) },
 	)
 
 	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo)) as MetadataInfo
