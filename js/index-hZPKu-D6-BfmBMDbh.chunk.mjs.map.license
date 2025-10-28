@@ -21,6 +21,7 @@ SPDX-FileCopyrightText: atomiks
 SPDX-FileCopyrightText: date-fns developers
 SPDX-FileCopyrightText: debounce developers
 SPDX-FileCopyrightText: p-queue developers
+SPDX-FileCopyrightText: ts-md5 developers
 
 This file is generated from multiple sources. Included packages:
 - @floating-ui/dom
@@ -29,9 +30,6 @@ This file is generated from multiple sources. Included packages:
 - @floating-ui/utils
 	- version: 0.2.10
 	- license: MIT
-- @nextcloud/browser-storage
-	- version: 0.4.0
-	- license: GPL-3.0-or-later
 - @nextcloud/capabilities
 	- version: 1.2.0
 	- license: GPL-3.0-or-later
@@ -45,7 +43,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.4.0
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 9.0.1
+	- version: 9.1.0
 	- license: AGPL-3.0-or-later
 - @vitejs/plugin-vue
 	- version: 6.0.1
@@ -85,6 +83,9 @@ This file is generated from multiple sources. Included packages:
 	- license: MIT
 - tributejs
 	- version: 5.1.3
+	- license: MIT
+- ts-md5
+	- version: 2.0.1
 	- license: MIT
 - vue-select
 	- version: 4.0.0-beta.6
