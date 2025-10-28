@@ -52,7 +52,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.0.1
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 9.0.1
+	- version: 9.1.0
 	- license: AGPL-3.0-or-later
 - @vue/reactivity
 	- version: 3.5.22
@@ -76,7 +76,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.12.2
 	- license: MIT
 - dompurify
-	- version: 3.2.7
+	- version: 3.3.0
 	- license: (MPL-2.0 OR Apache-2.0)
 - end_to_end_encryption
 	- version: 1.19.0-dev.0
@@ -94,7 +94,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 7.6.3
 	- license: ISC
 - tabbable
-	- version: 6.2.0
+	- version: 6.3.0
 	- license: MIT
 - vite
 	- version: 7.1.11
