@@ -218,8 +218,8 @@ async function setConfig(key: string, value: string) {
 			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 
 			<NcCheckboxRadioSwitch
-				:disabled="!hasKey || !supportsE2EEInBrowser"
 				data-cy-e2ee-settings-setting="e2ee_in_browser_enabled"
+				:disabled="!hasKey || !supportsE2EEInBrowser"
 				:model-value="userConfig.e2eeInBrowserEnabled"
 				class="margin-bottom"
 				type="switch"
