@@ -43,10 +43,16 @@ class Personal implements ISettings {
 			]
 		);
 
+		$canUseApp = !$this->e2eConfig->isDisabledForUser($this->userSession->getUser());
+		if ($canUseApp) {
+			\OCP\Util::addStyle(Application::APP_ID, Application::APP_ID . '-settings-personal');
+			\OCP\Util::addScript(Application::APP_ID, Application::APP_ID . '-settings-personal');
+		}
+
 		return new TemplateResponse(
 			Application::APP_ID,
 			'settings',
-			['canUseApp' => !$this->e2eConfig->isDisabledForUser($this->userSession->getUser())]
+			['canUseApp' => $canUseApp]
 		);
 	}
 

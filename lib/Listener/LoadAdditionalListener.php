@@ -40,6 +40,7 @@ class LoadAdditionalListener implements IEventListener {
 			]
 		);
 
-		Util::addInitScript(Application::APP_ID, 'end_to_end_encryption-files');
+		Util::addStyle(Application::APP_ID, Application::APP_ID . '-files');
+		Util::addInitScript(Application::APP_ID, Application::APP_ID . '-files');
 	}
 }
