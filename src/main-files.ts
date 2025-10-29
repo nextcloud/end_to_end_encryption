@@ -9,6 +9,7 @@ import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
 import downloadUnencryptedAction from './files_actions/downloadUnencryptedAction.ts'
+import { registerNewEncryptedFolderEntry } from './files_newMenu/new-encrypted-folder.ts'
 import logger from './services/logger.ts'
 import { setupWebDavDecryptionProxy } from './services/webDavProxy.ts'
 
@@ -22,6 +23,8 @@ if (userConfig.e2eeInBrowserEnabled) {
 	registerFileAction(downloadUnencryptedAction)
 	disableFileAction('download')
 	disableFileAction('move-copy')
+
+	registerNewEncryptedFolderEntry()
 }
 
 /**
