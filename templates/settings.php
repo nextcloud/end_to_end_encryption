@@ -8,7 +8,7 @@ declare(strict_types=1);
  */
 
 if ($canUseApp) {
-	\OCP\Util::addScript('end_to_end_encryption', 'end_to_end_encryption-settings'); ?>
+	?>
 	<div id="security-end-to-end"></div>
 <?php
 }

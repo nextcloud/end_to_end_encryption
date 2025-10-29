@@ -89,6 +89,9 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 		$csp = new ContentSecurityPolicy();
 		$csp->addAllowedFrameDomain('\'self\'');
 
+		\OCP\Util::addStyle(Application::APP_ID, Application::APP_ID . '-filedrop');
+		\OCP\Util::addScript(Application::APP_ID, Application::APP_ID . '-filedrop');
+
 		$response = new PublicTemplateResponse(Application::APP_ID, 'filesdrop', []);
 		$response->setHeaderTitle($this->l10n->t('Encrypted share'));
 

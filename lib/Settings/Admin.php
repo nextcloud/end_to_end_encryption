@@ -27,6 +27,8 @@ class Admin implements ISettings {
 	public function getForm(): TemplateResponse {
 		$this->initialState->provideInitialState('allowed_groups', $this->config->getAllowedGroupIds());
 
+		\OCP\Util::addStyle(Application::APP_ID, Application::APP_ID . '-settings-admin');
+		\OCP\Util::addScript(Application::APP_ID, Application::APP_ID . '-settings-admin');
 		return new TemplateResponse(
 			Application::APP_ID,
 			'settings-admin',

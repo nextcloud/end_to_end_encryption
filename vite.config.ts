@@ -14,10 +14,9 @@ declare const __dirname: string
 export default createAppConfig({
 	files: join(__dirname, 'src', 'main-files.ts'),
 	filedrop: join(__dirname, 'src', 'main-filedrop.js'),
-	settings: join(__dirname, 'src', 'settings-user.js'),
-	adminSettings: join(__dirname, 'src', 'settings-admin.js'),
+	'settings-admin': join(__dirname, 'src', 'settings-admin.js'),
+	'settings-personal': join(__dirname, 'src', 'settings-user.js'),
 }, {
-	inlineCSS: { relativeCSSInjection: true },
 	extractLicenseInformation: {
 		includeSourceMaps: true,
 	},
