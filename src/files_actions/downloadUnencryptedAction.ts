@@ -8,7 +8,7 @@ import type { Node } from '@nextcloud/files'
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
 import { DefaultType, FileAction, FileType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
-import { isDownloadable } from './permissions.ts'
+import { isDownloadable } from '../services/permissions.ts'
 
 /**
  * Trigger downloading of given file (only the first node is downloaded).
@@ -44,8 +44,8 @@ export default new FileAction({
 			return false
 		}
 
-		// We can only download dav ressource
-		if (nodes.some((node) => !node.isDavRessource)) {
+		// We can only download dav resources
+		if (nodes.some((node) => !node.isDavResource)) {
 			return false
 		}
 
