@@ -5,9 +5,56 @@
 
 import type { PrivateKeyInfo } from '../models.ts'
 
-import { bufferToString, pemToBuffer } from './bufferUtils.ts'
-import { decryptWithAES, loadRSAPrivateKey } from './crypto.ts'
+import { base64ToBuffer, bufferToPem, bufferToString, pemToBuffer, stringToBuffer } from './bufferUtils.ts'
+import { decryptWithAES, encryptWithAES, loadRSAPrivateKey } from './crypto.ts'
 import logger from './logger.ts'
+
+/**
+ * Generates a new RSA-OAEP private and public key pair.
+ */
+export async function generatePrivateKey(): Promise<CryptoKeyPair> {
+	return await self.crypto.subtle.generateKey({
+		name: 'RSA-OAEP',
+		modulusLength: 2048,
+		publicExponent: new Uint8Array([1, 0, 1]),
+		hash: { name: 'SHA-256' },
+	}, true, ['encrypt', 'decrypt'])
+}
+
+/**
+ * Encrypts the user's private key using their mnemonic.
+ *
+ * @param privateKey - the RSA private key to encrypt
+ * @param mnemonic - The user's mnemonic
+ */
+export async function encryptPrivateKey(
+	privateKey: CryptoKey,
+	mnemonic: string,
+): Promise<PrivateKeyInfo> {
+	if (!privateKey.extractable) {
+		throw new Error('Private key is not extractable')
+	}
+
+	// remove whitespace and lowercase the mnemonic
+	mnemonic = mnemonic.toLowerCase().replaceAll(/\s+/g, '')
+
+	// generate the encryption key (deviate from mnemonic)
+	const salt = self.crypto.getRandomValues(new Uint8Array(40))
+	const encryptionKey = await mnemonicToPrivateKey(mnemonic, salt, { hash: 'SHA-256', iterations: 600000 })
+	// export the private key to PEM format
+	const rawKeyData = new Uint8Array(await self.crypto.subtle.exportKey('pkcs8', privateKey))
+	const pemKeyData = bufferToPem(rawKeyData, 'private')
+	// what the heck - this is not in the RFC but all clients do this... (convert to base64)
+	const b42KeyData = stringToBuffer(stringToBuffer(pemKeyData).toBase64())
+
+	// encrypt the private key with the derived encryption key
+	const { encryptedContent: encryptedPrivateKey, iv } = await encryptWithAES(b42KeyData, encryptionKey, { tagLength: 128 })
+	return {
+		encryptedPrivateKey,
+		iv,
+		salt,
+	}
+}
 
 /**
  * Decrypts the user's private key using their mnemonic.
@@ -27,14 +74,17 @@ export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic
 
 	for (const mnemonicPrivateKey of mnemonicPrivateKeys) {
 		try {
-			const rawPrivateKey = await decryptWithAES(
+			const pemKey = await decryptWithAES(
 				privateKeyInfo.encryptedPrivateKey,
 				mnemonicPrivateKey,
 				{ iv: privateKeyInfo.iv, tagLength: 128 },
 			)
+				.then(bufferToString) // Make the buffer a string
+				.then(base64ToBuffer) // so that we can convert it from base64 encoding to binary
+				.then(bufferToString) // we need a string to parse the inner PEM
+				.then(pemToBuffer) // finally convert the PEM to a buffer (get the raw pkcs8 data)
 
-			const pemKey = atob(bufferToString(new Uint8Array(rawPrivateKey)))
-			return loadRSAPrivateKey(pemToBuffer(pemKey))
+			return loadRSAPrivateKey((pemKey))
 		} catch (error) {
 			logger.debug('Failed to decrypt private key with mnemonic', { error })
 			// Try the next one

@@ -17,17 +17,21 @@ import { bufferToHex, pemToBuffer } from './bufferUtils.ts'
  * @param options - Optional AES-GCM parameters
  */
 export async function encryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}) {
-	const iv = self.crypto.getRandomValues(new Uint8Array(16))
+	const iv = self.crypto.getRandomValues(new Uint8Array(12))
 
-	const encryptedContent = await self.crypto.subtle.encrypt(
+	const cipherText = await self.crypto.subtle.encrypt(
 		{ name: 'AES-GCM', iv, ...options },
 		key,
 		content,
 	)
 
+	const tag = new Uint8Array(cipherText.slice(-16)) // tag size is 128 bits so 16 bytes
+	const encryptedContent = new Uint8Array(cipherText) // new Uint8Array(cipherText.slice(0, -16))
+
 	return {
-		encryptedContent: new Uint8Array(encryptedContent),
+		encryptedContent,
 		iv,
+		tag,
 	}
 }
 

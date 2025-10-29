@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { PemConverter } from '@peculiar/x509'
+
 /**
  * @param buffer - The buffer (Uint8Array) to convert to a string
  */
-export function bufferToString(buffer: Uint8Array): string {
-	return String.fromCharCode(...buffer)
+export function bufferToString(buffer: Uint8Array<ArrayBuffer> | ArrayBuffer): string {
+	return String.fromCharCode(...new Uint8Array(buffer))
 }
 
 /**
@@ -45,10 +47,21 @@ export function bufferToHex(buffer: Uint8Array): string {
  * @param pem - The PEM formatted key to convert to a buffer (Uint8Array)
  */
 export function pemToBuffer(pem: string): Uint8Array<ArrayBuffer> {
-	const pemContents = pem
-		.replace(/-----BEGIN ((PRIVATE KEY)|(PUBLIC KEY)|(CERTIFICATE))-----/, '')
-		.replace(/-----END ((PRIVATE KEY)|(PUBLIC KEY)|(CERTIFICATE))-----/, '')
-		.replace(/\n/g, '')
+	return new Uint8Array(PemConverter.decodeFirst(pem))
+}
 
-	return base64ToBuffer(pemContents)
+/**
+ * Converts a buffer (pkcs8) to a PEM formatted key
+ *
+ * @param buffer - The buffer (Uint8Array) to convert to PEM format
+ * @param type - The type of the key: 'public', 'private' or 'certificate'
+ */
+export function bufferToPem(buffer: Uint8Array<ArrayBuffer>, type: 'public' | 'private' | 'certificate' | 'csr'): string {
+	const TAGS = {
+		public: 'PUBLIC KEY',
+		private: 'PRIVATE KEY',
+		certificate: 'CERTIFICATE',
+		csr: 'CERTIFICATE REQUEST',
+	}
+	return PemConverter.encode(buffer, TAGS[type])
 }
