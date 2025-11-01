@@ -8,7 +8,7 @@ import type { Node, View } from '@nextcloud/files'
 import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
-import downloadUnencryptedAction from './services/downloadUnencryptedAction.ts'
+import downloadUnencryptedAction from './files_actions/downloadUnencryptedAction.ts'
 import logger from './services/logger.ts'
 import { setupWebDavDecryptionProxy } from './services/webDavProxy.ts'
 

@@ -186,7 +186,6 @@ async function setConfig(key: string, value: string) {
 		<NcButton
 			v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
 			class="margin-bottom"
-			:disabled="!hasKey"
 			variant="secondary"
 			@click="shouldDisplayE2EEInBrowserWarning = true">
 			{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
@@ -211,7 +210,6 @@ async function setConfig(key: string, value: string) {
 			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 
 			<NcCheckboxRadioSwitch
-				:disabled="!hasKey"
 				data-cy-e2ee-settings-setting="e2ee_in_browser_enabled"
 				:model-value="userConfig.e2eeInBrowserEnabled"
 				class="margin-bottom"
