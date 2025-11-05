@@ -44,7 +44,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 5.3.0
 	- license: MIT
 - pkijs
-	- version: 3.3.1
+	- version: 3.3.2
 	- license: BSD-3-Clause
 - safe-buffer
 	- version: 5.2.1
