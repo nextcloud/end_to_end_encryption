@@ -5,11 +5,9 @@
 
 import type { Node, View } from '@nextcloud/files'
 
-import { showError } from '@nextcloud/dialogs'
 import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
 import downloadUnencryptedAction from './services/downloadUnencryptedAction.ts'
 import logger from './services/logger.ts'
 import { setupWebDavDecryptionProxy } from './services/webDavProxy.ts'
@@ -26,7 +24,7 @@ if (userConfig.e2eeInBrowserEnabled && browserSupportsWebCrypto) {
 	disableFileAction('download')
 	disableFileAction('move-copy')
 } else if (userConfig.e2eeInBrowserEnabled && !browserSupportsWebCrypto) {
-	showError(t('end_to_end_encryption', 'End-to-end encryption in the browser is not supported by your browser or you are not using a secure connection (HTTPS).'))
+	logger.error('End-to-end encryption in the browser is not supported by your browser or you are not using a secure connection (HTTPS).')
 }
 
 /**

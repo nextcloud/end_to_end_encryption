@@ -20,6 +20,7 @@ import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import IconClose from 'vue-material-design-icons/Close.vue'
 import logger from '../services/logger.ts'
 
+const supportsE2EEInBrowser = typeof window.crypto !== 'undefined' && typeof window.crypto.subtle !== 'undefined'
 const hasKey = ref(loadState('end_to_end_encryption', 'hasKey'))
 const shouldDisplayWarning = ref(false)
 const deleteEncryptedFiles = ref(false)
@@ -183,10 +184,16 @@ async function setConfig(key: string, value: string) {
 	<NcSettingsSection
 		:name="t('end_to_end_encryption', 'End-to-end encryption')"
 		:description="settingsSectionDescription">
+		<NcNoteCard
+			v-if="!supportsE2EEInBrowser"
+			type="warning"
+			:heading="t('end_to_end_encryption', 'End to end encryption not available')"
+			:text="t('end_to_end_encryption', 'Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS.')" />
+
 		<NcButton
 			v-if="!shouldDisplayE2EEInBrowserWarning && userConfig['e2eeInBrowserEnabled'] === false"
 			class="margin-bottom"
-			:disabled="!hasKey"
+			:disabled="!hasKey || !supportsE2EEInBrowser"
 			variant="secondary"
 			@click="shouldDisplayE2EEInBrowserWarning = true">
 			{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
@@ -211,7 +218,7 @@ async function setConfig(key: string, value: string) {
 			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 
 			<NcCheckboxRadioSwitch
-				:disabled="!hasKey"
+				:disabled="!hasKey || !supportsE2EEInBrowser"
 				data-cy-e2ee-settings-setting="e2ee_in_browser_enabled"
 				:model-value="userConfig.e2eeInBrowserEnabled"
 				class="margin-bottom"
