@@ -13,8 +13,9 @@ import logger from './services/logger.ts'
 import { setupWebDavDecryptionProxy } from './services/webDavProxy.ts'
 
 const userConfig = loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false })
+const browserSupportsWebCrypto = typeof window.crypto !== 'undefined' && typeof window.crypto.subtle !== 'undefined'
 
-if (userConfig.e2eeInBrowserEnabled) {
+if (userConfig.e2eeInBrowserEnabled && browserSupportsWebCrypto) {
 	setupWebDavDecryptionProxy()
 	registerDavProperty('nc:e2ee-is-encrypted', { nc: 'http://nextcloud.org/ns' })
 	registerDavProperty('nc:e2ee-metadata', { nc: 'http://nextcloud.org/ns' })
@@ -22,6 +23,8 @@ if (userConfig.e2eeInBrowserEnabled) {
 	registerFileAction(downloadUnencryptedAction)
 	disableFileAction('download')
 	disableFileAction('move-copy')
+} else if (userConfig.e2eeInBrowserEnabled && !browserSupportsWebCrypto) {
+	logger.error('End-to-end encryption in the browser is not supported by your browser or you are not using a secure connection (HTTPS).')
 }
 
 /**
