@@ -48,6 +48,8 @@ OC.L10N.register(
     "Reset keys" : "Ресетуј кључеве",
     "End-to-end encryption is currently enabled and correctly setup." : "Шифровање од-краја-до-краја је тренутно укључено и исправно подешено.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Шифровање од-краја-до-краја је тренутно искључено. Можете да га подесите са {productName} клијентима.",
+    "Unable to delete private key" : "Не може да се обрише приватни кључ",
+    "Unable to delete encrypted files" : "Не могу да се обришу шифровани фајлови",
     "End-to-end encryption keys reset" : "Кључеви шифровања од-краја-до-краја су ресетовани",
     "Unable to reset end-to-end encryption" : "Није могло да се ресетује шифровање од-краја-до-краја",
     "End-to-end encryption" : "Шифровање са краја на крај",
