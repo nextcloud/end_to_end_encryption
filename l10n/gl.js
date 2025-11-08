@@ -53,6 +53,8 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Restabelecer as chaves de cifrado de extremo a extremo",
     "Unable to reset end-to-end encryption" : "Non é posíbel restabelecer o cifrado de extremo a extremo",
     "End-to-end encryption" : "Cifrado de extremo a extremo",
+    "End to end encryption not available" : "O cifrado de extremo a extremo non está dispoñíbel",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Ou o seu navegador non admite cifrado de extremo a extremo ou está a usar unha conexión insegura (HTTP). Use un navegador moderno e asegúrese de empregar HTTPS.",
     "Enable E2EE navigation in browser" : "Activar a navegación con E2EE no navegador",
     "Enabling E2EE in the browser can weaken security" : "Activar o E2EE no navegador pode debilitar a seguridade",
     "Close" : "Pechar",

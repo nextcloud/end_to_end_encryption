@@ -51,6 +51,8 @@
     "End-to-end encryption keys reset" : "端到端加密金鑰重設",
     "Unable to reset end-to-end encryption" : "無法重設端到端加密",
     "End-to-end encryption" : "端點對端點加密",
+    "End to end encryption not available" : "端到端加密不可用",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "您的瀏覽器不支援端到端加密，或是您正在使用不安全的連線 (HTTP)。請使用現代瀏覽器並確定您正在使用 HTTPS。",
     "Enable E2EE navigation in browser" : "在瀏覽器中啟用 E2EE 導覽",
     "Enabling E2EE in the browser can weaken security" : "在瀏覽器中啟用 E2EE 可能會弱化安全性",
     "Close" : "關閉",
