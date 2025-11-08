@@ -51,6 +51,8 @@
     "End-to-end encryption keys reset" : "Кључеви шифровања од-краја-до-краја су ресетовани",
     "Unable to reset end-to-end encryption" : "Није могло да се ресетује шифровање од-краја-до-краја",
     "End-to-end encryption" : "Шифровање са краја на крај",
+    "End to end encryption not available" : "Није доступно шифровање с-краја-на-крај",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Или ваш интернет прегледач не подржава шифровање с-краја-на-крај, или користите небезбедну везу (HTTP). Молимо вас да користите модерни прегледач и HTTPS везу.",
     "Enable E2EE navigation in browser" : "Укључи E2EE навигацију у прегледачу",
     "Enabling E2EE in the browser can weaken security" : "Укључивање E2EE у интернет прегледачу може да ослаби безбедност",
     "Close" : "Затвори",

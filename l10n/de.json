@@ -51,6 +51,8 @@
     "End-to-end encryption keys reset" : "Schlüssel der Ende-zu-Ende-Verschlüsselung zurücksetzen",
     "Unable to reset end-to-end encryption" : "Ende-zu-Ende-Verschlüsselung kann nicht zurückgesetzt werden",
     "End-to-end encryption" : "Ende-zu-Ende-Verschlüsselung",
+    "End to end encryption not available" : "Ende-zu-Ende-Verschlüsselung nicht verfügbar",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Entweder unterstützt dein Browser keine Ende-zu-Ende-Verschlüsselung oder du verwendest eine unsichere Verbindung (HTTP). Bitte verwende einen modernen Browser und stelle sicher, dass du HTTPS verwendest.",
     "Enable E2EE navigation in browser" : "E2EE-Navigation im Browser aktivieren",
     "Enabling E2EE in the browser can weaken security" : "Das Aktivieren von E2EE im Browser kann unsicher sein",
     "Close" : "Schließen",

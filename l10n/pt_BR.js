@@ -53,6 +53,8 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Chaves de criptografia de ponta-a-ponta redefinidas",
     "Unable to reset end-to-end encryption" : "Não é possível redefinir a criptografia de ponta-a-ponta",
     "End-to-end encryption" : "Criptografia de ponta-a-ponta",
+    "End to end encryption not available" : "Criptografia de ponta-a-ponta não disponível",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Seu navegador não suporta criptografia de ponta-a-ponta ou você está usando uma conexão não segura (HTTP). Use um navegador moderno e certifique-se de estar usando HTTPS.",
     "Enable E2EE navigation in browser" : "Ativar navegação de criptografia ponta-a-ponta no navegador",
     "Enabling E2EE in the browser can weaken security" : "A ativação da criptografia de ponta-a-ponta pode enfraquecer a segurança",
     "Close" : "Fechar",

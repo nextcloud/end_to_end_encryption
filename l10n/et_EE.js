@@ -53,6 +53,8 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Läbiva krüptimise võtmed on lähtestatud",
     "Unable to reset end-to-end encryption" : "Läbiva krüptimise lähtestamine ei õnnestu",
     "End-to-end encryption" : "Läbiv krüptimine",
+    "End to end encryption not available" : "Läbiv krüptimine pole saadaval",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Kas sinu veebibrauser ei toeta läbivat krüptimist või kasutad ebaturvalist võrguühendust (HTTP). Palun kasuta tänapäevast veebibrauserit ja HTTPS-ühendust.",
     "Enable E2EE navigation in browser" : "Luba läbiv krüptimine veebibrauseris",
     "Enabling E2EE in the browser can weaken security" : "Läbiva krüptimise lubamine veebibrauseris võib nõrgendada turvalisust",
     "Close" : "Sulge",
