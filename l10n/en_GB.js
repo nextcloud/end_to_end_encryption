@@ -53,6 +53,8 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "End-to-end encryption keys reset",
     "Unable to reset end-to-end encryption" : "Unable to reset end-to-end encryption",
     "End-to-end encryption" : "End-to-end encryption",
+    "End to end encryption not available" : "End to end encryption not available",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS.",
     "Enable E2EE navigation in browser" : "Enable E2EE navigation in browser",
     "Enabling E2EE in the browser can weaken security" : "Enabling E2EE in the browser can weaken security",
     "Close" : "Close",
