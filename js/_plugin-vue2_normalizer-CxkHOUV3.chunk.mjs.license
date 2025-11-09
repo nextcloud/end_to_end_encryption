@@ -55,7 +55,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.0.1
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.33.0
+	- version: 8.34.0
 	- license: AGPL-3.0-or-later
 - @vitejs/plugin-vue2
 	- version: 2.3.4
@@ -79,7 +79,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.0.0-beta.19
 	- license: MIT
 - focus-trap
-	- version: 7.5.4
+	- version: 7.6.6
 	- license: MIT
 - path-browserify
 	- version: 1.0.1
@@ -88,7 +88,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 7.6.3
 	- license: ISC
 - tabbable
-	- version: 6.2.0
+	- version: 6.3.0
 	- license: MIT
 - toastify-js
 	- version: 1.12.0
