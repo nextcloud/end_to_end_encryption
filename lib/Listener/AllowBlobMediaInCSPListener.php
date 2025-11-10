@@ -27,6 +27,7 @@ class AllowBlobMediaInCSPListener implements IEventListener {
 
 		$csp = new ContentSecurityPolicy();
 		$csp->addAllowedMediaDomain('blob:');
+		$csp->addAllowedWorkerSrcDomain('blob:');
 		$event->addPolicy($csp);
 	}
 }
