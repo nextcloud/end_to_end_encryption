@@ -51,6 +51,8 @@
     "End-to-end encryption keys reset" : "Eochracha criptithe ceann go deireadh a athshocrú",
     "Unable to reset end-to-end encryption" : "Ní féidir criptiú ceann go ceann a athshocrú",
     "End-to-end encryption" : "Criptiú ceann go deireadh",
+    "End to end encryption not available" : "Níl criptiú ó cheann ceann ar fáil",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Ní thacaíonn do bhrabhsálaí le criptiú foirceann go foirceann nó tá nasc neamhshábháilte (HTTP) in úsáid agat. Bain úsáid as brabhsálaí nua-aimseartha agus cinntigh go bhfuil tú ag úsáid HTTPS.",
     "Enable E2EE navigation in browser" : "Cumasaigh nascleanúint E2EE sa bhrabhsálaí",
     "Enabling E2EE in the browser can weaken security" : "Má chuirtear E2EE ar chumas an bhrabhsálaí is féidir an tslándáil a lagú",
     "Close" : "Dún",
