@@ -43,7 +43,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.0.0
 	- license: GPL-3.0-or-later
 - @nextcloud/l10n
-	- version: 3.4.0
+	- version: 3.4.1
 	- license: GPL-3.0-or-later
 - @nextcloud/logger
 	- version: 3.0.2
@@ -52,7 +52,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.0.1
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 9.1.0
+	- version: 9.2.0
 	- license: AGPL-3.0-or-later
 - @vue/reactivity
 	- version: 3.5.22
@@ -67,10 +67,10 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.5.22
 	- license: MIT
 - @vueuse/core
-	- version: 13.9.0
+	- version: 14.0.0
 	- license: MIT
 - @vueuse/shared
-	- version: 13.9.0
+	- version: 14.0.0
 	- license: MIT
 - axios
 	- version: 1.12.2
@@ -88,7 +88,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 5.2.2
 	- license: MIT
 - focus-trap
-	- version: 7.6.5
+	- version: 7.6.6
 	- license: MIT
 - semver
 	- version: 7.6.3
