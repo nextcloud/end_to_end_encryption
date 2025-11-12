@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { X509Certificate } from '@peculiar/x509'
 import type { UserWithAccess } from '../models.ts'
 
-import { X509Certificate } from '@peculiar/x509'
 import { Certificate, ContentInfo, CryptoEngine, SignedData } from 'pkijs'
 import { bufferToHex, pemToBuffer } from './bufferUtils.ts'
 
@@ -16,18 +16,22 @@ import { bufferToHex, pemToBuffer } from './bufferUtils.ts'
  * @param key - The AES crypto key to use for encryption
  * @param options - Optional AES-GCM parameters
  */
-export async function encryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}) {
-	const iv = self.crypto.getRandomValues(new Uint8Array(16))
+export async function encryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> & { iv?: Uint8Array<ArrayBuffer> } = {}) {
+	const iv = self.crypto.getRandomValues(new Uint8Array(12)) // 96 bits IV for AES-GCM
 
-	const encryptedContent = await self.crypto.subtle.encrypt(
-		{ name: 'AES-GCM', iv, ...options },
+	const cipherText = await self.crypto.subtle.encrypt(
+		{ name: 'AES-GCM', iv, tagLength: 128, ...options },
 		key,
 		content,
 	)
 
+	const tag = new Uint8Array(cipherText.slice(-16)) // tag size is 128 bits so 16 bytes
+	const encryptedContent = new Uint8Array(cipherText) // new Uint8Array(cipherText.slice(0, -16))
+
 	return {
-		encryptedContent: new Uint8Array(encryptedContent),
+		encryptedContent,
 		iv,
+		tag,
 	}
 }
 
@@ -40,7 +44,7 @@ export async function encryptWithAES(content: BufferSource, key: CryptoKey, opti
  */
 export async function decryptWithAES(content: BufferSource, key: CryptoKey, options: Partial<AesGcmParams> = {}): Promise<ArrayBuffer> {
 	return await self.crypto.subtle.decrypt(
-		{ name: 'AES-GCM', ...options },
+		{ name: 'AES-GCM', tagLength: 128, ...options },
 		key,
 		content,
 	)
@@ -153,14 +157,13 @@ export async function sha256Hash(buffer: Uint8Array<ArrayBuffer>): Promise<strin
  * @param certificate - The X.509 certificate to validate
  * @param publicKeyPEM - The public key in PEM format to use for validation
  */
-export async function validateCertificateSignature(certificate: string, publicKeyPEM: string): Promise<boolean> {
-	const cert = new X509Certificate(certificate)
+export async function validateCertificateSignature(certificate: X509Certificate, publicKeyPEM: string): Promise<boolean> {
 	const publicKey = await loadServerPublicKey(
 		pemToBuffer(publicKeyPEM),
-		cert.signatureAlgorithm.hash.name as 'SHA-1' | 'SHA-256',
+		certificate.signatureAlgorithm.hash.name as 'SHA-1' | 'SHA-256',
 	)
 
-	return cert.verify({ publicKey }, getPatchedCrypto())
+	return certificate.verify({ publicKey }, getPatchedCrypto())
 }
 
 /**
@@ -211,7 +214,7 @@ export async function validateCMSSignature(signedData: Uint8Array<ArrayBuffer>, 
 		{
 			signer: 0,
 			trustedCerts: [signerCertificate],
-			data: signedData as unknown as ArrayBuffer,
+			data: signedData.buffer,
 			checkChain: true,
 		},
 		getPatchedCryptoEngine(),

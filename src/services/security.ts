@@ -5,6 +5,7 @@
 
 import type { Metadata, RootMetadata } from '../models.ts'
 
+import { X509Certificate } from '@peculiar/x509'
 import { base64ToBuffer, stringToBuffer } from './bufferUtils.ts'
 import { validateCertificateSignature, validateCMSSignature } from './crypto.ts'
 
@@ -44,7 +45,7 @@ export async function validateMetadataSignature(metadata: Metadata, signature: s
  */
 export async function validateUserCertificates(metadata: RootMetadata, serverPublicKeyPEM: string): Promise<true[]> {
 	const verifications = metadata.users.map(async ({ userId, certificate }) => {
-		const result = await validateCertificateSignature(certificate, serverPublicKeyPEM)
+		const result = await validateCertificateSignature(new X509Certificate(certificate), serverPublicKeyPEM)
 
 		if (!result) {
 			throw new Error(`Certificate verification failed for user ${userId}`)
