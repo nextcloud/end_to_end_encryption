@@ -39,7 +39,7 @@
     "@nextcloud/router": "^3.0.1",
     "@nextcloud/vue": "^9.1.0",
     "@peculiar/x509": "^1.14.0",
-    "debounce": "^2.2.0",
+    "debounce": "^3.0.0",
     "fast-xml-parser": "^5.3.0",
     "pkijs": "^3.3.2",
     "uuid": "^13.0.0",

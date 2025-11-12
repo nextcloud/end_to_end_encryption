@@ -1,7 +1,12 @@
 SPDX-License-Identifier: AGPL-3.0-or-later
+SPDX-License-Identifier: MIT
 SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+SPDX-FileCopyrightText: debounce developers
 
 This file is generated from multiple sources. Included packages:
+- debounce
+	- version: 3.0.0
+	- license: MIT
 - end_to_end_encryption
 	- version: 1.19.0-dev.0
 	- license: AGPL-3.0-or-later
