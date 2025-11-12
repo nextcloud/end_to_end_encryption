@@ -14,4 +14,5 @@ export const storage = getBuilder('end_to_end_encryption')
 
 export const StorageKeys = Object.freeze({
 	SuppressBrowserWarning: 'suppress_browser_warning',
+	Mnemonic: 'mnemonic',
 })
