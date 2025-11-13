@@ -44,7 +44,7 @@ export async function encryptPrivateKey(
 	// export the private key to PEM format
 	const rawKeyData = new Uint8Array(await self.crypto.subtle.exportKey('pkcs8', privateKey))
 	const pemKeyData = bufferToPem(rawKeyData, 'private')
-	// todo: what the heck - this is not in the RFC but all clients do this... (convert to base64)
+	// Undocumented base64 encoding, see: https://github.com/nextcloud/end_to_end_encryption_rfc/issues/67
 	const b42KeyData = stringToBuffer(bufferToBase64(stringToBuffer(pemKeyData)))
 
 	// encrypt the private key with the derived encryption key

@@ -36,7 +36,6 @@ export async function initializeEncryption() {
 	})
 	const pem = csr.toString('pem')
 
-	// TODO: document that we need PEM here!
 	const publicKeyCertificate = new X509Certificate(await createPublicKey(pem))
 	if (!await validateCertificateSignature(publicKeyCertificate, serverKey)) {
 		throw new Error('Public key not correctly signed by server')

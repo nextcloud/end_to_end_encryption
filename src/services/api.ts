@@ -228,7 +228,7 @@ export async function createMetadata(fileId: number, metaData: string, token: st
 		{ metaData },
 		{
 			headers: {
-				'E2E-TOKEN': token, // TODO: WHY NOT A PARAM?
+				'E2E-TOKEN': token,
 				'X-NC-E2EE-SIGNATURE': signature,
 				'X-E2EE-SUPPORTED': 'true',
 			},
