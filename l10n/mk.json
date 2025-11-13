@@ -1,11 +1,11 @@
 { "translations": {
     "Internal error" : "Внатрешна грешка",
+    "Submit" : "Испрати",
+    "Select or drop files" : "Изберете или испуштете датотеки",
     "Limit to groups" : "Ограничување на групи",
     "Limit app usage to groups" : "Ограничување за користење на апликации во групи",
     "Save" : "Зачувај",
-    "Submit" : "Испрати",
     "Cancel" : "Откажи",
-    "Close" : "Затвори",
-    "Select or drop files" : "Изберете или испуштете датотеки"
+    "Close" : "Затвори"
 },"pluralForm" :"nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;"
 }

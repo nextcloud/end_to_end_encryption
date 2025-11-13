@@ -23,14 +23,14 @@ OC.L10N.register(
     "Cannot delete metadata" : "Kan metadata niet verwijderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
+    "Submit" : "Verwerken",
+    "I understand the risks" : "Ik begrijp de risico's",
+    "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster",
     "Limit to groups" : "Beperk tot groepen",
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Save" : "Opslaan",
-    "Submit" : "Verwerken",
-    "I understand the risks" : "Ik begrijp de risico's",
     "Cancel" : "Annuleren",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
-    "Close" : "Sluit",
-    "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster"
+    "Close" : "Sluit"
 },
 "nplurals=2; plural=(n != 1);");

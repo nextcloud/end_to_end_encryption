@@ -23,14 +23,14 @@ OC.L10N.register(
     "Cannot delete metadata" : "无法删除元数据",
     "End-to-End Encryption" : "点对点加密",
     "End-to-end encryption endpoint" : "端到端加密端点",
+    "Submit" : "提交",
+    "I understand the risks" : "我了解风险",
+    "Select or drop files" : "选择或拖放文件",
     "Limit to groups" : "限制于分组",
     "Limit app usage to groups" : "限制可使用应用的分组",
     "Save" : "保存",
-    "Submit" : "提交",
-    "I understand the risks" : "我了解风险",
     "Cancel" : "取消",
     "End-to-end encryption" : "端到端加密",
-    "Close" : "关闭",
-    "Select or drop files" : "选择或拖放文件"
+    "Close" : "关闭"
 },
 "nplurals=1; plural=0;");

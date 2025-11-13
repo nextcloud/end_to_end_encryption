@@ -3,11 +3,11 @@ OC.L10N.register(
     {
     "Internal error" : "Kesalahan internal",
     "File not locked" : "File tidak dikunci",
+    "Select or drop files" : "Pilih atau drop berkas",
     "Limit to groups" : "Batasi ke grup",
     "Limit app usage to groups" : "Batas pemakaian aplikasi untuk grup",
     "Save" : "Simpan",
     "Cancel" : "Batal",
-    "Close" : "Tutup",
-    "Select or drop files" : "Pilih atau drop berkas"
+    "Close" : "Tutup"
 },
 "nplurals=1; plural=0;");

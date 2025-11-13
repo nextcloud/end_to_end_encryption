@@ -17,12 +17,12 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Nur la posedanto povas forigi la pridatuman dosieron",
     "End-to-End Encryption" : "Tutvoja ĉifrado",
     "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
+    "Submit" : "Sendi",
+    "Select or drop files" : "Elekti aŭ demeti dosierojn",
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
     "Save" : "Konservi",
-    "Submit" : "Sendi",
     "Cancel" : "Cancel",
-    "Close" : "Malfermi",
-    "Select or drop files" : "Elekti aŭ demeti dosierojn"
+    "Close" : "Malfermi"
 },
 "nplurals=2; plural=(n != 1);");
