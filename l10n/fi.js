@@ -21,15 +21,15 @@ OC.L10N.register(
     "Cannot delete metadata" : "Metatietoja ei voi poistaa",
     "End-to-End Encryption" : "Päästä päähän -salaus",
     "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste",
+    "Submit" : "Lähetä",
+    "Select or drop files" : "Valitse tai pudota tiedostoja",
     "Saved groups" : "Tallennetut ryhmät",
     "Limit to groups" : "Rajoita ryhmiin",
     "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",
     "Save" : "Tallenna",
-    "Submit" : "Lähetä",
     "Cancel" : "Peruuta",
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Close" : "Sulje",
-    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
-    "Select or drop files" : "Valitse tai pudota tiedostoja"
+    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot"
 },
 "nplurals=2; plural=(n != 1);");

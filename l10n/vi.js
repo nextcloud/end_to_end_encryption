@@ -2,12 +2,12 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "Internal error" : "Lỗi nội bộ",
+    "Submit" : "Gửi",
+    "Select or drop files" : "Chọn hoặc thả tập tin",
     "Limit to groups" : "Giới hạn nhóm",
     "Limit app usage to groups" : "Giới hạn sử dụng ứng dụng cho các nhóm",
     "Save" : "Lưu",
-    "Submit" : "Gửi",
     "Cancel" : "Hủy",
-    "Close" : "Đóng",
-    "Select or drop files" : "Chọn hoặc thả tập tin"
+    "Close" : "Đóng"
 },
 "nplurals=1; plural=0;");

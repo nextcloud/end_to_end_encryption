@@ -1,8 +1,8 @@
 { "translations": {
     "Internal error" : "ข้อผิดพลาดภายใน",
+    "Submit" : "ส่ง",
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
     "Save" : "บันทึก",
-    "Submit" : "ส่ง",
     "Cancel" : "ยกเลิก",
     "Close" : "ปิด"
 },"pluralForm" :"nplurals=1; plural=0;"

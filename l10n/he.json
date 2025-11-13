@@ -16,13 +16,13 @@
     "Only the owner can delete the metadata-file" : "רק הבעלים יכול למחוק את קובץ נתוני העל",
     "End-to-End Encryption" : "הצפנה מקצה לקצה",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה",
+    "Submit" : "שליחה",
+    "Select or drop files" : "בחירה או השלכה של קבצים",
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",
     "Save" : "שמירה",
-    "Submit" : "שליחה",
     "Cancel" : "ביטול",
     "End-to-end encryption" : "הצפנה מקצה לקצה",
-    "Close" : "סגירה",
-    "Select or drop files" : "בחירה או השלכה של קבצים"
+    "Close" : "סגירה"
 },"pluralForm" :"nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;"
 }

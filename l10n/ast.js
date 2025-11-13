@@ -17,9 +17,13 @@ OC.L10N.register(
     "Cannot delete metadata" : "Nun se puen desaniciar los metadatos",
     "End-to-End Encryption" : "Cifráu de puntu a puntu",
     "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu",
-    "Save" : "Guardar",
     "Submit" : "Unviar",
     "I understand the risks" : "Entiendo los riesgos",
+    "Error while uploading files" : "Hebo un error al xubir los ficheros",
+    "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
+    "Select or drop files" : "Seleiciona o suelta los ficheros",
+    "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»",
+    "Save" : "Guardar",
     "Cancel" : "Encaboxar",
     "End-to-end encryption is currently enabled and correctly setup." : "El cifráu d'estremu a estremu ta activáu ya configuráu correutamente.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "El cifráu d'estremu a estremu ta desactiváu. Pues configuralu colos veceros de {productName}.",
@@ -27,10 +31,6 @@ OC.L10N.register(
     "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
     "Close" : "Zarrar",
-    "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
-    "Error while uploading files" : "Hebo un error al xubir los ficheros",
-    "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
-    "Select or drop files" : "Seleiciona o suelta los ficheros",
-    "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»"
+    "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes"
 },
 "nplurals=2; plural=(n != 1);");

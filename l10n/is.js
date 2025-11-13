@@ -18,14 +18,14 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Aðeins eigandinn getur eytt lýsigagnaskránni",
     "End-to-End Encryption" : "Enda-í-enda dulritun",
     "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun",
+    "Submit" : "Senda inn",
+    "I understand the risks" : "Ég skil áhættuna",
+    "Select or drop files" : "Veldu eða slepptu skrám",
     "Limit to groups" : "Takmarka við hópa",
     "Limit app usage to groups" : "Takmarka notkun forrits við tiltekna hópa",
     "Save" : "Vista",
-    "Submit" : "Senda inn",
-    "I understand the risks" : "Ég skil áhættuna",
     "Cancel" : "Hætta við",
     "End-to-end encryption" : "Enda-í-enda dulritun",
-    "Close" : "Loka",
-    "Select or drop files" : "Veldu eða slepptu skrám"
+    "Close" : "Loka"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
