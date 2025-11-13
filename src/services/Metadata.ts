@@ -5,7 +5,8 @@
 
 import type { X509Certificate } from '@peculiar/x509'
 
-import { AlgorithmIdentifier, Certificate, ContentInfo, EncapsulatedContentInfo, IssuerAndSerialNumber, SignedData, SignerInfo } from 'pkijs'
+import { ObjectIdentifier, OctetString, UTCTime } from 'asn1js'
+import { AlgorithmIdentifier, Attribute, Certificate, ContentInfo, EncapsulatedContentInfo, IssuerAndSerialNumber, SignedAndUnsignedAttributes, SignedData, SignerInfo } from 'pkijs'
 import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from './bufferUtils.ts'
 import { compress, uncompress } from './compression.ts'
 import { encryptWithAES, sha256Hash } from './crypto.ts'
@@ -184,6 +185,7 @@ export class Metadata {
 	async #exportSignature(certificate: X509Certificate, rawMetadata: Partial<IRawMetadata>): Promise<string> {
 		const cert = Certificate.fromBER(certificate.rawData)
 		const cms = new SignedData({
+			version: 1,
 			certificates: [
 				cert,
 			],
@@ -197,6 +199,30 @@ export class Metadata {
 				}),
 				signatureAlgorithm: cert.signatureAlgorithm,
 				digestAlgorithm: new AlgorithmIdentifier({ algorithmId: 'sha-256' }),
+				signedAttrs: new SignedAndUnsignedAttributes({
+					// rfc6488
+					type: 0,
+					attributes: [
+						new Attribute({
+							type: '1.2.840.113549.1.9.3', // contentType
+							values: [
+								new ObjectIdentifier({ value: ContentInfo.DATA }),
+							],
+						}),
+						new Attribute({
+							type: '1.2.840.113549.1.9.4', // messageDigest
+							values: [
+								new OctetString({ valueHex: await globalThis.crypto.subtle.digest('SHA-256', rawData) }),
+							],
+						}),
+						new Attribute({
+							type: '1.2.840.113549.1.9.5', // signingTime
+							values: [
+								new UTCTime({ valueDate: new Date() }),
+							],
+						}),
+					],
+				}),
 			})],
 		})
 
