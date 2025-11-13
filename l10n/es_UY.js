@@ -6,11 +6,11 @@ OC.L10N.register(
     "You are not allowed to remove the lock" : "No tienes permitido eliminar el bloqueo",
     "File not locked" : "El archivo no está bloqueado",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
+    "Submit" : "Enviar",
+    "Select or drop files" : "Selecciona o suelta los archivos",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
-    "Submit" : "Enviar",
     "Cancel" : "Cancel",
-    "End-to-end encryption" : "Encripción de punta-a-punta",
-    "Select or drop files" : "Selecciona o suelta los archivos"
+    "End-to-end encryption" : "Encripción de punta-a-punta"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

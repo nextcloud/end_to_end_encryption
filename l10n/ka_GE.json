@@ -14,12 +14,12 @@
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "ფაილის ცვლილების უფლება არ გაქვთ, დარწმუნდით რომ მას კეტავთ და შემდეგ გზავნით სწორ ტოკენს",
     "Only the owner can delete the metadata-file" : "მხოლოდ მფლობელს შეუძლია გააუქმოს მეტა-მონაცემების ფაილი",
     "End-to-End Encryption" : "End-to-End შიფრაცია",
+    "Submit" : "გაგზავნა",
+    "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Save" : "შენახვა",
-    "Submit" : "გაგზავნა",
     "Cancel" : "გაუქმება",
     "End-to-end encryption" : "End-to-end შიფრაცია",
-    "Close" : "დახურვა",
-    "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები"
+    "Close" : "დახურვა"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

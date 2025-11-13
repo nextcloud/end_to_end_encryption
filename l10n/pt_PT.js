@@ -17,13 +17,13 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Só o proprietário pode apagar o ficheiro de metadados",
     "End-to-End Encryption" : "Encriptação Ponto-a-Ponto",
     "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto",
+    "Submit" : "Submeter",
+    "Select or drop files" : "Selecione ou solte ficheiros",
     "Limit to groups" : "Limitado a grupos",
     "Save" : "Guardar",
-    "Submit" : "Submeter",
     "Cancel" : "Cancelar",
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
     "Close" : "Fechar",
-    "Select or drop files" : "Selecione ou solte ficheiros",
     "Download unencrypted" : "Transferir sem encriptação"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

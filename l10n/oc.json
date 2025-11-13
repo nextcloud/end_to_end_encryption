@@ -1,8 +1,8 @@
 { "translations": {
     "End-to-End Encryption" : "Chiframent del cap a la fin",
+    "Submit" : "Transmetre",
     "Limit to groups" : "Limitar als grops",
     "Save" : "Enregistrar",
-    "Submit" : "Transmetre",
     "Cancel" : "Anullar",
     "Close" : "Plegar"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"

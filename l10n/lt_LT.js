@@ -26,16 +26,16 @@ OC.L10N.register(
     "Cannot delete metadata" : "Nepavyksta ištrinti metaduomenų",
     "End-to-End Encryption" : "Ištisinis šifravimas",
     "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas",
+    "Submit" : "Pateikti",
+    "Select or drop files" : "Pasirinkite arba vilkite failus",
     "Limit to groups" : "Apriboti iki grupių",
     "Limit app usage to groups" : "Programos panaudojimas ribojamas grupėms",
     "Save" : "Įrašyti",
-    "Submit" : "Pateikti",
     "This is the final warning: Do you really want to reset your keys?" : "Tai yra paskutinis įspėjimas: Ar tikrai norite atstatyti raktus?",
     "Cancel" : "Atsisakyti",
     "Reset keys" : "Atstatyti raktus",
     "End-to-end encryption" : "Ištisinis šifravimas",
     "Close" : "Užverti",
-    "Delete existing encrypted files" : "Ištrinti esamus šifruotus failus",
-    "Select or drop files" : "Pasirinkite arba vilkite failus"
+    "Delete existing encrypted files" : "Ištrinti esamus šifruotus failus"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

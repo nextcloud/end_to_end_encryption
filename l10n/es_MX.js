@@ -23,13 +23,13 @@ OC.L10N.register(
     "Cannot delete metadata" : "No se pueden borrar los metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto",
+    "Submit" : "Enviar",
+    "Select or drop files" : "Selecciona o suelta los archivos",
     "Limit to groups" : "Limitar a grupos",
     "Limit app usage to groups" : "Limitar el uso de aplicaciones a grupos",
     "Save" : "Guardar",
-    "Submit" : "Enviar",
     "Cancel" : "Cancelar",
     "End-to-end encryption" : "Encripción de punta-a-punta",
-    "Close" : "Cerrar",
-    "Select or drop files" : "Selecciona o suelta los archivos"
+    "Close" : "Cerrar"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
