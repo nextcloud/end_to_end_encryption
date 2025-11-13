@@ -12,6 +12,18 @@ test('Metadata validation works with a valid signature', async () => {
 	await expect(validateMetadataSignature(rootFolderMetadata, rootFolderMetadataSignature, rootFolderMetadata)).resolves.toBeTruthy()
 })
 
+// see also https://github.com/nextcloud/end_to_end_encryption_rfc/issues/66
+test('Metadata validation works with a valid signature and unordered metadata', async () => {
+	const metadata = {
+		...rootFolderMetadata,
+		metadata: {
+			...rootFolderMetadata.metadata,
+			authenticationTag: rootFolderMetadata.metadata.authenticationTag,
+		},
+	}
+	await expect(validateMetadataSignature(metadata, rootFolderMetadataSignature, rootFolderMetadata)).resolves.toBeTruthy()
+})
+
 test('Metadata validation throws with a truncated signature', async () => {
 	const badSignature = rootFolderMetadataSignature.slice(0, -1)
 	await expect(validateMetadataSignature(rootFolderMetadata, badSignature, rootFolderMetadata)).rejects.toThrow()

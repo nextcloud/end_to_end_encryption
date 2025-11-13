@@ -7,6 +7,7 @@ import type { X509Certificate } from '@peculiar/x509'
 
 import { ObjectIdentifier, OctetString, UTCTime } from 'asn1js'
 import { AlgorithmIdentifier, Attribute, Certificate, ContentInfo, EncapsulatedContentInfo, IssuerAndSerialNumber, SignedAndUnsignedAttributes, SignedData, SignerInfo } from 'pkijs'
+import stringify from 'safe-stable-stringify'
 import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from './bufferUtils.ts'
 import { compress, uncompress } from './compression.ts'
 import { encryptWithAES, sha256Hash } from './crypto.ts'
@@ -183,6 +184,10 @@ export class Metadata {
 	}
 
 	async #exportSignature(certificate: X509Certificate, rawMetadata: Partial<IRawMetadata>): Promise<string> {
+		// drop the filedrop as we do not sign that
+		delete rawMetadata.filedrop
+		const metadataForSignature = stringToBuffer(btoa(stringify(rawMetadata)))
+
 		const cert = Certificate.fromBER(certificate.rawData)
 		const cms = new SignedData({
 			version: 1,
@@ -212,7 +217,7 @@ export class Metadata {
 						new Attribute({
 							type: '1.2.840.113549.1.9.4', // messageDigest
 							values: [
-								new OctetString({ valueHex: await globalThis.crypto.subtle.digest('SHA-256', rawData) }),
+								new OctetString({ valueHex: await globalThis.crypto.subtle.digest('SHA-256', metadataForSignature) }),
 							],
 						}),
 						new Attribute({
@@ -228,11 +233,8 @@ export class Metadata {
 
 		const signKey = await convertEncryptionKeyToSigningKey(certificate.privateKey!)
 
-		// drop the filedrop as we do not sign that
-		delete rawMetadata.filedrop
-		// TODO: document that we need to base64 encode!
-		const rawData = stringToBuffer(btoa(JSON.stringify(rawMetadata)))
-		await cms.sign(signKey, 0, 'sha-256', rawData)
+		await cms.sign(signKey, 0, 'SHA-256', metadataForSignature)
+
 		const contentInfo = new ContentInfo({
 			contentType: ContentInfo.SIGNED_DATA,
 			content: cms.toSchema(true),
