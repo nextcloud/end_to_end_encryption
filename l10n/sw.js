@@ -57,6 +57,8 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Vifunguo vya usimbaji-mwisho-hadi-mwisho vimewekwa upya",
     "Unable to reset end-to-end encryption" : "Imeshindwa kuweka upya usimbaji fiche wa mwanzo hadi mwisho",
     "End-to-end encryption" : "Usimbaji fiche wa mwisho hadi mwisho",
+    "End to end encryption not available" : "Usimbaji fiche wa mwisho hadi mwisho haupatikani",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Labda kivinjari chako hakitumii usimbaji fiche kutoka mwanzo hadi mwisho au unatumia muunganisho usio salama (HTTP). Tafadhali tumia kivinjari cha kisasa na uhakikishe kuwa unatumia HTTPS.",
     "Enable E2EE navigation in browser" : " Washa urambazaji wa E2EE kwenye kivinjari",
     "Enabling E2EE in the browser can weaken security" : "Kuwasha E2EE kwenye kivinjari kunaweza kudhoofisha usalama",
     "Close" : "Funga",
