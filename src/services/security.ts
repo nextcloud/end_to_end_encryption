@@ -5,6 +5,8 @@
 
 import type { Metadata, RootMetadata } from '../models.ts'
 
+import { X509Certificate } from '@peculiar/x509'
+import stringify from 'safe-stable-stringify'
 import { base64ToBuffer, stringToBuffer } from './bufferUtils.ts'
 import { validateCertificateSignature, validateCMSSignature } from './crypto.ts'
 
@@ -16,12 +18,12 @@ import { validateCertificateSignature, validateCMSSignature } from './crypto.ts'
  * @param rootMetadata - The root metadata
  */
 export async function validateMetadataSignature(metadata: Metadata, signature: string, rootMetadata: RootMetadata): Promise<true> {
-	const signedData = JSON.stringify(metadata, (key, value) => {
+	const signedData = stringify(metadata, (key, value) => {
 		if (key === 'filedrop') {
 			return undefined
 		}
 		return value
-	})
+	})!
 
 	const verificationResult = await validateCMSSignature(
 		stringToBuffer(btoa(signedData)),
@@ -44,7 +46,7 @@ export async function validateMetadataSignature(metadata: Metadata, signature: s
  */
 export async function validateUserCertificates(metadata: RootMetadata, serverPublicKeyPEM: string): Promise<true[]> {
 	const verifications = metadata.users.map(async ({ userId, certificate }) => {
-		const result = await validateCertificateSignature(certificate, serverPublicKeyPEM)
+		const result = await validateCertificateSignature(new X509Certificate(certificate), serverPublicKeyPEM)
 
 		if (!result) {
 			throw new Error(`Certificate verification failed for user ${userId}`)
