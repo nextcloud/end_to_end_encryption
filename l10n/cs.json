@@ -55,6 +55,8 @@
     "End-to-end encryption keys reset" : "Reset klíčů pro šifrování mezi koncovými body",
     "Unable to reset end-to-end encryption" : "Nedaří se resetovat šifrování mezi koncovými body",
     "End-to-end encryption" : "Šifrování end-to-end",
+    "End to end encryption not available" : "Šifrování mezi koncovými body není k dispozici",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Vámi využívaný prohlížeč buď nepodporuje šifrování mezi koncovými body, nebo používáte nezabezpečené spojení (HTTP). Použijte moderní prohlížeč a používejte HTTPS.",
     "Enable E2EE navigation in browser" : "Zapnout E2EE navigaci v prohlížeči",
     "Enabling E2EE in the browser can weaken security" : "Zapnutí E2EE šifrování v prohlížeči může oslabit zabezpečení",
     "Close" : "Zavřít",
