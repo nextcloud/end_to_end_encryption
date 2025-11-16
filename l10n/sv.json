@@ -55,6 +55,8 @@
     "End-to-end encryption keys reset" : "Krypteringsnycklar för end-to-end-kryptering har återställs",
     "Unable to reset end-to-end encryption" : "Det gick inte att återställa end-to-end-kryptering",
     "End-to-end encryption" : "End-to-end-kryptering",
+    "End to end encryption not available" : "End to end encryption är inte tillgänglig",
+    "Either your browser does not support end-to-end encryption or you are using an insecure connection (HTTP). Please use a modern browser and ensure you are using HTTPS." : "Antingen stöder din webbläsare inte end-to-end kryptering eller så använder du en osäker anslutning (HTTP). Använd en modern webbläsare och säkerställ att du använder HTTPS.",
     "Enable E2EE navigation in browser" : "Aktivera E2EE-navigering i webbläsaren",
     "Enabling E2EE in the browser can weaken security" : "Att aktivera E2EE i webbläsaren kan försvaga säkerheten",
     "Close" : "Stäng",
