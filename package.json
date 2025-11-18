@@ -63,7 +63,7 @@
     "@vitest/coverage-v8": "^4.0.10",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
-    "core-js": "^3.46.0",
+    "core-js": "^3.47.0",
     "eslint": "^9.38.0",
     "jsdom": "^27.1.0",
     "msw": "^2.12.2",
