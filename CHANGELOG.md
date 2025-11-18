@@ -7,6 +7,18 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.0.0-dev.0 - 2025-11-18
+### Added
+* Setup end-to-end encryption in the web interface.
+  It is now possible to setup end-to-end encryption in the web interface (within the files app),
+  and to also create new encrypted folders.
+  **Please note: It is not yet possible to create sub-folders and to write or move encrypted files**.
+
+### Changed
+* Updated translations
+* Updated dependencies
+* The frontend is now using Vue 3
+
 ## v1.18.0 - 2025-10-14
 ### Added
 * Added support for Nextcloud 32
