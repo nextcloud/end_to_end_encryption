@@ -77,7 +77,7 @@ class LockingController extends OCSController {
 	 */
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
-		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
+		$e2eCounter = (int)$this->request->getHeader('x-nc-e2ee-counter');
 
 		if ($e2eCounter === 0) {
 			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-COUNTER is missing in the request'));
