@@ -2,64 +2,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 version: 2
 updates:
-- package-ecosystem: composer
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  labels:
-    - "3. to review"
-    - "dependencies"
-
-- package-ecosystem: npm
-  directory: "/"
-  versioning-strategy: increase
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  labels:
-    - "3. to review"
-    - "dependencies"
-
-# Main stableXX npm
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  target-branch: stable32
-  versioning-strategy: increase
-  labels:
-    - "3. to review"
-    - "dependencies"
-  ignore:
-    # ignore all GitHub linguist patch updates
-    - dependency-name: "*"
-      update-types: ["version-update:semver-major", "version-update:semver-minor"]
-
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  target-branch: stable31
-  versioning-strategy: increase
-  labels:
-    - "3. to review"
-    - "dependencies"
-  ignore:
-    # ignore all GitHub linguist patch updates
-    - dependency-name: "*"
-      update-types: ["version-update:semver-major", "version-update:semver-minor"]
-
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
@@ -67,3 +9,85 @@ updates:
     day: sunday
     time: "09:00"
     timezone: Europe/Paris
+
+- package-ecosystem: composer
+  directories:
+    - "/"
+    - "/vendor-bin/*"
+  open-pull-requests-limit: 10
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "03:00"
+    timezone: Europe/Paris
+  labels:
+    - "3. to review"
+    - "dependencies"
+
+- package-ecosystem: npm
+  directory: "/"
+  open-pull-requests-limit: 10
+  versioning-strategy: increase
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "03:00"
+    timezone: Europe/Paris
+  labels:
+    - "3. to review"
+    - "dependencies"
+  groups:
+    vite:
+      patterns:
+        - "vite"
+        - "@nextcloud/vite-config"
+    vitest:
+      patterns:
+        - "vitest"
+        - "@vitest/*"
+
+# Main stableXX npm
+- package-ecosystem: npm
+  target-branch: stable32
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "03:00"
+    timezone: Europe/Paris
+  open-pull-requests-limit: 5
+  versioning-strategy: increase
+  labels:
+    - "3. to review"
+    - "dependencies"
+  ignore:
+    # ignore all GitHub linguist patch updates
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major", "version-update:semver-minor"]
+  groups:
+    vite:
+      patterns:
+        - "vite"
+        - "@nextcloud/vite-config"
+    vitest:
+      patterns:
+        - "vitest"
+        - "@vitest/*"
+
+- package-ecosystem: npm
+  target-branch: stable31
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "03:00"
+    timezone: Europe/Paris
+  open-pull-requests-limit: 5
+  versioning-strategy: increase
+  labels:
+    - "3. to review"
+    - "dependencies"
+  ignore:
+    # ignore all GitHub linguist patch updates
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major", "version-update:semver-minor"]
