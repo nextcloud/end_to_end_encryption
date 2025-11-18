@@ -18,12 +18,12 @@ import logger from './logger.ts'
 export async function decryptMetadataInfo(metadata: Metadata, metadataPrivateKey: CryptoKey): Promise<MetadataInfo> {
 	logger.debug('Decrypting metadata info', { metadata })
 
-	const [encryptedMetadata, iv] = metadata.metadata.ciphertext.split('|')
+	const [encryptedMetadata, legacyIv] = metadata.metadata.ciphertext.split('|') // split for legacy support of some broken client versions
 
 	const compressedMetadataInfo = await decryptWithAES(
 		base64ToBuffer(encryptedMetadata!),
 		metadataPrivateKey,
-		{ iv: base64ToBuffer(iv!) },
+		{ iv: base64ToBuffer(metadata.metadata.nonce || legacyIv!) },
 	)
 
 	const metadataInfo = JSON.parse(await unzipBuffer(compressedMetadataInfo)) as MetadataInfo

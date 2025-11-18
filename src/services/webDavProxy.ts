@@ -174,5 +174,14 @@ export async function decryptFile(response: Response, fileEncryptionInfo: FileEn
 	const headers = new Headers(response.headers)
 	headers.set('Content-Type', fileEncryptionInfo.mimetype)
 
-	return new Response(decryptedFileContent, { ...response, headers })
+	return new Response(
+		decryptedFileContent,
+		// ensure to keep headers and status.
+		// We cannot just pass the response here as some browsers will then also use the original body
+		{
+			status: response.status,
+			statusText: response.statusText,
+			headers,
+		},
+	)
 }

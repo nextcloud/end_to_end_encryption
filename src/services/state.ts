@@ -25,7 +25,11 @@ export const state = {
 	_metadataCache: {} as Record<string, Metadata>,
 
 	async getUserPrivateKey(): Promise<CryptoKey> {
-		this._userPrivateKey ??= await decryptPrivateKey(await getPrivateKey(), await promptUserForMnemonic())
+		const privateKey = await getPrivateKey()
+		if (!privateKey) {
+			throw new Error('No private key found for user')
+		}
+		this._userPrivateKey ??= await decryptPrivateKey(privateKey, await promptUserForMnemonic())
 		return this._userPrivateKey
 	},
 

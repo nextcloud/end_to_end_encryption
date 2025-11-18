@@ -6,10 +6,9 @@
 <script setup lang="ts">
 import { t } from '@nextcloud/l10n'
 import { computed, ref } from 'vue'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 import NcDialog from '@nextcloud/vue/components/NcDialog'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcTextField from '@nextcloud/vue/components/NcTextField'
+import BrowserWarning from './BrowserWarning.vue'
 
 const emit = defineEmits<{
 	(e: 'close', mnemonic: string): void
@@ -47,20 +46,9 @@ const buttons = computed(() => [
 		:buttons="buttons"
 		:is-form="true"
 		@submit="submit">
-		<NcNoteCard
-			show-alert
-			type="warning"
-			:heading="t('end_to_end_encryption', 'Decrypting your files in the browser can weaken security')">
-			{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
-
-			<NcCheckboxRadioSwitch
-				v-model="confirmToggle"
-				:required="true"
-				data-cy-e2ee-mnemonic-prompt="i_understand_the_risks"
-				type="switch">
-				{{ t('end_to_end_encryption', 'I understand the risks') }}
-			</NcCheckboxRadioSwitch>
-		</NcNoteCard>
+		<BrowserWarning
+			v-model="confirmToggle"
+			:heading="t('end_to_end_encryption', 'Decrypting your files in the browser can weaken security')" />
 
 		<NcTextField
 			v-model="mnemonic"
