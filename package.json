@@ -38,7 +38,7 @@
     "@nextcloud/initial-state": "^3.0.0",
     "@nextcloud/l10n": "^3.4.0",
     "@nextcloud/logger": "^3.0.2",
-    "@nextcloud/router": "^3.0.1",
+    "@nextcloud/router": "^3.1.0",
     "@nextcloud/vue": "^9.2.0",
     "@peculiar/x509": "^1.14.0",
     "asn1js": "^3.0.6",
