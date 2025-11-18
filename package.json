@@ -60,7 +60,7 @@
     "@nextcloud/vite-config": "^2.5.2",
     "@relative-ci/agent": "^4.3.1",
     "@testing-library/jest-dom": "^6.9.1",
-    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/coverage-v8": "^4.0.10",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
     "core-js": "^3.46.0",
