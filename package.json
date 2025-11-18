@@ -44,7 +44,7 @@
     "asn1js": "^3.0.6",
     "bip39": "^3.1.0",
     "debounce": "^3.0.0",
-    "fast-xml-parser": "^5.3.0",
+    "fast-xml-parser": "^5.3.2",
     "fflate": "^0.8.2",
     "pkijs": "^3.3.3",
     "safe-stable-stringify": "^2.5.0",

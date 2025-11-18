@@ -50,7 +50,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.19.0-dev.0
 	- license: AGPL-3.0-or-later
 - fast-xml-parser
-	- version: 5.3.0
+	- version: 5.3.2
 	- license: MIT
 - fflate
 	- version: 0.8.2
