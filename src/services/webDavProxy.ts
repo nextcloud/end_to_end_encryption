@@ -33,7 +33,7 @@ export function setupWebDavDecryptionProxy() {
 
 		logger.debug(`Proxying ${request.method} ${request.url}`, { request })
 
-		const headers = new Headers(request.headers)
+		const headers = new Headers({ ...request.headers })
 		headers.set('X-E2EE-SUPPORTED', 'true')
 		request = new Request(request, { headers })
 
