@@ -13,37 +13,37 @@ SPDX-FileCopyrightText: Yury Strozhevsky
 
 This file is generated from multiple sources. Included packages:
 - @peculiar/asn1-cms
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-csr
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-ecc
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-pfx
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-pkcs8
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-pkcs9
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-rsa
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-schema
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-x509
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/asn1-x509-attr
-	- version: 2.5.0
+	- version: 2.6.0
 	- license: MIT
 - @peculiar/x509
-	- version: 1.14.0
+	- version: 1.14.2
 	- license: MIT
 - asn1js
 	- version: 3.0.6
