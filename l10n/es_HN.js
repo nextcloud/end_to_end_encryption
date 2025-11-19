@@ -7,6 +7,7 @@ OC.L10N.register(
     "File not locked" : "El archivo no está bloqueado",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "Submit" : "Enviar",
+    "Folder name" : "Nombre de la carpeta",
     "Select or drop files" : "Selecciona o suelta los archivos",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",

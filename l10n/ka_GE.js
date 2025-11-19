@@ -17,6 +17,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "მხოლოდ მფლობელს შეუძლია გააუქმოს მეტა-მონაცემების ფაილი",
     "End-to-End Encryption" : "End-to-End შიფრაცია",
     "Submit" : "გაგზავნა",
+    "Folder name" : "დირექტორიის სახელი",
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Save" : "შენახვა",

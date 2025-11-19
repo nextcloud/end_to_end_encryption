@@ -4,6 +4,8 @@ OC.L10N.register(
     "Internal error" : "Ichki xato",
     "End-to-End Encryption" : "End-to-end shifrlash",
     "Submit" : "Submit",
+    "Folder name" : "Papka nomi",
+    "Continue" : "Davom etish",
     "Save" : "Save",
     "Cancel" : "Bekor qilish",
     "Close" : "Yopish"

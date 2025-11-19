@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Internal error" : "Error interno",
     "Submit" : "Enviar",
+    "Folder name" : "Nombre de la carpeta",
+    "Continue" : "Continuar",
     "Select or drop files" : "Seleccione o suelte los archivos",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",

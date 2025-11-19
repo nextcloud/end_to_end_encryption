@@ -6,6 +6,8 @@ OC.L10N.register(
     "File already locked" : "Datne jau aizslēgta",
     "End-to-End Encryption" : "No gala līdz galam šifrēšana",
     "Submit" : "Iesniegt",
+    "Folder name" : "Mapes nosaukums",
+    "Continue" : "Turpināt",
     "Select or drop files" : "Atlasīt vai ievilkt datnes",
     "Limit to groups" : "Grupu ierobežojums",
     "Save" : "Saglabāt",

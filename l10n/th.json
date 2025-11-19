@@ -1,6 +1,8 @@
 { "translations": {
     "Internal error" : "ข้อผิดพลาดภายใน",
     "Submit" : "ส่ง",
+    "Folder name" : "ชื่อโฟลเดอร์",
+    "Continue" : "ดำเนินการต่อ",
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
     "Save" : "บันทึก",
     "Cancel" : "ยกเลิก",

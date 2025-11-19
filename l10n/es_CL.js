@@ -17,6 +17,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Únicamente el dueño puede borrar el archivo de metadatos",
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "Submit" : "Enviar",
+    "Folder name" : "Nombre de la carpeta",
     "Select or drop files" : "Selecciona o suelta los archivos",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
