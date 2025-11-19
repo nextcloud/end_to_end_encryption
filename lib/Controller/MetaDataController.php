@@ -64,7 +64,7 @@ class MetaDataController extends OCSController {
 	 *
 	 * @param int $id File ID
 	 * @param ?string $shareToken Token of the share if available
-	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{X-NC-E2EE-SIGNATURE: string}>
+	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{x-nc-e2ee-signature: string}>
 	 * @throws OCSNotFoundException Metadata for the file not found
 	 * @throws OCSBadRequestException Cannot read metadata
 	 *
@@ -83,7 +83,7 @@ class MetaDataController extends OCSController {
 		return new DataResponse(
 			['meta-data' => $metaData],
 			Http::STATUS_OK,
-			['X-NC-E2EE-SIGNATURE' => $this->metaDataStorage->readSignature($id)],
+			['x-nc-e2ee-signature' => $this->metaDataStorage->readSignature($id)],
 		);
 	}
 
@@ -103,7 +103,7 @@ class MetaDataController extends OCSController {
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
-		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
+		$signature = $this->request->getHeader('x-nc-e2ee-signature');
 
 		if ($e2eToken === '') {
 			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
@@ -146,7 +146,7 @@ class MetaDataController extends OCSController {
 	 */
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
-		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
+		$signature = $this->request->getHeader('x-nc-e2ee-signature');
 
 		if ($e2eToken === '') {
 			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));

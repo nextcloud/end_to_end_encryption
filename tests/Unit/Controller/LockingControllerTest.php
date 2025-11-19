@@ -122,7 +122,7 @@ class LockingControllerTest extends TestCase {
 			->willReturn('new-token');
 		$this->request->expects($this->once())
 			->method('getHeader')
-			->with('X-NC-E2EE-COUNTER')
+			->with('x-nc-e2ee-counter')
 			->willReturn('1');
 
 		$response = $this->controller->lockFolder($fileId);
@@ -163,7 +163,7 @@ class LockingControllerTest extends TestCase {
 			});
 		$this->request->expects($this->once())
 			->method('getHeader')
-			->with('X-NC-E2EE-COUNTER')
+			->with('x-nc-e2ee-counter')
 			->willReturn('1');
 
 		$this->expectException(OCSForbiddenException::class);
