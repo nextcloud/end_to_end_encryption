@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Internal error" : "Lỗi nội bộ",
     "Submit" : "Gửi",
+    "Folder name" : "Tên thư mục",
+    "Continue" : "Tiếp tục",
     "Select or drop files" : "Chọn hoặc thả tập tin",
     "Limit to groups" : "Giới hạn nhóm",
     "Limit app usage to groups" : "Giới hạn sử dụng ứng dụng cho các nhóm",

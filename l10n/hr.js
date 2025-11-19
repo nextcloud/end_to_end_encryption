@@ -24,6 +24,8 @@ OC.L10N.register(
     "End-to-End Encryption" : "Cjelovito šifriranje",
     "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja",
     "Submit" : "Šalji",
+    "Folder name" : "Naziv mape",
+    "Continue" : "Nastavi",
     "Select or drop files" : "Odaberi ili ispusti datoteke",
     "Limit to groups" : "Ograniči na grupe",
     "Limit app usage to groups" : "Ograničite primjenu aplikacije na grupe",

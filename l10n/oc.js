@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "End-to-End Encryption" : "Chiframent del cap a la fin",
     "Submit" : "Transmetre",
+    "Folder name" : "Nom del dorsièr",
+    "Continue" : "Contunhar",
     "Limit to groups" : "Limitar als grops",
     "Save" : "Enregistrar",
     "Cancel" : "Anullar",

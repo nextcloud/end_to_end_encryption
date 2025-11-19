@@ -3,6 +3,9 @@ OC.L10N.register(
     {
     "Internal error" : "Kesalahan internal",
     "File not locked" : "File tidak dikunci",
+    "Folder name cannot be empty" : "Nama folder tidak bisa kosong",
+    "Folder name" : "Nama folder",
+    "Continue" : "Lanjutkan",
     "Select or drop files" : "Pilih atau drop berkas",
     "Limit to groups" : "Batasi ke grup",
     "Limit app usage to groups" : "Batas pemakaian aplikasi untuk grup",

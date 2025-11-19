@@ -18,6 +18,8 @@ OC.L10N.register(
     "End-to-End Encryption" : "Encriptação Ponto-a-Ponto",
     "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto",
     "Submit" : "Submeter",
+    "Folder name" : "Nome da pasta",
+    "Continue" : "Continuar",
     "Select or drop files" : "Selecione ou solte ficheiros",
     "Limit to groups" : "Limitado a grupos",
     "Save" : "Guardar",
