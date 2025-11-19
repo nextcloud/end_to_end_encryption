@@ -19,6 +19,8 @@ OC.L10N.register(
     "End-to-End Encryption" : "הצפנה מקצה לקצה",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה",
     "Submit" : "שליחה",
+    "Folder name" : "שם התיקייה",
+    "Continue" : "להמשך",
     "Select or drop files" : "בחירה או השלכה של קבצים",
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",

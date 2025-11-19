@@ -24,6 +24,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "Critografia a nodu terminale",
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale",
     "Submit" : "Imbia",
+    "Folder name" : "Nùmene de sa cartella",
     "Error while uploading files" : "Errore carrighende is archìvios noos",
     "Select or drop files" : "Sèbera o iscapa archìvios",
     "Upload encrypted files to {fileName}" : "Càrriga archìvios tzifrados a {fileName}",

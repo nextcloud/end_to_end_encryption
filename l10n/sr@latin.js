@@ -2,6 +2,7 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "Internal error" : "Interna greška",
+    "Folder name" : "Naziv fascikle",
     "Save" : "Sačuvaj",
     "Cancel" : "Poništi",
     "Close" : "Zatvori"
