@@ -7,7 +7,7 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.0-dev.0 - 2025-11-18
+## v2.0.0-dev.1 - 2025-11-20
 ### Added
 * Setup end-to-end encryption in the web interface.
   It is now possible to setup end-to-end encryption in the web interface (within the files app),
