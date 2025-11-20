@@ -25,7 +25,7 @@ export function setupWebDavDecryptionProxy() {
 	logger.debug('Setting up WebDAV decryption proxy')
 
 	window.fetch = async (input: RequestInfo | URL, config: RequestInit = {}): Promise<Response> => {
-		let request = new Request(input, config)
+		const request = new Request(input, config)
 
 		if (!(request.url.includes('/remote.php/dav/files/') && (request.method === 'GET' || request.method === 'PROPFIND'))) {
 			return originalFetch(request)
@@ -33,10 +33,7 @@ export function setupWebDavDecryptionProxy() {
 
 		logger.debug(`Proxying ${request.method} ${request.url}`, { request })
 
-		const headers = new Headers({ ...request.headers })
-		headers.set('X-E2EE-SUPPORTED', 'true')
-		request = new Request(request, { headers })
-
+		request.headers.set('X-E2EE-SUPPORTED', 'true')
 		switch (request.method) {
 			case 'PROPFIND':
 				return handlePropFind(request)
