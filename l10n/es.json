@@ -32,6 +32,8 @@
     "The server could serve malicious source code to extract the secret that protects your files." : "El servidor podría estar sirviendo código fuente malicioso para extraer el secreto que protege sus archivos.",
     "I understand the risks" : "Entiendo los riesgos",
     "Submit" : "Enviar",
+    "Create folder" : "Crear carpeta",
+    "Folder name cannot be empty" : "El nombre de la carpeta no puede estar vacío",
     "Folder name" : "Nombre de la carpeta",
     "Mnemonic" : "Mnemónico",
     "Continue" : "Continuar",

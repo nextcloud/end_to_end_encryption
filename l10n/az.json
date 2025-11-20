@@ -1,4 +1,6 @@
 { "translations": {
+    "Folder name" : "Qovluq adı",
+    "Continue" : "Davam et",
     "Limit to groups" : "Qruplara limitlə",
     "Limit app usage to groups" : "Tətbiqin istifadəsini qruplar üçün limitlə",
     "Save" : "Saxla",
