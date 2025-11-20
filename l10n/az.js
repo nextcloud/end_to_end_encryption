@@ -1,6 +1,8 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Folder name" : "Qovluq adı",
+    "Continue" : "Davam et",
     "Limit to groups" : "Qruplara limitlə",
     "Limit app usage to groups" : "Tətbiqin istifadəsini qruplar üçün limitlə",
     "Save" : "Saxla",

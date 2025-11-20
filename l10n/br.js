@@ -2,6 +2,8 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "Submit" : "Kinnig",
+    "Folder name" : "Anv teuliad",
+    "Continue" : "Kendec'hel",
     "Limit to groups" : "Nemet d'ar strolladoù",
     "Limit app usage to groups" : "Lakaat ar meziant da veza implijet gant ar strolladoù nemetken",
     "Save" : "Enrollañ",

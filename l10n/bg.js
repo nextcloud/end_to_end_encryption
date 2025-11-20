@@ -29,6 +29,8 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране",
     "I understand the risks" : "Разбирам рисковете",
     "Submit" : "Изпращане",
+    "Folder name" : "Име на папка",
+    "Continue" : "Продължаване",
     "Error while uploading files" : "Грешка при качване на файлове",
     "Error while uploading metadata" : "Грешка при качване на метаданни",
     "Select or drop files" : "Изберете файл или преместете с мишката",
