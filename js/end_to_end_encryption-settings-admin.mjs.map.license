@@ -3,5 +3,5 @@ SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
 
 This file is generated from multiple sources. Included packages:
 - end_to_end_encryption
-	- version: 2.0.0-dev.0
+	- version: 2.0.0-dev.1
 	- license: AGPL-3.0-or-later
