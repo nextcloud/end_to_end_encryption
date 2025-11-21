@@ -31,12 +31,21 @@
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Server by mohl sloužit zákeřnému zdrojovému kódu pro vyzískávání tajemství, které chrání vaše soubory.",
     "I understand the risks" : "Rozumím rizikům",
+    "Create new encrypted folder" : "Vytvořit novou šifrovanou složku",
+    "Checking encryption setup …" : "Kontrolování nastavení šifrování …",
     "Submit" : "Odeslat",
     "Create folder" : "Vytvořit složku",
     "Folder name cannot be empty" : "Název složky je třeba vyplnit",
+    "Folder name cannot end with \"{extension}\"" : "Název složky nemůže končit na „{extension}“",
+    "Folder name is invalid" : "Název složky není plantý",
+    "Creating folder …" : "Vytváření složky …",
     "Folder name" : "Název složky",
+    "Decrypting with given mnemonic failed" : "Rozšifrovávání pomocí dané mnemotechnické se nezdařilo",
     "Mnemonic" : "Mnemotechnická",
+    "Setup encryption" : "Nastavit šifrování",
+    "Continue ({secondsLeft})" : "Pokračovat ({secondsLeft})",
     "Continue" : "Pokračovat",
+    "Your recovery phrase is:" : "Vaše záchranná heslová fráze je:",
     "Enter your 12 words mnemonic" : "Zadejte svou dvanáctislovnou mnemotechnickou pomůcku",
     "Decrypting your files in the browser can weaken security" : "Rozšifrování vašich souborů v prohlížeči může oslabit zabezpečení",
     "Error while uploading files" : "Chyba při nahrávání souborů",
@@ -71,6 +80,9 @@
     "Check on all connected devices if you can retrieve your mnemonic." : "Podívejte se po všech připojených zařízeních, zda byste z nich nezískali svou mnemotechnickou zpět.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Jakékoli z připojených zařízení může po smazání klíčů způsobovat problémy, takže je lepší zařízení odpojit a připojit znovu zpět.",
     "Delete existing encrypted files" : "Smazat existující šifrované soubory",
-    "Download unencrypted" : "Stáhnout nešifrovaně"
+    "Download unencrypted" : "Stáhnout nešifrovaně",
+    "New encrypted folder" : "Nová šifrovaná složka",
+    "Creating new encrypted folder: Cancelled" : "Vytváření nové šifrované složky: zrušeno ",
+    "Creating new encrypted folder: Failed" : "Vytváření nové šifrované složky: nezdařilo se"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }
