@@ -45,10 +45,15 @@ OC.L10N.register(
     "Folder name is invalid" : "O nome da pasta é inválido",
     "Creating folder …" : "Criando pasta …",
     "Folder name" : "Nome da pasta",
+    "Encrypting your files in the browser can weaken security" : "Criptografar seus arquivos no navegador pode enfraquecer a segurança",
+    "Decrypting with given mnemonic failed" : "Falha na descriptografia com o mnemônico fornecido",
     "Mnemonic" : "Mnemônico",
     "Setup encryption" : "Configurar criptografia",
     "Continue ({secondsLeft})" : "Continuar ({secondsLeft})",
     "Continue" : "Continuar",
+    "To set up encryption, a new private key will be generated for you." : "Para configurar a criptografia, uma nova chave privada será gerada para você.",
+    "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Certifique-se de fazer backup da seguinte frase de recuperação, pois ela será necessária para acessar seus arquivos criptografados.",
+    "Your recovery phrase is:" : "Sua frase de recuperação é:",
     "Enter your 12 words mnemonic" : "Digite seu mnemônico de 12 palavras",
     "Decrypting your files in the browser can weaken security" : "A descriptografia de seus arquivos no navegador pode enfraquecer a segurança",
     "Error while uploading files" : "Erro ao fazer upload de arquivos",
@@ -83,6 +88,9 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Verifique em todos os dispositivos conectados se você pode recuperar seu mnemônico.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Qualquer dispositivo ainda conectado pode causar problemas após a exclusão das chaves, portanto, é melhor desconectar e reconectar os dispositivos novamente.",
     "Delete existing encrypted files" : "Excluir arquivos criptografados existentes",
-    "Download unencrypted" : "Baixar não criptografado"
+    "Download unencrypted" : "Baixar não criptografado",
+    "New encrypted folder" : "Nova pasta criptografada",
+    "Creating new encrypted folder: Cancelled" : "Criação da nova pasta criptografada: Cancelado",
+    "Creating new encrypted folder: Failed" : "Criação da nova pasta criptografada: Falhou"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
