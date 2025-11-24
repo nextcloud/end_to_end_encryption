@@ -90,7 +90,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Excluir arquivos criptografados existentes",
     "Download unencrypted" : "Baixar não criptografado",
     "New encrypted folder" : "Nova pasta criptografada",
-    "Creating new encrypted folder: Cancelled" : "Criação da nova pasta criptografada: Cancelado",
+    "Creating new encrypted folder: Cancelled" : "Criação da nova pasta criptografada: Cancelada",
     "Creating new encrypted folder: Failed" : "Criação da nova pasta criptografada: Falhou"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
