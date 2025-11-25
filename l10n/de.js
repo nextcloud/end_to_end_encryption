@@ -52,7 +52,7 @@ OC.L10N.register(
     "Continue ({secondsLeft})" : "Fortsetzen ({secondsLeft})",
     "Continue" : "Fortsetzen",
     "To set up encryption, a new private key will be generated for you." : "Zum Einrichten der Verschlüsselung wird ein neuer privater Schlüssel erstellt.",
-    "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Bitte sicherstellen, dass du die folgende Wiederherstellungsphrase sicherst, da diese für den Zugriff auf Ihre verschlüsselten Dateien erforderlich ist",
+    "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Bitte sicherstellen, dass du die folgende Wiederherstellungsphrase sicherst, da diese für den Zugriff auf Ihre verschlüsselten Dateien erforderlich ist.",
     "Your recovery phrase is:" : "Deine Wiederherstellungsphrase ist:",
     "Enter your 12 words mnemonic" : "Die 12-Wörter-Gedächtnisstütze eingeben",
     "Decrypting your files in the browser can weaken security" : "Das Entschlüsseln deiner Dateien im Browser kann unsicher sein",
