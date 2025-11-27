@@ -97,6 +97,9 @@ RCS/*
 .php-cs-fixer.cache
 
 coverage/
+# playwright test results
+test-results/
+playwright-report/
 
 js/public
 css/public
