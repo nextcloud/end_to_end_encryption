@@ -24,7 +24,9 @@ export function registerNewEncryptedFolderEntry() {
 		order: 5,
 
 		enabled(context) {
+			// we need create permissions and we cannot nest encrypted folders
 			return (context.permissions & Permission.CREATE) !== 0
+				&& !context.attributes['e2ee-is-encrypted']
 		},
 
 		async handler(context, content) {
