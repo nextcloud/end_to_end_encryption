@@ -235,3 +235,29 @@ export async function createMetadata(fileId: number, metaData: string, token: st
 		},
 	)
 }
+
+/**
+ * Fetch metadata for a given file ID or path.
+ *
+ * @param idOrPath - The file ID (number) or path (string) of the folder
+ * @param shareToken - Optional share token if folder is a share (to identify the owner)
+ */
+export async function getMetadata(idOrPath: number | string, shareToken?: string) {
+	const url = generateOcsUrl(Url.Metadata, { fileId: typeof idOrPath === 'number' ? idOrPath : '' })
+	const response = await axios.get<OCSResponse<{ 'meta-data': string }>>(
+		url,
+		{
+			headers: {
+				'X-E2EE-SUPPORTED': 'true',
+			},
+			params: {
+				shareToken,
+				path: typeof idOrPath === 'string' ? idOrPath : undefined,
+			},
+		},
+	)
+	return {
+		metadata: response.data.ocs.data['meta-data'],
+		signature: response.headers['x-nc-e2ee-signature']!,
+	}
+}

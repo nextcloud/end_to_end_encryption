@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { X509Certificate } from '@peculiar/x509'
 import type { IRawMetadata, IRawMetadataFiledrop, IRawMetadataUser, IRawRootMetadata } from './metadata.d.ts'
 
-import { base64ToBuffer, bufferToBase64, bufferToString } from '../services/bufferUtils.ts'
+import { X509Certificate } from '@peculiar/x509'
+import { base64ToBuffer, bufferToString } from '../services/bufferUtils.ts'
 import { uncompress } from '../services/compression.ts'
 import { sha256Hash } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
+import { encryptMetadataKey } from '../services/metadata.ts'
 import { Metadata } from './Metadata.ts'
 
 export class RootMetadata extends Metadata<IRawRootMetadata> {
@@ -30,7 +31,7 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		}
 
 		this.#users = this.#users.filter((u) => u.userId !== userId)
-		// TODO: add new metadata key and re-encrypt for remaining users
+		this._modified = true
 	}
 
 	/**
@@ -41,21 +42,8 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 	 */
 	public async addUser(userId: string, certificate: X509Certificate): Promise<void> {
 		logger.debug(`Adding user ${userId} to folder metadata`)
-		let key = await certificate.publicKey.export()
-		if (!key.usages.includes('encrypt')) {
-			// thats a downside of web crypto...
-			key = await globalThis.crypto.subtle.importKey('jwk', {
-				...(await globalThis.crypto.subtle.exportKey('jwk', key)),
-				key_ops: ['encrypt'],
-				alg: 'RSA-OAEP-256',
-			}, { name: 'RSA-OAEP', hash: 'SHA-256' }, true, ['encrypt'])
-		}
-		const {
-			encryptedMetadataKey,
-			keyChecksum,
-		} = await this.#encryptMetadataKey(key)
-		this.#users.push({ userId, certificate: certificate.toString('pem'), encryptedMetadataKey })
-		this._metadata.keyChecksums.push(keyChecksum)
+		this.#users.push({ userId, certificate: certificate.toString('pem'), encryptedMetadataKey: '' })
+		this._modified = true
 	}
 
 	/**
@@ -65,7 +53,22 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		return this.#users.map((u) => u.userId)
 	}
 
+	public verifySignature(signature: string): Promise<boolean> {
+		return super.verifySignature(signature, this.#users.map((u) => new X509Certificate(u.certificate)))
+	}
+
 	protected async _exportMetadata(): Promise<IRawRootMetadata> {
+		if (this._modified) {
+			this._metadataKey = await RootMetadata.generateMetadataKey()
+			const metadataKey = new Uint8Array(await globalThis.crypto.subtle.exportKey('raw', this._metadataKey))
+			for (const user of this.#users) {
+				const cert = new X509Certificate(user.certificate)
+				const userKey = await cert.publicKey.export()
+				user.encryptedMetadataKey = await encryptMetadataKey(metadataKey, userKey)
+			}
+			this._metadata.keyChecksums.push(await sha256Hash(metadataKey))
+		}
+
 		return {
 			...await super._exportMetadata(),
 			users: this.#users,
@@ -73,32 +76,8 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		}
 	}
 
-	/**
-	 * Encrypt the metadata key with the user's public key
-	 *
-	 * @param key - The user's public key
-	 */
-	async #encryptMetadataKey(key: CryptoKey) {
-		if (!this._metadataKey) {
-			throw new Error('Metadata key is not set')
-		}
-
-		const metadataKey = await globalThis.crypto.subtle.exportKey('raw', this._metadataKey)
-		const encryptedKey = await globalThis.crypto.subtle.encrypt(
-			{
-				name: 'RSA-OAEP',
-			},
-			key,
-			metadataKey,
-		)
-		return {
-			encryptedMetadataKey: bufferToBase64(new Uint8Array(encryptedKey)),
-			keyChecksum: await sha256Hash(new Uint8Array(metadataKey)),
-		}
-	}
-
-	public static async createNew(): Promise<RootMetadata> {
-		const metadataKey = await globalThis.crypto.subtle.generateKey(
+	protected static async generateMetadataKey(): Promise<CryptoKey> {
+		return await globalThis.crypto.subtle.generateKey(
 			{
 				name: 'AES-GCM',
 				length: 128,
@@ -106,20 +85,23 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			true,
 			['encrypt', 'decrypt'],
 		)
+	}
+
+	public static async createNew(): Promise<RootMetadata> {
+		const metadataKey = await RootMetadata.generateMetadataKey()
 		return new RootMetadata(metadataKey)
 	}
 
-	public static async fromJson(json: string, userId: string, privateKey: CryptoKey): Promise<RootMetadata> {
-		const parsed = JSON.parse(json) as IRawRootMetadata
-		if ('users' in parsed === false) {
+	public static async fromJson(json: IRawRootMetadata, userId: string, privateKey: CryptoKey): Promise<RootMetadata> {
+		if ('users' in json === false) {
 			throw new Error('Provided metadata is not root metadata')
 		}
 
-		if (parsed.version !== '2.0') {
-			throw new Error(`Unsupported metadata version: ${parsed.version}`)
+		if (json.version !== '2.0') {
+			throw new Error(`Unsupported metadata version: ${json.version}`)
 		}
 
-		const currentUserEntry = parsed.users.find((u) => u.userId === userId)
+		const currentUserEntry = json.users.find((u) => u.userId === userId)
 		if (!currentUserEntry) {
 			throw new Error('Current user has no access to this folder')
 		}
@@ -141,7 +123,7 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		const jsonMetadata = await globalThis.crypto.subtle.decrypt(
 			{
 				name: 'AES-GCM',
-				iv: base64ToBuffer(parsed.metadata.nonce),
+				iv: base64ToBuffer(json.metadata.nonce),
 				tagLength: 128,
 			},
 			privateKey!,
@@ -150,9 +132,9 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			.then((decrypted) => uncompress(new Uint8Array(decrypted)))
 			.then((deflated) => bufferToString(deflated))
 
-		const metadata = new RootMetadata(metadataKey, parsed.version, JSON.parse(jsonMetadata))
-		metadata.#filedrop = parsed.filedrop
-		metadata.#users = parsed.users
+		const metadata = new RootMetadata(metadataKey, json.version, JSON.parse(jsonMetadata))
+		metadata.#filedrop = json.filedrop
+		metadata.#users = json.users
 		return metadata
 	}
 }

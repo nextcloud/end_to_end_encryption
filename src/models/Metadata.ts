@@ -14,12 +14,12 @@ import { compress } from '../services/compression.ts'
 import { encryptWithAES } from '../services/crypto.ts'
 import { convertEncryptionKeyToSigningKey } from '../services/privateKeyUtils.ts'
 
-export class Metadata<MetaData extends IRawMetadata> {
+export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	protected _metadataKey: CryptoKey
 	protected _metadata: IMetadata
+	protected _modified: boolean
 	protected _version: string
 	#metadata: IMetadata
-	#modified: boolean
 
 	/**
 	 * Constructor for E2EE Metadata
@@ -31,7 +31,7 @@ export class Metadata<MetaData extends IRawMetadata> {
 	protected constructor(metadataKey: CryptoKey, version: string = '2.0', initialMetadata?: IRawMetadata) {
 		this._metadataKey = metadataKey
 		this._version = version
-		this.#modified = false
+		this._modified = false
 		this.#metadata = {
 			keyChecksums: [],
 			deleted: false,
@@ -43,17 +43,28 @@ export class Metadata<MetaData extends IRawMetadata> {
 
 		this._metadata = new Proxy(this.#metadata, {
 			get: (target, prop) => {
-				if (prop === 'counted' && this.#modified) {
+				if (prop === 'counter' && this._modified) {
 					return target.counter + 1
 				}
 				return target[prop]
 			},
 			set: (target, prop, value) => {
 				target[prop] = value
-				this.#modified = true
+				this._modified = true
 				return true
 			},
 		})
+	}
+
+	public getKey(): CryptoKey {
+		return this._metadataKey
+	}
+
+	public addFolder(uuid: string, folderName: string): void {
+		this._metadata.folders = {
+			...this._metadata.folders,
+			[uuid]: folderName,
+		}
 	}
 
 	public getFile(uuid: string): IMetadataFile | undefined {
@@ -92,6 +103,24 @@ export class Metadata<MetaData extends IRawMetadata> {
 		return { metadata, signature }
 	}
 
+	public async verifySignature(signature: string, certificates: X509Certificate[]): Promise<boolean> {
+		const metadata = await this._exportMetadata()
+		const { cms, data } = await this.#getSignedData(certificates, metadata)
+		return await cms.verify({ data: data.buffer })
+	}
+
+	public static async fromJson(json: IRawMetadata, metadataKey: CryptoKey): Promise<Metadata> {
+		if (json.version !== '2.0') {
+			throw new Error(`Unsupported metadata version: ${json.version}`)
+		}
+
+		return new Metadata(metadataKey, json.version, json)
+	}
+
+	public static async createNew(metadataKey: CryptoKey): Promise<Metadata> {
+		return new Metadata(metadataKey)
+	}
+
 	protected async _exportMetadata(): Promise<MetaData> {
 		const jsonMetadata = JSON.stringify(this._metadata)
 		const compressedMetadata = await compress(stringToBuffer(jsonMetadata))
@@ -110,7 +139,7 @@ export class Metadata<MetaData extends IRawMetadata> {
 		return rawMetadata as MetaData
 	}
 
-	async #exportSignature(certificate: X509Certificate, rawMetadata: Partial<MetaData>): Promise<string> {
+	async #getSignedData(certificates: X509Certificate[], rawMetadata: Partial<MetaData>): Promise<{ cms: SignedData, data: Uint8Array<ArrayBuffer> }> {
 		if ('filedrop' in rawMetadata) {
 			// drop the filedrop as we do not sign that
 			delete rawMetadata.filedrop
@@ -118,21 +147,19 @@ export class Metadata<MetaData extends IRawMetadata> {
 
 		const metadataForSignature = stringToBuffer(btoa(stringify(rawMetadata)))
 
-		const cert = Certificate.fromBER(certificate.rawData)
+		const certs = certificates.map((certificate) => Certificate.fromBER(certificate.rawData))
 		const cms = new SignedData({
 			version: 1,
-			certificates: [
-				cert,
-			],
+			certificates: certs,
 			encapContentInfo: new EncapsulatedContentInfo({
 				eContentType: ContentInfo.DATA,
 			}),
 			signerInfos: [new SignerInfo({
 				sid: new IssuerAndSerialNumber({
-					issuer: cert.issuer,
-					serialNumber: cert.serialNumber,
+					issuer: certs[0]!.issuer,
+					serialNumber: certs[0]!.serialNumber,
 				}),
-				signatureAlgorithm: cert.signatureAlgorithm,
+				signatureAlgorithm: certs[0]!.signatureAlgorithm,
 				digestAlgorithm: new AlgorithmIdentifier({ algorithmId: 'sha-256' }),
 				signedAttrs: new SignedAndUnsignedAttributes({
 					// rfc6488
@@ -161,9 +188,14 @@ export class Metadata<MetaData extends IRawMetadata> {
 			})],
 		})
 
+		return { cms, data: metadataForSignature }
+	}
+
+	async #exportSignature(certificate: X509Certificate, rawMetadata: Partial<MetaData>): Promise<string> {
+		const { cms, data } = await this.#getSignedData([certificate], rawMetadata)
 		const signKey = await convertEncryptionKeyToSigningKey(certificate.privateKey!)
 
-		await cms.sign(signKey, 0, 'SHA-256', metadataForSignature)
+		await cms.sign(signKey, 0, 'SHA-256', data)
 
 		const contentInfo = new ContentInfo({
 			contentType: ContentInfo.SIGNED_DATA,

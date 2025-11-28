@@ -10,8 +10,8 @@ import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
 import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
 import { joinPaths } from '@nextcloud/paths'
+import { RootMetadata } from '../models/RootMetadata.ts'
 import { createMetadata, lockFolder, setFolderAsEncrypted, unlockFolder } from './api.ts'
-import { Metadata } from './Metadata.ts'
 
 /**
  * Set up a new root folder with encryption
@@ -21,9 +21,12 @@ import { Metadata } from './Metadata.ts'
  * @param certificate - The current user's X509 certificate
  */
 export async function createNewRootFolder(name: string, context: IFolder, certificate: X509Certificate): Promise<number> {
-	const folderPath = joinPaths(context.path, name)
+	if (!certificate.privateKey) {
+		throw new Error('User certificate does not have a private key')
+	}
 
 	// first create the folder
+	const folderPath = joinPaths(context.path, name)
 	const response = await axios.request({
 		method: 'MKCOL',
 		url: defaultRemoteURL + joinPaths(defaultRootPath, folderPath),
@@ -32,15 +35,15 @@ export async function createNewRootFolder(name: string, context: IFolder, certif
 	if (!ocFileId) {
 		throw new Error('Could not retrieve fileid for newly created folder')
 	}
-	const fileid = Number.parseInt(ocFileId)
 
 	// enable encryption on it
+	const fileid = Number.parseInt(ocFileId)
 	await setFolderAsEncrypted(fileid)
 
-	const token = await lockFolder(fileid, 1) // TODO: should be 0?
+	const token = await lockFolder(fileid, 1) // TODO: documentation: should be 0?
 	try {
 		// now we finally create the initial metadata for the folder
-		const metadata = await Metadata.createNew()
+		const metadata = await RootMetadata.createNew()
 		await metadata.addUser(getCurrentUser()!.uid, certificate)
 		const {
 			metadata: rawMetadata,
@@ -56,4 +59,7 @@ export async function createNewRootFolder(name: string, context: IFolder, certif
 	} finally {
 		await unlockFolder(fileid, token)
 	}
+}
+
+export async function createNewFolder(name: string, context: IFolder): Promise<IFolder> {
 }
