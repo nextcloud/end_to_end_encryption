@@ -62,7 +62,8 @@ class MetaDataController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
-	 * @param int $id File ID
+	 * @param ?int $id File ID
+	 * @param ?string $path File path of the metdata
 	 * @param ?string $shareToken Token of the share if available
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{x-nc-e2ee-signature: string}>
 	 * @throws OCSNotFoundException Metadata for the file not found
@@ -70,9 +71,27 @@ class MetaDataController extends OCSController {
 	 *
 	 * 200: Metadata returned
 	 */
-	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
+	public function getMetaData(?int $id, ?string $path = null, ?string $shareToken = null): DataResponse {
+		$ownerId = $this->getOwnerId($shareToken);
+
+		if ($id === null) {
+			if ($path === null) {
+				throw new OCSBadRequestException($this->l10n->t('Either id or path must be provided'));
+			}
+
+			try {
+				$userFolder = $this->rootFolder->getUserFolder($ownerId);
+				$node = $userFolder->get($path);
+				if ($node === null) {
+					throw new OCSNotFoundException($this->l10n->t('Could not find metadata for path "%s"', [$path]));
+				}
+				$id = $node->getId();
+			} catch (NoUserException|NotPermittedException $e) {
+				throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+			}
+		}
+
 		try {
-			$ownerId = $this->getOwnerId($shareToken);
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));

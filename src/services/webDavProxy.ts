@@ -6,6 +6,10 @@
 import type { DAVResult } from 'webdav'
 import type { FileEncryptionInfo, MetadataInfo } from '../models.ts'
 
+import { getCurrentUser } from '@nextcloud/auth'
+import { isAxiosError } from '@nextcloud/axios'
+import { Folder } from '@nextcloud/files'
+import { defaultRootPath } from '@nextcloud/files/dav'
 import { XMLBuilder } from 'fast-xml-parser'
 import { basename, dirname } from 'path'
 import { parseStat, parseXML } from 'webdav'
@@ -13,21 +17,27 @@ import { isRootMetadata } from '../models.ts'
 import { base64ToBuffer } from './bufferUtils.ts'
 import { decryptWithAES, loadAESPrivateKey } from './crypto.ts'
 import logger from './logger.ts'
+import * as api from './api.ts'
 import { state } from './state.ts'
+import { store } from './store.ts'
+import { Metadata } from '../models/Metadata.ts'
 
-let originalFetch: typeof window.fetch
+const originalFetch = window.fetch
+
+const INTERCEPTED_METHODS = ['GET', 'PROPFIND', 'MKCOL'] as const
 
 /**
  * Sets up a proxy for WebDAV requests to handle decryption of files and metadata.
  */
 export function setupWebDavDecryptionProxy() {
-	originalFetch = window.fetch
 	logger.debug('Setting up WebDAV decryption proxy')
 
 	window.fetch = async (input: RequestInfo | URL, config: RequestInit = {}): Promise<Response> => {
 		const request = new Request(input, config)
 
-		if (!(request.url.includes('/remote.php/dav/files/') && (request.method === 'GET' || request.method === 'PROPFIND'))) {
+		if (!request.url.includes('/remote.php/dav/files/')
+			|| !INTERCEPTED_METHODS.includes(request.method as typeof INTERCEPTED_METHODS[number])
+		) {
 			return originalFetch(request)
 		}
 
@@ -37,6 +47,8 @@ export function setupWebDavDecryptionProxy() {
 		switch (request.method) {
 			case 'PROPFIND':
 				return handlePropFind(request)
+			case 'MKCOL':
+				return handleMkcol(request)
 			case 'GET':
 			default:
 				return handleGet(request)
@@ -66,6 +78,45 @@ async function handleGet(request: Request): Promise<Response> {
 		return await decryptFile(await responsePromise, fileInfo)
 	} catch {
 		return await responsePromise
+	}
+}
+
+/**
+ *
+ * @param request
+ */
+async function handleMkcol(request: Request): Promise<Response> {
+	logger.debug('Handling MKCOL request', { request })
+
+	const folder = new Folder({
+		owner: getCurrentUser()!.uid,
+		source: request.url,
+		root: defaultRootPath,
+	})
+
+	try {
+		const root = await store.getRootMetadata(folder.path)
+		const originalName = folder.basename
+		folder.rename(globalThis.crypto.randomUUID().replaceAll('-', ''))
+
+		const mkcol = new Request({
+			...request,
+			url: folder.encodedSource,
+		})
+		const respose = await originalFetch(mkcol)
+		if (!respose.ok) {
+			return respose
+		}
+
+		const parent = await store.getMetadata(dirname(folder.path))
+		parent.addFolder(folder.basename, originalName)
+		await api.setMetadata(await parent.export(await store.getCertificate()))
+		const metadata = await Metadata.createNew(root.getKey())
+	} catch (error) {
+		if (isAxiosError(error) && error.response?.status === 404) {
+			return await originalFetch(request)
+		}
+		throw error
 	}
 }
 
@@ -150,7 +201,8 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decr
 
 		childNode.propstat.prop.displayname = name
 		// TODO: Enable more feature by keeping permissions
-		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/(R)|(D)|(N)|(V)|(W)|(CK)/g, '')
+		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string)
+			.replace(/(R)|(D)|(N)|(V)|(W)/g, '')
 	})
 }
 
