@@ -41,13 +41,13 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 		return $node->getType() === FileInfo::TYPE_FOLDER && $node->isEncrypted();
 	}
 
-	public function renderPage(IShare $share, string $token, string $path): TemplateResponse {
+	protected function getMetadata(IShare $share): array {
 		$shareNode = $share->getNode();
+
 		$owner = $this->userManager->get($share->getShareOwner());
 		if ($owner === null) {
 			$e = new NotFoundException("Cannot find folder's owner");
-			$this->logger->error($e->getMessage(), ['exception' => $e]);
-			return new TemplateResponse(Application::APP_ID, 'error');
+			throw $e;
 		}
 
 		$topE2eeFolder = $shareNode;
@@ -56,18 +56,28 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 		}
 
 		$rawMetadata = $this->metadataStorage->getMetaData($owner->getUID(), $topE2eeFolder->getId());
-		$metadata = json_decode($rawMetadata, true);
+		return json_decode($rawMetadata, true);
+	}
+
+	protected function getPublicKeys(array $metadata): array {
 		$userIds = array_map(fn (array $userEntry): string => $userEntry['userId'], $metadata['users']);
 
+		return array_reduce(
+			$userIds,
+			function (array $acc, string $userId): array {
+				$acc[$userId] = $this->keyStorage->getPublicKey($userId);
+				return $acc;
+			},
+			[]
+		);
+	}
+
+	public function renderPage(IShare $share, string $token, string $path): TemplateResponse {
+		$shareNode = $share->getNode();
+
 		try {
-			$publicKeys = array_reduce(
-				$userIds,
-				function (array $acc, string $userId): array {
-					$acc[$userId] = $this->keyStorage->getPublicKey($userId);
-					return $acc;
-				},
-				[]
-			);
+			$metadata = $this->getMetadata($share);
+			$publicKeys = $this->getPublicKeys($metadata);
 		} catch (NotFoundException $e) {
 			$this->logger->error($e->getMessage(), ['exception' => $e]);
 			return new TemplateResponse(Application::APP_ID, 'error');
