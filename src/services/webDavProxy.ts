@@ -110,7 +110,7 @@ async function handleMkcol(request: Request): Promise<Response> {
 
 		const parent = await store.getMetadata(dirname(folder.path))
 		parent.addFolder(folder.basename, originalName)
-		api
+		await api.setMetadata(await parent.export(await store.getCertificate()))
 		const metadata = await Metadata.createNew(root.getKey())
 	} catch (error) {
 		if (isAxiosError(error) && error.response?.status === 404) {
