@@ -19,6 +19,7 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
     "Submit" : "Sendi",
     "Folder name" : "Dosierujnomo",
+    "Continue" : "Daŭrigi",
     "Select or drop files" : "Elekti aŭ demeti dosierojn",
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
