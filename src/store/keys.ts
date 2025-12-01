@@ -6,14 +6,31 @@
 import { getCurrentUser } from '@nextcloud/auth'
 import { X509Certificate } from '@peculiar/x509'
 import * as api from '../services/api.ts'
+import { pemToBuffer } from '../services/bufferUtils.ts'
+import { loadServerPublicKey } from '../services/crypto.ts'
+import { promptUserForMnemonic } from '../services/mnemonicDialogs.ts'
 import { decryptPrivateKey } from '../services/privateKeyUtils.ts'
 
 let privateKey: CryptoKey | undefined
 let publicKey: CryptoKey | undefined
 let certificate: X509Certificate | undefined
+let serverKey: CryptoKey | undefined
 
 const userKeys = new Map<string, CryptoKey>()
 const MEMORY_LIMIT = 50
+
+/**
+ * Get the server's public key.
+ *
+ * If not already loaded, it fetches it from the API.
+ */
+export async function getServerKey(): Promise<CryptoKey> {
+	if (!serverKey) {
+		const serverKeyPem = await api.getServerPublicKey()
+		serverKey = await loadServerPublicKey(pemToBuffer(serverKeyPem), 'SHA-256')
+	}
+	return serverKey!
+}
 
 /**
  * Get the current user's X509 certificate.
@@ -33,7 +50,26 @@ export function getCertificate(): X509Certificate | undefined {
  */
 export async function setCertificate(cert: X509Certificate): Promise<void> {
 	certificate = cert
-	publicKey = await certificate.publicKey.export()
+	if (!publicKey) {
+		publicKey = await certificate.publicKey.export()
+	}
+	if (!privateKey && certificate.privateKey) {
+		privateKey = certificate.privateKey
+	}
+}
+
+/**
+ * Check whether the public key is already loaded
+ */
+export function hasPublicKey(): boolean {
+	return !!publicKey
+}
+
+/**
+ * Get the current user's public key
+ */
+export function getPublicKey(): CryptoKey | undefined {
+	return publicKey
 }
 
 /**
@@ -46,29 +82,18 @@ export async function loadPublicKey(): Promise<boolean> {
 			return false
 		}
 
-		certificate = new X509Certificate(pem)
+		const cert = new X509Certificate(pem)
+		if (!cert.verify({ publicKey: await getServerKey() })) {
+			throw new Error('User certificate signature verification failed')
+		}
 		if (privateKey) {
-			certificate.privateKey = privateKey
+			cert.privateKey = privateKey
 		}
 
-		// todo: verify certificate?
+		certificate = cert
 		publicKey = await certificate.publicKey.export()
 	}
 	return true
-}
-
-/**
- * Get the current user's public key
- */
-export function getPublicKey(): CryptoKey | undefined {
-	return publicKey
-}
-
-/**
- * Check whether the public key is already loaded
- */
-export function hasPublicKey(): boolean {
-	return !!publicKey
 }
 
 /**
@@ -77,14 +102,17 @@ export function hasPublicKey(): boolean {
  * @param mnemonic - The users mnemonic
  * @return True if the private key was loaded successfully, false if there is no private key on the server (it throws on other errors)
  */
-export async function loadPrivateKey(mnemonic: string): Promise<boolean> {
+export async function loadPrivateKey(mnemonic?: string): Promise<boolean> {
 	if (!privateKey) {
-		const key = await api.getPrivateKey()
-		if (key === null) {
+		const keyInfo = await api.getPrivateKey()
+		if (keyInfo === null) {
 			return false
 		}
 
-		privateKey = await decryptPrivateKey(key, mnemonic)
+		mnemonic ??= await promptUserForMnemonic()
+
+		const key = await decryptPrivateKey(keyInfo, mnemonic)
+		privateKey = key
 		if (certificate) {
 			certificate.privateKey = privateKey
 		}
@@ -102,8 +130,11 @@ export function hasPrivateKey(): boolean {
 /**
  * Get the loaded private key from the storage
  */
-export function getPrivateKey(): CryptoKey | undefined {
-	return privateKey
+export async function getPrivateKey(): Promise<CryptoKey> {
+	if (!hasPrivateKey()) {
+		await loadPrivateKey()
+	}
+	return privateKey!
 }
 
 /**
@@ -125,7 +156,7 @@ export function setPrivateKey(key: CryptoKey): void {
  */
 export function getUserKey(userId: string): CryptoKey | undefined {
 	if (userId === getCurrentUser()!.uid) {
-		return publicKey
+		return getPublicKey()
 	}
 	return userKeys.get(userId)
 }

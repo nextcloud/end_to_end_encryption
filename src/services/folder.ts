@@ -11,6 +11,7 @@ import axios from '@nextcloud/axios'
 import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
 import { join } from '@nextcloud/paths'
 import { RootMetadata } from '../models/RootMetadata.ts'
+import * as metadataStore from '../store/metadata.ts'
 import * as api from './api.ts'
 
 /**
@@ -58,6 +59,8 @@ export async function createNewRootFolder(name: string, context: IFolder, certif
 			token,
 			signature,
 		)
+
+		metadataStore.setMetadata(folderPath, fileId, metadata)
 		return fileId
 	} finally {
 		await api.unlockFolder(fileId, token)
