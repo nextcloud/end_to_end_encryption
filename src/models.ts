@@ -13,15 +13,13 @@ type FileDropEntry = {
 	ciphertext: string
 	nonce: string
 	authenticationTag: string
-	users: [
-		{
-			userId: string
-			/**
-			 * The metadata-key is encrypted with RSA/ECB/OAEPWithSHA-256AndMGF1Padding
-			 */
-			encryptedFiledropKey: string
-		},
-	]
+	users: {
+		userId: string
+		/**
+		 * The metadata-key is encrypted with RSA/ECB/OAEPWithSHA-256AndMGF1Padding
+		 */
+		encryptedFiledropKey: string
+	}[]
 }
 
 export type UserWithAccess = {
