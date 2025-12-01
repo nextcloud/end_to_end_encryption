@@ -4,13 +4,14 @@
  */
 
 import type { FetchContext } from '@rxliuli/vista'
-import type { FileEncryptionInfo, MetadataInfo } from '../models.ts'
+import type { IMetadataFile } from '../models/metadata.d.ts'
+import type { Metadata } from '../models/Metadata.ts'
 
 import { basename, dirname } from '@nextcloud/paths'
 import { base64ToBuffer } from '../services/bufferUtils.ts'
 import { decryptWithAES, loadAESPrivateKey } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
-import { state } from '../services/state.ts'
+import * as metadataStore from '../store/metadata.ts'
 
 /**
  * Callback to handle GET requests.
@@ -24,18 +25,18 @@ export async function useGetInterceptor(context: FetchContext, next: () => Promi
 	await next()
 	const response = context.res.clone()
 
-	let metadataInfo: MetadataInfo
+	let metadata: Metadata
 	try {
 		// TODO: Optimize, this will make a propfind request for every GET request even when not encrypted.
-		metadataInfo = await state.getMetadataInfo(dirname(path))
+		metadata = (await metadataStore.getMetadata(dirname(path))).metadata
 	} catch {
 		// not end-to-end encrypted
 		return
 	}
 
-	const fileInfo = metadataInfo.files[basename(path)]
+	const fileInfo = metadata.getFile(basename(path))
 	if (fileInfo === undefined) {
-		logger.debug('Could not find file in metadata', { path, metadataInfo })
+		logger.debug('Could not find file in metadata', { path, metadata })
 		throw new Error('Could not find file in metadata')
 	}
 
@@ -48,7 +49,7 @@ export async function useGetInterceptor(context: FetchContext, next: () => Promi
  * @param response - The fetch response
  * @param fileInfo - The file encryption info
  */
-async function decryptFile(response: Response, fileInfo: FileEncryptionInfo): Promise<Response> {
+async function decryptFile(response: Response, fileInfo: IMetadataFile): Promise<Response> {
 	logger.debug('Decrypting encrypted file', { response, fileInfo })
 	const decryptedFileContent = await decryptWithAES(
 		new Uint8Array(await response.arrayBuffer()),

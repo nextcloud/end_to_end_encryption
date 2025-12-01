@@ -67,10 +67,3 @@ export type PrivateKeyInfo = {
 	iv: Uint8Array<ArrayBuffer>
 	salt: Uint8Array<ArrayBuffer>
 }
-
-/**
- * @param metadata - The metadata to check of being root metadata
- */
-export function isRootMetadata(metadata: Metadata): metadata is RootMetadata {
-	return metadata.users !== undefined
-}
