@@ -7,7 +7,8 @@
 import type { IFolder, INode, InvalidFilenameError } from '@nextcloud/files'
 
 import { getCurrentUser } from '@nextcloud/auth'
-import { Folder, InvalidFilenameErrorReason, validateFilename } from '@nextcloud/files'
+import { Folder, InvalidFilenameErrorReason, Permission, validateFilename } from '@nextcloud/files'
+import { defaultRootPath } from '@nextcloud/files/dav'
 import { t } from '@nextcloud/l10n'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import NcInputField from '@nextcloud/vue/components/NcInputField'
@@ -83,8 +84,13 @@ async function createFolder(): Promise<true | void> {
 		id: folderId,
 		owner: getCurrentUser()!.uid,
 		source: props.context.source + '/' + folderName.value.trim(),
+		root: defaultRootPath,
+		crtime: new Date(),
+		mtime: new Date(),
+		permissions: Permission.READ, // TODO: allow more permissions once we support that
+		size: 0, // its empty for now
 		attributes: {
-			'is-encrypted': 1,
+			'e2ee-is-encrypted': 1,
 		},
 	})
 	emit('folderCreated', folder)

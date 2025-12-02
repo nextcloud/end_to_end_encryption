@@ -78,6 +78,10 @@ test.describe('with enabled browser e2ee', () => {
 		// see the dialog is closed
 		await expect(dialog.dialogLocator).toHaveCount(0)
 		// the folder was created
-		await expect(filesApp.getFileOrFolder('test-folder')).toBeVisible()
+		const row = filesApp.getFileOrFolder('test-folder')
+		await expect(row).toBeVisible()
+		// see its not pending (in that case a size is shown) and has modification time
+		await expect(row.getByRole('cell', { name: /0 kb/i })).toBeVisible()
+		await expect(row.getByRole('cell', { name: /few seconds ago/i })).toBeVisible()
 	})
 })
