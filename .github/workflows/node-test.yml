@@ -79,20 +79,24 @@ jobs:
       - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
         run: npm i -g 'npm@${{ steps.versions.outputs.npmVersion }}'
 
-      - name: Install dependencies & build
+      - name: Install dependencies
         env:
           CYPRESS_INSTALL_BINARY: 0
-        run: |
-          npm ci
-          npm run build --if-present
-
-      - name: Test
-        run: npm run test --if-present
+        run: npm ci
 
       - name: Test and process coverage
-        run: npm run test:coverage --if-present
+        id: coverage
+        timeout-minutes: 15
+        continue-on-error: true
+        run: npm run test:coverage
+
+      - name: Test
+        if: steps.coverage.outcome != 'success'
+        timeout-minutes: 10
+        run: npm run test --if-present
 
       - name: Collect coverage
+        if: steps.coverage.outcome == 'success'
         uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
         with:
           files: ./coverage/lcov.info
