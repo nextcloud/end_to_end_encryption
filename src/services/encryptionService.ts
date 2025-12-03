@@ -7,7 +7,8 @@ import { getCurrentUser } from '@nextcloud/auth'
 import { KeyUsageFlags, KeyUsagesExtension, Pkcs10CertificateRequestGenerator, X509Certificate } from '@peculiar/x509'
 import { createPublicKey, getServerPublicKey, setPrivateKey } from './api.ts'
 import { validateCertificateSignature } from './crypto.ts'
-import { convertEncryptionKeyToSigningKey, encryptPrivateKey, generatePrivateKey } from './privateKeyUtils.ts'
+import { encryptPrivateKey, generatePrivateKey } from './privateKeyUtils.ts'
+import { ensureKeyUsage } from './rsaUtils.ts'
 
 /**
  * Initializes encryption for the current user
@@ -18,12 +19,11 @@ import { convertEncryptionKeyToSigningKey, encryptPrivateKey, generatePrivateKey
 export async function initializeEncryption() {
 	const serverKey = await getServerPublicKey()
 	const keyPair = await generatePrivateKey() // RSA key for encryption usage
-	const signKey = await convertEncryptionKeyToSigningKey(keyPair.privateKey) // CSR needs signing key usage
 
 	const csr = await Pkcs10CertificateRequestGenerator.create({
 		keys: {
 			publicKey: keyPair.publicKey,
-			privateKey: signKey,
+			privateKey: await ensureKeyUsage(keyPair.privateKey, 'sign'),
 		},
 		signingAlgorithm: {
 			name: 'RSASSA-PKCS1-v1_5',

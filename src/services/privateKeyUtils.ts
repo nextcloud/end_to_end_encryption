@@ -95,29 +95,6 @@ export async function decryptPrivateKey(privateKeyInfo: PrivateKeyInfo, mnemonic
 }
 
 /**
- * Hack to allow signing the CSR with the RSA key we created for encryption
- * (reason is that its not recommended for RSA to use the same key for both signing and encryption)
- *
- * @param encryptionKey - The key generated with encryption usage
- */
-export async function convertEncryptionKeyToSigningKey(encryptionKey: CryptoKey): Promise<CryptoKey> {
-	const signKeyJwk = {
-		...await self.crypto.subtle.exportKey('jwk', encryptionKey),
-		alg: 'RS256',
-		key_ops: ['sign'],
-		kty: 'RSA',
-	}
-
-	return await self.crypto.subtle.importKey(
-		'jwk',
-		signKeyJwk,
-		{ name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
-		true,
-		['sign'],
-	)
-}
-
-/**
  * Derives a private key from the given mnemonic using PBKDF2.
  *
  * @param mnemonic - The user's mnemonic
