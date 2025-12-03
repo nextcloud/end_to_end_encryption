@@ -4,10 +4,13 @@
  */
 
 import type { OCSResponse } from '@nextcloud/typings/ocs'
+import type { FileStat, ResponseDataDetailed, WebDAVClient } from 'webdav'
 import type { PrivateKeyInfo } from '../models.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import axios, { isAxiosError } from '@nextcloud/axios'
+import { defaultRootPath, getClient } from '@nextcloud/files/dav'
+import { join } from '@nextcloud/paths'
 import { generateOcsUrl } from '@nextcloud/router'
 import { base64ToBuffer, bufferToBase64 } from './bufferUtils.ts'
 import logger from './logger.ts'
@@ -23,6 +26,17 @@ const Url = {
 	PublicKey: API_ROOT + '/public-key',
 	ServerKey: API_ROOT + '/server-key',
 }
+
+const METADATA_PROPFIND = `<?xml version="1.0"?>
+	<d:propfind xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns" xmlns:oc="http://owncloud.org/ns">
+		<d:prop>
+			<oc:fileid />
+			<nc:e2ee-metadata />
+			<nc:e2ee-metadata-signature />
+		</d:prop>
+	</d:propfind>`
+
+let client: WebDAVClient
 
 /**
  * Fetches the private key for the current user.
@@ -152,7 +166,7 @@ export async function getServerPublicKey(): Promise<string> {
  *
  * @param folderId - The fileid of the folder
  */
-export async function setFolderAsEncrypted(folderId: number): Promise<void> {
+export async function setFolderAsEncrypted(folderId: string): Promise<void> {
 	const url = generateOcsUrl(Url.Encrypted, { folderId })
 	await axios.put(
 		url,
@@ -170,7 +184,7 @@ export async function setFolderAsEncrypted(folderId: number): Promise<void> {
  * @param shareToken - Optional share token if folder is a share (to identify the owner)
  * @return The locking token
  */
-export async function lockFolder(folderId: number, counter: number, token?: string, shareToken?: string): Promise<string> {
+export async function lockFolder(folderId: string, counter: number, token?: string, shareToken?: string): Promise<string> {
 	const url = generateOcsUrl(Url.Lock, { folderId })
 	const response = await axios.post<OCSResponse<{ 'e2e-token': string }>>(
 		url,
@@ -196,7 +210,7 @@ export async function lockFolder(folderId: number, counter: number, token?: stri
  * @param shareToken - Optional share token if folder is a share (to identify the owner)
  * @param abort - Whether to abort the ongoing operation
  */
-export async function unlockFolder(folderId: number, token: string, shareToken?: string, abort?: true): Promise<void> {
+export async function unlockFolder(folderId: string, token: string, shareToken?: string, abort?: true): Promise<void> {
 	const url = generateOcsUrl(Url.Lock, { folderId })
 	await axios.delete<OCSResponse<{ 'e2e-token': string }>>(
 		url,
@@ -217,15 +231,17 @@ export async function unlockFolder(folderId: number, token: string, shareToken?:
  * Set initial metadata for a folder.
  *
  * @param fileId - The fileid of the folder
- * @param metaData - The metadata to set
+ * @param metadata - The metadata to set
  * @param token - The locking token
  * @param signature - The signature to verify the request
  */
-export async function createMetadata(fileId: number, metaData: string, token: string, signature: string): Promise<void> {
+export async function createMetadata(fileId: string, metadata: string, token: string, signature: string): Promise<void> {
 	const url = generateOcsUrl(Url.Metadata, { fileId })
 	await axios.post(
 		url,
-		{ metaData },
+		{
+			metaData: metadata,
+		},
 		{
 			headers: {
 				'E2E-TOKEN': token,
@@ -234,4 +250,96 @@ export async function createMetadata(fileId: number, metaData: string, token: st
 			},
 		},
 	)
+}
+
+/**
+ * Update metadata for a folder.
+ *
+ * @param fileId - The fileid of the folder
+ * @param metadata - The metadata to set
+ * @param token - The locking token
+ * @param signature - The signature to verify the request
+ */
+export async function updateMetadata(fileId: string, metadata: string, token: string, signature: string): Promise<void> {
+	const url = generateOcsUrl(Url.Metadata, { fileId })
+	await axios.put(
+		url,
+		{
+			metaData: metadata,
+		},
+		{
+			headers: {
+				'E2E-TOKEN': token,
+				'X-NC-E2EE-SIGNATURE': signature,
+				'X-E2EE-SUPPORTED': 'true',
+			},
+		},
+	)
+}
+
+/**
+ * Fetch metadata for a given file ID.
+ *
+ * @param fileId - The file ID of the folder
+ * @param shareToken - Optional share token if folder is a share (to identify the owner)
+ */
+export async function getMetadata(fileId: string, shareToken?: string) {
+	const url = generateOcsUrl(Url.Metadata, { fileId })
+	const response = await axios.get<OCSResponse<{ 'meta-data': string }>>(
+		url,
+		{
+			headers: {
+				'X-E2EE-SUPPORTED': 'true',
+			},
+			params: {
+				shareToken,
+			},
+		},
+	)
+	return {
+		metadata: response.data.ocs.data['meta-data'],
+		signature: response.headers['x-nc-e2ee-signature']!,
+	}
+}
+
+/**
+ * Fetch metadata for a given path.
+ *
+ * @param path - The file path of the folder relative to the DAV root
+ */
+export async function getMetadataByPath(path: string): Promise<{ fileId: string, metadata: string, signature: string }> {
+	if (!client) {
+		client = getClient()
+	}
+
+	if (!path.startsWith(defaultRootPath)) {
+		path = join(defaultRootPath, path)
+	}
+
+	const result = await client.stat(path, {
+		data: METADATA_PROPFIND,
+		details: true,
+	}) as ResponseDataDetailed<FileStat>
+
+	if (!result.data.props) {
+		logger.debug('No props found in PROPFIND result', { result, path })
+		throw new Error('No metadata found for path ' + path)
+	}
+
+	const {
+		fileid: fileId,
+		'e2ee-metadata': metadata,
+		'e2ee-metadata-signature': signature,
+	} = result.data.props
+
+	if (!fileId || !metadata || !signature) {
+		logger.debug('Not all props provided by PROPFIND', { path, fileId, metadata, signature })
+		throw new Error('No metadata found for path ' + path)
+	}
+
+	return {
+		fileId: fileId.toString(),
+		metadata: metadata.toString(),
+		signature: signature.toString(),
+	}
 }

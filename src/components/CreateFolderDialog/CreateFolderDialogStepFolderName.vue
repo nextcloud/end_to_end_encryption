@@ -81,7 +81,7 @@ async function createFolder(): Promise<true | void> {
 	)
 	// create a folder handle so we can refresh the files list later
 	const folder = new Folder({
-		id: folderId,
+		id: Number.parseInt(folderId),
 		owner: getCurrentUser()!.uid,
 		source: props.context.source + '/' + folderName.value.trim(),
 		root: defaultRootPath,

@@ -8,6 +8,8 @@ import { adminMnemonic, rootFolderMetadata, subfolderMetadata } from '../../__te
 import { state } from './state.ts'
 import { setupWebDavDecryptionProxy } from './webDavProxy.ts'
 
+import '../../__tests__/api-mock.ts'
+
 vi.mock('@nextcloud/auth', async () => {
 	return {
 		getRequestToken() { return '' },

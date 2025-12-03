@@ -8,6 +8,8 @@ import { rootFolderMetadata, rootFolderMetadataSignature } from '../../__tests__
 import { getServerPublicKey } from './api.ts'
 import { validateMetadataSignature, validateUserCertificates } from './security.ts'
 
+import '../../__tests__/api-mock.ts'
+
 test('Metadata validation works with a valid signature', async () => {
 	await expect(validateMetadataSignature(rootFolderMetadata, rootFolderMetadataSignature, rootFolderMetadata)).resolves.toBeTruthy()
 })

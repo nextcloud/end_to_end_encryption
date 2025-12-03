@@ -5,7 +5,7 @@
 
 import { getCurrentUser } from '@nextcloud/auth'
 import { KeyUsageFlags, KeyUsagesExtension, Pkcs10CertificateRequestGenerator, X509Certificate } from '@peculiar/x509'
-import { createPublicKey, getServerPublicKey, setPrivateKey } from './api.ts'
+import * as api from './api.ts'
 import { validateCertificateSignature } from './crypto.ts'
 import { encryptPrivateKey, generatePrivateKey } from './privateKeyUtils.ts'
 import { ensureKeyUsage } from './rsaUtils.ts'
@@ -17,7 +17,7 @@ import { ensureKeyUsage } from './rsaUtils.ts'
  * Afterwards the private RSA key is encrypted with a mnemonic and stored locally as well as on the server.
  */
 export async function initializeEncryption() {
-	const serverKey = await getServerPublicKey()
+	const serverKey = await api.getServerPublicKey()
 	const keyPair = await generatePrivateKey() // RSA key for encryption usage
 
 	const csr = await Pkcs10CertificateRequestGenerator.create({
@@ -36,7 +36,7 @@ export async function initializeEncryption() {
 	})
 	const pem = csr.toString('pem')
 
-	const publicKeyCertificate = new X509Certificate(await createPublicKey(pem))
+	const publicKeyCertificate = new X509Certificate(await api.createPublicKey(pem))
 	if (!await validateCertificateSignature(publicKeyCertificate, serverKey)) {
 		throw new Error('Public key not correctly signed by server')
 	}
@@ -45,7 +45,7 @@ export async function initializeEncryption() {
 	const mnemonic = await generateMnemonic()
 	const encryptedKey = await encryptPrivateKey(keyPair.privateKey, mnemonic.join(''))
 
-	await setPrivateKey(encryptedKey)
+	await api.setPrivateKey(encryptedKey)
 
 	return {
 		mnemonic,

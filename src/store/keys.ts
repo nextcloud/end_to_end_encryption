@@ -5,7 +5,7 @@
 
 import { getCurrentUser } from '@nextcloud/auth'
 import { X509Certificate } from '@peculiar/x509'
-import { getPrivateKey as apiGetPrivateKey, getPublicKey as apiGetPublicKey } from '../services/api.ts'
+import * as api from '../services/api.ts'
 import { decryptPrivateKey } from '../services/privateKeyUtils.ts'
 
 let privateKey: CryptoKey | undefined
@@ -41,7 +41,7 @@ export async function setCertificate(cert: X509Certificate): Promise<void> {
  */
 export async function loadPublicKey(): Promise<boolean> {
 	if (!certificate) {
-		const pem = await apiGetPublicKey()
+		const pem = await api.getPublicKey()
 		if (!pem) {
 			return false
 		}
@@ -79,7 +79,7 @@ export function hasPublicKey(): boolean {
  */
 export async function loadPrivateKey(mnemonic: string): Promise<boolean> {
 	if (!privateKey) {
-		const key = await apiGetPrivateKey()
+		const key = await api.getPrivateKey()
 		if (key === null) {
 			return false
 		}
