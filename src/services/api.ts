@@ -152,7 +152,7 @@ export async function getServerPublicKey(): Promise<string> {
  *
  * @param folderId - The fileid of the folder
  */
-export async function setFolderAsEncrypted(folderId: number): Promise<void> {
+export async function setFolderAsEncrypted(folderId: string): Promise<void> {
 	const url = generateOcsUrl(Url.Encrypted, { folderId })
 	await axios.put(
 		url,
@@ -170,7 +170,7 @@ export async function setFolderAsEncrypted(folderId: number): Promise<void> {
  * @param shareToken - Optional share token if folder is a share (to identify the owner)
  * @return The locking token
  */
-export async function lockFolder(folderId: number, counter: number, token?: string, shareToken?: string): Promise<string> {
+export async function lockFolder(folderId: string, counter: number, token?: string, shareToken?: string): Promise<string> {
 	const url = generateOcsUrl(Url.Lock, { folderId })
 	const response = await axios.post<OCSResponse<{ 'e2e-token': string }>>(
 		url,
@@ -196,7 +196,7 @@ export async function lockFolder(folderId: number, counter: number, token?: stri
  * @param shareToken - Optional share token if folder is a share (to identify the owner)
  * @param abort - Whether to abort the ongoing operation
  */
-export async function unlockFolder(folderId: number, token: string, shareToken?: string, abort?: true): Promise<void> {
+export async function unlockFolder(folderId: string, token: string, shareToken?: string, abort?: true): Promise<void> {
 	const url = generateOcsUrl(Url.Lock, { folderId })
 	await axios.delete<OCSResponse<{ 'e2e-token': string }>>(
 		url,
@@ -217,11 +217,11 @@ export async function unlockFolder(folderId: number, token: string, shareToken?:
  * Set initial metadata for a folder.
  *
  * @param fileId - The fileid of the folder
- * @param metaData - The metadata to set
+ * @param metadata - The metadata to set
  * @param token - The locking token
  * @param signature - The signature to verify the request
  */
-export async function createMetadata(fileId: number, metaData: string, token: string, signature: string): Promise<void> {
+export async function createMetadata(fileId: string, metadata: string, token: string, signature: string): Promise<void> {
 	const url = generateOcsUrl(Url.Metadata, { fileId })
 	await axios.post(
 		url,
