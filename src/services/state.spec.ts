@@ -6,7 +6,7 @@
 import { expect, test, vi } from 'vitest'
 import { adminMnemonic, rootFolderMetadata, subfolderMetadata } from '../../__tests__/consts.spec.ts'
 import { state } from './state.ts'
-import { setupWebDavDecryptionProxy } from './webDavProxy.ts'
+import { setupWebDavProxy } from './webDavProxy.ts'
 
 import '../../__tests__/api-mock.ts'
 
@@ -35,17 +35,13 @@ test("Correctly fetch server's public key", async () => {
 })
 
 test('Correctly fetch root folder metadata', async () => {
-	const originalFetch = self.fetch
-	setupWebDavDecryptionProxy()
+	setupWebDavProxy()
 	const metadata = await state.getMetadata('//remote.php/dav/files/admin/New%20folder')
 	expect(metadata).toEqual(rootFolderMetadata)
-	self.fetch = originalFetch
 })
 
 test('Correctly fetch sub folder metadata', async () => {
-	const originalFetch = self.fetch
-	setupWebDavDecryptionProxy()
+	setupWebDavProxy()
 	const metadata = await state.getMetadata('//remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1')
 	expect(metadata).toEqual(subfolderMetadata)
-	self.fetch = originalFetch
 })

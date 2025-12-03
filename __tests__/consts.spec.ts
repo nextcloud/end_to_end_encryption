@@ -407,3 +407,104 @@ ecEvVNv8vFqYIFt/phpb07Wzr51xopL7S0gQ9tQoEtU0kgYIQzoy+LsU7aH35XPJ
 neuDa51Wp/trnmzxGplx6NPEU/fThRHNHTPVYZnM8pImNYW89zHZH6BVAvVgXk7R
 jQIDAQAB
 -----END PUBLIC KEY-----`
+
+export const unencryptedPropFindResponse = `<?xml version="1.0"?>
+<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns"
+	xmlns:nc="http://nextcloud.org/ns">
+	<d:response>
+		<d:href>/remote.php/dav/files/admin/unencrypted/</d:href>
+		<d:propstat>
+			<d:prop>
+				<d:getetag>&quot;693064d5f09e6&quot;</d:getetag>
+				<d:getlastmodified>Wed, 03 Dec 2025 16:27:01 GMT</d:getlastmodified>
+				<d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+				<d:displayname>unencrypted</d:displayname>
+				<d:quota-available-bytes>-3</d:quota-available-bytes>
+				<d:resourcetype>
+					<d:collection />
+				</d:resourcetype>
+				<nc:has-preview>false</nc:has-preview>
+				<nc:is-encrypted>0</nc:is-encrypted>
+				<nc:mount-type></nc:mount-type>
+				<oc:comments-unread>0</oc:comments-unread>
+				<oc:favorite>0</oc:favorite>
+				<oc:fileid>549</oc:fileid>
+				<oc:owner-display-name>admin</oc:owner-display-name>
+				<oc:owner-id>admin</oc:owner-id>
+				<oc:permissions>RGDNVCK</oc:permissions>
+				<oc:size>0</oc:size>
+				<nc:hidden>false</nc:hidden>
+				<nc:is-mount-root>false</nc:is-mount-root>
+				<nc:e2ee-is-encrypted>0</nc:e2ee-is-encrypted>
+				<nc:reminder-due-date></nc:reminder-due-date>
+				<nc:sharees />
+				<nc:share-attributes>[]</nc:share-attributes>
+				<oc:share-types />
+				<x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">31</x1:share-permissions>
+				<nc:system-tags />
+			</d:prop>
+			<d:status>HTTP/1.1 200 OK</d:status>
+		</d:propstat>
+		<d:propstat>
+			<d:prop>
+				<d:getcontentlength />
+				<d:getcontenttype />
+				<nc:metadata-blurhash />
+				<nc:metadata-files-live-photo />
+				<nc:e2ee-metadata />
+				<nc:e2ee-metadata-signature />
+				<nc:note />
+				<nc:hide-download />
+			</d:prop>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+		</d:propstat>
+	</d:response>
+	<d:response>
+		<d:href>/remote.php/dav/files/admin/unencrypted/test/</d:href>
+		<d:propstat>
+			<d:prop>
+				<d:getetag>&quot;693064d5ef3cf&quot;</d:getetag>
+				<d:getlastmodified>Wed, 03 Dec 2025 16:27:01 GMT</d:getlastmodified>
+				<d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+				<d:displayname>test</d:displayname>
+				<d:quota-available-bytes>-3</d:quota-available-bytes>
+				<d:resourcetype>
+					<d:collection />
+				</d:resourcetype>
+				<nc:has-preview>false</nc:has-preview>
+				<nc:is-encrypted>0</nc:is-encrypted>
+				<nc:mount-type></nc:mount-type>
+				<oc:comments-unread>0</oc:comments-unread>
+				<oc:favorite>0</oc:favorite>
+				<oc:fileid>550</oc:fileid>
+				<oc:owner-display-name>admin</oc:owner-display-name>
+				<oc:owner-id>admin</oc:owner-id>
+				<oc:permissions>RGDNVCK</oc:permissions>
+				<oc:size>0</oc:size>
+				<nc:hidden>false</nc:hidden>
+				<nc:is-mount-root>false</nc:is-mount-root>
+				<nc:e2ee-is-encrypted>0</nc:e2ee-is-encrypted>
+				<nc:reminder-due-date></nc:reminder-due-date>
+				<nc:sharees />
+				<nc:share-attributes>[]</nc:share-attributes>
+				<oc:share-types />
+				<x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">31</x1:share-permissions>
+				<nc:system-tags />
+			</d:prop>
+			<d:status>HTTP/1.1 200 OK</d:status>
+		</d:propstat>
+		<d:propstat>
+			<d:prop>
+				<d:getcontentlength />
+				<d:getcontenttype />
+				<nc:metadata-blurhash />
+				<nc:metadata-files-live-photo />
+				<nc:e2ee-metadata />
+				<nc:e2ee-metadata-signature />
+				<nc:note />
+				<nc:hide-download />
+			</d:prop>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+		</d:propstat>
+	</d:response>
+</d:multistatus>`
