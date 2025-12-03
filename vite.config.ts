@@ -4,9 +4,7 @@
  */
 
 import { createAppConfig } from '@nextcloud/vite-config'
-import { playwright } from '@vitest/browser-playwright'
 import { join } from 'path'
-import { defineConfig } from 'vitest/config'
 
 // replaced by vite
 declare const __dirname: string
@@ -20,31 +18,4 @@ export default createAppConfig({
 	extractLicenseInformation: {
 		includeSourceMaps: true,
 	},
-	config: defineConfig({
-		// Setup for vitest unit tests
-		test: {
-			include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
-			browser: {
-				provider: playwright(),
-				enabled: true,
-				headless: true,
-				screenshotFailures: false,
-				instances: [
-					{ browser: 'chromium' },
-				],
-			},
-			coverage: {
-				include: ['src/**'],
-				exclude: ['**.spec.*', '**.test.*', '**.cy.*'],
-				provider: 'v8',
-				reporter: ['lcov', 'text'],
-			},
-			setupFiles: ['__tests__/setup-testing-library.ts'],
-			server: {
-				deps: {
-					inline: [/@nextcloud\//],
-				},
-			},
-		},
-	}),
 })
