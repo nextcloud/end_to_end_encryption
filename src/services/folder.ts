@@ -9,7 +9,7 @@ import type { X509Certificate } from '@peculiar/x509'
 import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
 import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
-import { joinPaths } from '@nextcloud/paths'
+import { join } from '@nextcloud/paths'
 import * as api from './api.ts'
 import { Metadata } from './Metadata.ts'
 
@@ -26,10 +26,10 @@ export async function createNewRootFolder(name: string, context: IFolder, certif
 	}
 
 	// first create the folder
-	const folderPath = joinPaths(context.path, name)
+	const folderPath = join(context.path, name)
 	const response = await axios.request({
 		method: 'MKCOL',
-		url: defaultRemoteURL + joinPaths(defaultRootPath, folderPath),
+		url: defaultRemoteURL + join(defaultRootPath, folderPath),
 		headers: {
 			'X-E2EE-SUPPORTED': 'true',
 		},
