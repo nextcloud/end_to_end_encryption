@@ -12,7 +12,7 @@ import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from '
 import { compress, uncompress } from './compression.ts'
 import { encryptWithAES, sha256Hash } from './crypto.ts'
 import logger from './logger.ts'
-import { convertEncryptionKeyToSigningKey } from './privateKeyUtils.ts'
+import { ensureKeyUsage } from './rsaUtils.ts'
 
 interface IRawMetadataUser {
 	/**
@@ -231,7 +231,7 @@ export class Metadata {
 			})],
 		})
 
-		const signKey = await convertEncryptionKeyToSigningKey(certificate.privateKey!)
+		const signKey = await ensureKeyUsage(certificate.privateKey!, 'sign')
 
 		await cms.sign(signKey, 0, 'SHA-256', metadataForSignature)
 
