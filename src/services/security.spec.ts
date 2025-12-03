@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { expect, test } from 'vitest'
+import { expect } from 'vitest'
+import { test } from '../../__tests__/api-mock.ts'
 import { rootFolderMetadata, rootFolderMetadataSignature } from '../../__tests__/consts.spec.ts'
 import { getServerPublicKey } from './api.ts'
 import { validateMetadataSignature, validateUserCertificates } from './security.ts'
-
-import '../../__tests__/api-mock.ts'
 
 test('Metadata validation works with a valid signature', async () => {
 	await expect(validateMetadataSignature(rootFolderMetadata, rootFolderMetadataSignature, rootFolderMetadata)).resolves.toBeTruthy()

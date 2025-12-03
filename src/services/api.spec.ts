@@ -6,28 +6,17 @@
 import type { PrivateKeyInfo } from '../models.ts'
 
 import { http, HttpResponse } from 'msw'
-import { setupServer } from 'msw/node'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, vi } from 'vitest'
+import { test } from '../../__tests__/api-mock.ts'
 import * as api from './api.ts'
 import { stringToBuffer } from './bufferUtils.ts'
-
-const server = setupServer()
-
-// Start server before all tests
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
-
-// Close server after all tests
-afterAll(() => server.close())
-
-// Reset handlers after each test `important for test isolation`
-afterEach(() => server.resetHandlers())
 
 describe('getPrivateKey', () => {
 	const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
 	beforeEach(() => consoleError.mockClear())
 
-	it('throws on network failure', async () => {
-		server.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+	test('throws on network failure', async ({ worker }) => {
+		worker.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 			return HttpResponse.error()
 		}))
 
@@ -35,8 +24,8 @@ describe('getPrivateKey', () => {
 		expect(consoleError).toHaveBeenCalled()
 	})
 
-	it('throws on server failure', async () => {
-		server.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+	test('throws on server failure', async ({ worker }) => {
+		worker.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 			return HttpResponse.json({ ocs: { meta: { status: 'failure', statuscode: 500, message: 'Internal Server Error' } } }, { status: 500 })
 		}))
 
@@ -44,8 +33,8 @@ describe('getPrivateKey', () => {
 		expect(consoleError).toHaveBeenCalled()
 	})
 
-	it('returns null if no private key is available', async () => {
-		server.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+	test('returns null if no private key is available', async ({ worker }) => {
+		worker.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 			return HttpResponse.json({ ocs: { meta: { status: 'failure', statuscode: 404, message: 'Not Found' } } }, { status: 404 })
 		}))
 
@@ -53,8 +42,8 @@ describe('getPrivateKey', () => {
 		expect(consoleError).not.toHaveBeenCalled()
 	})
 
-	it('returns private key information when available', async () => {
-		server.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+	test('returns private key information when available', async ({ worker }) => {
+		worker.use(http.get('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 			return HttpResponse.json({
 				ocs: {
 					meta: { status: 'ok', statuscode: 200, message: 'OK' },
@@ -81,9 +70,9 @@ describe('setPrivateKey', () => {
 		salt: stringToBuffer('salt'),
 	}
 
-	it('throws on network failure', async () => {
+	test('throws on network failure', async ({ worker }) => {
 		let called = false
-		server.use(http.post('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+		worker.use(http.post('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 			called = true
 			return HttpResponse.error()
 		}))
@@ -92,9 +81,9 @@ describe('setPrivateKey', () => {
 		expect(called).toBe(true)
 	})
 
-	it('works with proper data', async () => {
+	test('works with proper data', async ({ worker }) => {
 		let called = false
-		server.use(http.post('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', async ({ request }) => {
+		worker.use(http.post('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', async ({ request }) => {
 			expect(request.headers.get('X-E2EE-SUPPORTED')).toBe('true')
 			expect(await request.json()).toEqual({
 				privateKey: `${btoa('key')}|${btoa('iv')}|${btoa('salt')}`,
@@ -110,9 +99,9 @@ describe('setPrivateKey', () => {
 })
 
 describe('deletePrivateKey', () => {
-	it('throws on network failure', async () => {
+	test('throws on network failure', async ({ worker }) => {
 		let called = false
-		server.use(http.delete('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+		worker.use(http.delete('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 			called = true
 			return HttpResponse.error()
 		}))
@@ -121,9 +110,9 @@ describe('deletePrivateKey', () => {
 		expect(called).toBe(true)
 	})
 
-	it('works when network available', async () => {
+	test('works when network available', async ({ worker }) => {
 		let called = false
-		server.use(http.delete('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+		worker.use(http.delete('**/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 			called = true
 			return HttpResponse.json({ ocs: { meta: { status: 'ok', statuscode: 200, message: 'OK' } } }, { status: 200 })
 		}))

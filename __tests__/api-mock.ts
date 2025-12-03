@@ -4,39 +4,53 @@
  */
 
 import { http, HttpResponse } from 'msw'
-import { setupServer } from 'msw/node'
-import { afterAll, afterEach, beforeAll } from 'vitest'
+import { setupWorker } from 'msw/browser'
+import { test as testBase } from 'vitest'
 import { bufferToBase64 } from '../src/services/bufferUtils.ts'
 import { adminPrivateKeyInfo, rootFolderPropfindResponse, serverPublicKey, subFolderPropfindResponse } from './consts.spec'
 
-export const restHandlers = [
-	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/server-key', () => {
+const restHandlers = [
+	http.get('/ocs/v2.php/apps/end_to_end_encryption/api/v2/server-key', () => {
 		return HttpResponse.json({ ocs: { data: { 'public-key': serverPublicKey } } })
 	}),
-	http.get('http://nextcloud.local//ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
+	http.get('/ocs/v2.php/apps/end_to_end_encryption/api/v2/private-key', () => {
 		return HttpResponse.json({ ocs: { data: { 'private-key': Object.values(adminPrivateKeyInfo).map(bufferToBase64).join('|') } } })
 	}),
 
-	http.all('http://nextcloud.local//remote.php/dav/files/admin/New%20folder', ({ request }) => {
+	http.all('/remote.php/dav/files/admin/New%20folder', ({ request }) => {
 		if (request.method === 'PROPFIND') {
 			return HttpResponse.xml(rootFolderPropfindResponse)
 		}
 	}),
 
-	http.all('http://nextcloud.local//remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1', ({ request }) => {
+	http.all('/remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1', ({ request }) => {
 		if (request.method === 'PROPFIND') {
 			return HttpResponse.xml(subFolderPropfindResponse)
 		}
 	}),
 ]
 
-const server = setupServer(...restHandlers)
+export const worker = setupWorker(...restHandlers)
 
-// Start server before all tests
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+export const test = testBase.extend<{ worker: typeof worker }>({
+	worker: [
+		// eslint-disable-next-line no-empty-pattern
+		async ({ }, use) => {
+			// Start the worker before the test.
+			await worker.start()
 
-//  Close server after all tests
-afterAll(() => server.close())
+			// Expose the worker object on the test's context.
+			await use(worker)
 
-// Reset handlers after each test `important for test isolation`
-afterEach(() => server.resetHandlers())
+			// Remove any request handlers added in individual test cases.
+			// This prevents them from affecting unrelated tests.
+			worker.resetHandlers()
+
+			// Stop the worker after the test.
+			worker.stop()
+		},
+		{
+			auto: true,
+		},
+	],
+})

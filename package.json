@@ -13,11 +13,10 @@
   "scripts": {
     "build": "vite --mode production build",
     "dev": "export NODE_ENV=development; vite --mode development build",
-    "postinstall": "patch-package",
+    "postinstall": "patch-package && npx playwright install",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "playwright": "npx playwright test",
-    "playwright:install": "npx playwright install",
+    "playwright": "playwright test",
     "stylelint": "stylelint src",
     "stylelint:fix": "stylelint src --fix",
     "test": "vitest run",
@@ -67,16 +66,16 @@
     "@playwright/test": "^1.56.1",
     "@relative-ci/agent": "^4.3.1",
     "@testing-library/jest-dom": "^6.9.1",
-    "@vitest/coverage-v8": "^4.0.14",
+    "@vitest/browser-playwright": "^4.0.15",
+    "@vitest/coverage-v8": "^4.0.15",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
     "core-js": "^3.47.0",
     "eslint": "^9.38.0",
-    "jsdom": "^27.2.0",
     "msw": "^2.12.3",
     "patch-package": "^8.0.1",
     "vite": "^7.2.4",
-    "vitest": "^4.0.10"
+    "vitest": "^4.0.15"
   },
   "engines": {
     "node": "^24.0.0",

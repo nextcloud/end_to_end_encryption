@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { UserConfig } from 'vitest/node'
-
 import { createAppConfig } from '@nextcloud/vite-config'
+import { playwright } from '@vitest/browser-playwright'
 import { join } from 'path'
+import { defineConfig } from 'vitest/config'
 
 // replaced by vite
 declare const __dirname: string
@@ -20,15 +20,18 @@ export default createAppConfig({
 	extractLicenseInformation: {
 		includeSourceMaps: true,
 	},
-	config: {
+	config: defineConfig({
 		// Setup for vitest unit tests
 		test: {
 			include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
-			environment: 'jsdom',
-			environmentOptions: {
-				jsdom: {
-					url: 'http://nextcloud.local',
-				},
+			browser: {
+				provider: playwright(),
+				enabled: true,
+				headless: true,
+				screenshotFailures: false,
+				instances: [
+					{ browser: 'chromium' },
+				],
 			},
 			coverage: {
 				include: ['src/**'],
@@ -42,6 +45,6 @@ export default createAppConfig({
 					inline: [/@nextcloud\//],
 				},
 			},
-		} as UserConfig,
-	},
+		},
+	}),
 })

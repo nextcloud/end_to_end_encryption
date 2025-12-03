@@ -4,14 +4,14 @@
  */
 
 import { http, HttpResponse } from 'msw'
-import { setupServer } from 'msw/node'
-import { afterAll, afterEach, beforeAll, beforeEach, expect, test, vi } from 'vitest'
-import { destroyWebDavProxy, setupWebDavProxy } from './webDavProxy.ts'
+import { expect, vi } from 'vitest'
+import { test } from '../../__tests__/api-mock.ts'
+import { setupWebDavProxy } from './webDavProxy.ts'
 
 const useGetInterceptor = vi.hoisted(() => vi.fn((_, next) => next()))
 vi.mock('../middleware/useGetInterceptor.ts', () => ({ useGetInterceptor }))
 
-export const restHandlers = [
+const restHandlers = [
 	http.get('/ocs/v2.php', () => {
 		return HttpResponse.json({})
 	}),
@@ -23,20 +23,9 @@ export const restHandlers = [
 	}),
 ]
 
-const server = setupServer(...restHandlers)
-
-// Start server before all tests
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
-
-//  Close server after all tests
-afterAll(() => server.close())
-
-// Reset handlers after each test `important for test isolation`
-afterEach(() => server.resetHandlers())
-
-beforeEach(() => {
-	destroyWebDavProxy()
+test.beforeEach(({ worker }) => {
 	vi.resetAllMocks()
+	worker.use(...restHandlers)
 })
 
 test('intercepts WebDAV requests', async () => {
