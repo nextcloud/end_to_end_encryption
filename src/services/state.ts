@@ -10,7 +10,7 @@ import { getCurrentUser } from '@nextcloud/auth'
 import { getClient, getDefaultPropfind } from '@nextcloud/files/dav'
 import { dirname } from 'path'
 import { isRootMetadata } from '../models.ts'
-import { getPrivateKey, getServerPublicKey } from './api.ts'
+import * as api from './api.ts'
 import logger from './logger.ts'
 import { decryptMetadataInfo, getMetadataPrivateKey } from './metadataUtils.ts'
 import { promptUserForMnemonic } from './mnemonicDialogs.ts'
@@ -25,7 +25,7 @@ export const state = {
 	_metadataCache: {} as Record<string, Metadata>,
 
 	async getUserPrivateKey(): Promise<CryptoKey> {
-		const privateKey = await getPrivateKey()
+		const privateKey = await api.getPrivateKey()
 		if (!privateKey) {
 			throw new Error('No private key found for user')
 		}
@@ -34,7 +34,7 @@ export const state = {
 	},
 
 	async getServerPublicKeyPEM(): Promise<string> {
-		this._serverPublicKey ??= await getServerPublicKey()
+		this._serverPublicKey ??= await api.getServerPublicKey()
 		return this._serverPublicKey
 	},
 

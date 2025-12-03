@@ -10,7 +10,7 @@ import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
 import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
 import { joinPaths } from '@nextcloud/paths'
-import { createMetadata, lockFolder, setFolderAsEncrypted, unlockFolder } from './api.ts'
+import * as api from './api.ts'
 import { Metadata } from './Metadata.ts'
 
 /**
@@ -40,19 +40,19 @@ export async function createNewRootFolder(name: string, context: IFolder, certif
 	}
 
 	// enable encryption on it
-	await setFolderAsEncrypted(fileId)
+	await api.setFolderAsEncrypted(fileId)
 
-	const token = await lockFolder(fileId, 1) // TODO: documentation: should be 0?
+	const token = await api.lockFolder(fileId, 1) // TODO: documentation: should be 0?
 	try {
 		// now we finally create the initial metadata for the folder
-		const metadata = await RootMetadata.createNew()
+		const metadata = await Metadata.createNew()
 		await metadata.addUser(getCurrentUser()!.uid, certificate)
 		const {
 			metadata: rawMetadata,
 			signature,
 		} = await metadata.export(certificate)
 
-		await createMetadata(
+		await api.createMetadata(
 			fileId,
 			JSON.stringify(rawMetadata),
 			token,
@@ -60,6 +60,6 @@ export async function createNewRootFolder(name: string, context: IFolder, certif
 		)
 		return fileId
 	} finally {
-		await unlockFolder(fileId, token)
+		await api.unlockFolder(fileId, token)
 	}
 }
