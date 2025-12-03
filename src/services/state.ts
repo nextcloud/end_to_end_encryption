@@ -8,7 +8,7 @@ import type { Metadata, MetadataInfo, RootMetadata } from '../models.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import { getClient, getDefaultPropfind } from '@nextcloud/files/dav'
-import { dirname } from 'path'
+import { dirname } from '@nextcloud/paths'
 import { isRootMetadata } from '../models.ts'
 import * as api from './api.ts'
 import logger from './logger.ts'
