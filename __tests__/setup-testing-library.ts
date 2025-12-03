@@ -4,3 +4,5 @@
  */
 import '@testing-library/jest-dom/vitest'
 import 'core-js/stable/index.js'
+
+globalThis._oc_webroot = '' // mock a Nextcloud installation within the web root

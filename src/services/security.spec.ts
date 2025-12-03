@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { expect, test } from 'vitest'
+import { expect } from 'vitest'
+import { test } from '../../__tests__/api-mock.ts'
 import { rootFolderMetadata, rootFolderMetadataSignature } from '../../__tests__/consts.spec.ts'
 import { getServerPublicKey } from './api.ts'
 import { validateMetadataSignature, validateUserCertificates } from './security.ts'
-
-import '../../__tests__/api-mock.ts'
 
 test('Metadata validation works with a valid signature', async () => {
 	await expect(validateMetadataSignature(rootFolderMetadata, rootFolderMetadataSignature, rootFolderMetadata)).resolves.toBeTruthy()
@@ -46,6 +45,6 @@ test('Users certificates validation against server public key works', async () =
 })
 
 test('Altered users certificates validation against server public key does not works', async () => {
-	rootFolderMetadata.users[0].certificate = rootFolderMetadata.users[0].certificate.replace('a', 'b')
+	rootFolderMetadata.users[0]!.certificate = rootFolderMetadata.users[0]!.certificate.replace('a', 'b')
 	await expect(validateUserCertificates(rootFolderMetadata, await getServerPublicKey())).rejects.toThrow()
 })

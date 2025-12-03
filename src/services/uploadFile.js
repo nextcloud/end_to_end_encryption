@@ -4,8 +4,8 @@
  */
 
 import axios from '@nextcloud/axios'
+import { join } from '@nextcloud/paths'
 import { getRootUrl } from '@nextcloud/router'
-import path from 'path'
 
 /**
  * @param {string} davEndpoint
@@ -15,7 +15,7 @@ import path from 'path'
  */
 export async function uploadFile(davEndpoint, fileName, content, shareToken) {
 	await axios.put(
-		path.join(getRootUrl(), davEndpoint, fileName),
+		join(getRootUrl(), davEndpoint, fileName),
 		content,
 		{
 			headers: {

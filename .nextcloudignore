@@ -19,6 +19,7 @@
 /.nextcloudignore
 /package.json
 /package-lock.json
+/patches
 /psalm.xml
 /SECURITY.md
 /stylelint.config.js

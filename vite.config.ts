@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { UserConfig } from 'vitest/node'
-
 import { createAppConfig } from '@nextcloud/vite-config'
 import { join } from 'path'
 
@@ -19,29 +17,5 @@ export default createAppConfig({
 }, {
 	extractLicenseInformation: {
 		includeSourceMaps: true,
-	},
-	config: {
-		// Setup for vitest unit tests
-		test: {
-			include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
-			environment: 'jsdom',
-			environmentOptions: {
-				jsdom: {
-					url: 'http://nextcloud.local',
-				},
-			},
-			coverage: {
-				include: ['src/**'],
-				exclude: ['**.spec.*', '**.test.*', '**.cy.*'],
-				provider: 'v8',
-				reporter: ['lcov', 'text'],
-			},
-			setupFiles: ['__tests__/setup-testing-library.ts'],
-			server: {
-				deps: {
-					inline: [/@nextcloud\//],
-				},
-			},
-		} as UserConfig,
 	},
 })
