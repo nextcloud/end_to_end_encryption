@@ -23,6 +23,7 @@ import * as metadataStore from '../store/metadata.ts'
 export async function usePropFindInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	logger.debug('Fetching raw PROPFIND', { request: context.req })
 
+	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 	await next()
 	const response = context.res.clone()
 	const path = new URL(context.req.url).pathname
@@ -50,17 +51,17 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 			)
 		}
 
-		const { metadata } = await metadataStore.getMetadata(path)
+		const metadata = await metadataStore.getMetadata(path)
 
-		if (metadata instanceof RootMetadata) {
-			replacePlaceholdersInPropfind(xml, path, metadata)
+		if (metadata.metadata instanceof RootMetadata) {
+			replacePlaceholdersInPropfind(xml, path, metadata.metadata)
 		} else {
-			const { metadata: parentMetadata } = await metadataStore.getMetadata(dirname(path))
-			replacePlaceholdersInPropfind(xml, path, metadata, parentMetadata)
+			const { metadata: parentMetadata } = await metadataStore.getMetadata(dirname(metadata.path))
+			replacePlaceholdersInPropfind(xml, path, metadata.metadata, parentMetadata)
 		}
 	} else if (stat.type === 'file') {
-		const { metadata } = await metadataStore.getMetadata(dirname(path))
-		replacePlaceholdersInPropfind(xml, dirname(path), metadata)
+		const { metadata, path: parentPath } = await metadataStore.getMetadata(dirname(path))
+		replacePlaceholdersInPropfind(xml, parentPath, metadata)
 	}
 
 	context.res = new Response(new XMLBuilder().build(xml), response)
@@ -72,7 +73,7 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
  * @param metadata - The metadata for the file or folder
  * @param parentMetadata - The metadata for the parent folder
  */
-export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: Metadata, parentMetadata?: Metadata): void {
+function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: Metadata, parentMetadata?: Metadata): void {
 	logger.debug('Updating PROPFIND info', { path, metadata, parentMetadata, xml })
 
 	for (const childNode of xml.multistatus.response) {
@@ -81,7 +82,7 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, meta
 		}
 
 		// TODO: Enable more feature by keeping permissions
-		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/(R)|(D)|(N)|(V)|(W)|(CK)/g, '')
+		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/(R)|(D)|(N)|(V)|(W)/g, '')
 
 		const currentMetadata = depths(childNode.href) <= depths(path) ? parentMetadata : metadata
 		if (!currentMetadata) {
@@ -119,5 +120,8 @@ export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, meta
  * @param folder - The folder path
  */
 function depths(folder: string): number {
-	return folder.split('/').filter(Boolean).length
+	return folder
+		.split('/')
+		.filter(Boolean)
+		.length
 }
