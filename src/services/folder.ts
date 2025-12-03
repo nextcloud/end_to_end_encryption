@@ -10,6 +10,7 @@ import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
 import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
 import { join } from '@nextcloud/paths'
+import stringify from 'safe-stable-stringify'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import * as metadataStore from '../store/metadata.ts'
 import * as api from './api.ts'
@@ -55,7 +56,7 @@ export async function createNewRootFolder(name: string, context: IFolder, certif
 
 		await api.createMetadata(
 			fileId,
-			JSON.stringify(rawMetadata),
+			stringify(rawMetadata),
 			token,
 			signature,
 		)
