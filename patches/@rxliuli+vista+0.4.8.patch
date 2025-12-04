@@ -1,0 +1,39 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
+#
+# Upstream: https://github.com/rxliuli/vista/pull/10
+diff --git a/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs b/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs
+index 596fc00..7550d5e 100644
+--- a/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs
++++ b/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs
+@@ -275,11 +275,7 @@ export const interceptXHR = function(middlewares) {
+       ).forEach(([type, listener, options]) => {
+         super.addEventListener.apply(this, [type, listener, options]);
+       });
+-      let sendBody = this.#body;
+-      if (c.req !== origin.req) {
+-        sendBody = c.req.body;
+-      }
+-      await new Promise((resolve, reject) => {
++      await new Promise(async (resolve, reject) => {
+         super.addEventListener.apply(this, [
+           "load",
+           (_ev) => {
+@@ -305,12 +301,13 @@ export const interceptXHR = function(middlewares) {
+             });
+           }
+         ]);
+-        if (c.req.body) {
+-          super.send.apply(this, [sendBody]);
+-        } else if (c.req === origin.req) {
++        if (c.req === origin.req) {
+           super.send.apply(this, [this.#body]);
++        } else if (c.req.body) {
++          super.send.apply(this, [c.req.body]);
+         } else {
+-          super.send.apply(this);
++          // https://github.com/rxliuli/vista/pull/10
++          super.send.apply(this, [await c.req.clone().arrayBuffer()])
+         }
+       });
+     };
