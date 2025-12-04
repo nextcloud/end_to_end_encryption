@@ -34,8 +34,11 @@ export class SectionCreateE2eeFolderDialog {
 	public readonly buttonContinue: Locator
 	public readonly buttonCreateFolder: Locator
 	public readonly buttonSetupEncryption: Locator
+	public readonly buttonSubmitMnemonic: Locator
+	public readonly checkboxConsent: Locator
 	public readonly codeRecoveryPhrase: Locator
 	public readonly inputFolderName: Locator
+	public readonly inputMnemonic: Locator
 	public readonly loadingCheckSetup: Locator
 
 	constructor(public readonly page: Page) {
@@ -44,9 +47,27 @@ export class SectionCreateE2eeFolderDialog {
 		// anchored so it also matches the button while it counts down ("Continue (3)")
 		this.buttonContinue = this.dialogLocator.getByRole('button', { name: /^Continue/i })
 		this.buttonCreateFolder = this.dialogLocator.getByRole('button', { name: /Create folder/i })
+		this.buttonSubmitMnemonic = this.dialogLocator.getByRole('button', { name: /Submit/i })
+		this.checkboxConsent = this.dialogLocator.getByRole('checkbox', { name: /I understand the risks/i })
 		this.loadingCheckSetup = this.dialogLocator.getByText(/Checking encryption setup/i)
 		this.codeRecoveryPhrase = this.dialogLocator.getByRole('code')
 		this.inputFolderName = this.dialogLocator.getByRole('textbox', { name: /Folder name/i })
+		this.inputMnemonic = this.dialogLocator.getByRole('textbox', { name: /Mnemonic/i })
+	}
+
+	/**
+	 * Unlock the already set up encryption by entering the recovery phrase.
+	 *
+	 * Shown instead of the "Setup encryption" step whenever the browser session
+	 * does not hold the decrypted private key yet, i.e. on every fresh context.
+	 */
+	public async fillMnemonic(mnemonic: string): Promise<this> {
+		await expect(this.inputMnemonic).toBeVisible()
+		await this.inputMnemonic.fill(mnemonic)
+		await this.checkboxConsent.click({ force: true })
+		await expect(this.buttonSubmitMnemonic).toBeEnabled()
+		await this.buttonSubmitMnemonic.click()
+		return this
 	}
 
 	/**
