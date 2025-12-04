@@ -1,0 +1,15 @@
+diff --git a/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs b/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs
+index 130ddc4..1f149a0 100644
+--- a/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs
++++ b/node_modules/@rxliuli/vista/dist/interceptors/xhr.mjs
+@@ -123,6 +123,10 @@ export const interceptXHR = function(middlewares) {
+     set onload(callback) {
+       this.#listeners.push(["load", callback, false]);
+     }
++    // https://github.com/rxliuli/vista/pull/9
++    set onloadend(callback) {
++      this.#listeners.push(["loadend", callback, false]);
++    }
+     set onerror(callback) {
+       this.#listeners.push(["error", callback, false]);
+     }
