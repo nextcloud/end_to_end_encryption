@@ -10,23 +10,21 @@ import { defineConfig, devices } from '@playwright/test'
  */
 export default defineConfig({
 	testDir: './tests/playwright',
-
-	/* Run tests in files in parallel */
 	fullyParallel: true,
-	/* Fail the build on CI if you accidentally left test.only in the source code. */
+	// ensure no `test.only` is left in the code causing false positives
 	forbidOnly: !!process.env.CI,
-	// /* Retry on CI only */
-	// retries: process.env.CI ? 2 : 0,
-	/* Opt out of parallel tests on CI. */
+	// on CI we retry once to get traces of failures
+	retries: process.env.CI ? 1 : 0,
+	// we shard on CI to speed up the tests so no parallelism in workers
 	workers: process.env.CI ? 1 : undefined,
-	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	reporter: process.env.CI ? [['github'], ['html']] : 'html',
-	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+	// on CI we want to have blob (so we can merge reports and download them for inspection),
+	// dot (so we have a quick overview in the logs while the tests are running)
+	// github (to have annotations in the PR)
+	// locally we just want the html report with the traces
+	reporter: process.env.CI ? [['blob'], ['dot'], ['github']] : 'html',
 	use: {
-		/* Base URL to use in actions like `await page.goto('./')`. */
 		baseURL: 'http://localhost:8089/index.php/',
-
-		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+		// we record traces but only keep them when the test fails
 		trace: 'on-first-retry',
 	},
 
