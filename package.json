@@ -13,7 +13,7 @@
   "scripts": {
     "build": "vite --mode production build",
     "dev": "export NODE_ENV=development; vite --mode development build",
-    "postinstall": "patch-package && npx playwright install",
+    "postinstall": "playwright install chromium-headless-shell",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "playwright": "playwright test",
@@ -44,7 +44,7 @@
     "@nextcloud/router": "^3.1.0",
     "@nextcloud/vue": "^9.3.0",
     "@peculiar/x509": "^1.14.2",
-    "@rxliuli/vista": "^0.4.5",
+    "@rxliuli/vista": "^0.4.8",
     "asn1js": "^3.0.6",
     "bip39": "^3.1.0",
     "debounce": "^3.0.0",
@@ -73,7 +73,6 @@
     "core-js": "^3.47.0",
     "eslint": "^9.38.0",
     "msw": "^2.12.3",
-    "patch-package": "^8.0.1",
     "vite": "^7.2.4",
     "vitest": "^4.0.15"
   },
