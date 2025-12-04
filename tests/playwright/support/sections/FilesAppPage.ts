@@ -6,6 +6,7 @@
 import type { Locator, Page } from '@playwright/test'
 
 import { expect } from '@playwright/test'
+import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
 
 /** How long to keep retrying to open the "New" menu. */
@@ -13,6 +14,7 @@ const OPEN_MENU_TIMEOUT = 15000
 
 export class FilesAppPage {
 	public readonly buttonNewMenuLocator: Locator
+	public readonly dialogMnemonicLocator: Locator
 	public readonly tableFilesList: Locator
 	public readonly filesListLocator: Locator
 
@@ -25,6 +27,7 @@ export class FilesAppPage {
 		this.buttonNewMenuLocator = this.page.locator('[data-cy-upload-picker]')
 			.getByRole('button', { name: 'New' })
 			.first()
+		this.dialogMnemonicLocator = this.page.getByRole('dialog', { name: 'Enter your 12 words mnemonic' })
 	}
 
 	/**
@@ -92,6 +95,16 @@ export class FilesAppPage {
 		return this.tableFilesList
 			.getByRole('row')
 			.filter({ has: this.page.getByRole('cell', { name }) })
+	}
+
+	public openFileOrFolder(name: string): Promise<void> {
+		return this.getFileOrFolder(name)
+			.getByRole('button', { name: `Open folder ${name}` })
+			.click()
+	}
+
+	public getMnemonicDialog(): SectionMnemonicDialog {
+		return new SectionMnemonicDialog(this.dialogMnemonicLocator)
 	}
 
 	/** The size cell of a row, e.g. "0 KB" for a freshly created folder. */
