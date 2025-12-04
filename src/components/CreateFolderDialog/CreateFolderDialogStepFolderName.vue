@@ -91,6 +91,7 @@ async function createFolder(): Promise<true | void> {
 		size: 0, // its empty for now
 		attributes: {
 			'e2ee-is-encrypted': 1,
+			'is-encrypted': 1,
 		},
 	})
 	emit('folderCreated', folder)
