@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { startNextcloud, stopNextcloud } from '@nextcloud/e2e-test-server/docker'
+import { configureNextcloud, startNextcloud, stopNextcloud, waitOnNextcloud } from '@nextcloud/e2e-test-server/docker'
 import { readFileSync } from 'fs'
 import { execSync } from 'node:child_process'
 
@@ -22,12 +22,19 @@ async function start() {
 	})
 }
 
+async function stop() {
+	process.stderr.write('Stopping Nextcloud server…\n')
+	await stopNextcloud()
+	process.exit(0)
+}
+
+process.on('SIGTERM', stop)
+process.on('SIGINT', stop)
+
 // Start the Nextcloud docker container
-await start()
-// Listen for process to exit (tests done) and shut down the docker container
-process.on('beforeExit', () => {
-	stopNextcloud()
-})
+const ip = await start()
+await waitOnNextcloud(ip)
+await configureNextcloud(['end_to_end_encryption'])
 
 // Idle to wait for shutdown
 while (true) {

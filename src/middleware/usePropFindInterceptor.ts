@@ -5,14 +5,14 @@
 
 import type { FetchContext } from '@rxliuli/vista'
 import type { DAVResult } from 'webdav'
-import type { MetadataInfo } from '../models.ts'
+import type { Metadata } from '../models/Metadata.ts'
 
 import { dirname } from '@nextcloud/paths'
 import { XMLBuilder } from 'fast-xml-parser'
 import { parseStat, parseXML } from 'webdav'
-import { isRootMetadata } from '../models.ts'
+import { RootMetadata } from '../models/RootMetadata.ts'
 import logger from '../services/logger.ts'
-import { state } from '../services/state.ts'
+import * as metadataStore from '../store/metadata.ts'
 
 /**
  * Callback to handle GET requests.
@@ -23,6 +23,7 @@ import { state } from '../services/state.ts'
 export async function usePropFindInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	logger.debug('Fetching raw PROPFIND', { request: context.req })
 
+	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 	await next()
 	const response = context.res.clone()
 	const path = new URL(context.req.url).pathname
@@ -36,34 +37,31 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 	}
 
 	if (stat.type === 'directory') {
-		const rawMetadata = stat.props['e2ee-metadata'] as string | undefined
-		const metadataSignature = stat.props['e2ee-metadata-signature'] as string | undefined
-		if (rawMetadata !== undefined && metadataSignature !== undefined) {
-			await state.setMetadata(
+		const {
+			fileid: fileId,
+			'e2ee-metadata': rawMetadata,
+			'e2ee-metadata-signature': metadataSignature,
+		} = stat.props! as Record<string, string>
+		if (fileId && rawMetadata && metadataSignature) {
+			await metadataStore.setRawMetadata(
 				path,
+				fileId,
 				rawMetadata,
 				metadataSignature,
 			)
 		}
 
-		const metadata = await state.getMetadata(path)
-		const metadataInfo = await state.getMetadataInfo(path)
+		const metadata = await metadataStore.getMetadata(path)
 
-		if (isRootMetadata(metadata)) {
-			replacePlaceholdersInPropfind(xml, path, metadataInfo)
+		if (metadata.metadata instanceof RootMetadata) {
+			replacePlaceholdersInPropfind(xml, path, metadata.metadata)
 		} else {
-			const parentMetadataInfo = await state.getMetadataInfo(dirname(path))
-			replacePlaceholdersInPropfind(xml, path, metadataInfo, parentMetadataInfo)
+			const { metadata: parentMetadata } = await metadataStore.getMetadata(dirname(metadata.path))
+			replacePlaceholdersInPropfind(xml, path, metadata.metadata, parentMetadata)
 		}
 	} else if (stat.type === 'file') {
-		const parentMetadataInfo = await state.getMetadataInfo(dirname(path))
-
-		if (parentMetadataInfo === undefined) {
-			logger.debug('Cannot find metadata for parent folder', { path })
-			return
-		}
-
-		replacePlaceholdersInPropfind(xml, path, undefined, parentMetadataInfo)
+		const { metadata, path: parentPath } = await metadataStore.getMetadata(dirname(path))
+		replacePlaceholdersInPropfind(xml, parentPath, metadata)
 	}
 
 	context.res = new Response(new XMLBuilder().build(xml), response)
@@ -72,34 +70,58 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 /**
  * @param xml - The XML response
  * @param path - The path of the file or folder
- * @param decryptedMetadata - The decrypted metadata for the file or folder
- * @param decryptedParentMetadata - The decrypted metadata for the parent folder
+ * @param metadata - The metadata for the file or folder
+ * @param parentMetadata - The metadata for the parent folder
  */
-export function replacePlaceholdersInPropfind(xml: DAVResult, path: string, decryptedMetadata?: MetadataInfo, decryptedParentMetadata?: MetadataInfo): void {
-	logger.debug('Updating PROPFIND info', { path, decryptedMetadata, decryptedParentMetadata, xml })
+function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: Metadata, parentMetadata?: Metadata): void {
+	logger.debug('Updating PROPFIND info', { path, metadata, parentMetadata, xml })
 
-	xml.multistatus.response.forEach((childNode) => {
+	for (const childNode of xml.multistatus.response) {
 		if (childNode.propstat === undefined) {
-			return
+			throw new Error('Invalid PROPFIND response: missing propstat')
 		}
 
-		const relevantMetadataInfo = childNode.href === path ? decryptedParentMetadata : decryptedMetadata
+		// TODO: Enable more feature by keeping permissions
+		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/(R)|(D)|(N)|(V)|(W)/g, '')
+
+		const currentMetadata = depths(childNode.href) <= depths(path) ? parentMetadata : metadata
+		if (!currentMetadata) {
+			logger.debug('No current metadata found, skipping PROPFIND replacement (likely the e2ee root)', { path, childNode, metadata, parentMetadata })
+			continue
+		}
 
 		const identifier = childNode.propstat.prop.displayname
-		let name = identifier
-
-		if (relevantMetadataInfo !== undefined) {
-			if (relevantMetadataInfo.files[identifier]) {
-				name = relevantMetadataInfo.files[identifier].filename
-				childNode.propstat.prop.getcontenttype = relevantMetadataInfo.files[identifier].mimetype
-			} else if (relevantMetadataInfo.folders[identifier]) {
-				name = relevantMetadataInfo.folders[identifier]
-				childNode.propstat.prop.getcontenttype = 'httpd/unix-directory'
+		const isFolder = typeof childNode.propstat.prop?.resourcetype.collection !== 'undefined'
+		if (isFolder) {
+			const name = currentMetadata.getFolder(identifier)
+			if (!name) {
+				logger.error('Could not find folder in metadata for PROPFIND replacement', { path, childNode, identifier, currentMetadata })
+				throw new Error('Could not find folder in metadata for PROPFIND replacement')
 			}
-		}
 
-		childNode.propstat.prop.displayname = name
-		// TODO: Enable more feature by keeping permissions
-		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/(R)|(D)|(N)|(V)|(W)|(CK)/g, '')
-	})
+			childNode.propstat.prop.displayname = name
+			childNode.propstat.prop.getcontenttype = 'httpd/unix-directory'
+		} else {
+			const info = currentMetadata.getFile(identifier)
+			if (!info) {
+				logger.error('Could not find file in metadata for PROPFIND replacement', { path, childNode, identifier, currentMetadata })
+				throw new Error('Could not find file in metadata for PROPFIND replacement')
+			}
+
+			childNode.propstat.prop.displayname = info.filename
+			childNode.propstat.prop.getcontenttype = info.mimetype
+		}
+	}
+}
+
+/**
+ * Checks the depth of a folder path.
+ *
+ * @param folder - The folder path
+ */
+function depths(folder: string): number {
+	return folder
+		.split('/')
+		.filter(Boolean)
+		.length
 }

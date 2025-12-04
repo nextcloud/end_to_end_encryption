@@ -16,7 +16,6 @@ import CreateFolderDialogStepFolderName from './CreateFolderDialogStepFolderName
 import CreateFolderDialogStepMnemonic from './CreateFolderDialogStepMnemonic.vue'
 import CreateFolderDialogStepSetupEncryption from './CreateFolderDialogStepSetupEncryption.vue'
 import logger from '../../services/logger.ts'
-import { storage, StorageKeys } from '../../services/storage.ts'
 import * as store from '../../store/keys.ts'
 import { INJECTION_KEY } from './useCreateFolderDialog.ts'
 
@@ -38,8 +37,7 @@ const currentStep = ref(STEP_CHECKING_SETUP)
 onMounted(async () => {
 	try {
 		if (await store.loadPublicKey()) {
-			if (storage.getItem(StorageKeys.Mnemonic)) {
-				await store.loadPrivateKey(storage.getItem(StorageKeys.Mnemonic)!)
+			if (store.hasPrivateKey()) {
 				currentStep.value = STEP_FOLDER_NAME
 			} else {
 				currentStep.value = STEP_ENTER_MNEMONIC

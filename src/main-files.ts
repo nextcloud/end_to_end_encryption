@@ -10,6 +10,7 @@ import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
 import downloadUnencryptedAction from './files_actions/downloadUnencryptedAction.ts'
 import { registerNewEncryptedFolderEntry } from './files_newMenu/new-encrypted-folder.ts'
+import { setupEventBusProxy } from './services/eventBusProxy.ts'
 import logger from './services/logger.ts'
 import { setupWebDavProxy } from './services/webDavProxy.ts'
 
@@ -18,6 +19,7 @@ const browserSupportsWebCrypto = typeof window.crypto !== 'undefined' && typeof 
 
 if (userConfig.e2eeInBrowserEnabled && browserSupportsWebCrypto) {
 	setupWebDavProxy()
+	setupEventBusProxy()
 	registerDavProperty('nc:e2ee-is-encrypted', { nc: 'http://nextcloud.org/ns' })
 	registerDavProperty('nc:e2ee-metadata', { nc: 'http://nextcloud.org/ns' })
 	registerDavProperty('nc:e2ee-metadata-signature', { nc: 'http://nextcloud.org/ns' })

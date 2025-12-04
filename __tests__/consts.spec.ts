@@ -45,7 +45,7 @@ export const rootFolderMetadata: RootMetadata = {
 	version: '2.0',
 }
 
-export const subfolderMetadata: Metadata = {
+export const subFolderMetadata: Metadata = {
 	metadata: {
 		authenticationTag: '5q86PhjjuWscvKj4figExw==',
 		ciphertext: 'EbQAm5B562Y1HM2kifucksL2OXN/T7IQc/pvYltGyRVZFCLqygNr1y9wpZSl0hhdIfOML/46drof4+tk0SDr6WvBtx2SAvE19sWHtO4NFhfD80e2jszAiWlR2975yeFA4xYJYmY59iL6I54xjzQmCbClk4ciOQzENnEgwWOp/ICWMgs7G8yTs6Itjtvdjx+sJXls8yIb4lJ49Xrlg/nzG3zT2ed9e2/yL4QICCpvh83miznTUKTWI1Ev/q0qy1wZT9QwIOthKn8PMBqNQMhO2SP8Y9DyrEoQKFQxgPH0MDsefcNT2fjjbP4ZjpFkjkUKj4rIu2/HkaxJbU1h5yT5sw/WvzWLUNreP6fQ6OhuBIjGCI5GnygU6/DoQhl+MRFW+tNB0SczyhWR5IQOcPZCPwW87XPXtX+tN5nNA3lJfE5hVouPh7Q1EluYIJZhuv55Z1YdWiRyY5wviFsFajGogumY7RhJR3p04GVgflcGEn5jHQ9pLuo3J+e9wh5DxTNuwhd+45yXQDkLASSUdOTMTuWkXK2k3su6nn5D3jw1QJjkRl19IFQLn7iNhHhmROavOj4Y47lrHLyo+H4oBMc=|Neov3q1Ar5jHp/0cfPwxcA==',
@@ -249,6 +249,56 @@ export const rootFolderPropfindResponse = `<?xml version="1.0"?>
 	</d:response>
 </d:multistatus>`
 
+export const rootFilePropfindResponse = `<?xml version="1.0"?>
+<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns"
+	xmlns:nc="http://nextcloud.org/ns">
+	<d:response>
+		<d:href>/remote.php/dav/files/admin/New%20folder/ad3b12554e0d4364854ae3e21b170152</d:href>
+		<d:propstat>
+			<d:prop>
+				<d:getcontentlength>29</d:getcontentlength>
+				<d:getcontenttype>application/octet-stream</d:getcontenttype>
+				<d:getetag>&quot;f8797cf9677cd6d24d405c97784710dc&quot;</d:getetag>
+				<d:getlastmodified>Thu, 12 Dec 2024 15:36:40 GMT</d:getlastmodified>
+				<d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+				<d:displayname>ad3b12554e0d4364854ae3e21b170152</d:displayname>
+				<d:resourcetype />
+				<nc:has-preview>false</nc:has-preview>
+				<nc:mount-type></nc:mount-type>
+				<oc:comments-unread>0</oc:comments-unread>
+				<oc:favorite>0</oc:favorite>
+				<oc:fileid>237</oc:fileid>
+				<oc:owner-display-name>admin</oc:owner-display-name>
+				<oc:owner-id>admin</oc:owner-id>
+				<oc:permissions>RGDNVW</oc:permissions>
+				<oc:size>29</oc:size>
+				<nc:e2ee-is-encrypted>1</nc:e2ee-is-encrypted>
+				<nc:hidden>false</nc:hidden>
+				<nc:is-mount-root>false</nc:is-mount-root>
+				<nc:reminder-due-date></nc:reminder-due-date>
+				<nc:sharees />
+				<nc:share-attributes>[]</nc:share-attributes>
+				<oc:share-types />
+				<x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">19</x1:share-permissions>
+				<nc:system-tags />
+			</d:prop>
+			<d:status>HTTP/1.1 200 OK</d:status>
+		</d:propstat>
+		<d:propstat>
+			<d:prop>
+				<d:quota-available-bytes />
+				<nc:is-encrypted />
+				<nc:metadata-blurhash />
+				<nc:metadata-files-live-photo />
+				<nc:note />
+				<nc:rich-workspace />
+				<nc:rich-workspace-file />
+			</d:prop>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+		</d:propstat>
+	</d:response>
+</d:multistatus>`
+
 export const subFolderPropfindResponse = `<?xml version="1.0"?>
 <d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns"
     xmlns:nc="http://nextcloud.org/ns">
@@ -277,7 +327,7 @@ export const subFolderPropfindResponse = `<?xml version="1.0"?>
                 <nc:hidden>false</nc:hidden>
                 <nc:is-mount-root>false</nc:is-mount-root>
                 <nc:e2ee-is-encrypted>1</nc:e2ee-metadata>
-                <nc:e2ee-metadata>${JSON.stringify(subfolderMetadata)}</nc:e2ee-metadata>
+                <nc:e2ee-metadata>${JSON.stringify(subFolderMetadata)}</nc:e2ee-metadata>
                 <nc:e2ee-metadata-signature>${subFolderMetadataSignature}</nc:e2ee-metadata-signature>
                 <nc:reminder-due-date></nc:reminder-due-date>
                 <nc:sharees />

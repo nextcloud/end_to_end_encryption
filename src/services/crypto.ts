@@ -4,7 +4,7 @@
  */
 
 import type { X509Certificate } from '@peculiar/x509'
-import type { UserWithAccess } from '../models.ts'
+import type { IRawMetadataUser } from '../models/metadata.d.ts'
 
 import { Certificate, ContentInfo, CryptoEngine, SignedData } from 'pkijs'
 import { bufferToHex, pemToBuffer } from './bufferUtils.ts'
@@ -192,7 +192,7 @@ function getPatchedCrypto(): Crypto {
  * @param users - Array of users with access to verify the signer's identity
  * @throws Error if the signer is not found in the users array
  */
-export async function validateCMSSignature(signedData: Uint8Array<ArrayBuffer>, cmsBuffer: Uint8Array<ArrayBuffer>, users: UserWithAccess[]): Promise<boolean> {
+export async function validateCMSSignature(signedData: Uint8Array<ArrayBuffer>, cmsBuffer: Uint8Array<ArrayBuffer>, users: IRawMetadataUser[]): Promise<boolean> {
 	// Parse the CMS buffer
 	const cmsContent = ContentInfo.fromBER(cmsBuffer)
 	const originalSignedData = new SignedData({ schema: cmsContent.content })

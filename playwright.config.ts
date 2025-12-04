@@ -31,18 +31,11 @@ export default defineConfig({
 	},
 
 	projects: [
-		// Our global setup to configure the Nextcloud docker container
-		{
-			name: 'setup',
-			testMatch: /setup\.ts$/,
-		},
-
 		{
 			name: 'chromium',
 			use: {
 				...devices['Desktop Chrome'],
 			},
-			dependencies: ['setup'],
 		},
 
 		...(process.env.CI
@@ -50,24 +43,36 @@ export default defineConfig({
 					{
 						name: 'firefox',
 						use: { ...devices['Desktop Firefox'] },
-						dependencies: ['setup'],
 					},
 					{
 						name: 'webkit',
 						use: { ...devices['Desktop Safari'] },
-						dependencies: ['setup'],
 					},
 				]
 			: []),
 	],
 
 	webServer: {
+		// url: 'http://127.0.0.1:8089',
 		// Starts the Nextcloud docker container
 		command: 'node tests/playwright/start-nextcloud-server.js',
-		reuseExistingServer: !process.env.CI,
-		url: 'http://127.0.0.1:8089',
+		env: {
+			NEXTCLOUD_PORT: '8089',
+		},
+		// get output of the webserver
 		stderr: 'pipe',
 		stdout: 'pipe',
-		timeout: 5 * 60 * 1000, // max. 5 minutes for creating the container
+		// we use sigterm to notify the script to stop the container
+		// if it does not respond, we force kill it after 10 seconds
+		gracefulShutdown: {
+			signal: 'SIGTERM',
+			timeout: 10000,
+		},
+		reuseExistingServer: !process.env.CI,
+		timeout: 5 * 60 * 1000,
+		wait: {
+			// we wait for this line to appear in the output of the webserver until consider it done
+			stdout: /Nextcloud is now ready to use/,
+		},
 	},
 })

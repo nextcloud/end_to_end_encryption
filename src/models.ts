@@ -13,15 +13,13 @@ type FileDropEntry = {
 	ciphertext: string
 	nonce: string
 	authenticationTag: string
-	users: [
-		{
-			userId: string
-			/**
-			 * The metadata-key is encrypted with RSA/ECB/OAEPWithSHA-256AndMGF1Padding
-			 */
-			encryptedFiledropKey: string
-		},
-	]
+	users: {
+		userId: string
+		/**
+		 * The metadata-key is encrypted with RSA/ECB/OAEPWithSHA-256AndMGF1Padding
+		 */
+		encryptedFiledropKey: string
+	}[]
 }
 
 export type UserWithAccess = {
@@ -68,11 +66,4 @@ export type PrivateKeyInfo = {
 	encryptedPrivateKey: Uint8Array<ArrayBuffer>
 	iv: Uint8Array<ArrayBuffer>
 	salt: Uint8Array<ArrayBuffer>
-}
-
-/**
- * @param metadata - The metadata to check of being root metadata
- */
-export function isRootMetadata(metadata: Metadata): metadata is RootMetadata {
-	return metadata.users !== undefined
 }
