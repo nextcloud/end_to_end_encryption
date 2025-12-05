@@ -64,7 +64,7 @@ class EncryptionController extends OCSController {
 	}
 
 	/**
-	 * Set encryption flag for folder
+	 * Remove encryption flag for folder
 	 *
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent

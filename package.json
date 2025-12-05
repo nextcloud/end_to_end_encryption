@@ -29,6 +29,7 @@
     "extends @nextcloud/browserslist-config"
   ],
   "dependencies": {
+    "@mdi/js": "^7.4.47",
     "@mdi/svg": "^7.4.47",
     "@nextcloud/auth": "^2.5.3",
     "@nextcloud/axios": "^2.5.2",
@@ -42,9 +43,11 @@
     "@nextcloud/logger": "^3.0.2",
     "@nextcloud/paths": "^2.3.0",
     "@nextcloud/router": "^3.1.0",
+    "@nextcloud/sharing": "^0.3.0",
     "@nextcloud/vue": "^9.3.0",
     "@peculiar/x509": "^1.14.2",
     "@rxliuli/vista": "^0.4.8",
+    "@vueuse/core": "^14.1.0",
     "asn1js": "^3.0.6",
     "bip39": "^3.1.0",
     "debounce": "^3.0.0",
@@ -62,6 +65,7 @@
     "@nextcloud/e2e-test-server": "^0.4.0",
     "@nextcloud/eslint-config": "^9.0.0-rc.6",
     "@nextcloud/stylelint-config": "^3.1.1",
+    "@nextcloud/typings": "^1.10.0",
     "@nextcloud/vite-config": "^2.5.2",
     "@playwright/test": "^1.57.0",
     "@relative-ci/agent": "^4.3.1",

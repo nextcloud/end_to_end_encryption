@@ -102,13 +102,16 @@ export async function getPublicKey(userId?: string): Promise<string | null> {
 	if (!userId) {
 		throw new Error('Cannot fetch a public key without specifying a user')
 	}
+	return (await getPublicKeys([userId]))[userId]!
+}
 
+export async function getPublicKeys(userIds: string[]): Promise<Record<string, string | null>> {
 	try {
 		const response = await axios.get<OCSResponse<{ 'public-keys': Record<string, string> }>>(
 			generateOcsUrl(Url.PublicKey),
 			{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 		)
-		return response.data.ocs.data['public-keys'][userId]!
+		return response.data.ocs.data['public-keys']
 	} catch (error) {
 		if (isAxiosError(error) && error.response?.status === 404) {
 			logger.debug('No public key found for the current user.')
