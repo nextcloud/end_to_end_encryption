@@ -14,7 +14,7 @@ import * as api from '../services/api.ts'
 import { isRootMetadata, validateMetadataSignature } from '../services/metadata.ts'
 import * as keyStore from './keys.ts'
 
-interface IStoreMetadata {
+export interface IStoreMetadata {
 	/** File id of the metadata - used by the APIs */
 	id: string
 	/** The metadata itself */
