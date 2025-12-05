@@ -49,6 +49,8 @@ async function interceptedEmit(this: SimpleBus, event: string, ...args: unknown[
 				const displayname = node.displayname
 				node.rename(uuid)
 				node.displayname = displayname
+				node.attributes['e2ee-is-encrypted'] = 1
+				node.attributes['is-encrypted'] = 1
 			} else {
 				logger.debug('EventBusMiddleware: Node not found in metadata', { node })
 			}
