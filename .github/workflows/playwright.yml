@@ -92,7 +92,7 @@ jobs:
         merge-multiple: true
 
     - name: Merge into HTML Report
-      run: npx playwright merge-reports --reporter html ./all-blob-reports
+      run: npx playwright merge-reports --config tests/playwright/merge.config.ts ./all-blob-reports
 
     - name: Upload HTML report
       uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
