@@ -45,14 +45,23 @@ export async function getRootMetadata(path: string): Promise<RootMetadata> {
 
 	// not in cache, fetch it
 	const data = await api.getMetadataByPath(path)
+	if (data === false) {
+		// its a file so get its parent metadata
+		const root = await getRootMetadata(dirname(path))
+		const { metadata, id } = await getMetadata(dirname(path))
+		setMetadata(path, id, metadata)
+		return root
+	}
+
 	const metadataRaw = JSON.parse(data.metadata)
 	if (isRootMetadata(metadataRaw)) {
 		return (await setRawMetadata(path, data.fileId, metadataRaw, data.signature)).metadata as RootMetadata
 	}
 
+	// we need to fetch the root metadata first for decrypting this current metadata
 	const rootMetadata = await getRootMetadata(dirname(path))
-	// but also save it back for later
 	await setRawMetadata(path, data.fileId, metadataRaw, data.signature)
+
 	// still return the root metadata
 	return rootMetadata
 }
@@ -119,6 +128,23 @@ export async function setRawMetadata(path: string, id: string, rawMetadata: stri
 		}
 	}
 	return setMetadata(path, id, metadata)
+}
+
+/**
+ * Delete the metadata for the given path and all sub-paths.
+ *
+ * @param path - The path to remove
+ */
+export function deleteMetadata(path: string): void {
+	path = normalizePath(path)
+	metadataCache.delete(path)
+
+	// also delete all sub-paths
+	for (const [source] of metadataCache.entries()) {
+		if (source.startsWith(`${path}/`)) {
+			metadataCache.delete(source)
+		}
+	}
 }
 
 const RELATIVE_REMOTE_URL = new URL(defaultRemoteURL).pathname
