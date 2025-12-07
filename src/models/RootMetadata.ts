@@ -59,6 +59,13 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		return this.#users.map((u) => u.userId)
 	}
 
+	public markAsDeleted(): void {
+		this._metadata.deleted = true
+		this._metadata.files = {}
+		this._metadata.folders = {}
+		this.#filedrop = {}
+	}
+
 	protected async _exportMetadata(): Promise<IRawRootMetadata> {
 		// when users are added or removed we need to re-encrypt the metadata key for all users
 		if (this.#usersModified) {
