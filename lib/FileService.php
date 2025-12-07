@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption;
 
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
-use OCA\Files_Sharing\SharedStorage;
 use OCP\Files\Folder;
 use OCP\Files\Node;
+use OCP\Files\Storage\ISharedStorage;
 
 /**
  * Class FileService
@@ -42,9 +42,11 @@ class FileService {
 	}
 
 	/**
-	 * @return bool Move and delete temporary files suffixed by .e2e-to-save and .e2e-to-delete
+	 * Move and delete temporary files suffixed by .e2e-to-save and .e2e-to-delete
+	 *
+	 * @return false|list<positive-int> Return false if there are no changes or array of deleted file IDs
 	 */
-	public function finalizeChanges(Folder $folder): bool {
+	public function finalizeChanges(Folder $folder): false|array {
 		$intermediateFiles = $this->getIntermediateFiles($folder);
 		if (empty($intermediateFiles['to_save']) && empty($intermediateFiles['to_delete'])) {
 			return false;
@@ -56,18 +58,20 @@ class FileService {
 			$intermediateFile->move($newPath);
 		}
 
+		$deletedIds = [];
 		/** @var Node $intermediateFile */
 		foreach ($intermediateFiles['to_delete'] as $intermediateFile) {
 			// If shared to user, try to unshare it first
 			$storage = $intermediateFile->getStorage();
-			if ($storage->instanceOfStorage(SharedStorage::class) && $storage->unshareStorage()) {
+			if ($storage->instanceOfStorage(ISharedStorage::class) && $storage->unshareStorage()) {
 				continue;
 			}
 			// Otherwise delete it
+			$deletedIds[] = $intermediateFile->getId();
 			$intermediateFile->delete();
 		}
 
-		return true;
+		return $deletedIds;
 	}
 
 	/**

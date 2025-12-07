@@ -20,18 +20,14 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\Files\SimpleFS\ISimpleFolder;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class MetaDataStorageTest extends TestCase {
 
-	/** @var IAppData|\PHPUnit\Framework\MockObject\MockObject */
-	private $appData;
-
-	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
-	private $rootFolder;
-
-	/** @var MetaDataStorage */
-	private $metaDataStorage;
+	private IAppData&MockObject $appData;
+	private IRootFolder&MockObject $rootFolder;
+	private MetaDataStorage $metaDataStorage;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -406,16 +402,18 @@ class MetaDataStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider saveIntermediateFileDataProvider
-	 *
-	 * @param bool $folderExists
-	 * @param bool $intermediateFileExists
-	 * @param bool $intermediateFileIsEmpty
-	 * @param bool $finalFileExists
-	 * @param bool $expectsException
 	 */
-	public function testSaveIntermediateFile(bool $folderExists, bool $intermediateFileExists, bool $intermediateFileIsEmpty, bool $finalFileExists, bool $expectsException): void {
+	public function testSaveIntermediateFile(
+		bool $folderExists,
+		bool $intermediateFileExists,
+		bool $intermediateFileIsEmpty,
+		bool $finalFileExists,
+		bool $expectsException,
+		bool $deleted,
+	): void {
+		/** @var MetaDataStorage&MockObject */
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'cleanupLegacyFile',
@@ -426,7 +424,7 @@ class MetaDataStorageTest extends TestCase {
 			])
 			->getMock();
 
-		$metaDataStorage->expects($this->once())
+		$metaDataStorage->expects($deleted ? $this->never() : $this->once())
 			->method('verifyOwner')
 			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
@@ -551,17 +549,18 @@ class MetaDataStorageTest extends TestCase {
 			$this->expectExceptionMessage('Intermediate meta-data file missing');
 		}
 
-		$metaDataStorage->saveIntermediateFile('userId', 42);
+		$metaDataStorage->saveIntermediateFile('userId', 42, $deleted);
 	}
 
 	public function saveIntermediateFileDataProvider(): array {
 		return [
-			[false, false, false, false, true],
-			[true, false, false, false, true],
-			[true, true, false, true, false],
-			[true, true, true, true, false],
-			[true, true, false, false, false],
-			[true, true, true, false, false],
+			[false, false, false, false, true, false],
+			[true, false, false, false, true, false],
+			[true, true, false, true, false, false],
+			[true, true, true, true, false, false],
+			[true, true, false, false, false, false],
+			[true, true, true, false, false, false],
+			[true, true, true, true, false, true],
 		];
 	}
 
@@ -651,15 +650,15 @@ class MetaDataStorageTest extends TestCase {
 
 			if ($emptyOwnerRoot) {
 				$ownerRoot->expects($this->once())
-					->method('getById')
+					->method('getFirstNodeById')
 					->with(42)
-					->willReturn([]);
+					->willReturn(null);
 			} else {
 				$ownerNode = $this->createMock(Node::class);
 				$ownerRoot->expects($this->once())
-					->method('getById')
+					->method('getFirstNodeById')
 					->with(42)
-					->willReturn([$ownerNode]);
+					->willReturn($ownerNode);
 			}
 		}
 

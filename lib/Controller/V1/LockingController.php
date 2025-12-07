@@ -136,7 +136,7 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
-		$hadChanges = $this->fileService->finalizeChanges($nodes[0]);
+		$hadChanges = $this->fileService->finalizeChanges($nodes[0]) !== false;
 
 		try {
 			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);

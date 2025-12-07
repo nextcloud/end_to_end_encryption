@@ -160,9 +160,12 @@ class MetaDataStorage implements IMetaDataStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function saveIntermediateFile(string $userId, int $id): void {
+	public function saveIntermediateFile(string $userId, int $id, bool $deleted = false): void {
 		$this->verifyFolderStructure();
-		$this->verifyOwner($userId, $id);
+		if (!$deleted) {
+			// if the file was deleted the owner check cannot work
+			$this->verifyOwner($userId, $id);
+		}
 
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
@@ -282,8 +285,8 @@ class MetaDataStorage implements IMetaDataStorage {
 			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
-		$ownerNodes = $userFolder->getById($id);
-		if (!isset($ownerNodes[0])) {
+		$node = $userFolder->getFirstNodeById($id);
+		if ($node === null) {
 			throw new NotFoundException('No file for owner with ID ' . $id);
 		}
 	}

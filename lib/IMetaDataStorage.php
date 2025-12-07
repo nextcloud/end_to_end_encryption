@@ -48,11 +48,12 @@ interface IMetaDataStorage {
 	/**
 	 * Moves intermediate metadata file to final file
 	 *
+	 * @param bool $deleted - Whether the file was deleted
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 * @throws MissingMetaDataException
 	 */
-	public function saveIntermediateFile(string $userId, int $id): void;
+	public function saveIntermediateFile(string $userId, int $id, bool $deleted = false): void;
 
 	/**
 	 * Get the stored signature
