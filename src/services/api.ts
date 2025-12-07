@@ -30,9 +30,10 @@ const Url = {
 const METADATA_PROPFIND = `<?xml version="1.0"?>
 	<d:propfind xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns" xmlns:oc="http://owncloud.org/ns">
 		<d:prop>
-			<oc:fileid />
+			<d:resourcetype/>
 			<nc:e2ee-metadata />
 			<nc:e2ee-metadata-signature />
+			<oc:fileid />
 		</d:prop>
 	</d:propfind>`
 
@@ -278,6 +279,25 @@ export async function updateMetadata(fileId: string, metadata: string, token: st
 }
 
 /**
+ * Delete metadata of a folder.
+ *
+ * @param fileId - The fileid of the folder
+ * @param token - The locking token
+ */
+export async function deleteMetadata(fileId: string, token: string): Promise<void> {
+	const url = generateOcsUrl(Url.Metadata, { fileId })
+	await axios.delete(
+		url,
+		{
+			headers: {
+				'E2E-TOKEN': token,
+				'X-E2EE-SUPPORTED': 'true',
+			},
+		},
+	)
+}
+
+/**
  * Fetch metadata for a given file ID.
  *
  * @param fileId - The file ID of the folder
@@ -302,12 +322,20 @@ export async function getMetadata(fileId: string, shareToken?: string) {
 	}
 }
 
+interface MetdataResponse {
+	fileId: string
+	metadata: string
+	signature: string
+}
+
 /**
  * Fetch metadata for a given path.
  *
  * @param path - The file path of the folder relative to the DAV root
+ * @return The metadata response or false if the path is not a folder
+ * @throws {Error} If metadata could not be fetched, is not available or incomplete
  */
-export async function getMetadataByPath(path: string): Promise<{ fileId: string, metadata: string, signature: string }> {
+export async function getMetadataByPath(path: string): Promise<MetdataResponse | false> {
 	if (!client) {
 		client = getClient()
 	}
@@ -326,12 +354,16 @@ export async function getMetadataByPath(path: string): Promise<{ fileId: string,
 		throw new Error('No metadata found for path ' + path)
 	}
 
+	const isFolder = typeof result.data.props.resourcetype.collection !== 'undefined'
+	if (!isFolder) {
+		return false
+	}
+
 	const {
 		fileid: fileId,
 		'e2ee-metadata': metadata,
 		'e2ee-metadata-signature': signature,
 	} = result.data.props
-
 	if (!fileId || !metadata || !signature) {
 		logger.debug('Not all props provided by PROPFIND', { path, fileId, metadata, signature })
 		throw new Error('No metadata found for path ' + path)
