@@ -82,7 +82,11 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 		}
 
 		// TODO: Enable more feature by keeping permissions
-		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/(R)|(D)|(N)|(V)|(W)/g, '')
+		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string)
+			// R: allow share
+			// NV: allow rename and move
+			// W: allow write
+			.replace(/(R)|(NV)|(W)/g, '')
 
 		const currentMetadata = depths(childNode.href) <= depths(path) ? parentMetadata : metadata
 		if (!currentMetadata) {

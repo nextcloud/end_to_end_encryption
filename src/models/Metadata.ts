@@ -69,7 +69,8 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	}
 
 	/**
-	 * Get the UUID for a given filename
+	 * Get the UUID for a given filename.
+	 * This will lookup both files and folders.
 	 *
 	 * @param filename - The filename to lookup
 	 */
@@ -86,6 +87,15 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		}
 	}
 
+	/**
+	 * Check if a UUID exists in the metadata.
+	 *
+	 * @param uuid - The UUID to lookup
+	 */
+	public hasUuid(uuid: string): boolean {
+		return uuid in this._metadata.files || uuid in this._metadata.folders
+	}
+
 	public getFolder(uuid: string): string | undefined {
 		return this._metadata.folders[uuid]
 	}
@@ -97,6 +107,15 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		}
 	}
 
+	public deleteFolder(uuid: string): void {
+		if (!this._metadata.folders[uuid]) {
+			throw new Error(`Folder with UUID ${uuid} does not exist`)
+		}
+
+		delete this._metadata.folders[uuid]
+		this._metadata.folders = { ...this._metadata.folders } // needed for reactivity of the counter
+	}
+
 	public getFile(uuid: string): IMetadataFile | undefined {
 		return this._metadata.files[uuid]
 	}
@@ -106,7 +125,12 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	}
 
 	public deleteFile(uuid: string): void {
+		if (!this._metadata.files[uuid]) {
+			throw new Error(`File with UUID ${uuid} does not exist`)
+		}
+
 		delete this._metadata.files[uuid]
+		this._metadata.files = { ...this._metadata.files } // needed for reactivity of the counter
 	}
 
 	public renameFile(uuid: string, newName: string): void {
@@ -114,7 +138,13 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 			throw new Error(`File with UUID ${uuid} does not exist`)
 		}
 
-		this._metadata.files[uuid]!.filename = newName
+		this._metadata.files = {
+			...this._metadata.files,
+			[uuid]: {
+				...this._metadata.files[uuid]!,
+				filename: newName,
+			},
+		}
 	}
 
 	/**
