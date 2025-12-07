@@ -63,7 +63,7 @@ export async function useMkcolInterceptor(context: FetchContext, next: () => Pro
 		const fileId = Number.parseInt(context.res.headers.get('OC-FileId')!).toString()
 		// create the new metadata
 		const metadata = await Metadata.createNew(rootMetadata.key)
-		const rawMetadata = await metadata.export(keyStore.getCertificate()!)
+		const rawMetadata = await metadata.export(await keyStore.getCertificate())
 		logger.debug('Creating new metadata')
 		await api.setFolderAsEncrypted(fileId)
 		await api.createMetadata(
@@ -74,7 +74,7 @@ export async function useMkcolInterceptor(context: FetchContext, next: () => Pro
 		)
 
 		// Finally update the parent metadata
-		const metadataRaw = await parentMetadata.metadata.export(keyStore.getCertificate()!)
+		const metadataRaw = await parentMetadata.metadata.export(await keyStore.getCertificate())
 		logger.debug('Update parent metadata')
 		await api.updateMetadata(
 			parentMetadata.id,
