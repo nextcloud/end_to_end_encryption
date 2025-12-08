@@ -82,11 +82,8 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 		}
 
 		if (childNode.propstat.prop.permissions) {
-			// TODO: Enable more feature by keeping permissions
-			childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string)
-				// R: allow share
-				// NV: allow rename and move
-				.replace(/(R)|(NV)/g, '')
+			// remove share permissions as we have internal sharing methods for e2ee
+			childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/R/g, '')
 		}
 
 		const currentMetadata = depths(childNode.href) <= depths(path) ? parentMetadata : metadata
