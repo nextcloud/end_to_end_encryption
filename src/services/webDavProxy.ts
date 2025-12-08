@@ -6,6 +6,7 @@
 import type { BaseMiddleware, FetchContext } from '@rxliuli/vista'
 
 import { interceptFetch, interceptXHR, Vista } from '@rxliuli/vista'
+import { useCopyInterceptor } from '../middleware/useCopyInterceptor.ts'
 import { useGetInterceptor } from '../middleware/useGetInterceptor.ts'
 import { useMkcolInterceptor } from '../middleware/useMkcolInterceptor.ts'
 import { usePropFindInterceptor } from '../middleware/usePropFindInterceptor.ts'
@@ -21,6 +22,7 @@ export function setupWebDavProxy() {
 	logger.debug('Setting up WebDAV proxy')
 
 	vistaInstance = new Vista([interceptFetch, interceptXHR])
+		.use(wrapInterceptor(useCopyInterceptor, 'COPY'))
 		.use(wrapInterceptor(useGetInterceptor, 'GET'))
 		.use(wrapInterceptor(useMkcolInterceptor, 'MKCOL'))
 		.use(wrapInterceptor(usePutInterceptor, 'PUT'))

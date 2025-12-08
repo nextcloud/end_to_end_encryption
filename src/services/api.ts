@@ -30,7 +30,10 @@ const Url = {
 const METADATA_PROPFIND = `<?xml version="1.0"?>
 	<d:propfind xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns" xmlns:oc="http://owncloud.org/ns">
 		<d:prop>
+			<d:resourcetype />
+			<d:displayname />
 			<oc:fileid />
+			<nc:e2ee-is-encrypted />
 			<nc:e2ee-metadata />
 			<nc:e2ee-metadata-signature />
 		</d:prop>
@@ -308,20 +311,9 @@ export async function getMetadata(fileId: string, shareToken?: string) {
  * @param path - The file path of the folder relative to the DAV root
  */
 export async function getMetadataByPath(path: string): Promise<{ fileId: string, metadata: string, signature: string }> {
-	if (!client) {
-		client = getClient()
-	}
+	const result = await getNodeStat(path)
 
-	if (!path.startsWith(defaultRootPath)) {
-		path = join(defaultRootPath, path)
-	}
-
-	const result = await client.stat(path, {
-		data: METADATA_PROPFIND,
-		details: true,
-	}) as ResponseDataDetailed<FileStat>
-
-	if (!result.data.props) {
+	if (!result.props) {
 		logger.debug('No props found in PROPFIND result', { result, path })
 		throw new Error('No metadata found for path ' + path)
 	}
@@ -330,8 +322,7 @@ export async function getMetadataByPath(path: string): Promise<{ fileId: string,
 		fileid: fileId,
 		'e2ee-metadata': metadata,
 		'e2ee-metadata-signature': signature,
-	} = result.data.props
-
+	} = result.props
 	if (!fileId || !metadata || !signature) {
 		logger.debug('Not all props provided by PROPFIND', { path, fileId, metadata, signature })
 		throw new Error('No metadata found for path ' + path)
@@ -342,4 +333,40 @@ export async function getMetadataByPath(path: string): Promise<{ fileId: string,
 		metadata: metadata.toString(),
 		signature: signature.toString(),
 	}
+}
+
+/**
+ * Wrapper around WebDAV STAT to fetch e2ee related properties.
+ *
+ * @param path - The file path relative to the DAV root
+ */
+export async function getNodeStat(path: string) {
+	if (!client) {
+		client = getClient()
+	}
+
+	if (!path.startsWith(defaultRootPath)) {
+		path = join(defaultRootPath, path)
+	}
+
+	const { data } = await client.stat(path, { details: true, data: METADATA_PROPFIND }) as ResponseDataDetailed<FileStat>
+	return data
+}
+
+/**
+ * Wrapper around WebDAV list directory to fetch e2ee related properties of folder content.
+ *
+ * @param path - The directory path relative to the DAV root
+ */
+export async function getDirectoryContents(path: string) {
+	if (!client) {
+		client = getClient()
+	}
+
+	if (!path.startsWith(defaultRootPath)) {
+		path = join(defaultRootPath, path)
+	}
+
+	const { data } = await client.getDirectoryContents(path, { details: true, data: METADATA_PROPFIND }) as ResponseDataDetailed<FileStat[]>
+	return data
 }
