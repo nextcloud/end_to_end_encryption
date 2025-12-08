@@ -4,7 +4,7 @@
  */
 
 import type { FetchContext } from '@rxliuli/vista'
-import type { DAVResult } from 'webdav'
+import type { DAVResult, DAVResultResponse } from 'webdav'
 import type { Metadata } from '../models/Metadata.ts'
 
 import { dirname } from '@nextcloud/paths'
@@ -76,6 +76,7 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: Metadata, parentMetadata?: Metadata): void {
 	logger.debug('Updating PROPFIND info', { path, metadata, parentMetadata, xml })
 
+	const parsedNodes: DAVResultResponse[] = []
 	for (const childNode of xml.multistatus.response) {
 		if (childNode.propstat === undefined) {
 			throw new Error('Invalid PROPFIND response: missing propstat')
@@ -89,6 +90,7 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 		const currentMetadata = depths(childNode.href) <= depths(path) ? parentMetadata : metadata
 		if (!currentMetadata) {
 			logger.debug('No current metadata found, skipping PROPFIND replacement (likely the e2ee root)', { path, childNode, metadata, parentMetadata })
+			parsedNodes.push(childNode)
 			continue
 		}
 
@@ -113,7 +115,9 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 			childNode.propstat.prop.displayname = info.filename
 			childNode.propstat.prop.getcontenttype = info.mimetype
 		}
+		parsedNodes.push(childNode)
 	}
+	xml.multistatus.response = parsedNodes
 }
 
 /**
