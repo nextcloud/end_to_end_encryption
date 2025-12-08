@@ -77,7 +77,7 @@ async function createFolder(): Promise<true | void> {
 	const folderId = await createNewRootFolder(
 		folderName.value.trim(),
 		props.context,
-		store.getCertificate()!,
+		await store.getCertificate(),
 	)
 	// create a folder handle so we can refresh the files list later
 	const folder = new Folder({

@@ -34,13 +34,16 @@ export async function getServerKey(): Promise<CryptoKey> {
 
 /**
  * Get the current user's X509 certificate.
- * Note that it will only be available if the user has a private key loaded.
  */
-export function getCertificate(): X509Certificate | undefined {
-	if (!certificate || !certificate.privateKey) {
-		return undefined
+export async function getCertificate(): Promise<X509Certificate> {
+	if (!certificate && !await loadPublicKey()) {
+		// not e2ee enabled
+		throw new Error('No user certificate found')
 	}
-	return certificate
+	if (!certificate!.privateKey) {
+		await loadPrivateKey()
+	}
+	return certificate!
 }
 
 /**
@@ -68,7 +71,10 @@ export function hasPublicKey(): boolean {
 /**
  * Get the current user's public key
  */
-export function getPublicKey(): CryptoKey | undefined {
+export async function getPublicKey(): Promise<CryptoKey | undefined> {
+	if (!hasPublicKey()) {
+		await loadPublicKey()
+	}
 	return publicKey
 }
 
@@ -154,9 +160,9 @@ export function setPrivateKey(key: CryptoKey): void {
  *
  * @param userId - The user ID
  */
-export function getUserKey(userId: string): CryptoKey | undefined {
+export async function getUserKey(userId: string): Promise<CryptoKey | undefined> {
 	if (userId === getCurrentUser()!.uid) {
-		return getPublicKey()
+		return await getPublicKey()
 	}
 	return userKeys.get(userId)
 }
