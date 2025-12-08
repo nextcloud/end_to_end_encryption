@@ -27,6 +27,20 @@ const currentUser = getCurrentUser()?.uid
 const metadataCache = new Map<string, Omit<IStoreMetadata, 'path'>>()
 
 /**
+ * Get the path of the root folder for the given root metadata.
+ *
+ * @param metadata - The root metadata
+ */
+export function getRootFolder(metadata: RootMetadata): IStoreMetadata & { metadata: RootMetadata } {
+	const entry = metadataCache.entries().find(([, { metadata: md }]) => md === metadata)!
+	return {
+		id: entry[1].id,
+		metadata: entry[1].metadata as RootMetadata,
+		path: entry[0],
+	}
+}
+
+/**
  * Get the root metadata for the given path.
  *
  * @param path - The path to get the root metadata for
