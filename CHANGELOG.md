@@ -7,7 +7,7 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.0-dev.2 - 2025-12-05
+## v2.0.0-rc.1 - 2025-12-08
 ### Added
 * Setup end-to-end encryption in the web interface.
   When end-to-end encryption is enabled in the browser (see personal settings - security),
@@ -15,8 +15,20 @@
   For this a new entry in the "+ New" menu was added ("Create new encrypted folder").
 * Browser based end-to-end encryption (when enabled in personal security settings):
   * Users can now create subfolder within encrypted folders directly in the files app.
+  * Users can now upload end-to-end encrypted files from the files app.
+    **Please note: Chunked uploads have to be disabled by the administrator!**
+  * Copying encrypted files in the files app is now possible (within the same encrypted root).
+  * Deleting encrypted files is now possible in the files app.
+  * Moving encrypted files in the files app is now possible (within the same encrypted root).
+  * Creating filedrop links for encrypted folders is now possible within the files app.
+    (Using the sidebar just like with regular shares).
+  * Sharing encrypted root folders is now possible from within the files app.
+    Using the files sidebar just like with regular files,
+    though shares always have all permissions enabled as per requirements of end-to-end encryption.
 
 ### Fixed
+* Fixed locking to allow leaving encrypted root folders properly.
+
 <!-- TODO: Remove this section for the final release -->
 Those fixes only affect you if you already used a previous pre-release of v2.
 * Do not allow creating nested e2ee root folders.

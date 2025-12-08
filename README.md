@@ -87,6 +87,9 @@ The end-to-end encryption implemented by the Nextcloud sync and mobile clients, 
 > The mnenomnic is *not* recoverable by a server administrator. If you lose your mnemonic you *will* lose access to your encrypted data.
 
 
+> [!CAUTION]  
+> When the web interface is used for end-to-end encryption then chunked uploads have to be disabled!
+
 ### Using
 #### Establishing a folder to encrypt
 
