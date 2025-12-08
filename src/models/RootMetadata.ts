@@ -38,6 +38,7 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 
 		this.#users = this.#users.filter((u) => u.userId !== userId)
 		this.#usersModified = true
+		this._modified = true
 	}
 
 	/**
@@ -50,6 +51,7 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		logger.debug(`Adding user ${userId} to folder metadata`)
 		this.#users.push({ userId, certificate: certificate.toString('pem'), encryptedMetadataKey: '' })
 		this.#usersModified = true
+		this._modified = true
 	}
 
 	/**
@@ -77,6 +79,7 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 				user.encryptedMetadataKey = await encryptMetadataKey(metadataKey, userKey)
 			}
 			this._metadata.keyChecksums.push(await sha256Hash(metadataKey))
+			this.#usersModified = false
 		}
 
 		return {

@@ -20,10 +20,9 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	protected _metadataKey: CryptoKey
 	protected _metadata: IMetadata
 	protected _version: string
+	protected _modified: boolean
 	/** The internal real metadata */
 	#metadata: IMetadata
-	/** Is the metadata modified */
-	#modified: boolean
 
 	/**
 	 * Constructor for E2EE Metadata
@@ -35,7 +34,7 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	protected constructor(metadataKey: CryptoKey, version: string = '2.0', initialMetadata?: IMetadata) {
 		this._metadataKey = metadataKey
 		this._version = version
-		this.#modified = false
+		this._modified = false
 		this.#metadata = {
 			keyChecksums: [],
 			deleted: false,
@@ -47,14 +46,14 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 
 		this._metadata = new Proxy(this.#metadata, {
 			get: (target, prop) => {
-				if (prop === 'counter' && this.#modified) {
+				if (prop === 'counter' && this._modified) {
 					return target.counter + 1
 				}
 				return target[prop]
 			},
 			set: (target, prop, value) => {
 				target[prop] = value
-				this.#modified = true
+				this._modified = true
 				return true
 			},
 		})
@@ -191,7 +190,7 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 
 		// apply all changes
 		this.#metadata.counter = this.counter
-		this.#modified = false
+		this._modified = false
 
 		return { metadata, signature }
 	}
