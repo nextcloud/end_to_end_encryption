@@ -26,7 +26,7 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 	logger.debug('Handling PUT request', { request: context.req })
 
 	const url = new URL(context.req.url)
-	const filename = basename(url.pathname)
+	const filename = decodeURIComponent(basename(url.pathname))
 	let metadata: IStoreMetadata
 	try {
 		metadata = await metadataStore.getMetadata(dirname(url.pathname))
@@ -78,7 +78,7 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 		})
 		await next()
 
-		const { metadata: rawMetadata, signature } = await metadata.metadata.export(keyStore.getCertificate()!)
+		const { metadata: rawMetadata, signature } = await metadata.metadata.export(await keyStore.getCertificate())
 		await api.updateMetadata(metadata.id, stringify(rawMetadata), lockToken, signature)
 	} finally {
 		await api.unlockFolder(metadata.id, lockToken)

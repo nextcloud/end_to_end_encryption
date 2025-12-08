@@ -34,14 +34,12 @@ export async function useDeleteInterceptor(context: FetchContext, next: () => Pr
 		return next()
 	}
 
-	const metadata = await metadataStore.getMetadata(url.pathname)
-	const rootMetadata = await metadataStore.getRootMetadata(url.pathname)
-	const isRootFolder = metadata.metadata === rootMetadata
+	const metadata = await metadataStore.getRootMetadata(dirname(url.pathname)).catch(() => null)
+	const isRootFolder = metadata === null
 
 	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 	if (isRootFolder) {
 		logger.debug('Deleting e2ee root folder', { path: url.pathname })
-		context.req = new Request('')
 		await handleDeleteRoot(
 			url.pathname,
 			context,
@@ -67,7 +65,7 @@ export async function useDeleteInterceptor(context: FetchContext, next: () => Pr
  * @param context - The fetch context
  * @param next - The next middleware function
  */
-async function handleDeleteRoot(path: string, context: FetchContext, next: (lockToken: string) => Promise<void>) {
+async function handleDeleteRoot(path: string, context: FetchContext, next: () => Promise<void>) {
 	const metadata = await metadataStore.getRootMetadata(path)
 	const { id } = await metadataStore.getMetadata(path)
 	// mark the metadata as deleted
@@ -85,7 +83,9 @@ async function handleDeleteRoot(path: string, context: FetchContext, next: (lock
 		)
 
 		// now the proper delete
-		await next(lockToken)
+		context.req.headers.set('X-E2EE-SUPPORTED', 'true')
+		context.req.headers.set('E2E-TOKEN', lockToken)
+		await next()
 	} finally {
 		await api.unlockFolder(id, lockToken)
 	}

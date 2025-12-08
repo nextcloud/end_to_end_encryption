@@ -25,7 +25,6 @@ if (userConfig.e2eeInBrowserEnabled && browserSupportsWebCrypto) {
 	registerDavProperty('nc:e2ee-metadata-signature', { nc: 'http://nextcloud.org/ns' })
 	registerFileAction(downloadUnencryptedAction)
 	disableFileAction('download')
-	disableFileAction('move-copy')
 	registerNewEncryptedFolderEntry()
 } else if (userConfig.e2eeInBrowserEnabled && !browserSupportsWebCrypto) {
 	logger.error('End-to-end encryption in the browser is not supported by your browser or you are not using a secure connection (HTTPS).')

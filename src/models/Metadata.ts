@@ -96,6 +96,27 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		return uuid in this._metadata.files || uuid in this._metadata.folders
 	}
 
+	/**
+	 * Get the file or folder by its UUID.
+	 * In case of a folder, the mimetype will be 'httpd/unix-directory'.
+	 *
+	 * @param uuid - The uuid to lookup
+	 */
+	public getByUuid(uuid: string): { filename: string, mimetype: string } | undefined {
+		if (!this.hasUuid(uuid)) {
+			return
+		}
+
+		const file = this.getFile(uuid)
+		if (file) {
+			return file
+		}
+		return {
+			filename: this.getFolder(uuid)!,
+			mimetype: 'httpd/unix-directory',
+		}
+	}
+
 	public getFolder(uuid: string): string | undefined {
 		return this._metadata.folders[uuid]
 	}
@@ -136,17 +157,22 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		this._metadata.files = { ...this._metadata.files } // needed for reactivity of the counter
 	}
 
-	public renameFile(uuid: string, newName: string): void {
-		if (!this._metadata.files[uuid]) {
-			throw new Error(`File with UUID ${uuid} does not exist`)
-		}
-
-		this._metadata.files = {
-			...this._metadata.files,
-			[uuid]: {
-				...this._metadata.files[uuid]!,
-				filename: newName,
-			},
+	public rename(uuid: string, newName: string): void {
+		if (uuid in this._metadata.files) {
+			this._metadata.files = {
+				...this._metadata.files,
+				[uuid]: {
+					...this._metadata.files[uuid]!,
+					filename: newName,
+				},
+			}
+		} else if (uuid in this._metadata.folders) {
+			this._metadata.folders = {
+				...this._metadata.folders,
+				[uuid]: newName,
+			}
+		} else {
+			throw new Error(`UUID ${uuid} does not exist in files or folders`)
 		}
 	}
 

@@ -82,11 +82,8 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 		}
 
 		if (childNode.propstat.prop.permissions) {
-			// TODO: Enable more feature by keeping permissions
-			childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string)
-				// R: allow share
-				// NV: allow rename and move
-				.replace(/(R)|(NV)/g, '')
+			// remove share permissions as we have internal sharing methods for e2ee
+			childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string).replace(/R/g, '')
 		}
 
 		const currentMetadata = depths(childNode.href) <= depths(path) ? parentMetadata : metadata
@@ -101,7 +98,7 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 			const name = currentMetadata.getFolder(identifier)
 			if (!name) {
 				logger.error('Could not find folder in metadata for PROPFIND replacement', { path, childNode, identifier, currentMetadata })
-				throw new Error('Could not find folder in metadata for PROPFIND replacement')
+				continue
 			}
 
 			childNode.propstat.prop.displayname = name
@@ -110,7 +107,7 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 			const info = currentMetadata.getFile(identifier)
 			if (!info) {
 				logger.error('Could not find file in metadata for PROPFIND replacement', { path, childNode, identifier, currentMetadata })
-				throw new Error('Could not find file in metadata for PROPFIND replacement')
+				continue
 			}
 
 			childNode.propstat.prop.displayname = info.filename

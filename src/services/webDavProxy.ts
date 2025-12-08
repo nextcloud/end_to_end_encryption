@@ -10,6 +10,7 @@ import { useCopyInterceptor } from '../middleware/useCopyInterceptor.ts'
 import { useDeleteInterceptor } from '../middleware/useDeleteInterceptor.ts'
 import { useGetInterceptor } from '../middleware/useGetInterceptor.ts'
 import { useMkcolInterceptor } from '../middleware/useMkcolInterceptor.ts'
+import { useMoveInterceptor } from '../middleware/useMoveInterceptor.ts'
 import { usePropFindInterceptor } from '../middleware/usePropFindInterceptor.ts'
 import { usePutInterceptor } from '../middleware/usePutInterceptor.ts'
 import logger from './logger.ts'
@@ -27,6 +28,7 @@ export function setupWebDavProxy() {
 		.use(wrapInterceptor(useDeleteInterceptor, 'DELETE'))
 		.use(wrapInterceptor(useGetInterceptor, 'GET'))
 		.use(wrapInterceptor(useMkcolInterceptor, 'MKCOL'))
+		.use(wrapInterceptor(useMoveInterceptor, 'MOVE'))
 		.use(wrapInterceptor(usePutInterceptor, 'PUT'))
 		.use(wrapInterceptor(usePropFindInterceptor, 'PROPFIND'))
 	vistaInstance.intercept()
@@ -58,7 +60,7 @@ function wrapInterceptor(middleware: BaseMiddleware<FetchContext>, method: strin
 			return next()
 		}
 
-		logger.debug(`Proxying ${context.req.method} ${context.req.url}`, { request: context.req })
+		logger.debug(`[${context.req.method}] Proxying ${context.req.url}`)
 		try {
 			await middleware(context, next)
 		} catch (error) {

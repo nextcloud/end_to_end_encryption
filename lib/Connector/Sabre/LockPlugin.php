@@ -91,6 +91,11 @@ class LockPlugin extends APlugin {
 					return;
 				}
 
+				// allow to leave an encrypted root folder
+				if ($request->getHeader('X-Nc-Sabre-Original-Method') === 'DELETE' && !$this->isE2EEnabledPath($destNode)) {
+					return;
+				}
+
 				// Prevent moving or copying stuff from non-encrypted to encrypted folders
 				// if original operation is not a DELETE
 				if ($this->isE2EEnabledPath($node) !== $this->isE2EEnabledPath($destNode)
