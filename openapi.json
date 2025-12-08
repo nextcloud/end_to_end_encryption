@@ -2769,7 +2769,7 @@
             },
             "delete": {
                 "operationId": "encryption-remove-encryption-flag",
-                "summary": "Set encryption flag for folder",
+                "summary": "Remove encryption flag for folder",
                 "tags": [
                     "encryption"
                 ],

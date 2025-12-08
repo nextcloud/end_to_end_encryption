@@ -53,7 +53,11 @@ class EncryptionManager {
 	public function setEncryptionFlag(int $id): void {
 		$this->isValidFolder($id);
 		$userRoot = $this->getUserRoot();
-		$userRoot->getStorage()->getCache()->update($id, ['encrypted' => '1']);
+		$cache = $userRoot->getFirstNodeById($id)->getStorage()->getCache();
+		if ($cache === null) {
+			throw new NotFoundException('No cache available for folder with ID ' . $id);
+		}
+		$cache->update($id, ['encrypted' => '1']);
 	}
 
 	/**
@@ -63,7 +67,11 @@ class EncryptionManager {
 	public function removeEncryptionFlag(int $id): void {
 		$this->isValidFolder($id);
 		$userRoot = $this->getUserRoot();
-		$userRoot->getStorage()->getCache()->update($id, ['encrypted' => '0']);
+		$cache = $userRoot->getFirstNodeById($id)->getStorage()->getCache();
+		if ($cache === null) {
+			throw new NotFoundException('No cache available for folder with ID ' . $id);
+		}
+		$cache->update($id, ['encrypted' => '0']);
 	}
 
 	/**
