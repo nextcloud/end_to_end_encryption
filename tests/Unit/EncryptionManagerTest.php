@@ -22,35 +22,21 @@ use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class EncryptionManagerTest extends TestCase {
 
-	/** @var IRootFolder|PHPUnit_Framework_MockObject_MockObject */
-	private $rootFolderInterface;
-
-	/** @var Folder|PHPUnit_Framework_MockObject_MockObject */
-	private $rootFolder;
-
-	/** @var IStorage|PHPUnit_Framework_MockObject_MockObject */
-	private $storage;
-
-	/** @var ICache|PHPUnit_Framework_MockObject_MockObject */
-	private $fileCache;
-
-	/** @var IUserSession|PHPUnit_Framework_MockObject_MockObject */
-	private $userSession;
-
-	/** @var IManager|PHPUnit_Framework_MockObject_MockObject */
-	private $shareManager;
-
-	/** @var IDBConnection|PHPUnit_Framework_MockObject_MockObject */
-	private $dbConnection;
-
-	/** @var LoggerInterface|PHPUnit_Framework_MockObject_MockObject */
-	private $logger;
+	private IRootFolder&MockObject $rootFolderInterface;
+	private Folder&MockObject $rootFolder;
+	private IStorage&MockObject $storage;
+	private ICache&MockObject $fileCache;
+	private IUserSession&MockObject $userSession;
+	private IManager&MockObject $shareManager;
+	private IDBConnection&MockObject $dbConnection;
+	private LoggerInterface&MockObject $logger;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -63,7 +49,10 @@ class EncryptionManagerTest extends TestCase {
 		$this->dbConnection = $this->createMock(IDBConnection::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 
+		$node = $this->createMock(Node::class);
+		$node->method('getStorage')->willReturn($this->storage);
 		$this->rootFolder->expects($this->any())->method('getStorage')->willReturn($this->storage);
+		$this->rootFolder->method('getFirstNodeById')->willReturn($node);
 		$this->storage->expects($this->any())->method('getCache')->willReturn($this->fileCache);
 	}
 
@@ -119,7 +108,7 @@ class EncryptionManagerTest extends TestCase {
 	/**
 	 * @dataProvider dataTestIsEncryptedFile
 	 *
-	 * @param Node|PHPUnit_Framework_MockObject_MockObject $node
+	 * @param Node&MockObject $node
 	 * @param bool $expected
 	 */
 	public function testIsEncryptedFile($node, $expected): void {
