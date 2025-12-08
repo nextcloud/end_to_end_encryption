@@ -133,6 +133,10 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		const metadata = await this._exportMetadata()
 		const signature = await this.#exportSignature(certificate, metadata)
 
+		// apply all changes
+		this.#metadata.counter = this.counter
+		this.#modified = false
+
 		return { metadata, signature }
 	}
 
