@@ -22,6 +22,7 @@ use OCP\AppFramework\OCS\OCSPreconditionFailedException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\Node;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
@@ -97,8 +98,8 @@ class LockingController extends OCSController {
 			throw $e;
 		}
 
-		$nodes = $userFolder->getById($id);
-		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+		$node = $userFolder->getFirstNodeById($id);
+		if (!$node instanceof Folder) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 
@@ -142,19 +143,26 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
-		$nodes = $userFolder->getById($id);
-		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+		$node = $userFolder->getFirstNodeById($id);
+		if (!$node instanceof Folder) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
 		$touchFoldersIds = $this->metaDataStorage->getTouchedFolders($token);
-		foreach ($touchFoldersIds as $folderId) {
+		$folders = array_map(fn (int $id) => $userFolder->getFirstNodeById($id), $touchFoldersIds);
+		$folders = array_filter($folders, fn (?Node $folder) => $folder instanceof Folder);
+		// ensure we sort to handle deepest folders first
+		usort($folders, fn (Node $a, Node $b)
+			=> substr_count($b->getPath(), '/') - substr_count($a->getPath(), '/'),
+		);
+		foreach ($folders as $folder) {
 			if ($abort === 'true') {
-				$this->fileService->revertChanges($userFolder->getById($folderId)[0]);
-				$this->metaDataStorage->deleteIntermediateFile($ownerId, $folderId);
+				$this->fileService->revertChanges($folder);
+				$this->metaDataStorage->deleteIntermediateFile($ownerId, $folder->getId());
 			} else {
-				$this->fileService->finalizeChanges($userFolder->getById($folderId)[0]);
-				$this->metaDataStorage->saveIntermediateFile($ownerId, $folderId);
+				$deletedFileIds = $this->fileService->finalizeChanges($folder) ?: [];
+				$isDeleted = in_array($folder->getId(), $deletedFileIds, true);
+				$this->metaDataStorage->saveIntermediateFile($ownerId, $folder->getId(), $isDeleted);
 			}
 		}
 

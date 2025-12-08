@@ -23,44 +23,23 @@ use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class LockingControllerTest extends TestCase {
 
-
-	/** @var string */
-	private $appName;
-
-	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
-	private $request;
-
-	/** @var string */
-	private $userId;
-
-	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
-	private $metaDataStorage;
-
-	/** @var LockManager|\PHPUnit\Framework\MockObject\MockObject */
-	private $lockManager;
-
-	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
-	private $rootFolder;
-
-	/** @var FileService|\PHPUnit\Framework\MockObject\MockObject */
-	private $fileService;
-
-	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-	private $logger;
-
-	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
-	private $l10n;
-
-	/** @var ShareManager|\PHPUnit\Framework\MockObject\MockObject */
-	private $shareManager;
-
-	/** @var LockingController */
-	private $controller;
+	private string $appName;
+	private string $userId;
+	private IRequest&MockObject $request;
+	private IMetaDataStorage&MockObject $metaDataStorage;
+	private LockManager&MockObject $lockManager;
+	private IRootFolder&MockObject $rootFolder;
+	private FileService&MockObject $fileService;
+	private LoggerInterface&MockObject $logger;
+	private IL10N&MockObject $l10n;
+	private ShareManager&MockObject $shareManager;
+	private LockingController $controller;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -112,9 +91,9 @@ class LockingControllerTest extends TestCase {
 			->willReturn($userFolder);
 		$node = $this->createMock(Folder::class);
 		$userFolder->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with($fileId)
-			->willReturn([$node]);
+			->willReturn($node);
 
 		$this->lockManager->expects($this->once())
 			->method('lockFile')
@@ -147,9 +126,9 @@ class LockingControllerTest extends TestCase {
 			->willReturn($userFolder);
 		$node = $this->createMock(Folder::class);
 		$userFolder->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with($fileId)
-			->willReturn([$node]);
+			->willReturn($node);
 
 		$this->lockManager->expects($this->once())
 			->method('lockFile')
@@ -218,15 +197,19 @@ class LockingControllerTest extends TestCase {
 
 			if (!$userFolderReturnsNodes) {
 				$userFolder->expects($this->once())
-					->method('getById')
+					->method('getFirstNodeById')
 					->with($fileId)
-					->willReturn([]);
+					->willReturn(null);
 			} else {
 				$node = $this->createMock(Folder::class);
+				$node->method('getId')
+					->willReturn($fileId);
+				$node->method('getPath')
+					->willReturn('/some/path');
 				$userFolder->expects($this->exactly(2))
-					->method('getById')
+					->method('getFirstNodeById')
 					->with($fileId)
-					->willReturn([$node]);
+					->willReturn($node);
 
 				$this->metaDataStorage->expects($this->once())
 					->method('getTouchedFolders')
@@ -274,7 +257,7 @@ class LockingControllerTest extends TestCase {
 		}
 	}
 
-	public function unlockFolderDataProvider(): array {
+	public static function unlockFolderDataProvider(): array {
 		return [
 			[false, true, false, null, null, null],
 			[false, true, true, null, null, null],

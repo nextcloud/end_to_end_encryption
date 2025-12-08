@@ -23,42 +23,22 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class MetaDataControllerTest extends TestCase {
 
-
-	/** @var string */
-	private $appName;
-
-	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
-	private $request;
-
-	/** @var string */
-	private $userId;
-
-	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
-	private $metaDataStorage;
-
-	/** @var LockManager|\PHPUnit\Framework\MockObject\MockObject */
-	private $lockManager;
-
-	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-	private $logger;
-
-	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
-	private $l10n;
-
-	/** @var ShareManager|\PHPUnit\Framework\MockObject\MockObject */
-	private $shareManager;
-
-	/** @var MetaDataController */
-	private $controller;
-
-	/** @var IRootFolder */
-	private $rootFolder;
-
+	private string $appName;
+	private IRequest&MockObject $request;
+	private string $userId;
+	private IMetaDataStorage&MockObject $metaDataStorage;
+	private LockManager&MockObject $lockManager;
+	private LoggerInterface&MockObject $logger;
+	private IL10N&MockObject $l10n;
+	private ShareManager&MockObject $shareManager;
+	private MetaDataController $controller;
+	private IRootFolder&MockObject $rootFolder;
 
 	protected function setUp(): void {
 		parent::setUp();

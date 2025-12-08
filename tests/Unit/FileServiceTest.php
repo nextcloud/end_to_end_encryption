@@ -105,7 +105,7 @@ class FileServiceTest extends TestCase {
 		$file4->expects($this->once())->method('delete');
 
 		$actual = $this->fileService->finalizeChanges($folder);
-		$this->assertTrue($actual);
+		$this->assertEquals([4], $actual); // file 4 is deleted
 	}
 
 	private function getSampleFolderForEmpty(): array {
@@ -147,18 +147,22 @@ class FileServiceTest extends TestCase {
 		$file1 = $this->createMock(Node::class);
 		$file1->method('getName')->willReturn('7215ee9c7d9dc229d2921a40e899ec5f.e2e-to-save');
 		$file1->method('getPath')->willReturn('/foo/bar/7215ee9c7d9dc229d2921a40e899ec5f.e2e-to-save');
+		$file1->method('getId')->willReturn(1);
 
 		$file2 = $this->createMock(Node::class);
 		$file2->method('getName')->willReturn('23b58def11b45727d3351702515f86af.e2e-to-save');
 		$file2->method('getPath')->willReturn('/foo/bar/23b58def11b45727d3351702515f86af.e2e-to-save');
+		$file2->method('getId')->willReturn(2);
 
 		$file3 = $this->createMock(Node::class);
 		$file3->method('getName')->willReturn('1545e945d5c3e7d9fa642d0a57fc8432');
+		$file3->method('getId')->willReturn(3);
 
 		$file4 = $this->createMock(Node::class);
 		$file4->method('getName')->willReturn('a9473ded85aa51851deb4859cdd53f98.e2e-to-delete');
 		$file4->method('getPath')->willReturn('/foo/bar/a9473ded85aa51851deb4859cdd53f98.e2e-to-delete');
 		$file4->method('getStorage')->willReturn($storage);
+		$file4->method('getId')->willReturn(4);
 
 		$folder = $this->createMock(Folder::class);
 		$folder->method('getDirectoryListing')->willReturn([
@@ -168,6 +172,7 @@ class FileServiceTest extends TestCase {
 			$file4,
 		]);
 		$folder->method('getName')->willReturn('root');
+		$folder->method('getId')->willReturn(99);
 
 		return [
 			$folder,
