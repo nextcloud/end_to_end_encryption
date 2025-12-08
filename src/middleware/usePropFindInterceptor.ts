@@ -81,12 +81,14 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 			throw new Error('Invalid PROPFIND response: missing propstat')
 		}
 
-		// TODO: Enable more feature by keeping permissions
-		childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string)
-			// R: allow share
-			// D: allow delete
-			// NV: allow rename and move
-			.replace(/(R)|(D)|(NV)/g, '')
+		if (childNode.propstat.prop.permissions) {
+			// TODO: Enable more feature by keeping permissions
+			childNode.propstat.prop.permissions = (childNode.propstat.prop.permissions as string)
+				// R: allow share
+				// D: allow delete
+				// NV: allow rename and move
+				.replace(/(R)|(D)|(NV)/g, '')
+		}
 
 		const currentMetadata = depths(childNode.href) <= depths(path) ? parentMetadata : metadata
 		if (!currentMetadata) {
