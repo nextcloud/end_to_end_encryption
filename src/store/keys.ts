@@ -16,8 +16,8 @@ let publicKey: CryptoKey | undefined
 let certificate: X509Certificate | undefined
 let serverKey: CryptoKey | undefined
 
-const userKeys = new Map<string, CryptoKey>()
-const MEMORY_LIMIT = 50
+const userKeys = new Map<string, X509Certificate | undefined>()
+const MEMORY_LIMIT = 100
 
 /**
  * Get the server's public key.
@@ -160,9 +160,21 @@ export function setPrivateKey(key: CryptoKey): void {
  *
  * @param userId - The user ID
  */
-export async function getUserKey(userId: string): Promise<CryptoKey | undefined> {
+export async function getUserKey(userId: string): Promise<X509Certificate | undefined> {
 	if (userId === getCurrentUser()!.uid) {
-		return await getPublicKey()
+		return await getCertificate()
+	}
+	if (!userKeys.has(userId)) {
+		const pem = await api.getPublicKey(userId)
+		if (pem) {
+			const cert = new X509Certificate(pem)
+			if (!cert.verify({ publicKey: await getServerKey() })) {
+				throw new Error('User certificate signature verification failed')
+			}
+			setUserKey(userId, cert)
+		} else {
+			userKeys.set(userId, undefined)
+		}
 	}
 	return userKeys.get(userId)
 }
@@ -173,9 +185,9 @@ export async function getUserKey(userId: string): Promise<CryptoKey | undefined>
  * @param userId - The user id
  * @param key - The public key
  */
-export function setUserKey(userId: string, key: CryptoKey): void {
+export function setUserKey(userId: string, key: X509Certificate): void {
 	if (userId === getCurrentUser()!.uid) {
-		publicKey = key
+		certificate = key
 		return
 	}
 

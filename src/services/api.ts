@@ -102,17 +102,17 @@ export async function deletePrivateKey(): Promise<void> {
  * @return The public key (x509 as PEM), or null if not found
  */
 export async function getPublicKey(userId?: string): Promise<string | null> {
-	userId ??= getCurrentUser()!.uid
-	if (!userId) {
-		throw new Error('Cannot fetch a public key without specifying a user')
-	}
+	const users = [userId ?? getCurrentUser()!.uid]
 
 	try {
 		const response = await axios.get<OCSResponse<{ 'public-keys': Record<string, string> }>>(
 			generateOcsUrl(Url.PublicKey),
-			{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
+			{
+				headers: { 'X-E2EE-SUPPORTED': 'true' },
+				params: { users: JSON.stringify(users) },
+			},
 		)
-		return response.data.ocs.data['public-keys'][userId]!
+		return response.data.ocs.data['public-keys'][users[0]!]!
 	} catch (error) {
 		if (isAxiosError(error) && error.response?.status === 404) {
 			logger.debug('No public key found for the current user.')
