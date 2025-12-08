@@ -26,7 +26,7 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 	logger.debug('Handling PUT request', { request: context.req })
 
 	const url = new URL(context.req.url)
-	const filename = basename(url.pathname)
+	const filename = decodeURIComponent(basename(url.pathname))
 	let metadata: IStoreMetadata
 	try {
 		metadata = await metadataStore.getMetadata(dirname(url.pathname))

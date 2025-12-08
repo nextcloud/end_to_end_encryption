@@ -98,7 +98,7 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 			const name = currentMetadata.getFolder(identifier)
 			if (!name) {
 				logger.error('Could not find folder in metadata for PROPFIND replacement', { path, childNode, identifier, currentMetadata })
-				throw new Error('Could not find folder in metadata for PROPFIND replacement')
+				continue
 			}
 
 			childNode.propstat.prop.displayname = name
@@ -107,7 +107,7 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 			const info = currentMetadata.getFile(identifier)
 			if (!info) {
 				logger.error('Could not find file in metadata for PROPFIND replacement', { path, childNode, identifier, currentMetadata })
-				throw new Error('Could not find file in metadata for PROPFIND replacement')
+				continue
 			}
 
 			childNode.propstat.prop.displayname = info.filename

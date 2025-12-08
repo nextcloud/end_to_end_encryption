@@ -5,7 +5,7 @@
 
 import type { FetchContext } from '@rxliuli/vista'
 
-import { basename, dirname } from '@nextcloud/paths'
+import { basename, dirname, join } from '@nextcloud/paths'
 import stringify from 'safe-stable-stringify'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
@@ -59,6 +59,12 @@ export async function useMoveInterceptor(context: FetchContext, next: () => Prom
 	}
 
 	// otherwise we need to handle the move as copy + delete
+	const metadataSrc = await metadataStore.getMetadata(pathSrc).catch(() => null)
+	if (metadataSrc && basename(pathSrc) === basename(pathDst) && metadataSrc.metadata.hasUuid(basename(pathSrc))) {
+		// the source was encrypted so we need to adjust the destination to use the real filename
+		destination.pathname = join(dirname(pathDst), metadataSrc.metadata.getByUuid(basename(pathSrc))!.filename)
+	}
+
 	context.res = await fetch(context.req, {
 		method: 'COPY',
 		headers: {
