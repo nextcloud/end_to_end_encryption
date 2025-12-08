@@ -13,7 +13,7 @@
   "scripts": {
     "build": "vite --mode production build",
     "dev": "export NODE_ENV=development; vite --mode development build",
-    "postinstall": "playwright install chromium-headless-shell",
+    "postinstall": "patch-package && playwright install chromium-headless-shell",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "playwright": "playwright test",
@@ -73,6 +73,7 @@
     "core-js": "^3.47.0",
     "eslint": "^9.38.0",
     "msw": "^2.12.4",
+    "patch-package": "^8.0.1",
     "vite": "^7.2.6",
     "vitest": "^4.0.15"
   },

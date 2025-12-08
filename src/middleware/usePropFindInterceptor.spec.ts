@@ -69,7 +69,7 @@ test('Correctly replace root file info in PROPFIND', async () => {
 	expect(xml.multistatus.response[0]!.propstat?.prop.permissions).toBe('GCK')
 	expect(xml.multistatus.response[1]!.propstat?.prop.displayname).toBe('test.txt')
 	expect(xml.multistatus.response[1]!.propstat?.prop.getcontenttype).toBe('text/plain')
-	expect(xml.multistatus.response[1]!.propstat?.prop.permissions).toBe('G')
+	expect(xml.multistatus.response[1]!.propstat?.prop.permissions).toBe('GW')
 	expect(xml.multistatus.response[2]!.propstat?.prop.displayname).toBe('Test')
 	expect(xml.multistatus.response[2]!.propstat?.prop.getcontenttype).toBe('httpd/unix-directory')
 	expect(xml.multistatus.response[2]!.propstat?.prop.permissions).toBe('GCK')
@@ -112,10 +112,10 @@ test('Correctly replace subfolder file info in PROPFIND', async () => {
 	expect(xml.multistatus.response[0]!.propstat?.prop.permissions).toBe('GCK')
 	expect(xml.multistatus.response[1]!.propstat?.prop.displayname).toBe('07-09-2018 11.40.15.jpg')
 	expect(xml.multistatus.response[1]!.propstat?.prop.getcontenttype).toBe('image/jpeg')
-	expect(xml.multistatus.response[1]!.propstat?.prop.permissions).toBe('G')
+	expect(xml.multistatus.response[1]!.propstat?.prop.permissions).toBe('GW')
 	expect(xml.multistatus.response[2]!.propstat?.prop.displayname).toBe('subtest.txt')
 	expect(xml.multistatus.response[2]!.propstat?.prop.getcontenttype).toBe('text/plain')
-	expect(xml.multistatus.response[2]!.propstat?.prop.permissions).toBe('G')
+	expect(xml.multistatus.response[2]!.propstat?.prop.permissions).toBe('GW')
 })
 
 test('Correctly replace file info in PROPFIND of file', async () => {
@@ -141,5 +141,5 @@ test('Correctly replace file info in PROPFIND of file', async () => {
 	expect(xml.multistatus.response).toHaveLength(1)
 	expect(xml.multistatus.response[0]!.propstat?.prop.displayname).toBe('test.txt')
 	expect(xml.multistatus.response[0]!.propstat?.prop.getcontenttype).toBe('text/plain')
-	expect(xml.multistatus.response[0]!.propstat?.prop.permissions).toBe('G')
+	expect(xml.multistatus.response[0]!.propstat?.prop.permissions).toBe('GW')
 })

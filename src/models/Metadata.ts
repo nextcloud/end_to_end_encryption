@@ -102,7 +102,10 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	}
 
 	public addFile(uuid: string, file: IMetadataFile): void {
-		this._metadata.files[uuid] = file
+		this._metadata.files = {
+			...this._metadata.files,
+			[uuid]: file,
+		}
 	}
 
 	public deleteFile(uuid: string): void {
