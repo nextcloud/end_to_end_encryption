@@ -42,6 +42,7 @@
     "Error while uploading metadata" : "Chyba pri nahrávaní metadáť",
     "Select or drop files" : "Vyberte alebo položte súbory",
     "Upload encrypted files to {fileName}" : "Nahrať šifrované súbory do {fileName}",
+    "Remove" : "Odobrať",
     "Saved groups" : "Uložené skupiny",
     "Limit to groups" : "Povoľ len pre skupiny",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Keď je vybratá aspoň jedna skupina, aplikáciu End-to-End šifrovanie môžu používať iba ľudia z uvedených skupín.",

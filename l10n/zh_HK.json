@@ -58,6 +58,7 @@
     "Error while uploading metadata" : "上元數據像時發生錯誤",
     "Select or drop files" : "選擇或拖曳檔案至此",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
+    "Remove" : "移除",
     "Saved groups" : "已保存的群組",
     "Limit to groups" : "限制於群組",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "選擇一或多個群組後，只有列出群組中的人可以使用端到端加密應用程式。",

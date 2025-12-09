@@ -45,6 +45,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
     "Select or drop files" : "Одаберите или превуците фајлове",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
+    "Remove" : "Уклони",
     "Saved groups" : "Сачуване групе",
     "Limit to groups" : "Ограничи на групе",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Када је изабрана барем једна група, апликацију Шифровање од краја до краја могу да користе само особе из наведених група.",

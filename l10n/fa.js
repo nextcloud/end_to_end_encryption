@@ -43,6 +43,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "خطا در هنگام بارگذاری متادیتا",
     "Select or drop files" : "پرونده‌ها را انتخاب یا رها کنید",
     "Upload encrypted files to {fileName}" : "بارگذاری پرونده‌های رمزگذاری‌شده به {fileName}",
+    "Remove" : "حذف",
     "Saved groups" : "Saved groups",
     "Limit to groups" : "محدود کردن به گروه‌ها",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "هنگامی که حداقل یک گروه انتخاب شده باشد، فقط افراد مربوط به گروه‌های فهرست‌شده می‌توانند از برنامه رمزنگاری سرتاسری استفاده کنند.",

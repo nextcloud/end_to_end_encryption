@@ -58,6 +58,7 @@
     "Error while uploading metadata" : "Erro ao fazer upload de metadados",
     "Select or drop files" : "Selecione ou solte arquivos",
     "Upload encrypted files to {fileName}" : "Fazer upload de arquivos criptografados para {fileName}",
+    "Remove" : "Remover",
     "Saved groups" : "Grupos salvos",
     "Limit to groups" : "Limitar a grupos",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Quando pelo menos um grupo é selecionado, apenas as pessoas dos grupos listados podem usar o aplicativo de criptografia de ponta-a-ponta.",

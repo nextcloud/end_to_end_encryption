@@ -28,6 +28,7 @@ OC.L10N.register(
     "Error while uploading files" : "Errore carrighende is archìvios noos",
     "Select or drop files" : "Sèbera o iscapa archìvios",
     "Upload encrypted files to {fileName}" : "Càrriga archìvios tzifrados a {fileName}",
+    "Remove" : "Boga",
     "Limit to groups" : "Lìmita a grupos",
     "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Save" : "Sarva",

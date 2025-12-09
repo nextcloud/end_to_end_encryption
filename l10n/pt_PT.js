@@ -21,6 +21,7 @@ OC.L10N.register(
     "Folder name" : "Nome da pasta",
     "Continue" : "Continuar",
     "Select or drop files" : "Selecione ou solte ficheiros",
+    "Remove" : "Remover",
     "Limit to groups" : "Limitado a grupos",
     "Save" : "Guardar",
     "Cancel" : "Cancelar",

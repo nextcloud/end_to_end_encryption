@@ -32,6 +32,7 @@
     "Error while uploading metadata" : "Błąd podczas przesyłania metadanych",
     "Select or drop files" : "Wybierz lub upuść pliki",
     "Upload encrypted files to {fileName}" : "Prześlij zaszyfrowane pliki do {fileName}",
+    "Remove" : "Usuń",
     "Saved groups" : "Zapisano grupy",
     "Limit to groups" : "Ogranicz dla grup",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "W przypadku wybrania co najmniej jednej grupy tylko osoby z wymienionych grup mogą korzystać z aplikacji do szyfrowania End-to-End.",

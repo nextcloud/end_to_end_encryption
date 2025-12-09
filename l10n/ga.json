@@ -58,6 +58,7 @@
     "Error while uploading metadata" : "Earráid agus meiteashonraí á n-uaslódáil",
     "Select or drop files" : "Roghnaigh nó scaoil comhaid",
     "Upload encrypted files to {fileName}" : "Uaslódáil comhaid chriptithe go {fileName}",
+    "Remove" : "Bain",
     "Saved groups" : "Grúpaí sábháilte",
     "Limit to groups" : "Teorainn do ghrúpaí",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Nuair a roghnaítear grúpa amháin ar a laghad, ní féidir ach le daoine de na grúpaí liostaithe úsáid a bhaint as an aip criptithe ó cheann go ceann.",

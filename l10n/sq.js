@@ -9,6 +9,7 @@ OC.L10N.register(
     "Folder name" : "Emër dosjeje",
     "Continue" : "Vazhdo",
     "Select or drop files" : "Përzgjidh ose hiq skedarët",
+    "Remove" : "Hiqe",
     "Limit to groups" : "Kufizo grupet",
     "Save" : "Ruaj",
     "Cancel" : "Anuloje",

@@ -44,6 +44,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "메타데이터 업로드 중 오류 발생",
     "Select or drop files" : "파일을 선택하거나 끌어다 놓기",
     "Upload encrypted files to {fileName}" : "{fileName}에 암호화된 파일 업로드",
+    "Remove" : "삭제",
     "Saved groups" : "저장된 그룹",
     "Limit to groups" : "그룹으로 제한",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "그룹을 하나 이상 선택할 경우, 선택한 그룹의 구성원만 종단간 암호화 앱을 사용할 수 있습니다.",

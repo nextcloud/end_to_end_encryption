@@ -58,6 +58,7 @@
     "Error while uploading metadata" : "Produciuse un erro ao enviar os metadatos",
     "Select or drop files" : "Seleccione ou arrastre e solte ficheiros",
     "Upload encrypted files to {fileName}" : "Enviar ficheiros cifrados a {fileName}",
+    "Remove" : "Retirar",
     "Saved groups" : "Grupos gardados",
     "Limit to groups" : "Límite para grupos",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Cando se selecciona polo menos un grupo, só as persoas dos grupos indicados poden usar a aplicación de cifraxe de extremo a extremo.",

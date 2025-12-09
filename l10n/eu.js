@@ -36,6 +36,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
     "Select or drop files" : "Hautatu edo jaregin fitxategiak",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
+    "Remove" : "Kendu",
     "Saved groups" : "Gordetako taldeak",
     "Limit to groups" : "Mugatu taldeetara",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Gutxienez talde bat hautatuta badago, zerrendatutako taldeetako pertsonek soilik erabili dezakete muturretik muturrerako enkripzio aplikazioa.",

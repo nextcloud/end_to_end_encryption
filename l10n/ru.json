@@ -42,6 +42,7 @@
     "Error while uploading metadata" : "Ошибка при загрузке метаданных",
     "Select or drop files" : "Выберите или перетащите файлы",
     "Upload encrypted files to {fileName}" : "Загрузить зашифрованные файлы в {fileName}",
+    "Remove" : "Исключить",
     "Saved groups" : "Сохранённые группы",
     "Limit to groups" : "Разрешить использование только участникам этих групп",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Если выбрана хотя бы одна группа, только люди из перечисленных групп могут использовать приложение Сквозного шифрования.",

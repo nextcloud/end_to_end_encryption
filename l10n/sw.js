@@ -60,6 +60,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Hitilafu wakati wa kupakia metadata",
     "Select or drop files" : " Chagua au udondoshe faili",
     "Upload encrypted files to {fileName}" : "Pakia faili zilizosimbwa kwa {fileName}",
+    "Remove" : "Ondoa",
     "Saved groups" : "Makundi yaliyohifadhiwa",
     "Limit to groups" : "Ukomo kwa vikundi",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Wakati angalau kikundi kimoja kimechaguliwa, ni watu wa vikundi vilivyoorodheshwa pekee wanaoweza kutumia programu ya usimbaji wa Mwisho-hadi-Mwisho.",

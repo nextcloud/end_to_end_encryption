@@ -60,6 +60,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Fel vid uppladdning av metadata",
     "Select or drop files" : "Välj eller dra filer hit",
     "Upload encrypted files to {fileName}" : "Ladda upp krypterade filer till {fileName}",
+    "Remove" : "Ta bort",
     "Saved groups" : "Sparade grupper",
     "Limit to groups" : "Begränsa till grupper",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "När minst en grupp är vald kan endast personer i de listade grupperna använda appen för end-to-end-kryptering.",

@@ -29,6 +29,7 @@ OC.L10N.register(
     "Folder name" : "Mapnaam",
     "Continue" : "Doorgaan",
     "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster",
+    "Remove" : "Verwijderen",
     "Limit to groups" : "Beperk tot groepen",
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Save" : "Opslaan",
