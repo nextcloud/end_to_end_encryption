@@ -38,7 +38,9 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 
 	public function shouldRespond(IShare $share): bool {
 		$node = $share->getNode();
-		return $node->getType() === FileInfo::TYPE_FOLDER && $node->isEncrypted();
+		return $node->getType() === FileInfo::TYPE_FOLDER
+			&& $node->isEncrypted()
+			&& ($share->getPermissions() & \OCP\Constants::PERMISSION_READ) === 0;
 	}
 
 	protected function getMetadata(IShare $share): array {
