@@ -190,7 +190,7 @@ function getPatchedCrypto(): Crypto {
  * @param signedData - The data that was signed
  * @param cmsBuffer - The CMS signature buffer
  * @param users - Array of users with access to verify the signer's identity
- * @throws Error if the signer is not found in the users array
+ * @throws {Error} if the signer is not found in the users array
  */
 export async function validateCMSSignature(signedData: Uint8Array<ArrayBuffer>, cmsBuffer: Uint8Array<ArrayBuffer>, users: IRawMetadataUser[]): Promise<boolean> {
 	// Parse the CMS buffer

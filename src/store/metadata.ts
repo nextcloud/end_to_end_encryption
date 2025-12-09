@@ -130,16 +130,12 @@ export async function setRawMetadata(path: string, id: string, rawMetadata: stri
 	let metadata: Metadata
 	if (isRootMetadata(metadataRaw)) {
 		const rootMetadata = await RootMetadata.fromJson(metadataRaw, currentUser!, await keyStore.getPrivateKey())
-		if (!await validateMetadataSignature(metadataRaw, signature, rootMetadata.rawUsers)) {
-			throw new Error('Root metadata signature verification failed')
-		}
+		await validateMetadataSignature(metadataRaw, signature, rootMetadata.rawUsers)
 		metadata = rootMetadata
 	} else {
 		const rootMetadata = await getRootMetadata(dirname(path))
 		metadata = await Metadata.fromJson(metadataRaw, rootMetadata.key)
-		if (!await validateMetadataSignature(metadataRaw, signature, rootMetadata.rawUsers)) {
-			throw new Error('Metadata signature verification failed')
-		}
+		await validateMetadataSignature(metadataRaw, signature, rootMetadata.rawUsers)
 	}
 	return setMetadata(path, id, metadata)
 }
