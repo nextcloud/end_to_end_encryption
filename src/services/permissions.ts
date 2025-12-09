@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Node } from '@nextcloud/files'
+import type { INode } from '@nextcloud/files'
 import type { ShareAttribute } from './sharing.ts'
 
 import { Permission } from '@nextcloud/files'
@@ -14,14 +14,14 @@ import { Permission } from '@nextcloud/files'
  * @param node The node to check
  * @return True if downloadable, false otherwise
  */
-export function isDownloadable(node: Node): boolean {
+export function isDownloadable(node: INode): boolean {
 	if ((node.permissions & Permission.READ) === 0) {
 		return false
 	}
 
 	// If the mount type is a share, ensure it got download permissions.
-	if (node.attributes['share-attributes']) {
-		const shareAttributes = JSON.parse(node.attributes['share-attributes'] || '[]') as Array<ShareAttribute>
+	if (node.attributes['share-attributes'] && typeof node.attributes['share-attributes'] === 'string') {
+		const shareAttributes = JSON.parse(node.attributes['share-attributes']) as Array<ShareAttribute>
 		const downloadAttribute = shareAttributes.find(({ scope, key }: ShareAttribute) => scope === 'permissions' && key === 'download')
 		if (downloadAttribute !== undefined) {
 			return downloadAttribute.value === true
