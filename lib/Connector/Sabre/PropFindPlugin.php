@@ -67,8 +67,9 @@ class PropFindPlugin extends APlugin {
 
 			$propFind->handle(self::E2EE_METADATA_PROPERTYNAME, function () use ($node) {
 				if ($this->isE2EEnabledPath($node)) {
+					$user = $this->userSession->getUser() ?? $node->getNode()->getOwner();
 					return $this->metaDataStorage->getMetaData(
-						$this->userSession->getUser()->getUID(),
+						$user->getUID(),
 						$node->getId(),
 					);
 				}
@@ -82,11 +83,9 @@ class PropFindPlugin extends APlugin {
 		}
 
 		// This property was introduced to expose encryption status for both files and folders.
-		if ($this->userFolder !== null) {
-			$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
-				return $this->isE2EEnabledPath($node) ? '1' : '0';
-			});
-		}
+		$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
+			return $this->isE2EEnabledPath($node) ? '1' : '0';
+		});
 	}
 
 	/**

@@ -5,6 +5,7 @@
 
 import type { BaseMiddleware, FetchContext } from '@rxliuli/vista'
 
+import { isPublicShare } from '@nextcloud/sharing/public'
 import { interceptFetch, interceptXHR, Vista } from '@rxliuli/vista'
 import { useCopyInterceptor } from '../middleware/useCopyInterceptor.ts'
 import { useDeleteInterceptor } from '../middleware/useDeleteInterceptor.ts'
@@ -24,13 +25,18 @@ export function setupWebDavProxy() {
 	logger.debug('Setting up WebDAV proxy')
 
 	vistaInstance = new Vista([interceptFetch, interceptXHR])
-		.use(wrapInterceptor(useCopyInterceptor, 'COPY'))
-		.use(wrapInterceptor(useDeleteInterceptor, 'DELETE'))
 		.use(wrapInterceptor(useGetInterceptor, 'GET'))
-		.use(wrapInterceptor(useMkcolInterceptor, 'MKCOL'))
-		.use(wrapInterceptor(useMoveInterceptor, 'MOVE'))
-		.use(wrapInterceptor(usePutInterceptor, 'PUT'))
 		.use(wrapInterceptor(usePropFindInterceptor, 'PROPFIND'))
+
+	if (!isPublicShare()) {
+		vistaInstance
+			.use(wrapInterceptor(useCopyInterceptor, 'COPY'))
+			.use(wrapInterceptor(useDeleteInterceptor, 'DELETE'))
+			.use(wrapInterceptor(useMkcolInterceptor, 'MKCOL'))
+			.use(wrapInterceptor(useMoveInterceptor, 'MOVE'))
+			.use(wrapInterceptor(usePutInterceptor, 'PUT'))
+	}
+
 	vistaInstance.intercept()
 }
 
@@ -53,10 +59,16 @@ function wrapInterceptor(middleware: BaseMiddleware<FetchContext>, method: strin
 		if (context.req.method !== method) {
 			return next()
 		}
-		if (context.req.headers.get('X-E2EE-SUPPORTED') === 'true'
-			|| !context.req.url.includes('/remote.php/dav/files/')
-		) {
-			logger.debug(`Pass through ${context.req.method} ${context.req.url}`)
+
+		// ignore requests already handled by middleware
+		if (context.req.headers.get('X-E2EE-SUPPORTED') === 'true') {
+			return next()
+		}
+
+		// check proper webdav context
+		if (isPublicShare() && !context.req.url.includes('/public.php/dav/files/')) {
+			return next()
+		} else if (!isPublicShare() && !context.req.url.includes('/remote.php/dav/files/')) {
 			return next()
 		}
 
