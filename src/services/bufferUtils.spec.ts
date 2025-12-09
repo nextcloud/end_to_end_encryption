@@ -4,7 +4,7 @@
  */
 
 import { expect, test } from 'vitest'
-import { base64ToBuffer, bufferToBase64, bufferToHex, bufferToString, pemToBuffer, stringToBuffer } from './bufferUtils.ts'
+import { base64ToBuffer, bufferToBase64, bufferToHex, bufferToPem, bufferToString, pemToBuffer, stringToBuffer } from './bufferUtils.ts'
 
 // until we use Node 25+
 import 'core-js/proposals/array-buffer-base64'
@@ -36,4 +36,11 @@ test('PEM string is correctly loaded', async () => {
 
 	const certificateBuffer = pemToBuffer(`-----BEGIN CERTIFICATE-----\n${btoa('certificate')}\n-----END CERTIFICATE-----`)
 	expect(bufferToString(certificateBuffer)).toEqual('certificate')
+})
+
+test('PEM string is correctly generated', async () => {
+	expect(bufferToPem(stringToBuffer('certificate content'), 'certificate')).toEqual('-----BEGIN CERTIFICATE-----\n' + btoa('certificate content') + '\n-----END CERTIFICATE-----')
+	expect(bufferToPem(stringToBuffer('csr content'), 'csr')).toEqual('-----BEGIN CERTIFICATE REQUEST-----\n' + btoa('csr content') + '\n-----END CERTIFICATE REQUEST-----')
+	expect(bufferToPem(stringToBuffer('private key'), 'private')).toEqual('-----BEGIN PRIVATE KEY-----\n' + btoa('private key') + '\n-----END PRIVATE KEY-----')
+	expect(bufferToPem(stringToBuffer('public key'), 'public')).toEqual('-----BEGIN PUBLIC KEY-----\n' + btoa('public key') + '\n-----END PUBLIC KEY-----')
 })
