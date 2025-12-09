@@ -8,6 +8,7 @@ OC.L10N.register(
     "Folder name" : "Denumire director",
     "Continue" : "Continuă",
     "Select or drop files" : "Selectează sau plasează fișiere",
+    "Remove" : "Elimină",
     "Limit to groups" : "Limitează pentru grupuri",
     "Save" : "Salvează",
     "Cancel" : "Anulare",

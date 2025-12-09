@@ -9,6 +9,7 @@ OC.L10N.register(
     "Folder name" : "Mapes nosaukums",
     "Continue" : "Turpināt",
     "Select or drop files" : "Atlasīt vai ievilkt datnes",
+    "Remove" : "Noņemt",
     "Limit to groups" : "Grupu ierobežojums",
     "Save" : "Saglabāt",
     "Cancel" : "Atcelt",

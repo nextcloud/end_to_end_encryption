@@ -7,6 +7,7 @@ OC.L10N.register(
     "Folder name" : "Nama folder",
     "Continue" : "Lanjutkan",
     "Select or drop files" : "Pilih atau drop berkas",
+    "Remove" : "Hapus",
     "Limit to groups" : "Batasi ke grup",
     "Limit app usage to groups" : "Batas pemakaian aplikasi untuk grup",
     "Save" : "Simpan",

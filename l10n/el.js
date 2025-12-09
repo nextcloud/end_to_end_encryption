@@ -44,6 +44,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Σφάλμα κατά τη μεταφόρτωση μεταδεδομένων",
     "Select or drop files" : "Επιλέξτε ή αποθέστε αρχεία",
     "Upload encrypted files to {fileName}" : "Μεταφόρτωση κρυπτογραφημένων αρχείων στο {fileName}",
+    "Remove" : "Αφαίρεση",
     "Saved groups" : "Αποθηκευμένες ομάδες",
     "Limit to groups" : "Περιορισμός σε ομάδες",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Όταν επιλεγεί τουλάχιστον μία ομάδα, μόνο τα άτομα των καταγεγραμμένων ομάδων μπορούν να χρησιμοποιήσουν την εφαρμογή κρυπτογράφησης από Άκρο σε Άκρο.",

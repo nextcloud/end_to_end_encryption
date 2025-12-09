@@ -27,6 +27,7 @@ OC.L10N.register(
     "Folder name" : "Kansion nimi",
     "Continue" : "Jatka",
     "Select or drop files" : "Valitse tai pudota tiedostoja",
+    "Remove" : "Poista",
     "Saved groups" : "Tallennetut ryhmät",
     "Limit to groups" : "Rajoita ryhmiin",
     "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",

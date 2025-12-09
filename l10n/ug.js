@@ -60,6 +60,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "مېتا سانلىق مەلۇمات يوللىغاندا خاتالىق",
     "Select or drop files" : "ھۆججەتلەرنى تاللاڭ ياكى تاشلاڭ",
     "Upload encrypted files to {fileName}" : "شىفىرلانغان ھۆججەتلەرنى {fileName} غا يۈكلەڭ",
+    "Remove" : "ئۆچۈرۈڭ",
     "Saved groups" : "ساقلانغان گۇرۇپپىلار",
     "Limit to groups" : "گۇرۇپپىلارغا چەك قويۇڭ",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "كەم دېگەندە بىر گۇرۇپپا تاللانغاندا ، تىزىملىكتىكى كىشىلەرلا ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش دېتالىنى ئىشلىتەلەيدۇ.",

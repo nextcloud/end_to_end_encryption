@@ -45,6 +45,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées",
     "Select or drop files" : "Sélectionner ou glisser-déposer des fichiers",
     "Upload encrypted files to {fileName}" : "Téléverser des fichiers chiffrés vers {fileName}",
+    "Remove" : "Supprimer",
     "Saved groups" : "Groupes enregistrés",
     "Limit to groups" : "Limiter à des groupes",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Lorsque au moins un groupe est sélectionné, seules les personnes des groupes répertoriés peuvent utiliser le chiffrement de bout en bout.",

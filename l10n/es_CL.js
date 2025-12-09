@@ -19,6 +19,7 @@ OC.L10N.register(
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
     "Select or drop files" : "Selecciona o suelta los archivos",
+    "Remove" : "Remover",
     "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
     "Cancel" : "Cancel",

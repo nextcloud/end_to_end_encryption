@@ -43,6 +43,7 @@
     "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı",
     "Select or drop files" : "Dosyaları seçin ya da sürükleyip bırakın",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
+    "Remove" : "Kaldır",
     "Saved groups" : "Kaydedilmiş gruplar",
     "Limit to groups" : "Şu gruplarla sınırlansın",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "En az bir grup seçildiğinde, yalnızca belirtilen gruplardaki kişiler uçtan uca şifreleme uygulamasını kullanabilir.",

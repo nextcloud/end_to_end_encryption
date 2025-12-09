@@ -36,6 +36,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
     "Select or drop files" : "Válasszon vagy dobjon ide fájlokat",
     "Upload encrypted files to {fileName}" : "Titkosított fájlok feltöltése a következőbe: {fileName}",
+    "Remove" : "Eltávolítás",
     "Saved groups" : "Mentett csoportok",
     "Limit to groups" : "Csoportokra korlátozás",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Ha legalább egy csoport ki van választva, akkor csak a felsorolt csoportok tagjai használhatják a Végpontok közötti titkosítás alkalmazást.",

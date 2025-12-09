@@ -22,6 +22,7 @@ OC.L10N.register(
     "Folder name" : "שם התיקייה",
     "Continue" : "להמשך",
     "Select or drop files" : "בחירה או השלכה של קבצים",
+    "Remove" : "הסרה",
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",
     "Save" : "שמירה",
