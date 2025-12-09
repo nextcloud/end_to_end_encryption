@@ -18,4 +18,12 @@ export default createAppConfig({
 	extractLicenseInformation: {
 		includeSourceMaps: true,
 	},
+	config: {
+		build: {
+			rollupOptions: {
+				// TODO: Remove when merged https://github.com/nextcloud/server/pull/56941
+				preserveEntrySignatures: 'strict',
+			},
+		},
+	},
 })
