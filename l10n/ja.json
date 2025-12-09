@@ -42,6 +42,7 @@
     "Error while uploading metadata" : "メタデータのアップロード中にエラーが発生しました",
     "Select or drop files" : "ファイルを選択するか、ドラッグ&ドロップしてください",
     "Upload encrypted files to {fileName}" : "暗号化されたファイルを {fileName} にアップロードします",
+    "Remove" : "削除",
     "Saved groups" : "保存されたグループ",
     "Limit to groups" : "グループに制限する",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "少なくとも1つのグループが選択されている場合、リストされたグループの人だけがEnd-to-End 暗号化アプリを使用できます。",

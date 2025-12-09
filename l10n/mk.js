@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "Име на папка",
     "Continue" : "Продолжи",
     "Select or drop files" : "Изберете или испуштете датотеки",
+    "Remove" : "Отстрани ",
     "Limit to groups" : "Ограничување на групи",
     "Limit app usage to groups" : "Ограничување за користење на апликации во групи",
     "Save" : "Зачувај",

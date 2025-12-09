@@ -24,6 +24,7 @@ OC.L10N.register(
     "Folder name" : "Nafn möppu",
     "Continue" : "Halda áfram",
     "Select or drop files" : "Veldu eða slepptu skrám",
+    "Remove" : "Fjarlægja",
     "Limit to groups" : "Takmarka við hópa",
     "Limit app usage to groups" : "Takmarka notkun forrits við tiltekna hópa",
     "Save" : "Vista",

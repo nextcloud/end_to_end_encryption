@@ -28,6 +28,7 @@ OC.L10N.register(
     "Folder name" : "Ime mape",
     "Continue" : "Nadaljuj",
     "Select or drop files" : "Izberite ali povlecite datoteke",
+    "Remove" : "Odstrani",
     "Limit to groups" : "Omeji na skupine",
     "Limit app usage to groups" : "Omeji uporabo programa na skupine",
     "Save" : "Shrani",

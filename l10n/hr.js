@@ -27,6 +27,7 @@ OC.L10N.register(
     "Folder name" : "Naziv mape",
     "Continue" : "Nastavi",
     "Select or drop files" : "Odaberi ili ispusti datoteke",
+    "Remove" : "Ukloni",
     "Limit to groups" : "Ograniči na grupe",
     "Limit app usage to groups" : "Ograničite primjenu aplikacije na grupe",
     "Save" : "Spremi",

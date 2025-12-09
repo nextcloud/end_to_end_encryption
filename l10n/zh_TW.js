@@ -60,6 +60,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "上傳詮釋資料時發生錯誤",
     "Select or drop files" : "選取或拖曳檔案",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
+    "Remove" : "移除",
     "Saved groups" : "已儲存的群組",
     "Limit to groups" : "限制給特定群組",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "當至少選取一個群組時，僅列出的群組才可以使用端到端加密應用程式。",

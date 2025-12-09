@@ -60,6 +60,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Viga metainfo üleslaadimisel",
     "Select or drop files" : "Vali või lohista failid",
     "Upload encrypted files to {fileName}" : "Laadi krüptitud failid siia: {fileName}",
+    "Remove" : "Eemalda",
     "Saved groups" : "Salvestatud grupid",
     "Limit to groups" : "Luba gruppidele",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Kui vähemalt üks grupp on valitud, siis vaid loetletud grupi/gruppide liikmed saavad kasutada Läbiva krüptimise rakendust.",

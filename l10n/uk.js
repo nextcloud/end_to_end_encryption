@@ -45,6 +45,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Помилка під час завантаження метаданих",
     "Select or drop files" : "Вибрати або перетягнути файли",
     "Upload encrypted files to {fileName}" : "Завантажити зашифровані файли до {fileName}",
+    "Remove" : "Вилучити",
     "Saved groups" : "Збережені групи",
     "Limit to groups" : "Обмежити групами",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Лише користувачі перелічених груп зможуть використовувати функцію наскрізного шифрування.",

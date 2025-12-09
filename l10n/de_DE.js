@@ -60,6 +60,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
     "Select or drop files" : "Dateien auswählen oder hierher ziehen",
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
+    "Remove" : "Entfernen",
     "Saved groups" : "Gespeicherte Gruppen",
     "Limit to groups" : "Auf Gruppen beschränken",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Wenn mindestens eine Gruppe ausgewählt ist, können nur Personen der aufgelisteten Gruppen die Ende-zu-Ende-Verschlüsselungs-App benutzen.",

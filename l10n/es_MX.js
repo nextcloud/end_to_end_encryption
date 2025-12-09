@@ -27,6 +27,7 @@ OC.L10N.register(
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
     "Select or drop files" : "Selecciona o suelta los archivos",
+    "Remove" : "Borrar",
     "Limit to groups" : "Limitar a grupos",
     "Limit app usage to groups" : "Limitar el uso de aplicaciones a grupos",
     "Save" : "Guardar",

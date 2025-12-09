@@ -31,6 +31,7 @@ OC.L10N.register(
     "Folder name" : "Aplanko pavadinimas",
     "Continue" : "Tęsti",
     "Select or drop files" : "Pasirinkite arba vilkite failus",
+    "Remove" : "Šalinti",
     "Limit to groups" : "Apriboti iki grupių",
     "Limit app usage to groups" : "Programos panaudojimas ribojamas grupėms",
     "Save" : "Įrašyti",

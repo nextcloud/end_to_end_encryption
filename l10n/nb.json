@@ -37,6 +37,7 @@
     "Error while uploading metadata" : "Feil under opplasting av metadata",
     "Select or drop files" : "Velg eller slipp filer",
     "Upload encrypted files to {fileName}" : "Last opp krypterte filer til {fileName}",
+    "Remove" : "Fjern",
     "Saved groups" : "Lagrede grupper",
     "Limit to groups" : "Begrens til grupper",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Når minst én gruppe er valgt, kan bare personer i de oppførte gruppene bruke ende-til-ende-kryptering-appen.",

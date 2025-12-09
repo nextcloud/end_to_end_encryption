@@ -6,6 +6,7 @@ OC.L10N.register(
     "Submit" : "Submit",
     "Folder name" : "Papka nomi",
     "Continue" : "Davom etish",
+    "Remove" : "O'chirish",
     "Save" : "Save",
     "Cancel" : "Bekor qilish",
     "Close" : "Yopish"
