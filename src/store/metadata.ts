@@ -8,6 +8,8 @@ import type { IRawMetadata } from '../models/metadata.d.ts'
 import { getCurrentUser } from '@nextcloud/auth'
 import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
 import { dirname } from '@nextcloud/paths'
+import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
+import { X509Certificate } from '@peculiar/x509'
 import { Metadata } from '../models/Metadata.ts'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import * as api from '../services/api.ts'
@@ -23,7 +25,7 @@ export interface IStoreMetadata {
 	path: string
 }
 
-const currentUser = getCurrentUser()?.uid
+const currentUser = getCurrentUser()?.uid ?? `s:${getSharingToken()!}`
 const metadataCache = new Map<string, Omit<IStoreMetadata, 'path'>>()
 
 /**
@@ -132,6 +134,9 @@ export async function setRawMetadata(path: string, id: string, rawMetadata: stri
 		const rootMetadata = await RootMetadata.fromJson(metadataRaw, currentUser!, await keyStore.getPrivateKey())
 		if (!await validateMetadataSignature(metadataRaw, signature, rootMetadata.rawUsers)) {
 			throw new Error('Root metadata signature verification failed')
+		}
+		if (isPublicShare()) {
+			keyStore.setCertificate(new X509Certificate(rootMetadata.rawUsers.find((u) => u.userId === currentUser)!.certificate))
 		}
 		metadata = rootMetadata
 	} else {
