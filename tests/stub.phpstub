@@ -836,6 +836,18 @@ namespace OCA\Files_Sharing {
 	}
 }
 
+namespace OCA\Files_Sharing\Event {
+	class BeforeTemplateRenderedEvent extends \OCP\EventDispatcher\Event {
+		public const SCOPE_PUBLIC_SHARE_AUTH = 'publicShareAuth';
+
+		public function getShare(): \OCP\Share\IShare {
+		}
+
+		public function getScope(): ?string {
+		}
+	}
+}
+
 namespace OCA\Files_Trashbin\Events {
 
 	use OCP\EventDispatcher\Event;

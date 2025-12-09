@@ -28,6 +28,22 @@ export function registerSharingSidebarSection() {
 		element: id,
 	})
 
+	const idExternal = 'oca__end_to_end_encryption__sharing-sections-external'
+	const FilesSharingSidebarSectionsExternal = defineCustomElement(
+		defineAsyncComponent(() => import('../views/FilesSharingSidebarSectionExternal.vue')),
+		{ shadowRoot: false },
+	)
+	window.customElements.define(idExternal, FilesSharingSidebarSectionsExternal)
+
+	registerSidebarSection({
+		id: 'end_to_end_encryption:external',
+		order: 52,
+		enabled(node: INode) {
+			return node.attributes['e2ee-is-encrypted'] === 1
+		},
+		element: idExternal,
+	})
+
 	const idFiledrop = 'oca__end_to_end_encryption__sharing-sections-filedrop'
 	const FilesSharingSidebarSectionsFiledrop = defineCustomElement(
 		defineAsyncComponent(() => import('../views/FilesSharingSidebarSectionFiledrop.vue')),

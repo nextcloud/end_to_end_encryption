@@ -12,6 +12,7 @@ declare const __dirname: string
 export default createAppConfig({
 	files: join(__dirname, 'src', 'main-files.ts'),
 	filedrop: join(__dirname, 'src', 'main-filedrop.js'),
+	'public-share': join(__dirname, 'src', 'main-public-share.ts'),
 	'settings-admin': join(__dirname, 'src', 'settings-admin.js'),
 	'settings-personal': join(__dirname, 'src', 'settings-user.js'),
 }, {
