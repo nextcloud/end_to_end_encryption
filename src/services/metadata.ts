@@ -73,7 +73,7 @@ export async function decryptMetadata(json: IRawMetadata, metadataKey: CryptoKey
  * @param signature - The base64-encoded signature of the metadata
  * @param users - The users with access to the metadata
  */
-export async function validateMetadataSignature(metadata: IRawMetadata, signature: string, users: IRawMetadataUser[]): Promise<true> {
+export async function validateMetadataSignature(metadata: IRawMetadata, signature: string, users: IRawMetadataUser[]): Promise<void> {
 	const signedData = stringify(metadata, (key, value) => {
 		if (key === 'filedrop') {
 			return undefined
@@ -81,15 +81,12 @@ export async function validateMetadataSignature(metadata: IRawMetadata, signatur
 		return value
 	})!
 
-	const verificationResult = await validateCMSSignature(
+	const result = await validateCMSSignature(
 		stringToBuffer(btoa(signedData)),
 		base64ToBuffer(signature),
 		users,
 	)
-
-	if (!verificationResult) {
+	if (!result) {
 		throw new Error('Metadata signature verification failed')
 	}
-
-	return verificationResult
 }
