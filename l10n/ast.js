@@ -25,6 +25,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
     "Select or drop files" : "Seleiciona o suelta los ficheros",
     "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»",
+    "Remove" : "Quitar",
     "Save" : "Guardar",
     "Cancel" : "Encaboxar",
     "End-to-end encryption is currently enabled and correctly setup." : "El cifráu d'estremu a estremu ta activáu ya configuráu correutamente.",
