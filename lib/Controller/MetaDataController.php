@@ -274,7 +274,7 @@ class MetaDataController extends OCSController {
 			$this->lockManager->unlockFile($id, $lockToken);
 		}
 
-		return new DataResponse();
+		return new DataResponse(['filedrop' => json_decode($filedrop, true)]);
 	}
 
 	private function getOwnerId(?string $shareToken = null): string {
