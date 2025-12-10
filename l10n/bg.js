@@ -35,6 +35,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Грешка при качване на метаданни",
     "Select or drop files" : "Изберете файл или преместете с мишката",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
+    "Remove" : "Премахване",
     "Saved groups" : "Записани групи",
     "Limit to groups" : "Ограничен достъп",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Когато е избрана поне една група, само хората от изброените групи могат да използват приложението за цялостно криптиране.",

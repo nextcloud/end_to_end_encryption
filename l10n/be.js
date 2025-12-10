@@ -11,6 +11,7 @@ OC.L10N.register(
     "Folder name" : "Назва папкі",
     "Continue ({secondsLeft})" : "Працягнуць ({secondsLeft})",
     "Continue" : "Працягнуць",
+    "Remove" : "Выдаліць",
     "Saved groups" : "Захаваныя групы",
     "Save" : "Захаваць",
     "Cancel" : "Скасаваць",

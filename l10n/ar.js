@@ -44,6 +44,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "خطأ خلال رفع البيانات الوصفية metadata",
     "Select or drop files" : "اختر أو اسحب ملفات",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
+    "Remove" : "حذف",
     "Saved groups" : "مجموعات محفوظة",
     "Limit to groups" : "مقتصر على المجموعات التالية",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "عند تحديد مجموعة واحدة على الأقل، يمكن لأفراد المجموعات المدرجة فقط استخدام تطبيق التشفير الطرفي E2EE.",
