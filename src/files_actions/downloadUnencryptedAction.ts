@@ -1,9 +1,9 @@
 /**
- * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Node } from '@nextcloud/files'
+import type { INode } from '@nextcloud/files'
 
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
 import { DefaultType, FileAction, FileType } from '@nextcloud/files'
@@ -13,10 +13,9 @@ import { isDownloadable } from '../services/permissions.ts'
 /**
  * Trigger downloading of given file (only the first node is downloaded).
  *
- * @param files - Array with one file to download
+ * @param file - File to download
  */
-async function downloadNodes(files: [Node]) {
-	const [file] = files
+async function downloadNodes(file: INode) {
 	// Decryption happens in the proxy.
 	const response = await fetch(file.encodedSource)
 	const decryptedFileContent = await response.arrayBuffer()
@@ -35,7 +34,7 @@ export default new FileAction({
 	displayName: () => t('files', 'Download unencrypted'),
 	iconSvgInline: () => ArrowDownSvg,
 
-	enabled(nodes: Node[]) {
+	enabled(nodes: INode[]) {
 		if (nodes.length !== 1) {
 			return false
 		}
@@ -57,8 +56,8 @@ export default new FileAction({
 		return nodes.every(isDownloadable)
 	},
 
-	async exec(node: Node) {
-		downloadNodes([node])
+	async exec(node: INode) {
+		await downloadNodes(node)
 		return null
 	},
 
