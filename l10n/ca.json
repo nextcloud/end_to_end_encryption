@@ -42,6 +42,7 @@
     "Error while uploading metadata" : "S'ha produït un error en penjar les metadades",
     "Select or drop files" : "Selecciona o deixa anar els fitxers",
     "Upload encrypted files to {fileName}" : "Pujada de fitxers xifrats a {fileName}",
+    "Remove" : "Suprimir",
     "Saved groups" : "Grups guardats",
     "Limit to groups" : "Limita a grups",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Quan se selecciona almenys un grup, només les persones dels grups llistats poden utilitzar l'aplicació de xifratge d'extrem a extrem.",
