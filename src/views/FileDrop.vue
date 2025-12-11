@@ -175,7 +175,11 @@ export default {
 
 				logger.debug('[FileDrop] FileDrop entries computed', { fileDrops })
 
-				await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, this.shareToken)
+				const result = await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, this.shareToken)
+
+				progresses
+					.filter(({ error }) => !error)
+					.forEach((progress) => { progress.error = result[Object.keys(progress.fileDrop)[0]] === undefined })
 			} catch (exception) {
 				logger.error('[FileDrop] Error while uploading metadata', { exception })
 				showError(this.t('end_to_end_encryption', 'Error while uploading metadata'))
@@ -287,8 +291,7 @@ export default {
 				}
 
 				.loading-icon :deep(svg) {
-					animation: rotate var(--animation-duration, 0.8s) linear
-						infinite;
+					animation: rotate var(--animation-duration, 0.8s) linear infinite;
 				}
 			}
 		}

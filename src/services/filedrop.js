@@ -68,6 +68,7 @@ export async function getFileDropEntry(encryptionInfo, publicKeys) {
  * @param {number} folderId
  * @param {{[uid: string]: FileDropPayload}} fileDrops
  * @param {string} shareToken
+ * @return {Promise<{[uid: string]: FileDropPayload}>}
  */
 export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, shareToken) {
 	const ocsUrl = generateOcsUrl(
@@ -78,7 +79,7 @@ export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, sha
 		},
 	)
 
-	const { data: { ocs: { meta } } } = await axios.put(
+	const response = await axios.put(
 		`${ocsUrl}/filedrop`,
 		{
 			filedrop: JSON.stringify(fileDrops),
@@ -93,9 +94,11 @@ export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, sha
 		},
 	)
 
-	if (meta.statuscode !== 200) {
-		throw new Error(`Failed to upload metadata: ${meta.message}`)
+	if (response.data.ocs.meta.statuscode !== 200) {
+		throw new Error(`Failed to upload metadata: ${response.data.ocs.meta.message}`)
 	}
+
+	return response.data.ocs.data.filedrop
 }
 
 /**
