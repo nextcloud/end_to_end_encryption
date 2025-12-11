@@ -60,6 +60,7 @@ OC.L10N.register(
     "Error while uploading metadata" : "Chyba při nahrávání metadat",
     "Select or drop files" : "Vyberte nebo přetáhněte soubory",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
+    "Remove" : "Odebrat",
     "Saved groups" : "Uložené skupiny",
     "Limit to groups" : "Omezit na skupiny",
     "When at least one group is selected, only people of the listed groups can use the End-to-End encryption app." : "Pokud je vybrána alespoň jedna skupina, pak aplikaci pro šifrování mezi koncovými body mohou používat pouze lidé z uvedených skupin.",

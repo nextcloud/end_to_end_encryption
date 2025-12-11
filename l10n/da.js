@@ -30,6 +30,7 @@ OC.L10N.register(
     "Folder name" : "Mappenavn",
     "Continue" : "Fortsæt",
     "Select or drop files" : "Vælg eller slip filer",
+    "Remove" : "Fjern",
     "Limit to groups" : "Begræns til grupper",
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Save" : "Gem",
