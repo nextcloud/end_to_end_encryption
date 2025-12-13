@@ -48,7 +48,7 @@
     "@peculiar/x509": "^1.14.2",
     "@rxliuli/vista": "^0.4.8",
     "@vueuse/core": "^14.1.0",
-    "asn1js": "^3.0.6",
+    "asn1js": "^3.0.7",
     "bip39": "^3.1.0",
     "debounce": "^3.0.0",
     "fast-xml-parser": "^5.3.2",
