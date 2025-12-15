@@ -67,6 +67,11 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		return this._metadataKey
 	}
 
+	public set key(newKey: CryptoKey) {
+		this._metadataKey = newKey
+		this._modified = true
+	}
+
 	/**
 	 * Get the UUID for a given filename.
 	 * This will lookup both files and folders.

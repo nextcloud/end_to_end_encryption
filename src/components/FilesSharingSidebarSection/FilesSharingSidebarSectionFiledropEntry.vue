@@ -19,7 +19,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-	delete: [void]
+	delete: []
 }>()
 
 const shareLink = computed(() => props.share.url as string)

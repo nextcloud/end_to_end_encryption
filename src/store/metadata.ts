@@ -157,6 +157,26 @@ export function deleteMetadata(path: string): void {
 	}
 }
 
+/**
+ * Load all subfolders for the given root metadata.
+ *
+ * @param root - The root metadata
+  */
+export async function loadAllSubfolders(root: RootMetadata): Promise<IStoreMetadata[]> {
+	const { path } = getRootFolder(root)
+	const results: IStoreMetadata[] = []
+	const apiResults = await api.searchFolders(path)
+	for (const result of apiResults) {
+		const { metadata } = await setRawMetadata(result.path, result.fileId, result.metadata, result.signature)
+		results.push({
+			id: result.fileId,
+			metadata,
+			path: result.path,
+		})
+	}
+	return results
+}
+
 const RELATIVE_REMOTE_URL = new URL(defaultRemoteURL).pathname
 
 /**
