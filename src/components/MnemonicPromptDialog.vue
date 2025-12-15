@@ -14,7 +14,6 @@ const emit = defineEmits<{
 	(e: 'close', mnemonic: string): void
 }>()
 
-const dialogRef = ref()
 const mnemonic = ref('')
 const confirmToggle = ref(false)
 
@@ -41,7 +40,6 @@ const buttons = computed(() => [
 
 <template>
 	<NcDialog
-		ref="dialogRef"
 		:name="t('end_to_end_encryption', 'Enter your 12 words mnemonic')"
 		:buttons="buttons"
 		:is-form="true"

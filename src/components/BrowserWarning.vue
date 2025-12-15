@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 import { t } from '@nextcloud/l10n'
-import { ref, watchEffect } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import { storage, StorageKeys } from '../services/storage.ts'
@@ -19,7 +19,8 @@ defineProps<{
 	heading: string
 }>()
 
-const dontShowAgain = ref(storage.getItem(StorageKeys.SuppressBrowserWarning) === 'true')
+const dontShowAgainStored = storage.getItem(StorageKeys.SuppressBrowserWarning) === 'true'
+const dontShowAgain = ref(dontShowAgainStored)
 watchEffect(() => {
 	if (dontShowAgain.value) {
 		confirmToggle.value = true
@@ -29,10 +30,16 @@ watchEffect(() => {
 	}
 })
 
+onMounted(() => {
+	if (dontShowAgainStored) {
+		confirmToggle.value = true
+	}
+})
 </script>
 
 <template>
 	<NcNoteCard
+		v-if="!dontShowAgainStored"
 		:heading
 		show-alert
 		type="warning">
