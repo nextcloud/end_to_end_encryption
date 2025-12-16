@@ -236,7 +236,10 @@ function getSharePermissions(share: IShare): Permission {
 		<h5 :class="$style.sidebarSection__heading">
 			{{ t('end_to_end_encryption', 'End-to-end encrypted shares') }}
 		</h5>
-		<p>{{ t('end_to_end_encryption', 'Users always have access to the full encrypted folder.') }}</p>
+		<p>
+			{{ t('end_to_end_encryption', 'Share recipients always have access to the full encrypted folder.') }}
+			{{ t('end_to_end_encryption', 'It is only possible to share with accounts that have already setup end-to-end encryption.') }}
+		</p>
 		<NcSelectUsers
 			:class="$style.sidebarSection__selectUsers"
 			:disabled="isCreatingShare"
