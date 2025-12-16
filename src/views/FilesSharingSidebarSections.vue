@@ -98,7 +98,18 @@ async function loadShares() {
 		</template>
 	</NcEmptyContent>
 	<template v-else>
-		<FilesSharingSidebarSectionUsers v-model="userShares" :metadata />
+		<FilesSharingSidebarSectionUsers v-model="userShares" :class="$style.userSection" :metadata />
 		<FilesSharingSidebarSectionFiledrop v-model="filedropShares" :metadata />
 	</template>
 </template>
+
+<style module>
+.userSection {
+	/* No additional styles needed */
+}
+
+:global(#tab-sharing .sharingTab__content):has(.userSection) > section:nth-of-type(1),
+:global(#tab-sharing .sharingTab__content):has(.userSection) > section:nth-of-type(2) {
+	display: none;
+}
+</style>
