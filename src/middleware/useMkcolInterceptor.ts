@@ -6,9 +6,8 @@
 import type { FetchContext } from '@rxliuli/vista'
 import type { RootMetadata } from '../models/RootMetadata.ts'
 
-import { getCurrentUser } from '@nextcloud/auth'
-import { Folder } from '@nextcloud/files'
-import { defaultRootPath } from '@nextcloud/files/dav'
+import { getUniqueName } from '@nextcloud/files'
+import { basename, dirname, join } from '@nextcloud/paths'
 import stringify from 'safe-stable-stringify'
 import { Metadata } from '../models/Metadata.ts'
 import * as api from '../services/api.ts'
@@ -24,16 +23,13 @@ import * as metadataStore from '../store/metadata.ts'
  */
 export async function useMkcolInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	logger.debug('Handling MKCOL request', { request: context.req })
-
-	const folder = new Folder({
-		owner: getCurrentUser()!.uid,
-		source: decodeURI(context.req.url),
-		root: defaultRootPath,
-	})
+	const url = new URL(context.req.url)
+	const path = url.pathname
+	const parentPath = dirname(path)
 
 	let rootMetadata: RootMetadata
 	try {
-		rootMetadata = await metadataStore.getRootMetadata(folder.dirname)
+		rootMetadata = await metadataStore.getRootMetadata(parentPath)
 	} catch (error) {
 		logger.debug('Could not get root metadata for MKCOL', { error })
 		// not end-to-end encrypted
@@ -45,18 +41,19 @@ export async function useMkcolInterceptor(context: FetchContext, next: () => Pro
 	await keyStore.loadPublicKey()
 	await keyStore.loadPrivateKey()
 
-	const originalName = folder.basename
-	folder.rename(globalThis.crypto.randomUUID().replaceAll('-', ''))
-
-	const parentMetadata = await metadataStore.getMetadata(folder.dirname)
-	parentMetadata.metadata.addFolder(folder.basename, originalName)
+	const parentMetadata = await metadataStore.getMetadata(parentPath)
+	const originalName = getUniqueName(decodeURIComponent(basename(path)), parentMetadata.metadata.listContents())
+	const uuid = globalThis.crypto.randomUUID().replaceAll('-', '')
+	parentMetadata.metadata.addFolder(uuid, originalName)
 
 	const parentLockToken = await api.lockFolder(parentMetadata.id, parentMetadata.metadata.counter)
 	try {
-		context.req = new Request(folder.encodedSource, context.req)
+		// adjust to the new uuid
+		url.pathname = join(parentPath, uuid)
+		context.req = new Request(url, context.req)
 		context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 		context.req.headers.set('E2E-TOKEN', parentLockToken)
-		logger.debug('Creating end-to-end encrypted folder', { originalName, name: folder.basename })
+		logger.debug('Creating end-to-end encrypted folder', { originalName, uuid })
 		await next()
 
 		// then lock the new folder to set its metadata
@@ -82,7 +79,7 @@ export async function useMkcolInterceptor(context: FetchContext, next: () => Pro
 			parentLockToken,
 			metadataRaw.signature,
 		)
-		metadataStore.setMetadata(folder.path, fileId, metadata)
+		metadataStore.setMetadata(url.pathname, fileId, metadata)
 	} finally {
 		// ensure we unlock the parent folder on failure
 		await api.unlockFolder(parentMetadata.id, parentLockToken)
