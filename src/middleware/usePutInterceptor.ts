@@ -7,6 +7,7 @@ import type { FetchContext } from '@rxliuli/vista'
 import type { IMetadataFile } from '../models/metadata.d.ts'
 import type { IStoreMetadata } from '../store/metadata.ts'
 
+import { getUniqueName } from '@nextcloud/files'
 import { basename, dirname, join } from '@nextcloud/paths'
 import stringify from 'safe-stable-stringify'
 import * as api from '../services/api.ts'
@@ -26,10 +27,11 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 	logger.debug('Handling PUT request', { request: context.req })
 
 	const url = new URL(context.req.url)
-	const filename = decodeURIComponent(basename(url.pathname))
+	const path = url.pathname
+	const filename = decodeURIComponent(basename(path))
 	let metadata: IStoreMetadata
 	try {
-		metadata = await metadataStore.getMetadata(dirname(url.pathname))
+		metadata = await metadataStore.getMetadata(dirname(path))
 	} catch (error) {
 		logger.debug('Could not get root metadata for PUT', { error })
 		// not end-to-end encrypted
@@ -53,14 +55,21 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 	const fileInfo: IMetadataFile = {
 		filename,
 		mimetype: context.req.headers.get('Content-Type') || 'application/octet-stream',
-		...metadata.metadata.getFile(filename),
 		authenticationTag: bufferToBase64(result.tag),
 		nonce: bufferToBase64(result.iv),
 		key: bufferToBase64(new Uint8Array(await globalThis.crypto.subtle.exportKey('raw', key))),
 	}
-	const uuid = filename === fileInfo.filename
-		? globalThis.crypto.randomUUID().replace(/-/g, '')
-		: filename
+
+	let uuid = filename
+	if (metadata.metadata.getFile(filename)) {
+		// in case this PUT request was an update then the "filename" is in reality the uuid
+		fileInfo.filename = metadata.metadata.getFile(filename)!.filename
+	} else {
+		// otherwise this is a new file, generate a new uuid
+		uuid = globalThis.crypto.randomUUID().replace(/-/g, '')
+		// and make sure the name is unique
+		fileInfo.filename = getUniqueName(fileInfo.filename, metadata.metadata.listContents())
+	}
 	metadata.metadata.addFile(uuid, fileInfo)
 
 	logger.debug('Update metadata for added file', { metadata, filename })

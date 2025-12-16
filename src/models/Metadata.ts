@@ -121,6 +121,16 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		}
 	}
 
+	/**
+	 * Get the list of all contents (files and folders) in the metadata.
+	 */
+	listContents(): string[] {
+		return [
+			...Object.values(this._metadata.folders),
+			...Object.values(this._metadata.files).map((file) => file.filename),
+		]
+	}
+
 	public getFolder(uuid: string): string | undefined {
 		return this._metadata.folders[uuid]
 	}
