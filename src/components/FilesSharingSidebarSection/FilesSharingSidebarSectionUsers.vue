@@ -8,14 +8,15 @@ import type { OCSResponse } from '@nextcloud/typings/ocs'
 import type { RootMetadata } from '../../models/RootMetadata.ts'
 import type { IShare } from '../../views/FilesSharingSidebarSections.vue'
 
-import { mdiTrashCanOutline } from '@mdi/js'
+import { mdiPencilOutline, mdiTrashCanOutline } from '@mdi/js'
 import axios from '@nextcloud/axios'
-import { showWarning } from '@nextcloud/dialogs'
+import { showInfo, showWarning } from '@nextcloud/dialogs'
 import { Permission } from '@nextcloud/files'
 import { defaultRootPath } from '@nextcloud/files/dav'
 import { t } from '@nextcloud/l10n'
 import { generateOcsUrl } from '@nextcloud/router'
 import { ShareType } from '@nextcloud/sharing'
+import { spawnDialog } from '@nextcloud/vue/functions/dialog'
 import { useDebounceFn } from '@vueuse/core'
 import stringify from 'safe-stable-stringify'
 import { ref, toRaw } from 'vue'
@@ -24,6 +25,7 @@ import NcButton from '@nextcloud/vue/components/NcButton'
 import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
 import NcListItem from '@nextcloud/vue/components/NcListItem'
 import NcSelectUsers from '@nextcloud/vue/components/NcSelectUsers'
+import FilesSharingSidebarSectionUsersDialog from './FilesSharingSidebarSectionUsersDialog.vue'
 import * as api from '../../services/api.ts'
 import logger from '../../services/logger.ts'
 import * as keyStore from '../../store/keys.ts'
@@ -86,7 +88,8 @@ async function createShare(user: IUserData | IUserData[]) {
 		return
 	}
 
-	logger.debug(`Creating end-to-end encrypted share for user ${user.id}`)
+	const permissions = await askForSharePermission()
+	logger.debug(`Creating end-to-end encrypted share for user ${user.id}`, { permissions })
 
 	const rootMetadata = toRaw(props.metadata)
 	isCreatingShare.value = true
@@ -98,7 +101,7 @@ async function createShare(user: IUserData | IUserData[]) {
 		// create nextcloud share
 		const { data } = await axios.post<OCSResponse>(generateOcsUrl('/apps/files_sharing/api/v1/shares'), {
 			path: path.replace(new RegExp(`^${defaultRootPath}`), ''),
-			permissions: Permission.ALL,
+			permissions,
 			shareType: ShareType.User,
 			shareWith: user.id,
 		})
@@ -172,6 +175,26 @@ async function removeShare(shareId: number | string) {
 }
 
 /**
+ * Edit the share permissions
+ *
+ * @param share - The share to edit
+ */
+async function editShare(share: IShare) {
+	const newPermissions = await askForSharePermission(getSharePermissions(share))
+	if (newPermissions === share.permissions) {
+		return
+	}
+
+	logger.debug(`Updating share ${share.id} with new permissions`, { newPermissions })
+	await axios.put(generateOcsUrl('/apps/files_sharing/api/v1/shares/' + share.id), {
+		permissions: newPermissions.toString(),
+	})
+	share.permissions = newPermissions
+
+	showInfo(t('end_to_end_encryption', 'Share permissions updated successfully.'))
+}
+
+/**
  * Re-encrypt all subfolders with the new metadata key
  *
  * @param subfolders - The subfolders to re-encrypt
@@ -184,6 +207,27 @@ async function reencryptSubfolders(subfolders: metadataStore.IStoreMetadata[], k
 		const { metadata: rawMetadata, signature } = await metadata.export(await keyStore.getCertificate())
 		await api.updateMetadata(id, stringify(rawMetadata), token, signature)
 	}
+}
+
+/**
+ * Ask for share permissions
+ *
+ * @param permissions - The initial permissions
+ */
+async function askForSharePermission(permissions: Permission = Permission.ALL): Promise<Permission> {
+	return await spawnDialog(FilesSharingSidebarSectionUsersDialog, {
+		permissions,
+	})
+}
+
+/**
+ * Get the share permissions from a share
+ *
+ * @param share - The share to get the permissions from
+ */
+function getSharePermissions(share: IShare): Permission {
+	const permissions = typeof share.permissions === 'number' ? (share.permissions as number) : Number.parseInt(share.permissions as string)
+	return (permissions & Permission.UPDATE) ? Permission.ALL : Permission.READ
 }
 </script>
 
@@ -212,7 +256,19 @@ async function reencryptSubfolders(subfolders: metadataStore.IStoreMetadata[], k
 						:user="share.share_with"
 						:display-name="share.share_with_displayname" />
 				</template>
+				<template #subname>
+					({{ getSharePermissions(share) === Permission.ALL ? t('end_to_end_encryption', 'Read, write, and share') : t('end_to_end_encryption', 'Read only') }})
+				</template>
 				<template #extra-actions>
+					<NcButton
+						:aria-label="t('end_to_end_encryption', 'Edit')"
+						:disabled="isCreatingShare"
+						variant="tertiary"
+						@click="editShare(share)">
+						<template #icon>
+							<NcIconSvgWrapper :path="mdiPencilOutline" />
+						</template>
+					</NcButton>
 					<NcButton
 						:aria-label="t('end_to_end_encryption', 'Remove')"
 						:disabled="isCreatingShare"
