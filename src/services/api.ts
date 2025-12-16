@@ -4,7 +4,7 @@
  */
 
 import type { OCSResponse } from '@nextcloud/typings/ocs'
-import type { FileStat, ResponseDataDetailed, WebDAVClient } from 'webdav'
+import type { FileStat, ResponseDataDetailed, SearchResult, WebDAVClient } from 'webdav'
 import type { PrivateKeyInfo } from '../models.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
@@ -32,7 +32,6 @@ const METADATA_PROPFIND = `<?xml version="1.0"?>
 		<d:prop>
 			<d:resourcetype />
 			<d:displayname />
-			<oc:fileid />
 			<nc:e2ee-is-encrypted />
 			<nc:e2ee-metadata />
 			<nc:e2ee-metadata-signature />
@@ -402,4 +401,52 @@ export async function getDirectoryContents(path: string) {
 
 	const { data } = await client.getDirectoryContents(path, { details: true, data: METADATA_PROPFIND }) as ResponseDataDetailed<FileStat[]>
 	return data
+}
+
+/**
+ * Search for folders within a given path.
+ *
+ * @param path - The path relative to the DAV root to search within
+ */
+export async function searchFolders(path: string) {
+	if (!client) {
+		client = getClient()
+	}
+
+	path = join(defaultRootPath, path)
+	const { data } = await client.search('', {
+		details: true,
+		data: `<?xml version="1.0"?>
+	<d:searchrequest xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns" xmlns:oc="http://owncloud.org/ns">
+		<d:basicsearch>
+			<d:select>
+				<d:prop>
+					<d:resourcetype />
+					<d:displayname />
+					<nc:e2ee-is-encrypted />
+					<nc:e2ee-metadata />
+					<nc:e2ee-metadata-signature />
+					<oc:fileid />
+				</d:prop>
+			</d:select>
+			<d:from>
+				<d:scope>
+					<d:href>${path}</d:href>
+					<d:depth>infinity</d:depth>
+				</d:scope>
+			</d:from>
+			<d:where>
+				<d:is-collection/>
+			</d:where>
+			<d:orderby/>
+		</d:basicsearch>
+	</d:searchrequest>`,
+	}) as ResponseDataDetailed<SearchResult>
+
+	return data.results.map((result) => ({
+		path: join(defaultRootPath, result.filename),
+		metadata: result.props!['e2ee-metadata'] as string,
+		signature: result.props!['e2ee-metadata-signature'] as string,
+		fileId: (result.props!.fileid as number | string).toString(),
+	}))
 }
