@@ -12,8 +12,8 @@ OC.L10N.register(
     "Continue ({secondsLeft})" : "Працягнуць ({secondsLeft})",
     "Continue" : "Працягнуць",
     "Remove" : "Выдаліць",
-    "Saved groups" : "Захаваныя групы",
     "Save" : "Захаваць",
+    "Saved groups" : "Захаваныя групы",
     "Cancel" : "Скасаваць",
     "Close" : "Закрыць"
 },
