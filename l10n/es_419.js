@@ -9,9 +9,10 @@ OC.L10N.register(
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
+    "Read only" : "Sólo lectura",
+    "Save" : "Guardar",
     "Select or drop files" : "Selecciona o suelta los archivos",
     "Limit to groups" : "Limitar a grupos",
-    "Save" : "Guardar",
     "Cancel" : "Cancel",
     "End-to-end encryption" : "Encripción de punta-a-punta",
     "Close" : "Cerrar"

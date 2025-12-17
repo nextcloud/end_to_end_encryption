@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Folder name" : "Qovluq adı",
     "Continue" : "Davam et",
+    "Save" : "Saxla",
     "Limit to groups" : "Qruplara limitlə",
     "Limit app usage to groups" : "Tətbiqin istifadəsini qruplar üçün limitlə",
-    "Save" : "Saxla",
     "Cancel" : "Cancel",
     "Close" : "Bağla"
 },

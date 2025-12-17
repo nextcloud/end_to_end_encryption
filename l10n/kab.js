@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Folder name" : "Isem n ukaram",
     "Continue" : "Kemmel",
+    "Edit" : "Ẓreg",
     "Remove" : "Kkes",
     "Save" : "Sekles",
     "Cancel" : "Cancel",

@@ -5,9 +5,10 @@ OC.L10N.register(
     "Submit" : "ส่ง",
     "Folder name" : "ชื่อโฟลเดอร์",
     "Continue" : "ดำเนินการต่อ",
+    "Edit" : "แก้ไข",
     "Remove" : "ลบออก",
-    "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
     "Save" : "บันทึก",
+    "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
     "Cancel" : "ยกเลิก",
     "Close" : "ปิด"
 },
