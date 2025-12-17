@@ -15,6 +15,7 @@ use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
+use OCP\AppFramework\OCS\OCSException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
@@ -185,18 +186,21 @@ class KeyController extends OCSController {
 
 		try {
 			$subject = openssl_csr_get_subject($csr);
+
+			$cn = isset($subject['CN']) ? $subject['CN'] : '';
+			if ($cn !== $this->userId) {
+				throw new OCSForbiddenException($this->l10n->t('Common name (CN) does not match the current user'));
+			}
+
 			$publicKey = $this->signatureHandler->sign($csr);
 		} catch (BadMethodCallException $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($e->getMessage());
+		} catch (OCSException $e) {
+			throw $e;
 		} catch (Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
-		}
-
-		$cn = isset($subject['CN']) ? $subject['CN'] : '';
-		if ($cn !== $this->userId) {
-			throw new OCSForbiddenException($this->l10n->t('Common name (CN) does not match the current user'));
 		}
 
 		$this->keyStorage->setPublicKey($publicKey, $this->userId);
