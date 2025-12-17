@@ -5,10 +5,11 @@ OC.L10N.register(
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
-    "Select or drop files" : "Seleccione o suelte los archivos",
+    "Read only" : "Solo lectura",
     "Remove" : "Eliminar",
-    "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
+    "Select or drop files" : "Seleccione o suelte los archivos",
+    "Limit to groups" : "Limitar a grupos",
     "Cancel" : "Cancel",
     "Close" : "Cerrar"
 },

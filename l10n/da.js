@@ -29,11 +29,11 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Mappenavnet må ikke være tomt",
     "Folder name" : "Mappenavn",
     "Continue" : "Fortsæt",
-    "Select or drop files" : "Vælg eller slip filer",
     "Remove" : "Fjern",
+    "Save" : "Gem",
+    "Select or drop files" : "Vælg eller slip filer",
     "Limit to groups" : "Begræns til grupper",
     "Limit app usage to groups" : "Begræns appbrug til grupper",
-    "Save" : "Gem",
     "Cancel" : "Annuller",
     "End-to-end encryption" : "End-to-end kryptering",
     "Close" : "Luk"

@@ -20,10 +20,11 @@ OC.L10N.register(
     "Submit" : "Sendi",
     "Folder name" : "Dosierujnomo",
     "Continue" : "Daŭrigi",
+    "Read only" : "Nurlega",
+    "Save" : "Konservi",
     "Select or drop files" : "Elekti aŭ demeti dosierojn",
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
-    "Save" : "Konservi",
     "Cancel" : "Cancel",
     "Close" : "Malfermi"
 },

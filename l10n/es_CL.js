@@ -18,10 +18,11 @@ OC.L10N.register(
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
-    "Select or drop files" : "Selecciona o suelta los archivos",
+    "Read only" : "Sólo lectura",
     "Remove" : "Remover",
-    "Limit to groups" : "Limitar a grupos",
     "Save" : "Guardar",
+    "Select or drop files" : "Selecciona o suelta los archivos",
+    "Limit to groups" : "Limitar a grupos",
     "Cancel" : "Cancel",
     "End-to-end encryption" : "Encripción de punta-a-punta"
 },

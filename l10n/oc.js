@@ -5,9 +5,11 @@ OC.L10N.register(
     "Submit" : "Transmetre",
     "Folder name" : "Nom del dorsièr",
     "Continue" : "Contunhar",
+    "Read only" : "Lectura sola",
+    "Edit" : "Modificar",
     "Remove" : "Suprimir",
-    "Limit to groups" : "Limitar als grops",
     "Save" : "Enregistrar",
+    "Limit to groups" : "Limitar als grops",
     "Cancel" : "Anullar",
     "Close" : "Plegar"
 },
