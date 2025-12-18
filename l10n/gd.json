@@ -1,0 +1,10 @@
+{ "translations": {
+    "Folder name" : "Ainm a’ phasgain",
+    "Read only" : "Ri leughadh a-mhàin",
+    "Edit" : "Deasaich",
+    "Remove" : "Thoir air falbh",
+    "Save" : "Sàbhail",
+    "Cancel" : "Sguir dheth",
+    "Close" : "Dùin"
+},"pluralForm" :"nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3;"
+}

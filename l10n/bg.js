@@ -31,6 +31,8 @@ OC.L10N.register(
     "Submit" : "Изпращане",
     "Folder name" : "Име на папка",
     "Continue" : "Продължаване",
+    "Read only" : "Само за четене",
+    "Edit" : "Промяна",
     "Remove" : "Премахване",
     "Save" : "Запиши",
     "Error while uploading files" : "Грешка при качване на файлове",

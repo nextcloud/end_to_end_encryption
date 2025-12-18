@@ -1,0 +1,9 @@
+{ "translations": {
+    "Folder name" : "Պանակի անուն",
+    "Continue" : "Շարունակել",
+    "Edit" : "մշակել",
+    "Save" : "Պահպանել",
+    "Cancel" : "չեղարկել",
+    "Close" : "Փակել"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

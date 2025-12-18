@@ -40,6 +40,7 @@ OC.L10N.register(
     "Mnemonic" : "Mnemónico",
     "Continue" : "Continuar",
     "Read only" : "Sólo lectura",
+    "Edit" : "Editar",
     "Remove" : "Quitar",
     "Share permissions" : "Permisos del recurso compartido",
     "Save" : "Guardar",

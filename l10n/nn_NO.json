@@ -1,0 +1,9 @@
+{ "translations": {
+    "Folder name" : "Katalognavn",
+    "Continue" : "Gå vidare",
+    "Edit" : "Rediger",
+    "Save" : "Lagre",
+    "Cancel" : "Cancel",
+    "Close" : "Lat att"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
