@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\AppInfo;
 
+use OCA\DAV\Events\SabrePluginAddEvent;
 use OCA\EndToEndEncryption\Capabilities;
 use OCA\EndToEndEncryption\Connector\Sabre\LockPlugin;
 use OCA\EndToEndEncryption\Connector\Sabre\RedirectRequestPlugin;
@@ -34,9 +35,9 @@ use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\EventDispatcher\IEventDispatcher;
-use OCP\SabrePluginEvent;
 use OCP\Security\CSP\AddContentSecurityPolicyEvent;
 use OCP\User\Events\UserDeletedEvent;
+use Override;
 
 class Application extends App implements IBootstrap {
 	public const APP_ID = 'end_to_end_encryption';
@@ -50,10 +51,7 @@ class Application extends App implements IBootstrap {
 		parent::__construct(self::APP_ID, $urlParams);
 	}
 
-
-	/**
-	 * @inheritDoc
-	 */
+	#[Override]
 	public function register(IRegistrationContext $context): void {
 		$context->registerCapability(Capabilities::class);
 		$context->registerMiddleware(UserAgentCheckMiddleware::class);
@@ -68,24 +66,20 @@ class Application extends App implements IBootstrap {
 		$context->registerPublicShareTemplateProvider(E2EEPublicShareTemplateProvider::class);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[Override]
 	public function boot(IBootContext $context): void {
 		$eventDispatcher = $context->getServerContainer()->get(IEventDispatcher::class);
-		$eventDispatcher->addListener('OCA\DAV\Connector\Sabre::addPlugin', function (SabrePluginEvent $event): void {
+		$eventDispatcher->addListener(SabrePluginAddEvent::class, function (SabrePluginAddEvent $event): void {
 			$server = $event->getServer();
 
-			if ($server !== null) {
-				// We have to register the LockPlugin here and not info.xml,
-				// because info.xml plugins are loaded, after the
-				// beforeMethod:* hook has already been emitted.
-				$server->addPlugin($this->getContainer()->get(LockPlugin::class));
-				$server->addPlugin($this->getContainer()->get(RedirectRequestPlugin::class));
-			}
+			// We have to register the LockPlugin here and not info.xml,
+			// because info.xml plugins are loaded, after the
+			// beforeMethod:* hook has already been emitted.
+			$server->addPlugin($this->getContainer()->get(LockPlugin::class));
+			$server->addPlugin($this->getContainer()->get(RedirectRequestPlugin::class));
 		});
 
-		$eventDispatcher->addListener('OCA\Files_Trashbin::moveToTrash', function (MoveToTrashEvent $event): void {
+		$eventDispatcher->addListener(MoveToTrashEvent::class, function (MoveToTrashEvent $event): void {
 			/** @var EncryptionManager $encryptionManager */
 			$encryptionManager = $this->getContainer()->get(EncryptionManager::class);
 
@@ -96,7 +90,7 @@ class Application extends App implements IBootstrap {
 		});
 
 
-		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function (CreateVersionEvent $event): void {
+		$eventDispatcher->addListener(CreateVersionEvent::class, function (CreateVersionEvent $event): void {
 			/** @var EncryptionManager $encryptionManager */
 			$encryptionManager = $this->getContainer()->get(EncryptionManager::class);
 
