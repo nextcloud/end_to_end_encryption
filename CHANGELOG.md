@@ -7,7 +7,7 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.0-rc.3 - 2025-12-15
+## v2.0.0-rc.4 - 2025-12-18
 ### Added
 * Setup end-to-end encryption in the web interface.
   When end-to-end encryption is enabled in the browser (see personal settings - security),
@@ -25,6 +25,7 @@
   * Sharing encrypted root folders is now possible from within the files app.
     Using the files sidebar just like with regular files,
     though shares always have all permissions enabled as per requirements of end-to-end encryption.
+  * Allow to create read only shares with users.
 
 ### Fixed
 * Fixed locking to allow leaving encrypted root folders properly.
@@ -36,6 +37,10 @@ Those fixes only affect you if you already used a previous pre-release of v2.
 * Folders also need the `is-encrypted` attribute to be correctly displayed in the files app.
 * Sharing sidebar work now also when `debug` mode is disabled.
 * "Do not ask again" toggle of mnemonic dialog is respected.
+* fix(sharing): consolidate share tab and ensure user keys are used
+* fix(sharing): hide native sharing sections
+* fix(sharing): adjusted information about sharing
+* fix: ensure new files and folders will be created with unique names
 
 ### Changed
 * Updated dependencies
