@@ -1,0 +1,9 @@
+{ "translations": {
+    "Folder name" : "Dossiers Numm:",
+    "Continue" : "Weider",
+    "Edit" : "Änneren",
+    "Save" : "Späicheren",
+    "Cancel" : "Cancel",
+    "Close" : "Zoumaachen"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

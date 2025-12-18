@@ -21,6 +21,7 @@ OC.L10N.register(
     "Folder name" : "Dosierujnomo",
     "Continue" : "Daŭrigi",
     "Read only" : "Nurlega",
+    "Edit" : "Modifi",
     "Save" : "Konservi",
     "Select or drop files" : "Elekti aŭ demeti dosierojn",
     "Limit to groups" : "Limigi al grupoj",

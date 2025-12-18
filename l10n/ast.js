@@ -21,6 +21,8 @@ OC.L10N.register(
     "Submit" : "Unviar",
     "Folder name" : "Nome de la carpeta",
     "Continue" : "Siguir",
+    "Read only" : "Namás llectura",
+    "Edit" : "Editar",
     "Remove" : "Quitar",
     "Save" : "Guardar",
     "Error while uploading files" : "Hebo un error al xubir los ficheros",

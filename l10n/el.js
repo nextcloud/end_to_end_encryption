@@ -38,6 +38,8 @@ OC.L10N.register(
     "Folder name" : "Όνομα φακέλου",
     "Mnemonic" : "Μνημονικό",
     "Continue" : "Συνέχεια",
+    "Read only" : "Μόνο ανάγνωση",
+    "Edit" : "Επεξεργασία",
     "Remove" : "Αφαίρεση",
     "Save" : "Αποθήκευση",
     "Enter your 12 words mnemonic" : "Εισάγετε τα 12 λέξεις μνημονικό σας",
