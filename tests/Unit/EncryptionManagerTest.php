@@ -144,7 +144,7 @@ class EncryptionManagerTest extends TestCase {
 	}
 
 	/**
-	 * @return PHPUnit_Framework_MockObject_MockObject[]
+	 * @return list<Node&MockObject>
 	 */
 	public function constructNestedNodes(): array {
 		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
@@ -188,16 +188,16 @@ class EncryptionManagerTest extends TestCase {
 
 		$this->shareManager->method('getSharesBy')
 			->willReturnMap([
-				['userId123', IShare::TYPE_USER, $node1, false, 1, []],
-				['userId123', IShare::TYPE_GROUP, $node1, false, 1, []],
-				['userId123', IShare::TYPE_USERGROUP, $node1, false, 1, []],
-				['userId123', IShare::TYPE_LINK, $node1, false, 1, []],
-				['userId123', IShare::TYPE_EMAIL, $node1, false, 1, []],
-				['userId123', IShare::TYPE_REMOTE, $node1, false, 1, []],
-				['userId123', IShare::TYPE_CIRCLE, $node1, false, 1, []],
-				['userId123', IShare::TYPE_GUEST, $node1, false, 1, []],
-				['userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1, []],
-				['userId123', IShare::TYPE_ROOM, $node1, false, 1, []],
+				['userId123', IShare::TYPE_USER, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_GROUP, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_USERGROUP, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_LINK, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_EMAIL, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_REMOTE, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_CIRCLE, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_GUEST, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1, 0, true, []],
+				['userId123', IShare::TYPE_ROOM, $node1, false, 1, 0, true, []],
 			]);
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
