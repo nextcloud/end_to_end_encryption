@@ -60,7 +60,7 @@ class CapabilitiesTest extends TestCase {
 		$this->assertEquals([
 			'end-to-end-encryption' => [
 				'enabled' => true,
-				'api-version' => '2.0',
+				'api-version' => '2.1',
 				'keys-exist' => true
 			]
 		], $this->capabilities->getCapabilities());

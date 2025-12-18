@@ -17,6 +17,7 @@ use OCP\Files\NotPermittedException;
 use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\IUser;
 use OCP\IUserSession;
+use OCP\Share\IManager;
 
 /**
  * Class KeyStorage
@@ -26,18 +27,17 @@ use OCP\IUserSession;
  * @package OCA\EndToEndEncryption
  */
 class KeyStorage implements IKeyStorage {
-	private IAppData $appData;
-	private IUserSession $userSession;
 	private string $privateKeysRoot = '/private-keys';
 	private string $publicKeysRoot = '/public-keys';
 
 	private ?ISimpleFolder $privateKeysRootFolder = null;
 	private ?ISimpleFolder $publicKeysRootFolder = null;
 
-	public function __construct(IAppData $appData,
-		IUserSession $userSession) {
-		$this->appData = $appData;
-		$this->userSession = $userSession;
+	public function __construct(
+		private IAppData $appData,
+		private IUserSession $userSession,
+		private IManager $shareManager,
+	) {
 	}
 
 	/**
@@ -53,20 +53,20 @@ class KeyStorage implements IKeyStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function publicKeyExists(string $uid): bool {
+	public function publicKeyExists(string $uid, ?string $shareToken = null): bool {
 		$publicKeysRoot = $this->getPublicKeysRootFolder();
 
-		$fileName = $this->getFileNameForPublicKey($uid);
+		$fileName = $this->getFileNameForPublicKey($uid, $shareToken);
 		return $publicKeysRoot->fileExists($fileName);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function setPublicKey(string $publicKey, string $uid): void {
+	public function setPublicKey(string $publicKey, string $uid, ?string $shareToken = null): void {
 		$publicKeysRoot = $this->getPublicKeysRootFolder();
 
-		$fileName = $this->getFileNameForPublicKey($uid);
+		$fileName = $this->getFileNameForPublicKey($uid, $shareToken);
 		if ($publicKeysRoot->fileExists($fileName)) {
 			throw new KeyExistsException('Public key already exists');
 		}
@@ -79,15 +79,21 @@ class KeyStorage implements IKeyStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function deletePublicKey(string $uid): void {
+	public function deletePublicKey(string $uid, ?string $shareToken = null): void {
 		$publicKeysRoot = $this->getPublicKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
 			throw new NotPermittedException('You are not allowed to delete the public key');
 		}
+		if ($shareToken !== null) {
+			$share = $this->shareManager->getShareByToken($shareToken);
+			if ($share->getShareOwner() !== $user->getUID()) {
+				throw new NotPermittedException('You are not allowed to delete the public key');
+			}
+		}
 
-		$fileName = $this->getFileNameForPublicKey($uid);
+		$fileName = $this->getFileNameForPublicKey($uid, $shareToken);
 		try {
 			$file = $publicKeysRoot->getFile($fileName);
 		} catch (NotFoundException $ex) {
@@ -100,45 +106,51 @@ class KeyStorage implements IKeyStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function getPrivateKey(string $uid): string {
+	public function getPrivateKey(string $uid, ?string $shareToken = null): string {
 		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
-		if ($user === null || $user->getUID() !== $uid) {
+		if ($shareToken === null && ($user === null || $user->getUID() !== $uid)) {
 			throw new ForbiddenException('You are not allowed to access the private key', false);
 		}
 
-		$fileName = $this->getFileNameForPrivateKey($uid);
+		$fileName = $this->getFileNameForPrivateKey($uid, $shareToken);
 		return $privateKeysRoot->getFile($fileName)->getContent();
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function privateKeyExists(string $uid): bool {
+	public function privateKeyExists(string $uid, ?string $shareToken = null): bool {
 		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
-		if ($user === null || $user->getUID() !== $uid) {
+		if (($user === null && $shareToken === null) || ($shareToken === null && $user->getUID() !== $uid)) {
 			throw new ForbiddenException('You are not allowed to access the private key', false);
 		}
 
-		$fileName = $this->getFileNameForPrivateKey($uid);
+		$fileName = $this->getFileNameForPrivateKey($uid, $shareToken);
 		return $privateKeysRoot->fileExists($fileName);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function setPrivateKey(string $privateKey, string $uid): void {
+	public function setPrivateKey(string $privateKey, string $uid, ?string $shareToken = null): void {
 		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
 			throw new ForbiddenException('You are not allowed to write the private key', false);
 		}
+		if ($shareToken !== null) {
+			$share = $this->shareManager->getShareByToken($shareToken);
+			if ($share->getShareOwner() !== $user->getUID()) {
+				throw new ForbiddenException('You are not allowed to write the private key', false);
+			}
+		}
 
-		$fileName = $this->getFileNameForPrivateKey($uid);
+		$fileName = $this->getFileNameForPrivateKey($uid, $shareToken);
 		if ($privateKeysRoot->fileExists($fileName)) {
 			throw new KeyExistsException('Private key already exists');
 		}
@@ -151,12 +163,18 @@ class KeyStorage implements IKeyStorage {
 	/**
 	 * @inheritDoc
 	 */
-	public function deletePrivateKey(string $uid): void {
+	public function deletePrivateKey(string $uid, ?string $shareToken = null): void {
 		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 
 		$user = $this->userSession->getUser();
 		if ($user === null || $user->getUID() !== $uid) {
 			throw new NotPermittedException('You are not allowed to delete the private key');
+		}
+		if ($shareToken !== null) {
+			$share = $this->shareManager->getShareByToken($shareToken);
+			if ($share->getShareOwner() !== $user->getUID()) {
+				throw new NotPermittedException('You are not allowed to delete the private key');
+			}
 		}
 
 		$fileName = $this->getFileNameForPrivateKey($uid);
@@ -243,11 +261,21 @@ class KeyStorage implements IKeyStorage {
 		return $this->publicKeysRootFolder;
 	}
 
-	private function getFileNameForPublicKey(string $uid): string {
+	private function getFileNameForPublicKey(string $uid, ?string $shareToken = null): string {
+		if (str_starts_with($uid, 's:')) {
+			$shareToken = substr($uid, 2);
+		}
+
+		if ($shareToken !== null) {
+			return $shareToken . '.share.public.key';
+		}
 		return $uid . '.public.key';
 	}
 
-	private function getFileNameForPrivateKey(string $uid): string {
+	private function getFileNameForPrivateKey(string $uid, ?string $shareToken = null): string {
+		if ($shareToken !== null) {
+			return $shareToken . '.share.private.key';
+		}
 		return $uid . '.private.key';
 	}
 }

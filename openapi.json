@@ -101,7 +101,13 @@
                                 "properties": {
                                     "privateKey": {
                                         "type": "string",
-                                        "description": "The new private key"
+                                        "description": "- The new private key"
+                                    },
+                                    "shareToken": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "default": null,
+                                        "description": "- Optional share token to set a private key associated with a share"
                                     }
                                 }
                             }
@@ -265,6 +271,7 @@
                     "key"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -284,6 +291,16 @@
                                 "2"
                             ],
                             "default": "2"
+                        }
+                    },
+                    {
+                        "name": "shareToken",
+                        "in": "query",
+                        "description": "- Optional share token to get a private key associated with a share",
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "default": null
                         }
                     },
                     {
@@ -419,34 +436,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             },
@@ -476,6 +465,16 @@
                                 "2"
                             ],
                             "default": "2"
+                        }
+                    },
+                    {
+                        "name": "shareToken",
+                        "in": "query",
+                        "description": "- Optional share token to delete a private key associated with a share",
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "default": null
                         }
                     },
                     {
@@ -845,6 +844,12 @@
                                     "csr": {
                                         "type": "string",
                                         "description": "request to create a valid public key"
+                                    },
+                                    "shareToken": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "default": null,
+                                        "description": "- optional share token to create a public key associated with a share"
                                     }
                                 }
                             }
@@ -1036,6 +1041,7 @@
                     "key"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -1174,34 +1180,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             },
@@ -1231,6 +1209,16 @@
                                 "2"
                             ],
                             "default": "2"
+                        }
+                    },
+                    {
+                        "name": "shareToken",
+                        "in": "query",
+                        "description": "- Optional share token to delete a public key associated with a share",
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "default": null
                         }
                     },
                     {
@@ -1396,6 +1384,7 @@
                     "key"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -1469,34 +1458,6 @@
                     },
                     "400": {
                         "description": "Internal error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {

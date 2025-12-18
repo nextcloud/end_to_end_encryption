@@ -21,37 +21,24 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
+use OCP\Share\IManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
 class KeyControllerTest extends TestCase {
 
-	/** @var string */
-	private $appName;
+	private string $userId;
+	private IRequest&MockObject $request;
+	private IKeyStorage&MockObject $keyStorage;
+	private SignatureHandler&MockObject $signatureHandler;
+	private LoggerInterface&MockObject $logger;
+	private IL10N&MockObject $l10n;
+	private IManager&MockObject $shareManager;
+	private KeyController $controller;
 
-	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
-	private $request;
-
-	/** @var string */
-	private $userId;
-
-	/** @var IKeyStorage|\PHPUnit\Framework\MockObject\MockObject */
-	private $keyStorage;
-
-	/** @var SignatureHandler|\PHPUnit\Framework\MockObject\MockObject */
-	private $signatureHandler;
-
-	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-	private $logger;
-
-	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
-	private $l10n;
-
-	/** @var KeyController */
-	private $controller;
-
-	/** @var string valid CSR (CN set to "admin") */
-	private $validCSR = '-----BEGIN CERTIFICATE REQUEST-----
+	/** valid CSR (CN set to "admin") */
+	private string $validCSR = '-----BEGIN CERTIFICATE REQUEST-----
 MIIC7jCCAdYCAQAwgagxCzAJBgNVBAYTAlVLMREwDwYDVQQIDAhTb21lcnNldDEU
 MBIGA1UEBwwLR2xhc3RvbmJ1cnkxHzAdBgNVBAoMFlRoZSBCcmFpbiBSb29tIExp
 bWl0ZWQxHzAdBgNVBAsMFlBIUCBEb2N1bWVudGF0aW9uIFRlYW0xDjAMBgNVBAMM
@@ -71,28 +58,28 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 -----END CERTIFICATE REQUEST-----
 ';
 
-	/** @var string */
-	private $invalidCSR = "-----BEGIN CERTIFICATE REQUEST-----\nMIIC7jCCAdYCAQAwgagxCzAJBgNVBAYTAlVLMREwDwYDVQQIDAhTb21lcnNldDEU\nMBIGA1UEBwwLR2xhc3RvbmJ1cnkxHzAdBgNVBAoMFlRoZSBCcmFpbiBSb29tIExp\nbWl0ZWQxHzAdBgNVBAsMFlBIUCBEb2N1bWVudGF0aW9uIFRlYW0xDjAMBgNVBAMM\nBWFkbWluMR4wHAYJKoZIhvcNAQkBFg93ZXpAZXhhbXBsZS5jb20wggEiMA0GCSqG\nSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDHWU8rWlK3lud%2Fr5OQoilxypgIzbBf5pqM\nH0rpYwFv3uctnK5Lt3M%2BWY45XdJt98Pq8eQ0AbyAf3IuhnpF%2BX2Ej3QnCenZ0H%2BB\nJ6%2FmZXdo9f7IXa2wH5LtA2cmm1XWQWubN%2FJzr9psq%2BkxbocyGTQhNGeeB2OPcgyl\n73eddJNIbFVlNEzbdcBNNsSwKcB%2BLP%2FJyJ9e1HZ4af6CHdX2SG1HvO%2BdICdEuO2E\nmC9lM896MJFWwNns5mx453Y1FmxFmAi1zQAAP%2BAZ5Taqy6yCzqJ9Y4%2FFDRi1NC5V\nstnu9REuPYSS8YgsJwQE%2FDUd%2BI%2BUonkcDfac8PIH5p5YHpMq0ChvAgMBAAGgADAN\nBgkqhkiG9w0BAQUFAAOCAQEAh8YVAsAcPR5v7kv96UtkVI4xK6R9BdmVsnisxTpm\ng9JVbfji7kpxbSgXfRSozTG3bl9ynrck39%2F2SoFQGSGrW2iV%2BdrclftSk%2BuBFb1F\niXYEWJxYSz2CcUeijoBrBsarfmODgOHzmgXmCoOToz2DkdtM7g9INWkC06Do4pTQ\nfqA3PS2td1gWqQCQthF9IWOCIxNI16lokVTgNCZKewXsn9Bjm3hsLLeJU9jBXyVN\nw7829dr37SuA2kQb86aVpqdL50v3HjCclXd7PfWiYqajuHaIsokBV5ly2IdQo4Cz\nAYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw%3D%3D\n-----END+CERTIFICATE+REQUEST-----\n";
-
+	private string $invalidCSR = "-----BEGIN CERTIFICATE REQUEST-----\nMIIC7jCCAdYCAQAwgagxCzAJBgNVBAYTAlVLMREwDwYDVQQIDAhTb21lcnNldDEU\nMBIGA1UEBwwLR2xhc3RvbmJ1cnkxHzAdBgNVBAoMFlRoZSBCcmFpbiBSb29tIExp\nbWl0ZWQxHzAdBgNVBAsMFlBIUCBEb2N1bWVudGF0aW9uIFRlYW0xDjAMBgNVBAMM\nBWFkbWluMR4wHAYJKoZIhvcNAQkBFg93ZXpAZXhhbXBsZS5jb20wggEiMA0GCSqG\nSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDHWU8rWlK3lud%2Fr5OQoilxypgIzbBf5pqM\nH0rpYwFv3uctnK5Lt3M%2BWY45XdJt98Pq8eQ0AbyAf3IuhnpF%2BX2Ej3QnCenZ0H%2BB\nJ6%2FmZXdo9f7IXa2wH5LtA2cmm1XWQWubN%2FJzr9psq%2BkxbocyGTQhNGeeB2OPcgyl\n73eddJNIbFVlNEzbdcBNNsSwKcB%2BLP%2FJyJ9e1HZ4af6CHdX2SG1HvO%2BdICdEuO2E\nmC9lM896MJFWwNns5mx453Y1FmxFmAi1zQAAP%2BAZ5Taqy6yCzqJ9Y4%2FFDRi1NC5V\nstnu9REuPYSS8YgsJwQE%2FDUd%2BI%2BUonkcDfac8PIH5p5YHpMq0ChvAgMBAAGgADAN\nBgkqhkiG9w0BAQUFAAOCAQEAh8YVAsAcPR5v7kv96UtkVI4xK6R9BdmVsnisxTpm\ng9JVbfji7kpxbSgXfRSozTG3bl9ynrck39%2F2SoFQGSGrW2iV%2BdrclftSk%2BuBFb1F\niXYEWJxYSz2CcUeijoBrBsarfmODgOHzmgXmCoOToz2DkdtM7g9INWkC06Do4pTQ\nfqA3PS2td1gWqQCQthF9IWOCIxNI16lokVTgNCZKewXsn9Bjm3hsLLeJU9jBXyVN\nw7829dr37SuA2kQb86aVpqdL50v3HjCclXd7PfWiYqajuHaIsokBV5ly2IdQo4Cz\nAYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw%3D%3D\n-----END+CERTIFICATE+REQUEST-----\n";
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->appName = 'end_to_end_encryption';
 		$this->request = $this->createMock(IRequest::class);
 		$this->userId = 'admin';
 		$this->keyStorage = $this->createMock(IKeyStorage::class);
 		$this->signatureHandler = $this->createMock(SignatureHandler::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
+		$this->shareManager = $this->createMock(IManager::class);
 
-		$this->controller = new KeyController($this->appName,
+		$this->controller = new KeyController(
 			$this->request,
 			$this->userId,
 			$this->keyStorage,
 			$this->signatureHandler,
 			$this->logger,
-			$this->l10n);
+			$this->l10n,
+			$this->shareManager,
+		);
 	}
 
 	/**
@@ -129,7 +116,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
 				->method('critical')
-				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
+				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => 'end_to_end_encryption']);
 		}
 
 		if ($expectedException) {
@@ -187,7 +174,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
 				->method('critical')
-				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
+				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => 'end_to_end_encryption']);
 		}
 
 		if ($expectedException) {
@@ -248,7 +235,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
 				->method('critical')
-				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
+				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => 'end_to_end_encryption']);
 		}
 
 		if ($expectedException) {
@@ -292,6 +279,35 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 				'user2' => 'USER2-PUBLIC-KEY',
 				'user3' => 'USER3-PUBLIC-KEY',
 				'admin' => 'JOHN.DOE-PUBLIC-KEY',
+			]
+		], $response->getData());
+	}
+
+	public function testGetPublicKeysForShare(): void {
+		$users = '["user1","s:share-token"]';
+
+		$this->keyStorage->expects($this->exactly(2))
+			->method('getPublicKey')
+			->willReturnMap([
+				['user1', 'USER1-PUBLIC-KEY'],
+				['s:share-token', 'SHARE-PUBLIC-KEY'],
+			]);
+
+		$controller = new KeyController(
+			$this->request,
+			null,
+			$this->keyStorage,
+			$this->signatureHandler,
+			$this->logger,
+			$this->l10n,
+			$this->shareManager,
+		);
+		$response = $controller->getPublicKeys($users);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertEquals([
+			'public-keys' => [
+				'user1' => 'USER1-PUBLIC-KEY',
+				's:share-token' => 'SHARE-PUBLIC-KEY',
 			]
 		], $response->getData());
 	}
@@ -349,7 +365,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->logger->expects($this->once())
 			->method('critical')
-			->with($exception->getMessage(), ['exception' => $exception, 'app' => $this->appName]);
+			->with($exception->getMessage(), ['exception' => $exception, 'app' => 'end_to_end_encryption']);
 
 		$this->expectException(OCSBadRequestException::class);
 		$this->expectExceptionMessage('Internal error');
@@ -380,23 +396,23 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	}
 
 	public function testCreatePublicKeyInvalidCN(): void {
-		$controller = new KeyController($this->appName,
+		$controller = new KeyController(
 			$this->request,
 			'user123',
 			$this->keyStorage,
 			$this->signatureHandler,
 			$this->logger,
-			$this->l10n);
+			$this->l10n,
+			$this->shareManager,
+		);
 
 		$this->keyStorage->expects($this->once())
 			->method('publicKeyExists')
 			->with('user123')
 			->willReturn(false);
 
-		$this->signatureHandler->expects($this->once())
-			->method('sign')
-			->with($this->validCSR)
-			->willReturn('MY-PUBLIC-KEY');
+		$this->signatureHandler->expects($this->never())
+			->method('sign');
 
 		$this->keyStorage->expects($this->never())
 			->method('setPublicKey');
@@ -419,10 +435,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->with('admin')
 			->willReturn(false);
 
-		$this->signatureHandler->expects($this->once())
-			->method('sign')
-			->with($this->invalidCSR)
-			->willThrowException(new \BadMethodCallException());
+		$this->signatureHandler->expects($this->never())
+			->method('sign');
 
 		$this->expectException(OCSBadRequestException::class);
 
@@ -473,7 +487,10 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
 				->method('critical')
-				->with($keyStorageException->getMessage(), ['exception' => $keyStorageException, 'app' => $this->appName]);
+				->with(
+					$keyStorageException->getMessage(),
+					['exception' => $keyStorageException, 'app' => 'end_to_end_encryption'],
+				);
 		}
 
 		if ($expectedException) {
