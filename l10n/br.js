@@ -4,6 +4,8 @@ OC.L10N.register(
     "Submit" : "Kinnig",
     "Folder name" : "Anv teuliad",
     "Continue" : "Kendec'hel",
+    "Read only" : "Da lenn nemetken",
+    "Edit" : "Embann",
     "Save" : "Enrollañ",
     "Limit to groups" : "Nemet d'ar strolladoù",
     "Limit app usage to groups" : "Lakaat ar meziant da veza implijet gant ar strolladoù nemetken",

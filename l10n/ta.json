@@ -1,0 +1,9 @@
+{ "translations": {
+    "Folder name" : "கோப்புறை பெயர்",
+    "Edit" : "தொகுக்க",
+    "Remove" : "அகற்றுக",
+    "Save" : "சேமிக்க ",
+    "Cancel" : "ரத்து செய்",
+    "Close" : "மூடுக"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

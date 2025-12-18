@@ -1,0 +1,10 @@
+{ "translations": {
+    "Submit" : "мэдэгдэх",
+    "Folder name" : "Хавтасны нэр",
+    "Continue" : "үргэлжлүүлэх",
+    "Read only" : "Зөвхөн унших",
+    "Edit" : "Өөрчлөх",
+    "Save" : "Хадгалах",
+    "Cancel" : "Цуцлах"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
