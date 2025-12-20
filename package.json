@@ -23,7 +23,7 @@
     "@mdi/svg": "^7.4.47",
     "@nextcloud/auth": "^2.3.0",
     "@nextcloud/axios": "^2.5.1",
-    "@nextcloud/dialogs": "^6.3.2",
+    "@nextcloud/dialogs": "^6.4.2",
     "@nextcloud/files": "^3.12.1",
     "@nextcloud/initial-state": "^2.2.0",
     "@nextcloud/l10n": "^3.4.1",
