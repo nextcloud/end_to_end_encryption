@@ -57,8 +57,8 @@ async function createShare() {
 
 <template>
 	<section>
-		<h5>{{ t('end_to_end_encryption', 'End-to-end encrypted filedrop') }}</h5>
-		<ul :aria-label="t('end_to_end_encryption', 'End-to-end encrypted filedrops')">
+		<h5>{{ t('end_to_end_encryption', 'End-to-end encrypted file drop') }}</h5>
+		<ul :aria-label="t('end_to_end_encryption', 'End-to-end encrypted file drops')">
 			<FilesSharingSidebarSectionFiledropEntry
 				v-for="share in filedropShares"
 				:key="share.id"
@@ -69,7 +69,7 @@ async function createShare() {
 			<template #icon>
 				<NcIconSvgWrapper :path="mdiPlus" />
 			</template>
-			{{ t('end_to_end_encryption', 'New filedrop') }}
+			{{ t('end_to_end_encryption', 'New file drop') }}
 		</NcButton>
 	</section>
 </template>

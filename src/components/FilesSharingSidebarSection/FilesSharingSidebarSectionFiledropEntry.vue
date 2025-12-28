@@ -51,16 +51,16 @@ async function deleteShare() {
 		</template>
 		<template #extra-actions>
 			<NcButton
-				:aria-label="t('end_to_end_encryption', 'Copy filedrop link')"
-				:title="t('end_to_end_encryption', 'Copy filedrop link')"
+				:aria-label="t('end_to_end_encryption', 'Copy file drop link')"
+				:title="t('end_to_end_encryption', 'Copy file drop link')"
 				@click="copyLink">
 				<template #icon>
 					<NcIconSvgWrapper :path="mdiContentCopy" />
 				</template>
 			</NcButton>
 			<NcButton
-				:aria-label="t('end_to_end_encryption', 'Delete filedrop')"
-				:title="t('end_to_end_encryption', 'Delete filedrop')"
+				:aria-label="t('end_to_end_encryption', 'Delete file drop')"
+				:title="t('end_to_end_encryption', 'Delete file drop')"
 				@click="deleteShare">
 				<template #icon>
 					<NcIconSvgWrapper :path="mdiTrashCanOutline" />
