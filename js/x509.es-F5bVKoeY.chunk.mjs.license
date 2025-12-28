@@ -2,6 +2,7 @@ SPDX-License-Identifier: 0BSD
 SPDX-License-Identifier: Apache-2.0
 SPDX-License-Identifier: BSD-3-Clause
 SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: James Halliday
 SPDX-FileCopyrightText: Microsoft Corp.
 SPDX-FileCopyrightText: Peculiar Ventures LLC
 SPDX-FileCopyrightText: PeculiarVentures
@@ -50,6 +51,9 @@ This file is generated from multiple sources. Included packages:
 	- license: BSD-3-Clause
 - ipaddr.js
 	- version: 2.2.0
+	- license: MIT
+- path-browserify
+	- version: 1.0.1
 	- license: MIT
 - pvtsutils
 	- version: 1.3.5
