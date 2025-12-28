@@ -20,10 +20,13 @@ This file is generated from multiple sources. Included packages:
 	- version: 7.4.47
 	- license: Apache-2.0
 - @nextcloud/files
-	- version: 3.12.0
+	- version: 3.12.2
 	- license: AGPL-3.0-or-later
+- @nextcloud/initial-state
+	- version: 3.0.0
+	- license: GPL-3.0-or-later
 - @nextcloud/sharing
-	- version: 0.2.4
+	- version: 0.3.0
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
 	- version: 8.35.0
