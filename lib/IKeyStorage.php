@@ -34,7 +34,7 @@ interface IKeyStorage {
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 */
-	public function publicKeyExists(string $uid): bool;
+	public function publicKeyExists(string $uid, ?string $shareToken = null): bool;
 
 	/**
 	 * Store public key
@@ -43,7 +43,7 @@ interface IKeyStorage {
 	 * @throws NotFoundException
 	 * @throws NotPermittedException
 	 */
-	public function setPublicKey(string $publicKey, string $uid): void;
+	public function setPublicKey(string $publicKey, string $uid, ?string $shareToken = null): void;
 
 	/**
 	 * Delete the users public key
@@ -51,7 +51,7 @@ interface IKeyStorage {
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
-	public function deletePublicKey(string $uid): void;
+	public function deletePublicKey(string $uid, ?string $shareToken = null): void;
 
 	/**
 	 * Get users private key
@@ -60,7 +60,7 @@ interface IKeyStorage {
 	 * @throws NotPermittedException
 	 * @throws ForbiddenException
 	 */
-	public function getPrivateKey(string $uid): string;
+	public function getPrivateKey(string $uid, ?string $shareToken = null): string;
 
 	/**
 	 * Check if a private key exists
@@ -69,7 +69,7 @@ interface IKeyStorage {
 	 * @throws NotPermittedException
 	 * @throws ForbiddenException
 	 */
-	public function privateKeyExists(string $uid): bool;
+	public function privateKeyExists(string $uid, ?string $shareToken = null): bool;
 
 	/**
 	 * Store private key
@@ -79,7 +79,7 @@ interface IKeyStorage {
 	 * @throws NotPermittedException
 	 * @throws ForbiddenException
 	 */
-	public function setPrivateKey(string $privateKey, string $uid): void;
+	public function setPrivateKey(string $privateKey, string $uid, ?string $shareToken = null): void;
 
 	/**
 	 * Get users private key
@@ -87,7 +87,7 @@ interface IKeyStorage {
 	 * @throws NotPermittedException
 	 * @throws NotFoundException
 	 */
-	public function deletePrivateKey(string $uid): void;
+	public function deletePrivateKey(string $uid, ?string $shareToken = null): void;
 
 	/**
 	 * Delete all user private and public key permanently
