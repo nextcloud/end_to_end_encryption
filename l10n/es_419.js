@@ -10,6 +10,7 @@ OC.L10N.register(
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
     "Read only" : "Sólo lectura",
+    "Edit" : "Editar",
     "Save" : "Guardar",
     "Select or drop files" : "Selecciona o suelta los archivos",
     "Limit to groups" : "Limitar a grupos",
