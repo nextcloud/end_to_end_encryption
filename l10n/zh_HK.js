@@ -54,8 +54,6 @@ OC.L10N.register(
     "To set up encryption, a new private key will be generated for you." : "為設定加密功能，系統將為您產生一組新的私鑰。",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "請務必備份以下還原密語，因為您需要它才能存取加密檔案。",
     "Your recovery phrase is:" : "您的還原密語為：",
-    "Copy filedrop link" : "複製 filedrop 連結",
-    "Delete filedrop" : "刪除 filedrop",
     "The selected user has not yet enabled end-to-end encryption." : "所選用戶尚未啟用端到端加密。",
     "Share permissions updated successfully." : "已成功更新分享權限。",
     "End-to-end encrypted shares" : "端到端加密分享",
