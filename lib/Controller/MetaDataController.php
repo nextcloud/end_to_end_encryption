@@ -8,11 +8,14 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Controller;
 
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -59,9 +62,6 @@ class MetaDataController extends OCSController {
 	/**
 	 * Get metadata
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 *
 	 * @param int $id File ID
 	 * @param ?string $shareToken Token of the share if available
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{x-nc-e2ee-signature: string}>
@@ -70,6 +70,8 @@ class MetaDataController extends OCSController {
 	 *
 	 * 200: Metadata returned
 	 */
+	#[NoAdminRequired]
+	#[E2ERestrictUserAgent]
 	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
 		try {
 			$ownerId = $this->getOwnerId($shareToken);
@@ -90,8 +92,6 @@ class MetaDataController extends OCSController {
 	/**
 	 * Set metadata
 	 *
-	 * @NoAdminRequired
-	 *
 	 * @param int $id File ID
 	 * @param string $metaData New metadata
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
@@ -101,6 +101,7 @@ class MetaDataController extends OCSController {
 	 * 200: Metadata set successfully
 	 * 409: Metadata already exists
 	 */
+	#[NoAdminRequired]
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$signature = $this->request->getHeader('x-nc-e2ee-signature');
@@ -134,7 +135,6 @@ class MetaDataController extends OCSController {
 	/**
 	 * Update metadata
 	 *
-	 * @NoAdminRequired
 	 * @param int $id File ID
 	 * @param string $metaData New metadata
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
@@ -144,6 +144,7 @@ class MetaDataController extends OCSController {
 	 *
 	 * 200: Metadata updated successfully
 	 */
+	#[NoAdminRequired]
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$signature = $this->request->getHeader('x-nc-e2ee-signature');
@@ -177,8 +178,6 @@ class MetaDataController extends OCSController {
 	/**
 	 * Delete metadata
 	 *
-	 * @NoAdminRequired
-	 *
 	 * @param int $id file id
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 *
@@ -188,6 +187,7 @@ class MetaDataController extends OCSController {
 	 *
 	 * 200: Metadata deleted successfully
 	 */
+	#[NoAdminRequired]
 	public function deleteMetaData(int $id): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 
@@ -216,8 +216,6 @@ class MetaDataController extends OCSController {
 	/**
 	 * Append new entries in the filedrop property of a metadata
 	 *
-	 * @PublicPage
-	 * @NoAdminRequired
 	 * @param int $id File ID
 	 * @param string $filedrop File drop metadata
 	 * @param ?string $shareToken Token of the share if available
@@ -228,6 +226,8 @@ class MetaDataController extends OCSController {
 	 *
 	 * 200: Filedrop metadata added successfully
 	 */
+	#[NoAdminRequired]
+	#[PublicPage]
 	public function addMetadataFileDrop(int $id, string $filedrop, ?string $shareToken = null): DataResponse {
 		$ownerId = $this->getOwnerId($shareToken);
 

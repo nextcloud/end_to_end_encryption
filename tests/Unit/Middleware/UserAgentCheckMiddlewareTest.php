@@ -8,46 +8,48 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Unit\Middleware;
 
+use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Middleware\UserAgentCheckMiddleware;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSForbiddenException;
-use OCP\AppFramework\Utility\IControllerMethodReflector;
 use OCP\IRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
+class HasAnnotationController extends Controller {
+	#[E2ERestrictUserAgent]
+	public function methodName(): DataResponse {
+		return new DataResponse();
+	}
+}
+
+class HasNoAnnotationController extends Controller {
+	public function methodName(): DataResponse {
+		return new DataResponse();
+	}
+}
+
 class UserAgentCheckMiddlewareTest extends TestCase {
-
-	/** @var IControllerMethodReflector|\PHPUnit\Framework\MockObject\MockObject */
-	private $reflector;
-
-	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
-	private $request;
-
-	/** @var UserAgentManager|\PHPUnit\Framework\MockObject\MockObject */
-	private $userAgentManager;
-
-	/** @var UserAgentCheckMiddleware */
-	private $middleware;
+	private IRequest&MockObject $request;
+	private UserAgentManager&MockObject $userAgentManager;
+	private UserAgentCheckMiddleware $middleware;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->reflector = $this->createMock(IControllerMethodReflector::class);
 		$this->request = $this->createMock(IRequest::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 
-		$this->middleware = new UserAgentCheckMiddleware($this->reflector, $this->request, $this->userAgentManager);
+		$this->middleware = new UserAgentCheckMiddleware($this->request, $this->userAgentManager);
 	}
 
 	/**
-	 * @param bool $hasAnnotation
-	 * @param bool $supportsE2E
-	 * @param bool $expectException
-	 *
 	 * @dataProvider beforeControllerDataProvider
 	 */
-	public function testBeforeController(bool $hasAnnotation, bool $supportsE2E, bool $expectException, bool $forceSupport) {
+	public function testBeforeController(bool $hasAnnotation, bool $supportsE2E, bool $expectException, bool $forceSupport): void {
 		$this->request->expects($hasAnnotation ? $this->once() : $this->never())
 			->method('getHeader')
 			->willReturnMap([
@@ -55,9 +57,6 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 				['x-e2ee-supported', (string)$forceSupport]
 			]);
 
-		$this->reflector->method('hasAnnotation')
-			->with('E2ERestrictUserAgent')
-			->willReturn($hasAnnotation);
 		$this->userAgentManager->method('supportsEndToEndEncryption')
 			->with('user-agent-string')
 			->willReturn($supportsE2E);
@@ -67,7 +66,7 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 			$this->expectExceptionMessage('Client "user-agent-string" is not allowed to access end-to-end encrypted content.');
 		}
 
-		$controller = $this->createMock(Controller::class);
+		$controller = $hasAnnotation ? new HasAnnotationController('myapp', $this->request) : new HasNoAnnotationController('myapp', $this->request);
 
 		$this->middleware->beforeController($controller, 'methodName');
 	}

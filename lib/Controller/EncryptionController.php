@@ -7,9 +7,11 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption\Controller;
 
+use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
@@ -44,15 +46,14 @@ class EncryptionController extends OCSController {
 	/**
 	 * Set encryption flag for folder
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 *
 	 * @param int $id File ID
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSNotFoundException File not found
 	 *
 	 * 200: Encryption flag set successfully
 	 */
+	#[NoAdminRequired]
+	#[E2ERestrictUserAgent]
 	public function setEncryptionFlag(int $id): DataResponse {
 		try {
 			$this->manager->setEncryptionFlag($id);
@@ -66,15 +67,14 @@ class EncryptionController extends OCSController {
 	/**
 	 * Remove encryption flag for folder
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 *
 	 * @param int $id File ID
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSNotFoundException File not found
 	 *
 	 * 200: Encryption flag removed successfully
 	 */
+	#[NoAdminRequired]
+	#[E2ERestrictUserAgent]
 	public function removeEncryptionFlag(int $id): DataResponse {
 		try {
 			$this->manager->removeEncryptionFlag($id);
@@ -94,13 +94,12 @@ class EncryptionController extends OCSController {
 	/**
 	 * Remove encrypted files
 	 *
-	 * @NoAdminRequired
-	 *
 	 * @return DataResponse<Http::STATUS_OK, array{deletedIds: list<int>}, array{}>
 	 * @throws OCSNotFoundException Folders not found
 	 *
 	 * 200: Encrypted folders removed successfully
 	 */
+	#[NoAdminRequired]
 	public function removeEncryptedFolders(): DataResponse {
 		try {
 			$ids = $this->manager->removeEncryptedFolders($this->userId);

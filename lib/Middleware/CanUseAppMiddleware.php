@@ -16,21 +16,14 @@ use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\OCS\OCSException;
 use OCP\AppFramework\OCSController;
-use OCP\AppFramework\Utility\IControllerMethodReflector;
 use OCP\IUser;
 use OCP\IUserSession;
 
 class CanUseAppMiddleware extends Middleware {
-	private IUserSession $userSession;
-	private IControllerMethodReflector $reflector;
-	private Config $config;
-
-	public function __construct(IUserSession $userSession,
-		IControllerMethodReflector $reflector,
-		Config $config) {
-		$this->userSession = $userSession;
-		$this->reflector = $reflector;
-		$this->config = $config;
+	public function __construct(
+		private readonly IUserSession $userSession,
+		private readonly Config $config,
+	) {
 	}
 
 	/**
