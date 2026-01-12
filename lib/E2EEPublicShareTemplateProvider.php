@@ -12,6 +12,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Constants;
 use OCP\Defaults;
 use OCP\Files\FileInfo;
 use OCP\Files\NotFoundException;
@@ -38,7 +39,10 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 
 	public function shouldRespond(IShare $share): bool {
 		$node = $share->getNode();
-		return $node->getType() === FileInfo::TYPE_FOLDER && $node->isEncrypted();
+
+		return $node->getType() === FileInfo::TYPE_FOLDER
+			&& $node->isEncrypted()
+			&& ($share->getPermissions() & Constants::PERMISSION_READ) === 0;
 	}
 
 	protected function getMetadata(IShare $share): array {

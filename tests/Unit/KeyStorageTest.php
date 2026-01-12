@@ -18,26 +18,29 @@ use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\IUser;
 use OCP\IUserSession;
+use OCP\Share\IManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class KeyStorageTest extends TestCase {
 
-	/** @var IAppData|\PHPUnit\Framework\MockObject\MockObject */
-	private $appData;
-
-	/** @var IUserSession|\PHPUnit\Framework\MockObject\MockObject */
-	private $userSession;
-
-	/** @var KeyStorage */
-	private $keyStorage;
+	private IAppData&MockObject $appData;
+	private IUserSession&MockObject $userSession;
+	private IManager&MockObject $shareManager;
+	private KeyStorage $keyStorage;
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->appData = $this->createMock(IAppData::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->shareManager = $this->createMock(IManager::class);
 
-		$this->keyStorage = new KeyStorage($this->appData, $this->userSession);
+		$this->keyStorage = new KeyStorage(
+			$this->appData,
+			$this->userSession,
+			$this->shareManager,
+		);
 	}
 
 	public function testGetPublicKey(): void {
@@ -67,8 +70,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expected
 	 */
 	public function testPublicKeyExists(bool $exists, bool $expected): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		$folder = $this->createMock(ISimpleFolder::class);
 		$folder->expects($this->once())
 			->method('fileExists')
@@ -79,7 +80,7 @@ class KeyStorageTest extends TestCase {
 			->method('getFolder')
 			->willReturn($folder);
 
-		$actual = $keyStorage->publicKeyExists('jane');
+		$actual = $this->keyStorage->publicKeyExists('jane');
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -98,8 +99,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expectsNewFile
 	 */
 	public function testSetPublicKey(bool $exists, bool $expectsKeyExistsException, bool $expectsNewFile): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		$folder = $this->createMock(ISimpleFolder::class);
 		$folder->expects($this->once())
 			->method('fileExists')
@@ -127,7 +126,7 @@ class KeyStorageTest extends TestCase {
 			$this->expectExceptionMessage('Public key already exists');
 		}
 
-		$keyStorage->setPublicKey('public-key-content', 'jane');
+		$this->keyStorage->setPublicKey('public-key-content', 'jane');
 	}
 
 	public function setPublicKeyDataProvider(): array {
@@ -147,8 +146,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expectDelete
 	 */
 	public function testDeletePublicKey(bool $getUserReturnsNull, string $userId, bool $notFoundException, bool $expectsNotPermittedException, bool $expectDelete): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
 				->method('getUser')
@@ -197,7 +194,7 @@ class KeyStorageTest extends TestCase {
 			$this->expectExceptionMessage('You are not allowed to delete the public key');
 		}
 
-		$keyStorage->deletePublicKey($userId);
+		$this->keyStorage->deletePublicKey($userId);
 	}
 
 	public function deletePublicKeyDataProvider(): array {
@@ -217,8 +214,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expectsForbiddenException
 	 */
 	public function testGetPrivateKey(bool $getUserReturnsNull, string $userId, bool $expectsForbiddenException): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
 				->method('getUser')
@@ -256,9 +251,9 @@ class KeyStorageTest extends TestCase {
 			$this->expectException(ForbiddenException::class);
 			$this->expectExceptionMessage('You are not allowed to access the private key');
 
-			$keyStorage->getPrivateKey($userId);
+			$this->keyStorage->getPrivateKey($userId);
 		} else {
-			$actual = $keyStorage->getPrivateKey($userId);
+			$actual = $this->keyStorage->getPrivateKey($userId);
 			$this->assertEquals('private-key-content', $actual);
 		}
 	}
@@ -281,8 +276,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expectsForbiddenException
 	 */
 	public function testPrivateKeyExists(bool $getUserReturnsNull, string $userId, bool $exists, bool $expected, bool $expectsForbiddenException): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
 				->method('getUser')
@@ -314,9 +307,9 @@ class KeyStorageTest extends TestCase {
 			$this->expectException(ForbiddenException::class);
 			$this->expectExceptionMessage('You are not allowed to access the private key');
 
-			$keyStorage->privateKeyExists($userId);
+			$this->keyStorage->privateKeyExists($userId);
 		} else {
-			$actual = $keyStorage->privateKeyExists($userId);
+			$actual = $this->keyStorage->privateKeyExists($userId);
 			$this->assertEquals($expected, $actual);
 		}
 	}
@@ -341,8 +334,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expectsPutContent
 	 */
 	public function testSetPrivateKey(bool $getUserReturnsNull, string $userId, bool $fileExists, bool $expectsForbiddenException, bool $expectsKeyExistsException, bool $expectsPutContent): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
 				->method('getUser')
@@ -386,14 +377,14 @@ class KeyStorageTest extends TestCase {
 			$this->expectException(ForbiddenException::class);
 			$this->expectExceptionMessage('You are not allowed to write the private key');
 
-			$keyStorage->setPrivateKey('private-key-content', $userId);
+			$this->keyStorage->setPrivateKey('private-key-content', $userId);
 		} elseif ($expectsKeyExistsException) {
 			$this->expectException(KeyExistsException::class);
 			$this->expectExceptionMessage('Private key already exists');
 
-			$keyStorage->setPrivateKey('private-key-content', $userId);
+			$this->keyStorage->setPrivateKey('private-key-content', $userId);
 		} else {
-			$keyStorage->setPrivateKey('private-key-content', $userId);
+			$this->keyStorage->setPrivateKey('private-key-content', $userId);
 		}
 	}
 
@@ -416,8 +407,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expectsDelete
 	 */
 	public function testDeletePrivateKey(bool $getUserReturnsNull, string $userId, bool $fileExists, bool $expectsNotPermittedException, bool $expectsDelete): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
 				->method('getUser')
@@ -462,9 +451,9 @@ class KeyStorageTest extends TestCase {
 			$this->expectException(NotPermittedException::class);
 			$this->expectExceptionMessage('You are not allowed to delete the private key');
 
-			$keyStorage->deletePrivateKey($userId);
+			$this->keyStorage->deletePrivateKey($userId);
 		} else {
-			$keyStorage->deletePrivateKey($userId);
+			$this->keyStorage->deletePrivateKey($userId);
 		}
 	}
 
@@ -486,8 +475,6 @@ class KeyStorageTest extends TestCase {
 	 * @param bool $expectsPrivateDelete
 	 */
 	public function testDeleteUserKeys(bool $publicNotFound, bool $privateNotFound, bool $expectsPublicDelete, bool $expectsPrivateDelete): void {
-		$keyStorage = new KeyStorage($this->appData, $this->userSession);
-
 		$publicKeyFolder = $this->createMock(ISimpleFolder::class);
 		$privateKeyFolder = $this->createMock(ISimpleFolder::class);
 
@@ -548,7 +535,7 @@ class KeyStorageTest extends TestCase {
 			->method('getUID')
 			->willReturn('jane');
 
-		$keyStorage->deleteUserKeys($user);
+		$this->keyStorage->deleteUserKeys($user);
 	}
 
 	public function deleteUserKeysDataProvider(): array {

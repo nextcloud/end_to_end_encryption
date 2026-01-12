@@ -10,6 +10,7 @@ namespace OCA\EndToEndEncryption\Listener;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
+use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
@@ -17,7 +18,7 @@ use OCP\IConfig;
 use OCP\Util;
 
 /**
- * @template-implements IEventListener<LoadAdditionalScriptsEvent>
+ * @template-implements IEventListener<LoadAdditionalScriptsEvent|BeforeTemplateRenderedEvent>
  */
 class LoadAdditionalListener implements IEventListener {
 
@@ -29,14 +30,21 @@ class LoadAdditionalListener implements IEventListener {
 	}
 
 	public function handle(Event $event): void {
-		if (!($event instanceof LoadAdditionalScriptsEvent)) {
+		if (!($event instanceof LoadAdditionalScriptsEvent) && !($event instanceof BeforeTemplateRenderedEvent)) {
 			return;
 		}
+
+		if (($event instanceof BeforeTemplateRenderedEvent) && $event->getScope() === BeforeTemplateRenderedEvent::SCOPE_PUBLIC_SHARE_AUTH) {
+			return;
+		}
+
+		$browserE2eeEnabled = $this->userId === null
+			|| $this->config->getUserValue($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true';
 
 		$this->initialState->provideInitialState(
 			'userConfig',
 			[
-				'e2eeInBrowserEnabled' => $this->config->getUserValue($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true',
+				'e2eeInBrowserEnabled' => $browserE2eeEnabled,
 			]
 		);
 

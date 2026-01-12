@@ -14,7 +14,6 @@ use OCA\DAV\Connector\Sabre\Exception\Forbidden;
 use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\UserAgentManager;
-use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
@@ -37,7 +36,6 @@ class PropFindPlugin extends APlugin {
 		private UserAgentManager $userAgentManager,
 		private IRequest $request,
 		private IMetaDataStorage $metaDataStorage,
-		private ?Folder $userFolder,
 	) {
 		parent::__construct($rootFolder, $userSession);
 	}
@@ -68,7 +66,7 @@ class PropFindPlugin extends APlugin {
 			$propFind->handle(self::E2EE_METADATA_PROPERTYNAME, function () use ($node) {
 				if ($this->isE2EEnabledPath($node)) {
 					return $this->metaDataStorage->getMetaData(
-						$this->userSession->getUser()->getUID(),
+						($this->userSession->getUser() ?? $node->getNode()->getOwner())->getUID(),
 						$node->getId(),
 					);
 				}
@@ -82,11 +80,9 @@ class PropFindPlugin extends APlugin {
 		}
 
 		// This property was introduced to expose encryption status for both files and folders.
-		if ($this->userFolder !== null) {
-			$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
-				return $this->isE2EEnabledPath($node) ? '1' : '0';
-			});
-		}
+		$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
+			return $this->isE2EEnabledPath($node) ? '1' : '0';
+		});
 	}
 
 	/**
