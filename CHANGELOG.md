@@ -7,7 +7,7 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.0-rc.4 - 2025-12-18
+## v2.0.0-rc.5 - 2026-01-12
 ### Added
 * Setup end-to-end encryption in the web interface.
   When end-to-end encryption is enabled in the browser (see personal settings - security),
@@ -26,6 +26,9 @@
     Using the files sidebar just like with regular files,
     though shares always have all permissions enabled as per requirements of end-to-end encryption.
   * Allow to create read only shares with users.
+  * Its possible to create public shares of end-to-end encrypted folders,
+    those shares will have their own encryption keys and which have to be shared with the recipient
+    using a secure second channel.
 
 ### Fixed
 * Fixed locking to allow leaving encrypted root folders properly.
