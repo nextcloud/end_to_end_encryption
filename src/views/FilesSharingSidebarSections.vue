@@ -7,6 +7,7 @@
 import type { INode } from '@nextcloud/files'
 import type { OCSResponse } from '@nextcloud/typings/ocs'
 import type { RootMetadata } from '../models/RootMetadata.ts'
+import type { IShare } from '../services/sharing.ts'
 
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
@@ -16,16 +17,10 @@ import { ShareType } from '@nextcloud/sharing'
 import { ref, toRaw, watch } from 'vue'
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import FilesSharingSidebarSectionFiledrop from '../components/FilesSharingSidebarSection/FilesSharingSidebarSectionFiledrop.vue'
+import FilesSharingSidebarSectionPublicLinks from '../components/FilesSharingSidebarSection/FilesSharingSidebarSectionPublicLinks.vue'
 import FilesSharingSidebarSectionUsers from '../components/FilesSharingSidebarSection/FilesSharingSidebarSectionUsers.vue'
 import logger from '../services/logger.ts'
 import * as metadataStore from '../store/metadata.ts'
-
-export interface IShare extends Record<string, string | number> {
-	id: number | string
-	share_with: string
-	share_with_displayname: string
-}
 
 const props = defineProps<{
 	node: INode
@@ -38,7 +33,7 @@ const metadata = ref<RootMetadata>()
 watch(() => props.node, loadMetadata, { immediate: true })
 
 const userShares = ref<IShare[]>([])
-const filedropShares = ref<IShare[]>([])
+const publicLinkShares = ref<IShare[]>([])
 watch(metadata, loadShares, { immediate: true })
 
 /**
@@ -79,7 +74,7 @@ async function loadShares() {
 		logger.debug(`Loaded ${data.ocs.data.length} shares for path: ${path}`, { shares: data.ocs.data })
 		const shares = data.ocs.data
 		userShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.User)
-		filedropShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.Link)
+		publicLinkShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.Link)
 	} catch (error) {
 		logger.error('Failed to load shares', { error })
 		showError(t('end_to_end_encryption', 'Failed to load shares.'))
@@ -98,8 +93,13 @@ async function loadShares() {
 		</template>
 	</NcEmptyContent>
 	<template v-else>
-		<FilesSharingSidebarSectionUsers v-model="userShares" :class="$style.userSection" :metadata />
-		<FilesSharingSidebarSectionFiledrop v-model="filedropShares" :metadata />
+		<FilesSharingSidebarSectionUsers
+			v-model="userShares"
+			:class="$style.userSection"
+			:metadata />
+		<FilesSharingSidebarSectionPublicLinks
+			v-model="publicLinkShares"
+			:metadata />
 	</template>
 </template>
 

@@ -8,6 +8,7 @@ import type { IRawMetadata } from '../models/metadata.d.ts'
 import { getCurrentUser } from '@nextcloud/auth'
 import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
 import { dirname } from '@nextcloud/paths'
+import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { Metadata } from '../models/Metadata.ts'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import * as api from '../services/api.ts'
@@ -23,8 +24,10 @@ export interface IStoreMetadata {
 	path: string
 }
 
-const currentUser = getCurrentUser()?.uid
 const metadataCache = new Map<string, Omit<IStoreMetadata, 'path'>>()
+const currentUser = isPublicShare()
+	? `s:${getSharingToken()}`
+	: getCurrentUser()!.uid
 
 /**
  * Get the path of the root folder for the given root metadata.
@@ -161,7 +164,7 @@ export function deleteMetadata(path: string): void {
  * Load all subfolders for the given root metadata.
  *
  * @param root - The root metadata
-  */
+ */
 export async function loadAllSubfolders(root: RootMetadata): Promise<IStoreMetadata[]> {
 	const { path } = getRootFolder(root)
 	const results: IStoreMetadata[] = []

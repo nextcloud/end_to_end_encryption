@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { X509Certificate } from '@peculiar/x509'
 import type { IMetadata, IRawMetadata, IRawMetadataUser, IRawRootMetadata } from '../models/metadata.d.ts'
+import type { IStoreMetadata } from '../store/metadata.ts'
 
 import stringify from 'safe-stable-stringify'
+import * as api from './api.ts'
 import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from './bufferUtils.ts'
 import { uncompress } from './compression.ts'
 import { validateCMSSignature } from './crypto.ts'
@@ -88,5 +91,21 @@ export async function validateMetadataSignature(metadata: IRawMetadata, signatur
 	)
 	if (!result) {
 		throw new Error('Metadata signature verification failed')
+	}
+}
+
+/**
+ * Re-encrypt all subfolders with the new metadata key
+ *
+ * @param subfolders - The subfolders to re-encrypt
+ * @param key - The new metadata key
+ * @param certificate - The user certificate
+ * @param token - The lock token for the root folder
+ */
+export async function reencryptSubfolders(subfolders: IStoreMetadata[], key: CryptoKey, certificate: X509Certificate, token: string) {
+	for (const { metadata, id } of subfolders) {
+		metadata.key = key
+		const { metadata: rawMetadata, signature } = await metadata.export(certificate)
+		await api.updateMetadata(id, stringify(rawMetadata), token, signature)
 	}
 }

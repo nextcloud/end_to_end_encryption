@@ -8,6 +8,14 @@ import { expect, vi } from 'vitest'
 import { test } from '../../__tests__/api-mock.ts'
 import { destroyWebDavProxy, setupWebDavProxy } from './webDavProxy.ts'
 
+vi.mock('@nextcloud/auth', () => ({
+	getCurrentUser: () => ({ uid: 'admin' }),
+}))
+vi.mock('@nextcloud/sharing/public', () => ({
+	isPublicShare: () => false,
+	getSharingToken: () => null,
+}))
+
 const useGetInterceptor = vi.hoisted(() => vi.fn((_, next) => next()))
 vi.mock('../middleware/useGetInterceptor.ts', () => ({ useGetInterceptor }))
 const usePropFindInterceptor = vi.hoisted(() => vi.fn((_, next) => next()))

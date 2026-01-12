@@ -11,15 +11,18 @@ import { encryptPrivateKey, generatePrivateKey } from './privateKeyUtils.ts'
 import { ensureKeyUsage } from './rsaUtils.ts'
 
 /**
- * Initializes encryption for the current user
+ * Initializes encryption
  *
  * This will generate a new RSA key pair, create a CSR, send it to the server.
  * Afterwards the private RSA key is encrypted with a mnemonic and stored locally as well as on the server.
+ *
+ * @param token - Public share token - if unset uses the current user
  */
-export async function initializeEncryption() {
+export async function initializeEncryption(token?: string) {
 	const serverKey = await api.getServerPublicKey()
 	const keyPair = await generatePrivateKey() // RSA key for encryption usage
 
+	const cn = token ? `s:${token}` : getCurrentUser()!.uid
 	const csr = await Pkcs10CertificateRequestGenerator.create({
 		keys: {
 			publicKey: keyPair.publicKey,
@@ -29,14 +32,14 @@ export async function initializeEncryption() {
 			name: 'RSASSA-PKCS1-v1_5',
 			hash: 'SHA-256',
 		},
-		name: `CN=${getCurrentUser()!.uid}`,
+		name: `CN=${cn}`,
 		extensions: [
 			new KeyUsagesExtension(KeyUsageFlags.digitalSignature | KeyUsageFlags.keyEncipherment),
 		],
 	})
 	const pem = csr.toString('pem')
 
-	const publicKeyCertificate = new X509Certificate(await api.createPublicKey(pem))
+	const publicKeyCertificate = new X509Certificate(await api.createPublicKey(pem, token))
 	if (!await validateCertificateSignature(publicKeyCertificate, serverKey)) {
 		throw new Error('Public key not correctly signed by server')
 	}
@@ -45,7 +48,7 @@ export async function initializeEncryption() {
 	const mnemonic = await generateMnemonic()
 	const encryptedKey = await encryptPrivateKey(keyPair.privateKey, mnemonic.join(''))
 
-	await api.setPrivateKey(encryptedKey)
+	await api.setPrivateKey(encryptedKey, token)
 
 	return {
 		mnemonic,
