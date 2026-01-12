@@ -4,6 +4,7 @@
  */
 
 import { getCurrentUser } from '@nextcloud/auth'
+import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { X509Certificate } from '@peculiar/x509'
 import * as api from '../services/api.ts'
 import { pemToBuffer } from '../services/bufferUtils.ts'
@@ -18,6 +19,10 @@ let serverKey: CryptoKey | undefined
 
 const userKeys = new Map<string, X509Certificate | undefined>()
 const MEMORY_LIMIT = 100
+
+const currentUser = isPublicShare()
+	? `s:${getSharingToken()}`
+	: getCurrentUser()!.uid
 
 /**
  * Get the server's public key.
@@ -161,7 +166,7 @@ export function setPrivateKey(key: CryptoKey): void {
  * @param userId - The user ID
  */
 export async function getUserKey(userId: string): Promise<X509Certificate | undefined> {
-	if (userId === getCurrentUser()!.uid) {
+	if (userId === currentUser) {
 		return await getCertificate()
 	}
 	if (!userKeys.has(userId)) {
@@ -186,7 +191,7 @@ export async function getUserKey(userId: string): Promise<X509Certificate | unde
  * @param key - The public key
  */
 export function setUserKey(userId: string, key: X509Certificate): void {
-	if (userId === getCurrentUser()!.uid) {
+	if (userId === currentUser) {
 		certificate = key
 		return
 	}

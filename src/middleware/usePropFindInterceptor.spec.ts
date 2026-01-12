@@ -23,6 +23,13 @@ import { decryptPrivateKey } from '../services/privateKeyUtils.ts'
 import * as metadataStore from '../store/metadata.ts'
 import { usePropFindInterceptor } from './usePropFindInterceptor.ts'
 
+vi.mock('@nextcloud/auth', () => ({
+	getCurrentUser: () => ({ uid: 'admin' }),
+}))
+vi.mock('@nextcloud/sharing/public', () => ({
+	isPublicShare: () => false,
+	getSharingToken: () => null,
+}))
 vi.mock('../store/metadata.ts', { spy: true })
 
 beforeEach(() => vi.resetAllMocks())

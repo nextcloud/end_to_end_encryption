@@ -6,7 +6,7 @@
 <script setup lang="ts">
 import type { OCSResponse } from '@nextcloud/typings/ocs'
 import type { RootMetadata } from '../../models/RootMetadata.ts'
-import type { IShare } from '../../views/FilesSharingSidebarSections.vue'
+import type { IShare } from '../../services/sharing.ts'
 
 import { mdiPencilOutline, mdiTrashCanOutline } from '@mdi/js'
 import axios from '@nextcloud/axios'
@@ -28,6 +28,7 @@ import NcSelectUsers from '@nextcloud/vue/components/NcSelectUsers'
 import FilesSharingSidebarSectionUsersDialog from './FilesSharingSidebarSectionUsersDialog.vue'
 import * as api from '../../services/api.ts'
 import logger from '../../services/logger.ts'
+import { reencryptSubfolders } from '../../services/metadata.ts'
 import * as keyStore from '../../store/keys.ts'
 import * as metadataStore from '../../store/metadata.ts'
 
@@ -116,7 +117,7 @@ async function createShare(user: IUserData | IUserData[]) {
 			const { metadata: rawMetadata, signature } = await rootMetadata.export(await keyStore.getCertificate())
 			await api.updateMetadata(id, stringify(rawMetadata), token, signature)
 			// re-encrypt all subfolders
-			await reencryptSubfolders(subfolders, rootMetadata.key, token)
+			await reencryptSubfolders(subfolders, rootMetadata.key, await keyStore.getCertificate(), token)
 		} finally {
 			await api.unlockFolder(id, token)
 		}
@@ -165,7 +166,7 @@ async function removeShare(shareId: number | string) {
 		const rawMetadata = await rootMetadata.export(await keyStore.getCertificate())
 		await api.updateMetadata(id, stringify(rawMetadata.metadata), token, rawMetadata.signature)
 		// re-encrypt all subfolders
-		await reencryptSubfolders(subfolders, rootMetadata.key, token)
+		await reencryptSubfolders(subfolders, rootMetadata.key, await keyStore.getCertificate(), token)
 	} finally {
 		await api.unlockFolder(id, token)
 		isCreatingShare.value = false
@@ -192,21 +193,6 @@ async function editShare(share: IShare) {
 	share.permissions = newPermissions
 
 	showInfo(t('end_to_end_encryption', 'Share permissions updated successfully.'))
-}
-
-/**
- * Re-encrypt all subfolders with the new metadata key
- *
- * @param subfolders - The subfolders to re-encrypt
- * @param key - The new metadata key
- * @param token - The lock token for the root folder
- */
-async function reencryptSubfolders(subfolders: metadataStore.IStoreMetadata[], key: CryptoKey, token: string) {
-	for (const { metadata, id } of subfolders) {
-		metadata.key = key
-		const { metadata: rawMetadata, signature } = await metadata.export(await keyStore.getCertificate())
-		await api.updateMetadata(id, stringify(rawMetadata), token, signature)
-	}
 }
 
 /**

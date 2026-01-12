@@ -12,20 +12,21 @@ import axios, { isAxiosError } from '@nextcloud/axios'
 import { defaultRootPath, getClient } from '@nextcloud/files/dav'
 import { join } from '@nextcloud/paths'
 import { generateOcsUrl } from '@nextcloud/router'
+import { getSharingToken } from '@nextcloud/sharing/public'
 import { base64ToBuffer, bufferToBase64 } from './bufferUtils.ts'
 import logger from './logger.ts'
 
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md
 
 const API_ROOT = 'apps/end_to_end_encryption/api/v2'
-const Url = {
+const Url = Object.freeze({
 	Encrypted: API_ROOT + '/encrypted/{folderId}',
 	Lock: API_ROOT + '/lock/{folderId}',
 	Metadata: API_ROOT + '/meta-data/{fileId}',
 	PrivateKey: API_ROOT + '/private-key',
 	PublicKey: API_ROOT + '/public-key',
 	ServerKey: API_ROOT + '/server-key',
-}
+})
 
 const METADATA_PROPFIND = `<?xml version="1.0"?>
 	<d:propfind xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns" xmlns:oc="http://owncloud.org/ns">
@@ -48,7 +49,10 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo | null> {
 	try {
 		const response = await axios.get<OCSResponse<{ 'private-key': string }>>(
 			generateOcsUrl(Url.PrivateKey),
-			{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
+			{
+				headers: { 'X-E2EE-SUPPORTED': 'true' },
+				params: { shareToken: getSharingToken() },
+			},
 		)
 		const encryptedPrivateKeyInfo = response.data.ocs.data['private-key']
 		const [encryptedPrivateKey, iv, salt] = encryptedPrivateKeyInfo.split('|')
@@ -71,15 +75,16 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo | null> {
  * Save the encrypted private key for the current user.
  *
  * @param privateKeyInfo - The private key
+ * @param shareToken - Public share token - if unset the key will be set for the current user
  */
-export async function setPrivateKey(privateKeyInfo: PrivateKeyInfo): Promise<void> {
+export async function setPrivateKey(privateKeyInfo: PrivateKeyInfo, shareToken?: string): Promise<void> {
 	const privateKey = bufferToBase64(privateKeyInfo.encryptedPrivateKey) + '|'
 		+ bufferToBase64(privateKeyInfo.iv) + '|'
 		+ bufferToBase64(privateKeyInfo.salt)
 
 	await axios.post(
 		generateOcsUrl(Url.PrivateKey),
-		{ privateKey },
+		{ privateKey, shareToken },
 		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 	)
 }
@@ -101,7 +106,7 @@ export async function deletePrivateKey(): Promise<void> {
  * @return The public key (x509 as PEM), or null if not found
  */
 export async function getPublicKey(userId?: string): Promise<string | null> {
-	const users = [userId ?? getCurrentUser()!.uid]
+	const users = [userId ?? (getCurrentUser()?.uid ?? `s:${getSharingToken()}`)]
 
 	try {
 		const response = await axios.get<OCSResponse<{ 'public-keys': Record<string, string> }>>(
@@ -126,13 +131,14 @@ export async function getPublicKey(userId?: string): Promise<string | null> {
  * Request the server to sign and return the public key.
  *
  * @param csr - The certificate signing request to the server
+ * @param shareToken - Public share token - if unset uses the current user
  * @return The signed public key
  */
-export async function createPublicKey(csr: string): Promise<string> {
+export async function createPublicKey(csr: string, shareToken?: string): Promise<string> {
 	try {
 		const response = await axios.post<OCSResponse<{ 'public-key': string }>>(
 			generateOcsUrl(Url.PublicKey),
-			{ csr },
+			{ csr, shareToken },
 			{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
 		)
 		return response.data.ocs.data['public-key']
