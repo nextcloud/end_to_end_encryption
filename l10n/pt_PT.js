@@ -20,6 +20,8 @@ OC.L10N.register(
     "Submit" : "Submeter",
     "Folder name" : "Nome da pasta",
     "Continue" : "Continuar",
+    "View only" : "Visualizar apenas",
+    "Close" : "Fechar",
     "Read only" : "Apenas leitura",
     "Edit" : "Editar",
     "Remove" : "Remover",
@@ -28,7 +30,6 @@ OC.L10N.register(
     "Limit to groups" : "Limitado a grupos",
     "Cancel" : "Cancelar",
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
-    "Close" : "Fechar",
     "Download unencrypted" : "Transferir sem encriptação"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

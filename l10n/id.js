@@ -6,6 +6,8 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Nama folder tidak bisa kosong",
     "Folder name" : "Nama folder",
     "Continue" : "Lanjutkan",
+    "View only" : "Hanya lihat",
+    "Close" : "Tutup",
     "Read only" : "Hanya baca",
     "Edit" : "Sunting",
     "Remove" : "Hapus",
@@ -14,7 +16,6 @@ OC.L10N.register(
     "Select or drop files" : "Pilih atau drop berkas",
     "Limit to groups" : "Batasi ke grup",
     "Limit app usage to groups" : "Batas pemakaian aplikasi untuk grup",
-    "Cancel" : "Batal",
-    "Close" : "Tutup"
+    "Cancel" : "Batal"
 },
 "nplurals=1; plural=0;");

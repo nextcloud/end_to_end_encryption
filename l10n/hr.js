@@ -26,6 +26,9 @@ OC.L10N.register(
     "Submit" : "Šalji",
     "Folder name" : "Naziv mape",
     "Continue" : "Nastavi",
+    "Permissions" : "Dopuštenja",
+    "View only" : "Samo za gledanje",
+    "Close" : "Zatvori",
     "Read only" : "Samo za čitanje",
     "Edit" : "Uredi",
     "Remove" : "Ukloni",
@@ -34,7 +37,6 @@ OC.L10N.register(
     "Limit to groups" : "Ograniči na grupe",
     "Limit app usage to groups" : "Ograničite primjenu aplikacije na grupe",
     "Cancel" : "Odustani",
-    "End-to-end encryption" : "Cjelovito šifriranje",
-    "Close" : "Zatvori"
+    "End-to-end encryption" : "Cjelovito šifriranje"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

@@ -26,6 +26,9 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Kansion nimi ei voi olla tyhjä",
     "Folder name" : "Kansion nimi",
     "Continue" : "Jatka",
+    "Permissions" : "Oikeudet",
+    "View only" : "Vain katselu",
+    "Close" : "Sulje",
     "Read only" : "Vain luku",
     "Edit" : "Muokkaa",
     "Remove" : "Poista",
@@ -37,7 +40,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",
     "Cancel" : "Peruuta",
     "End-to-end encryption" : "Päästä päähän -salaus",
-    "Close" : "Sulje",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot"
 },
 "nplurals=2; plural=(n != 1);");

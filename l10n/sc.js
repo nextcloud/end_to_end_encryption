@@ -25,6 +25,9 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale",
     "Submit" : "Imbia",
     "Folder name" : "Nùmene de sa cartella",
+    "Permissions" : "Permissos",
+    "View only" : "Isceti in visualizatzione",
+    "Close" : "Serra",
     "Read only" : "letura sola",
     "Edit" : "Modìfica",
     "Remove" : "Boga",
@@ -35,7 +38,6 @@ OC.L10N.register(
     "Limit to groups" : "Lìmita a grupos",
     "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Cancel" : "Annulla",
-    "End-to-end encryption" : "Tzifradura end-to-end",
-    "Close" : "Serra"
+    "End-to-end encryption" : "Tzifradura end-to-end"
 },
 "nplurals=2; plural=(n != 1);");

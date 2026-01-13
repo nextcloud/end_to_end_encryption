@@ -5,13 +5,13 @@ OC.L10N.register(
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
+    "Close" : "Cerrar",
     "Read only" : "Solo lectura",
     "Edit" : "Editar",
     "Remove" : "Eliminar",
     "Save" : "Guardar",
     "Select or drop files" : "Seleccione o suelte los archivos",
     "Limit to groups" : "Limitar a grupos",
-    "Cancel" : "Cancel",
-    "Close" : "Cerrar"
+    "Cancel" : "Cancel"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

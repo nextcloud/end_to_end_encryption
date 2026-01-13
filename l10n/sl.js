@@ -27,6 +27,10 @@ OC.L10N.register(
     "Submit" : "Pošlji",
     "Folder name" : "Ime mape",
     "Continue" : "Nadaljuj",
+    "Permissions" : "Dovoljenja",
+    "Upload only" : "Le pošiljanje",
+    "View only" : "Le ogled",
+    "Close" : "Zapri",
     "Read only" : "Le za branje",
     "Edit" : "Uredi",
     "Remove" : "Odstrani",
@@ -35,7 +39,6 @@ OC.L10N.register(
     "Limit to groups" : "Omeji na skupine",
     "Limit app usage to groups" : "Omeji uporabo programa na skupine",
     "Cancel" : "Prekliči",
-    "End-to-end encryption" : "Celovito šifriranje E2E",
-    "Close" : "Zapri"
+    "End-to-end encryption" : "Celovito šifriranje E2E"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

@@ -3,10 +3,10 @@ OC.L10N.register(
     {
     "Internal error" : "අභ්‍යන්තර දෝෂයකි",
     "Folder name" : "බහාලුමේ නම",
+    "Close" : "වසන්න",
     "Edit" : "සංස්කරණය",
     "Remove" : "ඉවත් කරන්න",
     "Save" : "සුරකින්න",
-    "Cancel" : "අවලංගු",
-    "Close" : "වසන්න"
+    "Cancel" : "අවලංගු"
 },
 "nplurals=2; plural=(n != 1);");

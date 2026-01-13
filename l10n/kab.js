@@ -3,10 +3,10 @@ OC.L10N.register(
     {
     "Folder name" : "Isem n ukaram",
     "Continue" : "Kemmel",
+    "Close" : "Mdel",
     "Edit" : "Ẓreg",
     "Remove" : "Kkes",
     "Save" : "Sekles",
-    "Cancel" : "Cancel",
-    "Close" : "Mdel"
+    "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");
