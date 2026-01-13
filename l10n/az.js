@@ -3,12 +3,12 @@ OC.L10N.register(
     {
     "Folder name" : "Qovluq adı",
     "Continue" : "Davam et",
+    "Close" : "Bağla",
     "Read only" : "Oxumaq üçün",
     "Edit" : "Dəyişiklik et",
     "Save" : "Saxla",
     "Limit to groups" : "Qruplara limitlə",
     "Limit app usage to groups" : "Tətbiqin istifadəsini qruplar üçün limitlə",
-    "Cancel" : "Cancel",
-    "Close" : "Bağla"
+    "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");

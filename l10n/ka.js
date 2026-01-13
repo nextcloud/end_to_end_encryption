@@ -6,6 +6,10 @@ OC.L10N.register(
     "Submit" : "Submit",
     "Folder name" : "Folder name",
     "Continue" : "Continue",
+    "Permissions" : "Permissions",
+    "Upload only" : "Upload only",
+    "View only" : "View only",
+    "Close" : "Close",
     "Read only" : "Read only",
     "Edit" : "Edit",
     "Remove" : "Remove",
@@ -13,7 +17,6 @@ OC.L10N.register(
     "Select or drop files" : "Select or drop files",
     "Limit to groups" : "Limit to groups",
     "Limit app usage to groups" : "Limit app usage to groups",
-    "Cancel" : "Cancel",
-    "Close" : "Close"
+    "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n!=1);");

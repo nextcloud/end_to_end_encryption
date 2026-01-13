@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Folder name" : "ឈ្មោះ​ថត",
     "Continue" : "បន្ត",
+    "Close" : "បិទ",
     "Edit" : "កែប្រែ",
     "Save" : "រក្សាទុក",
-    "Cancel" : "លើកលែង",
-    "Close" : "បិទ"
+    "Cancel" : "លើកលែង"
 },
 "nplurals=1; plural=0;");

@@ -6,11 +6,11 @@ OC.L10N.register(
     "Submit" : "Submit",
     "Folder name" : "Papka nomi",
     "Continue" : "Davom etish",
+    "Close" : "Yopish",
     "Read only" : "Faqat o'qish",
     "Edit" : "Tahrirlash",
     "Remove" : "O'chirish",
     "Save" : "Save",
-    "Cancel" : "Bekor qilish",
-    "Close" : "Yopish"
+    "Cancel" : "Bekor qilish"
 },
 "nplurals=1; plural=0;");

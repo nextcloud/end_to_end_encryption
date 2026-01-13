@@ -20,13 +20,13 @@ OC.L10N.register(
     "Submit" : "Sendi",
     "Folder name" : "Dosierujnomo",
     "Continue" : "Daŭrigi",
+    "Close" : "Malfermi",
     "Read only" : "Nurlega",
     "Edit" : "Modifi",
     "Save" : "Konservi",
     "Select or drop files" : "Elekti aŭ demeti dosierojn",
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
-    "Cancel" : "Cancel",
-    "Close" : "Malfermi"
+    "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");
