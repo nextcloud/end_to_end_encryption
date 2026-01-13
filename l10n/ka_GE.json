@@ -16,13 +16,14 @@
     "End-to-End Encryption" : "End-to-End შიფრაცია",
     "Submit" : "გაგზავნა",
     "Folder name" : "დირექტორიის სახელი",
+    "Permissions" : "უფლებები",
+    "Close" : "დახურვა",
     "Read only" : "მხოლოდ-კითხვადი",
     "Edit" : "შეცვლა",
     "Save" : "შენახვა",
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Cancel" : "გაუქმება",
-    "End-to-end encryption" : "End-to-end შიფრაცია",
-    "Close" : "დახურვა"
+    "End-to-end encryption" : "End-to-end შიფრაცია"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

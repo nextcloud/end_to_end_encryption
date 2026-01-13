@@ -21,6 +21,7 @@ OC.L10N.register(
     "Submit" : "Unviar",
     "Folder name" : "Nome de la carpeta",
     "Continue" : "Siguir",
+    "Close" : "Zarrar",
     "Read only" : "Namás llectura",
     "Edit" : "Editar",
     "Remove" : "Quitar",
@@ -35,7 +36,6 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Reafitáronse les claves del cifráu d'estremu a estremu",
     "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
-    "Close" : "Zarrar",
     "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes"
 },
 "nplurals=2; plural=(n != 1);");

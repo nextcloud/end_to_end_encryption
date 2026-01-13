@@ -28,6 +28,10 @@ OC.L10N.register(
     "Folder name cannot be empty" : "文件夹名称不能为空",
     "Folder name" : "文件夹名称",
     "Continue" : "继续",
+    "Permissions" : "权限",
+    "Upload only" : "仅上传",
+    "View only" : "仅查看",
+    "Close" : "关闭",
     "Read only" : "只读",
     "Edit" : "编辑",
     "Remove" : "移除",
@@ -37,7 +41,6 @@ OC.L10N.register(
     "Limit to groups" : "限制于分组",
     "Limit app usage to groups" : "限制可使用应用的分组",
     "Cancel" : "取消",
-    "End-to-end encryption" : "端到端加密",
-    "Close" : "关闭"
+    "End-to-end encryption" : "端到端加密"
 },
 "nplurals=1; plural=0;");

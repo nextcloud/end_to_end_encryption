@@ -8,6 +8,9 @@ OC.L10N.register(
     "Submit" : "Iesniegt",
     "Folder name" : "Mapes nosaukums",
     "Continue" : "Turpināt",
+    "Permissions" : "Atļaujas",
+    "View only" : "Tikai skatīt",
+    "Close" : "Aizvērt",
     "Read only" : "Tikai lasāms",
     "Edit" : "Labot",
     "Remove" : "Noņemt",
@@ -15,7 +18,6 @@ OC.L10N.register(
     "Select or drop files" : "Atlasīt vai ievilkt datnes",
     "Limit to groups" : "Grupu ierobežojums",
     "Cancel" : "Atcelt",
-    "End-to-end encryption" : "No gala līdz galam šifrēšana",
-    "Close" : "Aizvērt"
+    "End-to-end encryption" : "No gala līdz galam šifrēšana"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

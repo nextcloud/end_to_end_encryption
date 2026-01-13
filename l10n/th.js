@@ -5,11 +5,12 @@ OC.L10N.register(
     "Submit" : "ส่ง",
     "Folder name" : "ชื่อโฟลเดอร์",
     "Continue" : "ดำเนินการต่อ",
+    "View only" : "ดูเท่านั้น",
+    "Close" : "ปิด",
     "Edit" : "แก้ไข",
     "Remove" : "ลบออก",
     "Save" : "บันทึก",
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
-    "Cancel" : "ยกเลิก",
-    "Close" : "ปิด"
+    "Cancel" : "ยกเลิก"
 },
 "nplurals=1; plural=0;");

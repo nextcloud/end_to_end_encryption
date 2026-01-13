@@ -29,6 +29,8 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Mappenavnet må ikke være tomt",
     "Folder name" : "Mappenavn",
     "Continue" : "Fortsæt",
+    "Upload only" : "Kun upload",
+    "Close" : "Luk",
     "Read only" : "Skrivebeskyttet",
     "Edit" : "Redigér",
     "Remove" : "Fjern",
@@ -38,7 +40,6 @@ OC.L10N.register(
     "Limit to groups" : "Begræns til grupper",
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Cancel" : "Annuller",
-    "End-to-end encryption" : "End-to-end kryptering",
-    "Close" : "Luk"
+    "End-to-end encryption" : "End-to-end kryptering"
 },
 "nplurals=2; plural=(n != 1);");

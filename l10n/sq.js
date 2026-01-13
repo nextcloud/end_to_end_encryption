@@ -8,6 +8,8 @@ OC.L10N.register(
     "Submit" : "Dërgo",
     "Folder name" : "Emër dosjeje",
     "Continue" : "Vazhdo",
+    "Permissions" : "Lejet",
+    "Close" : "Mbylleni",
     "Read only" : "Vetëm i lexueshëm",
     "Edit" : "Përpuno",
     "Remove" : "Hiqe",
@@ -15,7 +17,6 @@ OC.L10N.register(
     "Select or drop files" : "Përzgjidh ose hiq skedarët",
     "Limit to groups" : "Kufizo grupet",
     "Cancel" : "Anuloje",
-    "End-to-end encryption" : "Enkriptim end-to-end ",
-    "Close" : "Mbylleni"
+    "End-to-end encryption" : "Enkriptim end-to-end "
 },
 "nplurals=2; plural=(n != 1);");

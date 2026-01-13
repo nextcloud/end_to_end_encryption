@@ -23,6 +23,10 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Möppuheiti má ekki vera tómt",
     "Folder name" : "Nafn möppu",
     "Continue" : "Halda áfram",
+    "Permissions" : "Heimildir",
+    "Upload only" : "Einungis innsending",
+    "View only" : "Einungis skoða",
+    "Close" : "Loka",
     "Read only" : "Skrifvarið",
     "Edit" : "Breyta",
     "Remove" : "Fjarlægja",
@@ -32,7 +36,6 @@ OC.L10N.register(
     "Limit to groups" : "Takmarka við hópa",
     "Limit app usage to groups" : "Takmarka notkun forrits við tiltekna hópa",
     "Cancel" : "Hætta við",
-    "End-to-end encryption" : "Enda-í-enda dulritun",
-    "Close" : "Loka"
+    "End-to-end encryption" : "Enda-í-enda dulritun"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

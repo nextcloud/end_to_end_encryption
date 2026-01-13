@@ -5,12 +5,14 @@ OC.L10N.register(
     "Submit" : "Transmetre",
     "Folder name" : "Nom del dorsièr",
     "Continue" : "Contunhar",
+    "Permissions" : "Autorizacions",
+    "View only" : "Veire solament",
+    "Close" : "Plegar",
     "Read only" : "Lectura sola",
     "Edit" : "Modificar",
     "Remove" : "Suprimir",
     "Save" : "Enregistrar",
     "Limit to groups" : "Limitar als grops",
-    "Cancel" : "Anullar",
-    "Close" : "Plegar"
+    "Cancel" : "Anullar"
 },
 "nplurals=2; plural=(n > 1);");

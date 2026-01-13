@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Folder name" : "Katalognavn",
     "Continue" : "Gå vidare",
+    "Close" : "Lat att",
     "Edit" : "Rediger",
     "Save" : "Lagre",
-    "Cancel" : "Cancel",
-    "Close" : "Lat att"
+    "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");

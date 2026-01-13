@@ -28,6 +28,10 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Mapnaam mag niet leeg zijn",
     "Folder name" : "Mapnaam",
     "Continue" : "Doorgaan",
+    "Permissions" : "Rechten",
+    "Upload only" : "Alleen uploaden",
+    "View only" : "Alleen bekijken",
+    "Close" : "Sluit",
     "Read only" : "Alleen-lezen",
     "Edit" : "Bewerken",
     "Remove" : "Verwijderen",
@@ -37,7 +41,6 @@ OC.L10N.register(
     "Limit to groups" : "Beperk tot groepen",
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Cancel" : "Annuleren",
-    "End-to-end encryption" : "Begin-tot-eind versleuteling",
-    "Close" : "Sluit"
+    "End-to-end encryption" : "Begin-tot-eind versleuteling"
 },
 "nplurals=2; plural=(n != 1);");

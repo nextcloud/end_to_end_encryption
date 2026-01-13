@@ -3,9 +3,9 @@ OC.L10N.register(
     {
     "Folder name" : "Dossiers Numm:",
     "Continue" : "Weider",
+    "Close" : "Zoumaachen",
     "Edit" : "Änneren",
     "Save" : "Späicheren",
-    "Cancel" : "Cancel",
-    "Close" : "Zoumaachen"
+    "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");
