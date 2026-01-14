@@ -1,6 +1,7 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
+    "Not allowed to get private key" : "Não é permitido obter a chave privada",
     "This is someone else's private key" : "Essa é a chave privada de outra pessoa",
     "Could not find the private key of the user %s" : "Não foi possível encontrar a chave privada do usuário %s",
     "Internal error" : "Erro interno",
