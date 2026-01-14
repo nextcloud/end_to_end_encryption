@@ -50,8 +50,10 @@ export async function getPrivateKey(): Promise<PrivateKeyInfo | null> {
 		const response = await axios.get<OCSResponse<{ 'private-key': string }>>(
 			generateOcsUrl(Url.PrivateKey),
 			{
-				headers: { 'X-E2EE-SUPPORTED': 'true' },
-				params: { shareToken: getSharingToken() },
+				headers: {
+					'X-E2EE-SUPPORTED': 'true',
+					'X-NC-E2EE-SHARE-TOKEN': getSharingToken() || undefined,
+				},
 			},
 		)
 		const encryptedPrivateKeyInfo = response.data.ocs.data['private-key']
@@ -176,11 +178,17 @@ export async function getServerPublicKey(): Promise<string> {
  * @param folderId - The fileid of the folder
  */
 export async function setFolderAsEncrypted(folderId: string): Promise<void> {
+	const shareToken = getSharingToken() || undefined
 	const url = generateOcsUrl(Url.Encrypted, { folderId })
 	await axios.put(
 		url,
 		{},
-		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
+		{
+			headers: {
+				'X-E2EE-SUPPORTED': 'true',
+				'X-NC-E2EE-SHARE-TOKEN': shareToken,
+			},
+		},
 	)
 }
 
@@ -190,21 +198,22 @@ export async function setFolderAsEncrypted(folderId: string): Promise<void> {
  * @param folderId - The folder to lock
  * @param counter - The incremented counter value (see metadata)
  * @param token - Optional existing token to extend the lock
- * @param shareToken - Optional share token if folder is a share (to identify the owner)
  * @return The locking token
  */
-export async function lockFolder(folderId: string, counter: number, token?: string, shareToken?: string): Promise<string> {
+export async function lockFolder(folderId: string, counter: number, token?: string): Promise<string> {
+	const shareToken = getSharingToken() || undefined
 	const url = generateOcsUrl(Url.Lock, { folderId })
+
 	const response = await axios.post<OCSResponse<{ 'e2e-token': string }>>(
 		url,
 		{
 			'e2e-token': token,
-			shareToken,
 		},
 		{
 			headers: {
-				'X-NC-E2EE-COUNTER': counter.toString(),
 				'X-E2EE-SUPPORTED': 'true',
+				'X-NC-E2EE-COUNTER': counter.toString(),
+				'X-NC-E2EE-SHARE-TOKEN': shareToken,
 			},
 		},
 	)
@@ -216,21 +225,22 @@ export async function lockFolder(folderId: string, counter: number, token?: stri
  *
  * @param folderId - The folder to lock
  * @param token - Optional existing token to extend the lock
- * @param shareToken - Optional share token if folder is a share (to identify the owner)
  * @param abort - Whether to abort the ongoing operation
  */
-export async function unlockFolder(folderId: string, token: string, shareToken?: string, abort?: true): Promise<void> {
+export async function unlockFolder(folderId: string, token: string, abort?: true): Promise<void> {
 	const url = generateOcsUrl(Url.Lock, { folderId })
+	const shareToken = getSharingToken() || undefined
+
 	await axios.delete<OCSResponse<{ 'e2e-token': string }>>(
 		url,
 		{
 			data: {
 				abort: abort ? 'true' : undefined,
-				shareToken,
 			},
 			headers: {
 				'E2E-TOKEN': token,
 				'X-E2EE-SUPPORTED': 'true',
+				'X-NC-E2EE-SHARE-TOKEN': shareToken,
 			},
 		},
 	)
@@ -246,6 +256,8 @@ export async function unlockFolder(folderId: string, token: string, shareToken?:
  */
 export async function createMetadata(fileId: string, metadata: string, token: string, signature: string): Promise<void> {
 	const url = generateOcsUrl(Url.Metadata, { fileId })
+	const shareToken = getSharingToken() || undefined
+
 	await axios.post(
 		url,
 		{
@@ -254,8 +266,9 @@ export async function createMetadata(fileId: string, metadata: string, token: st
 		{
 			headers: {
 				'E2E-TOKEN': token,
-				'X-NC-E2EE-SIGNATURE': signature,
 				'X-E2EE-SUPPORTED': 'true',
+				'X-NC-E2EE-SIGNATURE': signature,
+				'X-NC-E2EE-SHARE-TOKEN': shareToken,
 			},
 		},
 	)
@@ -271,6 +284,8 @@ export async function createMetadata(fileId: string, metadata: string, token: st
  */
 export async function updateMetadata(fileId: string, metadata: string, token: string, signature: string): Promise<void> {
 	const url = generateOcsUrl(Url.Metadata, { fileId })
+	const shareToken = getSharingToken() || undefined
+
 	await axios.put(
 		url,
 		{
@@ -279,8 +294,9 @@ export async function updateMetadata(fileId: string, metadata: string, token: st
 		{
 			headers: {
 				'E2E-TOKEN': token,
-				'X-NC-E2EE-SIGNATURE': signature,
 				'X-E2EE-SUPPORTED': 'true',
+				'X-NC-E2EE-SIGNATURE': signature,
+				'X-NC-E2EE-SHARE-TOKEN': shareToken,
 			},
 		},
 	)
@@ -294,12 +310,15 @@ export async function updateMetadata(fileId: string, metadata: string, token: st
  */
 export async function deleteMetadata(fileId: string, token: string): Promise<void> {
 	const url = generateOcsUrl(Url.Metadata, { fileId })
+	const shareToken = getCurrentUser() === null ? getSharingToken() : undefined
+
 	await axios.delete(
 		url,
 		{
 			headers: {
 				'E2E-TOKEN': token,
 				'X-E2EE-SUPPORTED': 'true',
+				'X-NC-E2EE-SHARE-TOKEN': shareToken,
 			},
 		},
 	)
@@ -318,9 +337,7 @@ export async function getMetadata(fileId: string, shareToken?: string) {
 		{
 			headers: {
 				'X-E2EE-SUPPORTED': 'true',
-			},
-			params: {
-				shareToken,
+				'X-NC-E2EE-SHARE-TOKEN': shareToken,
 			},
 		},
 	)

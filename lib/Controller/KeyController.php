@@ -17,6 +17,7 @@ use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\PublicPage;
+use OCP\AppFramework\Http\Attribute\RequestHeader;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -47,7 +48,6 @@ class KeyController extends OCSController {
 	/**
 	 * Get private key
 	 *
-	 * @param ?string $shareToken - Optional share token to get a private key associated with a share
 	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>
 	 * @throws OCSBadRequestException Internal error
 	 * @throws OCSForbiddenException Not allowed to get private key
@@ -58,7 +58,9 @@ class KeyController extends OCSController {
 	#[NoAdminRequired]
 	#[PublicPage]
 	#[E2ERestrictUserAgent]
-	public function getPrivateKey(?string $shareToken = null): DataResponse {
+	#[RequestHeader(name: 'x-nc-e2ee-share-token', description: 'The share token for accessing the encrypted private key of end-to-end encryption shares')]
+	public function getPrivateKey(): DataResponse {
+		$shareToken = $this->request->getHeader('x-nc-e2ee-share-token') ?: null;
 		if ($this->userId === null && $shareToken === null) {
 			throw new OCSForbiddenException($this->l10n->t('Not allowed to get private key'));
 		}
