@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Internal error" : "Kesalahan internal",
     "File not locked" : "File tidak dikunci",
+    "Submit" : "Kirim",
     "Folder name cannot be empty" : "Nama folder tidak bisa kosong",
     "Folder name" : "Nama folder",
     "Continue" : "Lanjutkan",
