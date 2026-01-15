@@ -13,6 +13,7 @@ use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -137,6 +138,7 @@ class MetaDataController extends OCSController {
 	 * @NoAdminRequired
 	 * @param int $id File ID
 	 * @param string $metaData New metadata
+	 * @param ?string $shareToken - Token of the share (if on public share)
 	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to edit the file
 	 * @throws OCSBadRequestException Cannot store metadata
@@ -144,9 +146,11 @@ class MetaDataController extends OCSController {
 	 *
 	 * 200: Metadata updated successfully
 	 */
-	public function updateMetaData(int $id, string $metaData): DataResponse {
+	#[PublicPage()]
+	public function updateMetaData(int $id, string $metaData, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$signature = $this->request->getHeader('x-nc-e2ee-signature');
+		$ownerId = $this->getOwnerId($shareToken);
 
 		if ($e2eToken === '') {
 			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
@@ -156,12 +160,12 @@ class MetaDataController extends OCSController {
 			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-SIGNATURE is empty'));
 		}
 
-		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
 		try {
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData, $e2eToken, $signature);
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $metaData, $e2eToken, $signature);
 		} catch (MissingMetaDataException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
@@ -190,17 +194,19 @@ class MetaDataController extends OCSController {
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
+		$shareToken = $this->request->getHeader('x-nc-e2ee-share-token') ?: null;
+		$ownerId = $this->getOwnerId($shareToken);
 
 		if ($e2eToken === '') {
 			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
 		}
 
-		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
+		if ($this->lockManager->isLocked($id, $e2eToken, $ownerId, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
 		}
 
 		try {
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}', $e2eToken, '');
+			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, '{}', $e2eToken, '');
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
