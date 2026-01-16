@@ -8,12 +8,14 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Controller;
 
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -64,10 +66,6 @@ class LockingController extends OCSController {
 	/**
 	 * Lock folder
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 * @PublicPage
-	 *
 	 * @param int $id file ID
 	 * @param ?string $shareToken Token of the share if available
 	 *
@@ -76,6 +74,8 @@ class LockingController extends OCSController {
 	 *
 	 * 200: Folder locked successfully
 	 */
+	#[PublicPage]
+	#[E2ERestrictUserAgent]
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
 		$e2eCounter = (int)$this->request->getHeader('x-nc-e2ee-counter');
@@ -114,10 +114,6 @@ class LockingController extends OCSController {
 	/**
 	 * Unlock folder
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 * @PublicPage
-	 *
 	 * @param int $id file ID
 	 * @param ?string $shareToken Token of the share if available
 	 * @param null|'true' $abort Abort changes during unlock
@@ -128,6 +124,8 @@ class LockingController extends OCSController {
 	 *
 	 * 200: Folder unlocked successfully
 	 */
+	#[PublicPage]
+	#[E2ERestrictUserAgent]
 	public function unlockFolder(int $id, ?string $shareToken = null, ?string $abort = null): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
 

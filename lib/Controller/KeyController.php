@@ -10,6 +10,7 @@ namespace OCA\EndToEndEncryption\Controller;
 use BadMethodCallException;
 use Exception;
 use OCA\EndToEndEncryption\AppInfo\Application;
+use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\SignatureHandler;
@@ -46,8 +47,6 @@ class KeyController extends OCSController {
 	/**
 	 * Get private key
 	 *
-	 * @E2ERestrictUserAgent
-	 *
 	 * @param ?string $shareToken - Optional share token to get a private key associated with a share
 	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>
 	 * @throws OCSBadRequestException Internal error
@@ -58,6 +57,7 @@ class KeyController extends OCSController {
 	 */
 	#[NoAdminRequired]
 	#[PublicPage]
+	#[E2ERestrictUserAgent]
 	public function getPrivateKey(?string $shareToken = null): DataResponse {
 		if ($this->userId === null && $shareToken === null) {
 			throw new OCSForbiddenException($this->l10n->t('Not allowed to get private key'));
@@ -80,8 +80,6 @@ class KeyController extends OCSController {
 	/**
 	 * Delete the users private key
 	 *
-	 * @NoAdminRequired
-	 *
 	 * @param ?string $shareToken - Optional share token to delete a private key associated with a share
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSBadRequestException Internal error
@@ -90,6 +88,7 @@ class KeyController extends OCSController {
 	 *
 	 * 200: Private key deleted successfully
 	 */
+	#[NoAdminRequired]
 	public function deletePrivateKey(?string $shareToken = null): DataResponse {
 		try {
 			$this->keyStorage->deletePrivateKey($this->userId, $shareToken);
@@ -108,9 +107,6 @@ class KeyController extends OCSController {
 	/**
 	 * Set private key
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 *
 	 * @param string $privateKey - The new private key
 	 * @param ?string $shareToken - Optional share token to set a private key associated with a share
 	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
@@ -119,6 +115,8 @@ class KeyController extends OCSController {
 	 * 200: Private key set successfully
 	 * 409: Private key already exists
 	 */
+	#[NoAdminRequired]
+	#[E2ERestrictUserAgent]
 	public function setPrivateKey(string $privateKey, ?string $shareToken = null): DataResponse {
 		try {
 			$this->keyStorage->setPrivateKey($privateKey, $this->userId, $shareToken);
@@ -135,7 +133,6 @@ class KeyController extends OCSController {
 	/**
 	 * Get public key
 	 *
-	 * @E2ERestrictUserAgent
 	 * @param string $users a json encoded list of users
 	 * @return DataResponse<Http::STATUS_OK, array{public-keys: array<string, string>}, array{}>
 	 * @throws OCSBadRequestException Internal error
@@ -145,6 +142,7 @@ class KeyController extends OCSController {
 	 */
 	#[NoAdminRequired]
 	#[PublicPage]
+	#[E2ERestrictUserAgent]
 	public function getPublicKeys(string $users = ''): DataResponse {
 		$usersArray = $this->jsonDecode($users);
 		$result = ['public-keys' => []];
@@ -169,9 +167,6 @@ class KeyController extends OCSController {
 	 * If no public key exists and the request contains a valid certificate
 	 * from the currently logged in user we will create one
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 *
 	 * @param string $csr request to create a valid public key
 	 * @param ?string $shareToken - optional share token to create a public key associated with a share
 	 *
@@ -182,6 +177,8 @@ class KeyController extends OCSController {
 	 * 200: Public key created successfully
 	 * 409: Public key already exists
 	 */
+	#[NoAdminRequired]
+	#[E2ERestrictUserAgent]
 	public function createPublicKey(string $csr, ?string $shareToken = null): DataResponse {
 		if ($this->keyStorage->publicKeyExists($this->userId, $shareToken)) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
@@ -221,9 +218,6 @@ class KeyController extends OCSController {
 	/**
 	 * Set public key
 	 *
-	 * @NoAdminRequired
-	 * @E2ERestrictUserAgent
-	 *
 	 * @param string $publicKey The new public key
 	 * @return DataResponse<Http::STATUS_OK, array{public-key: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
 	 * @throws OCSBadRequestException Internal error
@@ -231,6 +225,8 @@ class KeyController extends OCSController {
 	 * 200: Public key set successfully
 	 * 409: Public key already exists
 	 */
+	#[NoAdminRequired]
+	#[E2ERestrictUserAgent]
 	public function setPublicKey(string $publicKey): DataResponse {
 		try {
 			$this->keyStorage->setPublicKey($publicKey, $this->userId);
@@ -247,8 +243,6 @@ class KeyController extends OCSController {
 	/**
 	 * Delete the users public key
 	 *
-	 * @NoAdminRequired
-	 *
 	 * @param ?string $shareToken - Optional share token to delete a public key associated with a share
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 *
@@ -258,6 +252,7 @@ class KeyController extends OCSController {
 	 *
 	 * 200: Public key deleted successfully
 	 */
+	#[NoAdminRequired]
 	public function deletePublicKey(?string $shareToken = null): ?DataResponse {
 		try {
 			$this->keyStorage->deletePublicKey($this->userId, $shareToken);
@@ -274,8 +269,6 @@ class KeyController extends OCSController {
 
 
 	/**
-	 * @E2ERestrictUserAgent
-	 *
 	 * Get the public server key so that the clients can verify the
 	 * signature of the users public keys
 	 *
@@ -287,6 +280,7 @@ class KeyController extends OCSController {
 	 */
 	#[NoAdminRequired]
 	#[PublicPage]
+	#[E2ERestrictUserAgent]
 	public function getPublicServerKey(): DataResponse {
 		try {
 			$publicKey = $this->signatureHandler->getPublicServerKey();
