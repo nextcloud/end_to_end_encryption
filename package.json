@@ -45,7 +45,7 @@
     "@nextcloud/router": "^3.1.0",
     "@nextcloud/sharing": "^0.3.0",
     "@nextcloud/vue": "^9.3.3",
-    "@peculiar/x509": "^1.14.2",
+    "@peculiar/x509": "^1.14.3",
     "@rxliuli/vista": "^0.4.8",
     "@vueuse/core": "^14.1.0",
     "asn1js": "^3.0.7",
