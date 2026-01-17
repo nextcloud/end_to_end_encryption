@@ -5,6 +5,8 @@ OC.L10N.register(
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
+    "Permissions" : "Permisos",
+    "View only" : "Solo ver",
     "Close" : "Cerrar",
     "Read only" : "Solo lectura",
     "Edit" : "Editar",
