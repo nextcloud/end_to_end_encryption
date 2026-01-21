@@ -211,7 +211,7 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	}
 
 	public static async fromJson(json: IRawMetadata, metadataKey: CryptoKey): Promise<Metadata> {
-		if (json.version !== '2.0') {
+		if (['2.0', '2.1'].includes(json.version) === false) {
 			throw new Error(`Unsupported metadata version: ${json.version}`)
 		}
 

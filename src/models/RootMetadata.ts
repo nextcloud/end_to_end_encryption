@@ -49,6 +49,11 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 	 */
 	public async addUser(userId: string, certificate: X509Certificate): Promise<void> {
 		logger.debug(`Adding user ${userId} to folder metadata`)
+
+		if (userId.startsWith('s:') && this._version === '2.0') {
+			this._version = '2.1'
+		}
+
 		this.#users.push({ userId, certificate: certificate.toString('pem'), encryptedMetadataKey: '' })
 		this.#usersModified = true
 		this._modified = true
@@ -110,7 +115,7 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			throw new Error('Provided metadata is not root metadata')
 		}
 
-		if (json.version !== '2.0') {
+		if (['2.0', '2.1'].includes(json.version) === false) {
 			throw new Error(`Unsupported metadata version: ${json.version}`)
 		}
 
