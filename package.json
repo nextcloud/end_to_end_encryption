@@ -1,6 +1,6 @@
 {
   "name": "end_to_end_encryption",
-  "version": "2.0.0-rc.5",
+  "version": "2.0.0-rc.6",
   "private": true,
   "description": "Provides the necessary endpoint to enable End-to-End encryption.",
   "homepage": "https://github.com/nextcloud/end_to_end_encryption#readme",
