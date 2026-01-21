@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Controller;
 
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Controller\MetaDataController;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
@@ -39,6 +40,7 @@ class MetaDataControllerTest extends TestCase {
 	private ShareManager&MockObject $shareManager;
 	private MetaDataController $controller;
 	private IRootFolder&MockObject $rootFolder;
+	private AccessManager&MockObject $accessManager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -52,6 +54,7 @@ class MetaDataControllerTest extends TestCase {
 		$this->l10n = $this->createMock(IL10N::class);
 		$this->shareManager = $this->createMock(ShareManager::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->accessManager = $this->createMock(AccessManager::class);
 
 		$this->controller = new MetaDataController(
 			$this->appName,
@@ -63,6 +66,7 @@ class MetaDataControllerTest extends TestCase {
 			$this->l10n,
 			$this->shareManager,
 			$this->rootFolder,
+			$this->accessManager,
 		);
 	}
 
@@ -74,12 +78,19 @@ class MetaDataControllerTest extends TestCase {
 	 *
 	 * @dataProvider getMetaDataDataProvider
 	 */
-	public function testGetMetaData(?\Exception $metaDataStorageException,
+	public function testGetMetaData(
+		?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
-		bool $expectLogger): void {
+		bool $expectLogger,
+	): void {
 		$fileId = 42;
 		$metaData = 'JSON-ENCODED-META-DATA';
+
+		$this->accessManager->method('getOwnerId')
+			->with($fileId)
+			->willReturn('john.doe');
+
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
 				->method('getMetaData')
@@ -144,6 +155,11 @@ class MetaDataControllerTest extends TestCase {
 		?int $expectedResponseCode): void {
 		$fileId = 42;
 		$metaData = 'JSON-ENCODED-META-DATA';
+
+		$this->accessManager->method('getOwnerId')
+			->with($fileId)
+			->willReturn('john.doe');
+
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
 				->method('setMetaDataIntoIntermediateFile')
@@ -213,6 +229,11 @@ class MetaDataControllerTest extends TestCase {
 		$sendToken = 'sendE2EToken';
 		$signature = 'signature';
 		$metaData = 'JSON-ENCODED-META-DATA';
+
+		$this->accessManager->method('getOwnerId')
+			->with($fileId)
+			->willReturn('john.doe');
+
 		$this->request->expects($this->exactly(2))
 			->method('getHeader')
 			->willReturnMap([
@@ -287,6 +308,11 @@ class MetaDataControllerTest extends TestCase {
 		?string $expectedExceptionMessage,
 		bool $expectLogger): void {
 		$fileId = 42;
+
+		$this->accessManager->method('getOwnerId')
+			->with($fileId)
+			->willReturn('john.doe');
+
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
 				->method('updateMetaDataIntoIntermediateFile')

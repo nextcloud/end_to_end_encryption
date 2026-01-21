@@ -15,9 +15,6 @@ use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\IDBConnection;
-use OCP\IUserSession;
-use OCP\Share\IManager;
-use OCP\Share\IShare;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -28,22 +25,13 @@ use Psr\Log\LoggerInterface;
  * @package OCA\EndToEndEncryption
  */
 class EncryptionManager {
-	private IRootFolder $rootFolder;
-	private IUserSession $userSession;
-	private IManager $shareManager;
-	private IDBConnection $dbConnection;
-	private LoggerInterface $logger;
 
-	public function __construct(IRootFolder $rootFolder,
-		IUserSession $userSession,
-		IManager $shareManager,
-		IDBConnection $dbConnection,
-		LoggerInterface $logger) {
-		$this->rootFolder = $rootFolder;
-		$this->userSession = $userSession;
-		$this->shareManager = $shareManager;
-		$this->dbConnection = $dbConnection;
-		$this->logger = $logger;
+	public function __construct(
+		private IRootFolder $rootFolder,
+		private IDBConnection $dbConnection,
+		private LoggerInterface $logger,
+		private AccessManager $accessManager,
+	) {
 	}
 
 	/**
@@ -52,7 +40,8 @@ class EncryptionManager {
 	 */
 	public function setEncryptionFlag(int $id): void {
 		$this->isValidFolder($id);
-		$userRoot = $this->getUserRoot();
+		$ownerId = $this->accessManager->getOwnerId($id);
+		$userRoot = $this->rootFolder->getUserFolder($ownerId);
 		$cache = $userRoot->getFirstNodeById($id)->getStorage()->getCache();
 		if ($cache === null) {
 			throw new NotFoundException('No cache available for folder with ID ' . $id);
@@ -66,7 +55,8 @@ class EncryptionManager {
 	 */
 	public function removeEncryptionFlag(int $id): void {
 		$this->isValidFolder($id);
-		$userRoot = $this->getUserRoot();
+		$ownerId = $this->accessManager->getOwnerId($id);
+		$userRoot = $this->rootFolder->getUserFolder($ownerId);
 		$cache = $userRoot->getFirstNodeById($id)->getStorage()->getCache();
 		if ($cache === null) {
 			throw new NotFoundException('No cache available for folder with ID ' . $id);
@@ -95,81 +85,28 @@ class EncryptionManager {
 	}
 
 	/**
-	 * Get root folder of the currently logged in user
-	 */
-	protected function getUserRoot(): Folder {
-		$uid = $this->userSession->getUser()->getUID();
-		return $this->rootFolder->getUserFolder($uid);
-	}
-
-
-	/**
 	 * Check if file ID points to a valid folder
 	 * @throws NotFoundException
 	 */
 	protected function isValidFolder(int $id):void {
-		$node = $this->rootFolder->getById($id);
+		$this->accessManager->checkPermissions($id, true);
 
-		if (!isset($node[0])) {
+		$node = $this->rootFolder->getFirstNodeById($id);
+		if ($node === null) {
 			throw new NotFoundException('No folder with ID ' . $id);
 		}
 
-		$firstNode = $node[0];
-		if (!($firstNode instanceof Folder)) {
+		if (!($node instanceof Folder)) {
 			throw new NotFoundException('No folder with ID ' . $id);
 		}
 
-		if (!empty($firstNode->getDirectoryListing())) {
+		if (!empty($node->getDirectoryListing())) {
 			throw new NotFoundException('Folder with ID ' . $id . ' not empty');
 		}
-
-		$user = $this->userSession->getUser();
-		if ($user === null) {
-			throw new NotFoundException('No active user-session');
-		}
-
-		$userId = $user->getUID();
-		if ($this->isNodeShared($userId, $firstNode)) {
-			throw new NotFoundException('Folder with ID ' . $id . ' is shared');
-		}
-	}
-
-	/**
-	 * Check if a node is shared
-	 */
-	private function isNodeShared(string $userId, Node $node):bool {
-		$shareTypesToCheck = [
-			IShare::TYPE_USER,
-			IShare::TYPE_GROUP,
-			IShare::TYPE_USERGROUP,
-			IShare::TYPE_LINK,
-			IShare::TYPE_EMAIL,
-			IShare::TYPE_REMOTE,
-			IShare::TYPE_CIRCLE,
-			IShare::TYPE_GUEST,
-			IShare::TYPE_REMOTE_GROUP,
-			IShare::TYPE_ROOM,
-		];
-
-		foreach ($shareTypesToCheck as $shareType) {
-			$shares = $this->shareManager->getSharesBy(
-				$userId,
-				$shareType,
-				$node,
-				false,
-				1 // Limit 1, because we only care whether there is a share or not
-			);
-
-			if (!empty($shares)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public function removeEncryptedFolders(string $userId): array {
-		$userRoot = $this->getUserRoot();
+		$userRoot = $this->rootFolder->getUserFolder($userId);
 		$storageId = $userRoot->getStorage()->getCache()->getNumericStorageId();
 
 		$qb = $this->dbConnection->getQueryBuilder();

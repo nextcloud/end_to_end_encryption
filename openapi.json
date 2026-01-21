@@ -294,13 +294,11 @@
                         }
                     },
                     {
-                        "name": "shareToken",
-                        "in": "query",
-                        "description": "- Optional share token to get a private key associated with a share",
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token for accessing the encrypted private key of end-to-end encryption shares",
                         "schema": {
-                            "type": "string",
-                            "nullable": true,
-                            "default": null
+                            "type": "string"
                         }
                     },
                     {
@@ -2599,6 +2597,7 @@
                     "encryption"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -2672,34 +2671,6 @@
                     },
                     "404": {
                         "description": "File not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3145,6 +3116,7 @@
                     "meta_data"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -3180,6 +3152,14 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token when interacting with the API as an external share user",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
@@ -3329,34 +3309,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             },
@@ -3367,6 +3319,7 @@
                     "meta_data"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -3386,13 +3339,11 @@
                         }
                     },
                     {
-                        "name": "shareToken",
-                        "in": "query",
-                        "description": "Token of the share if available",
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token when interacting with the API as an external share user",
                         "schema": {
-                            "type": "string",
-                            "nullable": true,
-                            "default": null
+                            "type": "string"
                         }
                     },
                     {
@@ -3507,34 +3458,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             },
@@ -3545,6 +3468,7 @@
                     "meta_data"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -3580,6 +3504,14 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token when interacting with the API as an external share user",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
@@ -3729,34 +3661,6 @@
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             },
@@ -3767,6 +3671,7 @@
                     "meta_data"
                 ],
                 "security": [
+                    {},
                     {
                         "bearer_auth": []
                     },
@@ -3783,6 +3688,14 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token when interacting with the API as an external share user",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
@@ -3890,34 +3803,6 @@
                     },
                     "400": {
                         "description": "Cannot delete metadata",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "required": [
-                                        "ocs"
-                                    ],
-                                    "properties": {
-                                        "ocs": {
-                                            "type": "object",
-                                            "required": [
-                                                "meta",
-                                                "data"
-                                            ],
-                                            "properties": {
-                                                "meta": {
-                                                    "$ref": "#/components/schemas/OCSMeta"
-                                                },
-                                                "data": {}
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -4149,12 +4034,6 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "shareToken": {
-                                        "type": "string",
-                                        "nullable": true,
-                                        "default": null,
-                                        "description": "Token of the share if available"
-                                    },
                                     "e2e-token": {
                                         "type": "object",
                                         "nullable": true,
@@ -4174,6 +4053,14 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token when interacting with the API as an external share user",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
@@ -4290,16 +4177,6 @@
                         }
                     },
                     {
-                        "name": "shareToken",
-                        "in": "query",
-                        "description": "Token of the share if available",
-                        "schema": {
-                            "type": "string",
-                            "nullable": true,
-                            "default": null
-                        }
-                    },
-                    {
                         "name": "abort",
                         "in": "query",
                         "description": "Abort changes during unlock",
@@ -4310,6 +4187,14 @@
                             "enum": [
                                 "true"
                             ]
+                        }
+                    },
+                    {
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token when interacting with the API as an external share user",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {

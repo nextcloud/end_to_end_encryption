@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
+use InvalidArgumentException;
 use OC\Files\Node\File;
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCP\Files\Cache\ICache;
 use OCP\Files\Folder;
@@ -18,10 +20,6 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\Storage\IStorage;
 use OCP\IDBConnection;
-use OCP\IUser;
-use OCP\IUserSession;
-use OCP\Share\IManager;
-use OCP\Share\IShare;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
@@ -33,10 +31,9 @@ class EncryptionManagerTest extends TestCase {
 	private Folder&MockObject $rootFolder;
 	private IStorage&MockObject $storage;
 	private ICache&MockObject $fileCache;
-	private IUserSession&MockObject $userSession;
-	private IManager&MockObject $shareManager;
 	private IDBConnection&MockObject $dbConnection;
 	private LoggerInterface&MockObject $logger;
+	private AccessManager&MockObject $accessManager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -44,16 +41,23 @@ class EncryptionManagerTest extends TestCase {
 		$this->rootFolder = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
 		$this->storage = $this->createMock(IStorage::class);
 		$this->fileCache = $this->createMock(ICache::class);
-		$this->userSession = $this->createMock(IUserSession::class);
-		$this->shareManager = $this->createMock(IManager::class);
 		$this->dbConnection = $this->createMock(IDBConnection::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
+		$this->accessManager = $this->createMock(AccessManager::class);
 
 		$node = $this->createMock(Node::class);
 		$node->method('getStorage')->willReturn($this->storage);
-		$this->rootFolder->expects($this->any())->method('getStorage')->willReturn($this->storage);
-		$this->rootFolder->method('getFirstNodeById')->willReturn($node);
-		$this->storage->expects($this->any())->method('getCache')->willReturn($this->fileCache);
+		$this->rootFolder
+			->expects($this->any())
+			->method('getStorage')
+			->willReturn($this->storage);
+		$this->rootFolder
+			->method('getFirstNodeById')
+			->willReturn($node);
+		$this->storage
+			->expects($this->any())
+			->method('getCache')
+			->willReturn($this->fileCache);
 	}
 
 	/**
@@ -68,16 +72,15 @@ class EncryptionManagerTest extends TestCase {
 				->setConstructorArgs(
 					[
 						$this->rootFolderInterface,
-						$this->userSession,
-						$this->shareManager,
 						$this->dbConnection,
 						$this->logger,
+						$this->accessManager,
 					]
 				)
-				->setMethods($mockedMethods)
+				->onlyMethods($mockedMethods)
 				->getMock();
 		} else {
-			$instance = new EncryptionManager($this->rootFolderInterface, $this->userSession, $this->shareManager, $this->dbConnection, $this->logger);
+			$instance = new EncryptionManager($this->rootFolderInterface, $this->dbConnection, $this->logger, $this->accessManager);
 		}
 
 		return $instance;
@@ -85,10 +88,18 @@ class EncryptionManagerTest extends TestCase {
 
 	public function testSetEncryptionFlag(): void {
 		$fileId = 42;
-		$instance = $this->getInstance(['isValidFolder', 'getUserRoot']);
-
+		$instance = $this->getInstance(['isValidFolder']);
 		$instance->expects($this->once())->method('isValidFolder')->with($fileId);
-		$instance->expects($this->once())->method('getUserRoot')->willReturn($this->rootFolder);
+
+		$this->accessManager
+			->method('getOwnerId')
+			->with($fileId)
+			->willReturn('userId');
+		$this->rootFolderInterface
+			->method('getUserFolder')
+			->with('userId')
+			->willReturn($this->rootFolder);
+
 		$this->fileCache->expects($this->once())->method('update')->with($fileId, ['encrypted' => '1']);
 
 		$instance->setEncryptionFlag($fileId);
@@ -96,11 +107,19 @@ class EncryptionManagerTest extends TestCase {
 
 	public function testRemoveEncryptionFlag(): void {
 		$fileId = 42;
-		$instance = $this->getInstance(['isValidFolder', 'getUserRoot']);
+		$instance = $this->getInstance(['isValidFolder']);
 
 		$instance->expects($this->once())->method('isValidFolder')->with($fileId);
-		$instance->expects($this->once())->method('getUserRoot')->willReturn($this->rootFolder);
 		$this->fileCache->expects($this->once())->method('update')->with($fileId, ['encrypted' => '0']);
+
+		$this->accessManager
+			->method('getOwnerId')
+			->with($fileId)
+			->willReturn('userId');
+		$this->rootFolderInterface
+			->method('getUserFolder')
+			->with('userId')
+			->willReturn($this->rootFolder);
 
 		$instance->removeEncryptionFlag($fileId);
 	}
@@ -163,42 +182,15 @@ class EncryptionManagerTest extends TestCase {
 		$instance = $this->getInstance();
 
 		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
 
 		$this->rootFolderInterface->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(42)
-			->willReturn([$node1, $node2]);
+			->willReturn($node1);
 
 		$node1->expects($this->once())
 			->method('getDirectoryListing')
 			->willReturn([]);
-
-		$node2->expects($this->never())
-			->method('getDirectoryListing');
-
-		$user = $this->createMock(IUser::class);
-		$user->expects($this->once())
-			->method('getUID')
-			->willReturn('userId123');
-
-		$this->userSession->expects($this->once())
-			->method('getUser')
-			->willReturn($user);
-
-		$this->shareManager->method('getSharesBy')
-			->willReturnMap([
-				['userId123', IShare::TYPE_USER, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_GROUP, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_USERGROUP, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_LINK, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_EMAIL, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_REMOTE, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_CIRCLE, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_GUEST, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_REMOTE_GROUP, $node1, false, 1, 0, true, []],
-				['userId123', IShare::TYPE_ROOM, $node1, false, 1, 0, true, []],
-			]);
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}
@@ -209,9 +201,9 @@ class EncryptionManagerTest extends TestCase {
 
 		$instance = $this->getInstance();
 		$this->rootFolderInterface->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(42)
-			->willReturn([]);
+			->willReturn(null);
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}
@@ -223,12 +215,11 @@ class EncryptionManagerTest extends TestCase {
 		$instance = $this->getInstance();
 
 		$node1 = $this->getMockBuilder(File::class)->disableOriginalConstructor()->getMock();
-		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
 
 		$this->rootFolderInterface->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(42)
-			->willReturn([$node1, $node2]);
+			->willReturn($node1);
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}
@@ -243,9 +234,9 @@ class EncryptionManagerTest extends TestCase {
 		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
 
 		$this->rootFolderInterface->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(42)
-			->willReturn([$node1]);
+			->willReturn($node1);
 
 		$node1->expects($this->once())
 			->method('getDirectoryListing')
@@ -254,74 +245,15 @@ class EncryptionManagerTest extends TestCase {
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}
 
-	public function testIsValidFolderNoUserSession():void {
-		$this->expectException(NotFoundException::class);
-		$this->expectExceptionMessage('No active user-session');
+	public function testIsValidNoAccess():void {
+		$this->expectException(InvalidArgumentException::class);
 
 		$instance = $this->getInstance();
 
-		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-
-		$this->rootFolderInterface->expects($this->once())
-			->method('getById')
-			->with(42)
-			->willReturn([$node1, $node2]);
-
-		$node1->expects($this->once())
-			->method('getDirectoryListing')
-			->willReturn([]);
-
-		$node2->expects($this->never())
-			->method('getDirectoryListing');
-
-		$this->userSession->expects($this->once())
-			->method('getUser')
-			->willReturn(null);
-
-		self::invokePrivate($instance, 'isValidFolder', [42]);
-	}
-
-	public function testIsValidFolderShared():void {
-		$this->expectException(NotFoundException::class);
-		$this->expectExceptionMessage('Folder with ID 42 is shared');
-
-		$instance = $this->getInstance();
-
-		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-
-		$this->rootFolderInterface->expects($this->once())
-			->method('getById')
-			->with(42)
-			->willReturn([$node1, $node2]);
-
-		$node1->expects($this->once())
-			->method('getDirectoryListing')
-			->willReturn([]);
-
-		$node2->expects($this->never())
-			->method('getDirectoryListing');
-
-		$user = $this->createMock(IUser::class);
-		$user->expects($this->once())
-			->method('getUID')
-			->willReturn('userId123');
-
-		$this->userSession->expects($this->once())
-			->method('getUser')
-			->willReturn($user);
-
-		$this->shareManager->expects($this->exactly(5))
-			->method('getSharesBy')
-			->withConsecutive(
-				['userId123', IShare::TYPE_USER, $node1, false, 1],
-				['userId123', IShare::TYPE_GROUP, $node1, false, 1],
-				['userId123', IShare::TYPE_USERGROUP, $node1, false, 1],
-				['userId123', IShare::TYPE_LINK, $node1, false, 1],
-				['userId123', IShare::TYPE_EMAIL, $node1, false, 1]
-			)
-			->willReturnOnConsecutiveCalls([], [], [], [], ['share123']);
+		$this->accessManager->expects($this->once())
+			->method('checkPermissions')
+			->with(42, true)
+			->willThrowException(new InvalidArgumentException());
 
 		self::invokePrivate($instance, 'isValidFolder', [42]);
 	}

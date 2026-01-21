@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Controller;
 
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Controller\LockingController;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
@@ -22,7 +23,6 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\Share\IManager as ShareManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -30,7 +30,6 @@ use Test\TestCase;
 class LockingControllerTest extends TestCase {
 
 	private string $appName;
-	private string $userId;
 	private IRequest&MockObject $request;
 	private IMetaDataStorage&MockObject $metaDataStorage;
 	private LockManager&MockObject $lockManager;
@@ -38,7 +37,7 @@ class LockingControllerTest extends TestCase {
 	private FileService&MockObject $fileService;
 	private LoggerInterface&MockObject $logger;
 	private IL10N&MockObject $l10n;
-	private ShareManager&MockObject $shareManager;
+	private AccessManager&MockObject $accessManager;
 	private LockingController $controller;
 
 	protected function setUp(): void {
@@ -46,32 +45,34 @@ class LockingControllerTest extends TestCase {
 
 		$this->appName = 'end_to_end_encryption';
 		$this->request = $this->createMock(IRequest::class);
-		$this->userId = 'john.doe';
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->fileService = $this->createMock(FileService::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
-		$this->shareManager = $this->createMock(ShareManager::class);
+		$this->accessManager = $this->createMock(AccessManager::class);
 
 		$this->controller = new LockingController(
 			$this->appName,
 			$this->request,
-			$this->userId,
 			$this->metaDataStorage,
 			$this->lockManager,
 			$this->rootFolder,
 			$this->fileService,
 			$this->logger,
 			$this->l10n,
-			$this->shareManager
+			$this->accessManager,
 		);
 	}
 
 	public function testLockFolder(): void {
 		$fileId = 42;
 		$sendE2E = 'e2eToken';
+
+		$this->accessManager->method('getOwnerId')
+			->with($fileId)
+			->willReturn('john.doe');
 
 		$this->l10n->expects($this->any())
 			->method('t')
@@ -114,6 +115,11 @@ class LockingControllerTest extends TestCase {
 	public function testLockFolderException(): void {
 		$fileId = 42;
 		$sendE2E = 'e2eToken';
+
+		$this->accessManager->method('getOwnerId')
+			->with($fileId)
+			->willReturn('john.doe');
+
 		$this->request->expects($this->once())
 			->method('getParam')
 			->with('e2e-token', '')
@@ -171,6 +177,10 @@ class LockingControllerTest extends TestCase {
 	): void {
 		$fileId = 42;
 		$sendE2E = 'e2e-token';
+
+		$this->accessManager->method('getOwnerId')
+			->with($fileId)
+			->willReturn('john.doe');
 
 		$this->l10n->expects($this->any())
 			->method('t')
@@ -249,9 +259,9 @@ class LockingControllerTest extends TestCase {
 			$this->expectException($expectedExceptionClass);
 			$this->expectExceptionMessage($expectedExceptionMessage);
 
-			$this->controller->unlockFolder($fileId, null, $abort ? 'true' : '');
+			$this->controller->unlockFolder($fileId, $abort ? 'true' : '');
 		} else {
-			$response = $this->controller->unlockFolder($fileId, null, $abort ? 'true' : '');
+			$response = $this->controller->unlockFolder($fileId, $abort ? 'true' : '');
 			$this->assertInstanceOf(DataResponse::class, $response);
 			$this->assertEquals([], $response->getData());
 		}

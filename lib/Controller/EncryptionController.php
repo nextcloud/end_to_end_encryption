@@ -12,6 +12,7 @@ use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
@@ -52,7 +53,7 @@ class EncryptionController extends OCSController {
 	 *
 	 * 200: Encryption flag set successfully
 	 */
-	#[NoAdminRequired]
+	#[PublicPage]
 	#[E2ERestrictUserAgent]
 	public function setEncryptionFlag(int $id): DataResponse {
 		try {
