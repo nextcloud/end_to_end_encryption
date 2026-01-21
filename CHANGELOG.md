@@ -7,7 +7,7 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.0-rc.5 - 2026-01-12
+## v2.0.0-rc.6 - 2026-01-21
 ### Added
 * Setup end-to-end encryption in the web interface.
   When end-to-end encryption is enabled in the browser (see personal settings - security),
@@ -31,8 +31,6 @@
     using a secure second channel.
 
 ### Fixed
-* Fixed locking to allow leaving encrypted root folders properly.
-
 <!-- TODO: Remove this section for the final release -->
 Those fixes only affect you if you already used a previous pre-release of v2.
 * Do not allow creating nested e2ee root folders.
@@ -40,16 +38,19 @@ Those fixes only affect you if you already used a previous pre-release of v2.
 * Folders also need the `is-encrypted` attribute to be correctly displayed in the files app.
 * Sharing sidebar work now also when `debug` mode is disabled.
 * "Do not ask again" toggle of mnemonic dialog is respected.
+* Fixed locking to allow leaving encrypted root folders properly.
 * fix(sharing): consolidate share tab and ensure user keys are used
 * fix(sharing): hide native sharing sections
 * fix(sharing): adjusted information about sharing
 * fix: ensure new files and folders will be created with unique names
+* fix(public-share): send shareToken when uploading files
 
 ### Changed
 * Updated dependencies
 * Updated translations
 * The frontend is now using Vue 3
 * The frontend is now tested with end-to-end integration tests (Playwright)
+* Code maintenance
 
 ## v1.18.0 - 2025-10-14
 ### Added
