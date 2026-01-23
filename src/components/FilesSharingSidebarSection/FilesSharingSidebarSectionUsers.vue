@@ -232,7 +232,7 @@ function getSharePermissions(share: IShare): Permission {
 			:inputLabel="t('end_to_end_encryption', 'Create end-to-end encrypted share')"
 			:options="users"
 			@search="debounsedSearch"
-			@update:model-value="createShare" />
+			@update:modelValue="createShare" />
 		<ul :aria-label="t('end_to_end_encryption', 'End-to-end encrypted shares')">
 			<NcListItem
 				v-for="share of userShares"

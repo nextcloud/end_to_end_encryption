@@ -107,7 +107,7 @@ async function nextStep() {
 			v-model="canContinue"
 			:content
 			:context
-			@folder-created="emit('close', $event)" />
+			@folderCreated="emit('close', $event)" />
 
 		<template #actions>
 			<NcButton

@@ -223,7 +223,7 @@ async function setConfig(key: string, value: string) {
 				:modelValue="userConfig.e2eeInBrowserEnabled"
 				class="margin-bottom"
 				type="switch"
-				@update:model-value="value => setConfig('e2eeInBrowserEnabled', value)">
+				@update:modelValue="value => setConfig('e2eeInBrowserEnabled', value)">
 				{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
 			</NcCheckboxRadioSwitch>
 		</NcNoteCard>

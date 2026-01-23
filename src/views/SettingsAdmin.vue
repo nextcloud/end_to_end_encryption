@@ -95,7 +95,7 @@ function saveChanges() {
 			:options="groups"
 			multiple
 			searchable
-			@search-change="searchGroup" />
+			@searchChange="searchGroup" />
 
 		<NcButton
 			class="admin-e2ee__save-button"
