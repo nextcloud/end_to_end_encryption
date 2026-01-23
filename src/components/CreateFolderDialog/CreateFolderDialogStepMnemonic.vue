@@ -60,7 +60,7 @@ async function callback(): Promise<true | void> {
 		v-model="mnemonic"
 		autofocus
 		:error
-		:helper-text="error ? t('end_to_end_encryption', 'Decrypting with given mnemonic failed') : undefined"
+		:helperText="error ? t('end_to_end_encryption', 'Decrypting with given mnemonic failed') : undefined"
 		required
 		pattern="^(\w+\s+){11}\w+$"
 		:label="t('end_to_end_encryption', 'Mnemonic')" />

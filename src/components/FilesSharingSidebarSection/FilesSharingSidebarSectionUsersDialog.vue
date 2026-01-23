@@ -36,8 +36,8 @@ watchEffect(() => {
 
 <template>
 	<NcDialog
-		is-form
-		no-close
+		isForm
+		noClose
 		:name="t('end_to_end_encryption', 'User share setup')"
 		@submit="$emit('close', internalPermissions === 'rw' ? Permission.ALL : Permission.READ)">
 		<NcNoteCard type="info">

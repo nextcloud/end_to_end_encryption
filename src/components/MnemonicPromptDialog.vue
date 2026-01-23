@@ -42,7 +42,7 @@ const buttons = computed(() => [
 	<NcDialog
 		:name="t('end_to_end_encryption', 'Enter your 12 words mnemonic')"
 		:buttons="buttons"
-		:is-form="true"
+		:isForm="true"
 		@submit="submit">
 		<BrowserWarning
 			v-model="confirmToggle"
