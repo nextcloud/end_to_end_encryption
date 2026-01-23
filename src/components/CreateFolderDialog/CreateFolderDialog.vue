@@ -82,7 +82,7 @@ async function nextStep() {
 
 <template>
 	<NcDialog
-		:content-classes="$style.createFolderDialog"
+		:contentClasses="$style.createFolderDialog"
 		size="normal"
 		:name="t('end_to_end_encryption', 'Create new encrypted folder')"
 		@update:open="$event || emit('close', false)">

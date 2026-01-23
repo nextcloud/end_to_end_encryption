@@ -103,9 +103,9 @@ async function createFolder(): Promise<true | void> {
 	<NcInputField
 		v-model="folderName"
 		:error="folderName.length > 0 && helperText.length > 0"
-		:helper-text
+		:helperText
 		:label="t('end_to_end_encryption', 'Folder name')"
-		max-length="250"
-		min-length="1"
+		maxLength="250"
+		minLength="1"
 		required />
 </template>

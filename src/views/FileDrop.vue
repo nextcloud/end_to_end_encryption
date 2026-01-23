@@ -3,7 +3,7 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 <template>
-	<NcContent app-name="end_to_end_encryption">
+	<NcContent appName="end_to_end_encryption">
 		<NcAppContent
 			@drop.prevent="handleDrop"
 			@dragover.prevent="handleDragOver"

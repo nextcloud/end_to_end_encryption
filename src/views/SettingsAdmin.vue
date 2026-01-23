@@ -89,7 +89,7 @@ function saveChanges() {
 			v-model="allowedGroups"
 			class="admin-e2ee__group-select"
 			:disabled="loading"
-			:input-label="t('end_to_end_encryption', 'Limit app usage to groups')"
+			:inputLabel="t('end_to_end_encryption', 'Limit app usage to groups')"
 			label="displayname"
 			:loading="loadingGroups"
 			:options="groups"

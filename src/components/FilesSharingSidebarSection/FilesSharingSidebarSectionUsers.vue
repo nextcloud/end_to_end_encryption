@@ -229,7 +229,7 @@ function getSharePermissions(share: IShare): Permission {
 		<NcSelectUsers
 			:class="$style.sidebarSection__selectUsers"
 			:disabled="isCreatingShare"
-			:input-label="t('end_to_end_encryption', 'Create end-to-end encrypted share')"
+			:inputLabel="t('end_to_end_encryption', 'Create end-to-end encrypted share')"
 			:options="users"
 			@search="debounsedSearch"
 			@update:model-value="createShare" />
@@ -241,9 +241,9 @@ function getSharePermissions(share: IShare): Permission {
 				:name="share.share_with_displayname">
 				<template #icon>
 					<NcAvatar
-						disable-menu
+						disableMenu
 						:user="share.share_with"
-						:display-name="share.share_with_displayname" />
+						:displayName="share.share_with_displayname" />
 				</template>
 				<template #subname>
 					({{ getSharePermissions(share) === Permission.ALL ? t('end_to_end_encryption', 'Read, write, and share') : t('end_to_end_encryption', 'Read only') }})
