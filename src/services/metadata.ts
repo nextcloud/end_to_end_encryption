@@ -49,10 +49,6 @@ export async function encryptMetadataKey(metadataKey: Uint8Array<ArrayBuffer>, k
  * @param metadataKey - The metadata key used to encrypt it
  */
 export async function decryptMetadata(json: IRawMetadata, metadataKey: CryptoKey): Promise<IMetadata> {
-	if (json.version !== '2.0') {
-		throw new Error(`Unsupported metadata version: ${json.version}`)
-	}
-
 	const decryptionKey = await ensureKeyUsage(metadataKey, 'decrypt')
 	const [ciphertext] = json.metadata.ciphertext.split('|') // legacy format support as the Desktop Client still uses this
 	return await globalThis.crypto.subtle.decrypt(
