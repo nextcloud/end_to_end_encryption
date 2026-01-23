@@ -202,7 +202,7 @@ async function setConfig(key: string, value: string) {
 			v-else
 			class="notecard"
 			type="warning"
-			:show-alert="true"
+			show-alert
 			:heading="t('end_to_end_encryption', 'Enabling E2EE in the browser can weaken security')">
 			<NcButton
 				v-if="userConfig['e2eeInBrowserEnabled'] === false"
@@ -239,7 +239,7 @@ async function setConfig(key: string, value: string) {
 			v-else
 			class="notecard"
 			type="warning"
-			:show-alert="true"
+			show-alert
 			:heading="t('end_to_end_encryption', 'Please read carefully before resetting your end-to-end encryption keys')">
 			<NcButton
 				class="close-button"

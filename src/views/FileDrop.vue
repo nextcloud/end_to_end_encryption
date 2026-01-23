@@ -73,10 +73,10 @@ const UploadStep = {
 
 /**
  * @typedef {object} UploadProgress
- * @property {File} file
- * @property {UploadStep} step
- * @property {boolean} error
- * @property {Object<string, import('../services/filedrop.js').FileDropPayload>} fileDrop
+ * @property {File} file - The original unencrypted file
+ * @property {UploadStep} step - The current step of the upload process
+ * @property {boolean} error - Whether an error occurred during the upload
+ * @property {Record<string, import('../services/filedrop.js').FileDropPayload>} fileDrop - The file drop entry for the uploaded file
  */
 
 export default {
@@ -111,7 +111,7 @@ export default {
 
 	methods: {
 		/**
-		 * @param {DragEvent} event
+		 * @param {DragEvent} event - The dragover event
 		 */
 		handleDragOver(event) {
 			if (!event.dataTransfer?.types.includes('Files')) {
@@ -123,7 +123,7 @@ export default {
 		},
 
 		/**
-		 * @param {DragEvent} event
+		 * @param {DragEvent} event - The drop event
 		 */
 		handleDrop(event) {
 			if (!event.dataTransfer?.types.includes('Files')) {
@@ -135,7 +135,7 @@ export default {
 		},
 
 		/**
-		 * @param {FileList?} fileList
+		 * @param {FileList?} fileList - The list of files to upload
 		 */
 		async filesChange(fileList) {
 			if (!fileList?.length) {
@@ -197,7 +197,7 @@ export default {
 		},
 
 		/**
-		 * @param {File} unencryptedFile
+		 * @param {File} unencryptedFile - The file to upload
 		 * @return {Promise<UploadProgress>}
 		 */
 		async uploadFile(unencryptedFile) {
@@ -287,7 +287,7 @@ export default {
 				align-items: center;
 
 				.material-design-icon {
-					margin-right: 8px;
+					margin-inline-end: 8px;
 				}
 
 				.loading-icon :deep(svg) {
