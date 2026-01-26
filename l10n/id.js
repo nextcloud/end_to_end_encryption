@@ -4,6 +4,7 @@ OC.L10N.register(
     "Internal error" : "Kesalahan internal",
     "File not locked" : "File tidak dikunci",
     "End-to-End Encryption" : "13.0.0-regular2-cbf33a3d",
+    "I understand the risks" : "Saya memahami risikonya",
     "Submit" : "Kirim",
     "Folder name cannot be empty" : "Nama folder tidak bisa kosong",
     "Folder name" : "Nama folder",
