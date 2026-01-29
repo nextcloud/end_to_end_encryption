@@ -14,6 +14,7 @@ use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\Files\FileInfo;
 use OCP\IConfig;
 use OCP\Util;
 
@@ -36,6 +37,13 @@ class LoadAdditionalListener implements IEventListener {
 
 		if (($event instanceof BeforeTemplateRenderedEvent) && $event->getScope() === BeforeTemplateRenderedEvent::SCOPE_PUBLIC_SHARE_AUTH) {
 			return;
+		}
+
+		if ($event instanceof BeforeTemplateRenderedEvent) {
+			$node = $event->getShare()->getNode();
+			if ($node->getType() === FileInfo::TYPE_FOLDER && $node->isEncrypted()) {
+				Util::addStyle(Application::APP_ID, 'public-share');
+			}
 		}
 
 		$browserE2eeEnabled = $this->userId === null
