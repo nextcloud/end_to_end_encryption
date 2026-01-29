@@ -8,14 +8,18 @@ import type { INode } from '@nextcloud/files'
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
 import { DefaultType, FileAction, FileType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
+import { spawnDialog } from '@nextcloud/vue/functions/dialog'
+import { defineAsyncComponent } from 'vue'
 import { isDownloadable } from '../services/permissions.ts'
+
+const DownloadFolderDialog = defineAsyncComponent(() => import('../components/DownloadFolderDialog.vue'))
 
 /**
  * Trigger downloading of given file (only the first node is downloaded).
  *
  * @param file - File to download
  */
-async function downloadNodes(file: INode) {
+async function downloadNode(file: INode) {
 	// Decryption happens in the proxy.
 	const response = await fetch(file.encodedSource)
 	const decryptedFileContent = await response.arrayBuffer()
@@ -35,8 +39,18 @@ export default new FileAction({
 	iconSvgInline: () => ArrowDownSvg,
 
 	enabled(nodes: INode[]) {
-		if (nodes.length !== 1) {
+		if (nodes.length === 0) {
 			return false
+		}
+
+		if (window.showDirectoryPicker === undefined) {
+			// we need File System API for downloading folders
+			if (nodes.length !== 1) {
+				return false
+			}
+			if (nodes.some((node) => node.type === FileType.Folder)) {
+				return false
+			}
 		}
 
 		if (nodes.some((node) => node.attributes['e2ee-is-encrypted'] !== 1)) {
@@ -48,17 +62,26 @@ export default new FileAction({
 			return false
 		}
 
-		// We can only download files
-		if (nodes.some((node) => node.type !== FileType.File)) {
-			return false
-		}
-
 		return nodes.every(isDownloadable)
 	},
 
 	async exec(node: INode) {
-		await downloadNodes(node)
+		if (node.type === FileType.Folder) {
+			await spawnDialog(DownloadFolderDialog, {
+				nodes: [node],
+			})
+		} else {
+			await downloadNode(node)
+		}
 		return null
+	},
+
+	async execBatch(nodes: INode[]) {
+		await spawnDialog(DownloadFolderDialog, {
+			nodes,
+		})
+
+		return new Array(nodes.length).fill(null)
 	},
 
 	order: 30,

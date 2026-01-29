@@ -52,7 +52,6 @@ test('all properties are set correctly', () => {
 	expect(Action.default).toBe(DefaultType.DEFAULT)
 	expect(Action.displayName([folder], view)).toBe('Download unencrypted')
 	expect(Action.iconSvgInline([folder], view)).toContain('<svg')
-	expect(Action.execBatch).toBeUndefined()
 })
 
 test('exec method calls downloadNodes', async () => {
@@ -82,16 +81,19 @@ describe('enabled method', () => {
 	test('returns false for folders', () => {
 		expect(Action.enabled!([folder], view)).toBe(false)
 	})
-	test('returns false for multiple nodes', () => {
+	test.skipIf(window.showDirectoryPicker !== undefined)('returns false for multiple nodes', () => {
 		expect(Action.enabled!([encryptedFile, encryptedFile], view)).toBe(false)
+	})
+	test.skipIf(window.showDirectoryPicker === undefined)('returns true for multiple nodes', () => {
+		expect(Action.enabled!([encryptedFile, encryptedFile], view)).toBe(true)
 	})
 	test('returns false for non encrypted node', () => {
 		expect(Action.enabled!([file], view)).toBe(false)
 	})
 	test('returns false for not-downloadable node', () => {
-		const file = encryptedFile.clone()
-		file.permissions = file.permissions & ~Permission.READ
-		expect(Action.enabled!([encryptedFile, encryptedFile], view)).toBe(false)
+		const encryptedFileClone = encryptedFile.clone()
+		encryptedFileClone.permissions = encryptedFileClone.permissions & ~Permission.READ
+		expect(Action.enabled!([encryptedFileClone], view)).toBe(false)
 	})
 	test('returns false for external files', () => {
 		const externalFile = new File({
