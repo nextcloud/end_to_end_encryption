@@ -110,7 +110,6 @@ async function downloadFolder(name: string, path: string, target: FileSystemDire
 	for (const [uuid, foldername] of metadata.metadata.getFolders()) {
 		await downloadFolder(foldername, path + '/' + uuid, folder)
 	}
-	await new Promise((r) => window.setTimeout(r, 3000))
 	filesDone.value!++
 }
 
