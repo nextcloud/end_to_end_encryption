@@ -5,6 +5,7 @@
 
 import { createAppConfig } from '@nextcloud/vite-config'
 import { join } from 'path'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 // replaced by vite
 declare const __dirname: string
@@ -19,6 +20,14 @@ export default createAppConfig({
 		includeSourceMaps: true,
 	},
 	config: {
+		plugins: [
+			viteStaticCopy({
+				targets: [{
+					src: join(__dirname, 'src', 'public-share.css'),
+					dest: 'css',
+				}],
+			}),
+		],
 		build: {
 			rollupOptions: {
 				// TODO: Remove when merged https://github.com/nextcloud/server/pull/56941

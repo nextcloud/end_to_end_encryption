@@ -24,7 +24,7 @@ import * as metadataStore from '../store/metadata.ts'
  * @param next - The next middleware function
  */
 export async function usePutInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
-	logger.debug('Handling PUT request', { request: context.req })
+	logger.debug('Handling PUT request', { request: context.req.bodyUsed })
 
 	const url = new URL(context.req.url)
 	const path = url.pathname
@@ -49,7 +49,8 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 		true,
 		['encrypt', 'decrypt'],
 	)
-	const result = await encryptWithAES(await context.req.arrayBuffer(), key)
+	const buffer = await context.req.arrayBuffer()
+	const result = await encryptWithAES(buffer, key)
 
 	logger.debug('Updating file in metadata', { filename })
 	const fileInfo: IMetadataFile = {
