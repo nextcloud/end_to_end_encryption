@@ -72,6 +72,7 @@ async function downloadFile(name: string, path: string, target: FileSystemDirect
 		const content = await Array.fromAsync(target.keys())
 		const filename = getUniqueName(name, content)
 
+		// The response will be decrypted as usual by the proxy.
 		const response = await window.fetch(path)
 		const file = await target.getFileHandle(filename, { create: true })
 		const stream = await file.createWritable()

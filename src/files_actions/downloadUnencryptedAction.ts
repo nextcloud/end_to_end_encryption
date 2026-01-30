@@ -39,7 +39,7 @@ export default new FileAction({
 	iconSvgInline: () => ArrowDownSvg,
 
 	enabled(nodes: INode[]) {
-		if (!window.showDirectoryPicker) {
+		if (window.showDirectoryPicker === undefined) {
 			// we need File System API for downloading folders
 			if (nodes.length !== 1) {
 				return false
