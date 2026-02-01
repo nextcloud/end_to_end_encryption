@@ -1,0 +1,9 @@
+/*!
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+ 
+/* Hide the download button as we do not support this */
+#public-page-menu--primary {
+	display: none !important;
+}
