@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
 import { encryptStringAsymmetric, encryptWithAES, getRandomEncryptionParams } from './crypto.js'
@@ -18,20 +19,20 @@ import logger from './logger.ts'
 
 /**
  * @typedef {object} UserEncryptionInformation
- * @property {string } userId
- * @property {string } encryptedFiledropKey
+ * @property {string } userId - The user ID of the user
+ * @property {string } encryptedFiledropKey - The base64-encoded encrypted file drop key for the user
  */
 
 /**
  * @typedef {object} FileDropPayload
- * @property {string } ciphertext
- * @property {string } nonce
- * @property {string } authenticationTag
- * @property {UserEncryptionInformation[]} users
+ * @property {string } ciphertext - The base64-encoded encrypted file metadata
+ * @property {string } nonce - The base64-encoded nonce used for encryption
+ * @property {string } authenticationTag - The base64-encoded authentication tag
+ * @property {UserEncryptionInformation[]} users - The encrypted file drop keys for each user
  */
 
 /**
- * @param {ArrayBuffer} buffer
+ * @param {ArrayBuffer} buffer - The buffer to convert
  * @return {string}
  */
 export function bufferToBase64(buffer) {
@@ -39,8 +40,8 @@ export function bufferToBase64(buffer) {
 }
 
 /**
- * @param {import('./crypto.js').FileEncryptionInfo} encryptionInfo
- * @param {{[userId: string]: string}} publicKeys
+ * @param {import('./crypto.js').FileEncryptionInfo} encryptionInfo - The encryption information of the file
+ * @param {{[userId: string]: string}} publicKeys - Mapping of user IDs to their public keys
  * @return {Promise<FileDropPayload>}
  */
 export async function getFileDropEntry(encryptionInfo, publicKeys) {
@@ -65,9 +66,9 @@ export async function getFileDropEntry(encryptionInfo, publicKeys) {
 
 /**
  * @param {1|2} encryptionVersion - The encrypted version for the folder
- * @param {number} folderId
- * @param {{[uid: string]: FileDropPayload}} fileDrops
- * @param {string} shareToken
+ * @param {number} folderId - The folder ID to upload the file drop to
+ * @param {{[uid: string]: FileDropPayload}} fileDrops - The file drop entries to upload
+ * @param {string} shareToken - The share token for authentication
  * @return {Promise<{[uid: string]: FileDropPayload}>}
  */
 export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, shareToken) {
@@ -102,7 +103,7 @@ export async function uploadFileDrop(encryptionVersion, folderId, fileDrops, sha
 }
 
 /**
- * @param {string} str
+ * @param {string} str - The string to compress
  * @return {Promise<ArrayBuffer>}
  */
 async function compress(str) {
@@ -124,9 +125,9 @@ async function compress(str) {
 }
 
 /**
- * @param {{[userId: string]: string}} usersPublicKeys
- * @param {import('./crypto.js').EncryptionParams} encryptionParams
- * @return {Promise<UserEncryptionInformation[]>}
+ * @param {{[userId: string]: string}} usersPublicKeys - Mapping of user IDs to their public keys
+ * @param {import('./crypto.js').EncryptionParams} encryptionParams - The encryption parameters containing the file encryption key
+ * @return {Promise<UserEncryptionInformation[]>} - The encrypted file drop keys for each user
  */
 async function encryptRandomKeyForUsers(usersPublicKeys, encryptionParams) {
 	return Promise.all(Object.entries(usersPublicKeys).map(async ([userId, publicKey]) => {

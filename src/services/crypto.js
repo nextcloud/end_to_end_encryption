@@ -50,8 +50,8 @@ export async function getRandomEncryptionParams() {
 /**
  * Encrypt file content
  *
- * @param {EncryptionParams} encryptionData
- * @param {Uint8Array} content
+ * @param {EncryptionParams} encryptionData - The encryption parameters containing the file encryption key
+ * @param {Uint8Array} content - The content to encrypt
  * @return {Promise<{content: ArrayBuffer, tag: ArrayBuffer}>}
  */
 export async function encryptWithAES({ key, initializationVector }, content) {
@@ -79,7 +79,7 @@ export async function encryptWithAES({ key, initializationVector }, content) {
 /**
  * Encrypt file content
  *
- * @param {File} file
+ * @param {File} file - The file to encrypt
  * @return {Promise<{encryptedFileContent: ArrayBuffer, encryptionInfo: FileEncryptionInfo}>}
  */
 export async function encryptFile(file) {
@@ -101,8 +101,9 @@ export async function encryptFile(file) {
 }
 
 /**
+ * Import a PEM-formatted public key
  *
- * @param {string} pem
+ * @param {string} pem - The PEM-formatted public key
  * @return {Promise<CryptoKey>}
  */
 async function importPublicKey(pem) {
@@ -122,8 +123,8 @@ async function importPublicKey(pem) {
 }
 
 /**
- * @param {string} publicKey
- * @param {BufferSource} buffer
+ * @param {string} publicKey - The PEM-formatted public key
+ * @param {BufferSource} buffer - The buffer to encrypt
  * @return {Promise<ArrayBuffer>}
  */
 export async function encryptStringAsymmetric(publicKey, buffer) {
