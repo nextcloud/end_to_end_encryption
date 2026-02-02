@@ -16,7 +16,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 8.35.3
 	- license: AGPL-3.0-or-later
 - end_to_end_encryption
-	- version: 1.18.0
+	- version: 1.18.1
 	- license: AGPL-3.0-or-later
 - nanoid
 	- version: 3.3.11

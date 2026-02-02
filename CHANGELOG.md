@@ -7,6 +7,22 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v1.18.1 - 2026-02-02
+### Fixed
+* Better encrypted file drop handling
+
+### Changed
+* docs: add changelog to inform admins about changes within app store
+* Updated translations
+* Updated dependencies
+  * Bump `@nextcloud/dialogs` to 6.3.2
+  * Bump `@nextcloud/files` to 3.12.1
+  * Bump `@nextcloud/l10n` to 3.4.1
+  * Bump `@nextcloud/logger` to 3.0.3
+  * Bump `@nextcloud/vue` to 8.35.3
+  * Bump `@peculiar/x509` to 1.12.4
+  * Bump `fast-xml-parser` to 5.2.5
+
 ## v1.18.0 - 2025-10-14
 ### Added
 * Added support for Nextcloud 32
@@ -22,5 +38,5 @@
 
 ### Changed
 * Updated translations
-* Bump cipher-base to 1.0.6
-* Updated development dependencies
+* Updated dependencies
+  * Bump `cipher-base` to 1.0.6

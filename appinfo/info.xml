@@ -12,7 +12,7 @@
 This app provides all the necessary APIs to implement End-to-End encryption on the client side.
 Additionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients.
 	]]></description>
-	<version>1.18.0</version>
+	<version>1.18.1</version>
 	<licence>agpl</licence>
 	<author>Nextcloud GmbH</author>
 	<namespace>EndToEndEncryption</namespace>
