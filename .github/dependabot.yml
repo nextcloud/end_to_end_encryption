@@ -48,6 +48,33 @@ updates:
 
 # Main stableXX npm
 - package-ecosystem: npm
+  target-branch: stable33
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "03:00"
+    timezone: Europe/Paris
+  open-pull-requests-limit: 5
+  versioning-strategy: increase
+  labels:
+    - "3. to review"
+    - "dependencies"
+  ignore:
+    # ignore all GitHub linguist patch updates
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major", "version-update:semver-minor"]
+  groups:
+    vite:
+      patterns:
+        - "vite"
+        - "@nextcloud/vite-config"
+    vitest:
+      patterns:
+        - "vitest"
+        - "@vitest/*"
+
+- package-ecosystem: npm
   target-branch: stable32
   directory: "/"
   schedule:

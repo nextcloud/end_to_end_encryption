@@ -7,13 +7,15 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.0-rc.6 - 2026-01-21
+## v2.0.0-rc.7 - 2026-02-02
 ### Added
 * Setup end-to-end encryption in the web interface.
   When end-to-end encryption is enabled in the browser (see personal settings - security),
   users can setup the end-to-end encryption within the files app.
   For this a new entry in the "+ New" menu was added ("Create new encrypted folder").
 * Browser based end-to-end encryption (when enabled in personal security settings):
+  * When using a Chromium based browser (like Chrome or Edge),
+    then it is now possible to download multiple files or folders.
   * Users can now create subfolder within encrypted folders directly in the files app.
   * Users can now upload end-to-end encrypted files from the files app.
     **Please note: Chunked uploads have to be disabled by the administrator!**
@@ -44,6 +46,8 @@ Those fixes only affect you if you already used a previous pre-release of v2.
 * fix(sharing): adjusted information about sharing
 * fix: ensure new files and folders will be created with unique names
 * fix(public-share): send shareToken when uploading files
+* fix: use 128bit AES for files
+* fix: support metadata v2.1 when using the Desktop client
 
 ### Changed
 * Updated dependencies

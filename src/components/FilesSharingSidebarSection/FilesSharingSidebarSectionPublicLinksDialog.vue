@@ -97,8 +97,8 @@ async function createShare() {
 
 <template>
 	<NcDialog
-		is-form
-		:content-classes="$style.publicLinksDialog"
+		isForm
+		:contentClasses="$style.publicLinksDialog"
 		:name="t('end_to_end_encryption', 'End-to-end encrypted link share')"
 		@submit="createShare"
 		@update:open="$event || $emit('close', internalShare)">

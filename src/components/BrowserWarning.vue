@@ -41,7 +41,7 @@ onMounted(() => {
 	<NcNoteCard
 		v-if="!dontShowAgainStored"
 		:heading
-		show-alert
+		showAlert
 		type="warning">
 		{{ t('end_to_end_encryption', 'The server could serve malicious source code to extract the secret that protects your files.') }}
 

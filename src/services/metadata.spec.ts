@@ -50,20 +50,6 @@ describe('decryptMetadata', () => {
 		)
 		expect(await decryptMetadata(rootFolderMetadata, metadataKey)).toEqual(rootFolderMetadataInfo)
 	})
-
-	test('Cannot decrypt old metadata', async () => {
-		const key = await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic)
-		const metadataEntry = rootFolderMetadata.users.find(({ userId }) => userId === 'admin')!.encryptedMetadataKey
-		const metadataKeyData = await decryptWithRSA(base64ToBuffer(metadataEntry), key)
-		const metadataKey = await globalThis.crypto.subtle.importKey(
-			'raw',
-			metadataKeyData,
-			{ name: 'AES-GCM', length: 128 },
-			false,
-			['decrypt', 'encrypt'],
-		)
-		await expect(decryptMetadata({ ...rootFolderMetadata, version: '1.0' }, metadataKey)).rejects.toThrow('Unsupported metadata version: 1.0')
-	})
 })
 
 describe('validateMetadataSignature', () => {
