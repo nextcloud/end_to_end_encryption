@@ -38,7 +38,7 @@ export default new FileAction({
 	displayName: () => t('files', 'Download unencrypted'),
 	iconSvgInline: () => ArrowDownSvg,
 
-	enabled(nodes: INode[]) {
+	enabled({ nodes }) {
 		if (nodes.length === 0) {
 			return false
 		}
@@ -65,10 +65,11 @@ export default new FileAction({
 		return nodes.every(isDownloadable)
 	},
 
-	async exec(node: INode) {
+	async exec({ nodes }) {
+		const node = nodes[0]
 		if (node.type === FileType.Folder) {
 			await spawnDialog(DownloadFolderDialog, {
-				nodes: [node],
+				nodes,
 			})
 		} else {
 			await downloadNode(node)
@@ -76,7 +77,7 @@ export default new FileAction({
 		return null
 	},
 
-	async execBatch(nodes: INode[]) {
+	async execBatch({ nodes }) {
 		await spawnDialog(DownloadFolderDialog, {
 			nodes,
 		})

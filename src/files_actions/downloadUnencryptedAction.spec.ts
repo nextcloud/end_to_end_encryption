@@ -47,11 +47,13 @@ const encryptedFile = new File({
 	},
 })
 
+const contents = [] as File[]
+
 test('all properties are set correctly', () => {
 	expect(Action.id).toBe('download_unencrypted')
 	expect(Action.default).toBe(DefaultType.DEFAULT)
-	expect(Action.displayName([folder], view)).toBe('Download unencrypted')
-	expect(Action.iconSvgInline([folder], view)).toContain('<svg')
+	expect(Action.displayName({ nodes: [folder], view, folder, contents })).toBe('Download unencrypted')
+	expect(Action.iconSvgInline({ nodes: [folder], view, folder, contents })).toContain('<svg')
 })
 
 test('exec method calls downloadNodes', async () => {
@@ -65,7 +67,7 @@ test('exec method calls downloadNodes', async () => {
 	} as never)
 	vi.spyOn(document, 'createElement').mockReturnValueOnce(element)
 
-	await Action.exec(encryptedFile, view, encryptedFile.dirname)
+	await Action.exec({ nodes: [encryptedFile], view, folder, contents })
 	expect(spy).toHaveBeenCalledWith(encryptedFile.encodedSource)
 	expect(element.href).toContain('blob:')
 	expect(element.click).toHaveBeenCalled()
@@ -76,24 +78,24 @@ describe('enabled method', () => {
 		expect(Action.enabled).toBeTypeOf('function')
 	})
 	test('returns false for no nodes', () => {
-		expect(Action.enabled!([], view)).toBe(false)
+		expect(Action.enabled!({ nodes: [], view, folder, contents })).toBe(false)
 	})
 	test('returns false for folders', () => {
-		expect(Action.enabled!([folder], view)).toBe(false)
+		expect(Action.enabled!({ nodes: [folder], view, folder, contents })).toBe(false)
 	})
 	test.skipIf(window.showDirectoryPicker !== undefined)('returns false for multiple nodes', () => {
-		expect(Action.enabled!([encryptedFile, encryptedFile], view)).toBe(false)
+		expect(Action.enabled!({ nodes: [encryptedFile, encryptedFile], view, folder, contents })).toBe(false)
 	})
 	test.skipIf(window.showDirectoryPicker === undefined)('returns true for multiple nodes', () => {
-		expect(Action.enabled!([encryptedFile, encryptedFile], view)).toBe(true)
+		expect(Action.enabled!({ nodes: [encryptedFile, encryptedFile], view, folder, contents })).toBe(true)
 	})
 	test('returns false for non encrypted node', () => {
-		expect(Action.enabled!([file], view)).toBe(false)
+		expect(Action.enabled!({ nodes: [file], view, folder, contents })).toBe(false)
 	})
 	test('returns false for not-downloadable node', () => {
 		const encryptedFileClone = encryptedFile.clone()
 		encryptedFileClone.permissions = encryptedFileClone.permissions & ~Permission.READ
-		expect(Action.enabled!([encryptedFileClone], view)).toBe(false)
+		expect(Action.enabled!({ nodes: [encryptedFileClone], view, folder, contents })).toBe(false)
 	})
 	test('returns false for external files', () => {
 		const externalFile = new File({
@@ -106,9 +108,9 @@ describe('enabled method', () => {
 				'e2ee-is-encrypted': 1,
 			},
 		})
-		expect(Action.enabled!([externalFile], view)).toBe(false)
+		expect(Action.enabled!({ nodes: [externalFile], view, folder, contents })).toBe(false)
 	})
 	test('enabled for one encrypted file', () => {
-		expect(Action.enabled!([encryptedFile], view)).toBe(true)
+		expect(Action.enabled!({ nodes: [encryptedFile], view, folder, contents })).toBe(true)
 	})
 })
