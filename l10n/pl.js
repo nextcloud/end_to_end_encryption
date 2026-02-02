@@ -30,6 +30,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Nazwa katalogu nie może być pusta",
     "Folder name" : "Nazwa katalogu",
     "Continue" : "Kontynuuj",
+    "Download" : "Pobierz",
     "Permissions" : "Uprawnienia",
     "Upload only" : "Tylko wyślij",
     "View only" : "Tylko podgląd",

@@ -5,6 +5,7 @@ OC.L10N.register(
     "Submit" : "Gửi",
     "Folder name" : "Tên thư mục",
     "Continue" : "Tiếp tục",
+    "Download" : "Tải xuống",
     "Upload only" : "Chỉ tải lên",
     "View only" : "Chỉ xem",
     "Close" : "Đóng",

@@ -6,6 +6,7 @@ OC.L10N.register(
     "Submit" : "Submit",
     "Folder name" : "Folder name",
     "Continue" : "Continue",
+    "Download" : "გადმოწერა",
     "Permissions" : "Permissions",
     "Upload only" : "Upload only",
     "View only" : "View only",

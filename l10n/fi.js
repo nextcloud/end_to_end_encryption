@@ -26,6 +26,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Kansion nimi ei voi olla tyhjä",
     "Folder name" : "Kansion nimi",
     "Continue" : "Jatka",
+    "Download" : "Lataa",
     "Permissions" : "Oikeudet",
     "View only" : "Vain katselu",
     "Close" : "Sulje",

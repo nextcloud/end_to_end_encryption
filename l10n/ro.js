@@ -7,6 +7,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Numele dosarului nu poate fi gol",
     "Folder name" : "Denumire director",
     "Continue" : "Continuă",
+    "Download" : "Descărcare",
     "Permissions" : "Permisiuni",
     "View only" : "Numai se vizualizează",
     "Close" : "Închide",

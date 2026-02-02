@@ -37,6 +37,7 @@ OC.L10N.register(
     "Folder name" : "نام پوشه",
     "Mnemonic" : "یادآور",
     "Continue" : "ادامه",
+    "Download" : "بارگیری",
     "Permissions" : "مجوزها",
     "Upload only" : "فقط آپلود",
     "View only" : "تنها مشاهده",

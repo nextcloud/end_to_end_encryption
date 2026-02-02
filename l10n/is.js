@@ -23,6 +23,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Möppuheiti má ekki vera tómt",
     "Folder name" : "Nafn möppu",
     "Continue" : "Halda áfram",
+    "Download" : "Sækja",
     "Permissions" : "Heimildir",
     "Upload only" : "Einungis innsending",
     "View only" : "Einungis skoða",

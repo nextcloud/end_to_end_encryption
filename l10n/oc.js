@@ -5,6 +5,7 @@ OC.L10N.register(
     "Submit" : "Transmetre",
     "Folder name" : "Nom del dorsièr",
     "Continue" : "Contunhar",
+    "Download" : "Teledescargar",
     "Permissions" : "Autorizacions",
     "View only" : "Veire solament",
     "Close" : "Plegar",
