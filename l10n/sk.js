@@ -38,6 +38,7 @@ OC.L10N.register(
     "Folder name" : "Názov priečinka",
     "Mnemonic" : "Mnemonické",
     "Continue" : "Pokračovať",
+    "Download" : "Stiahnuť",
     "Permissions" : "Oprávnenia",
     "Upload only" : "Iba nahrávať",
     "View only" : "Iba pre čítanie",

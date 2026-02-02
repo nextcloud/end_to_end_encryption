@@ -56,6 +56,7 @@
     "To set up encryption, a new private key will be generated for you." : "Para configurar a criptografia, uma nova chave privada será gerada para você.",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Certifique-se de fazer backup da seguinte frase de recuperação, pois ela será necessária para acessar seus arquivos criptografados.",
     "Your recovery phrase is:" : "Sua frase de recuperação é:",
+    "Download" : "Baixar",
     "End-to-end encrypted link shares" : "Compartilhamentos por link criptografados de ponta-a-ponta",
     "Link share" : "Compartilhamento por link",
     "End-to-end encrypted link share" : "Compartilhamento por link criptografado de ponta-a-ponta",

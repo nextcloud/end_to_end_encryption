@@ -4,6 +4,7 @@ OC.L10N.register(
     "Submit" : "мэдэгдэх",
     "Folder name" : "Хавтасны нэр",
     "Continue" : "үргэлжлүүлэх",
+    "Download" : "Татах",
     "View only" : "Зөвхөн үзэх",
     "Read only" : "Зөвхөн унших",
     "Edit" : "Өөрчлөх",

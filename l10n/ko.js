@@ -38,6 +38,7 @@ OC.L10N.register(
     "Folder name" : "폴더 이름",
     "Mnemonic" : "니모닉",
     "Continue" : "계속",
+    "Download" : "다운로드",
     "Permissions" : "권한",
     "Upload only" : "업로드만",
     "View only" : "읽기 전용",

@@ -27,6 +27,7 @@ OC.L10N.register(
     "Submit" : "Pošlji",
     "Folder name" : "Ime mape",
     "Continue" : "Nadaljuj",
+    "Download" : "Prejmi",
     "Permissions" : "Dovoljenja",
     "Upload only" : "Le pošiljanje",
     "View only" : "Le ogled",

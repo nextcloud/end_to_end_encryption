@@ -58,6 +58,7 @@ OC.L10N.register(
     "To set up encryption, a new private key will be generated for you." : "Para configurar a cifraxe, xerarase unha nova chave privada para Vde.",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Asegúrese de facer unha copia de seguridade da seguinte frase de recuperación, xa que será necesaria para acceder aos seus ficheiros cifrados.",
     "Your recovery phrase is:" : "A súa frase de recuperación é:",
+    "Download" : "Descargar",
     "End-to-end encrypted link shares" : "Ligazóns para compartir cifradas de extremo a extremo",
     "Link share" : "Ligazón para compartir",
     "End-to-end encrypted link share" : "Ligazón para compartir cifrada de extremo a extremo",

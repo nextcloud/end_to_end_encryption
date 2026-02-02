@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Internal error" : "අභ්‍යන්තර දෝෂයකි",
     "Folder name" : "බහාලුමේ නම",
+    "Download" : "බාගන්න",
     "Close" : "වසන්න",
     "Edit" : "සංස්කරණය",
     "Remove" : "ඉවත් කරන්න",

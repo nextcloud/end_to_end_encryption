@@ -31,6 +31,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Aplanko pavadinimas negali būti tuščias",
     "Folder name" : "Aplanko pavadinimas",
     "Continue" : "Tęsti",
+    "Download" : "Atsisiųsti",
     "Permissions" : "Leidimai",
     "View only" : "Tik peržiūrėti",
     "Close" : "Užverti",

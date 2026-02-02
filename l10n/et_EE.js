@@ -58,6 +58,7 @@ OC.L10N.register(
     "To set up encryption, a new private key will be generated for you." : "Krüptimise seadistamiseks luuakse sinu jaoks uus privaatvõti.",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Palun talleta järgnev taastefraas turvaliselt digitaalses salasõnalaekas. Teda on hiljem vaja ligipääsuks sinu krüptitud failidele.",
     "Your recovery phrase is:" : "Sinu taastefraas on:",
+    "Download" : "Laadi alla",
     "End-to-end encrypted link shares" : "Läbivalt krüptitud jagamislingid",
     "Link share" : "Jagamislink",
     "End-to-end encrypted link share" : "Läbivalt krüptitud jagamislink",

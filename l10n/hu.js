@@ -32,6 +32,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "A mappanév nem lehet üres",
     "Folder name" : "Mappanév",
     "Continue" : "Folytatás",
+    "Download" : "Letöltés",
     "Permissions" : "Jogosultságok",
     "Upload only" : "Csak feltöltés",
     "View only" : "Csak megtekintés",

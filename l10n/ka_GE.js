@@ -18,6 +18,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "End-to-End შიფრაცია",
     "Submit" : "გაგზავნა",
     "Folder name" : "დირექტორიის სახელი",
+    "Download" : "ჩამოტვირთვა",
     "Permissions" : "უფლებები",
     "Close" : "დახურვა",
     "Read only" : "მხოლოდ-კითხვადი",

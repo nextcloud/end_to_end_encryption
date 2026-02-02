@@ -38,6 +38,7 @@ OC.L10N.register(
     "Folder name" : "Имя папки",
     "Mnemonic" : "Мнемоника",
     "Continue" : "Продолжить",
+    "Download" : "Скачать",
     "Permissions" : "Права",
     "Upload only" : "Только загружать",
     "View only" : "Для просмотра",

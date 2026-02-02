@@ -32,6 +32,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Karpeta izena ezin da hutsik egon",
     "Folder name" : "Karpetaren izena",
     "Continue" : "Jarraitu",
+    "Download" : "Deskargatu",
     "Permissions" : "Baimenak",
     "Upload only" : "Igoera soilik",
     "View only" : "Ikustea soilik",
