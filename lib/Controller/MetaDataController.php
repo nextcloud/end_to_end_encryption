@@ -72,7 +72,7 @@ class MetaDataController extends OCSController {
 	 */
 	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
 		try {
-			$ownerId = $this->getOwnerId($shareToken);
+			$ownerId = $this->getOwnerId($id, $shareToken);
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
@@ -233,10 +233,7 @@ class MetaDataController extends OCSController {
 			throw new OCSBadRequestException("No 'shareToken' provided and user is not logged in");
 		}
 
-		/** @var string */
-		$ownerId = $shareToken
-			? $this->getFileDropOwnerId($shareToken, $id)
-			: $this->userId;
+		$ownerId = $this->getOwnerId($id, $shareToken);
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
@@ -283,9 +280,15 @@ class MetaDataController extends OCSController {
 		return new DataResponse();
 	}
 
-	private function getFileDropOwnerId(string $shareToken, int $fileId): string {
-		$share = $this->shareManager->getShareByToken($shareToken);
+	private function getOwnerId(int $fileId, ?string $shareToken): string {
+		if ($shareToken === null) {
+			if ($this->userId === null) {
+				throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+			}
+			return $this->userId;
+		}
 
+		$share = $this->shareManager->getShareByToken($shareToken);
 		// if we are the owner of the node shared via the share, we can directly return our user id
 		if ($this->userId !== null && $share->getShareOwner() === $this->userId) {
 			return $this->userId;
