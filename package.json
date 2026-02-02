@@ -47,7 +47,7 @@
     "@nextcloud/vue": "^9.4.0",
     "@peculiar/x509": "^1.14.3",
     "@rxliuli/vista": "^0.4.9",
-    "@vueuse/core": "^14.1.0",
+    "@vueuse/core": "^14.2.0",
     "asn1js": "^3.0.7",
     "bip39": "^3.1.0",
     "debounce": "^3.0.0",
