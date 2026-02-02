@@ -39,6 +39,7 @@ OC.L10N.register(
     "Folder name" : "Назив фасцикле",
     "Mnemonic" : "Мнемоник",
     "Continue" : "Настави",
+    "Download" : "Преузми",
     "Permissions" : "Дозволе",
     "Upload only" : "Само отпремање",
     "View only" : "Само преглед",

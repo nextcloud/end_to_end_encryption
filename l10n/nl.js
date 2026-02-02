@@ -28,6 +28,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Mapnaam mag niet leeg zijn",
     "Folder name" : "Mapnaam",
     "Continue" : "Doorgaan",
+    "Download" : "Download",
     "Permissions" : "Rechten",
     "Upload only" : "Alleen uploaden",
     "View only" : "Alleen bekijken",

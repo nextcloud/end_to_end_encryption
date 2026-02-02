@@ -54,6 +54,7 @@ OC.L10N.register(
     "To set up encryption, a new private key will be generated for you." : "To set up encryption, a new private key will be generated for you.",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files.",
     "Your recovery phrase is:" : "Your recovery phrase is:",
+    "Download" : "ດາວໂຫຼດ",
     "Permissions" : "ການອະນຸຍາດ",
     "Upload only" : "ອັບໂຫຼດເທົ່ານັ້ນ",
     "View only" : "ເບິ່ງເທົ່ານັ້ນ",

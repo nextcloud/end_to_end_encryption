@@ -8,6 +8,7 @@ OC.L10N.register(
     "Submit" : "Dërgo",
     "Folder name" : "Emër dosjeje",
     "Continue" : "Vazhdo",
+    "Download" : "Shkarko",
     "Permissions" : "Lejet",
     "Close" : "Mbylleni",
     "Read only" : "Vetëm i lexueshëm",

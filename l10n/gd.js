@@ -2,6 +2,7 @@ OC.L10N.register(
     "end_to_end_encryption",
     {
     "Folder name" : "Ainm a’ phasgain",
+    "Download" : "Luchdaich a-nuas",
     "Close" : "Dùin",
     "Read only" : "Ri leughadh a-mhàin",
     "Edit" : "Deasaich",

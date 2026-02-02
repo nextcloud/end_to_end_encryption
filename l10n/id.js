@@ -9,6 +9,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Nama folder tidak bisa kosong",
     "Folder name" : "Nama folder",
     "Continue" : "Lanjutkan",
+    "Download" : "Unduh",
     "Permissions" : "Izin",
     "Upload only" : "Hanya unggah",
     "View only" : "Hanya lihat",

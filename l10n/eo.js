@@ -20,6 +20,7 @@ OC.L10N.register(
     "Submit" : "Sendi",
     "Folder name" : "Dosierujnomo",
     "Continue" : "Daŭrigi",
+    "Download" : "Elŝuti",
     "Close" : "Malfermi",
     "Read only" : "Nurlega",
     "Edit" : "Modifi",

@@ -38,6 +38,7 @@ OC.L10N.register(
     "Folder name" : "Όνομα φακέλου",
     "Mnemonic" : "Μνημονικό",
     "Continue" : "Συνέχεια",
+    "Download" : "Λήψη",
     "Permissions" : "Δικαιώματα",
     "Upload only" : "Μόνο μεταφόρτωση",
     "View only" : "Μόνο προβολή",

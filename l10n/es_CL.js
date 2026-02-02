@@ -18,6 +18,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "Encripción Punto-a-Punto",
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
+    "Download" : "Descargar",
     "Permissions" : "Permisos",
     "Read only" : "Sólo lectura",
     "Edit" : "Editar",

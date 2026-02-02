@@ -39,6 +39,7 @@ OC.L10N.register(
     "Folder name" : "Nombre de la carpeta",
     "Mnemonic" : "Mnemónico",
     "Continue" : "Continuar",
+    "Download" : "Descargar",
     "Permissions" : "Permisos",
     "Upload only" : "Sólo subir",
     "View only" : "Solo ver",

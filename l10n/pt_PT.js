@@ -20,6 +20,7 @@ OC.L10N.register(
     "Submit" : "Submeter",
     "Folder name" : "Nome da pasta",
     "Continue" : "Continuar",
+    "Download" : "Transferir",
     "View only" : "Visualizar apenas",
     "Close" : "Fechar",
     "Read only" : "Apenas leitura",

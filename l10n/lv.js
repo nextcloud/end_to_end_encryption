@@ -8,6 +8,7 @@ OC.L10N.register(
     "Submit" : "Iesniegt",
     "Folder name" : "Mapes nosaukums",
     "Continue" : "Turpināt",
+    "Download" : "Lejupielādēt",
     "Permissions" : "Atļaujas",
     "View only" : "Tikai skatīt",
     "Close" : "Aizvērt",
