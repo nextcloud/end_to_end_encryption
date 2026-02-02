@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "end_to_end_encryption",
-  "version": "2.0.0-dev.0",
+  "version": "1.17.1",
   "description": "Provides the necessary endpoint to enable End-to-End encryption.",
   "author": "Nextcloud GmbH and Nextcloud contributors",
   "license": "AGPL-3.0-or-later",
@@ -69,6 +69,6 @@
   "homepage": "https://github.com/nextcloud/end_to_end_encryption#readme",
   "engines": {
     "node": "^20.0.0",
-    "npm": "^10.0.0"
+    "npm": "^10.5.1"
   }
 }
