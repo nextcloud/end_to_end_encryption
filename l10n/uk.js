@@ -39,6 +39,7 @@ OC.L10N.register(
     "Folder name" : "Назва каталогу",
     "Mnemonic" : "Мнемоніка",
     "Continue" : "Продовжити",
+    "Download" : "Отримати",
     "Permissions" : "Дозволи ",
     "Upload only" : "Тільки завантаження",
     "View only" : "Лише перегляд",

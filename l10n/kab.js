@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Folder name" : "Isem n ukaram",
     "Continue" : "Kemmel",
+    "Download" : "Sider",
     "Close" : "Mdel",
     "Edit" : "Ẓreg",
     "Remove" : "Kkes",

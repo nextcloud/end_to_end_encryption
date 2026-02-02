@@ -26,6 +26,7 @@ OC.L10N.register(
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
+    "Download" : "Descargar",
     "Permissions" : "Permisos",
     "Upload only" : "Sólo carga",
     "View only" : "Sólo lectura",

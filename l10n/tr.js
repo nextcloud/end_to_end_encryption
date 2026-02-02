@@ -58,6 +58,7 @@ OC.L10N.register(
     "To set up encryption, a new private key will be generated for you." : "Şifrelemeyi kurmak için size özel yeni bir kişisel anahtar oluşturulacak.",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Şifrelenmiş dosyalarınıza erişmek için gerekeceğinden, aşağıdaki kurtarma ifadesini yedeklediğinizden emin olun.",
     "Your recovery phrase is:" : "Kurtarma ifadeniz:",
+    "Download" : "İndir",
     "End-to-end encrypted link shares" : "Uçtan uca şifrelenmiş bağlantı paylaşımları",
     "Link share" : "Bağlantı paylaşımı",
     "End-to-end encrypted link share" : "Uçtan uca şifrelenmiş bağlantı paylaşımı",

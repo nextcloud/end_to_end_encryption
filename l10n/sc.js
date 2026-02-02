@@ -25,6 +25,7 @@ OC.L10N.register(
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale",
     "Submit" : "Imbia",
     "Folder name" : "Nùmene de sa cartella",
+    "Download" : "Iscàrriga",
     "Permissions" : "Permissos",
     "View only" : "Isceti in visualizatzione",
     "Close" : "Serra",

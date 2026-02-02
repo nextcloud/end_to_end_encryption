@@ -21,6 +21,7 @@ OC.L10N.register(
     "Submit" : "שליחה",
     "Folder name" : "שם התיקייה",
     "Continue" : "להמשך",
+    "Download" : "הורדה",
     "Permissions" : "הרשאות",
     "View only" : "לצפיה בלבד",
     "Close" : "סגירה",

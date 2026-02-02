@@ -9,6 +9,7 @@ OC.L10N.register(
     "Submit" : "Enviar",
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
+    "Download" : "Descargar",
     "Permissions" : "Permisos",
     "Read only" : "Sólo lectura",
     "Edit" : "Editar",

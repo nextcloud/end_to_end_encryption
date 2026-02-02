@@ -28,6 +28,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "文件夹名称不能为空",
     "Folder name" : "文件夹名称",
     "Continue" : "继续",
+    "Download" : "下载",
     "Permissions" : "权限",
     "Upload only" : "仅上传",
     "View only" : "仅查看",

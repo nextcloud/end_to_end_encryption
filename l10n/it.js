@@ -42,6 +42,7 @@ OC.L10N.register(
     "Setup encryption" : "Configura la cifratura",
     "Continue ({secondsLeft})" : "Continua ({secondsLeft})",
     "Continue" : "Continua",
+    "Download" : "Scarica",
     "Permissions" : "Permessi",
     "Upload only" : "Solo caricamento",
     "View only" : "Sola lettura",
