@@ -229,7 +229,14 @@ class MetaDataController extends OCSController {
 	 * @throws OCSNotFoundException
 	 */
 	public function addMetadataFileDrop(int $id, string $filedrop, ?string $shareToken = null): DataResponse {
-		$ownerId = $this->getOwnerId($shareToken);
+		if ($this->userId === null && $shareToken === null) {
+			throw new OCSBadRequestException("No 'shareToken' provided and user is not logged in");
+		}
+
+		/** @var string */
+		$ownerId = $shareToken
+			? $this->getFileDropOwnerId($shareToken, $id)
+			: $this->userId;
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
@@ -238,9 +245,8 @@ class MetaDataController extends OCSController {
 		}
 
 		if ($userFolder->getId() === $id) {
-			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
-			$this->logger->error($e->getMessage(), ['exception' => $e]);
-			throw $e;
+			$this->logger->error('Cannot create filedrop lock on root folder of user {userId}', ['userId' => $ownerId]);
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 
 		$nodes = $userFolder->getById($id);
@@ -277,19 +283,34 @@ class MetaDataController extends OCSController {
 		return new DataResponse();
 	}
 
-	private function getOwnerId(?string $shareToken = null): string {
-		if ($shareToken !== null) {
-			$share = $this->shareManager->getShareByToken($shareToken);
+	private function getFileDropOwnerId(string $shareToken, int $fileId): string {
+		$share = $this->shareManager->getShareByToken($shareToken);
 
-			if (!($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE)) {
-				throw new OCSForbiddenException("Can't lock share without create permission");
-			}
-
-			return $share->getShareOwner();
-		} elseif ($this->userId !== null) {
+		// if we are the owner of the node shared via the share, we can directly return our user id
+		if ($this->userId !== null && $share->getShareOwner() === $this->userId) {
 			return $this->userId;
-		} else {
-			throw new OCSBadRequestException("Couldn't find the owner of the encrypted folder");
 		}
+
+		if (!($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE)) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
+		$shareRoot = $share->getNode();
+		if (!$shareRoot instanceof Folder) {
+			$this->logger->error('Cannot create filedrop lock on non-folder share {share}', ['share' => $shareToken]);
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
+		if (!$shareRoot->isEncrypted()) {
+			$this->logger->error('Cannot create filedrop lock on non-encrypted folders of {share}', ['share' => $shareToken]);
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
+		if ($shareRoot->getId() !== $fileId && ($shareRoot instanceof Folder && $shareRoot->getFirstNodeById($fileId) === null)) {
+			$this->logger->error('Cannot create filedrop lock on node outside of share {share}', ['share' => $shareToken, 'fileId' => $fileId]);
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
+		return $share->getShareOwner();
 	}
 }
