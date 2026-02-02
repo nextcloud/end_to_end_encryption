@@ -27,7 +27,7 @@ Additionally it implements Secure FileDrop and makes sure that End-to-End encryp
 	<screenshot>
 		https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/master/screenshots/e2ee-filelisting.png</screenshot>
 	<dependencies>
-		<nextcloud min-version="32" max-version="34" />
+		<nextcloud min-version="33" max-version="34" />
 	</dependencies>
 	<background-jobs>
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
