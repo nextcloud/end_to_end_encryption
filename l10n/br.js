@@ -4,6 +4,7 @@ OC.L10N.register(
     "Submit" : "Kinnig",
     "Folder name" : "Anv teuliad",
     "Continue" : "Kendec'hel",
+    "Download" : "Pellgargañ",
     "Close" : "Serriñ",
     "Read only" : "Da lenn nemetken",
     "Edit" : "Embann",
