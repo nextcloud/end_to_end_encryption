@@ -248,7 +248,7 @@ class MetaDataControllerV1Test extends TestCase {
 		?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
-		bool $expectLogger
+		bool $expectLogger,
 	): void {
 		$fileId = 42;
 		if ($metaDataStorageException) {
