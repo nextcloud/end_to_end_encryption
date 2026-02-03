@@ -31,6 +31,7 @@ OC.L10N.register(
     "Submit" : "Изпращане",
     "Folder name" : "Име на папка",
     "Continue" : "Продължаване",
+    "Download" : "Изтегляне",
     "Permissions" : "Права",
     "View only" : "Само изглед",
     "Close" : "Затваряне",

@@ -38,6 +38,7 @@ OC.L10N.register(
     "Folder name" : "اسم المجلد",
     "Mnemonic" : "الاختزالية",
     "Continue" : "متابعة",
+    "Download" : "تنزيل",
     "Permissions" : "الصلاحيّات",
     "Upload only" : "رفع فقط",
     "View only" : "للعرض فقط",

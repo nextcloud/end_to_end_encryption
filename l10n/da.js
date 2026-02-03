@@ -29,6 +29,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Mappenavnet må ikke være tomt",
     "Folder name" : "Mappenavn",
     "Continue" : "Fortsæt",
+    "Download" : "Download",
     "Permissions" : "Rettigheder",
     "Upload only" : "Kun upload",
     "View only" : "Kun visning",

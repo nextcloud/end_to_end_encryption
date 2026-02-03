@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Folder name" : "Qovluq adı",
     "Continue" : "Davam et",
+    "Download" : "Yüklə",
     "Close" : "Bağla",
     "Read only" : "Oxumaq üçün",
     "Edit" : "Dəyişiklik et",
