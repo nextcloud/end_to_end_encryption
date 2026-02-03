@@ -50,7 +50,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testGetMetaData(bool $hasLegacyFile, string $expectedOutput): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -126,7 +126,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testSetMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectsNewFolder, bool $expectsMetaDataExistsException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -239,7 +239,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testUpdateMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectMissingMetaDataException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -344,7 +344,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testDeleteMetaData(bool $folderExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'cleanupLegacyFile',
@@ -401,7 +401,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testSaveIntermediateFile(bool $folderExists, bool $intermediateFileExists, bool $intermediateFileIsEmpty, bool $finalFileExists, bool $expectsException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'cleanupLegacyFile',
@@ -516,7 +516,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testDeleteIntermediateFile(bool $folderExists, bool $fileExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 			])
@@ -668,7 +668,7 @@ class MetaDataStorageV1Test extends TestCase {
 		?Exception $getFileException,
 		bool $expectsNull): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'getLegacyOwnerPath',
 			])
 			->setConstructorArgs([
@@ -743,7 +743,7 @@ class MetaDataStorageV1Test extends TestCase {
 		?Exception $getFolderException,
 		bool $expectsDelete): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'getLegacyOwnerPath',
 			])
 			->setConstructorArgs([
