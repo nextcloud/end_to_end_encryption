@@ -58,6 +58,7 @@ OC.L10N.register(
     "To set up encryption, a new private key will be generated for you." : "Z důvodu nastavení šifrování vám bude vytvořen nový soukromý klíč.",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Nezapomeňte si zazálohovat následující záchrannou frázi, protože bude potřebná pro přístup k vašim šifrovaným souborům.",
     "Your recovery phrase is:" : "Vaše záchranná heslová fráze je:",
+    "Download" : "Stáhnout",
     "End-to-end encrypted link shares" : "Sdílení odkazem, šifrovaná mezi koncovými body",
     "Link share" : "Sdílení odkazu",
     "End-to-end encrypted link share" : "Sdílení odkazem, šifrované mezi koncovými body",

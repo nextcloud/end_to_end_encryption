@@ -21,6 +21,7 @@ OC.L10N.register(
     "Submit" : "Unviar",
     "Folder name" : "Nome de la carpeta",
     "Continue" : "Siguir",
+    "Download" : "Baxar",
     "Permissions" : "Permisos",
     "Upload only" : "Xubir namás",
     "View only" : "Ver namás",
