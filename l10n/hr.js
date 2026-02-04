@@ -23,6 +23,7 @@ OC.L10N.register(
     "Cannot delete metadata" : "Brisanje metapodataka nije moguće",
     "End-to-End Encryption" : "Cjelovito šifriranje",
     "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja",
+    "I understand the risks" : "Razumijem rizike",
     "Submit" : "Šalji",
     "Folder name" : "Naziv mape",
     "Continue" : "Nastavi",
