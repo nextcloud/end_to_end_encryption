@@ -3,7 +3,7 @@
     "info": {
         "title": "end_to_end_encryption",
         "version": "0.0.1",
-        "description": "End-to-end encryption endpoint",
+        "description": "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security.",
         "license": {
             "name": "agpl"
         }
