@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+version = 1
+SPDX-PackageName = "end_to_end_encryption"
+SPDX-PackageSupplier = "2025 Nextcloud GmbH and Nextcloud contributors"
+SPDX-PackageDownloadLocation = "https://github.com/nextcloud/end_to_end_encryption"
+
+[[annotations]]
+path = ["new-folder.png", "open-folder.png", "desktop-client.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Nextcloud GmbH"
+SPDX-License-Identifier = "CC-BY-SA-4.0"

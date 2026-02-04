@@ -55,7 +55,7 @@ When the E2EE server app has been successfully enabled and the client app awaits
 
 #### Nextcloud Web
 
-*Admininistration settings -> Security*
+*Administration settings -> Security*
 
 ![image](https://github.com/nextcloud/end_to_end_encryption/assets/1731941/bca6dec4-66fd-4ffa-a869-d7ef01f4a096)
 
