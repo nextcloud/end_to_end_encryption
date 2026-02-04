@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Node, View } from '@nextcloud/files'
+import type { FileAction, FileActionData } from '@nextcloud/files'
 
 import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
@@ -44,14 +44,23 @@ function disableFileAction(actionId: string) {
 	logger.debug(`Inhibiting ${actionId} actions for e2ee files`)
 	const actions = getFileActions()
 
-	const action = actions.find((action) => action.id === actionId) as unknown as { _action: { enabled: (nodes: Node[], view: View) => boolean } }
-	const originalEnabled = action._action.enabled
+	const action = actions.find((action) => action.id === actionId) as FileAction | FileActionData | undefined
+	if (!action) {
+		logger.error(`Could not find action with ID ${actionId} to inhibit it for e2ee files.`)
+		return
+	}
 
-	action._action.enabled = (nodes: Node[], view: View) => {
-		if (nodes.some((node) => node.attributes['e2ee-is-encrypted'] === 1)) {
+	const realAction = '_action' in action
+		? (action as unknown as { _action: FileActionData })._action
+		: action
+
+	const originalEnabled = realAction.enabled
+
+	realAction.enabled = (context) => {
+		if (context.nodes.some((node) => node.attributes['e2ee-is-encrypted'] === 1)) {
 			return false
 		}
 
-		return originalEnabled(nodes, view)
+		return originalEnabled?.(context) ?? true
 	}
 }
