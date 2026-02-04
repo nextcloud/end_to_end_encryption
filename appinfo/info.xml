@@ -7,10 +7,53 @@
 	xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
 	<id>end_to_end_encryption</id>
 	<name>End-to-End Encryption</name>
-	<summary>End-to-end encryption endpoint</summary>
+	<summary>Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security.</summary>
 	<description><![CDATA[
-This app provides all the necessary APIs to implement End-to-End encryption on the client side.
-Additionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients.
+## **End-to-End Encryption**
+
+### For End Users
+
+**Protect your most sensitive files with strong encryption.**
+
+The End-to-End Encryption app gives you complete control over your data privacy.
+With this app, you can encrypt specific folders so that only you (and those you trust) can access their contents.
+Your files are encrypted on your device before they reach the server, ensuring that no one—not even the server administrator—can read them.
+
+**Benefits:**
+- 🔒 **True privacy**: Files are encrypted on your device and can only be decrypted by you
+- 📱 **Works across all platforms**: Fully supported on desktop, Android, iOS clients, and as you wish even in the browser
+- 🎯 **Selective encryption**: Choose which folders to encrypt
+- 🛡️ **Secure sharing**: Share encrypted files with other users or even secure public upload using the encrypted file drop
+
+---
+
+### For Administrators
+
+**Enterprise-ready end-to-end encryption infrastructure for your Nextcloud instance.**
+
+This app provides all the necessary server-side APIs and infrastructure to enable End-to-End encryption (E2EE) for your users.
+It ensures that encrypted data remains secure throughout its lifecycle on your server.
+
+**Technical highlights:**
+- 🔐 **Complete API suite**: Provides all client-side APIs needed for E2EE implementation
+- 🔒 **Secure FileDrop integration**: Enables secure file sharing with encryption
+- 🛡️ **Zero-knowledge architecture**: Server never has access to encryption keys
+- ⚙️ **Group restrictions**: Limit app usage to specific user groups if needed
+- 🔄 **Background job management**: Automatic rollback handling for failed operations
+
+### Setup
+This application provides the server-side infrastructure for end-to-end encryption, but it requires client support to function.
+To enable end-to-end encryption, users will need to install the corresponding client-side app on their devices (desktop, Android, iOS) or use the web client.
+
+Using the web interface, after enabling it in the personal settings, allows you to encrypt files and folders directly in the browser,
+providing a seamless experience without needing additional software. But also requires some kind of trust in the server as the code is delivered by the server and could be manipulated.
+
+Once enable through clients or the web interface, you can create encrypted folders and upload or move files into them.
+The clients and the web interface will handle the encryption and decryption processes automatically.
+
+⚠️ This comes with some limitations and caveats, as only normal file operations can be handled.
+Meaning that some apps in the web interface do not work with encrypted files.
+
 	]]></description>
 	<version>2.0.0-rc.7</version>
 	<licence>agpl</licence>
@@ -24,8 +67,9 @@ Additionally it implements Secure FileDrop and makes sure that End-to-End encryp
 	<website>https://github.com/nextcloud/end_to_end_encryption</website>
 	<bugs>https://github.com/nextcloud/end_to_end_encryption/issues</bugs>
 	<repository type="git">https://github.com/nextcloud/end_to_end_encryption.git</repository>
-	<screenshot>
-		https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/master/screenshots/e2ee-filelisting.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable33/doc/screenshots/new-folder.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable33/doc/screenshots/open-folder.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable33/doc/screenshots/desktop-client.png</screenshot>
 	<dependencies>
 		<nextcloud min-version="33" max-version="33" />
 	</dependencies>
