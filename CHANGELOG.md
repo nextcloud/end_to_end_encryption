@@ -7,7 +7,7 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.0-rc.7 - 2026-02-02
+## v2.0.0 - 2026-02-05
 ### Added
 * Setup end-to-end encryption in the web interface.
   When end-to-end encryption is enabled in the browser (see personal settings - security),
@@ -32,29 +32,28 @@
     those shares will have their own encryption keys and which have to be shared with the recipient
     using a secure second channel.
 
-### Fixed
-<!-- TODO: Remove this section for the final release -->
-Those fixes only affect you if you already used a previous pre-release of v2.
-* Do not allow creating nested e2ee root folders.
-* Ensure created e2ee folder is not pending in the files app.
-* Folders also need the `is-encrypted` attribute to be correctly displayed in the files app.
-* Sharing sidebar work now also when `debug` mode is disabled.
-* "Do not ask again" toggle of mnemonic dialog is respected.
-* Fixed locking to allow leaving encrypted root folders properly.
-* fix(sharing): consolidate share tab and ensure user keys are used
-* fix(sharing): hide native sharing sections
-* fix(sharing): adjusted information about sharing
-* fix: ensure new files and folders will be created with unique names
-* fix(public-share): send shareToken when uploading files
-* fix: use 128bit AES for files
-* fix: support metadata v2.1 when using the Desktop client
-
 ### Changed
 * Updated dependencies
 * Updated translations
 * The frontend is now using Vue 3
 * The frontend is now tested with end-to-end integration tests (Playwright)
 * Code maintenance
+
+## v1.18.1 - 2026-02-02
+### Fixed
+* Better encrypted file drop handling
+
+### Changed
+* docs: add changelog to inform admins about changes within app store
+* Updated translations
+* Updated dependencies
+  * Bump `@nextcloud/dialogs` to 6.3.2
+  * Bump `@nextcloud/files` to 3.12.1
+  * Bump `@nextcloud/l10n` to 3.4.1
+  * Bump `@nextcloud/logger` to 3.0.3
+  * Bump `@nextcloud/vue` to 8.35.3
+  * Bump `@peculiar/x509` to 1.12.4
+  * Bump `fast-xml-parser` to 5.2.5
 
 ## v1.18.0 - 2025-10-14
 ### Added
