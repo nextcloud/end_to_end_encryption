@@ -590,15 +590,15 @@ class MetaDataStorageV1Test extends TestCase {
 
 			if ($emptyOwnerRoot) {
 				$ownerRoot->expects($this->once())
-					->method('getById')
+					->method('getFirstNodeById')
 					->with(42)
-					->willReturn([]);
+					->willReturn(null);
 			} else {
 				$ownerNode = $this->createMock(Node::class);
 				$ownerRoot->expects($this->once())
-					->method('getById')
+					->method('getFirstNodeById')
 					->with(42)
-					->willReturn([$ownerNode]);
+					->willReturn($ownerNode);
 			}
 		}
 

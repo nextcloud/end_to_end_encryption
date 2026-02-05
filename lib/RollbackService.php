@@ -90,12 +90,11 @@ class RollbackService {
 				continue;
 			}
 
-			$nodes = $userFolder->getById($lock->getId());
-			if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+			$node = $userFolder->getFirstNodeById($lock->getId());
+			if (!$node instanceof Folder) {
 				continue;
 			}
 
-			$node = $nodes[0];
 			// If the time that passed since the node was last modified
 			// is bigger than the time to live, do nothing
 			if ($node->getMTime() > $olderThanTimestamp) {

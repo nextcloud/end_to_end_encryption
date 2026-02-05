@@ -204,8 +204,8 @@ class MetaDataController extends OCSController {
 			throw $e;
 		}
 
-		$nodes = $userFolder->getById($id);
-		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+		$node = $userFolder->getFirstNodeById($id);
+		if (!$node instanceof Folder) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 

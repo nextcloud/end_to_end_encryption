@@ -11,6 +11,7 @@ namespace OCA\EndToEndEncryption;
 use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
+use OCP\Files\File;
 use OCP\Files\IAppData;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
@@ -215,8 +216,8 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
-		$ownerNodes = $userFolder->getById($id);
-		if (!isset($ownerNodes[0])) {
+		$ownerNode = $userFolder->getFirstNodeById($id);
+		if ($ownerNode === null) {
 			throw new NotFoundException('No file for owner with ID ' . $id);
 		}
 	}
@@ -285,11 +286,11 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
-		$ownerNodes = $userFolder->getById($id);
-		if (!isset($ownerNodes[0])) {
+		$ownerNode = $userFolder->getFirstNodeById($id);
+		if (!($ownerNode instanceof File)) {
 			throw new NotFoundException('No file for owner with ID ' . $id);
 		}
 
-		return $ownerNodes[0]->getPath();
+		return $ownerNode->getPath();
 	}
 }

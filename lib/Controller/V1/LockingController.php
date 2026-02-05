@@ -91,8 +91,8 @@ class LockingController extends OCSController {
 			throw $e;
 		}
 
-		$nodes = $userFolder->getById($id);
-		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+		$node = $userFolder->getFirstNodeById($id);
+		if (!$node instanceof Folder) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 
@@ -129,12 +129,12 @@ class LockingController extends OCSController {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
-		$nodes = $userFolder->getById($id);
-		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+		$node = $userFolder->getFirstNodeById($id);
+		if (!$node instanceof Folder) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
-		$hadChanges = $this->fileService->finalizeChanges($nodes[0]) !== false;
+		$hadChanges = $this->fileService->finalizeChanges($node) !== false;
 
 		try {
 			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
