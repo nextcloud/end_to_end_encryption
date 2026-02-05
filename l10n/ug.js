@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "ھۆججەتنى يېڭىلىغىلى بولمايدۇ",
     "Encrypted share" : "شىفىرلانغان ئورتاقلىشىش",
     "End-to-End Encryption" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش",
-    "End-to-end encryption endpoint" : "ئاخىرىدىن مەخپىيلەشتۈرۈش ئاخىرقى نۇقتىسى",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "بۇ ئەپ خېرىدار تەرەپتە باشتىن ئاخىرىغىچە شىفىرلاشنى يولغا قويۇش ئۈچۈن بارلىق زۆرۈر API لارنى تەمىنلەيدۇ.\nبۇنىڭدىن باشقا، ئۇ Secure FileDrop نى يولغا قويىدۇ ھەمدە باشتىن ئاخىرىغىچە شىفىرلانغان ھۆججەتلەرنىڭ تور كۆرۈنمە يۈزى ياكى باشقا WebDAV خېرىدارلىرى ئارقىلىق ئېرىشەلمەيدىغانلىقىغا كاپالەتلىك قىلىدۇ.",
     "The server could serve malicious source code to extract the secret that protects your files." : "مۇلازىمېتىر ھۆججەتلىرىڭىزنى قوغدايدىغان مەخپىي ئۇچۇرلارنى چىقىرىش ئۈچۈن زىيانلىق مەنبە كودىنى تەمىنلىشى مۇمكىن.",
     "I understand the risks" : "مەن خەتەرنى چۈشىنىمەن",
     "Do not show this warning the next time" : "بۇ ئاگاھلاندۇرۇشنى قايتا كۆرسەتمە.",
@@ -111,6 +109,8 @@ OC.L10N.register(
     "Download unencrypted" : "شىفىرلانمىغان ھالدا چۈشۈر",
     "New encrypted folder" : "يېڭى شىفىرلانغان قىسقۇچ",
     "Creating new encrypted folder: Cancelled" : "يېڭى شىفىرلانغان قىسقۇچ قۇرۇش: ئەمەلدىن قالدى",
-    "Creating new encrypted folder: Failed" : "يېڭى شىفىرلانغان قىسقۇچ قۇرۇش: مەغلۇپ بولدى"
+    "Creating new encrypted folder: Failed" : "يېڭى شىفىرلانغان قىسقۇچ قۇرۇش: مەغلۇپ بولدى",
+    "End-to-end encryption endpoint" : "ئاخىرىدىن مەخپىيلەشتۈرۈش ئاخىرقى نۇقتىسى",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "بۇ ئەپ خېرىدار تەرەپتە باشتىن ئاخىرىغىچە شىفىرلاشنى يولغا قويۇش ئۈچۈن بارلىق زۆرۈر API لارنى تەمىنلەيدۇ.\nبۇنىڭدىن باشقا، ئۇ Secure FileDrop نى يولغا قويىدۇ ھەمدە باشتىن ئاخىرىغىچە شىفىرلانغان ھۆججەتلەرنىڭ تور كۆرۈنمە يۈزى ياكى باشقا WebDAV خېرىدارلىرى ئارقىلىق ئېرىشەلمەيدىغانلىقىغا كاپالەتلىك قىلىدۇ."
 },
 "nplurals=2; plural=(n != 1);");

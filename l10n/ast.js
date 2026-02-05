@@ -16,7 +16,6 @@ OC.L10N.register(
     "Cannot store metadata" : "Nun se puen atroxar los metadatos",
     "Cannot delete metadata" : "Nun se puen desaniciar los metadatos",
     "End-to-End Encryption" : "Cifráu de puntu a puntu",
-    "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu",
     "I understand the risks" : "Entiendo los riesgos",
     "Submit" : "Unviar",
     "Folder name" : "Nome de la carpeta",
@@ -40,6 +39,7 @@ OC.L10N.register(
     "End-to-end encryption keys reset" : "Reafitáronse les claves del cifráu d'estremu a estremu",
     "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
-    "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes"
+    "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
+    "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu"
 },
 "nplurals=2; plural=(n != 1);");

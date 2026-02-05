@@ -25,7 +25,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Tylko właściciel może usuwać metadane pliku",
     "Cannot delete metadata" : "Nie można usunąć metadanych",
     "End-to-End Encryption" : "Szyfrowanie End-to-End",
-    "End-to-end encryption endpoint" : "Końcówka szyfrowania end-to-end",
     "Submit" : "Wyślij",
     "Folder name cannot be empty" : "Nazwa katalogu nie może być pusta",
     "Folder name" : "Nazwa katalogu",
@@ -61,6 +60,7 @@ OC.L10N.register(
     "You should only reset your end-to-end encryption keys if you lost your secure key words (mnemonic)." : "Klucze szyfrowania end-to-end należy resetować tylko w przypadku zgubienia bezpiecznych słów kluczowych (mnemonika).",
     "Check on all connected devices if you can retrieve your mnemonic." : "Sprawdź na wszystkich podłączonych urządzeniach, czy możesz odzyskać swój mnemonik.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Każde nadal podłączone urządzenie może powodować problemy po usunięciu kluczy, dlatego lepiej jest odłączyć i ponownie podłączyć urządzenia.",
-    "Delete existing encrypted files" : "Usuń istniejące zaszyfrowane pliki"
+    "Delete existing encrypted files" : "Usuń istniejące zaszyfrowane pliki",
+    "End-to-end encryption endpoint" : "Końcówka szyfrowania end-to-end"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

@@ -27,8 +27,6 @@
     "Cannot update filedrop" : "Kan inte uppdatera fillämning",
     "Encrypted share" : "Krypterad delning",
     "End-to-End Encryption" : "End-to-end-kryptering",
-    "End-to-end encryption endpoint" : "Endpoint för end-to-end-kryptering",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Denna app tillhandahåller alla nödvändiga API:er för att implementera End-to-End-kryptering på klientsidan.\nDessutom implementerar den säker fillämning och säkerställer att End-to-End-krypterade filer varken är åtkomliga via webbgränssnittet eller andra WebDAV-klienter.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Servern kan tillhandahålla skadlig källkod för att extrahera hemligheten som skyddar dina filer.",
     "I understand the risks" : "Jag förstår riskerna",
     "Do not show this warning the next time" : "Visa inte denna varning nästa gång",
@@ -100,6 +98,8 @@
     "Download unencrypted" : "Ladda ner okrypterad",
     "New encrypted folder" : "Ny krypterad mapp",
     "Creating new encrypted folder: Cancelled" : "Skapande av ny krypterad mapp: Avbruten",
-    "Creating new encrypted folder: Failed" : "Skapande av ny krypterad mapp: Misslyckades"
+    "Creating new encrypted folder: Failed" : "Skapande av ny krypterad mapp: Misslyckades",
+    "End-to-end encryption endpoint" : "Endpoint för end-to-end-kryptering",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Denna app tillhandahåller alla nödvändiga API:er för att implementera End-to-End-kryptering på klientsidan.\nDessutom implementerar den säker fillämning och säkerställer att End-to-End-krypterade filer varken är åtkomliga via webbgränssnittet eller andra WebDAV-klienter."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

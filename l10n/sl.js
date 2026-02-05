@@ -22,7 +22,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Le lastnik lahko izbriše datoteko metapodatkov",
     "Cannot delete metadata" : "Metapodatkov ni mogoče izbrisati",
     "End-to-End Encryption" : "Celovito šifriranje E2E",
-    "End-to-end encryption endpoint" : "Končna točka celovitega šifriranja E2E",
     "I understand the risks" : "Razumem tveganje",
     "Submit" : "Pošlji",
     "Folder name" : "Ime mape",
@@ -40,6 +39,7 @@ OC.L10N.register(
     "Limit to groups" : "Omeji na skupine",
     "Limit app usage to groups" : "Omeji uporabo programa na skupine",
     "Cancel" : "Prekliči",
-    "End-to-end encryption" : "Celovito šifriranje E2E"
+    "End-to-end encryption" : "Celovito šifriranje E2E",
+    "End-to-end encryption endpoint" : "Končna točka celovitega šifriranja E2E"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

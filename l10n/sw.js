@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Haiwezi kusasisha tone la faili",
     "Encrypted share" : "Shiriki iliyosimbwa kwa njia fiche",
     "End-to-End Encryption" : "End-to-End Encryption",
-    "End-to-end encryption endpoint" : "Mwisho hadi mwisho wa usimbaji fiche",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Programu hii hutoa API zote zinazohitajika ili kutekeleza usimbaji fiche kutoka Mwisho-hadi-Mwisho kwa upande wa mteja.\nZaidi ya hayo, hutekelezea Secure FileDrop na huhakikisha kwamba faili zilizosimbwa kutoka End-to-End hazipatikani kupitia kiolesura cha wavuti wala wateja wengine wa WebDAV.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Seva inaweza kutoa msimbo hasidi wa chanzo ili kutoa siri inayolinda faili zako.",
     "I understand the risks" : "Ninaelewa hatari",
     "Do not show this warning the next time" : "Usioneshe onyo hili wakati ujao",
@@ -102,6 +100,8 @@ OC.L10N.register(
     "Download unencrypted" : "Pakua bila usimbaji fiche",
     "New encrypted folder" : "Folda mpya iliyosimbwa kwa njia fiche",
     "Creating new encrypted folder: Cancelled" : "Kuunda folda mpya iliyosimbwa kwa njia fiche: Kumeghairiwa",
-    "Creating new encrypted folder: Failed" : "Kuunda folda mpya iliyosimbwa kwa njia fiche: Kumeshindwa"
+    "Creating new encrypted folder: Failed" : "Kuunda folda mpya iliyosimbwa kwa njia fiche: Kumeshindwa",
+    "End-to-end encryption endpoint" : "Mwisho hadi mwisho wa usimbaji fiche",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Programu hii hutoa API zote zinazohitajika ili kutekeleza usimbaji fiche kutoka Mwisho-hadi-Mwisho kwa upande wa mteja.\nZaidi ya hayo, hutekelezea Secure FileDrop na huhakikisha kwamba faili zilizosimbwa kutoka End-to-End hazipatikani kupitia kiolesura cha wavuti wala wateja wengine wa WebDAV."
 },
 "nplurals=2; plural=(n != 1);");

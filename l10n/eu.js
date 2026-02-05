@@ -26,7 +26,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Ezin da filedrop eguneratu",
     "Encrypted share" : "Partekatze zifratua",
     "End-to-End Encryption" : "Muturretik muturrerako zifratzea",
-    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
     "I understand the risks" : "Arriskuak ulertzen ditut",
     "Submit" : "Bidali",
     "Folder name cannot be empty" : "Karpeta izena ezin da hutsik egon",
@@ -63,6 +62,7 @@ OC.L10N.register(
     "You should only reset your end-to-end encryption keys if you lost your secure key words (mnemonic)." : "Zure muturretik muturrerako zifratze gakoak gako-hitz seguruak (mnemonikoak) galdu badituzu soilik berrezarri beharko zenituzke.",
     "Check on all connected devices if you can retrieve your mnemonic." : "Egiaztatu zure konektatutako gailu guztietan zure mnemonikoa berreskuratu ahal baduzun.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Edozein konektatutako gailuek arazoak sor ditzakete gakoak ezabatu ostean. Hobeto da gailuak deskonektatu eta berriro konektatzea.",
-    "Delete existing encrypted files" : "Ezabatu dauden fitxategi enkriptatuak"
+    "Delete existing encrypted files" : "Ezabatu dauden fitxategi enkriptatuak",
+    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua"
 },
 "nplurals=2; plural=(n != 1);");

@@ -22,7 +22,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Alleen de eigenaar kan het metadatabestand wissen",
     "Cannot delete metadata" : "Kan metadata niet verwijderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
-    "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt",
     "I understand the risks" : "Ik begrijp de risico's",
     "Submit" : "Verwerken",
     "Folder name cannot be empty" : "Mapnaam mag niet leeg zijn",
@@ -42,6 +41,7 @@ OC.L10N.register(
     "Limit to groups" : "Beperk tot groepen",
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Cancel" : "Annuleren",
-    "End-to-end encryption" : "Begin-tot-eind versleuteling"
+    "End-to-end encryption" : "Begin-tot-eind versleuteling",
+    "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt"
 },
 "nplurals=2; plural=(n != 1);");
