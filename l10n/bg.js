@@ -26,7 +26,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Не може да се актуализира пускане/преместване/ на файл",
     "Encrypted share" : "Криптирано споделяне",
     "End-to-End Encryption" : "Цялостно Криптиране",
-    "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране",
     "I understand the risks" : "Разбирам рисковете",
     "Submit" : "Изпращане",
     "Folder name" : "Име на папка",
@@ -60,6 +59,7 @@ OC.L10N.register(
     "You should only reset your end-to-end encryption keys if you lost your secure key words (mnemonic)." : "Трябва да възстановите вашите ключове за цялостно криптиране само ако сте си загубили ключовите думи за защита (мнемоника).",
     "Check on all connected devices if you can retrieve your mnemonic." : "Проверете на всички свързани устройства дали можете да извлечете вашата мнемоника.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Всяко устройство, което все още е свързано, може да причини проблеми след изтриването на ключовете, така че е по-добре да прекъснете връзката и по късно отново да свържете отново устройствата.",
-    "Delete existing encrypted files" : "Изтриване на съществуващите криптирани файлове"
+    "Delete existing encrypted files" : "Изтриване на съществуващите криптирани файлове",
+    "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране"
 },
 "nplurals=2; plural=(n != 1);");

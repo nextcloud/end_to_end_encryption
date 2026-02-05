@@ -16,7 +16,6 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vi ne rajtas redakti la dosieron; certigu, ke vi unue ŝlosas ĝin kaj poste sendas la ĝustan ĵetonon",
     "Only the owner can delete the metadata-file" : "Nur la posedanto povas forigi la pridatuman dosieron",
     "End-to-End Encryption" : "Tutvoja ĉifrado",
-    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado",
     "Submit" : "Sendi",
     "Folder name" : "Dosierujnomo",
     "Continue" : "Daŭrigi",
@@ -28,6 +27,7 @@ OC.L10N.register(
     "Select or drop files" : "Elekti aŭ demeti dosierojn",
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
-    "Cancel" : "Cancel"
+    "Cancel" : "Cancel",
+    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado"
 },
 "nplurals=2; plural=(n != 1);");

@@ -27,8 +27,6 @@
     "Cannot update filedrop" : "Nepodarilo sa aktualizovať filedrop",
     "Encrypted share" : "Zašifrovaná sprístupnená položka",
     "End-to-End Encryption" : "Šifrovanie po celej dĺžke spojenia",
-    "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Táto aplikácia poskytuje všetky potrebné rozhrania API pre implementáciu end-to-end šifrovania na strane klienta.\nNavyše implementuje Secure FileDrop a zaisťuje, že end-to-End šifrované súbory nie sú dostupné ani cez webové rozhranie, ani cez iných WebDAV klientov.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Server by mohol poskytnúť škodlivý zdrojový kód na extrahovanie tajomstva, ktoré chráni vaše súbory.",
     "I understand the risks" : "Rozumiem rizikám.",
     "Submit" : "Odoslať",
@@ -74,6 +72,8 @@
     "Check on all connected devices if you can retrieve your mnemonic." : "Skontrolujte na všetkých pripojených zariadeniach, či nemôžete obnoviť svoju mnemotechnickú pomôcku.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Akékoľvek stále pripojené zariadenie môže po odstránení kľúčov spôsobovať problémy, preto je lepšie zariadenia odpojiť a znova pripojiť.",
     "Delete existing encrypted files" : "Zmazať existujúce šifrované súbory",
-    "Download unencrypted" : "Stiahnuť nezašifrované"
+    "Download unencrypted" : "Stiahnuť nezašifrované",
+    "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Táto aplikácia poskytuje všetky potrebné rozhrania API pre implementáciu end-to-end šifrovania na strane klienta.\nNavyše implementuje Secure FileDrop a zaisťuje, že end-to-End šifrované súbory nie sú dostupné ani cez webové rozhranie, ani cez iných WebDAV klientov."
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

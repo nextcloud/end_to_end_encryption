@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "파일 드롭을 갱신할 수 없음",
     "Encrypted share" : "암호화된 공유",
     "End-to-End Encryption" : "종단간 암호화",
-    "End-to-end encryption endpoint" : "종단간 암호화 종단점",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "이 앱은 클라이언트 측에서 종단간 암호화가 구현되기 위한 중요한 API들을 제공합니다. 또한 보안 FileDrop을 구현하여 종단간 암호화된 파일에 웹 인터페이스나 WebDav 클라이언트가 접근할 수 없도록 보장합니다.",
     "The server could serve malicious source code to extract the secret that protects your files." : "당신의 파일을 보호하는 암호를 얻기 위해 서버가 악의적인 소스 코드를 사용할 수 있습니다.",
     "I understand the risks" : "위험에 대해 이해했습니다",
     "Submit" : "제출",
@@ -75,6 +73,8 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "우선 연결된 모든 기기를 점검하여 연상기호(mnemonic)를 다시 찾을 수 있는지 확인하십시오.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "키가 제거되면 연결된 기기에서 문제가 발생할 수 있습니다. 따라서, 연결 해제 후 기기를 다시 연결하십시오.",
     "Delete existing encrypted files" : "현재 암호화된 파일 제거",
-    "Download unencrypted" : "암호화 해제된 파일 다운로드"
+    "Download unencrypted" : "암호화 해제된 파일 다운로드",
+    "End-to-end encryption endpoint" : "종단간 암호화 종단점",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "이 앱은 클라이언트 측에서 종단간 암호화가 구현되기 위한 중요한 API들을 제공합니다. 또한 보안 FileDrop을 구현하여 종단간 암호화된 파일에 웹 인터페이스나 WebDav 클라이언트가 접근할 수 없도록 보장합니다."
 },
 "nplurals=1; plural=0;");

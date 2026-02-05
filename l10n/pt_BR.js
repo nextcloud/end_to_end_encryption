@@ -33,8 +33,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Não é possível atualizar depósito de arquivos",
     "Encrypted share" : "Compartilhamento criptografado",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
-    "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Es-e aplicativo fornece todas as APIs necessárias para implementar a criptografia de ponta-a-ponta no lado do cliente.\nAlém disso, ele implementa o Depósito de Arquivos Seguro (Secure File Drop) e garante que os arquivos criptografados de ponta-a-ponta não sejam acessíveis pela interface web nem por outros clientes WebDAV.",
     "The server could serve malicious source code to extract the secret that protects your files." : "O servidor pode fornecer código-fonte malicioso para extrair o segredo que protege seus arquivos.",
     "I understand the risks" : "Eu entendo os riscos",
     "Do not show this warning the next time" : "Não mostre este aviso da próxima vez",
@@ -130,6 +128,8 @@ OC.L10N.register(
     "Download unencrypted" : "Baixar não criptografado",
     "New encrypted folder" : "Nova pasta criptografada",
     "Creating new encrypted folder: Cancelled" : "Criação da nova pasta criptografada: Cancelada",
-    "Creating new encrypted folder: Failed" : "Criação da nova pasta criptografada: Falhou"
+    "Creating new encrypted folder: Failed" : "Criação da nova pasta criptografada: Falhou",
+    "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Es-e aplicativo fornece todas as APIs necessárias para implementar a criptografia de ponta-a-ponta no lado do cliente.\nAlém disso, ele implementa o Depósito de Arquivos Seguro (Secure File Drop) e garante que os arquivos criptografados de ponta-a-ponta não sejam acessíveis pela interface web nem por outros clientes WebDAV."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

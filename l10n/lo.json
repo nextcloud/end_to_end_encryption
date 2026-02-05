@@ -27,8 +27,6 @@
     "Cannot update filedrop" : "Cannot update filedrop",
     "Encrypted share" : "Encrypted share",
     "End-to-End Encryption" : "End-to-End Encryption",
-    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients.",
     "The server could serve malicious source code to extract the secret that protects your files." : "The server could serve malicious source code to extract the secret that protects your files.",
     "I understand the risks" : "I understand the risks",
     "Do not show this warning the next time" : "Do not show this warning the next time",
@@ -97,6 +95,8 @@
     "Download unencrypted" : "Download unencrypted",
     "New encrypted folder" : "New encrypted folder",
     "Creating new encrypted folder: Cancelled" : "Creating new encrypted folder: Cancelled",
-    "Creating new encrypted folder: Failed" : "Creating new encrypted folder: Failed"
+    "Creating new encrypted folder: Failed" : "Creating new encrypted folder: Failed",
+    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients."
 },"pluralForm" :"nplurals=1; plural=0;"
 }

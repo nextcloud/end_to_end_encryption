@@ -33,8 +33,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Üleslaadimiseks mõeldud failiedastuse andmete uuendamine ei õnnestu",
     "Encrypted share" : "Krüptitud võrgukaust",
     "End-to-End Encryption" : "Läbiv krüptimine",
-    "End-to-end encryption endpoint" : "Läbiva krüptimise otspunkt",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "See rakendus tagab kõik vajalikud liidestused, et kliendipoolne läbib krüptimine saaks toimida.\nLisaks võtab ta kasutusele Secure FileDrop meetodi, mis tagab, et läbivalt krüptitud failid pole kättesaadavad ei veebiliidesest ega muude WebDAVi klientidega.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Server ei saanud väljastada kahjulikku lähtekoodi, mis võimaldaks eraldada saladusi, mis kaitsevad sinu faile.",
     "I understand the risks" : "Ma mõistan riske",
     "Do not show this warning the next time" : "Ära järgmisel korral näita seda hoiatust uuesti",
@@ -126,6 +124,8 @@ OC.L10N.register(
     "Download unencrypted" : "Laadi alla krüptimata variandina",
     "New encrypted folder" : "Uus krüptitud kaust",
     "Creating new encrypted folder: Cancelled" : "Uue krüptokausta lisamine on katkestatud",
-    "Creating new encrypted folder: Failed" : "Uue krüptokausta lisamine ei õnnestunud"
+    "Creating new encrypted folder: Failed" : "Uue krüptokausta lisamine ei õnnestunud",
+    "End-to-end encryption endpoint" : "Läbiva krüptimise otspunkt",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "See rakendus tagab kõik vajalikud liidestused, et kliendipoolne läbib krüptimine saaks toimida.\nLisaks võtab ta kasutusele Secure FileDrop meetodi, mis tagab, et läbivalt krüptitud failid pole kättesaadavad ei veebiliidesest ega muude WebDAVi klientidega."
 },
 "nplurals=2; plural=(n != 1);");

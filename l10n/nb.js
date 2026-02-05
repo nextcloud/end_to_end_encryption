@@ -29,7 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Kan ikke oppdatere filslipp",
     "Encrypted share" : "Kryptert deling",
     "End-to-End Encryption" : "Ende-til-ende -kryptering",
-    "End-to-end encryption endpoint" : "Ende-til-ende -krypteringendepunkt",
     "I understand the risks" : "Jeg forstår risikoen",
     "Submit" : "Send inn",
     "Folder name cannot be empty" : "Mappenavnet kan ikke være tomt",
@@ -67,6 +66,7 @@ OC.L10N.register(
     "You should only reset your end-to-end encryption keys if you lost your secure key words (mnemonic)." : "Du bør bare tilbakestille ende-til-ende-krypteringsnøklene hvis du har mistet de sikre nøkkelordene (mnemonisk).",
     "Check on all connected devices if you can retrieve your mnemonic." : "Sjekk på alle tilkoblede enheter om du kan gjenopprette mnemonikken din.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Enhver fortsatt tilkoblet enhet kan forårsake problemer etter at du har slettet nøklene, så det er bedre å koble fra og koble til enhetene igjen.",
-    "Delete existing encrypted files" : "Slett eksisterende krypterte filer"
+    "Delete existing encrypted files" : "Slett eksisterende krypterte filer",
+    "End-to-end encryption endpoint" : "Ende-til-ende -krypteringendepunkt"
 },
 "nplurals=2; plural=(n != 1);");
