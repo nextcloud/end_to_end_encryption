@@ -33,8 +33,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Non é posíbel actualizar a entrega de ficheiros",
     "Encrypted share" : "Compartición cifrada",
     "End-to-End Encryption" : "Cifraxe de extremo a extremo",
-    "End-to-end encryption endpoint" : "Punto final da cifraxe de extremo a extremo",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta aplicación ofrece todas as API necesarias para implementar a cifraxe de extremo a extremo no lado do cliente.\nAdemais, implementa Secure FileDrop e asegurase de que os ficheiros cifrados de extremo a extremo non sexan accesíbeis a través da interface web nin doutros clientes WebDAV.",
     "The server could serve malicious source code to extract the secret that protects your files." : "O servidor podería servir código fonte malicioso para extraer o segredo que protexe os seus ficheiros.",
     "I understand the risks" : "Entendo os riscos",
     "Do not show this warning the next time" : "Non amosar esta advertencia a próxima vez",
@@ -130,6 +128,8 @@ OC.L10N.register(
     "Download unencrypted" : "Descargar sen cifrar",
     "New encrypted folder" : "Novo cartafol cifrado",
     "Creating new encrypted folder: Cancelled" : "Creando un novo cartafol cifrado: cancelado",
-    "Creating new encrypted folder: Failed" : "Creando un novo cartafol cifrado: fallado"
+    "Creating new encrypted folder: Failed" : "Creando un novo cartafol cifrado: fallado",
+    "End-to-end encryption endpoint" : "Punto final da cifraxe de extremo a extremo",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta aplicación ofrece todas as API necesarias para implementar a cifraxe de extremo a extremo no lado do cliente.\nAdemais, implementa Secure FileDrop e asegurase de que os ficheiros cifrados de extremo a extremo non sexan accesíbeis a través da interface web nin doutros clientes WebDAV."
 },
 "nplurals=2; plural=(n != 1);");

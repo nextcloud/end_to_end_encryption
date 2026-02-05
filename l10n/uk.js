@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Не вдалося поновити копіювання файлів після перетягування",
     "Encrypted share" : "Зашифрований спільний ресурс",
     "End-to-End Encryption" : "Наскрізне шифрування",
-    "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Сервер може обслуговувати шкідливий вихідний код, щоб витягти секрет, який захищає ваші файли.",
     "I understand the risks" : "Я розумію ризики",
     "Submit" : "Відправити",
@@ -79,6 +77,8 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Перевірте всі під'єднані пристрої, з яких можна отримати парольну фразу.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "На всіх під'єднаних пристроях можуть виникнути помилки після вилучення ключів, тому радимо вам від'єднати пристрої та приєднати їх повторно.",
     "Delete existing encrypted files" : "Вилучити наявні зашифровані файли",
-    "Download unencrypted" : "Завантажити незашифровані"
+    "Download unencrypted" : "Завантажити незашифровані",
+    "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV."
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

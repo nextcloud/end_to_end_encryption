@@ -33,8 +33,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Odkladiště souborů se nedaří aktualizovat",
     "Encrypted share" : "Šifrované sdílení",
     "End-to-End Encryption" : "Šifrování mezi koncovými body",
-    "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Server by mohl sloužit zákeřnému zdrojovému kódu pro vyzískávání tajemství, které chrání vaše soubory.",
     "I understand the risks" : "Rozumím rizikům",
     "Do not show this warning the next time" : "Příště už toto varování nezobrazovat",
@@ -130,6 +128,8 @@ OC.L10N.register(
     "Download unencrypted" : "Stáhnout nešifrovaně",
     "New encrypted folder" : "Nová šifrovaná složka",
     "Creating new encrypted folder: Cancelled" : "Vytváření nové šifrované složky: zrušeno ",
-    "Creating new encrypted folder: Failed" : "Vytváření nové šifrované složky: nezdařilo se"
+    "Creating new encrypted folder: Failed" : "Vytváření nové šifrované složky: nezdařilo se",
+    "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
