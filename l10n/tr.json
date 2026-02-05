@@ -31,8 +31,6 @@
     "Cannot update filedrop" : "Dosya bırakma güncellenemedi",
     "Encrypted share" : "Şifrelenmiş paylaşım",
     "End-to-End Encryption" : "Uçtan uca şifreleme",
-    "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Bu uygulama, istemci tarafında uçtan uca şifreleme kullanabilmek için gereken tüm API uygulamalarını sağlar.\nAyrıca güvenli dosya bırakmayı kullanır ve uçtan uca şifrelenmiş dosyaların internet arayüzü veya diğer WebDAV istemcileri aracılığıyla erişilebilir olmadığından emin olur.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Sunucuda, dosyalarınızı koruyan parolayı öğrenmek için kötü amaçlı bir kod bulunabilir.",
     "I understand the risks" : "Riskleri anladım",
     "Do not show this warning the next time" : "Bu ileti bir daha görüntülenmesin",
@@ -124,6 +122,8 @@
     "Download unencrypted" : "Şifresini çözmeden indir",
     "New encrypted folder" : "Yeni şifrelenmiş klasör",
     "Creating new encrypted folder: Cancelled" : "Yeni şifrelenmiş klasör ekleniyor: İptal edildi",
-    "Creating new encrypted folder: Failed" : "Yeni şifrelenmiş klasör ekleniyor: Tamamlanamadı"
+    "Creating new encrypted folder: Failed" : "Yeni şifrelenmiş klasör ekleniyor: Tamamlanamadı",
+    "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Bu uygulama, istemci tarafında uçtan uca şifreleme kullanabilmek için gereken tüm API uygulamalarını sağlar.\nAyrıca güvenli dosya bırakmayı kullanır ve uçtan uca şifrelenmiş dosyaların internet arayüzü veya diğer WebDAV istemcileri aracılığıyla erişilebilir olmadığından emin olur."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

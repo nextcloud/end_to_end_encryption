@@ -20,7 +20,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Vain omistaja voi poistaa metadatatiedoston",
     "Cannot delete metadata" : "Metatietoja ei voi poistaa",
     "End-to-End Encryption" : "Päästä päähän -salaus",
-    "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste",
     "Submit" : "Lähetä",
     "Create folder" : "Luo kansio",
     "Folder name cannot be empty" : "Kansion nimi ei voi olla tyhjä",
@@ -41,6 +40,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",
     "Cancel" : "Peruuta",
     "End-to-end encryption" : "Päästä päähän -salaus",
-    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot"
+    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
+    "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste"
 },
 "nplurals=2; plural=(n != 1);");

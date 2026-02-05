@@ -22,7 +22,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Isceti sa persone proprietària podet cantzellare s'archìviu metadatos",
     "Cannot delete metadata" : "Impossìbile a cantzellare metadatos",
     "End-to-End Encryption" : "Critografia a nodu terminale",
-    "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale",
     "Submit" : "Imbia",
     "Folder name" : "Nùmene de sa cartella",
     "Download" : "Iscàrriga",
@@ -39,6 +38,7 @@ OC.L10N.register(
     "Limit to groups" : "Lìmita a grupos",
     "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Cancel" : "Annulla",
-    "End-to-end encryption" : "Tzifradura end-to-end"
+    "End-to-end encryption" : "Tzifradura end-to-end",
+    "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale"
 },
 "nplurals=2; plural=(n != 1);");

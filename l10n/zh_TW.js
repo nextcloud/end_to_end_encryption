@@ -33,8 +33,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "無法更新檔案投遞箱",
     "Encrypted share" : "已加密的分享",
     "End-to-End Encryption" : "終端對終端的加密",
-    "End-to-end encryption endpoint" : "端到端加密端點",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。",
     "The server could serve malicious source code to extract the secret that protects your files." : "伺服器可能會提供惡意的原始碼來竊取保護您的檔案的祕密。",
     "I understand the risks" : "我了解風險",
     "Do not show this warning the next time" : "下次不顯示此警告",
@@ -126,6 +124,8 @@ OC.L10N.register(
     "Download unencrypted" : "下載未加密",
     "New encrypted folder" : "新的加密資料夾",
     "Creating new encrypted folder: Cancelled" : "正在建立新的加密資料夾：已取消",
-    "Creating new encrypted folder: Failed" : "正在建立新的加密資料夾：失敗"
+    "Creating new encrypted folder: Failed" : "正在建立新的加密資料夾：失敗",
+    "End-to-end encryption endpoint" : "端到端加密端點",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。"
 },
 "nplurals=1; plural=0;");

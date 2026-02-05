@@ -22,7 +22,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Kun ejeren kan slette metadata-filen",
     "Cannot delete metadata" : "Kan ikke slette metadata",
     "End-to-End Encryption" : "End-to-End-kryptering",
-    "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering",
     "I understand the risks" : "Jeg forstår risikoen",
     "Submit" : "Tilføj",
     "Create folder" : "Opret mappe",
@@ -43,6 +42,7 @@ OC.L10N.register(
     "Limit to groups" : "Begræns til grupper",
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Cancel" : "Annuller",
-    "End-to-end encryption" : "End-to-end kryptering"
+    "End-to-end encryption" : "End-to-end kryptering",
+    "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");

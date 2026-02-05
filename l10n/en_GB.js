@@ -33,8 +33,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Cannot update filedrop",
     "Encrypted share" : "Encrypted share",
     "End-to-End Encryption" : "End-to-End Encryption",
-    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients.",
     "The server could serve malicious source code to extract the secret that protects your files." : "The server could serve malicious source code to extract the secret that protects your files.",
     "I understand the risks" : "I understand the risks",
     "Do not show this warning the next time" : "Do not show this warning the next time",
@@ -58,6 +56,10 @@ OC.L10N.register(
     "To set up encryption, a new private key will be generated for you." : "To set up encryption, a new private key will be generated for you.",
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files.",
     "Your recovery phrase is:" : "Your recovery phrase is:",
+    "Download and decrypt" : "Download and decrypt",
+    "Download and decrypt all selected files." : "Download and decrypt all selected files.",
+    "Downloading …" : "Downloading …",
+    "Failed downloads" : "Failed downloads",
     "Download" : "Download",
     "End-to-end encrypted link shares" : "End-to-end encrypted link shares",
     "Link share" : "Link share",
@@ -126,6 +128,8 @@ OC.L10N.register(
     "Download unencrypted" : "Download unencrypted",
     "New encrypted folder" : "New encrypted folder",
     "Creating new encrypted folder: Cancelled" : "Creating new encrypted folder: Cancelled",
-    "Creating new encrypted folder: Failed" : "Creating new encrypted folder: Failed"
+    "Creating new encrypted folder: Failed" : "Creating new encrypted folder: Failed",
+    "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients."
 },
 "nplurals=2; plural=(n != 1);");

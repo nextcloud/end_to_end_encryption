@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Не удалось обновить копирование файлов через перетаскивание",
     "Encrypted share" : "Зашифрованный ресурс",
     "End-to-End Encryption" : "Сквозное шифрование",
-    "End-to-end encryption endpoint" : "Конечная точка Сквозного шифрования",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Это приложение предоставляет все необходимые API для реализации сквозного шифрования на стороне клиента.\nДополнительно оно реализует защищённую функцию Secure FileDrop и подтверждает, что файлы, зашифрованные сквозным шифрованием, недоступны через веб-интерфейс и клиенты WebDAV.",
     "The server could serve malicious source code to extract the secret that protects your files." : "На сервере может выполняться вредоносный код, который может получить защищающий ваши файлы секрет.",
     "I understand the risks" : "Я понимаю риски",
     "Submit" : "Отправить ответ",
@@ -76,6 +74,8 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Проверьте на всех подключенных устройствах, можете ли вы восстановить свою мнемонику.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Любое все еще подключенное устройство может вызвать проблемы после удаления ключей, поэтому лучше отключить и снова подключить устройства.",
     "Delete existing encrypted files" : "Удалить существующие зашифрованные файлы",
-    "Download unencrypted" : "Загрузить незашифрованное"
+    "Download unencrypted" : "Загрузить незашифрованное",
+    "End-to-end encryption endpoint" : "Конечная точка Сквозного шифрования",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Это приложение предоставляет все необходимые API для реализации сквозного шифрования на стороне клиента.\nДополнительно оно реализует защищённую функцию Secure FileDrop и подтверждает, что файлы, зашифрованные сквозным шифрованием, недоступны через веб-интерфейс и клиенты WebDAV."
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

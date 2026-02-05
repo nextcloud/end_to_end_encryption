@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Impossible de mettre à jour filedrop",
     "Encrypted share" : "Partage chiffré",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
-    "End-to-end encryption endpoint" : "Terminaison du chiffrement de bout en bout",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Cette application fournit toutes les APIs nécessaires pour implémenter le chiffrement de bout en bout côté client.\nElle implémente aussi Secure FileDrop et s'assure que les fichiers chiffrés de bout en bout ne sont accessibles ni par une interface web, ni par d'autres clients WebDAV.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Le serveur pourrait fournir un code source malveillant pour extraire le secret qui protège vos fichiers.",
     "I understand the risks" : "Je comprends les risques",
     "Submit" : "Soumettre",
@@ -77,6 +75,8 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Vérifiez sur tous les appareils connectés si vous pouvez récupérer votre phrase secrète",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Tout appareil encore connecté peut causer des problèmes après la suppression des clés, il est donc préférable de déconnecter et de reconnecter les appareils à nouveau.",
     "Delete existing encrypted files" : "Supprimer les fichiers chiffrés existants",
-    "Download unencrypted" : "Télécharger en clair"
+    "Download unencrypted" : "Télécharger en clair",
+    "End-to-end encryption endpoint" : "Terminaison du chiffrement de bout en bout",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Cette application fournit toutes les APIs nécessaires pour implémenter le chiffrement de bout en bout côté client.\nElle implémente aussi Secure FileDrop et s'assure que les fichiers chiffrés de bout en bout ne sont accessibles ni par une interface web, ni par d'autres clients WebDAV."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

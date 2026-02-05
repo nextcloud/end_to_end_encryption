@@ -25,7 +25,6 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Metaduomenų failą gali ištrinti tik savininkas",
     "Cannot delete metadata" : "Nepavyksta ištrinti metaduomenų",
     "End-to-End Encryption" : "Ištisinis šifravimas",
-    "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas",
     "Submit" : "Pateikti",
     "Create folder" : "Sukurti aplanką",
     "Folder name cannot be empty" : "Aplanko pavadinimas negali būti tuščias",
@@ -46,6 +45,7 @@ OC.L10N.register(
     "Cancel" : "Atsisakyti",
     "Reset keys" : "Atstatyti raktus",
     "End-to-end encryption" : "Ištisinis šifravimas",
-    "Delete existing encrypted files" : "Ištrinti esamus šifruotus failus"
+    "Delete existing encrypted files" : "Ištrinti esamus šifruotus failus",
+    "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

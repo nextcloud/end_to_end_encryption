@@ -33,8 +33,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "File-Drop kann nicht aktualisiert werden",
     "Encrypted share" : "Verschlüsselte Freigabe",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
-    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Der Server könnte schädlichen Quellcode bereitstellen, um das Geheimnis zu extrahieren, das deine Dateien schützt.",
     "I understand the risks" : "Ich bin mir des Risikos bewusst",
     "Do not show this warning the next time" : "Diese Warnung beim nächsten Mal nicht anzeigen",
@@ -130,6 +128,8 @@ OC.L10N.register(
     "Download unencrypted" : "Unverschlüsselt herunterladen",
     "New encrypted folder" : "Neuer verschlüsselter Ordner",
     "Creating new encrypted folder: Cancelled" : "Erstelle einen neuen verschlüsselten Ordner: Abgebrochen",
-    "Creating new encrypted folder: Failed" : "Erstelle einen neuen verschlüsselten Ordner: Fehlgeschlagen"
+    "Creating new encrypted folder: Failed" : "Erstelle einen neuen verschlüsselten Ordner: Fehlgeschlagen",
+    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind."
 },
 "nplurals=2; plural=(n != 1);");

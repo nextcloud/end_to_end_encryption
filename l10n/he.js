@@ -17,7 +17,6 @@ OC.L10N.register(
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "אין לך הרשאה לערוך את הקובץ, נא לוודא לנעול אותו תחילה ולאחר מכן לשלוח את האסימון הנכון.",
     "Only the owner can delete the metadata-file" : "רק הבעלים יכול למחוק את קובץ נתוני העל",
     "End-to-End Encryption" : "הצפנה מקצה לקצה",
-    "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה",
     "Submit" : "שליחה",
     "Folder name" : "שם התיקייה",
     "Continue" : "להמשך",
@@ -33,6 +32,7 @@ OC.L10N.register(
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",
     "Cancel" : "ביטול",
-    "End-to-end encryption" : "הצפנה מקצה לקצה"
+    "End-to-end encryption" : "הצפנה מקצה לקצה",
+    "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

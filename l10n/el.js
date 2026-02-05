@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cannot update filedrop" : "Αδυναμία ενημέρωσης filedrop",
     "Encrypted share" : "Κρυπτογραφημένος διαμοιρασμός",
     "End-to-End Encryption" : "Κρυπτογράφηση από Άκρο σε Άκρο",
-    "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Αυτή η εφαρμογή παρέχει όλα τα απαραίτητα API για την υλοποίηση κρυπτογράφησης από Άκρο σε Άκρο από την πλευρά του πελάτη.\nΕπιπλέον υλοποιεί Ασφαλή FileDrop και διασφαλίζει ότι τα κρυπτογραφημένα αρχεία από Άκρο σε Άκρο δεν είναι προσβάσιμα μέσω της διαδικτυακής διεπαφής ή άλλων WebDAV πελατών.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Ο διακομιστής θα μπορούσε να σερβίρει κακόβουλο πηγαίο κώδικα για να εξάγει το μυστικό που προστατεύει τα αρχεία σας.",
     "I understand the risks" : "Κατανοώ τους κινδύνους",
     "Submit" : "Υποβολή",
@@ -75,6 +73,8 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Ελέγξτε σε όλες τις συνδεδεμένες συσκευές εάν μπορείτε να ανακτήσετε το μνημονικό σας.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Οποιαδήποτε ακόμα συνδεδεμένη συσκευή μπορεί να προκαλέσει προβλήματα μετά τη διαγραφή των κλειδιών, επομένως είναι καλύτερα να αποσυνδέσετε και να επανασυνδέσετε τις συσκευές ξανά.",
     "Delete existing encrypted files" : "Διαγραφή υπαρχόντων κρυπτογραφημένων αρχείων",
-    "Download unencrypted" : "Λήψη μη κρυπτογραφημένων"
+    "Download unencrypted" : "Λήψη μη κρυπτογραφημένων",
+    "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Αυτή η εφαρμογή παρέχει όλα τα απαραίτητα API για την υλοποίηση κρυπτογράφησης από Άκρο σε Άκρο από την πλευρά του πελάτη.\nΕπιπλέον υλοποιεί Ασφαλή FileDrop και διασφαλίζει ότι τα κρυπτογραφημένα αρχεία από Άκρο σε Άκρο δεν είναι προσβάσιμα μέσω της διαδικτυακής διεπαφής ή άλλων WebDAV πελατών."
 },
 "nplurals=2; plural=(n != 1);");
