@@ -90,13 +90,8 @@ class EncryptionManager {
 	 */
 	protected function isValidFolder(int $id):void {
 		$this->accessManager->checkPermissions($id, true);
-
 		$node = $this->rootFolder->getFirstNodeById($id);
-		if ($node === null) {
-			throw new NotFoundException('No folder with ID ' . $id);
-		}
-
-		if (!($node instanceof Folder)) {
+		if (!$node instanceof Folder) {
 			throw new NotFoundException('No folder with ID ' . $id);
 		}
 

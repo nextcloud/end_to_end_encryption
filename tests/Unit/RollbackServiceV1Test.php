@@ -147,21 +147,21 @@ class RollbackServiceV1Test extends TestCase {
 			->willReturn(200);
 
 		$userFolder3->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(100003)
-			->willReturn([$node3]);
+			->willReturn($node3);
 		$userFolder4->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(100004)
-			->willReturn([$node4]);
+			->willReturn($node4);
 		$userFolder5->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(100005)
-			->willReturn([$node5]);
+			->willReturn($node5);
 		$userFolder6->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with(100006)
-			->willReturn([$node6]);
+			->willReturn($node6);
 
 		$this->fileService->expects($this->exactly(3))
 			->method('revertChanges')
