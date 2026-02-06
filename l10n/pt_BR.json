@@ -31,6 +31,7 @@
     "Cannot update filedrop" : "Não é possível atualizar depósito de arquivos",
     "Encrypted share" : "Compartilhamento criptografado",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
+    "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Habilite a criptografia ponta-a-ponta no lado do cliente para seus arquivos mais confidenciais, garantindo privacidade total com segurança de conhecimento zero.",
     "The server could serve malicious source code to extract the secret that protects your files." : "O servidor pode fornecer código-fonte malicioso para extrair o segredo que protege seus arquivos.",
     "I understand the risks" : "Eu entendo os riscos",
     "Do not show this warning the next time" : "Não mostre este aviso da próxima vez",
