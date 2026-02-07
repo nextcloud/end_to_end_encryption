@@ -31,6 +31,7 @@
     "Cannot update filedrop" : "Odkladiště souborů se nedaří aktualizovat",
     "Encrypted share" : "Šifrované sdílení",
     "End-to-End Encryption" : "Šifrování mezi koncovými body",
+    "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Zapněte šifrování mezi koncovými body (implementované na straně klienta) pro své nejcitlivější soubory, což zajistí naprosté soukromí zabezpečením typu „nulová znalost“.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Server by mohl sloužit zákeřnému zdrojovému kódu pro vyzískávání tajemství, které chrání vaše soubory.",
     "I understand the risks" : "Rozumím rizikům",
     "Do not show this warning the next time" : "Příště už toto varování nezobrazovat",
