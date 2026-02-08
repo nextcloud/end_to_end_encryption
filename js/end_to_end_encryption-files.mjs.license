@@ -28,7 +28,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.3.0
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.35.3
+	- version: 8.36.0
 	- license: AGPL-3.0-or-later
 - @noble/hashes
 	- version: 1.7.0
@@ -58,5 +58,5 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.24.0
 	- license: MIT
 - webdav
-	- version: 5.8.0
+	- version: 5.9.0
 	- license: MIT
