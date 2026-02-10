@@ -1,12 +1,12 @@
-/**
+/*!
  * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { INode } from '@nextcloud/files'
+import type { IFileAction, INode } from '@nextcloud/files'
 
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
-import { DefaultType, FileAction, FileType } from '@nextcloud/files'
+import { DefaultType, FileType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
 import { spawnDialog } from '@nextcloud/vue/functions/dialog'
 import { defineAsyncComponent } from 'vue'
@@ -31,7 +31,7 @@ async function downloadNode(file: INode) {
 	link.click()
 }
 
-export default new FileAction({
+export default {
 	id: 'download_unencrypted',
 	default: DefaultType.DEFAULT,
 
@@ -86,4 +86,4 @@ export default new FileAction({
 	},
 
 	order: 30,
-})
+} satisfies IFileAction
