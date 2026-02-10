@@ -1,9 +1,7 @@
-/**
+/*!
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
-import type { FileAction, FileActionData } from '@nextcloud/files'
 
 import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
@@ -44,19 +42,14 @@ function disableFileAction(actionId: string) {
 	logger.debug(`Inhibiting ${actionId} actions for e2ee files`)
 	const actions = getFileActions()
 
-	const action = actions.find((action) => action.id === actionId) as FileAction | FileActionData | undefined
+	const action = actions.find((action) => action.id === actionId)
 	if (!action) {
 		logger.error(`Could not find action with ID ${actionId} to inhibit it for e2ee files.`)
 		return
 	}
 
-	const realAction = '_action' in action
-		? (action as unknown as { _action: FileActionData })._action
-		: action
-
-	const originalEnabled = realAction.enabled
-
-	realAction.enabled = (context) => {
+	const originalEnabled = action.enabled
+	action.enabled = (context) => {
 		if (context.nodes.some((node) => node.attributes['e2ee-is-encrypted'] === 1)) {
 			return false
 		}
