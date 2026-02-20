@@ -72,6 +72,7 @@ class MetaDataController extends OCSController {
 	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
 		try {
 			$ownerId = $this->getOwnerId($shareToken);
+			$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
@@ -98,6 +99,7 @@ class MetaDataController extends OCSController {
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		try {
+			$this->metaDataStorage->assertMetadataIsV1($this->userId, $id);
 			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
 		} catch (MetaDataExistsException $e) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
@@ -126,6 +128,8 @@ class MetaDataController extends OCSController {
 	 */
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token');
+
+		$this->metaDataStorage->assertMetadataIsV1($this->userId, $id);
 
 		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the file, make sure to first lock it, and then send the right token'));
@@ -160,6 +164,8 @@ class MetaDataController extends OCSController {
 	 * 200: Metadata deleted successfully
 	 */
 	public function deleteMetaData(int $id): DataResponse {
+		$this->metaDataStorage->assertMetadataIsV1($this->userId, $id);
+
 		try {
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}');
 		} catch (NotFoundException $e) {
@@ -191,6 +197,8 @@ class MetaDataController extends OCSController {
 	 */
 	public function addMetadataFileDrop(int $id, string $fileDrop, ?string $shareToken = null): DataResponse {
 		$ownerId = $this->getOwnerId($shareToken);
+
+		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
