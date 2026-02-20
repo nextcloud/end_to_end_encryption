@@ -62,17 +62,11 @@ class LockManager {
 			$lock = $this->lockMapper->getByFileId($id);
 			return $lock->getToken() === $token ? $token : null;
 		} catch (DoesNotExistException $ex) {
-			try {
-				if (!$noCounterCheck) {
-					$storedCounter = $this->metaDataStorage->getCounter($id);
-					if ($storedCounter >= $e2eCounter) {
-						throw new NotPermittedException('Received counter is not greater than the stored one');
-					} else {
-						$this->metaDataStorage->saveIntermediateCounter($id, $e2eCounter);
-					}
+			if (!$noCounterCheck) {
+				$storedCounter = $this->metaDataStorage->getCounter($id);
+				if ($storedCounter >= $e2eCounter) {
+					throw new NotPermittedException('Received counter is not greater than the stored one');
 				}
-			} catch (NotFoundException $e) {
-				// Do not check counter if the metadata do not exists yet.
 			}
 
 			$newToken = $this->getToken();
@@ -81,6 +75,15 @@ class LockManager {
 			$lockEntity->setTimestamp($this->timeFactory->getTime());
 			$lockEntity->setToken($newToken);
 			$this->lockMapper->insert($lockEntity);
+
+			if (!$noCounterCheck) {
+				try {
+					$this->metaDataStorage->saveIntermediateCounter($id, $e2eCounter);
+				} catch (NotFoundException $e) {
+					// This just means that the metadata does not exists yet.
+				}
+			}
+
 			return $newToken;
 		}
 	}
