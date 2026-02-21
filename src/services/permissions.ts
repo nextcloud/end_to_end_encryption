@@ -4,7 +4,7 @@
  */
 
 import type { INode } from '@nextcloud/files'
-import type { ShareAttribute } from './sharing.ts'
+import type { ShareAttribute } from '../models/sharing.d.ts'
 
 import { Permission } from '@nextcloud/files'
 
