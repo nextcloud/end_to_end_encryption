@@ -119,15 +119,14 @@ class RollbackServiceTest extends TestCase {
 		$userFolder7 = $this->createMock(Folder::class);
 
 		$this->rootFolder->method('getUserFolder')
-			->withConsecutive(['user2'], ['user3'], ['user4'], ['user5'], ['user6'], ['user7'])
-			->willReturnOnConsecutiveCalls(
-				$this->throwException(new \Exception('User not found')),
-				$userFolder3,
-				$userFolder4,
-				$userFolder5,
-				$userFolder6,
-				$userFolder7
-			);
+			->willReturnCallback(fn (string $userId) => match ($userId) {
+				'user2' => throw new \Exception('User not found'),
+				'user3' => $userFolder3,
+				'user4' => $userFolder4,
+				'user5' => $userFolder5,
+				'user6' => $userFolder6,
+				'user7' => $userFolder7,
+			});
 
 		$node3 = $this->createMock(Folder::class);
 		$node3->expects($this->once())
@@ -165,29 +164,30 @@ class RollbackServiceTest extends TestCase {
 
 		$this->fileService->expects($this->exactly(3))
 			->method('revertChanges')
-			->withConsecutive([$node4], [$node5], [$node6])
-			->willReturnOnConsecutiveCalls(
-				$this->throwException(new \Exception('Exception while reverting changes')),
-				true,
-				true
-			);
+			->willReturnCallback(fn (Folder $folder) => match ($folder) {
+				$node4 => throw new \Exception('Exception while reverting changes'),
+				$node5 => true,
+				$node6 => true,
+			});
 
 		$this->metaDataStorage->expects($this->exactly(2))
 			->method('deleteIntermediateFile')
-			->withConsecutive(['user5', 100005], ['user6', 100006])
-			->willReturnOnConsecutiveCalls(
-				$this->throwException(new \Exception('Exception while deleting intermediate file')),
-				null
-			);
-
-		$this->lockMapper->expects($this->exactly(3))
-			->method('delete')
-			->withConsecutive([$locks[0]], [$locks[5]], [$locks[6]]);
-
+			->willReturnCallback(fn (string $userId, int $fileId) => match ([$userId, $fileId]) {
+				['user5', 100005] => throw new \Exception('Exception while deleting intermediate file'),
+				['user6', 100006] => null,
+			});
 		$this->logger->expects($this->exactly(3))
 			->method('critical');
 
+		$calls = [];
+		$this->lockMapper->expects($this->exactly(3))
+			->method('delete')
+			->willReturnCallback(function (Lock $lock) use (&$calls) {
+				$calls[] = $lock;
+			});
+
 		$this->rollbackService->rollbackOlderThan(1337, 10);
+		$this->assertEquals([$locks[0], $locks[5], $locks[6]], $calls);
 	}
 
 	private function getSampleLocks(): array {
