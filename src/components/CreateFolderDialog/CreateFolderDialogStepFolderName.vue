@@ -87,7 +87,7 @@ async function createFolder(): Promise<true | void> {
 		root: defaultRootPath,
 		crtime: new Date(),
 		mtime: new Date(),
-		permissions: Permission.READ, // TODO: allow more permissions once we support that
+		permissions: Permission.ALL,
 		size: 0, // its empty for now
 		attributes: {
 			'e2ee-is-encrypted': 1,
