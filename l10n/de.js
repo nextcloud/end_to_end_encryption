@@ -90,7 +90,6 @@ OC.L10N.register(
     "Remove" : "Entfernen",
     "User share setup" : "Einrichtung der Benutzer-Freigabe",
     "When limiting the permissions you have to trust the server to enforce the limitation." : "Bei der Einschränkung der Berechtigungen muss darauf vertraut werden, dass der Server die Einschränkung durchsetzt.",
-    "Share permissions" : "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
     "Save" : "Speichern",
     "Enter your 12 words mnemonic" : "Die 12-Wörter-Gedächtnisstütze eingeben",
     "Decrypting your files in the browser can weaken security" : "Das Entschlüsseln deiner Dateien im Browser kann unsicher sein",
