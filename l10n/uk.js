@@ -33,6 +33,7 @@ OC.L10N.register(
     "Cannot update filedrop" : "Не вдалося поновити копіювання файлів після перетягування",
     "Encrypted share" : "Зашифрований спільний ресурс",
     "End-to-End Encryption" : "Наскрізне шифрування",
+    "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Увімкнути наскрізне шифрування для найбільш чутливих файлів, щоб забезпечити повну приватність та безпеку на рівні zero-knowledge.",
     "The server could serve malicious source code to extract the secret that protects your files." : "Сервер може обслуговувати шкідливий вихідний код, щоб витягти секрет, який захищає ваші файли.",
     "I understand the risks" : "Я розумію ризики",
     "Do not show this warning the next time" : "Не показувати це застереження наступного разу",
