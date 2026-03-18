@@ -75,6 +75,7 @@ export async function useMoveInterceptor(context: FetchContext, next: () => Prom
 		method: 'DELETE',
 		headers: {
 			'OCS-APIRequest': 'true',
+			'X-NC-Skip-Trashbin': 'true', // skip trashbin because if moved from outside > encrypted we do not want a unencrypted copy in the trashbin
 		},
 	})
 }
