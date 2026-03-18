@@ -177,7 +177,7 @@ class KeyStorage implements IKeyStorage {
 			}
 		}
 
-		$fileName = $this->getFileNameForPrivateKey($uid);
+		$fileName = $this->getFileNameForPrivateKey($uid, $shareToken);
 		try {
 			$file = $privateKeysRoot->getFile($fileName);
 		} catch (NotFoundException) {
