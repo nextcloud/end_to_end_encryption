@@ -29,6 +29,8 @@ use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
+	use ThrottleRequestTrait;
+
 	private ?string $userId;
 	private IMetaDataStorage $metaDataStorage;
 	private LoggerInterface $logger;
@@ -69,6 +71,7 @@ class MetaDataController extends OCSController {
 	 * @throws OCSBadRequestException Cannot read metadata
 	 *
 	 * 200: Metadata returned
+	 * 403: Forbidden
 	 */
 	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
 		try {
@@ -76,6 +79,9 @@ class MetaDataController extends OCSController {
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
+		} catch (\InvalidArgumentException|NotPermittedException $e) {
+			$this->logger->warning('Unauthorized access to metadata API', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to access the metadata of this folder');
 		} catch (\Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot read metadata'));
@@ -94,23 +100,24 @@ class MetaDataController extends OCSController {
 	 *
 	 * @param int $id File ID
 	 * @param string $metaData New metadata
-	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>|DataResponse<Http::STATUS_CONFLICT, list<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_CONFLICT, array{message: string}, array{}>
 	 * @throws OCSNotFoundException Metadata-file does not exist
 	 * @throws OCSBadRequestException Cannot store metadata
 	 *
 	 * 200: Metadata set successfully
 	 * 409: Metadata already exists
+	 * 403: Forbidden
 	 */
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
 
 		if ($e2eToken === '') {
-			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'e2e-token is empty');
 		}
 
 		if ($signature === '') {
-			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-SIGNATURE is empty'));
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'x-nc-e2ee-signature is empty');
 		}
 
 		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
@@ -137,23 +144,24 @@ class MetaDataController extends OCSController {
 	 * @NoAdminRequired
 	 * @param int $id File ID
 	 * @param string $metaData New metadata
-	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_PRECONDITION_FAILED, array{message: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to edit the file
 	 * @throws OCSBadRequestException Cannot store metadata
 	 * @throws OCSNotFoundException Metadata-file does not exist
 	 *
 	 * 200: Metadata updated successfully
+	 * 412: Folder is not locked
 	 */
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
 
 		if ($e2eToken === '') {
-			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'e2e-token is empty');
 		}
 
 		if ($signature === '') {
-			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-SIGNATURE is empty'));
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'x-nc-e2ee-signature is empty');
 		}
 
 		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
@@ -180,19 +188,20 @@ class MetaDataController extends OCSController {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id file id
-	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_PRECONDITION_FAILED, array{message: string}, array{}>
 	 *
 	 * @throws OCSForbiddenException User is not allowed to edit the file
 	 * @throws OCSNotFoundException Metadata for the file not found
 	 * @throws OCSBadRequestException Cannot delete metadata
 	 *
 	 * 200: Metadata deleted successfully
+	 * 412: Folder is not locked
 	 */
 	public function deleteMetaData(int $id): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
 
 		if ($e2eToken === '') {
-			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'e2e-token is empty');
 		}
 
 		if ($this->lockManager->isLocked($id, $e2eToken, null, true)) {
@@ -204,7 +213,8 @@ class MetaDataController extends OCSController {
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
-			throw new OCSForbiddenException($this->l10n->t('Only the owner can delete the metadata-file'));
+			$this->logger->warning('Unauthorized access to metadata API', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to delete the metadata of this folder');
 		} catch (\Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot delete metadata'));
@@ -221,7 +231,7 @@ class MetaDataController extends OCSController {
 	 * @param int $id File ID
 	 * @param string $filedrop File drop metadata
 	 * @param ?string $shareToken Token of the share if available
-	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{filedrop: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN, array{message: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to create the lock
 	 * @throws OCSBadRequestException Cannot update filedrop
 	 * @throws OCSNotFoundException Metadata-file does not exist
@@ -230,20 +240,25 @@ class MetaDataController extends OCSController {
 	 */
 	public function addMetadataFileDrop(int $id, string $filedrop, ?string $shareToken = null): DataResponse {
 		if ($this->userId === null && $shareToken === null) {
-			throw new OCSBadRequestException("No 'shareToken' provided and user is not logged in");
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, "No 'shareToken' provided and user is not logged in");
 		}
 
 		$ownerId = $this->getOwnerId($id, $shareToken);
 
 		try {
+			/** @var string */
+			$ownerId = $shareToken
+				? $this->getFileDropOwnerId($shareToken, $id)
+				: $this->userId;
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
-			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		} catch (NoUserException|OCSForbiddenException $e) {
+			$this->logger->error('Tried to create filedrop lock without permission', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, $this->l10n->t('You are not allowed to create the lock'));
 		}
 
 		if ($userFolder->getId() === $id) {
 			$this->logger->error('Cannot create filedrop lock on root folder of user {userId}', ['userId' => $ownerId]);
-			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, $this->l10n->t('You are not allowed to create the lock'));
 		}
 
 		$nodes = $userFolder->getById($id);
@@ -253,7 +268,7 @@ class MetaDataController extends OCSController {
 
 		$lockToken = $this->lockManager->lockFile($id, 'filedrop-lock', 0, $ownerId, true);
 		if ($lockToken === null) {
-			throw new OCSForbiddenException($this->l10n->t('File already locked'));
+			throw new OCSPreconditionFailedException($this->l10n->t('File already locked'));
 		}
 
 		try {

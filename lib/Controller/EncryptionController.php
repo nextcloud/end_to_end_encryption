@@ -23,6 +23,8 @@ use Psr\Log\LoggerInterface;
  * @package OCA\EndToEndEncryption\Controller
  */
 class EncryptionController extends OCSController {
+	use ThrottleRequestTrait;
+
 	private ?string $userId;
 	private IMetaDataStorage $metaDataStorage;
 	private EncryptionManager $manager;
@@ -48,16 +50,21 @@ class EncryptionController extends OCSController {
 	 * @E2ERestrictUserAgent
 	 *
 	 * @param int $id File ID
-	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK|Http::STATUS_NOT_FOUND|Http::STATUS_FORBIDDEN, list<empty>, array{}>
 	 * @throws OCSNotFoundException File not found
 	 *
 	 * 200: Encryption flag set successfully
+	 * 403: Forbidden
 	 */
 	public function setEncryptionFlag(int $id): DataResponse {
 		try {
 			$this->manager->setEncryptionFlag($id);
 		} catch (NotFoundException $e) {
-			throw new OCSNotFoundException($e->getMessage());
+			$this->logger->warning('Tried to set encryption flag on non-existing folder', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_NOT_FOUND, 'Folder not found');
+		} catch (\InvalidArgumentException $e) {
+			$this->logger->warning('Unauthorized access to encryption API', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to set the encryption flag on this folder');
 		}
 
 		return new DataResponse();

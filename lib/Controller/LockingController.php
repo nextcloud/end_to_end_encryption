@@ -18,7 +18,6 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
-use OCP\AppFramework\OCS\OCSPreconditionFailedException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
@@ -36,6 +35,8 @@ class LockingController extends OCSController {
 	private IL10N $l10n;
 	private LoggerInterface $logger;
 	private ShareManager $shareManager;
+
+	use ThrottleRequestTrait;
 
 	public function __construct(
 		string $AppName,
@@ -70,17 +71,20 @@ class LockingController extends OCSController {
 	 * @param int $id file ID
 	 * @param ?string $shareToken Token of the share if available
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_LOCKED, array{message: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to create the lock
 	 *
 	 * 200: Folder locked successfully
+	 * 400: Bad request, e.g. missing counter header
+	 * 403: Forbidden
+	 * 423: Folder already locked
 	 */
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
 		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
 
 		if ($e2eCounter === 0) {
-			throw new OCSPreconditionFailedException($this->l10n->t('X-NC-E2EE-COUNTER is missing in the request'));
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'X-NC-E2EE-COUNTER is missing in the request');
 		}
 
 		$ownerId = $this->getOwnerId($shareToken);
@@ -92,9 +96,8 @@ class LockingController extends OCSController {
 		}
 
 		if ($userFolder->getId() === $id) {
-			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
-			$this->logger->error($e->getMessage(), ['exception' => $e]);
-			throw $e;
+			$this->logger->info('Tried to lock root of e2ee folder');
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
 		}
 
 		$nodes = $userFolder->getById($id);
@@ -104,7 +107,8 @@ class LockingController extends OCSController {
 
 		$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
 		if ($newToken === null) {
-			throw new OCSForbiddenException($this->l10n->t('File already locked'));
+			$this->logger->debug('Tried to lock already locked e2ee folder', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_LOCKED, 'File already locked');
 		}
 		return new DataResponse(['e2e-token' => $newToken]);
 	}
@@ -121,17 +125,19 @@ class LockingController extends OCSController {
 	 * @param ?string $shareToken Token of the share if available
 	 * @param null|'true' $abort Abort changes during unlock
 	 *
-	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
+	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{message: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to remove the lock
 	 * @throws OCSNotFoundException Folder not locked
 	 *
 	 * 200: Folder unlocked successfully
+	 * 400: Bad request, e.g. missing token header
+	 * 403: Forbidden
 	 */
 	public function unlockFolder(int $id, ?string $shareToken = null, ?string $abort = null): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
 
 		if ($token === '') {
-			throw new OCSPreconditionFailedException($this->l10n->t('e2e-token is empty'));
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'e2e-token is empty');
 		}
 
 		$ownerId = $this->getOwnerId($shareToken);
@@ -163,9 +169,11 @@ class LockingController extends OCSController {
 		try {
 			$this->lockManager->unlockFile($id, $token);
 		} catch (FileLockedException $e) {
-			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
+			$this->logger->info('Tried to unlock e2ee folder with invalid token', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
 		} catch (FileNotLockedException $e) {
-			throw new OCSNotFoundException($this->l10n->t('File not locked'));
+			$this->logger->info('Tried to unlock already unlocked e2ee folder', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_NOT_FOUND, 'File not locked');
 		}
 
 		return new DataResponse();
