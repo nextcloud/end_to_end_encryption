@@ -79,6 +79,8 @@ class LockingController extends OCSController {
 
 		$ownerId = $this->getOwnerId($shareToken);
 
+		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
+
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
 		} catch (NoUserException $e) {
@@ -122,6 +124,8 @@ class LockingController extends OCSController {
 		$token = $this->request->getHeader('e2e-token');
 
 		$ownerId = $this->getOwnerId($shareToken);
+
+		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
