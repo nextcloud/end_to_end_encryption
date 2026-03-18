@@ -293,4 +293,14 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 
 		return $ownerNode->getPath();
 	}
+
+	public function assertMetadataIsV1(string $userId, int $id): bool {
+		$metadata = $this->getMetadata($userId, $id);
+		$decodedMetadata = json_decode($metadata, true);
+
+		return match ($decodedMetadata['metadata']['version']) {
+			'1.2', 1.2, 1 => true,
+			default => throw new NotPermittedException('Use the v2 endpoint for this file'),
+		};
+	}
 }

@@ -15,7 +15,6 @@ use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorageV1;
 use OCA\EndToEndEncryption\LockManagerV1;
-use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
@@ -79,6 +78,8 @@ class LockingController extends OCSController {
 
 		$ownerId = $this->getOwnerId($shareToken);
 
+		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
+
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
 		} catch (NoUserException $e) {
@@ -122,6 +123,8 @@ class LockingController extends OCSController {
 		$token = $this->request->getHeader('e2e-token');
 
 		$ownerId = $this->getOwnerId($shareToken);
+
+		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
