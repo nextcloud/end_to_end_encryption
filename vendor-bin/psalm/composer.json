@@ -1,6 +1,6 @@
 {
 	"require-dev": {
-		"vimeo/psalm": "^6.10"
+		"vimeo/psalm": "^6.16"
 	},
 	"config": {
 		"platform": {
