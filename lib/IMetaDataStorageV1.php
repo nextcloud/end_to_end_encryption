@@ -84,4 +84,11 @@ interface IMetaDataStorageV1 {
 	 * @throws NotFoundException
 	 */
 	public function deleteMetaData(string $userId, int $id): void;
+
+	/**
+	 * This method will throw if the metadata's versions is not v1.
+	 *
+	 * @throws NotPermittedException
+	 */
+	public function assertMetadataIsV1(string $userId, int $id): bool;
 }
