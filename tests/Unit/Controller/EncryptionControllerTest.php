@@ -79,10 +79,10 @@ class EncryptionControllerTest extends TestCase {
 			->with($fileId)
 			->willThrowException(new NotFoundException('Exception Message'));
 
-		$this->expectException(OCSNotFoundException::class);
-		$this->expectExceptionMessage('Exception Message');
-
-		$this->controller->setEncryptionFlag($fileId);
+		$response = $this->controller->setEncryptionFlag($fileId);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertSame(404, $response->getStatus());
+		$this->assertSame(['message' => 'Folder not found'], $response->getData());
 	}
 
 	public function testRemoveEncryptionFlag(): void {
