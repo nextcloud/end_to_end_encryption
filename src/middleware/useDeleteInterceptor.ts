@@ -129,6 +129,7 @@ async function handleDelete(path: string, context: FetchContext, next: () => Pro
 			await api.deleteMetadata(metadata.id, lockToken)
 		}
 		// now the proper delete
+		context.req.headers.set('X-NC-Skip-Trashbin', 'true') // skip trashbin
 		context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 		context.req.headers.set('E2E-TOKEN', lockToken)
 		await next()
