@@ -1,8 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "This is someone else's private key" : "Dit is de privésleutel van iemand anders",
-    "Could not find the private key of the user %s" : "Kan de privésleutel van %s niet vinden",
     "Internal error" : "Interne fout",
     "You are not allowed to delete this private key" : "Je bent niet bevoegd om deze privésleutel te wissen",
     "Could not find the private key belonging to the user %s" : "Kan de privésleutel van %s niet vinden",
@@ -11,16 +9,16 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Kan de publieke sleutel van %s niet vinden",
     "This is not your public key to delete" : "Dit is niet jouw openbare sleutel, kun je niet verwijderen",
     "Cannot decode userlist" : "Kan de gebruikerslijst niet decoderen",
+    "Could not find metadata for \"%s\"" : "Kan categorie \"%s\" niet vinden",
+    "Cannot read metadata" : "Kan metadata niet lezen",
+    "Cannot store metadata" : "Kan metadata niet opslaan",
+    "Cannot delete metadata" : "Kan metadata niet verwijderen",
     "You are not allowed to create the lock" : "Je mag het slot niet verwijderen",
     "File already locked" : "Bestand zit al op slot",
     "You are not allowed to remove the lock" : "Je mag het slot niet verwijderen",
     "File not locked" : "Bestand niet op slot",
-    "Could not find metadata for \"%s\"" : "Kan categorie \"%s\" niet vinden",
-    "Cannot read metadata" : "Kan metadata niet lezen",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Je mag het bestand niet bewerken. Zet het eerst op slot en stuur dan het juiste token",
-    "Cannot store metadata" : "Kan metadata niet opslaan",
     "Only the owner can delete the metadata-file" : "Alleen de eigenaar kan het metadatabestand wissen",
-    "Cannot delete metadata" : "Kan metadata niet verwijderen",
     "End-to-End Encryption" : "Begin-tot-eind versleuteling",
     "I understand the risks" : "Ik begrijp de risico's",
     "Submit" : "Verwerken",
@@ -42,6 +40,8 @@ OC.L10N.register(
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Cancel" : "Annuleren",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
+    "This is someone else's private key" : "Dit is de privésleutel van iemand anders",
+    "Could not find the private key of the user %s" : "Kan de privésleutel van %s niet vinden",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt"
 },
 "nplurals=2; plural=(n != 1);");

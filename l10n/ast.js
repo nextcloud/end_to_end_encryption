@@ -1,20 +1,18 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "This is someone else's private key" : "Esta ye la clave privada de daquién",
-    "Could not find the private key of the user %s" : "Nun se pudo atopar la clave privada del usuariu «%s»",
     "Internal error" : "Error internu",
     "You are not allowed to delete this private key" : "Nun tienes permisu pa desaniciar esta clave privada",
     "Could not find the private key belonging to the user %s" : "Nun se pudo atopar la clave privada que pertenez al usuariu «%s»",
     "Could not find the public key belonging to the user %s" : "Nun se pudo atopar la clave pública que pertenez al usuariu «%s»",
     "Could not find the public key belonging to %s" : "Nun se pudo atopar la clave pública que pertenez a «%s»",
+    "Cannot read metadata" : "Nun se puen lleer los metadatos",
+    "Cannot store metadata" : "Nun se puen atroxar los metadatos",
+    "Cannot delete metadata" : "Nun se puen desaniciar los metadatos",
     "You are not allowed to create the lock" : "Nun tienes permisu pa crear el bloquéu",
     "File already locked" : "El ficheru yá ta bloquiáu",
     "You are not allowed to remove the lock" : "Nun tienes permisu pa quitar el bloquéu",
     "File not locked" : "El ficheru nun ta bloquiáu",
-    "Cannot read metadata" : "Nun se puen lleer los metadatos",
-    "Cannot store metadata" : "Nun se puen atroxar los metadatos",
-    "Cannot delete metadata" : "Nun se puen desaniciar los metadatos",
     "End-to-End Encryption" : "Cifráu de puntu a puntu",
     "I understand the risks" : "Entiendo los riesgos",
     "Submit" : "Unviar",
@@ -40,6 +38,8 @@ OC.L10N.register(
     "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
     "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
+    "This is someone else's private key" : "Esta ye la clave privada de daquién",
+    "Could not find the private key of the user %s" : "Nun se pudo atopar la clave privada del usuariu «%s»",
     "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu"
 },
 "nplurals=2; plural=(n != 1);");

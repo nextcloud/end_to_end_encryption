@@ -1,8 +1,6 @@
 OC.L10N.register(
     "end_to_end_encryption",
     {
-    "This is someone else's private key" : "Dette er en andens private nøgle",
-    "Could not find the private key of the user %s" : "Kunne ikke finde brugeren %s's private nøgle",
     "Internal error" : "Intern fejl",
     "You are not allowed to delete this private key" : "Du har ikke lov til at slette denne private nøgle",
     "Could not find the private key belonging to the user %s" : "Kunne ikke finde den private nøgle tilhørende brugeren %s",
@@ -11,16 +9,16 @@ OC.L10N.register(
     "Could not find the public key belonging to %s" : "Kunne ikke finde den offentlige nøgle tilhørende %s",
     "This is not your public key to delete" : "Dette er ikke din offentlige nøgle til at slette",
     "Cannot decode userlist" : "Kan ikke afkode brugerlisten",
+    "Could not find metadata for \"%s\"" : "Kunne ikke finde metadata for \"%s\"",
+    "Cannot read metadata" : "Kan ikke læse metadata",
+    "Cannot store metadata" : "Kan ikke gemme metadata",
+    "Cannot delete metadata" : "Kan ikke slette metadata",
     "You are not allowed to create the lock" : "Du har ikke tilladelse til at oprette låsen",
     "File already locked" : "Fil allerede låst",
     "You are not allowed to remove the lock" : "Du har ikke adgang til at fjerne låsen",
     "File not locked" : "Fil ikke låst",
-    "Could not find metadata for \"%s\"" : "Kunne ikke finde metadata for \"%s\"",
-    "Cannot read metadata" : "Kan ikke læse metadata",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Du har ikke adgang til at redigere filen - sørg først for at låse den, og send så den rette nøgle",
-    "Cannot store metadata" : "Kan ikke gemme metadata",
     "Only the owner can delete the metadata-file" : "Kun ejeren kan slette metadata-filen",
-    "Cannot delete metadata" : "Kan ikke slette metadata",
     "End-to-End Encryption" : "End-to-End-kryptering",
     "I understand the risks" : "Jeg forstår risikoen",
     "Submit" : "Tilføj",
@@ -43,6 +41,8 @@ OC.L10N.register(
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Cancel" : "Annuller",
     "End-to-end encryption" : "End-to-end kryptering",
+    "This is someone else's private key" : "Dette er en andens private nøgle",
+    "Could not find the private key of the user %s" : "Kunne ikke finde brugeren %s's private nøgle",
     "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");
