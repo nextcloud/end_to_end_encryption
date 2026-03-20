@@ -38,6 +38,7 @@
     "Limit app usage to groups" : "限制可使用应用的分组",
     "Cancel" : "取消",
     "End-to-end encryption" : "端到端加密",
+    "New encrypted folder" : "新加密文件夹",
     "This is someone else's private key" : "这是其他人的私钥",
     "Could not find the private key of the user %s" : "找不到%s的私钥",
     "End-to-end encryption endpoint" : "端到端加密端点"
