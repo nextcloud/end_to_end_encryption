@@ -28,7 +28,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.3.0
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.36.0
+	- version: 8.37.0
 	- license: AGPL-3.0-or-later
 - @noble/hashes
 	- version: 1.7.0
@@ -46,7 +46,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.1.4
 	- license: MIT
 - path-expression-matcher
-	- version: 1.1.3
+	- version: 1.2.0
 	- license: MIT
 - pkijs
 	- version: 3.2.5
