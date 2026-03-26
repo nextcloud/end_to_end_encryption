@@ -96,6 +96,8 @@ class MetaDataController extends OCSController {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Cannot read metadata'));
 		}
+
+		/** @psalm-suppress InvalidReturnStatement - False positive, on master the type of DataResponse makes it ok */
 		return new DataResponse(
 			['meta-data' => $metaData],
 			Http::STATUS_OK,
