@@ -15,6 +15,7 @@ use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\Attribute\RequestHeader;
@@ -32,6 +33,7 @@ use OCP\Share\IManager;
 use Psr\Log\LoggerInterface;
 
 class KeyController extends OCSController {
+	use ThrottleRequestTrait;
 
 	public function __construct(
 		IRequest $request,
@@ -48,7 +50,7 @@ class KeyController extends OCSController {
 	/**
 	 * Get private key
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>|DataResponse<Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{message: string}, array{}>
 	 * @throws OCSBadRequestException Internal error
 	 * @throws OCSForbiddenException Not allowed to get private key
 	 * @throws OCSNotFoundException Private key not found
@@ -58,21 +60,23 @@ class KeyController extends OCSController {
 	#[NoAdminRequired]
 	#[PublicPage]
 	#[E2ERestrictUserAgent]
+	#[BruteForceProtection('e2ee')]
 	#[RequestHeader(name: 'x-nc-e2ee-share-token', description: 'The share token for accessing the encrypted private key of end-to-end encryption shares')]
 	public function getPrivateKey(): DataResponse {
 		$shareToken = $this->request->getHeader('x-nc-e2ee-share-token') ?: null;
 		if ($this->userId === null && $shareToken === null) {
-			throw new OCSForbiddenException($this->l10n->t('Not allowed to get private key'));
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'Not allowed to get private key');
 		}
 
 		try {
 			$privateKey = $this->keyStorage->getPrivateKey($this->userId ?? '', $shareToken);
 			return new DataResponse(['private-key' => $privateKey]);
 		} catch (ForbiddenException $e) {
-			throw new OCSForbiddenException($this->l10n->t('This is someone else\'s private key'));
+			$this->logger->error('Tried to access private key without permission', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'Not allowed to get private key');
 		} catch (NotFoundException $e) {
-			$this->logger->warning('Could not find the private key of the user: ' . $this->userId);
-			throw new OCSNotFoundException($this->l10n->t('Could not find the private key of the user %s', [$this->userId]));
+			$this->logger->warning('Could not find the private key of the user: ' . $this->userId, ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_NOT_FOUND, 'Could not find the private key');
 		} catch (Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));

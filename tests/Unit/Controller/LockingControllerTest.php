@@ -17,8 +17,6 @@ use OCA\EndToEndEncryption\FileService;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\OCS\OCSForbiddenException;
-use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
@@ -151,10 +149,10 @@ class LockingControllerTest extends TestCase {
 			->with('x-nc-e2ee-counter')
 			->willReturn('1');
 
-		$this->expectException(OCSForbiddenException::class);
-		$this->expectExceptionMessage('File already locked');
-
-		$this->controller->lockFolder($fileId);
+		$response = $this->controller->lockFolder($fileId);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertSame(423, $response->getStatus());
+		$this->assertSame(['message' => 'File already locked'], $response->getData());
 	}
 
 	/**
@@ -164,6 +162,8 @@ class LockingControllerTest extends TestCase {
 	 * @param \Exception|null $unlockException
 	 * @param string|null $expectedExceptionClass
 	 * @param string|null $expectedExceptionMessage
+	 * @param array|null $expectedResponseData
+	 * @param int|null $expectedResponseStatus
 	 *
 	 * @dataProvider unlockFolderDataProvider
 	 */
@@ -174,6 +174,8 @@ class LockingControllerTest extends TestCase {
 		?\Exception $unlockException,
 		?string $expectedExceptionClass,
 		?string $expectedExceptionMessage,
+		?array $expectedResponseData,
+		?int $expectedResponseStatus,
 	): void {
 		$fileId = 42;
 		$sendE2E = 'e2e-token';
@@ -260,6 +262,11 @@ class LockingControllerTest extends TestCase {
 			$this->expectExceptionMessage($expectedExceptionMessage);
 
 			$this->controller->unlockFolder($fileId, $abort ? 'true' : '');
+		} elseif ($expectedResponseData !== null) {
+			$response = $this->controller->unlockFolder($fileId, $abort ? 'true' : '');
+			$this->assertInstanceOf(DataResponse::class, $response);
+			$this->assertSame($expectedResponseStatus, $response->getStatus());
+			$this->assertSame($expectedResponseData, $response->getData());
 		} else {
 			$response = $this->controller->unlockFolder($fileId, $abort ? 'true' : '');
 			$this->assertInstanceOf(DataResponse::class, $response);
@@ -269,12 +276,12 @@ class LockingControllerTest extends TestCase {
 
 	public static function unlockFolderDataProvider(): array {
 		return [
-			[false, true, false, null, null, null],
-			[false, true, true, null, null, null],
-			[true, false, false, null, OCSForbiddenException::class, 'You are not allowed to remove the lock'],
-			[false, false, false, null, OCSForbiddenException::class, 'You are not allowed to remove the lock'],
-			[false, true, false, new FileLockedException(), OCSForbiddenException::class, 'You are not allowed to remove the lock'],
-			[false, true, false, new FileNotLockedException(), OCSNotFoundException::class, 'File not locked']
+			[false, true, false, null, null, null, null, null],
+			[false, true, true, null, null, null, null, null],
+			[true, false, false, null, null, null, ['message' => 'You are not allowed to remove the lock'], 403],
+			[false, false, false, null, null, null, ['message' => 'You are not allowed to remove the lock'], 403],
+			[false, true, false, new FileLockedException(), null, null, ['message' => 'You are not allowed to remove the lock'], 403],
+			[false, true, false, new FileNotLockedException(), null, null, ['message' => 'File not locked'], 404]
 		];
 	}
 }
