@@ -1,3 +1,11 @@
+## Release 1.15.5 - 2026-03-27
+
+## What's Changed
+
+## Added
+
+* feat(api): Hint clients towards using the proper API version [#1525](https://github.com/nextcloud/end_to_end_encryption/pull/1525)
+
 ## Release 1.11.0-beta.1
 
 - Compatibility with NC 25
