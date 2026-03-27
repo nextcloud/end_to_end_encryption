@@ -7,6 +7,20 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.0.1 - 2026-03-27
+
+### Fixed
+
+* feat(api): Hint clients towards using the proper API version [\#1520](https://github.com/nextcloud/end_to_end_encryption/pull/1520)
+* fix(keys): Properly handle `shareToken` for public encrypted shares [\#1527](https://github.com/nextcloud/end_to_end_encryption/pull/1527)
+* fix: skip trashbin on move [\#1532](https://github.com/nextcloud/end_to_end_encryption/pull/1532)
+* fix(lock): Write counter after creating the lock [\#1533](https://github.com/nextcloud/end_to_end_encryption/pull/1533)
+* fix: add throttling to all public page controllers [\#1531](https://github.com/nextcloud/end_to_end_encryption/pull/1531)
+
+### Changed
+
+* Updated dependencies
+
 ## v2.0.0 - 2026-02-05
 ### Added
 * Setup end-to-end encryption in the web interface.
