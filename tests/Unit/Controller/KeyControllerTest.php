@@ -99,6 +99,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @param \Exception|null $keyStorageException
 	 * @param string|null $expectedException
 	 * @param string|null $expectedExceptionMessage
+	 * @param array|null $expectedResponseData
+	 * @param int|null $expectedResponseStatus
 	 * @param bool $expectLogger
 	 *
 	 * @dataProvider getPrivateKeyDataProvider
@@ -106,6 +108,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	public function testGetPrivateKey(?\Exception $keyStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
+		?array $expectedResponseData,
+		?int $expectedResponseStatus,
 		bool $expectLogger): void {
 		$privateKey = 'MY-SECRET-PRIVATE-KEY';
 		if ($keyStorageException) {
@@ -137,6 +141,11 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			$this->expectExceptionMessage($expectedExceptionMessage);
 
 			$this->controller->getPrivateKey();
+		} elseif ($expectedResponseData !== null) {
+			$response = $this->controller->getPrivateKey();
+			$this->assertInstanceOf(DataResponse::class, $response);
+			$this->assertSame($expectedResponseStatus, $response->getStatus());
+			$this->assertSame($expectedResponseData, $response->getData());
 		} else {
 			$response = $this->controller->getPrivateKey();
 			$this->assertInstanceOf(DataResponse::class, $response);
@@ -148,10 +157,10 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 	public function getPrivateKeyDataProvider(): array {
 		return [
-			[null, null, null, false],
-			[new ForbiddenException('', false), OCSForbiddenException::class, 'This is someone else\'s private key', false],
-			[new NotFoundException(), OCSNotFoundException::class, 'Could not find the private key of the user admin', false],
-			[new \Exception(), OCSBadRequestException::class, 'Internal error', true],
+			[null, null, null, null, null, false],
+			[new ForbiddenException('', false), null, null, ['message' => 'Not allowed to get private key'], 403, false],
+			[new NotFoundException(), null, null, ['message' => 'Could not find the private key'], 404, false],
+			[new \Exception(), OCSBadRequestException::class, 'Internal error', null, null, true],
 		];
 	}
 

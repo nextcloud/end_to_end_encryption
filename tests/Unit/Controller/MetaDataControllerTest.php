@@ -15,7 +15,6 @@ use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
-use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
@@ -218,6 +217,8 @@ class MetaDataControllerTest extends TestCase {
 	 * @param \Exception|null $metaDataStorageException
 	 * @param string|null $expectedException
 	 * @param string|null $expectedExceptionMessage
+	 * @param array|null $expectedResponseData
+	 * @param int|null $expectedResponseStatus
 	 * @param bool $expectLogger
 	 *
 	 * @dataProvider updateMetaDataDataProvider
@@ -226,6 +227,8 @@ class MetaDataControllerTest extends TestCase {
 		?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
+		?array $expectedResponseData,
+		?int $expectedResponseStatus,
 		bool $expectLogger): void {
 		$fileId = 42;
 		$sendToken = 'sendE2EToken';
@@ -271,6 +274,11 @@ class MetaDataControllerTest extends TestCase {
 			$this->expectExceptionMessage($expectedExceptionMessage);
 
 			$this->controller->updateMetaData($fileId, $metaData);
+		} elseif ($expectedResponseData !== null) {
+			$response = $this->controller->updateMetaData($fileId, $metaData);
+			$this->assertInstanceOf(DataResponse::class, $response);
+			$this->assertSame($expectedResponseStatus, $response->getStatus());
+			$this->assertSame($expectedResponseData, $response->getData());
 		} else {
 			$response = $this->controller->updateMetaData($fileId, $metaData);
 			$this->assertInstanceOf(DataResponse::class, $response);
@@ -282,11 +290,11 @@ class MetaDataControllerTest extends TestCase {
 
 	public function updateMetaDataDataProvider(): array {
 		return [
-			[false, null, null, null, false],
-			[true, null, OCSForbiddenException::class, 'You are not allowed to edit the file, make sure to first lock it, and then send the right token', false],
-			[false, new MissingMetaDataException(), OCSNotFoundException::class, 'Metadata-file does not exist', false],
-			[false, new NotFoundException('Exception Message'), OCSNotFoundException::class, 'Exception Message', false],
-			[false, new \Exception(), OCSBadRequestException::class, 'Cannot store metadata', true],
+			[false, null, null, null, null, null, false],
+			[true, null, null, null, ['message' => 'Folder is not locked'], 412, false],
+			[false, new MissingMetaDataException(), OCSNotFoundException::class, 'Metadata-file does not exist', null, null, false],
+			[false, new NotFoundException('Exception Message'), OCSNotFoundException::class, 'Exception Message', null, null, false],
+			[false, new \Exception(), OCSBadRequestException::class, 'Cannot store metadata', null, null, true],
 		];
 	}
 
@@ -294,6 +302,8 @@ class MetaDataControllerTest extends TestCase {
 	 * @param \Exception|null $metaDataStorageException
 	 * @param string|null $expectedException
 	 * @param string|null $expectedExceptionMessage
+	 * @param array|null $expectedResponseData
+	 * @param int|null $expectedResponseStatus
 	 * @param bool $expectLogger
 	 *
 	 * @dataProvider deleteMetaDataDataProvider
@@ -301,6 +311,8 @@ class MetaDataControllerTest extends TestCase {
 	public function testDeleteMetaData(?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
+		?array $expectedResponseData,
+		?int $expectedResponseStatus,
 		bool $expectLogger): void {
 		$fileId = 42;
 		if ($metaDataStorageException) {
@@ -336,6 +348,11 @@ class MetaDataControllerTest extends TestCase {
 			$this->expectExceptionMessage($expectedExceptionMessage);
 
 			$this->controller->deleteMetaData($fileId);
+		} elseif ($expectedResponseData !== null) {
+			$response = $this->controller->deleteMetaData($fileId);
+			$this->assertInstanceOf(DataResponse::class, $response);
+			$this->assertSame($expectedResponseStatus, $response->getStatus());
+			$this->assertSame($expectedResponseData, $response->getData());
 		} else {
 			$response = $this->controller->deleteMetaData($fileId);
 			$this->assertInstanceOf(DataResponse::class, $response);
@@ -345,10 +362,10 @@ class MetaDataControllerTest extends TestCase {
 
 	public function deleteMetaDataDataProvider(): array {
 		return [
-			[null, null, null, false],
-			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', false],
-			[new NotPermittedException(), OCSForbiddenException::class, 'Only the owner can delete the metadata-file', false],
-			[new \Exception(), OCSBadRequestException::class, 'Cannot delete metadata', true],
+			[null, null, null, null, null, false],
+			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', null, null, false],
+			[new NotPermittedException(), null, null, ['message' => 'You are not allowed to delete the metadata of this folder'], 403, false],
+			[new \Exception(), OCSBadRequestException::class, 'Cannot delete metadata', null, null, true],
 		];
 	}
 }

@@ -13,6 +13,7 @@ use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -26,6 +27,8 @@ use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
 class KeyController extends OCSController {
+	use ThrottleRequestTrait;
+
 	private ?string $userId;
 	private IKeyStorage $keyStorage;
 	private SignatureHandler $signatureHandler;
@@ -54,22 +57,24 @@ class KeyController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{private-key: string}, array{}>|DataResponse<Http::STATUS_FORBIDDEN|Http::STATUS_NOT_FOUND, array{message: string}, array{}>
 	 * @throws OCSBadRequestException Internal error
 	 * @throws OCSForbiddenException Not allowed to get private key
 	 * @throws OCSNotFoundException Private key not found
 	 *
 	 * 200: Private key returned
 	 */
+	#[BruteForceProtection('e2ee')]
 	public function getPrivateKey(): DataResponse {
 		try {
 			$privateKey = $this->keyStorage->getPrivateKey($this->userId);
 			return new DataResponse(['private-key' => $privateKey]);
 		} catch (ForbiddenException $e) {
-			throw new OCSForbiddenException($this->l10n->t('This is someone else\'s private key'));
+			$this->logger->error('Tried to access private key without permission', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'Not allowed to get private key');
 		} catch (NotFoundException $e) {
-			$this->logger->warning('Could not find the private key of the user: ' . $this->userId);
-			throw new OCSNotFoundException($this->l10n->t('Could not find the private key of the user %s', [$this->userId]));
+			$this->logger->warning('Could not find the private key of the user: ' . $this->userId, ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_NOT_FOUND, 'Could not find the private key');
 		} catch (Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
