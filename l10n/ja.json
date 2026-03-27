@@ -129,7 +129,6 @@
     "e2e-token is empty" : "e2e-tokenは空です",
     "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATUREは空です",
     "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "このアプリは、クライアント側でEnd-to-End暗号化を実装するために必要なすべてのAPIを提供します。\nさらに、Secure FileDrop を実装し、End-to-End で暗号化されたファイルには Web インターフェースからも他の WebDAV クライアントからもアクセスできないようにします。",
-    "Not allowed to get private key" : "秘密鍵を取得することは許可されていません"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "このアプリは、クライアント側でEnd-to-End暗号化を実装するために必要なすべてのAPIを提供します。\nさらに、Secure FileDrop を実装し、End-to-End で暗号化されたファイルには Web インターフェースからも他の WebDAV クライアントからもアクセスできないようにします。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

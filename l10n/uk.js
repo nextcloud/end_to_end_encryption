@@ -130,7 +130,6 @@ OC.L10N.register(
     "e2e-token is empty" : "Токен e2e порожній",
     "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE порожній",
     "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV.",
-    "Not allowed to get private key" : "Не дозволено отримати приватний ключ"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV."
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

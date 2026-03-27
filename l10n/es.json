@@ -126,7 +126,6 @@
     "e2e-token is empty" : "el token e2e está vacío",
     "X-NC-E2EE-SIGNATURE is empty" : "La firma X-NC-E2EE-SIGNATURE está vacía",
     "End-to-end encryption endpoint" : "Endpoint del cifrado extremo a extremo",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta app provee todas las APIs necesarias para implementar el cifrado de extremo a extremo del lado del cliente.\nAdicionalmente, implementa FileDrop seguro y se asegura de que los archivos cifrados de extremo a extremo no sean accedidos tanto vía la interfaz web ni por otros clientes WebDAV.",
-    "Not allowed to get private key" : "No está permitido obtener la clave privada"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta app provee todas las APIs necesarias para implementar el cifrado de extremo a extremo del lado del cliente.\nAdicionalmente, implementa FileDrop seguro y se asegura de que los archivos cifrados de extremo a extremo no sean accedidos tanto vía la interfaz web ni por otros clientes WebDAV."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

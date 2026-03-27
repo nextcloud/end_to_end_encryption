@@ -131,7 +131,6 @@ OC.L10N.register(
     "e2e-token is empty" : "e2e-Token ist leer",
     "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATUR ist leer",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind.",
-    "Not allowed to get private key" : "Privater Schlüssel darf nicht abgerufen werden"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind."
 },
 "nplurals=2; plural=(n != 1);");
