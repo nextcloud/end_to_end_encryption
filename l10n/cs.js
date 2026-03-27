@@ -130,7 +130,6 @@ OC.L10N.register(
     "e2e-token is empty" : "e2e token není vyplněn",
     "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE není vyplněné",
     "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů.",
-    "Not allowed to get private key" : "Nepovoleno získat soukromý klíč"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
