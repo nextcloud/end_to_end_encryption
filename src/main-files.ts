@@ -6,6 +6,7 @@
 import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
+import { isPublicShare } from '@nextcloud/sharing/public'
 import downloadUnencryptedAction from './files_actions/downloadUnencryptedAction.ts'
 import { registerNewEncryptedFolderEntry } from './files_newMenu/new-encrypted-folder.ts'
 import { setupEventBusProxy } from './services/eventBusProxy.ts'
@@ -16,7 +17,7 @@ import { setupWebDavProxy } from './services/webDavProxy.ts'
 const userConfig = loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false })
 const browserSupportsWebCrypto = typeof window.crypto !== 'undefined' && typeof window.crypto.subtle !== 'undefined'
 
-if (userConfig.e2eeInBrowserEnabled && browserSupportsWebCrypto) {
+if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCrypto) {
 	setupWebDavProxy()
 	setupEventBusProxy()
 	// Register DAV properties used for E2EE
