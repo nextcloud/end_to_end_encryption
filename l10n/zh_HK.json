@@ -129,7 +129,6 @@
     "e2e-token is empty" : "e2e-token 為空",
     "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE 為空",
     "End-to-end encryption endpoint" : "端到端加密端點",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用提供所有必要的 API 以在客戶端實現端對端加密。\n此外，它還實現了安全文件傳送，並確保端對端加密的文件無法通過網頁界面或其他 WebDAV 客戶端訪問。",
-    "Not allowed to get private key" : "不允許取得私鑰"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用提供所有必要的 API 以在客戶端實現端對端加密。\n此外，它還實現了安全文件傳送，並確保端對端加密的文件無法通過網頁界面或其他 WebDAV 客戶端訪問。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
