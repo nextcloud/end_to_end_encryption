@@ -38,7 +38,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Security\CSP\AddContentSecurityPolicyEvent;
-use OCP\Share\Events\ShareDeletedEvent;
+use OCP\Share\Events\BeforeShareDeletedEvent;
 use OCP\User\Events\UserDeletedEvent;
 use Override;
 
@@ -64,7 +64,7 @@ class Application extends App implements IBootstrap {
 		$context->registerServiceAlias(IMetaDataStorageV1::class, MetaDataStorageV1::class);
 		$context->registerServiceAlias(IMetaDataStorage::class, MetaDataStorage::class);
 		$context->registerEventListener(UserDeletedEvent::class, UserDeletedListener::class);
-		$context->registerEventListener(ShareDeletedEvent::class, ShareDeletedListener::class);
+		$context->registerEventListener(BeforeShareDeletedEvent::class, ShareDeletedListener::class);
 		$context->registerEventListener(BeforeTemplateRenderedEvent::class, LoadAdditionalListener::class);
 		$context->registerEventListener(LoadAdditionalScriptsEvent::class, LoadAdditionalListener::class);
 		$context->registerEventListener(AddContentSecurityPolicyEvent::class, AllowBlobMediaInCSPListener::class);

@@ -12,11 +12,11 @@ namespace OCA\EndToEndEncryption\Listener;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
-use OCP\Share\Events\ShareDeletedEvent;
+use OCP\Share\Events\BeforeShareDeletedEvent;
 use Psr\Log\LoggerInterface;
 
 /**
- * @template-implements IEventListener<ShareDeletedEvent>
+ * @template-implements IEventListener<BeforeShareDeletedEvent>
  */
 class ShareDeletedListener implements IEventListener {
 
@@ -27,7 +27,7 @@ class ShareDeletedListener implements IEventListener {
 	}
 
 	public function handle(Event $event): void {
-		if (!($event instanceof ShareDeletedEvent)) {
+		if (!($event instanceof BeforeShareDeletedEvent)) {
 			return;
 		}
 
