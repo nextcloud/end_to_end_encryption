@@ -7,6 +7,12 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.0.2 - 2026-03-27
+
+### Fixed
+* fix(sharing): Always enable e2ee proxy in public shares [\#1571](https://github.com/nextcloud/end_to_end_encryption/pull/1571)
+* fix(sharing): Delete share keys before its deletion [\#1572](https://github.com/nextcloud/end_to_end_encryption/pull/1572)
+
 ## v2.0.1 - 2026-03-27
 
 ### Fixed
