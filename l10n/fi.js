@@ -39,8 +39,6 @@ OC.L10N.register(
     "Cancel" : "Peruuta",
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
-    "This is someone else's private key" : "Tämä on jonkun toisen salainen avain",
-    "Could not find the private key of the user %s" : "Käyttäjän %s yksityistä avainta ei löytynyt",
     "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste"
 },
 "nplurals=2; plural=(n != 1);");

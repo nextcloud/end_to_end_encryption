@@ -125,11 +125,6 @@ OC.L10N.register(
     "New encrypted folder" : "Neuer verschlüsselter Ordner",
     "Creating new encrypted folder: Cancelled" : "Erstelle einen neuen verschlüsselten Ordner: Abgebrochen",
     "Creating new encrypted folder: Failed" : "Erstelle einen neuen verschlüsselten Ordner: Fehlgeschlagen",
-    "This is someone else's private key" : "Dies ist der private Schlüssel von jemand anderem",
-    "Could not find the private key of the user %s" : "Der private Schlüssel des Benutzers %s konnte nicht gefunden werden",
-    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER fehlt in der Anfrage",
-    "e2e-token is empty" : "e2e-Token ist leer",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATUR ist leer",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind."
 },

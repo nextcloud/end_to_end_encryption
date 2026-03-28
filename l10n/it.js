@@ -80,11 +80,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Qualsiasi dispositivo ancora connesso potrebbe causare problemi dopo l'eliminazione delle chiavi, quindi è meglio scollegare e ricollegare nuovamente i dispositivi.",
     "Delete existing encrypted files" : "Elimina i file crittografati esistenti",
     "Download unencrypted" : "Download non crittografato",
-    "This is someone else's private key" : "Questa è la chiave privata di qualcun altro",
-    "Could not find the private key of the user %s" : "Impossibile trovare la chiave privata dell'utente %s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER mancante nella richiesta",
-    "e2e-token is empty" : "Il token e2e è vuoto",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE è vuoto",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Questa app fornisce tutte le API necessarie per implementare la crittografia end-to-end sul lato client.\nInoltre, implementa Secure FileDrop e garantisce che i file crittografati end-to-end non siano accessibili tramite l'interfaccia web o altri client WebDAV."
 },

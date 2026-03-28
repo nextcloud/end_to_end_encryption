@@ -38,8 +38,6 @@ OC.L10N.register(
     "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
     "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
-    "This is someone else's private key" : "Esta ye la clave privada de daquién",
-    "Could not find the private key of the user %s" : "Nun se pudo atopar la clave privada del usuariu «%s»",
     "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu"
 },
 "nplurals=2; plural=(n != 1);");

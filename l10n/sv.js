@@ -96,11 +96,6 @@ OC.L10N.register(
     "New encrypted folder" : "Ny krypterad mapp",
     "Creating new encrypted folder: Cancelled" : "Skapande av ny krypterad mapp: Avbruten",
     "Creating new encrypted folder: Failed" : "Skapande av ny krypterad mapp: Misslyckades",
-    "This is someone else's private key" : "Detta är nån annans privata nyckel",
-    "Could not find the private key of the user %s" : "Kunde inte hitta den privata nyckeln för användaren %s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER saknas i anropet",
-    "e2e-token is empty" : "e2e-token är tom",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE är tom",
     "End-to-end encryption endpoint" : "Endpoint för end-to-end-kryptering",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Denna app tillhandahåller alla nödvändiga API:er för att implementera End-to-End-kryptering på klientsidan.\nDessutom implementerar den säker fillämning och säkerställer att End-to-End-krypterade filer varken är åtkomliga via webbgränssnittet eller andra WebDAV-klienter."
 },

@@ -29,8 +29,6 @@ OC.L10N.register(
     "Cancel" : "Cancelar",
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
     "Download unencrypted" : "Transferir sem encriptação",
-    "This is someone else's private key" : "Isto é a chave privada de outra pessoa",
-    "Could not find the private key of the user %s" : "Não foi possível encontrar a chave privada do utilizador %s",
     "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

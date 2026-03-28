@@ -37,8 +37,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Cancel" : "Annulla",
     "End-to-end encryption" : "Tzifradura end-to-end",
-    "This is someone else's private key" : "Custa est sa crae privada de un'àtera persone",
-    "Could not find the private key of the user %s" : "Non s'est agatada sa crae privada de s'utente %s",
     "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale"
 },
 "nplurals=2; plural=(n != 1);");

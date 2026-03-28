@@ -41,8 +41,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Cancel" : "Annuller",
     "End-to-end encryption" : "End-to-end kryptering",
-    "This is someone else's private key" : "Dette er en andens private nøgle",
-    "Could not find the private key of the user %s" : "Kunne ikke finde brugeren %s's private nøgle",
     "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");

@@ -25,8 +25,6 @@ OC.L10N.register(
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Cancel" : "გაუქმება",
-    "End-to-end encryption" : "End-to-end შიფრაცია",
-    "This is someone else's private key" : "ეს სხვისი პირადი გასაღებია",
-    "Could not find the private key of the user %s" : "%s მომხმარებლის პირადი გასაღები ვერ იქნა ნაპოვნი"
+    "End-to-end encryption" : "End-to-end შიფრაცია"
 },
 "nplurals=2; plural=(n!=1);");

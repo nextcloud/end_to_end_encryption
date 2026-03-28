@@ -78,11 +78,6 @@
     "New encrypted folder" : "Nouveau dossier chiffré",
     "Creating new encrypted folder: Cancelled" : "Création d'un nouveau dossier chiffré : annulée",
     "Creating new encrypted folder: Failed" : "Création d'un nouveau dossier chiffré : échec",
-    "This is someone else's private key" : "C'est la clé privée de quelqu'un d'autre",
-    "Could not find the private key of the user %s" : "Impossible de trouver la clé privée de l'utilisateur %s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER est manquant dans la requête",
-    "e2e-token is empty" : "Le token e2e est vide",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE est vide",
     "End-to-end encryption endpoint" : "Terminaison du chiffrement de bout en bout",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Cette application fournit toutes les APIs nécessaires pour implémenter le chiffrement de bout en bout côté client.\nElle implémente aussi Secure FileDrop et s'assure que les fichiers chiffrés de bout en bout ne sont accessibles ni par une interface web, ni par d'autres clients WebDAV."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
