@@ -26,8 +26,6 @@ OC.L10N.register(
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
     "Cancel" : "Cancel",
-    "This is someone else's private key" : "Tiu estas privata ŝlosilo de iu alia",
-    "Could not find the private key of the user %s" : "Ne eblis trovi la privatan ŝlosilon de la uzanto %s",
     "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado"
 },
 "nplurals=2; plural=(n != 1);");

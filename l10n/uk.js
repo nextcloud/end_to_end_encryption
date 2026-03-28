@@ -124,11 +124,6 @@ OC.L10N.register(
     "New encrypted folder" : "Новий зашифрований каталог",
     "Creating new encrypted folder: Cancelled" : "Створення нового зашифрованого каталогу: скасовано",
     "Creating new encrypted folder: Failed" : "Створення нового зашифрованого каталогу: не вдалося",
-    "This is someone else's private key" : "Це чужий приватний ключ",
-    "Could not find the private key of the user %s" : "Не вдалося знайти приватний ключ користувача %s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "X-NC-E2EE-COUNTER відсутній у запиті",
-    "e2e-token is empty" : "Токен e2e порожній",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE порожній",
     "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV."
 },

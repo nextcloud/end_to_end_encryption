@@ -125,11 +125,6 @@ OC.L10N.register(
     "New encrypted folder" : "新的加密資料夾",
     "Creating new encrypted folder: Cancelled" : "正在建立新的加密資料夾：已取消",
     "Creating new encrypted folder: Failed" : "正在建立新的加密資料夾：失敗",
-    "This is someone else's private key" : "這是其他人的私鑰",
-    "Could not find the private key of the user %s" : "找不到使用者的私鑰%s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "請求中缺少 X-NC-E2EE-COUNTER",
-    "e2e-token is empty" : "e2e-token 為空",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE 為空",
     "End-to-end encryption endpoint" : "端到端加密端點",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。"
 },

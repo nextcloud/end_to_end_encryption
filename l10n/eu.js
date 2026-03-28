@@ -61,8 +61,6 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Egiaztatu zure konektatutako gailu guztietan zure mnemonikoa berreskuratu ahal baduzun.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Edozein konektatutako gailuek arazoak sor ditzakete gakoak ezabatu ostean. Hobeto da gailuak deskonektatu eta berriro konektatzea.",
     "Delete existing encrypted files" : "Ezabatu dauden fitxategi enkriptatuak",
-    "This is someone else's private key" : "Hau beste norbaiten gako pribatua da",
-    "Could not find the private key of the user %s" : "Ezin izan da %s erabiltzailearen gako pribatua aurkitu.",
     "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua"
 },
 "nplurals=2; plural=(n != 1);");

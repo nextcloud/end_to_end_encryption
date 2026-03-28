@@ -75,11 +75,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Неки још увек повезани уређај може да направи проблеме након брисања кључева, тако да је боље да се веза прекине, па да се уређаји поново повежу.",
     "Delete existing encrypted files" : "Обриши постојеће шифроване фајлове",
     "Download unencrypted" : "Преузми дешифровано",
-    "This is someone else's private key" : "Ово је нечији туђи приватни кључ",
-    "Could not find the private key of the user %s" : "Не могу да нађем приватни кључ корисника %s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "У захтеву недостаје X-NC-E2EE-COUNTER",
-    "e2e-token is empty" : "e2e-жетон је празан",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE је празно",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ова апликација обезбеђује потребне API-је за имплементацију шифровања с краја на крај на страни клијента.\nУз то, имплементира и безбедно упуштање фајлова и обезбеђује да  фајловима шифровани с краја на крај не може нити да се приступи из веб интерфејса нити осталим WebDAV клијентима."
 },

@@ -69,11 +69,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Οποιαδήποτε ακόμα συνδεδεμένη συσκευή μπορεί να προκαλέσει προβλήματα μετά τη διαγραφή των κλειδιών, επομένως είναι καλύτερα να αποσυνδέσετε και να επανασυνδέσετε τις συσκευές ξανά.",
     "Delete existing encrypted files" : "Διαγραφή υπαρχόντων κρυπτογραφημένων αρχείων",
     "Download unencrypted" : "Λήψη μη κρυπτογραφημένων",
-    "This is someone else's private key" : "Αυτό είναι ιδιωτικό κλειδί κάποιου άλλου",
-    "Could not find the private key of the user %s" : "Δεν ήταν δυνατή η εύρεση του ιδιωτικού κλειδιού του χρήστη%s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "Το X-NC-E2EE-COUNTER λείπει από το αίτημα",
-    "e2e-token is empty" : "Το e2e-token είναι κενό",
-    "X-NC-E2EE-SIGNATURE is empty" : "Το X-NC-E2EE-SIGNATURE είναι κενό",
     "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Αυτή η εφαρμογή παρέχει όλα τα απαραίτητα API για την υλοποίηση κρυπτογράφησης από Άκρο σε Άκρο από την πλευρά του πελάτη.\nΕπιπλέον υλοποιεί Ασφαλή FileDrop και διασφαλίζει ότι τα κρυπτογραφημένα αρχεία από Άκρο σε Άκρο δεν είναι προσβάσιμα μέσω της διαδικτυακής διεπαφής ή άλλων WebDAV πελατών."
 },

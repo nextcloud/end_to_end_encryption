@@ -37,8 +37,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "Limitar el uso de aplicaciones a grupos",
     "Cancel" : "Cancelar",
     "End-to-end encryption" : "Encripción de punta-a-punta",
-    "This is someone else's private key" : "Esta es la llave privada de alguien más.",
-    "Could not find the private key of the user %s" : "No se encontró la llave privada del usuario %s",
     "End-to-end encryption endpoint" : "Endpoint de encripción de punto-a-punto"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

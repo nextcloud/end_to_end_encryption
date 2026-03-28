@@ -57,8 +57,6 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Verifica en todos los dispositivos conectados si puedes recuperar tu mnemotécnico.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Cualquier dispositivo aún conectado puede causar problemas después de eliminar las claves, así que es mejor desconectar y volver a conectar los dispositivos nuevamente.",
     "Delete existing encrypted files" : "Eliminar archivos cifrados existentes",
-    "This is someone else's private key" : "Esta es la llave privada de alguien más.",
-    "Could not find the private key of the user %s" : "No se encontró la llave privada del usuario %s",
     "End-to-end encryption endpoint" : "Extremo de cifrado de extremo a extremo"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
