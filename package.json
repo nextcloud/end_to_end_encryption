@@ -76,7 +76,7 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.9.1",
     "core-js": "^3.49.0",
-    "eslint": "^9.38.0",
+    "eslint": "^10.1.0",
     "msw": "^2.12.14",
     "patch-package": "^8.0.1",
     "stylelint": "^17.6.0",
