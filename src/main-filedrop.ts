@@ -6,5 +6,7 @@
 import { createApp } from 'vue'
 import FileDrop from './views/FileDrop.vue'
 
+import 'core-js/es/reflect'
+
 const createAppInstance = createApp(FileDrop)
 createAppInstance.mount('#content')

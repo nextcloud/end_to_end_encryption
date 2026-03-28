@@ -6,5 +6,7 @@
 import { createApp } from 'vue'
 import SettingsUser from './views/SettingsUser.vue'
 
+import 'core-js/es/reflect'
+
 const app = createApp(SettingsUser)
 app.mount('#security-end-to-end')
