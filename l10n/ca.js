@@ -69,11 +69,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Qualsevol dispositiu encara connectat pot causar problemes després de suprimir les claus, per la qual cosa és millor desconnectar i tornar a connectar els dispositius.",
     "Delete existing encrypted files" : "Suprimeix els fitxers xifrats existents",
     "Download unencrypted" : "Baixa sense xifrar",
-    "This is someone else's private key" : "Aquesta és la clau privada d'algú altre",
-    "Could not find the private key of the user %s" : "No s'ha pogut trobar la clau privada de l'usuari %s",
-    "X-NC-E2EE-COUNTER is missing in the request" : "Falta X-NC-E2EE-COUNTER a la sol·licitud",
-    "e2e-token is empty" : "e2e-testimoni està buit",
-    "X-NC-E2EE-SIGNATURE is empty" : "X-NC-E2EE-SIGNATURE està buit",
     "End-to-end encryption endpoint" : "Extrem xifratge extrem-a-extrem",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Aquesta aplicació proporciona totes les API necessàries per implementar el xifratge d'extrem a extrem al costat del client.\nA més, implementa Secure FileDrop i s'assegura que els fitxers xifrats d'extrem a extrem no siguin accessibles a través de la interfície web ni d'altres clients WebDAV."
 },
