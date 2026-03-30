@@ -12,8 +12,9 @@ import { basename, dirname, join } from '@nextcloud/paths'
 import stringify from 'safe-stable-stringify'
 import * as api from '../services/api.ts'
 import { bufferToBase64 } from '../services/bufferUtils.ts'
-import { encryptWithAES } from '../services/crypto.ts'
+import { encryptWithAES, generateAESKey } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
+import { generateUuid } from '../services/uuid.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
 
@@ -44,11 +45,7 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 	await keyStore.loadPrivateKey()
 
 	logger.debug('Encrypting file for PUT', { filename })
-	const key = await globalThis.crypto.subtle.generateKey(
-		{ name: 'AES-GCM', length: 128 },
-		true,
-		['encrypt', 'decrypt'],
-	)
+	const key = await generateAESKey()
 	const buffer = await context.req.arrayBuffer()
 	const result = await encryptWithAES(buffer, key)
 
@@ -67,7 +64,7 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 		fileInfo.filename = metadata.metadata.getFile(filename)!.filename
 	} else {
 		// otherwise this is a new file, generate a new uuid
-		uuid = globalThis.crypto.randomUUID().replace(/-/g, '')
+		uuid = generateUuid()
 		// and make sure the name is unique
 		fileInfo.filename = getUniqueName(fileInfo.filename, metadata.metadata.listContents())
 	}
