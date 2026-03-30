@@ -51,7 +51,7 @@ const debounsedSearch = useDebounceFn(onSearch, 800)
  * @param query - The search query
  */
 async function onSearch(query: string) {
-	const { data } = await axios.get<OCSResponse<{ users: unknown[] }>>(
+	const { data } = await axios.get<OCSResponse<{ users: { label?: string, shareWithDisplayNameUnique: string, value: { shareWith: string } }[] }>>(
 		generateOcsUrl('/apps/files_sharing/api/v1/sharees'),
 		{
 			params: {
@@ -66,7 +66,7 @@ async function onSearch(query: string) {
 		id: user.value.shareWith,
 		user: user.value.shareWith,
 	}))
-	const filteredUsers = []
+	const filteredUsers: { displayName: string, id: string, user: string }[] = []
 	for (const user of allUsers) {
 		logger.debug(`Checking if user ${user.id} has a public key`, { user })
 		if (await keyStore.getUserKey(user.id)) {
@@ -200,7 +200,7 @@ async function editShare(share: IShare) {
  *
  * @param permissions - The initial permissions
  */
-async function askForSharePermission(permissions: Permission = Permission.ALL): Promise<Permission> {
+async function askForSharePermission(permissions: number = Permission.ALL): Promise<number> {
 	return await spawnDialog(FilesSharingSidebarSectionUsersDialog, {
 		permissions,
 	})
@@ -211,7 +211,7 @@ async function askForSharePermission(permissions: Permission = Permission.ALL): 
  *
  * @param share - The share to get the permissions from
  */
-function getSharePermissions(share: IShare): Permission {
+function getSharePermissions(share: IShare): number {
 	const permissions = typeof share.permissions === 'number' ? (share.permissions as number) : Number.parseInt(share.permissions as string)
 	return (permissions & Permission.UPDATE) ? Permission.ALL : Permission.READ
 }

@@ -13,6 +13,7 @@ import { decryptMetadata, encryptMetadataKey } from '../services/metadata.ts'
 import { ensureKeyUsage } from '../services/rsaUtils.ts'
 import { Metadata } from './Metadata.ts'
 
+// @ts-expect-error - fromJson expects different values but this is a static method
 export class RootMetadata extends Metadata<IRawRootMetadata> {
 	#filedrop?: Record<string, IRawMetadataFiledrop>
 	#users: IRawMetadataUser[]

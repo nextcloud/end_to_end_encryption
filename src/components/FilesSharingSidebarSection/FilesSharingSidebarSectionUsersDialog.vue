@@ -17,14 +17,14 @@ const props = defineProps<{
 	/**
 	 * Initial permissions
 	 */
-	permissions: Permission
+	permissions: number
 }>()
 
 defineEmits<{
 	/**
 	 * The selected permissions
 	 */
-	close: [Permission]
+	close: [number]
 }>()
 
 const internalPermissions = ref<'r' | 'rw'>()
