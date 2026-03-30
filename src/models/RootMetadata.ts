@@ -6,11 +6,11 @@
 import type { IMetadata, IRawMetadataFileDrop, IRawMetadataUser, IRawRootMetadata } from './metadata.d.ts'
 
 import { X509Certificate } from '@peculiar/x509'
-import { base64ToBuffer } from '../services/bufferUtils.ts'
+import { base64ToBuffer, bufferToBase64 } from '../services/bufferUtils.ts'
 import { sha256Hash } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
-import { decryptMetadata, encryptMetadataKey } from '../services/metadata.ts'
-import { ensureKeyUsage } from '../services/rsaUtils.ts'
+import { decryptMetadata } from '../services/metadata.ts'
+import { encryptWithRSA, ensureKeyUsage } from '../services/rsaUtils.ts'
 import { Metadata } from './Metadata.ts'
 
 export class RootMetadata extends Metadata<IRawRootMetadata> {
@@ -81,7 +81,8 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			for (const user of this.#users) {
 				const cert = new X509Certificate(user.certificate)
 				const userKey = await cert.publicKey.export()
-				user.encryptedMetadataKey = await encryptMetadataKey(metadataKey, userKey)
+				const encryptedContent = await encryptWithRSA(metadataKey, userKey)
+				user.encryptedMetadataKey = bufferToBase64(new Uint8Array(encryptedContent))
 			}
 			this._metadata.keyChecksums.push(await sha256Hash(metadataKey))
 			this.#usersModified = false
