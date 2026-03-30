@@ -6,6 +6,7 @@
 import type { OCSResponse } from '@nextcloud/typings/ocs'
 import type { FileStat, ResponseDataDetailed, SearchResult, WebDAVClient } from 'webdav'
 import type { PrivateKeyInfo } from '../models.ts'
+import type { IRawMetadataFileDrop } from '../models/metadata.d.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import axios, { isAxiosError } from '@nextcloud/axios'
@@ -26,6 +27,7 @@ const Url = Object.freeze({
 	PrivateKey: API_ROOT + '/private-key',
 	PublicKey: API_ROOT + '/public-key',
 	ServerKey: API_ROOT + '/server-key',
+	FileDrop: API_ROOT + '/meta-data/{fileId}/filedrop',
 })
 
 const METADATA_PROPFIND = `<?xml version="1.0"?>
@@ -472,4 +474,34 @@ export async function searchFolders(path: string) {
 		signature: result.props!['e2ee-metadata-signature'] as string,
 		fileId: (result.props!.fileid as number | string).toString(),
 	}))
+}
+
+/**
+ * Add file drop entries to a folder.
+ *
+ * @param fileDropEntries - The new file drop entries to add
+ * @param fileId - The fileid of the e2ee root folder to add the entries to
+ * @param shareToken - The share token of the public share the folder belongs to
+ */
+export async function addFileDrop(fileDropEntries: { [key: string]: IRawMetadataFileDrop }, fileId: string, shareToken?: string): Promise<{ [key: string]: IRawMetadataFileDrop }> {
+	const url = generateOcsUrl(Url.FileDrop, { fileId })
+
+	const response = await axios.put<OCSResponse<{ filedrop: { [key: string]: IRawMetadataFileDrop } }>>(
+		url,
+		{
+			filedrop: JSON.stringify(fileDropEntries),
+			shareToken,
+		},
+		{
+			headers: {
+				'x-e2ee-supported': true,
+			},
+		},
+	)
+
+	if (response.data.ocs.meta.statuscode !== 200) {
+		throw new Error(`Failed to upload metadata: ${response.data.ocs.meta.message}`)
+	}
+
+	return response.data.ocs.data.filedrop
 }

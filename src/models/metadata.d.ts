@@ -76,6 +76,10 @@ export interface IMetadataFile {
 	nonce: string
 	authenticationTag: string
 	key: string
+
+	// experimental
+	chunked?: boolean
+	filesize?: number
 }
 
 export interface IMetadata {

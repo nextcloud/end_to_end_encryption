@@ -11,11 +11,12 @@ import { sha256Hash } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
 import { decryptMetadata } from '../services/metadata.ts'
 import { encryptWithRSA, ensureKeyUsage } from '../services/rsaUtils.ts'
+import { FileDropEntry } from './FileDropEntry.ts'
 import { Metadata } from './Metadata.ts'
 
 // @ts-expect-error - fromJson expects different values but this is a static method
 export class RootMetadata extends Metadata<IRawRootMetadata> {
-	#filedrop?: Record<string, IRawMetadataFileDrop>
+	#filedrop?: Record<string, FileDropEntry>
 	#users: IRawMetadataUser[]
 	#usersModified: boolean
 
@@ -23,6 +24,34 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		super(metadataKey, version, initialMetadata)
 		this.#users = []
 		this.#usersModified = false
+	}
+
+	public get fileDropEntries(): string[] {
+		return this.#filedrop ? Object.keys(this.#filedrop) : []
+	}
+
+	public get hasFileDropEntries(): boolean {
+		return this.fileDropEntries.length > 0
+	}
+
+	public getFileDropEntry(entryName: string): FileDropEntry | undefined {
+		return this.#filedrop?.[entryName]
+	}
+
+	/**
+	 * Migrate a file drop entry to a regular file entry in the metadata.
+	 *
+	 * @param entryName - The name of the file drop entry to migrate
+	 */
+	public migrateFileDrop(entryName: string): void {
+		logger.debug(`Migrating file drop entry ${entryName} from folder metadata`)
+		if (!this.#filedrop || !(entryName in this.#filedrop)) {
+			logger.warn(`Trying to migrate non-existing file drop entry: ${entryName}`)
+			return
+		}
+
+		this.addFile(entryName, this.#filedrop[entryName].getFile())
+		delete this.#filedrop[entryName]
 	}
 
 	public get rawUsers(): IRawMetadataUser[] {
@@ -75,13 +104,18 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 	}
 
 	protected async _exportMetadata(): Promise<IRawRootMetadata> {
+		const users: { userId: string, key: CryptoKey }[] = []
+		for (const user of this.#users) {
+			const cert = new X509Certificate(user.certificate)
+			users.push({ userId: user.userId, key: await cert.publicKey.export() })
+		}
+
 		// when users are added or removed we need to re-encrypt the metadata key for all users
 		if (this.#usersModified) {
 			this._metadataKey = await RootMetadata.generateMetadataKey()
 			const metadataKey = new Uint8Array(await globalThis.crypto.subtle.exportKey('raw', this._metadataKey))
 			for (const user of this.#users) {
-				const cert = new X509Certificate(user.certificate)
-				const userKey = await cert.publicKey.export()
+				const userKey = users.find((u) => u.userId === user.userId)!.key
 				const encryptedContent = await encryptWithRSA(metadataKey, userKey)
 				user.encryptedMetadataKey = bufferToBase64(new Uint8Array(encryptedContent))
 			}
@@ -89,10 +123,18 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			this.#usersModified = false
 		}
 
+		let fileDrop: Record<string, IRawMetadataFileDrop> | undefined = undefined
+		if (this.#filedrop) {
+			fileDrop = {}
+			for (const [name, entry] of Object.entries(this.#filedrop)) {
+				fileDrop[name] = await entry.export(users)
+			}
+		}
+
 		return {
 			...await super._exportMetadata(),
 			users: this.#users,
-			filedrop: this.#filedrop,
+			filedrop: fileDrop,
 		}
 	}
 
@@ -148,7 +190,13 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			json.version,
 			await decryptMetadata(json, metadataKey),
 		)
-		metadata.#filedrop = json.filedrop
+		if (json.filedrop && Object.keys(json.filedrop).length > 0) {
+			const fileDropEntries: [string, FileDropEntry][] = []
+			for (const [name, entry] of Object.entries(json.filedrop)) {
+				fileDropEntries.push([name, await FileDropEntry.fromJson(entry, userId, decryptionKey)])
+			}
+			metadata.#filedrop = Object.fromEntries(fileDropEntries)
+		}
 		metadata.#users = json.users
 		return metadata
 	}
