@@ -19,14 +19,22 @@ export interface IRawMetadataUser {
 	encryptedMetadataKey: string
 }
 
-export interface IRawMetadataFiledrop {
+export interface IRawMetadataFileDropUser {
+	/**
+	 * The user's ID
+	 */
+	userId: string
+	/**
+	 * The file drop key encrypted with the user's public key, then base64 encoded.
+	 */
+	encryptedFiledropKey: string
+}
+
+export interface IRawMetadataFileDrop {
 	ciphertext: string
 	nonce: string
 	authenticationTag: string
-	users: Array<{
-		userId: string
-		encryptedFiledropKey: string
-	}>
+	users: IRawMetadataFileDropUser[]
 }
 
 export interface IRawMetadata {
@@ -56,7 +64,7 @@ export interface IRawRootMetadata extends IRawMetadata {
 	/**
 	 * Mapping of uuid to filedrop info
 	 */
-	filedrop?: Record<string, IRawMetadataFiledrop>
+	filedrop?: Record<string, IRawMetadataFileDrop>
 }
 
 export interface IMetadataFile {

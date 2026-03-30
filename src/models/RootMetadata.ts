@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IMetadata, IRawMetadataFiledrop, IRawMetadataUser, IRawRootMetadata } from './metadata.d.ts'
+import type { IMetadata, IRawMetadataFileDrop, IRawMetadataUser, IRawRootMetadata } from './metadata.d.ts'
 
 import { X509Certificate } from '@peculiar/x509'
 import { base64ToBuffer } from '../services/bufferUtils.ts'
@@ -14,7 +14,7 @@ import { ensureKeyUsage } from '../services/rsaUtils.ts'
 import { Metadata } from './Metadata.ts'
 
 export class RootMetadata extends Metadata<IRawRootMetadata> {
-	#filedrop?: Record<string, IRawMetadataFiledrop>
+	#filedrop?: Record<string, IRawMetadataFileDrop>
 	#users: IRawMetadataUser[]
 	#usersModified: boolean
 
