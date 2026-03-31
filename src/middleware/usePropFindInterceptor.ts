@@ -13,6 +13,7 @@ import { parseStat, parseXML } from 'webdav'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import logger from '../services/logger.ts'
 import * as metadataStore from '../store/metadata.ts'
+import * as taskStore from '../store/tasks.ts'
 
 /**
  * Callback to handle GET requests.
@@ -108,6 +109,18 @@ function replacePlaceholdersInPropfind(xml: DAVResult, path: string, metadata: M
 		} else {
 			const info = currentMetadata.getFile(identifier)
 			if (!info) {
+				if (currentMetadata instanceof RootMetadata && currentMetadata.fileDropEntries.includes(identifier)) {
+					logger.debug('File drop entry found for PROPFIND replacement', { path, childNode, identifier })
+					if (childNode.propstat.prop.permissions && (childNode.propstat.prop.permissions as string).includes('NV')) {
+						// we found a file drop entry and we have permissions to migrate it
+						// so we do not want to block this request any longer but we should
+						// notify the user that this entry needs migration
+						taskStore.addFileDropMigration(path)
+					}
+
+					continue
+				}
+
 				logger.error('Could not find file in metadata for PROPFIND replacement', { path, childNode, identifier, currentMetadata })
 				continue
 			}
