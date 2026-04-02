@@ -74,7 +74,7 @@ class LockManagerV1Test extends TestCase {
 	 */
 	public function testLock(bool $isLocked, bool $lockDoesNotExist, string $token, bool $expectNull, bool $expectNewToken, bool $expectOldToken): void {
 		$lockManager = $this->getMockBuilder(LockManagerV1::class)
-			->setMethods(['isLocked'])
+			->onlyMethods(['isLocked'])
 			->setConstructorArgs([
 				$this->lockMapper,
 				$this->secureRandom,
