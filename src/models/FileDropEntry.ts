@@ -8,6 +8,7 @@ import type { IMetadataFile, IRawMetadataFileDrop } from './metadata.d.ts'
 import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from '../services/bufferUtils.ts'
 import { compress, uncompress } from '../services/compression.ts'
 import { decryptWithAES, encryptWithAES, generateAESKey, loadAESPrivateKey } from '../services/crypto.ts'
+import logger from '../services/logger.ts'
 import { decryptWithRSA, encryptWithRSA, ensureKeyUsage } from '../services/rsaUtils.ts'
 
 export class FileDropEntry {
@@ -54,6 +55,7 @@ export class FileDropEntry {
 	 * @fires Error If the user has no access to the file drop (no entry in "users" section)
 	 */
 	public static async fromJson(json: IRawMetadataFileDrop, userId: string, privateKey: CryptoKey): Promise<FileDropEntry> {
+		logger.debug('Decrypting file drop entry from metadata', { json, userId })
 		const userEntry = json.users.find((u) => u.userId === userId)
 		if (!userEntry) {
 			throw new Error('Current user has no access to this file drop')
@@ -65,12 +67,15 @@ export class FileDropEntry {
 			decryptionKey,
 		)
 		const fileDropKey = await loadAESPrivateKey(fileDropKeyData)
+		logger.debug('File drop key decrypted')
 
 		const compressedData = await decryptWithAES(
 			base64ToBuffer(json.ciphertext),
 			fileDropKey,
 			{ iv: base64ToBuffer(json.nonce), tagLength: 128 },
 		)
+		logger.debug('File drop entry decrypted')
+
 		const rawData = await uncompress(new Uint8Array(compressedData))
 		const fileInfo = JSON.parse(bufferToString(rawData)) as IMetadataFile
 

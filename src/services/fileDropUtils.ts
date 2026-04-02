@@ -11,6 +11,7 @@ import { FileDropEntry } from '../models/FileDropEntry.ts'
 import * as api from './api.ts'
 import { bufferToBase64 } from './bufferUtils.ts'
 import { encryptWithAES, exportAESKey, generateAESKey } from './crypto.ts'
+import logger from './logger.ts'
 import { generateUuid } from './uuid.ts'
 
 const client = getClient(getRemoteURL())
@@ -56,6 +57,8 @@ async function handleUpload(encryptedFileName: string, source: File, key: Crypto
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const supportChunking = (getCapabilities() as any).end_to_end_encryption?.supports_chunking === true
 	if (supportChunking && source.size > 10 * 1024 * 1024) {
+		logger.debug('Using chunked upload for file drop file', { filename: source.name, size: source.size })
+
 		await handleChunkedUpload(encryptedFileName, source, key)
 		return {
 			iv: '',
@@ -63,6 +66,8 @@ async function handleUpload(encryptedFileName: string, source: File, key: Crypto
 			chunked: true,
 		}
 	} else {
+		logger.debug('Using non-chunked upload for file drop file', { filename: source.name, size: source.size })
+
 		const buffer = await source.arrayBuffer()
 		const encryptedFileData = await encryptWithAES(buffer, key)
 		await client.putFileContents(
