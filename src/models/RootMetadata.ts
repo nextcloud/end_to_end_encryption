@@ -193,7 +193,11 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			logger.debug('Found file drop entries in metadata', { fileDrop: json.filedrop })
 			const fileDropEntries: [string, FileDropEntry][] = []
 			for (const [name, entry] of Object.entries(json.filedrop)) {
-				fileDropEntries.push([name, await FileDropEntry.fromJson(entry, userId, decryptionKey)])
+				try {
+					fileDropEntries.push([name, await FileDropEntry.fromJson(entry, userId, decryptionKey)])
+				} catch (error) {
+					logger.error('Failed to decrypt file drop entry', { name, error })
+				}
 			}
 			metadata.#filedrop = Object.fromEntries(fileDropEntries)
 		}
