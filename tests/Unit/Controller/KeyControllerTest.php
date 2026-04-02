@@ -352,10 +352,9 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 				return vsprintf($string, $args);
 			});
 
-		$this->expectException(OCSNotFoundException::class);
-		$this->expectExceptionMessage('Could not find the public key belonging to the user user1');
-
-		$this->controller->getPublicKeys($users);
+		$response = $this->controller->getPublicKeys($users);
+		self::assertEquals($response->getStatus(), 404);
+		self::assertEquals($response->getData(), ['message' => 'Could not find the public key belonging to the user user1']);
 	}
 
 	public function testGetPublicKeysGenericException(): void {
