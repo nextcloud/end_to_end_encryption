@@ -52,6 +52,7 @@ class LockManager {
 	/**
 	 * Lock file
 	 * @param bool $noCounterCheck - Needed for filedrop, which updates the metadata without needing to bump the counter
+	 * @throws NotPermittedException - The internal counter is greater than the provided one
 	 */
 	public function lockFile(int $id, string $token, int $e2eCounter, string $ownerId, bool $noCounterCheck = false): ?string {
 		if ($this->isLocked($id, $token, $ownerId)) {
