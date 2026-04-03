@@ -217,20 +217,21 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 *
 	 * @dataProvider setPrivateKeyDataProvider
 	 */
-	public function testSetPrivateKey(?\Exception $keyStorageException,
+	public function testSetPrivateKey(
+		string $privateKey,
+		?\Exception $keyStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
 		bool $expectLogger,
 		?array $expectedData,
 		?int $expectedStatusCode): void {
-		$privateKey = 'MY-SECRET-PRIVATE-KEY';
 		if ($keyStorageException) {
 			$this->keyStorage->expects($this->once())
 				->method('setPrivateKey')
 				->with($privateKey, 'admin')
 				->willThrowException($keyStorageException);
 		} else {
-			$this->keyStorage->expects($this->once())
+			$this->keyStorage->expects($expectedException ? $this->any() : $this->once())
 				->method('setPrivateKey')
 				->with($privateKey, 'admin');
 		}
@@ -261,10 +262,41 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	}
 
 	public function setPrivateKeyDataProvider(): array {
+		$keyValid = base64_encode('MY-SECRET-PRIVATE-KEY');
+		$keyInvalid = 'INVALID-BASE64-KEY';
+		$saltValid = base64_encode(str_repeat('A', 40));
+		$saltInvalid = 'INVALID-BASE64-SALT';
+		$saltTooShort = base64_encode(str_repeat('A', 10));
+		$nonceValid = base64_encode(str_repeat('B', 12));
+		$nonceInvalid = 'INVALID-BASE64-NONCE';
+		$nonceTooShort = base64_encode(str_repeat('B', 5));
+
+		$validPrivateKey = $keyValid . '|' . $nonceValid . '|' . $saltValid;
 		return [
-			[null, null, null, false, ['private-key' => 'MY-SECRET-PRIVATE-KEY'], 200],
-			[new KeyExistsException(), null, null, false, [], 409],
-			[new \Exception(), OCSBadRequestException::class, 'Internal error', true, null, null],
+			'valid' => [
+				$validPrivateKey, null, null, null, false, ['private-key' => $validPrivateKey], 200,
+			],
+			'invalid-key' => [
+				"$keyInvalid|$nonceValid|$saltValid", null, OCSBadRequestException::class, 'Invalid private key format', false, [], 400,
+			],
+			'invalid-nonce' => [
+				"$keyValid|$nonceInvalid|$saltValid", null, OCSBadRequestException::class, 'Invalid private key format', false, [], 400,
+			],
+			'invalid-salt' => [
+				"$keyValid|$nonceValid|$saltInvalid", null, OCSBadRequestException::class, 'Invalid private key format', false, [], 400,
+			],
+			'invalid-too-short-nonce' => [
+				"$keyValid|$nonceTooShort|$saltValid", null, OCSBadRequestException::class, 'Invalid private key format', false, [], 400,
+			],
+			'invalid-too-short-salt' => [
+				"$keyValid|$nonceValid|$saltTooShort", null, OCSBadRequestException::class, 'Invalid private key format', false, [], 400,
+			],
+			'key-exists' => [
+				$validPrivateKey, new KeyExistsException(), null, null, false, [], 409,
+			],
+			'generic-exception' => [
+				$validPrivateKey, new \Exception(), OCSBadRequestException::class, 'Internal error', true, null, null,
+			],
 		];
 	}
 

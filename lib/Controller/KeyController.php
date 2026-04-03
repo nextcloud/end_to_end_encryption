@@ -124,6 +124,22 @@ class KeyController extends OCSController {
 	#[NoAdminRequired]
 	#[E2ERestrictUserAgent]
 	public function setPrivateKey(string $privateKey, ?string $shareToken = null): DataResponse {
+		$segments = explode('|', $privateKey);
+		if (count($segments) !== 3) {
+			throw new OCSBadRequestException('Invalid private key format');
+		} elseif (base64_decode($segments[0], true) === false) {
+			// key is not a valid base64 string - we cannot validate further without knowing its encryption key.
+			throw new OCSBadRequestException('Invalid private key format');
+		}
+		$nonce = base64_decode($segments[1], true);
+		if ($nonce === false || strlen($nonce) !== 12) {
+			throw new OCSBadRequestException('Invalid private key format');
+		}
+		$salt = base64_decode($segments[2], true);
+		if ($salt === false || strlen($salt) !== 40) {
+			throw new OCSBadRequestException('Invalid private key format');
+		}
+
 		try {
 			$this->keyStorage->setPrivateKey($privateKey, $this->userId, $shareToken);
 		} catch (KeyExistsException $e) {
@@ -234,6 +250,18 @@ class KeyController extends OCSController {
 	#[NoAdminRequired]
 	#[E2ERestrictUserAgent]
 	public function setPublicKey(string $publicKey): DataResponse {
+		if (!str_starts_with($publicKey, '-----BEGIN CERTIFICATE-----')) {
+			throw new OCSBadRequestException('Invalid public key format');
+		}
+
+		$info = openssl_x509_parse($publicKey, true);
+		if ($info === false) {
+			throw new OCSBadRequestException('Invalid public key format');
+		}
+		if (!isset($info['subject']['CN']) || $info['subject']['CN'] !== $this->userId) {
+			throw new OCSBadRequestException('Common name (CN) does not match the current user');
+		}
+
 		try {
 			$this->keyStorage->setPublicKey($publicKey, $this->userId);
 		} catch (KeyExistsException $e) {
