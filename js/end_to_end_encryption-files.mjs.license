@@ -43,7 +43,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.17.2
 	- license: AGPL-3.0-or-later
 - fast-xml-parser
-	- version: 4.5.5
+	- version: 4.5.6
 	- license: MIT
 - pkijs
 	- version: 3.2.4
