@@ -27,6 +27,7 @@ use OCP\AppFramework\OCSController;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
+use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
@@ -55,12 +56,13 @@ class LockingController extends OCSController {
 	 * @param int $id file ID
 	 * @param ?string $shareToken Token of the share if available
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_LOCKED, array{message: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_LOCKED|Http::STATUS_PRECONDITION_FAILED, array{message: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to create the lock
 	 *
 	 * 200: Folder locked successfully
 	 * 400: Bad request, e.g. missing counter header
 	 * 403: Forbidden
+	 * 412: Outdated counter provided
 	 * 423: Folder already locked
 	 */
 	#[PublicPage]
@@ -96,11 +98,17 @@ class LockingController extends OCSController {
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
 		}
 
-		$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
-		if ($newToken === null) {
-			$this->logger->debug('Tried to lock already locked e2ee folder', ['nodeId' => $id]);
-			return $this->throttleRequest(Http::STATUS_LOCKED, 'File already locked');
+		try {
+			$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
+			if ($newToken === null) {
+				$this->logger->debug('Tried to lock already locked e2ee folder', ['nodeId' => $id]);
+				return $this->throttleRequest(Http::STATUS_LOCKED, 'File already locked');
+			}
+		} catch (NotPermittedException $e) {
+			$this->logger->debug('Tried to lock e2ee folder with outdated counter', ['nodeId' => $id, 'exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_PRECONDITION_FAILED, 'The provided counter is smaller than the current counter.');
 		}
+
 		return new DataResponse(['e2e-token' => $newToken]);
 	}
 
