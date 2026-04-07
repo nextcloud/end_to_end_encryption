@@ -12,7 +12,6 @@ import stringify from 'safe-stable-stringify'
 import { Metadata } from '../models/Metadata.ts'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
-import { generateUuid } from '../services/uuid.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
 
@@ -44,7 +43,7 @@ export async function useMkcolInterceptor(context: FetchContext, next: () => Pro
 
 	const parentMetadata = await metadataStore.getMetadata(parentPath)
 	const originalName = getUniqueName(decodeURIComponent(basename(path)), parentMetadata.metadata.listContents())
-	const uuid = generateUuid()
+	const uuid = globalThis.crypto.randomUUID().replaceAll('-', '')
 	parentMetadata.metadata.addFolder(uuid, originalName)
 
 	const parentLockToken = await api.lockFolder(parentMetadata.id, parentMetadata.metadata.counter)

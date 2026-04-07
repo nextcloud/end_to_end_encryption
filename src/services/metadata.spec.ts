@@ -8,9 +8,9 @@ import type { IRawMetadata, IRawRootMetadata } from '../models/metadata.d.ts'
 import { describe, expect, test } from 'vitest'
 import { adminMnemonic, adminPrivateKeyInfo, rootFolderMetadata, rootFolderMetadataInfo, rootFolderMetadataSignature, subFolderMetadataSignature } from '../../__tests__/consts.spec.ts'
 import { base64ToBuffer } from './bufferUtils.ts'
+import { decryptWithRSA } from './crypto.ts'
 import { decryptMetadata, isRootMetadata, validateMetadataSignature } from './metadata.ts'
 import { decryptPrivateKey } from './privateKeyUtils.ts'
-import { decryptWithRSA } from './rsaUtils.ts'
 
 const folderMetadata: IRawMetadata = {
 	metadata: {

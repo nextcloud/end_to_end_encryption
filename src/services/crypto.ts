@@ -51,11 +51,25 @@ export async function decryptWithAES(content: BufferSource, key: CryptoKey, opti
 }
 
 /**
+ * Decrypts content using RSA-OAEP decryption algorithm
+ *
+ * @param content - The encrypted content to decrypt
+ * @param key - The RSA private key to use for decryption
+ */
+export async function decryptWithRSA(content: BufferSource, key: CryptoKey): Promise<ArrayBuffer> {
+	return await self.crypto.subtle.decrypt(
+		{ name: 'RSA-OAEP' },
+		key,
+		content,
+	)
+}
+
+/**
  * Imports a raw AES key for encryption and decryption
  *
  * @param key - The raw AES key
  */
-export async function loadAESPrivateKey(key: BufferSource): Promise<CryptoKey> {
+export async function loadAESPrivateKey(key: Uint8Array<ArrayBuffer>): Promise<CryptoKey> {
 	return await self.crypto.subtle.importKey(
 		'raw',
 		key,
@@ -125,20 +139,6 @@ export async function exportRSAKey(key: CryptoKey): Promise<Uint8Array<ArrayBuff
  */
 export async function exportAESKey(key: CryptoKey): Promise<Uint8Array<ArrayBuffer>> {
 	return new Uint8Array(await self.crypto.subtle.exportKey('raw', key))
-}
-
-/**
- * Generates a radom AES-GCM key for encryption and decryption with 128bit key length.
- */
-export async function generateAESKey(): Promise<CryptoKey> {
-	return await globalThis.crypto.subtle.generateKey(
-		{
-			name: 'AES-GCM',
-			length: 128,
-		},
-		true,
-		['encrypt', 'decrypt'],
-	)
 }
 
 /**

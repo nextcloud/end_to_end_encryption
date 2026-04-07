@@ -1,132 +1,14 @@
 <!--
-  - SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+  - SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
   - SPDX-License-Identifier: AGPL-3.0-or-later
--->
-
-<script setup lang="ts">
-import { mdiAlertCircleOutline, mdiCheck } from '@mdi/js'
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
-import { getSharingToken } from '@nextcloud/sharing/public'
-import { X509Certificate } from '@peculiar/x509'
-import { onMounted, reactive, ref } from 'vue'
-import NcAppContent from '@nextcloud/vue/components/NcAppContent'
-import NcContent from '@nextcloud/vue/components/NcContent'
-import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
-import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import { uploadFileDrop } from '../services/fileDropUtils.ts'
-import logger from '../services/logger.ts'
-
-const folderId = loadState<string>('end_to_end_encryption', 'fileId')
-const fileName = loadState<string>('end_to_end_encryption', 'fileName')
-const metadataVersion = loadState<number>('end_to_end_encryption', 'metadataVersion')
-const publicKeys: { userId: string, key: CryptoKey }[] = []
-
-const uploadedFiles = ref<{ name: string, status: 'uploading' | 'done' | 'error' }[]>([])
-const highlightDropZone = ref(false)
-const loading = ref(true)
-
-// initialize the public keys
-onMounted(async () => {
-	for (const [userId, pemCert] of Object.entries(loadState<Record<string, string>>('end_to_end_encryption', 'publicKeys'))) {
-		const cert = new X509Certificate(pemCert)
-		const key = await cert.publicKey.export()
-		publicKeys.push({ userId, key })
-	}
-
-	loading.value = false
-})
-
-/**
- * @param event - The dragover event
- */
-function handleDragOver(event: DragEvent) {
-	if (!event.dataTransfer?.types.includes('Files')) {
-		return
-	}
-
-	event.dataTransfer.dropEffect = 'copy'
-	highlightDropZone.value = true
-}
-
-/**
- * @param event - The drop event
- */
-function handleDrop(event: DragEvent) {
-	if (!event.dataTransfer?.types.includes('Files')) {
-		return
-	}
-
-	const files = event.dataTransfer.files
-	if (files && files.length > 0) {
-		handleUpload(event.dataTransfer.files)
-	}
-	highlightDropZone.value = false
-}
-
-/**
- * Handle the change event of the file input
- *
- * @param event - The change event
- */
-async function onFilesInputChanged(event: Event) {
-	const input = event.target as HTMLInputElement
-	if (input.files && input.files.length > 0) {
-		handleUpload(input.files)
-		input.value = ''
-	}
-}
-
-/**
- * @param fileList - The list of files to upload
- */
-async function handleUpload(fileList: FileList) {
-	if (loading.value) {
-		return
-	}
-
-	loading.value = true
-	const promises: Promise<void>[] = []
-	logger.debug('[FileDrop] Starting upload of files')
-	for (const file of Array.from(fileList)) {
-		const entry = reactive({ name: file.name, status: 'uploading' as 'uploading' | 'done' | 'error' })
-		uploadedFiles.value.push(entry)
-		promises.push(uploadFileDrop(file, folderId, getSharingToken()!, publicKeys)
-			.then(() => {
-				entry.status = 'done'
-			})
-			.catch((error) => {
-				entry.status = 'error'
-				throw error
-			}))
-	}
-
-	logger.debug('[FileDrop] Waiting for all files to be encrypted and uploaded')
-	try {
-		await Promise.all(promises)
-		logger.debug('[FileDrop] All files encrypted and uploaded')
-	} catch (exception) {
-		logger.error('[FileDrop] Error while encrypting and uploading files', { exception })
-	}
-	loading.value = false
-}
-</script>
-
+  -->
 <template>
 	<NcContent appName="end_to_end_encryption">
 		<NcAppContent
 			@drop.prevent="handleDrop"
 			@dragover.prevent="handleDragOver"
 			@dragleave="highlightDropZone = false">
-			<NcNoteCard
-				v-if="metadataVersion < 2"
-				type="error">
-				{{ t('end_to_end_encryption', 'This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata.') }}
-			</NcNoteCard>
-
 			<div
-				v-else
 				class="uploader-form"
 				:class="{ highlight: highlightDropZone }">
 				<div class="uploader-form__label">
@@ -141,34 +23,212 @@ async function handleUpload(fileList: FileList) {
 							type="file"
 							multiple
 							:disabled="loading"
-							@change="onFilesInputChanged">
+							@change="filesChange($event.target?.files)">
 					</label>
 				</div>
 
-				<ul aria-live="polite" :aria-label="t('end_to_end_encryption', 'Uploaded files')" class="uploader-form__file-list">
+				<ul class="uploader-form__file-list">
 					<li
-						v-for="({ name, status }, index) in uploadedFiles"
+						v-for="({ file, step, error }, index) in uploadedFiles"
 						:key="index"
 						class="uploader-form__file-list__item">
-						<NcIconSvgWrapper
-							v-if="status === 'error'"
-							:path="mdiAlertCircleOutline"
-							:name="t('end_to_end_encryption', 'Upload failed')" />
-						<NcIconSvgWrapper
-							v-else-if="status === 'done'"
-							:path="mdiCheck"
-							:name="t('end_to_end_encryption', 'Upload successful')" />
-						<NcLoadingIcon
-							v-else
-							:size="20"
-							:name="t('end_to_end_encryption', 'Uploading…')" />
-						<b>{{ name }}</b>
+						<IconAlertCircle v-if="error" :size="20" />
+						<IconCheck v-else-if="step === UploadStep.DONE" :size="20" />
+						<NcLoadingIcon v-else />
+						<b>{{ file.name }}</b>
 					</li>
 				</ul>
 			</div>
 		</NcAppContent>
 	</NcContent>
 </template>
+
+<script>
+import { showError } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { translate } from '@nextcloud/l10n'
+import { v4 as uuidv4 } from 'uuid'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcContent from '@nextcloud/vue/components/NcContent'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+import IconAlertCircle from 'vue-material-design-icons/AlertCircle.vue'
+import IconCheck from 'vue-material-design-icons/Check.vue'
+import { encryptFile } from '../services/crypto.js'
+import { getFileDropEntry, uploadFileDrop } from '../services/filedrop.js'
+import logger from '../services/logger.ts'
+import { uploadFile } from '../services/uploadFile.js'
+
+/**
+ * @readonly
+ * @enum {string}
+ */
+const UploadStep = {
+	NONE: 'none',
+	ENCRYPTING: 'encrypting',
+	UPLOADING: 'uploading',
+	UPLOADED: 'uploaded',
+	UPLOADING_METADATA: 'uploading_metadata',
+	DONE: 'done',
+}
+
+/**
+ * @typedef {object} UploadProgress
+ * @property {File} file - The original unencrypted file
+ * @property {UploadStep} step - The current step of the upload process
+ * @property {boolean} error - Whether an error occurred during the upload
+ * @property {Record<string, import('../services/filedrop.js').FileDropPayload>} fileDrop - The file drop entry for the uploaded file
+ */
+
+export default {
+	name: 'FileDrop',
+	components: {
+		NcContent,
+		NcAppContent,
+		NcLoadingIcon,
+		IconCheck,
+		IconAlertCircle,
+	},
+
+	data() {
+		return {
+			/** @type {string} */
+			shareToken: loadState('end_to_end_encryption', 'token'),
+			/** @type {number} */
+			folderId: loadState('end_to_end_encryption', 'fileId'),
+			/** @type {{[userId: string]: string}} */
+			publicKeys: loadState('end_to_end_encryption', 'publicKeys'),
+			/** @type {string} */
+			fileName: loadState('end_to_end_encryption', 'fileName'),
+			/** @type {1|2} */
+			encryptionVersion: Number.parseInt(loadState('end_to_end_encryption', 'encryptionVersion')),
+			/** @type {{file: File, step: string, error: boolean}[]} */
+			uploadedFiles: [],
+			loading: false,
+			UploadStep,
+			highlightDropZone: false,
+		}
+	},
+
+	methods: {
+		/**
+		 * @param {DragEvent} event - The dragover event
+		 */
+		handleDragOver(event) {
+			if (!event.dataTransfer?.types.includes('Files')) {
+				return
+			}
+
+			event.dataTransfer.dropEffect = 'copy'
+			this.highlightDropZone = true
+		},
+
+		/**
+		 * @param {DragEvent} event - The drop event
+		 */
+		handleDrop(event) {
+			if (!event.dataTransfer?.types.includes('Files')) {
+				return
+			}
+
+			this.filesChange(event.dataTransfer.files)
+			this.highlightDropZone = false
+		},
+
+		/**
+		 * @param {FileList?} fileList - The list of files to upload
+		 */
+		async filesChange(fileList) {
+			if (!fileList?.length) {
+				return
+			}
+
+			if (this.loading) {
+				return
+			}
+
+			this.loading = true
+			/** @type {UploadProgress[]} */
+			let progresses = []
+
+			try {
+				progresses = await Promise.all(Array
+					.from(fileList)
+					.map((file) => this.uploadFile(file)))
+				logger.debug('[FileDrop] Files uploaded', { progresses })
+			} catch (exception) {
+				logger.error('[FileDrop] Error while uploading files', { exception })
+				showError(this.t('end_to_end_encryption', 'Error while uploading files'))
+
+				for (const progress of progresses) {
+					progress.error = true
+				}
+			}
+
+			try {
+				progresses
+					.filter(({ error }) => !error)
+					.forEach((progress) => { progress.step = UploadStep.UPLOADING_METADATA })
+
+				const fileDrops = progresses
+					.filter(({ error }) => !error)
+					.reduce((fileDropEntries, { fileDrop }) => ({ ...fileDropEntries, ...fileDrop }), {})
+
+				logger.debug('[FileDrop] FileDrop entries computed', { fileDrops })
+
+				const result = await uploadFileDrop(this.encryptionVersion, this.folderId, fileDrops, this.shareToken)
+
+				progresses
+					.filter(({ error }) => !error)
+					.forEach((progress) => { progress.error = result[Object.keys(progress.fileDrop)[0]] === undefined })
+			} catch (exception) {
+				logger.error('[FileDrop] Error while uploading metadata', { exception })
+				showError(this.t('end_to_end_encryption', 'Error while uploading metadata'))
+
+				for (const progress of progresses) {
+					progress.error = true
+				}
+			}
+
+			progresses
+				.filter(({ error }) => !error)
+				.forEach((progress) => { progress.step = UploadStep.DONE })
+
+			this.loading = false
+		},
+
+		/**
+		 * @param {File} unencryptedFile - The file to upload
+		 * @return {Promise<UploadProgress>}
+		 */
+		async uploadFile(unencryptedFile) {
+			/** @type {UploadProgress} */
+			const progress = { file: unencryptedFile, step: UploadStep.NONE, error: false, fileDrop: {} }
+			this.uploadedFiles.push(progress)
+
+			try {
+				progress.step = UploadStep.ENCRYPTING
+				const { encryptedFileContent, encryptionInfo } = await encryptFile(unencryptedFile)
+				const encryptedFileName = uuidv4().replaceAll('-', '')
+
+				progress.fileDrop[encryptedFileName] = await getFileDropEntry(encryptionInfo, this.publicKeys)
+				logger.debug(`[FileDrop] Filedrop entry computed: ${unencryptedFile.name}`, { fileDropEntry: progress.fileDrop[encryptedFileName] })
+
+				progress.step = UploadStep.UPLOADING
+				await uploadFile(`/public.php/dav/files/${this.shareToken}`, encryptedFileName, encryptedFileContent, this.shareToken)
+				progress.step = UploadStep.UPLOADED
+				logger.debug(`[FileDrop] File uploaded: ${unencryptedFile.name}`, { encryptedFileContent, encryptionInfo, encryptedFileName, shareToken: this.shareToken })
+			} catch (exception) {
+				progress.error = true
+				logger.error(`[FileDrop] Fail to upload the file (${progress.step})`, { exception })
+			}
+
+			return progress
+		},
+
+		t: translate,
+	},
+}
+</script>
 
 <style scoped lang="scss">
 #app-content-vue {

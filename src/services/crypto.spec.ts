@@ -6,7 +6,7 @@
 import { X509Certificate } from '@peculiar/x509'
 import { expect, test } from 'vitest'
 import { base64ToBuffer } from './bufferUtils.ts'
-import { generateAESKey, sha256Hash, validateCertificateSignature } from './crypto.ts'
+import { sha256Hash, validateCertificateSignature } from './crypto.ts'
 
 test('sha256Hash correctly returns a hex string', async () => {
 	const buffer = 'KPJswKr0owRxrcj4/3SRIw=='
@@ -31,11 +31,4 @@ test('Validate user certificate signed with SHA-256', async () => {
 	const result = await validateCertificateSignature(new X509Certificate(certificate), rawPublicKey)
 
 	expect(result).toBeTruthy()
-})
-
-test('generateAESKey', async () => {
-	const key = await generateAESKey()
-	expect(key).toBeInstanceOf(CryptoKey)
-	expect(key.algorithm.name).toBe('AES-GCM')
-	expect(key.usages).toEqual(expect.arrayContaining(['encrypt', 'decrypt']))
 })
