@@ -7,14 +7,25 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v2.0.2 - 2026-03-27
+## v2.1.0 - 2026-04-07
+### Added
+* Allow to convert files uploaded by public end-to-end encrypted file drops to regular files within the browser \([\#1594](https://github.com/nextcloud/end_to_end_encryption/pull/1594)\).
 
+### Fixed
+* Validate keys to match expected format before storing them \([\#1597](https://github.com/nextcloud/end_to_end_encryption/pull/1597)\)
+* Improved error handling on public API endpoints \([\#1596](https://github.com/nextcloud/end_to_end_encryption/pull/1596)\)
+* API endpoints for metadata locking now always return the proper HTTP status code \([\#1595](https://github.com/nextcloud/end_to_end_encryption/pull/1595)\)
+
+### Changed
+* Updated dependencies
+* Updated translations
+
+## v2.0.2 - 2026-03-27
 ### Fixed
 * fix(sharing): Always enable e2ee proxy in public shares [\#1571](https://github.com/nextcloud/end_to_end_encryption/pull/1571)
 * fix(sharing): Delete share keys before its deletion [\#1572](https://github.com/nextcloud/end_to_end_encryption/pull/1572)
 
 ## v2.0.1 - 2026-03-27
-
 ### Fixed
 
 * feat(api): Hint clients towards using the proper API version [\#1520](https://github.com/nextcloud/end_to_end_encryption/pull/1520)
