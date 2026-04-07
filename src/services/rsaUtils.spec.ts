@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { ensureKeyUsage } from './rsaUtils.ts'
+import { decryptWithRSA, encryptWithRSA, ensureKeyUsage } from './rsaUtils.ts'
 
 const encryptionKeys = await globalThis.crypto.subtle.generateKey(
 	{
@@ -80,4 +80,12 @@ describe('ensureKeyUsage', () => {
 			data,
 		)).resolves.not.toThrow()
 	})
+})
+
+it('should be able to de- and encrypt with the same key', async () => {
+	const encrypted = await encryptWithRSA(new TextEncoder().encode('Hello, World!'), encryptionKeys.publicKey)
+	expect(encrypted).not.toEqual(new TextEncoder().encode('Hello, World!'))
+
+	const decrypted = await decryptWithRSA(encrypted, encryptionKeys.privateKey)
+	expect(new TextDecoder().decode(decrypted)).toBe('Hello, World!')
 })

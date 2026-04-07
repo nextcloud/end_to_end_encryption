@@ -14,6 +14,7 @@ import { registerNewEncryptedFolderEntry } from './files_newMenu/new-encrypted-f
 import { setupEventBusProxy } from './services/eventBusProxy.ts'
 import { registerSharingSidebarSection } from './services/filesSharingSection.ts'
 import logger from './services/logger.ts'
+import { setupTasksManager } from './services/TasksManager.ts'
 import { setupWebDavProxy } from './services/webDavProxy.ts'
 
 const userConfig = loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false })
@@ -32,6 +33,10 @@ if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCr
 	registerNewEncryptedFolderEntry()
 	// Register sharing integrations
 	registerSharingSidebarSection()
+
+	if (!isPublicShare()) {
+		setupTasksManager()
+	}
 } else if (userConfig.e2eeInBrowserEnabled && !browserSupportsWebCrypto) {
 	logger.error('End-to-end encryption in the browser is not supported by your browser or you are not using a secure connection (HTTPS).')
 }
