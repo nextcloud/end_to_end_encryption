@@ -56,7 +56,6 @@
     "fflate": "^0.8.2",
     "pkijs": "^3.4.0",
     "safe-stable-stringify": "^2.5.0",
-    "uuid": "^13.0.0",
     "vue": "^3.5.22",
     "vue-material-design-icons": "^5.3.1",
     "webdav": "^5.9.0"

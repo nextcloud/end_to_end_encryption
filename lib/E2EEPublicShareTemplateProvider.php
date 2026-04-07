@@ -11,11 +11,11 @@ use OCA\EndToEndEncryption\AppInfo\Application;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Services\IInitialState;
 use OCP\Constants;
 use OCP\Defaults;
 use OCP\Files\FileInfo;
 use OCP\Files\NotFoundException;
+use OCP\IInitialStateService;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
@@ -30,7 +30,7 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 		private IUrlGenerator $urlGenerator,
 		private IL10N $l10n,
 		private Defaults $defaults,
-		private IInitialState $initialState,
+		private IInitialStateService $initialState,
 		private IKeyStorage $keyStorage,
 		private LoggerInterface $logger,
 		private MetaDataStorage $metadataStorage,
@@ -87,11 +87,14 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 			return new TemplateResponse(Application::APP_ID, 'error');
 		}
 
-		$this->initialState->provideInitialState('publicKeys', $publicKeys);
-		$this->initialState->provideInitialState('fileId', $shareNode->getId());
-		$this->initialState->provideInitialState('token', $token);
-		$this->initialState->provideInitialState('fileName', $shareNode->getName());
-		$this->initialState->provideInitialState('encryptionVersion', $metadata['version']);
+		// standard state
+		$this->initialState->provideInitialState('files_sharing', 'isPublic', true);
+		$this->initialState->provideInitialState('files_sharing', 'sharingToken', $token);
+		// app state
+		$this->initialState->provideInitialState(Application::APP_ID, 'publicKeys', $publicKeys);
+		$this->initialState->provideInitialState(Application::APP_ID, 'fileId', (string)$shareNode->getId()); // explicit cast to string for future snowflake support
+		$this->initialState->provideInitialState(Application::APP_ID, 'fileName', $shareNode->getName());
+		$this->initialState->provideInitialState(Application::APP_ID, 'metadataVersion', (float)$metadata['version']);
 
 		// OpenGraph Support: http://ogp.me/
 		Util::addHeader('meta', ['property' => 'og:title', 'content' => $this->l10n->t('Encrypted share')]);

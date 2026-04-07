@@ -9,7 +9,7 @@ import type { IStoreMetadata } from '../store/metadata.ts'
 
 import stringify from 'safe-stable-stringify'
 import * as api from './api.ts'
-import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from './bufferUtils.ts'
+import { base64ToBuffer, bufferToString, stringToBuffer } from './bufferUtils.ts'
 import { uncompress } from './compression.ts'
 import { validateCMSSignature } from './crypto.ts'
 import { ensureKeyUsage } from './rsaUtils.ts'
@@ -23,23 +23,6 @@ export function isRootMetadata(json: unknown): json is IRawRootMetadata {
 	return typeof json === 'object'
 		&& json !== null
 		&& 'users' in json
-}
-
-/**
- * Encrypt the metadata key with the user's public key
- *
- * @param metadataKey - The metadata key to encrypt
- * @param key - The user's public key
- */
-export async function encryptMetadataKey(metadataKey: Uint8Array<ArrayBuffer>, key: CryptoKey) {
-	const encryptedKey = await globalThis.crypto.subtle.encrypt(
-		{
-			name: 'RSA-OAEP',
-		},
-		await ensureKeyUsage(key, 'encrypt'),
-		metadataKey,
-	)
-	return bufferToBase64(new Uint8Array(encryptedKey))
 }
 
 /**

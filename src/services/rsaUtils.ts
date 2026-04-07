@@ -4,6 +4,38 @@
  */
 
 /**
+ * Encrypts content using RSA-OAEP encryption algorithm
+ *
+ * @param content - The content to encrypt
+ * @param key - The RSA public key to use for encryption
+ */
+export async function encryptWithRSA(content: BufferSource, key: CryptoKey): Promise<Uint8Array<ArrayBuffer>> {
+	const data = await globalThis.crypto.subtle.encrypt(
+		{
+			name: 'RSA-OAEP',
+		},
+		await ensureKeyUsage(key, 'encrypt'),
+		content,
+	)
+	return new Uint8Array(data)
+}
+
+/**
+ * Decrypts content using RSA-OAEP decryption algorithm
+ *
+ * @param content - The encrypted content to decrypt
+ * @param key - The RSA private key to use for decryption
+ */
+export async function decryptWithRSA(content: BufferSource, key: CryptoKey): Promise<Uint8Array<ArrayBuffer>> {
+	const data = await self.crypto.subtle.decrypt(
+		{ name: 'RSA-OAEP' },
+		await ensureKeyUsage(key, 'decrypt'),
+		content,
+	)
+	return new Uint8Array(data)
+}
+
+/**
  * Hack to allow signing and encryption with one RSA key
  * (reason is that its not recommended for RSA to use the same key for both signing and encryption)
  *
