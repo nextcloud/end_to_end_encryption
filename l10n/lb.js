@@ -7,6 +7,7 @@ OC.L10N.register(
     "Close" : "Zoumaachen",
     "Edit" : "Änneren",
     "Save" : "Späicheren",
+    "Upload failed" : "Eropluede feelgeschloen",
     "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");

@@ -16,6 +16,9 @@ OC.L10N.register(
     "Remove" : "Elimină",
     "Save" : "Salvează",
     "Select or drop files" : "Selectează sau plasează fișiere",
+    "Upload failed" : "Încărcarea a eșuat",
+    "Upload successful" : "Încărcare cu succes",
+    "Uploading…" : "Încărcare…",
     "Limit to groups" : "Limitează pentru grupuri",
     "Cancel" : "Anulare"
 },

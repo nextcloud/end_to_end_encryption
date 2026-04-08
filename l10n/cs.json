@@ -2,7 +2,6 @@
     "Internal error" : "Vnitřní chyba",
     "You are not allowed to delete this private key" : "Nemáte oprávnění smazat tento soukromý klíč",
     "Could not find the private key belonging to the user %s" : "Nedaří se nalézt soukromý klič patřící uživateli %s",
-    "Could not find the public key belonging to the user %s" : "Nedaří se nalézt veřejný klíč patřící uživateli %s",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "CSR nebylo možné zpracovat. Ověřte že jste poskytli platné CSR",
     "Common name (CN) does not match the share token" : "Běžné jméno (CN) se neshoduje s tokenem sdílení",
     "You are not the owner of the share" : "Nejste vlastníky tohoto sdílení",
@@ -85,8 +84,6 @@
     "Save" : "Uložit",
     "Enter your 12 words mnemonic" : "Zadejte svou dvanáctislovnou mnemotechnickou pomůcku",
     "Decrypting your files in the browser can weaken security" : "Rozšifrování vašich souborů v prohlížeči může oslabit zabezpečení",
-    "Error while uploading files" : "Chyba při nahrávání souborů",
-    "Error while uploading metadata" : "Chyba při nahrávání metadat",
     "Select or drop files" : "Vyberte nebo přetáhněte soubory",
     "Upload encrypted files to {fileName}" : "Stáhnout šifrované soubory do {fileName}",
     "Failed to load shares." : "Nepodařilo se načíst sdílení.",
@@ -122,7 +119,10 @@
     "New encrypted folder" : "Nová šifrovaná složka",
     "Creating new encrypted folder: Cancelled" : "Vytváření nové šifrované složky: zrušeno ",
     "Creating new encrypted folder: Failed" : "Vytváření nové šifrované složky: nezdařilo se",
+    "Could not find the public key belonging to the user %s" : "Nedaří se nalézt veřejný klíč patřící uživateli %s",
     "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů.",
+    "Error while uploading files" : "Chyba při nahrávání souborů",
+    "Error while uploading metadata" : "Chyba při nahrávání metadat"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

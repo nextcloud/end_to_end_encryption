@@ -13,6 +13,7 @@ OC.L10N.register(
     "Edit" : "Modificar",
     "Remove" : "Suprimir",
     "Save" : "Enregistrar",
+    "Upload failed" : "Fracàs del mandadís",
     "Limit to groups" : "Limitar als grops",
     "Cancel" : "Anullar"
 },

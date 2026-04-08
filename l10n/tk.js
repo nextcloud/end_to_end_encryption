@@ -8,6 +8,7 @@ OC.L10N.register(
     "Edit" : "Redaktirläň",
     "Remove" : "Aýyrmak",
     "Save" : "Saklamak",
+    "Uploading…" : "Ýüklenyas…",
     "Cancel" : "ýatyrmak"
 },
 "nplurals=2; plural=(n != 1);");

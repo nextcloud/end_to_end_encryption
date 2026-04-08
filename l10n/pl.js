@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Błąd wewnętrzny",
     "You are not allowed to delete this private key" : "Nie masz prawa do usunięcia tego klucza prywatnego",
     "Could not find the private key belonging to the user %s" : "Nie można znaleźć klucza prywatnego należącego do użytkownika %s",
-    "Could not find the public key belonging to the user %s" : "Nie można znaleźć klucza publicznego należącego do użytkownika %s",
     "Common name (CN) does not match the current user" : "Wartość CN nie pasuje dla obecnego użytkownika",
     "Could not find the public key belonging to %s" : "Nie można znaleźć klucza publicznego należącego do %s",
     "This is not your public key to delete" : "Klucz do usunięcia nie jest Twoim kluczem publicznym",
@@ -36,9 +35,9 @@ OC.L10N.register(
     "Remove" : "Usuń",
     "Share permissions" : "Uprawnienia udostępniania",
     "Save" : "Zapisz",
-    "Error while uploading files" : "Błąd podczas przesyłania plików",
-    "Error while uploading metadata" : "Błąd podczas przesyłania metadanych",
     "Select or drop files" : "Wybierz lub upuść pliki",
+    "Upload successful" : "Wysyłanie zakończone",
+    "Uploading…" : "Wysyłanie…",
     "Upload encrypted files to {fileName}" : "Prześlij zaszyfrowane pliki do {fileName}",
     "Saved groups" : "Zapisano grupy",
     "Limit to groups" : "Ogranicz dla grup",
@@ -58,6 +57,9 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Sprawdź na wszystkich podłączonych urządzeniach, czy możesz odzyskać swój mnemonik.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Każde nadal podłączone urządzenie może powodować problemy po usunięciu kluczy, dlatego lepiej jest odłączyć i ponownie podłączyć urządzenia.",
     "Delete existing encrypted files" : "Usuń istniejące zaszyfrowane pliki",
-    "End-to-end encryption endpoint" : "Końcówka szyfrowania end-to-end"
+    "Could not find the public key belonging to the user %s" : "Nie można znaleźć klucza publicznego należącego do użytkownika %s",
+    "End-to-end encryption endpoint" : "Końcówka szyfrowania end-to-end",
+    "Error while uploading files" : "Błąd podczas przesyłania plików",
+    "Error while uploading metadata" : "Błąd podczas przesyłania metadanych"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

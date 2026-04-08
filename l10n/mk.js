@@ -15,6 +15,9 @@ OC.L10N.register(
     "Remove" : "Отстрани ",
     "Save" : "Зачувај",
     "Select or drop files" : "Изберете или испуштете датотеки",
+    "Upload failed" : "Прикачувањето не успеа",
+    "Upload successful" : "Успешно прикачување",
+    "Uploading…" : "Прикачување…",
     "Limit to groups" : "Ограничување на групи",
     "Limit app usage to groups" : "Ограничување за користење на апликации во групи",
     "Cancel" : "Откажи"

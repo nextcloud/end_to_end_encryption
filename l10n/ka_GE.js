@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "შიდა შეცდომა",
     "You are not allowed to delete this private key" : "ამ პირადი გასაღების გაუქმების უფლება არ გაქვთ",
     "Could not find the private key belonging to the user %s" : "%s მომხმარებლის კუთვნილი პირადი გასაღების პოვნა ვერ მოხერხდა",
-    "Could not find the public key belonging to the user %s" : "%s მომხმარებლის კუთვნილი ღია გასაღების პოვნა ვერ მოხერხდა",
     "Common name (CN) does not match the current user" : "Common name (CN) არ ემთხვევა ამჟამინდელ მომხმარებელს",
     "Could not find the public key belonging to %s" : "%s მომხმარებლის ღია გასაღები ვერ იქნა ნაპოვნი",
     "Could not find metadata for \"%s\"" : "მეტა-მონაცემები \"%s\"-ზე ვერ იქნა ნაპოვნი",
@@ -23,8 +22,11 @@ OC.L10N.register(
     "Edit" : "შეცვლა",
     "Save" : "შენახვა",
     "Select or drop files" : "აირჩიეთ ან გადმოიტანეთ ფაილები",
+    "Upload failed" : "ატვირთვა ვერ განხორციელდა",
+    "Uploading…" : "იტვირთება...",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Cancel" : "გაუქმება",
-    "End-to-end encryption" : "End-to-end შიფრაცია"
+    "End-to-end encryption" : "End-to-end შიფრაცია",
+    "Could not find the public key belonging to the user %s" : "%s მომხმარებლის კუთვნილი ღია გასაღების პოვნა ვერ მოხერხდა"
 },
 "nplurals=2; plural=(n!=1);");

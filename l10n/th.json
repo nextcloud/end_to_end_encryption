@@ -9,6 +9,8 @@
     "Edit" : "แก้ไข",
     "Remove" : "ลบออก",
     "Save" : "บันทึก",
+    "Upload failed" : "อัปโหลดล้มเหลว",
+    "Uploading…" : "กำลังอัปโหลด…",
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
     "Cancel" : "ยกเลิก"
 },"pluralForm" :"nplurals=1; plural=0;"

@@ -16,6 +16,9 @@ OC.L10N.register(
     "Remove" : "Remove",
     "Save" : "Save",
     "Select or drop files" : "Select or drop files",
+    "Upload failed" : "Upload failed",
+    "Upload successful" : "Upload successful",
+    "Uploading…" : "Uploading…",
     "Limit to groups" : "Limit to groups",
     "Limit app usage to groups" : "Limit app usage to groups",
     "Cancel" : "Cancel"

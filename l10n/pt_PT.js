@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Erro interno",
     "You are not allowed to delete this private key" : "Você não tem permissão para apagar esta chave privada",
     "Could not find the private key belonging to the user %s" : "Não foi possível encontrar a chave privada pertencente ao utilizador %s",
-    "Could not find the public key belonging to the user %s" : "Não foi possível encontrar a chave pública pertencente ao utilizador %s",
     "Common name (CN) does not match the current user" : "Nome comum (CN) não corresponde ao do utilizador atual",
     "Could not find the public key belonging to %s" : "Não foi possível encontrar a chave pública pertencente a %s",
     "Could not find metadata for \"%s\"" : "Não foi possível encontrar metadados para \"%s\"",
@@ -25,10 +24,13 @@ OC.L10N.register(
     "Remove" : "Remover",
     "Save" : "Guardar",
     "Select or drop files" : "Selecione ou solte ficheiros",
+    "Upload failed" : "Envio falhou",
+    "Uploading…" : "A enviar…",
     "Limit to groups" : "Limitado a grupos",
     "Cancel" : "Cancelar",
     "End-to-end encryption" : "Encriptação ponto-a-ponto",
     "Download unencrypted" : "Transferir sem encriptação",
+    "Could not find the public key belonging to the user %s" : "Não foi possível encontrar a chave pública pertencente ao utilizador %s",
     "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

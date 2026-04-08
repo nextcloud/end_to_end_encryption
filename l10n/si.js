@@ -8,6 +8,7 @@ OC.L10N.register(
     "Edit" : "සංස්කරණය",
     "Remove" : "ඉවත් කරන්න",
     "Save" : "සුරකින්න",
+    "Uploading…" : "උඩුගත වෙමින්…",
     "Cancel" : "අවලංගු"
 },
 "nplurals=2; plural=(n != 1);");

@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Interner Fehler",
     "You are not allowed to delete this private key" : "Du bist nicht berechtigt, diesen privaten Schlüssel zu löschen.",
     "Could not find the private key belonging to the user %s" : "Der private Schlüssel des Benutzers %s konnte nicht gefunden werden",
-    "Could not find the public key belonging to the user %s" : "Der öffentliche Schlüssel des Benutzers %s konnte nicht gefunden werden",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "Die CSR konnte nicht geparst werden. Bitte sicherstellen, dass eine gültige CSR eingereicht wird",
     "Common name (CN) does not match the share token" : "Der Common Name (CN) stimmt nicht mit dem Freigabetoken überein",
     "You are not the owner of the share" : "Du bist nicht der Besitzer dieser Freigabe",
@@ -88,8 +87,6 @@ OC.L10N.register(
     "Save" : "Speichern",
     "Enter your 12 words mnemonic" : "Die 12-Wörter-Gedächtnisstütze eingeben",
     "Decrypting your files in the browser can weaken security" : "Das Entschlüsseln deiner Dateien im Browser kann unsicher sein",
-    "Error while uploading files" : "Fehler beim Hochladen von Dateien",
-    "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten",
     "Select or drop files" : "Dateien auswählen oder hierher ziehen",
     "Upload encrypted files to {fileName}" : "Verschlüsselte Dateien hochladen nach {fileName}",
     "Failed to load shares." : "Freigaben konnten nicht geladen werden.",
@@ -125,7 +122,10 @@ OC.L10N.register(
     "New encrypted folder" : "Neuer verschlüsselter Ordner",
     "Creating new encrypted folder: Cancelled" : "Erstelle einen neuen verschlüsselten Ordner: Abgebrochen",
     "Creating new encrypted folder: Failed" : "Erstelle einen neuen verschlüsselten Ordner: Fehlgeschlagen",
+    "Could not find the public key belonging to the user %s" : "Der öffentliche Schlüssel des Benutzers %s konnte nicht gefunden werden",
     "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind.",
+    "Error while uploading files" : "Fehler beim Hochladen von Dateien",
+    "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten"
 },
 "nplurals=2; plural=(n != 1);");

@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Errore interno",
     "You are not allowed to delete this private key" : "Non ti è consentito eliminare questa chiave privata",
     "Could not find the private key belonging to the user %s" : "Impossibile trovare la chiave privata che appartiene all'utente %s",
-    "Could not find the public key belonging to the user %s" : "Impossibile trovare la chiave pubblica che appartiene all'utente %s",
     "Common name (CN) does not match the current user" : "Il nome comune (CN) non corrisponde all'utente attuale",
     "Could not find the public key belonging to %s" : "Impossibile trovare la chiave pubblica che appartiene a %s",
     "This is not your public key to delete" : "Questa non è la tua chiave privata da eliminare",
@@ -48,9 +47,9 @@ OC.L10N.register(
     "Save" : "Salva",
     "Enter your 12 words mnemonic" : "Inserisci il tuo mnemonico di 12 parole",
     "Decrypting your files in the browser can weaken security" : "Decifrare i file nel browser può indebolire la sicurezza",
-    "Error while uploading files" : "Errore durante il caricamento dei file",
-    "Error while uploading metadata" : "Errore durante il caricamento dei metadati",
     "Select or drop files" : "Seleziona o deseleziona file",
+    "Upload successful" : "Caricamento effettuato",
+    "Uploading…" : "Caricamento in corso…",
     "Upload encrypted files to {fileName}" : "Carica i file crittografati su {fileName}",
     "Loading shares…" : "Caricamento condivisioni…",
     "Saved groups" : "Gruppi salvati",
@@ -80,7 +79,10 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Qualsiasi dispositivo ancora connesso potrebbe causare problemi dopo l'eliminazione delle chiavi, quindi è meglio scollegare e ricollegare nuovamente i dispositivi.",
     "Delete existing encrypted files" : "Elimina i file crittografati esistenti",
     "Download unencrypted" : "Download non crittografato",
+    "Could not find the public key belonging to the user %s" : "Impossibile trovare la chiave pubblica che appartiene all'utente %s",
     "End-to-end encryption endpoint" : "Terminatore di cifratura end-to-end",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Questa app fornisce tutte le API necessarie per implementare la crittografia end-to-end sul lato client.\nInoltre, implementa Secure FileDrop e garantisce che i file crittografati end-to-end non siano accessibili tramite l'interfaccia web o altri client WebDAV."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Questa app fornisce tutte le API necessarie per implementare la crittografia end-to-end sul lato client.\nInoltre, implementa Secure FileDrop e garantisce che i file crittografati end-to-end non siano accessibili tramite l'interfaccia web o altri client WebDAV.",
+    "Error while uploading files" : "Errore durante il caricamento dei file",
+    "Error while uploading metadata" : "Errore durante il caricamento dei metadati"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

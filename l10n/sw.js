@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Hitilafu ya ndani",
     "You are not allowed to delete this private key" : "Huruhusiwi kufuta ufunguo huu wa faragha",
     "Could not find the private key belonging to the user %s" : " Haikuweza kupata ufunguo wa faragha wa mtumiaji %s",
-    "Could not find the public key belonging to the user %s" : "  Haikuweza kupata ufunguo wa umma wa mtumiaji %s",
     "Common name (CN) does not match the current user" : "Jina la kawaida (CN) halilingani na mtumiaji wa sasa",
     "Could not find the public key belonging to %s" : "   Haikuweza kupata ufunguo wa umma wa %s",
     "This is not your public key to delete" : "Huu sio ufunguo wako wa umma wa kufuta",
@@ -62,9 +61,9 @@ OC.L10N.register(
     "Save" : "Hifadhi",
     "Enter your 12 words mnemonic" : "Weka maneno yako 12 ya mnemonic",
     "Decrypting your files in the browser can weaken security" : "Kusimbua faili zako kwenye kivinjari kunaweza kudhoofisha usalama",
-    "Error while uploading files" : " Hitilafu wakati wa kupakia faili",
-    "Error while uploading metadata" : "Hitilafu wakati wa kupakia metadata",
     "Select or drop files" : " Chagua au udondoshe faili",
+    "Upload failed" : "Imeshindwa kupakia",
+    "Uploading…" : "Inapakia...",
     "Upload encrypted files to {fileName}" : "Pakia faili zilizosimbwa kwa {fileName}",
     "Saved groups" : "Makundi yaliyohifadhiwa",
     "Limit to groups" : "Ukomo kwa vikundi",
@@ -96,7 +95,10 @@ OC.L10N.register(
     "New encrypted folder" : "Folda mpya iliyosimbwa kwa njia fiche",
     "Creating new encrypted folder: Cancelled" : "Kuunda folda mpya iliyosimbwa kwa njia fiche: Kumeghairiwa",
     "Creating new encrypted folder: Failed" : "Kuunda folda mpya iliyosimbwa kwa njia fiche: Kumeshindwa",
+    "Could not find the public key belonging to the user %s" : "  Haikuweza kupata ufunguo wa umma wa mtumiaji %s",
     "End-to-end encryption endpoint" : "Mwisho hadi mwisho wa usimbaji fiche",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Programu hii hutoa API zote zinazohitajika ili kutekeleza usimbaji fiche kutoka Mwisho-hadi-Mwisho kwa upande wa mteja.\nZaidi ya hayo, hutekelezea Secure FileDrop na huhakikisha kwamba faili zilizosimbwa kutoka End-to-End hazipatikani kupitia kiolesura cha wavuti wala wateja wengine wa WebDAV."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Programu hii hutoa API zote zinazohitajika ili kutekeleza usimbaji fiche kutoka Mwisho-hadi-Mwisho kwa upande wa mteja.\nZaidi ya hayo, hutekelezea Secure FileDrop na huhakikisha kwamba faili zilizosimbwa kutoka End-to-End hazipatikani kupitia kiolesura cha wavuti wala wateja wengine wa WebDAV.",
+    "Error while uploading files" : " Hitilafu wakati wa kupakia faili",
+    "Error while uploading metadata" : "Hitilafu wakati wa kupakia metadata"
 },
 "nplurals=2; plural=(n != 1);");

@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Error interno",
     "You are not allowed to delete this private key" : "No tienes permiso para eliminar esta clave privada",
     "Could not find the private key belonging to the user %s" : "No se ha podido encontrar la clave privada perteneciente al usuario %s",
-    "Could not find the public key belonging to the user %s" : "No se ha podido encontrar la clave pública perteneciente al usuario %s",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "No se pudo analizar el CSR, asegúrese de enviar un CSR válido",
     "Common name (CN) does not match the share token" : "El nombre común (CN) no coincide con el token compartido",
     "You are not the owner of the share" : "Usted no es el propietario",
@@ -88,9 +87,8 @@ OC.L10N.register(
     "Save" : "Guardar",
     "Enter your 12 words mnemonic" : "Ingrese su mnemónico de 12 palabras",
     "Decrypting your files in the browser can weaken security" : "Descifrar sus archivos en el navegador puede debilitar la seguridad",
-    "Error while uploading files" : "Error mientras se cargaban los archivos",
-    "Error while uploading metadata" : "Se encontró un error al cargar los metadatos",
     "Select or drop files" : "Seleccione o arrastre y suelte archivos",
+    "Upload successful" : "Subida exitosa",
     "Upload encrypted files to {fileName}" : "Cargar archivos cifrados a {fileName}",
     "Failed to load shares." : "Error al cargar.",
     "Loading shares…" : "Cargando recursos compartidos …",
@@ -125,7 +123,10 @@ OC.L10N.register(
     "New encrypted folder" : "Nueva carpeta cifrada",
     "Creating new encrypted folder: Cancelled" : "Creación de nueva carpeta cifrada: Cancelado",
     "Creating new encrypted folder: Failed" : "Creación de una nueva carpeta cifrada: Error",
+    "Could not find the public key belonging to the user %s" : "No se ha podido encontrar la clave pública perteneciente al usuario %s",
     "End-to-end encryption endpoint" : "Endpoint del cifrado extremo a extremo",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta app provee todas las APIs necesarias para implementar el cifrado de extremo a extremo del lado del cliente.\nAdicionalmente, implementa FileDrop seguro y se asegura de que los archivos cifrados de extremo a extremo no sean accedidos tanto vía la interfaz web ni por otros clientes WebDAV."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta app provee todas las APIs necesarias para implementar el cifrado de extremo a extremo del lado del cliente.\nAdicionalmente, implementa FileDrop seguro y se asegura de que los archivos cifrados de extremo a extremo no sean accedidos tanto vía la interfaz web ni por otros clientes WebDAV.",
+    "Error while uploading files" : "Error mientras se cargaban los archivos",
+    "Error while uploading metadata" : "Se encontró un error al cargar los metadatos"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

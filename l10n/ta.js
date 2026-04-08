@@ -7,6 +7,7 @@ OC.L10N.register(
     "Edit" : "தொகுக்க",
     "Remove" : "அகற்றுக",
     "Save" : "சேமிக்க ",
+    "Upload failed" : "பதிவேற்றல் தோல்வியுற்றது",
     "Cancel" : "ரத்து செய்"
 },
 "nplurals=2; plural=(n != 1);");

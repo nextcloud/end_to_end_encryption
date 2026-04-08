@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "İçeride bir sorun çıktı",
     "You are not allowed to delete this private key" : "Bu kişisel anahtarı silme izniniz yok",
     "Could not find the private key belonging to the user %s" : "%s kullanıcısına ait kişisel anahtar bulunamadı",
-    "Could not find the public key belonging to the user %s" : "%s kullanıcısına ait herkese açık anahtar bulunamadı",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "Sertifika imzalama isteği işlenemedi. Lütfen geçerli bir sertifika imzalama isteği gönderdiğinizden emin olun",
     "Common name (CN) does not match the share token" : "Ortak ad (CN) paylaşım kodu ile uyuşmuyor",
     "You are not the owner of the share" : "Paylaşımın sahibi değilsiniz",
@@ -88,9 +87,10 @@ OC.L10N.register(
     "Save" : "Kaydet",
     "Enter your 12 words mnemonic" : "12 sözcüklü anımsatıcınızı yazın",
     "Decrypting your files in the browser can weaken security" : "Dosyalarınızın şifresini tarayıcınızda çözmek güvenliği zayıflatabilir",
-    "Error while uploading files" : "Dosyalar yüklenirken sorun çıktı",
-    "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı",
     "Select or drop files" : "Dosyaları seçin ya da sürükleyip bırakın",
+    "Upload failed" : "Dosya yüklenemedi",
+    "Upload successful" : "Yüklendi",
+    "Uploading…" : "Yükleniyor …",
     "Upload encrypted files to {fileName}" : "{fileName} üzerine şifrelenmiş dosyaları yükle",
     "Failed to load shares." : "Paylaşımlar yüklenemedi",
     "Loading shares…" : "Paylaşımlar yükleniyor…",
@@ -125,7 +125,10 @@ OC.L10N.register(
     "New encrypted folder" : "Yeni şifrelenmiş klasör",
     "Creating new encrypted folder: Cancelled" : "Yeni şifrelenmiş klasör ekleniyor: İptal edildi",
     "Creating new encrypted folder: Failed" : "Yeni şifrelenmiş klasör ekleniyor: Tamamlanamadı",
+    "Could not find the public key belonging to the user %s" : "%s kullanıcısına ait herkese açık anahtar bulunamadı",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Bu uygulama, istemci tarafında uçtan uca şifreleme kullanabilmek için gereken tüm API uygulamalarını sağlar.\nAyrıca güvenli dosya bırakmayı kullanır ve uçtan uca şifrelenmiş dosyaların internet arayüzü veya diğer WebDAV istemcileri aracılığıyla erişilebilir olmadığından emin olur."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Bu uygulama, istemci tarafında uçtan uca şifreleme kullanabilmek için gereken tüm API uygulamalarını sağlar.\nAyrıca güvenli dosya bırakmayı kullanır ve uçtan uca şifrelenmiş dosyaların internet arayüzü veya diğer WebDAV istemcileri aracılığıyla erişilebilir olmadığından emin olur.",
+    "Error while uploading files" : "Dosyalar yüklenirken sorun çıktı",
+    "Error while uploading metadata" : "Üst veriler yüklenirken sorun çıktı"
 },
 "nplurals=2; plural=(n > 1);");

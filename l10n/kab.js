@@ -9,6 +9,7 @@ OC.L10N.register(
     "Edit" : "Ẓreg",
     "Remove" : "Kkes",
     "Save" : "Sekles",
+    "Uploading…" : "Asali …",
     "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");

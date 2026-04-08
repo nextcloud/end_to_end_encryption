@@ -16,6 +16,8 @@ OC.L10N.register(
     "Remove" : "Hiqe",
     "Save" : "Ruaj",
     "Select or drop files" : "Përzgjidh ose hiq skedarët",
+    "Upload failed" : "Ngarkimi dështoi",
+    "Uploading…" : "Po ngarkohet…",
     "Limit to groups" : "Kufizo grupet",
     "Cancel" : "Anuloje",
     "End-to-end encryption" : "Enkriptim end-to-end "

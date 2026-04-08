@@ -2,7 +2,6 @@
     "Internal error" : "Vidinė klaida",
     "You are not allowed to delete this private key" : "Jums nėra leidžiama ištrinti šį privatųjį raktą",
     "Could not find the private key belonging to the user %s" : "Nepavyko rasti naudotojui %s priklausančio privačiojo rakto",
-    "Could not find the public key belonging to the user %s" : "Nepavyko rasti naudotojui %s priklausančio viešojo rakto",
     "Common name (CN) does not match the current user" : "Bendrinis pavadinimas (CN) neatitinka esamo naudotojo",
     "Could not find the public key belonging to %s" : "Nepavyko rasti %s priklausančio viešojo rakto",
     "This is not your public key to delete" : "Tai nėra jūsų viešasis raktas, kad galėtumėte jį ištrinti",
@@ -35,6 +34,8 @@
     "Share permissions" : "Bendrinti leidimus",
     "Save" : "Įrašyti",
     "Select or drop files" : "Pasirinkite arba vilkite failus",
+    "Upload failed" : "Nepavyko išsiųsti",
+    "Uploading…" : "Įkeliama…",
     "Limit to groups" : "Apriboti iki grupių",
     "Limit app usage to groups" : "Programos panaudojimas ribojamas grupėms",
     "This is the final warning: Do you really want to reset your keys?" : "Tai yra paskutinis įspėjimas: Ar tikrai norite atstatyti raktus?",
@@ -43,6 +44,7 @@
     "End-to-end encryption" : "Ištisinis šifravimas",
     "Delete existing encrypted files" : "Ištrinti esamus šifruotus failus",
     "New encrypted folder" : "Nepavyko gauti pokalbių sąrašo",
+    "Could not find the public key belonging to the user %s" : "Nepavyko rasti naudotojui %s priklausančio viešojo rakto",
     "End-to-end encryption endpoint" : "Ištisinio šifravimo rezultatas"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }

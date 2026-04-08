@@ -2,7 +2,6 @@
     "Internal error" : "内部エラー",
     "You are not allowed to delete this private key" : "この秘密鍵を削除する許可がありません",
     "Could not find the private key belonging to the user %s" : "ユーザー %s の秘密鍵が見つかりません",
-    "Could not find the public key belonging to the user %s" : "ユーザー %s の公開鍵が見つかりません",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "CSRを解析できませんでした。有効なCSRを送信してください。",
     "Common name (CN) does not match the share token" : "共通名（CN）が共有トークンと一致しません",
     "You are not the owner of the share" : "あなたはその共有の所有者ではありません",
@@ -86,9 +85,10 @@
     "Save" : "保存",
     "Enter your 12 words mnemonic" : "12語のニーモニックを入力",
     "Decrypting your files in the browser can weaken security" : "ブラウザーでファイルを復号化すると、セキュリティが弱まる可能性があります",
-    "Error while uploading files" : "ファイルのアップロード中にエラーが発生しました",
-    "Error while uploading metadata" : "メタデータのアップロード中にエラーが発生しました",
     "Select or drop files" : "ファイルを選択するか、ドラッグ&ドロップしてください",
+    "Upload failed" : "アップロードに失敗",
+    "Upload successful" : "アップロード成功",
+    "Uploading…" : "アップロード中…",
     "Upload encrypted files to {fileName}" : "暗号化されたファイルを {fileName} にアップロードします",
     "Failed to load shares." : "共有のロードに失敗しました。",
     "Loading shares…" : "共有をロード中…",
@@ -123,7 +123,10 @@
     "New encrypted folder" : "新しい暗号化フォルダー",
     "Creating new encrypted folder: Cancelled" : "新しい暗号化フォルダーの作成: キャンセルされました",
     "Creating new encrypted folder: Failed" : "新しい暗号化フォルダの作成: 失敗しました",
+    "Could not find the public key belonging to the user %s" : "ユーザー %s の公開鍵が見つかりません",
     "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "このアプリは、クライアント側でEnd-to-End暗号化を実装するために必要なすべてのAPIを提供します。\nさらに、Secure FileDrop を実装し、End-to-End で暗号化されたファイルには Web インターフェースからも他の WebDAV クライアントからもアクセスできないようにします。"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "このアプリは、クライアント側でEnd-to-End暗号化を実装するために必要なすべてのAPIを提供します。\nさらに、Secure FileDrop を実装し、End-to-End で暗号化されたファイルには Web インターフェースからも他の WebDAV クライアントからもアクセスできないようにします。",
+    "Error while uploading files" : "ファイルのアップロード中にエラーが発生しました",
+    "Error while uploading metadata" : "メタデータのアップロード中にエラーが発生しました"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
