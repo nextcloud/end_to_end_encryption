@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "内部错误",
     "You are not allowed to delete this private key" : "您无权删除该私钥",
     "Could not find the private key belonging to the user %s" : "找不到属于该用户的私钥%s",
-    "Could not find the public key belonging to the user %s" : "找不到属于该用户的公钥%s",
     "Common name (CN) does not match the current user" : "通用名称（CN）与当前用户不匹配",
     "Could not find the public key belonging to %s" : "找不到属于%s的公钥",
     "This is not your public key to delete" : "这不是你要删除的公钥",
@@ -36,11 +35,14 @@ OC.L10N.register(
     "Share permissions" : "分享权限",
     "Save" : "保存",
     "Select or drop files" : "选择或拖放文件",
+    "Upload successful" : "上传成功",
+    "Uploading…" : "正在上传……",
     "Limit to groups" : "限制于分组",
     "Limit app usage to groups" : "限制可使用应用的分组",
     "Cancel" : "取消",
     "End-to-end encryption" : "端到端加密",
     "New encrypted folder" : "新加密文件夹",
+    "Could not find the public key belonging to the user %s" : "找不到属于该用户的公钥%s",
     "End-to-end encryption endpoint" : "端到端加密端点"
 },
 "nplurals=1; plural=0;");

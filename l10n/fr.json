@@ -2,7 +2,6 @@
     "Internal error" : "Erreur interne",
     "You are not allowed to delete this private key" : "Vous n'êtes autorisé à supprimer cette clé privée",
     "Could not find the private key belonging to the user %s" : "Impossible de trouver la clé privée appartenant à l'utilisateur %s",
-    "Could not find the public key belonging to the user %s" : "Impossible de trouver la clé publique appartenant à l'utilisateur %s",
     "Common name (CN) does not match the current user" : "Le nom courant (CN) ne correspond pas à l'utilisateur actuel",
     "Could not find the public key belonging to %s" : "Impossible de trouver la clé publique appartenant à %s",
     "This is not your public key to delete" : "Ce n'est pas votre clé publique à supprimer",
@@ -48,9 +47,10 @@
     "Save" : "Enregistrer",
     "Enter your 12 words mnemonic" : "Entrez vos 12 mots mnémotechniques",
     "Decrypting your files in the browser can weaken security" : "Le déchiffrement de vos fichiers dans le navigateur peut affaiblir la sécurité",
-    "Error while uploading files" : "Erreur lors du téléversement du fichier",
-    "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées",
     "Select or drop files" : "Sélectionner ou glisser-déposer des fichiers",
+    "Upload failed" : "Échec du téléversement",
+    "Upload successful" : "Téléversement réussi",
+    "Uploading…" : "Téléversement en cours…",
     "Upload encrypted files to {fileName}" : "Téléverser des fichiers chiffrés vers {fileName}",
     "Saved groups" : "Groupes enregistrés",
     "Limit to groups" : "Limiter à des groupes",
@@ -78,7 +78,10 @@
     "New encrypted folder" : "Nouveau dossier chiffré",
     "Creating new encrypted folder: Cancelled" : "Création d'un nouveau dossier chiffré : annulée",
     "Creating new encrypted folder: Failed" : "Création d'un nouveau dossier chiffré : échec",
+    "Could not find the public key belonging to the user %s" : "Impossible de trouver la clé publique appartenant à l'utilisateur %s",
     "End-to-end encryption endpoint" : "Terminaison du chiffrement de bout en bout",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Cette application fournit toutes les APIs nécessaires pour implémenter le chiffrement de bout en bout côté client.\nElle implémente aussi Secure FileDrop et s'assure que les fichiers chiffrés de bout en bout ne sont accessibles ni par une interface web, ni par d'autres clients WebDAV."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Cette application fournit toutes les APIs nécessaires pour implémenter le chiffrement de bout en bout côté client.\nElle implémente aussi Secure FileDrop et s'assure que les fichiers chiffrés de bout en bout ne sont accessibles ni par une interface web, ni par d'autres clients WebDAV.",
+    "Error while uploading files" : "Erreur lors du téléversement du fichier",
+    "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

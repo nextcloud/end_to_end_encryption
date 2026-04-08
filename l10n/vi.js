@@ -14,6 +14,9 @@ OC.L10N.register(
     "Remove" : "Xoá",
     "Save" : "Lưu",
     "Select or drop files" : "Chọn hoặc thả tập tin",
+    "Upload failed" : "Tải lên thất bại",
+    "Upload successful" : "Tải lên thành công",
+    "Uploading…" : "Đang tải lên…",
     "Limit to groups" : "Giới hạn nhóm",
     "Limit app usage to groups" : "Giới hạn sử dụng ứng dụng cho các nhóm",
     "Cancel" : "Hủy"

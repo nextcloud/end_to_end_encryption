@@ -2,7 +2,6 @@
     "Internal error" : "Внутрішня помилка",
     "You are not allowed to delete this private key" : "Ви не можете вилучити цей приватний ключ",
     "Could not find the private key belonging to the user %s" : "Не вдалося знайти приватний ключ користувача %s",
-    "Could not find the public key belonging to the user %s" : "Не вдалося знайти відкритий ключ користувача %s",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "Не вдалося обробити CSR, вам потрібно надати дійсний CSR",
     "Common name (CN) does not match the share token" : "Загальне ім'я (CN) не відповідає токену спільного доступу",
     "You are not the owner of the share" : "Ви не є власником спільного ресурсу",
@@ -85,9 +84,10 @@
     "Save" : "Зберегти",
     "Enter your 12 words mnemonic" : "Введіть свої 12 слів мнемоніку",
     "Decrypting your files in the browser can weaken security" : "Розшифрування ваших файлів у браузері може послабити безпеку",
-    "Error while uploading files" : "Помилка під час завантаження файлів",
-    "Error while uploading metadata" : "Помилка під час завантаження метаданих",
     "Select or drop files" : "Вибрати або перетягнути файли",
+    "Upload failed" : "Помилка завантаження",
+    "Upload successful" : "Успішно завантажено",
+    "Uploading…" : "Завантаження…",
     "Upload encrypted files to {fileName}" : "Завантажити зашифровані файли до {fileName}",
     "Failed to load shares." : "Не вдалося завантажити спільні ресурси.",
     "Loading shares…" : "Завантаження спільних ресурсів.",
@@ -122,7 +122,10 @@
     "New encrypted folder" : "Новий зашифрований каталог",
     "Creating new encrypted folder: Cancelled" : "Створення нового зашифрованого каталогу: скасовано",
     "Creating new encrypted folder: Failed" : "Створення нового зашифрованого каталогу: не вдалося",
+    "Could not find the public key belonging to the user %s" : "Не вдалося знайти відкритий ключ користувача %s",
     "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV.",
+    "Error while uploading files" : "Помилка під час завантаження файлів",
+    "Error while uploading metadata" : "Помилка під час завантаження метаданих"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

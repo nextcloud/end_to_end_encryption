@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Internal error",
     "You are not allowed to delete this private key" : "You are not allowed to delete this private key",
     "Could not find the private key belonging to the user %s" : "Could not find the private key belonging to the user %s",
-    "Could not find the public key belonging to the user %s" : "Could not find the public key belonging to the user %s",
     "Common name (CN) does not match the current user" : "Common name (CN) does not match the current user",
     "Could not find the public key belonging to %s" : "Could not find the public key belonging to %s",
     "This is not your public key to delete" : "This is not your public key to delete",
@@ -59,9 +58,9 @@ OC.L10N.register(
     "Save" : "ບັນທຶກ",
     "Enter your 12 words mnemonic" : "Enter your 12 words mnemonic",
     "Decrypting your files in the browser can weaken security" : "Decrypting your files in the browser can weaken security",
-    "Error while uploading files" : "Error while uploading files",
-    "Error while uploading metadata" : "Error while uploading metadata",
     "Select or drop files" : "ເລືອກ ຫຼື ວາງໄຟລ໌",
+    "Upload failed" : "ອັບໂຫຼດບໍ່ສຳເລັດ",
+    "Uploading…" : "ກຳັລງອັບໂຫຼດ",
     "Upload encrypted files to {fileName}" : "Upload encrypted files to {fileName}",
     "Saved groups" : "Saved groups",
     "Limit to groups" : "Limit to groups",
@@ -93,7 +92,10 @@ OC.L10N.register(
     "New encrypted folder" : "New encrypted folder",
     "Creating new encrypted folder: Cancelled" : "Creating new encrypted folder: Cancelled",
     "Creating new encrypted folder: Failed" : "Creating new encrypted folder: Failed",
+    "Could not find the public key belonging to the user %s" : "Could not find the public key belonging to the user %s",
     "End-to-end encryption endpoint" : "End-to-end encryption endpoint",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients.",
+    "Error while uploading files" : "Error while uploading files",
+    "Error while uploading metadata" : "Error while uploading metadata"
 },
 "nplurals=1; plural=0;");

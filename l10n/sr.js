@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Интерна грешка",
     "You are not allowed to delete this private key" : "Није Вам дозвољено да обришете овај приватни кључ",
     "Could not find the private key belonging to the user %s" : "Не могу да нађем приватни кључ који припада кориснику %s",
-    "Could not find the public key belonging to the user %s" : "Не могу да нађем јавни кључ који припада кориснику %s",
     "Common name (CN) does not match the current user" : "Стандардно име (CN) се не поклапа са тренутним корисником",
     "Could not find the public key belonging to %s" : "Не могу да нађем јавни кључ који припада %s",
     "This is not your public key to delete" : "Ово није Ваш јавни кључ да га обришете",
@@ -44,9 +43,10 @@ OC.L10N.register(
     "Save" : "Сачувај",
     "Enter your 12 words mnemonic" : "Унесите ваших 12 речи за лакше памћење",
     "Decrypting your files in the browser can weaken security" : "Дешифровање ваших фајлова у интернет прегледачу може да ослаби безбедност",
-    "Error while uploading files" : "Грешка приликом отпремања фајлова",
-    "Error while uploading metadata" : "Грешка приликом отпремања метаподатака",
     "Select or drop files" : "Одаберите или превуците фајлове",
+    "Upload failed" : "Отпремање неуспешно",
+    "Upload successful" : "Отпремање је успешно",
+    "Uploading…" : "Отпремам…",
     "Upload encrypted files to {fileName}" : "Отпреми шифроване фајлове у {fileName}",
     "Saved groups" : "Сачуване групе",
     "Limit to groups" : "Ограничи на групе",
@@ -75,7 +75,10 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Неки још увек повезани уређај може да направи проблеме након брисања кључева, тако да је боље да се веза прекине, па да се уређаји поново повежу.",
     "Delete existing encrypted files" : "Обриши постојеће шифроване фајлове",
     "Download unencrypted" : "Преузми дешифровано",
+    "Could not find the public key belonging to the user %s" : "Не могу да нађем јавни кључ који припада кориснику %s",
     "End-to-end encryption endpoint" : "Крајња тачка шифровања са краја на крај",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ова апликација обезбеђује потребне API-је за имплементацију шифровања с краја на крај на страни клијента.\nУз то, имплементира и безбедно упуштање фајлова и обезбеђује да  фајловима шифровани с краја на крај не може нити да се приступи из веб интерфејса нити осталим WebDAV клијентима."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ова апликација обезбеђује потребне API-је за имплементацију шифровања с краја на крај на страни клијента.\nУз то, имплементира и безбедно упуштање фајлова и обезбеђује да  фајловима шифровани с краја на крај не може нити да се приступи из веб интерфејса нити осталим WebDAV клијентима.",
+    "Error while uploading files" : "Грешка приликом отпремања фајлова",
+    "Error while uploading metadata" : "Грешка приликом отпремања метаподатака"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

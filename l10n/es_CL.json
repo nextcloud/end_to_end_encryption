@@ -2,7 +2,6 @@
     "Internal error" : "Error interno",
     "You are not allowed to delete this private key" : "No tienes privilegios para borrar esta llave privada",
     "Could not find the private key belonging to the user %s" : "No se encontró la llave privada del usuario %s",
-    "Could not find the public key belonging to the user %s" : "No se encontró la llave pública de usuario %s",
     "Common name (CN) does not match the current user" : "El nombre común (CN) no corresponde al usuario actual",
     "Could not find the public key belonging to %s" : "No se encontró la llave pública de %s",
     "Could not find metadata for \"%s\"" : "No se encontraron metadatos para \"%s\"",
@@ -21,8 +20,10 @@
     "Remove" : "Remover",
     "Save" : "Guardar",
     "Select or drop files" : "Selecciona o suelta los archivos",
+    "Uploading…" : "Cargando",
     "Limit to groups" : "Limitar a grupos",
     "Cancel" : "Cancel",
-    "End-to-end encryption" : "Encripción de punta-a-punta"
+    "End-to-end encryption" : "Encripción de punta-a-punta",
+    "Could not find the public key belonging to the user %s" : "No se encontró la llave pública de usuario %s"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

@@ -16,6 +16,7 @@ OC.L10N.register(
     "Edit" : "Editar",
     "Save" : "Guardar",
     "Select or drop files" : "Selecciona o suelta los archivos",
+    "Uploading…" : "Cargando...",
     "Limit to groups" : "Limitar a grupos",
     "Cancel" : "Cancel",
     "End-to-end encryption" : "Encripción de punta-a-punta"

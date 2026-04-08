@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Interne fout",
     "You are not allowed to delete this private key" : "Je bent niet bevoegd om deze privésleutel te wissen",
     "Could not find the private key belonging to the user %s" : "Kan de privésleutel van %s niet vinden",
-    "Could not find the public key belonging to the user %s" : "Kan de publieke sleutel van %s niet vinden",
     "Common name (CN) does not match the current user" : "CN komt niet overeen met de huidige gebruiker",
     "Could not find the public key belonging to %s" : "Kan de publieke sleutel van %s niet vinden",
     "This is not your public key to delete" : "Dit is niet jouw openbare sleutel, kun je niet verwijderen",
@@ -47,10 +46,13 @@ OC.L10N.register(
     "Share permissions" : "Machtigingen delen",
     "Save" : "Opslaan",
     "Select or drop files" : "Selecteer bestanden of sleep ze naar dit venster",
+    "Upload failed" : "Upload mislukt",
+    "Uploading…" : "Uploaden…",
     "Limit to groups" : "Beperk tot groepen",
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Cancel" : "Annuleren",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
+    "Could not find the public key belonging to the user %s" : "Kan de publieke sleutel van %s niet vinden",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt"
 },
 "nplurals=2; plural=(n != 1);");

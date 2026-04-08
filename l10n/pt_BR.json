@@ -2,7 +2,6 @@
     "Internal error" : "Erro interno",
     "You are not allowed to delete this private key" : "Você não tem permissão para excluir esta chave privada",
     "Could not find the private key belonging to the user %s" : "Não foi possível encontrar a chave privada pertencente ao usuário %s",
-    "Could not find the public key belonging to the user %s" : "Não foi possível encontrar a chave pública pertencente ao usuário %s",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "Não foi possível analisar o CSR. Certifique-se de enviar um CSR válido",
     "Common name (CN) does not match the share token" : "Nome comum (CN) não corresponde ao token de compartilhamento",
     "You are not the owner of the share" : "Você não é o proprietário deste compartilhamento",
@@ -86,9 +85,10 @@
     "Save" : "Salvar",
     "Enter your 12 words mnemonic" : "Digite seu mnemônico de 12 palavras",
     "Decrypting your files in the browser can weaken security" : "A descriptografia de seus arquivos no navegador pode enfraquecer a segurança",
-    "Error while uploading files" : "Erro ao fazer upload de arquivos",
-    "Error while uploading metadata" : "Erro ao fazer upload de metadados",
     "Select or drop files" : "Selecione ou solte arquivos",
+    "Upload failed" : "Falha no upload",
+    "Upload successful" : "Carregamento bem-sucedido",
+    "Uploading…" : "Enviando…",
     "Upload encrypted files to {fileName}" : "Fazer upload de arquivos criptografados para {fileName}",
     "Failed to load shares." : "Falha ao carregar compartilhamentos.",
     "Loading shares…" : "Carregando compartilhamentos…",
@@ -123,7 +123,10 @@
     "New encrypted folder" : "Nova pasta criptografada",
     "Creating new encrypted folder: Cancelled" : "Criação da nova pasta criptografada: Cancelada",
     "Creating new encrypted folder: Failed" : "Criação da nova pasta criptografada: Falhou",
+    "Could not find the public key belonging to the user %s" : "Não foi possível encontrar a chave pública pertencente ao usuário %s",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Es-e aplicativo fornece todas as APIs necessárias para implementar a criptografia de ponta-a-ponta no lado do cliente.\nAlém disso, ele implementa o Depósito de Arquivos Seguro (Secure File Drop) e garante que os arquivos criptografados de ponta-a-ponta não sejam acessíveis pela interface web nem por outros clientes WebDAV."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Es-e aplicativo fornece todas as APIs necessárias para implementar a criptografia de ponta-a-ponta no lado do cliente.\nAlém disso, ele implementa o Depósito de Arquivos Seguro (Secure File Drop) e garante que os arquivos criptografados de ponta-a-ponta não sejam acessíveis pela interface web nem por outros clientes WebDAV.",
+    "Error while uploading files" : "Erro ao fazer upload de arquivos",
+    "Error while uploading metadata" : "Erro ao fazer upload de metadados"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

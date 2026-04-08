@@ -12,6 +12,7 @@ OC.L10N.register(
     "Edit" : "Tahrirlash",
     "Remove" : "O'chirish",
     "Save" : "Save",
+    "Uploading…" : "Yuklanmoqda...",
     "Cancel" : "Bekor qilish"
 },
 "nplurals=1; plural=0;");

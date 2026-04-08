@@ -20,6 +20,8 @@ OC.L10N.register(
     "Share permissions" : "Bagikan izin",
     "Save" : "Simpan",
     "Select or drop files" : "Pilih atau drop berkas",
+    "Upload failed" : "Unggahan gagal",
+    "Uploading…" : "Menunggah…",
     "Limit to groups" : "Batasi ke grup",
     "Limit app usage to groups" : "Batas pemakaian aplikasi untuk grup",
     "Cancel" : "Batal"
