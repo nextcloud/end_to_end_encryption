@@ -11,6 +11,8 @@ OC.L10N.register(
     "Edit" : "แก้ไข",
     "Remove" : "ลบออก",
     "Save" : "บันทึก",
+    "Upload failed" : "อัปโหลดล้มเหลว",
+    "Uploading…" : "กำลังอัปโหลด…",
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
     "Cancel" : "ยกเลิก"
 },

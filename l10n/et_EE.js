@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Sisemine viga",
     "You are not allowed to delete this private key" : "Sul pole õigust selle privaatvõtme kustutamiseks",
     "Could not find the private key belonging to the user %s" : "Kasutaja %s privaatvõtit ei leidu",
-    "Could not find the public key belonging to the user %s" : "Kasutaja %s avalikku võtit ei leidu",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "Sertifikaaditaotluse (CSR) töötlemine ei õnnestu, palun kontrolli, et oled üles laadinud korrektse sertifikaaditaotluse",
     "Common name (CN) does not match the share token" : "Sertifikaadi CN-kirje ei vasta jagamise tunnusloale",
     "You are not the owner of the share" : "Sa pole selle jaosmeedia omanik",
@@ -87,9 +86,9 @@ OC.L10N.register(
     "Save" : "Salvesta",
     "Enter your 12 words mnemonic" : "Sisesta oma 12-sõnaline mnemofraas ehk salafraas",
     "Decrypting your files in the browser can weaken security" : "Failide dekrüptimine veebibrauseris võib nõrgendada turvalisust",
-    "Error while uploading files" : "Viga failide üleslaadimisel",
-    "Error while uploading metadata" : "Viga metainfo üleslaadimisel",
     "Select or drop files" : "Vali või lohista failid",
+    "Upload failed" : "Üleslaadimine ei õnnestunud",
+    "Uploading…" : "Üleslaadimisel…",
     "Upload encrypted files to {fileName}" : "Laadi krüptitud failid siia: {fileName}",
     "Failed to load shares." : "Jagamiste laadimine ei õnnestunud.",
     "Loading shares…" : "Laadin jagamisi…",
@@ -124,7 +123,10 @@ OC.L10N.register(
     "New encrypted folder" : "Uus krüptitud kaust",
     "Creating new encrypted folder: Cancelled" : "Uue krüptokausta lisamine on katkestatud",
     "Creating new encrypted folder: Failed" : "Uue krüptokausta lisamine ei õnnestunud",
+    "Could not find the public key belonging to the user %s" : "Kasutaja %s avalikku võtit ei leidu",
     "End-to-end encryption endpoint" : "Läbiva krüptimise otspunkt",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "See rakendus tagab kõik vajalikud liidestused, et kliendipoolne läbib krüptimine saaks toimida.\nLisaks võtab ta kasutusele Secure FileDrop meetodi, mis tagab, et läbivalt krüptitud failid pole kättesaadavad ei veebiliidesest ega muude WebDAVi klientidega."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "See rakendus tagab kõik vajalikud liidestused, et kliendipoolne läbib krüptimine saaks toimida.\nLisaks võtab ta kasutusele Secure FileDrop meetodi, mis tagab, et läbivalt krüptitud failid pole kättesaadavad ei veebiliidesest ega muude WebDAVi klientidega.",
+    "Error while uploading files" : "Viga failide üleslaadimisel",
+    "Error while uploading metadata" : "Viga metainfo üleslaadimisel"
 },
 "nplurals=2; plural=(n != 1);");

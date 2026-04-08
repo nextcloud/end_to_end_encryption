@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Belső hiba",
     "You are not allowed to delete this private key" : "Nincs jogosultsága törölni ezt a titkos kulcsot",
     "Could not find the private key belonging to the user %s" : "%s felhasználóhoz tartozó titkos kulcs nem található",
-    "Could not find the public key belonging to the user %s" : "%s felhasználóhoz tartozó nyilvános kulcs nem található",
     "Common name (CN) does not match the current user" : "Az általános név (CN) nem egyezik a jelenlegi felhasználóval",
     "Could not find the public key belonging to %s" : "%s nyilvános kulcsa nem található",
     "This is not your public key to delete" : "Ezt a titkos kulcsot nem törölheti, mert nem az Öné",
@@ -39,9 +38,10 @@ OC.L10N.register(
     "Remove" : "Eltávolítás",
     "Share permissions" : "Megosztási jogosultságok",
     "Save" : "Mentés",
-    "Error while uploading files" : "Hiba a fájlok feltöltése során",
-    "Error while uploading metadata" : "Hiba a metaadatok feltöltése során",
     "Select or drop files" : "Válasszon vagy dobjon ide fájlokat",
+    "Upload failed" : "A feltöltés nem sikerült",
+    "Upload successful" : "Sikeres feltölés",
+    "Uploading…" : "Feltöltés…",
     "Upload encrypted files to {fileName}" : "Titkosított fájlok feltöltése a következőbe: {fileName}",
     "Saved groups" : "Mentett csoportok",
     "Limit to groups" : "Csoportokra korlátozás",
@@ -62,6 +62,9 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Minden továbbra is csatlakoztatott eszköz problémát okozhat a kulcsok törlése után, így érdemes bontani velük a kapcsolatot, majd újrakapcsolódni.",
     "Delete existing encrypted files" : "Meglévő titkosított fájlok törlése",
     "New encrypted folder" : "Új titkosított mappa",
-    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont"
+    "Could not find the public key belonging to the user %s" : "%s felhasználóhoz tartozó nyilvános kulcs nem található",
+    "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont",
+    "Error while uploading files" : "Hiba a fájlok feltöltése során",
+    "Error while uploading metadata" : "Hiba a metaadatok feltöltése során"
 },
 "nplurals=2; plural=(n != 1);");

@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "שגיאה פנימית",
     "You are not allowed to delete this private key" : "אין לך הרשאה למחוק את המפתח הפרטי הזה",
     "Could not find the private key belonging to the user %s" : "לא ניתן למצוא את המפתח הפרטי ששייך למשתמש %s",
-    "Could not find the public key belonging to the user %s" : "לא ניתן למצוא את המפתח הציבורי ששייך למשתמש %s",
     "Common name (CN) does not match the current user" : "ה־Common name (CN) אינו תואם את המשתמש הנוכחי",
     "Could not find the public key belonging to %s" : "לא ניתן למצוא את המפתח הציבורי ששייך ל־%s",
     "This is not your public key to delete" : "זה לא המפתח הציבורי שלך למחיקה",
@@ -27,10 +26,13 @@ OC.L10N.register(
     "Remove" : "הסרה",
     "Save" : "שמירה",
     "Select or drop files" : "בחירה או השלכה של קבצים",
+    "Upload failed" : "ההעלאה נכשלה",
+    "Uploading…" : "מתבצעת העלאה…",
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",
     "Cancel" : "ביטול",
     "End-to-end encryption" : "הצפנה מקצה לקצה",
+    "Could not find the public key belonging to the user %s" : "לא ניתן למצוא את המפתח הציבורי ששייך למשתמש %s",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

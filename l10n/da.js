@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Intern fejl",
     "You are not allowed to delete this private key" : "Du har ikke lov til at slette denne private nøgle",
     "Could not find the private key belonging to the user %s" : "Kunne ikke finde den private nøgle tilhørende brugeren %s",
-    "Could not find the public key belonging to the user %s" : "Kunne ikke finde den offentlige nøgle tilhørende brugeren %s",
     "Common name (CN) does not match the current user" : "Common name (CN) matcher ikke den aktuelle bruger",
     "Could not find the public key belonging to %s" : "Kunne ikke finde den offentlige nøgle tilhørende %s",
     "This is not your public key to delete" : "Dette er ikke din offentlige nøgle til at slette",
@@ -41,6 +40,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Cancel" : "Annuller",
     "End-to-end encryption" : "End-to-end kryptering",
+    "Could not find the public key belonging to the user %s" : "Kunne ikke finde den offentlige nøgle tilhørende brugeren %s",
     "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");

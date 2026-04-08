@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Вътрешна грешка",
     "You are not allowed to delete this private key" : "Нямате разрешение да изтриете този частен ключ",
     "Could not find the private key belonging to the user %s" : "Частния ключ принадлежащ на потребителя, не можа да се намери %s",
-    "Could not find the public key belonging to the user %s" : "Публичният ключ принадлежащ на потребителя, не можа да се намери %s",
     "Common name (CN) does not match the current user" : "Общото име (CN) не съответства на текущия потребител",
     "Could not find the public key belonging to %s" : "Не можа да се намери публичния ключ, принадлежащ на %s",
     "This is not your public key to delete" : "Това не е вашият публичен ключ за изтриване",
@@ -36,8 +35,6 @@ OC.L10N.register(
     "Edit" : "Промяна",
     "Remove" : "Премахване",
     "Save" : "Запиши",
-    "Error while uploading files" : "Грешка при качване на файлове",
-    "Error while uploading metadata" : "Грешка при качване на метаданни",
     "Select or drop files" : "Изберете файл или преместете с мишката",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
     "Saved groups" : "Записани групи",
@@ -58,6 +55,9 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Проверете на всички свързани устройства дали можете да извлечете вашата мнемоника.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Всяко устройство, което все още е свързано, може да причини проблеми след изтриването на ключовете, така че е по-добре да прекъснете връзката и по късно отново да свържете отново устройствата.",
     "Delete existing encrypted files" : "Изтриване на съществуващите криптирани файлове",
-    "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране"
+    "Could not find the public key belonging to the user %s" : "Публичният ключ принадлежащ на потребителя, не можа да се намери %s",
+    "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране",
+    "Error while uploading files" : "Грешка при качване на файлове",
+    "Error while uploading metadata" : "Грешка при качване на метаданни"
 },
 "nplurals=2; plural=(n != 1);");

@@ -15,6 +15,8 @@ OC.L10N.register(
     "Remove" : "Хасах",
     "Save" : "–•–∞–¥–≥–∞–ª–∞—Ö",
     "Select or drop files" : "Файл сонгох эсвэл буулгах",
+    "Upload failed" : "upload –∞–º–∂–∏–ª—Ç–≥“Ø–π –±–æ–ª—Å–æ–Ω",
+    "Uploading…" : "Байршуулж байна…",
     "Limit to groups" : "Бүлгүүдэд хязгаарлах",
     "Limit app usage to groups" : "Апп ашиглалтыг бүлгүүдэд хязгаарлах",
     "Cancel" : "–¶—É—Ü–ª–∞—Ö"

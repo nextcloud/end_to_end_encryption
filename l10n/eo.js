@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Interna eraro",
     "You are not allowed to delete this private key" : "Vi ne rajtas forigi tiun privatan ŝlosilon",
     "Could not find the private key belonging to the user %s" : "Ne eblis trovi la privatan ŝlosilon de la uzanto %s",
-    "Could not find the public key belonging to the user %s" : "Ne eblis trovi la publikan ŝlosilon de la uzanto %s",
     "Common name (CN) does not match the current user" : "Komuna nomo („CN“) ne kongruas kun la aktuala uzanto",
     "Could not find the public key belonging to %s" : "Ne eblis trovi la publikan ŝlosilon de %s",
     "Could not find metadata for \"%s\"" : "Ne eblis trovi pridatumojn pri „%s“",
@@ -26,6 +25,7 @@ OC.L10N.register(
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
     "Cancel" : "Cancel",
+    "Could not find the public key belonging to the user %s" : "Ne eblis trovi la publikan ŝlosilon de la uzanto %s",
     "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado"
 },
 "nplurals=2; plural=(n != 1);");

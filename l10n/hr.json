@@ -2,7 +2,6 @@
     "Internal error" : "Unutarnja pogreška",
     "You are not allowed to delete this private key" : "Ne smijete izbrisati ovaj privatni ključ",
     "Could not find the private key belonging to the user %s" : "Nije moguće pronaći privatni ključ koji pripada korisniku %s",
-    "Could not find the public key belonging to the user %s" : "Nije moguće pronaći javni ključ koji pripada korisniku %s",
     "Common name (CN) does not match the current user" : "Uobičajeno ime (CN) ne odgovara trenutačnom korisniku",
     "Could not find the public key belonging to %s" : "Nije moguće pronaći javni ključ koji pripada %s",
     "This is not your public key to delete" : "Ovo nije vaš javni ključ i ne smijete ga izbrisati",
@@ -34,11 +33,13 @@
     "Share permissions" : "Dopuštenja dijeljenja",
     "Save" : "Spremi",
     "Select or drop files" : "Odaberi ili ispusti datoteke",
+    "Uploading…" : "Otpremanje...",
     "Limit to groups" : "Ograniči na grupe",
     "Limit app usage to groups" : "Ograničite primjenu aplikacije na grupe",
     "Cancel" : "Odustani",
     "End-to-end encryption" : "Cjelovito šifriranje",
     "New encrypted folder" : "Nova šifrirana mapa",
+    "Could not find the public key belonging to the user %s" : "Nije moguće pronaći javni ključ koji pripada korisniku %s",
     "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja"
 },"pluralForm" :"nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;"
 }

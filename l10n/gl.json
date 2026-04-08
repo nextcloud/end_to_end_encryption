@@ -2,7 +2,6 @@
     "Internal error" : "Produciuse un erro interno",
     "You are not allowed to delete this private key" : "Vde. non ten permiso para eliminar esta chave privada",
     "Could not find the private key belonging to the user %s" : "Non foi posíbel atopar a chave privada pertencente ao usuario %s",
-    "Could not find the public key belonging to the user %s" : "Non foi posíbel atopar a chave pública pertencente ao usuario %s",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "Non foi posíbel analizar a CSR, asegúrese de enviar unha CSR válida",
     "Common name (CN) does not match the share token" : "O nome común (CN) non coincide co testemuño de compartición",
     "You are not the owner of the share" : "Vostede non é o propietario da compartición",
@@ -86,9 +85,10 @@
     "Save" : "Gardar",
     "Enter your 12 words mnemonic" : "Introduza o seu mnemotécnico de 12 palabras",
     "Decrypting your files in the browser can weaken security" : "Descifrar os seus ficheiros no navegador pode debilitar a seguridade",
-    "Error while uploading files" : "Produciuse un erro ao enviar os ficheiros",
-    "Error while uploading metadata" : "Produciuse un erro ao enviar os metadatos",
     "Select or drop files" : "Seleccione ou arrastre e solte ficheiros",
+    "Upload failed" : "Produciuse un fallo no envío",
+    "Upload successful" : "Envío satisfactorio",
+    "Uploading…" : "Enviando…",
     "Upload encrypted files to {fileName}" : "Enviar ficheiros cifrados a {fileName}",
     "Failed to load shares." : "Produciuse un fallo ao cargar as comparticións.",
     "Loading shares…" : "Cargando as comparticións…",
@@ -123,7 +123,10 @@
     "New encrypted folder" : "Novo cartafol cifrado",
     "Creating new encrypted folder: Cancelled" : "Creando un novo cartafol cifrado: cancelado",
     "Creating new encrypted folder: Failed" : "Creando un novo cartafol cifrado: fallado",
+    "Could not find the public key belonging to the user %s" : "Non foi posíbel atopar a chave pública pertencente ao usuario %s",
     "End-to-end encryption endpoint" : "Punto final da cifraxe de extremo a extremo",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta aplicación ofrece todas as API necesarias para implementar a cifraxe de extremo a extremo no lado do cliente.\nAdemais, implementa Secure FileDrop e asegurase de que os ficheiros cifrados de extremo a extremo non sexan accesíbeis a través da interface web nin doutros clientes WebDAV."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta aplicación ofrece todas as API necesarias para implementar a cifraxe de extremo a extremo no lado do cliente.\nAdemais, implementa Secure FileDrop e asegurase de que os ficheiros cifrados de extremo a extremo non sexan accesíbeis a través da interface web nin doutros clientes WebDAV.",
+    "Error while uploading files" : "Produciuse un erro ao enviar os ficheiros",
+    "Error while uploading metadata" : "Produciuse un erro ao enviar os metadatos"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

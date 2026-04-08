@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "خطای داخلی",
     "You are not allowed to delete this private key" : "شما اجازه پاک‌کردن این کلید خصوصی را ندارید",
     "Could not find the private key belonging to the user %s" : "نمی‌توان کلید خصوصی متعلق به کاربر %s را پیدا کرد",
-    "Could not find the public key belonging to the user %s" : "نمی‌توان کلید عمومی متعلق به کاربر %s را پیدا کرد",
     "Common name (CN) does not match the current user" : "نام مشترک (CN) با کاربر جاری همخوانی ندارد",
     "Could not find the public key belonging to %s" : "نمی‌توان کلید عمومی متعلق به %s را پیدا کرد",
     "This is not your public key to delete" : "این کلید عمومی شما برای پاک‌کردن نیست",
@@ -41,9 +40,10 @@ OC.L10N.register(
     "Save" : "ذخیره",
     "Enter your 12 words mnemonic" : "12 کلمه یادآور خود را وارد کنید",
     "Decrypting your files in the browser can weaken security" : "رمزگشایی پرونده‌های شما در مرورگر می‌تواند امنیت را ضعیف کند",
-    "Error while uploading files" : "خطا در هنگام بارگذاری پرونده‌ها",
-    "Error while uploading metadata" : "خطا در هنگام بارگذاری متادیتا",
     "Select or drop files" : "پرونده‌ها را انتخاب یا رها کنید",
+    "Upload failed" : "آپلود ناموفق",
+    "Upload successful" : "بارگذاری موفق",
+    "Uploading…" : "بارگذاری…",
     "Upload encrypted files to {fileName}" : "بارگذاری پرونده‌های رمزگذاری‌شده به {fileName}",
     "Saved groups" : "Saved groups",
     "Limit to groups" : "محدود کردن به گروه‌ها",
@@ -68,7 +68,10 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "هر دستگاهی که هنوز متصل است ممکن است بعد از پاک‌کردن کلیدها مشکلاتی ایجاد کند، بنابراین بهتر است دستگاه‌ها را قطع و مجدداً متصل کنید.",
     "Delete existing encrypted files" : "پاک‌کردن پرونده‌های رمزگذاری‌شده موجود",
     "Download unencrypted" : "دریافت بدون رمزگذاری",
+    "Could not find the public key belonging to the user %s" : "نمی‌توان کلید عمومی متعلق به کاربر %s را پیدا کرد",
     "End-to-end encryption endpoint" : "نقطه پایانی رمزنگاری سرتاسری",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "این برنامه تمام API‌های لازم برای پیاده‌سازی رمزنگاری سرتاسری در سمت کلاینت را ارائه می‌دهد.\nعلاوه بر این، از طریق پیاده‌سازی FileDrop امن، مطمئن می‌شود که پرونده‌های رمزنگاری شده سرتاسری نه از طریق رابط وب و نه از طریق مشتریان WebDAV دیگر قابل دسترس باشند."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "این برنامه تمام API‌های لازم برای پیاده‌سازی رمزنگاری سرتاسری در سمت کلاینت را ارائه می‌دهد.\nعلاوه بر این، از طریق پیاده‌سازی FileDrop امن، مطمئن می‌شود که پرونده‌های رمزنگاری شده سرتاسری نه از طریق رابط وب و نه از طریق مشتریان WebDAV دیگر قابل دسترس باشند.",
+    "Error while uploading files" : "خطا در هنگام بارگذاری پرونده‌ها",
+    "Error while uploading metadata" : "خطا در هنگام بارگذاری متادیتا"
 },
 "nplurals=2; plural=(n > 1);");

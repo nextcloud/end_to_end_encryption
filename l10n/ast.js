@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Error internu",
     "You are not allowed to delete this private key" : "Nun tienes permisu pa desaniciar esta clave privada",
     "Could not find the private key belonging to the user %s" : "Nun se pudo atopar la clave privada que pertenez al usuariu «%s»",
-    "Could not find the public key belonging to the user %s" : "Nun se pudo atopar la clave pública que pertenez al usuariu «%s»",
     "Could not find the public key belonging to %s" : "Nun se pudo atopar la clave pública que pertenez a «%s»",
     "Cannot read metadata" : "Nun se puen lleer los metadatos",
     "Cannot store metadata" : "Nun se puen atroxar los metadatos",
@@ -27,8 +26,6 @@ OC.L10N.register(
     "Edit" : "Editar",
     "Remove" : "Quitar",
     "Save" : "Guardar",
-    "Error while uploading files" : "Hebo un error al xubir los ficheros",
-    "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos",
     "Select or drop files" : "Seleiciona o suelta los ficheros",
     "Upload encrypted files to {fileName}" : "Xubir los ficheros cifraos a «{fileName}»",
     "Cancel" : "Encaboxar",
@@ -38,6 +35,9 @@ OC.L10N.register(
     "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
     "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
-    "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu"
+    "Could not find the public key belonging to the user %s" : "Nun se pudo atopar la clave pública que pertenez al usuariu «%s»",
+    "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu",
+    "Error while uploading files" : "Hebo un error al xubir los ficheros",
+    "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos"
 },
 "nplurals=2; plural=(n != 1);");

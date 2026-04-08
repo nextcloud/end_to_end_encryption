@@ -2,7 +2,6 @@
     "Internal error" : "Earráid inmheánach",
     "You are not allowed to delete this private key" : "Níl cead agat an eochair phríobháideach seo a scriosadh",
     "Could not find the private key belonging to the user %s" : "Níorbh fhéidir an eochair phríobháideach a bhaineann leis an úsáideoir %s a aimsiú",
-    "Could not find the public key belonging to the user %s" : "Níorbh fhéidir an eochair phoiblí a bhaineann leis an úsáideoir %s a aimsiú",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "Níorbh fhéidir an CSR a pharsáil, déan cinnte CSR bailí a chur isteach le do thoil.",
     "Common name (CN) does not match the share token" : "Ní hionann an t-ainm coitianta (CN) agus an comhartha scaireanna",
     "You are not the owner of the share" : "Ní úinéir na scaire thú",
@@ -86,9 +85,9 @@
     "Save" : "Sábháil",
     "Enter your 12 words mnemonic" : "Cuir isteach do 12 focal cuimhneacháin",
     "Decrypting your files in the browser can weaken security" : "Má dhéantar do chuid comhad a dhíchriptiú sa bhrabhsálaí is féidir an tslándáil a lagú",
-    "Error while uploading files" : "Earráid agus comhaid á n-uaslódáil",
-    "Error while uploading metadata" : "Earráid agus meiteashonraí á n-uaslódáil",
     "Select or drop files" : "Roghnaigh nó scaoil comhaid",
+    "Upload failed" : "Theip ar an uaslódáil",
+    "Uploading…" : "Á uaslódáil…",
     "Upload encrypted files to {fileName}" : "Uaslódáil comhaid chriptithe go {fileName}",
     "Failed to load shares." : "Theip ar scaireanna a lódáil.",
     "Loading shares…" : "Ag lódáil scaireanna…",
@@ -123,7 +122,10 @@
     "New encrypted folder" : "Fillteán criptithe nua",
     "Creating new encrypted folder: Cancelled" : "Ag cruthú fillteáin chriptithe nua: Cealaithe",
     "Creating new encrypted folder: Failed" : "Ag cruthú fillteán criptithe nua: Theip air",
+    "Could not find the public key belonging to the user %s" : "Níorbh fhéidir an eochair phoiblí a bhaineann leis an úsáideoir %s a aimsiú",
     "End-to-end encryption endpoint" : "Críochphointe criptithe ceann go ceann",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Soláthraíonn an aip seo na APIanna riachtanacha go léir chun criptiú Deireadh go Deireadh a chur i bhfeidhm ar thaobh an chliaint.\nIna theannta sin cuireann sé Secure FileDrop i bhfeidhm agus cinntíonn sé nach bhfuil rochtain ar chomhaid chriptithe ó cheann ceann go ceann tríd an gcomhéadan gréasáin ná trí chliaint WebDAV eile."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Soláthraíonn an aip seo na APIanna riachtanacha go léir chun criptiú Deireadh go Deireadh a chur i bhfeidhm ar thaobh an chliaint.\nIna theannta sin cuireann sé Secure FileDrop i bhfeidhm agus cinntíonn sé nach bhfuil rochtain ar chomhaid chriptithe ó cheann ceann go ceann tríd an gcomhéadan gréasáin ná trí chliaint WebDAV eile.",
+    "Error while uploading files" : "Earráid agus comhaid á n-uaslódáil",
+    "Error while uploading metadata" : "Earráid agus meiteashonraí á n-uaslódáil"
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"
 }

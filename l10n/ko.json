@@ -2,7 +2,6 @@
     "Internal error" : "내부 오류",
     "You are not allowed to delete this private key" : "이 비밀 키를 삭제할 수 없음",
     "Could not find the private key belonging to the user %s" : "%s 사용자의 개인 키를 찾을 수 없음",
-    "Could not find the public key belonging to the user %s" : "%s 사용자의 공개 키를 찾을 수 없음",
     "Common name (CN) does not match the current user" : "공통 이름(CN)이 현재 사용자와 일치하지 않음",
     "Could not find the public key belonging to %s" : "%s의 공개 키를 찾을 수 없음",
     "This is not your public key to delete" : "이 키는 제거하고자 하는 공개키가 아닙니다.",
@@ -40,9 +39,9 @@
     "Save" : "저장",
     "Enter your 12 words mnemonic" : "12 단어 니모닉을 입력하세요.",
     "Decrypting your files in the browser can weaken security" : "브라우저 상에서 파일을 복호화 하면 보안을 약화시킬 수 있습니다.",
-    "Error while uploading files" : "파일 업로드 중 오류 발생",
-    "Error while uploading metadata" : "메타데이터 업로드 중 오류 발생",
     "Select or drop files" : "파일을 선택하거나 끌어다 놓기",
+    "Upload successful" : "업로드 성공",
+    "Uploading…" : "업로드 중…",
     "Upload encrypted files to {fileName}" : "{fileName}에 암호화된 파일 업로드",
     "Saved groups" : "저장된 그룹",
     "Limit to groups" : "그룹으로 제한",
@@ -67,7 +66,10 @@
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "키가 제거되면 연결된 기기에서 문제가 발생할 수 있습니다. 따라서, 연결 해제 후 기기를 다시 연결하십시오.",
     "Delete existing encrypted files" : "현재 암호화된 파일 제거",
     "Download unencrypted" : "암호화 해제된 파일 다운로드",
+    "Could not find the public key belonging to the user %s" : "%s 사용자의 공개 키를 찾을 수 없음",
     "End-to-end encryption endpoint" : "종단간 암호화 종단점",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "이 앱은 클라이언트 측에서 종단간 암호화가 구현되기 위한 중요한 API들을 제공합니다. 또한 보안 FileDrop을 구현하여 종단간 암호화된 파일에 웹 인터페이스나 WebDav 클라이언트가 접근할 수 없도록 보장합니다."
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "이 앱은 클라이언트 측에서 종단간 암호화가 구현되기 위한 중요한 API들을 제공합니다. 또한 보안 FileDrop을 구현하여 종단간 암호화된 파일에 웹 인터페이스나 WebDav 클라이언트가 접근할 수 없도록 보장합니다.",
+    "Error while uploading files" : "파일 업로드 중 오류 발생",
+    "Error while uploading metadata" : "메타데이터 업로드 중 오류 발생"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

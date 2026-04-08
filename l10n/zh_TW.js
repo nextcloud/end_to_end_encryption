@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "內部錯誤",
     "You are not allowed to delete this private key" : "您不被允許刪除此私鑰",
     "Could not find the private key belonging to the user %s" : "無法找到屬於使用者%s的私鑰",
-    "Could not find the public key belonging to the user %s" : "無法找到屬於使用者%s的公鑰",
     "Could not parse the CSR, please make sure to submit a valid CSR" : "無法解析 CSR，請確保遞交有效的 CSR",
     "Common name (CN) does not match the share token" : "一般名稱 (CN) 與共享權杖不符",
     "You are not the owner of the share" : "您不是分享的擁有者",
@@ -88,9 +87,10 @@ OC.L10N.register(
     "Save" : "儲存",
     "Enter your 12 words mnemonic" : "輸入您的 12 個字助記字串",
     "Decrypting your files in the browser can weaken security" : "在瀏覽器中解密您的檔案可能會弱化安全性",
-    "Error while uploading files" : "上傳檔案時發生錯誤",
-    "Error while uploading metadata" : "上傳詮釋資料時發生錯誤",
     "Select or drop files" : "選取或拖曳檔案",
+    "Upload failed" : "上傳失敗",
+    "Upload successful" : "上傳成功",
+    "Uploading…" : "正在上傳…",
     "Upload encrypted files to {fileName}" : "上傳已加密的檔案至 {fileName}",
     "Failed to load shares." : "無法載入分享。",
     "Loading shares…" : "正在載入分享……",
@@ -125,7 +125,10 @@ OC.L10N.register(
     "New encrypted folder" : "新的加密資料夾",
     "Creating new encrypted folder: Cancelled" : "正在建立新的加密資料夾：已取消",
     "Creating new encrypted folder: Failed" : "正在建立新的加密資料夾：失敗",
+    "Could not find the public key belonging to the user %s" : "無法找到屬於使用者%s的公鑰",
     "End-to-end encryption endpoint" : "端到端加密端點",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。"
+    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。",
+    "Error while uploading files" : "上傳檔案時發生錯誤",
+    "Error while uploading metadata" : "上傳詮釋資料時發生錯誤"
 },
 "nplurals=1; plural=0;");

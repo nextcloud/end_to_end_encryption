@@ -4,7 +4,6 @@ OC.L10N.register(
     "Internal error" : "Barne errorea",
     "You are not allowed to delete this private key" : "Zuk ez duzu gako pribatu hau ezabatzeko baimenik",
     "Could not find the private key belonging to the user %s" : "Eziin izan da %s erabiltzailearen gako pribatua aurkitu.",
-    "Could not find the public key belonging to the user %s" : "Ezin izan da %s erabiltzailearen gako publikoa aurkitu",
     "Common name (CN) does not match the current user" : "Izen arrunta (CN) ez dator bat uneko erabiltzailearekin",
     "Could not find the public key belonging to %s" : "Ezin izan da %s-ren gako publikoa aurkitu",
     "This is not your public key to delete" : "Hau ez da ezabatzeko zure gako publikoa ",
@@ -39,9 +38,10 @@ OC.L10N.register(
     "Remove" : "Kendu",
     "Share permissions" : "Partekatu baimenak",
     "Save" : "Gorde",
-    "Error while uploading files" : "Errore bat gertatu da fitxategiak igotzean",
-    "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean",
     "Select or drop files" : "Hautatu edo jaregin fitxategiak",
+    "Upload failed" : "igotzeak huts egin du",
+    "Upload successful" : "Igoera ongi burutu da",
+    "Uploading…" : "Igotzen...",
     "Upload encrypted files to {fileName}" : "Igo enkriptatutako fitxategiak {fileName}-ra",
     "Saved groups" : "Gordetako taldeak",
     "Limit to groups" : "Mugatu taldeetara",
@@ -61,6 +61,9 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Egiaztatu zure konektatutako gailu guztietan zure mnemonikoa berreskuratu ahal baduzun.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Edozein konektatutako gailuek arazoak sor ditzakete gakoak ezabatu ostean. Hobeto da gailuak deskonektatu eta berriro konektatzea.",
     "Delete existing encrypted files" : "Ezabatu dauden fitxategi enkriptatuak",
-    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua"
+    "Could not find the public key belonging to the user %s" : "Ezin izan da %s erabiltzailearen gako publikoa aurkitu",
+    "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
+    "Error while uploading files" : "Errore bat gertatu da fitxategiak igotzean",
+    "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean"
 },
 "nplurals=2; plural=(n != 1);");

@@ -7,6 +7,7 @@ OC.L10N.register(
     "Close" : "បិទ",
     "Edit" : "កែប្រែ",
     "Save" : "រក្សាទុក",
+    "Upload failed" : "ការផ្ទុកឡើងបាន​បរាជ័យ",
     "Cancel" : "លើកលែង"
 },
 "nplurals=1; plural=0;");
