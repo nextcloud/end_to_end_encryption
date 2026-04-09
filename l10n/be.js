@@ -21,6 +21,8 @@ OC.L10N.register(
     "Edit" : "Рэдагаваць",
     "Remove" : "Выдаліць",
     "Save" : "Захаваць",
+    "Uploaded files" : "Запампаваныя файлы",
+    "Uploading…" : "Запампоўванне…",
     "Saved groups" : "Захаваныя групы",
     "Cancel" : "Скасаваць"
 },

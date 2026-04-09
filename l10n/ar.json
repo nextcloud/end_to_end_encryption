@@ -41,6 +41,8 @@
     "Enter your 12 words mnemonic" : "أدخِل الكلمات الاختزالية الـ 12  ",
     "Decrypting your files in the browser can weaken security" : "فك تشفير ملفاتك في مستعرض الويب يمكن أن يتسبب في إضعاف الأمان",
     "Select or drop files" : "اختر أو اسحب ملفات",
+    "Upload successful" : "تمّ الرفع بنجاحٍ",
+    "Uploading…" : "يتم الرفع…",
     "Upload encrypted files to {fileName}" : "رفع ملفات مشفرة إلى {fileName}",
     "Saved groups" : "مجموعات محفوظة",
     "Limit to groups" : "مقتصر على المجموعات التالية",

@@ -8,6 +8,7 @@ OC.L10N.register(
     "Read only" : "Oxumaq üçün",
     "Edit" : "Dəyişiklik et",
     "Save" : "Saxla",
+    "Upload failed" : "Yüklənmədə səhv baş verdi",
     "Limit to groups" : "Qruplara limitlə",
     "Limit app usage to groups" : "Tətbiqin istifadəsini qruplar üçün limitlə",
     "Cancel" : "Cancel"

@@ -22,6 +22,8 @@ OC.L10N.register(
     "Edit" : "Modifi",
     "Save" : "Konservi",
     "Select or drop files" : "Elekti aŭ demeti dosierojn",
+    "Upload failed" : "Alŝuto malsukcesis",
+    "Uploading…" : "Alŝutado…",
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
     "Cancel" : "Cancel",

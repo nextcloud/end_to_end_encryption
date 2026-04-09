@@ -7,6 +7,7 @@ OC.L10N.register(
     "Close" : "বন্ধ",
     "Edit" : "সম্পাদনা",
     "Save" : "সংরক্ষণ",
+    "Upload failed" : "আপলোড হয়নি",
     "Cancel" : "বাতিল করুন"
 },
 "nplurals=2; plural=(n != 1);");
