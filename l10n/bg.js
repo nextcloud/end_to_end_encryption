@@ -36,6 +36,8 @@ OC.L10N.register(
     "Remove" : "Премахване",
     "Save" : "Запиши",
     "Select or drop files" : "Изберете файл или преместете с мишката",
+    "Upload failed" : "Неуспешно качване",
+    "Uploading…" : "Качване…",
     "Upload encrypted files to {fileName}" : "Качване на криптирани файлове в {fileName}",
     "Saved groups" : "Записани групи",
     "Limit to groups" : "Ограничен достъп",

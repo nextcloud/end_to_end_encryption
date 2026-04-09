@@ -9,6 +9,8 @@ OC.L10N.register(
     "Read only" : "Da lenn nemetken",
     "Edit" : "Embann",
     "Save" : "Enrollañ",
+    "Upload failed" : "Pellkasaden c'hwitet",
+    "Uploading…" : "O pellkas",
     "Limit to groups" : "Nemet d'ar strolladoù",
     "Limit app usage to groups" : "Lakaat ar meziant da veza implijet gant ar strolladoù nemetken",
     "Cancel" : "Nullañ",
