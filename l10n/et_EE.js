@@ -88,6 +88,7 @@ OC.L10N.register(
     "Decrypting your files in the browser can weaken security" : "Failide dekrüptimine veebibrauseris võib nõrgendada turvalisust",
     "Select or drop files" : "Vali või lohista failid",
     "Upload failed" : "Üleslaadimine ei õnnestunud",
+    "Upload successful" : "Üleslaadimine õnnestus",
     "Uploading…" : "Üleslaadimisel…",
     "Upload encrypted files to {fileName}" : "Laadi krüptitud failid siia: {fileName}",
     "Failed to load shares." : "Jagamiste laadimine ei õnnestunud.",
