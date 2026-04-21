@@ -87,6 +87,7 @@ OC.L10N.register(
     "Enter your 12 words mnemonic" : "Zadejte svou dvanáctislovnou mnemotechnickou pomůcku",
     "Decrypting your files in the browser can weaken security" : "Rozšifrování vašich souborů v prohlížeči může oslabit zabezpečení",
     "Select or drop files" : "Vyberte nebo přetáhněte soubory",
+    "Uploaded files" : "Nahrané soubory",
     "Upload failed" : "Nahrání se nezdařilo",
     "Upload successful" : "Nahrání úspěšné",
     "Uploading…" : "Nahrávání …",
