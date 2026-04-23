@@ -20,6 +20,7 @@ use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
+use PHPUnit\Framework\MockObject\MockObject;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
@@ -28,10 +29,10 @@ use Test\TestCase;
 
 class LockPluginTest extends TestCase {
 
-	private IRootFolder&\PHPUnit\Framework\MockObject\MockObject $rootFolder;
-	private IUserSession&\PHPUnit\Framework\MockObject\MockObject $userSession;
-	private LockManager&\PHPUnit\Framework\MockObject\MockObject $lockManager;
-	private UserAgentManager&\PHPUnit\Framework\MockObject\MockObject $userAgentManager;
+	private IRootFolder&MockObject $rootFolder;
+	private IUserSession&MockObject $userSession;
+	private LockManager&MockObject $lockManager;
+	private UserAgentManager&MockObject $userAgentManager;
 	private LockPlugin $plugin;
 
 	protected function setUp(): void {
@@ -63,7 +64,7 @@ class LockPluginTest extends TestCase {
 
 	public function testCheckLockForCalendar(): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['isFile', 'getNode'])
+			->onlyMethods(['isFile', 'getNode'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -109,7 +110,7 @@ class LockPluginTest extends TestCase {
 	 */
 	public function testCheckLockNonCopyMoveNoE2EPath(string $method):void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath'])
+			->onlyMethods(['isFile', 'getNode', 'isE2EEnabledPath'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -159,7 +160,7 @@ class LockPluginTest extends TestCase {
 	 */
 	public function testCheckLockBlockUnsupportedClients(string $method): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
+			->onlyMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -242,7 +243,7 @@ class LockPluginTest extends TestCase {
 		bool $expectsForbidden,
 		bool $expectsFileLocked): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
+			->onlyMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -370,7 +371,7 @@ class LockPluginTest extends TestCase {
 		bool $expectsForbidden2,
 		bool $expectsFileLocked): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
+			->onlyMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -570,7 +571,6 @@ class LockPluginTest extends TestCase {
 
 	public function testIsE2EEnabledPathNonEncrypted():void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
-			->setMethods(['getFileNode'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,

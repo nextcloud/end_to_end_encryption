@@ -52,7 +52,7 @@ class RedirectRequestPluginTest extends TestCase {
 
 	public function testHttpCopyMoveInsideE2E(): void {
 		$plugin = $this->getMockBuilder(RedirectRequestPlugin::class)
-			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
+			->onlyMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -99,7 +99,7 @@ class RedirectRequestPluginTest extends TestCase {
 
 	public function testHttpCopyMoveInsideE2EOriginalMethodDelete(): void {
 		$plugin = $this->getMockBuilder(RedirectRequestPlugin::class)
-			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
+			->onlyMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -145,7 +145,7 @@ class RedirectRequestPluginTest extends TestCase {
 
 	public function testHttpCopyMoveOutsideE2ENoFile(): void {
 		$plugin = $this->getMockBuilder(RedirectRequestPlugin::class)
-			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
+			->onlyMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -178,7 +178,7 @@ class RedirectRequestPluginTest extends TestCase {
 
 	public function testHttpCopyMoveOutsideE2E(): void {
 		$plugin = $this->getMockBuilder(RedirectRequestPlugin::class)
-			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
+			->onlyMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -215,7 +215,7 @@ class RedirectRequestPluginTest extends TestCase {
 
 	public function testHttpMkColPutInsideE2E(): void {
 		$plugin = $this->getMockBuilder(RedirectRequestPlugin::class)
-			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
+			->onlyMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -257,7 +257,7 @@ class RedirectRequestPluginTest extends TestCase {
 
 	public function testHttpMkColPutOutsideE2ENoFile(): void {
 		$plugin = $this->getMockBuilder(RedirectRequestPlugin::class)
-			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
+			->onlyMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,
@@ -290,7 +290,7 @@ class RedirectRequestPluginTest extends TestCase {
 
 	public function testHttpMkColPutOutsideE2E(): void {
 		$plugin = $this->getMockBuilder(RedirectRequestPlugin::class)
-			->setMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
+			->onlyMethods(['getNode', 'isE2EEnabledPath', 'isFile'])
 			->setConstructorArgs([
 				$this->rootFolder,
 				$this->userSession,

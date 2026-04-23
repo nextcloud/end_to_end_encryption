@@ -13,16 +13,15 @@ use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCP\IUser;
 use OCP\IUserSession;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class CapabilitiesTest extends TestCase {
 	private Capabilities $capabilities;
-	/** @var IUserSession */
-	private $userSession;
-	/** @var Config */
-	private $config;
-	/** @var IKeyStorage */
-	private $keyStorage;
+
+	private IUserSession&MockObject $userSession;
+	private Config&MockObject $config;
+	private IKeyStorage&MockObject $keyStorage;
 
 	protected function setUp(): void {
 		parent::setUp();
