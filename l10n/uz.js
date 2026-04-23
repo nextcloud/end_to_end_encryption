@@ -7,6 +7,7 @@ OC.L10N.register(
     "Folder name" : "Papka nomi",
     "Continue" : "Davom etish",
     "Download" : "Yuklab olish",
+    "Permissions" : "Ruxsatnomalar",
     "Close" : "Yopish",
     "Read only" : "Faqat o'qish",
     "Edit" : "Tahrirlash",
