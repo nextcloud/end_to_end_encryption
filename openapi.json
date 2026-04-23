@@ -1053,8 +1053,8 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Internal error",
+                    "404": {
+                        "description": "Public key for at least one user not found",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1073,7 +1073,17 @@
                                                 "meta": {
                                                     "$ref": "#/components/schemas/OCSMeta"
                                                 },
-                                                "data": {}
+                                                "data": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "message"
+                                                    ],
+                                                    "properties": {
+                                                        "message": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -1081,8 +1091,8 @@
                             }
                         }
                     },
-                    "404": {
-                        "description": "Public key not found",
+                    "400": {
+                        "description": "Internal error",
                         "content": {
                             "application/json": {
                                 "schema": {

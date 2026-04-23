@@ -13,6 +13,7 @@ use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\AnonRateLimit;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
@@ -140,11 +141,11 @@ class KeyController extends OCSController {
 	 * @NoAdminRequired
 	 * @E2ERestrictUserAgent
 	 * @param string $users a json encoded list of users
-	 * @return DataResponse<Http::STATUS_OK, array{public-keys: array<string, string>}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{public-keys: array<string, string>}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{message: string}, array{}>
 	 * @throws OCSBadRequestException Internal error
-	 * @throws OCSNotFoundException Public key not found
 	 *
 	 * 200: Public keys returned
+	 * 404: Public key for at least one user not found
 	 */
 	public function getPublicKeys(string $users = ''): DataResponse {
 		$usersArray = $this->jsonDecode($users);
@@ -155,7 +156,8 @@ class KeyController extends OCSController {
 				$publicKey = $this->keyStorage->getPublicKey($uid);
 				$result['public-keys'][$uid] = $publicKey;
 			} catch (NotFoundException $e) {
-				throw new OCSNotFoundException($this->l10n->t('Could not find the public key belonging to the user %s', [$uid]));
+				$this->logger->debug('Could not find the public key of the user: ' . $uid, ['exception' => $e]);
+				return $this->throttleRequest(Http::STATUS_NOT_FOUND, 'Could not find the public key belonging to the user ' . $uid);
 			} catch (Exception $e) {
 				$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 				throw new OCSBadRequestException($this->l10n->t('Internal error'));
