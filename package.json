@@ -80,7 +80,7 @@
     "msw": "^2.13.4",
     "patch-package": "^8.0.1",
     "stylelint": "^17.8.0",
-    "vite": "^7.3.2",
+    "vite": "^8.0.10",
     "vite-plugin-static-copy": "^4.0.1",
     "vitest": "^4.0.15",
     "vue-tsc": "^3.2.6"
