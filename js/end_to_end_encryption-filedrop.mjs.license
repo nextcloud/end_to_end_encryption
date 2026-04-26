@@ -19,13 +19,13 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.17.2
 	- license: AGPL-3.0-or-later
 - nanoid
-	- version: 3.3.8
+	- version: 3.3.11
 	- license: MIT
 - splitpanes
 	- version: 2.4.1
 	- license: MIT
 - uuid
-	- version: 11.0.5
+	- version: 11.1.0
 	- license: MIT
 - vue-material-design-icons
 	- version: 5.3.1
