@@ -16,6 +16,7 @@ OC.L10N.register(
     "Edit" : "Editar",
     "Save" : "Guardar",
     "Select or drop files" : "Selecciona o suelta los archivos",
+    "Upload failed" : "Falla en la carga",
     "Uploading…" : "Cargando...",
     "Limit to groups" : "Limitar a grupos",
     "Cancel" : "Cancel",
