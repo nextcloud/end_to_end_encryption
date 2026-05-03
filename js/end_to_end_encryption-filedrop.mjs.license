@@ -13,19 +13,19 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.1.5
 	- license: Apache-2.0
 - @nextcloud/vue
-	- version: 8.37.0
+	- version: 8.38.0
 	- license: AGPL-3.0-or-later
 - end_to_end_encryption
 	- version: 1.17.2
 	- license: AGPL-3.0-or-later
 - nanoid
-	- version: 3.3.8
+	- version: 3.3.12
 	- license: MIT
 - splitpanes
 	- version: 2.4.1
 	- license: MIT
 - uuid
-	- version: 11.0.5
+	- version: 11.1.1
 	- license: MIT
 - vue-material-design-icons
 	- version: 5.3.1
