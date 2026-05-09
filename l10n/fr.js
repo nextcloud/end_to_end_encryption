@@ -83,7 +83,6 @@ OC.L10N.register(
     "New encrypted folder" : "Nouveau dossier chiffré",
     "Creating new encrypted folder: Cancelled" : "Création d'un nouveau dossier chiffré : annulée",
     "Creating new encrypted folder: Failed" : "Création d'un nouveau dossier chiffré : échec",
-    "Could not find the public key belonging to the user %s" : "Impossible de trouver la clé publique appartenant à l'utilisateur %s",
     "End-to-end encryption endpoint" : "Terminaison du chiffrement de bout en bout",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Cette application fournit toutes les APIs nécessaires pour implémenter le chiffrement de bout en bout côté client.\nElle implémente aussi Secure FileDrop et s'assure que les fichiers chiffrés de bout en bout ne sont accessibles ni par une interface web, ni par d'autres clients WebDAV.",
     "Error while uploading files" : "Erreur lors du téléversement du fichier",

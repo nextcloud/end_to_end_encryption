@@ -26,7 +26,6 @@ OC.L10N.register(
     "Uploading…" : "იტვირთება...",
     "Limit to groups" : "ლიმიტი ჯგუფებზე",
     "Cancel" : "გაუქმება",
-    "End-to-end encryption" : "End-to-end შიფრაცია",
-    "Could not find the public key belonging to the user %s" : "%s მომხმარებლის კუთვნილი ღია გასაღების პოვნა ვერ მოხერხდა"
+    "End-to-end encryption" : "End-to-end შიფრაცია"
 },
 "nplurals=2; plural=(n!=1);");

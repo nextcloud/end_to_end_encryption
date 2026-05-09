@@ -134,7 +134,6 @@ OC.L10N.register(
     "Migrating file drop entries, please do not close this tab…" : "正在遷移檔案投遞條目，請不要關閉此分頁……",
     "An error occurred while migrating one file drop entry. Please try again later." : "遷移一個檔案投遞條目時發生錯誤。請稍後再試。",
     "There are pending tasks that need to be completed. Are you sure you want to leave?" : "還有待處理的任務尚未完成。您確定要離開嗎？",
-    "Could not find the public key belonging to the user %s" : "無法找到屬於使用者%s的公鑰",
     "End-to-end encryption endpoint" : "端到端加密端點",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。",
     "Error while uploading files" : "上傳檔案時發生錯誤",

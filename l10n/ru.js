@@ -74,7 +74,6 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Удалить существующие зашифрованные файлы",
     "Download unencrypted" : "Загрузить незашифрованное",
     "New encrypted folder" : "Новая зашифрованная папка",
-    "Could not find the public key belonging to the user %s" : "Не удалось найти открытый ключ, принадлежащий пользователю %s",
     "End-to-end encryption endpoint" : "Конечная точка Сквозного шифрования",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Это приложение предоставляет все необходимые API для реализации сквозного шифрования на стороне клиента.\nДополнительно оно реализует защищённую функцию Secure FileDrop и подтверждает, что файлы, зашифрованные сквозным шифрованием, недоступны через веб-интерфейс и клиенты WebDAV.",
     "Error while uploading files" : "Ошибка при загрузке файлов",

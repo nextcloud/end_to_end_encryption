@@ -56,7 +56,6 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Verifica en todos los dispositivos conectados si puedes recuperar tu mnemotécnico.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Cualquier dispositivo aún conectado puede causar problemas después de eliminar las claves, así que es mejor desconectar y volver a conectar los dispositivos nuevamente.",
     "Delete existing encrypted files" : "Eliminar archivos cifrados existentes",
-    "Could not find the public key belonging to the user %s" : "No se encontró la llave pública de usuario %s",
     "End-to-end encryption endpoint" : "Extremo de cifrado de extremo a extremo",
     "Error while uploading files" : "Error al cargar archivos",
     "Error while uploading metadata" : "Error al cargar los metadatos"

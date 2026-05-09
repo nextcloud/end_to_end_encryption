@@ -37,7 +37,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "Takmarka notkun forrits við tiltekna hópa",
     "Cancel" : "Hætta við",
     "End-to-end encryption" : "Enda-í-enda dulritun",
-    "Could not find the public key belonging to the user %s" : "Fann ekki dreifilykilinn sem tilheyrir notandanum %s",
     "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

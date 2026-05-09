@@ -68,7 +68,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "هر دستگاهی که هنوز متصل است ممکن است بعد از پاک‌کردن کلیدها مشکلاتی ایجاد کند، بنابراین بهتر است دستگاه‌ها را قطع و مجدداً متصل کنید.",
     "Delete existing encrypted files" : "پاک‌کردن پرونده‌های رمزگذاری‌شده موجود",
     "Download unencrypted" : "دریافت بدون رمزگذاری",
-    "Could not find the public key belonging to the user %s" : "نمی‌توان کلید عمومی متعلق به کاربر %s را پیدا کرد",
     "End-to-end encryption endpoint" : "نقطه پایانی رمزنگاری سرتاسری",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "این برنامه تمام API‌های لازم برای پیاده‌سازی رمزنگاری سرتاسری در سمت کلاینت را ارائه می‌دهد.\nعلاوه بر این، از طریق پیاده‌سازی FileDrop امن، مطمئن می‌شود که پرونده‌های رمزنگاری شده سرتاسری نه از طریق رابط وب و نه از طریق مشتریان WebDAV دیگر قابل دسترس باشند.",
     "Error while uploading files" : "خطا در هنگام بارگذاری پرونده‌ها",

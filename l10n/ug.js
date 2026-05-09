@@ -104,7 +104,6 @@ OC.L10N.register(
     "New encrypted folder" : "يېڭى شىفىرلانغان قىسقۇچ",
     "Creating new encrypted folder: Cancelled" : "يېڭى شىفىرلانغان قىسقۇچ قۇرۇش: ئەمەلدىن قالدى",
     "Creating new encrypted folder: Failed" : "يېڭى شىفىرلانغان قىسقۇچ قۇرۇش: مەغلۇپ بولدى",
-    "Could not find the public key belonging to the user %s" : "ئىشلەتكۈچى %s گە تەۋە ئاممىۋى ئاچقۇچنى تاپالمىدى",
     "End-to-end encryption endpoint" : "ئاخىرىدىن مەخپىيلەشتۈرۈش ئاخىرقى نۇقتىسى",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "بۇ ئەپ خېرىدار تەرەپتە باشتىن ئاخىرىغىچە شىفىرلاشنى يولغا قويۇش ئۈچۈن بارلىق زۆرۈر API لارنى تەمىنلەيدۇ.\nبۇنىڭدىن باشقا، ئۇ Secure FileDrop نى يولغا قويىدۇ ھەمدە باشتىن ئاخىرىغىچە شىفىرلانغان ھۆججەتلەرنىڭ تور كۆرۈنمە يۈزى ياكى باشقا WebDAV خېرىدارلىرى ئارقىلىق ئېرىشەلمەيدىغانلىقىغا كاپالەتلىك قىلىدۇ.",
     "Error while uploading files" : "ھۆججەت يوللاشتا خاتالىق",

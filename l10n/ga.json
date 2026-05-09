@@ -132,7 +132,6 @@
     "Migrating file drop entries, please do not close this tab…" : "Ag aistriú iontrálacha titim comhaid, ná dún an cluaisín seo le do thoil…",
     "An error occurred while migrating one file drop entry. Please try again later." : "Tharla earráid agus iontráil amháin titim comhaid á haistriú. Déan iarracht arís ar ball.",
     "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Tá tascanna ar feitheamh nach mór a chríochnú. An bhfuil tú cinnte gur mian leat imeacht?",
-    "Could not find the public key belonging to the user %s" : "Níorbh fhéidir an eochair phoiblí a bhaineann leis an úsáideoir %s a aimsiú",
     "End-to-end encryption endpoint" : "Críochphointe criptithe ceann go ceann",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Soláthraíonn an aip seo na APIanna riachtanacha go léir chun criptiú Deireadh go Deireadh a chur i bhfeidhm ar thaobh an chliaint.\nIna theannta sin cuireann sé Secure FileDrop i bhfeidhm agus cinntíonn sé nach bhfuil rochtain ar chomhaid chriptithe ó cheann ceann go ceann tríd an gcomhéadan gréasáin ná trí chliaint WebDAV eile.",
     "Error while uploading files" : "Earráid agus comhaid á n-uaslódáil",

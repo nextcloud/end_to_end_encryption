@@ -52,7 +52,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Cancel" : "Annuleren",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
-    "Could not find the public key belonging to the user %s" : "Kan de publieke sleutel van %s niet vinden",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt"
 },
 "nplurals=2; plural=(n != 1);");

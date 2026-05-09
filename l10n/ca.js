@@ -69,7 +69,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Qualsevol dispositiu encara connectat pot causar problemes després de suprimir les claus, per la qual cosa és millor desconnectar i tornar a connectar els dispositius.",
     "Delete existing encrypted files" : "Suprimeix els fitxers xifrats existents",
     "Download unencrypted" : "Baixa sense xifrar",
-    "Could not find the public key belonging to the user %s" : "No s’ha pogut trobar la clau pública de l'usuari %s",
     "End-to-end encryption endpoint" : "Extrem xifratge extrem-a-extrem",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Aquesta aplicació proporciona totes les API necessàries per implementar el xifratge d'extrem a extrem al costat del client.\nA més, implementa Secure FileDrop i s'assegura que els fitxers xifrats d'extrem a extrem no siguin accessibles a través de la interfície web ni d'altres clients WebDAV.",
     "Error while uploading files" : "S'ha produït un error en penjar fitxers",

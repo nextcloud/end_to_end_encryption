@@ -61,7 +61,6 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Egiaztatu zure konektatutako gailu guztietan zure mnemonikoa berreskuratu ahal baduzun.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Edozein konektatutako gailuek arazoak sor ditzakete gakoak ezabatu ostean. Hobeto da gailuak deskonektatu eta berriro konektatzea.",
     "Delete existing encrypted files" : "Ezabatu dauden fitxategi enkriptatuak",
-    "Could not find the public key belonging to the user %s" : "Ezin izan da %s erabiltzailearen gako publikoa aurkitu",
     "End-to-end encryption endpoint" : "Muturretik muturrerako zifratzearen puntua",
     "Error while uploading files" : "Errore bat gertatu da fitxategiak igotzean",
     "Error while uploading metadata" : "Errore bat gertatu da metadatuak igotzean"

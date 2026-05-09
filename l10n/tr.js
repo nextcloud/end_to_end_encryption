@@ -125,7 +125,6 @@ OC.L10N.register(
     "New encrypted folder" : "Yeni şifrelenmiş klasör",
     "Creating new encrypted folder: Cancelled" : "Yeni şifrelenmiş klasör ekleniyor: İptal edildi",
     "Creating new encrypted folder: Failed" : "Yeni şifrelenmiş klasör ekleniyor: Tamamlanamadı",
-    "Could not find the public key belonging to the user %s" : "%s kullanıcısına ait herkese açık anahtar bulunamadı",
     "End-to-end encryption endpoint" : "Uçtan uca şifreleme uç noktası",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Bu uygulama, istemci tarafında uçtan uca şifreleme kullanabilmek için gereken tüm API uygulamalarını sağlar.\nAyrıca güvenli dosya bırakmayı kullanır ve uçtan uca şifrelenmiş dosyaların internet arayüzü veya diğer WebDAV istemcileri aracılığıyla erişilebilir olmadığından emin olur.",
     "Error while uploading files" : "Dosyalar yüklenirken sorun çıktı",

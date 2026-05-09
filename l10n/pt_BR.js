@@ -134,7 +134,6 @@ OC.L10N.register(
     "Migrating file drop entries, please do not close this tab…" : "Migração de entradas de depósitos de arquivos; por favor, não feche esta aba…",
     "An error occurred while migrating one file drop entry. Please try again later." : "Ocorreu um erro durante a migração de uma entrada do depósito de arquivos. Tente novamente mais tarde.",
     "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Há tarefas pendentes que precisam ser concluídas. Tem certeza de que deseja sair?",
-    "Could not find the public key belonging to the user %s" : "Não foi possível encontrar a chave pública pertencente ao usuário %s",
     "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Es-e aplicativo fornece todas as APIs necessárias para implementar a criptografia de ponta-a-ponta no lado do cliente.\nAlém disso, ele implementa o Depósito de Arquivos Seguro (Secure File Drop) e garante que os arquivos criptografados de ponta-a-ponta não sejam acessíveis pela interface web nem por outros clientes WebDAV.",
     "Error while uploading files" : "Erro ao fazer upload de arquivos",
