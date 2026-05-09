@@ -41,7 +41,6 @@ OC.L10N.register(
     "Cancel" : "Odustani",
     "End-to-end encryption" : "Cjelovito šifriranje",
     "New encrypted folder" : "Nova šifrirana mapa",
-    "Could not find the public key belonging to the user %s" : "Nije moguće pronaći javni ključ koji pripada korisniku %s",
     "End-to-end encryption endpoint" : "Krajnja točka cjelovitog šifriranja"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

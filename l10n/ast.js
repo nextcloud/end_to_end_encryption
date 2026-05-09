@@ -37,7 +37,6 @@ OC.L10N.register(
     "Unable to reset end-to-end encryption" : "Nun ye posible reafitar el cifráu d'estremu a estremu",
     "End-to-end encryption" : "Cifráu d'estremu a estremu",
     "Delete existing encrypted files" : "Desaniciar los ficheros cifraos esistentes",
-    "Could not find the public key belonging to the user %s" : "Nun se pudo atopar la clave pública que pertenez al usuariu «%s»",
     "End-to-end encryption endpoint" : "Puntu d'entrada del cifráu d'estremu a estremu",
     "Error while uploading files" : "Hebo un error al xubir los ficheros",
     "Error while uploading metadata" : "Hebo un error mentanto se xubíen los metadatos"

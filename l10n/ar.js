@@ -69,7 +69,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "قد يتسبب أي جهاز لا يزال متصلاً في حدوث مشكلات بعد حذف المفاتيح، لذلك من الأفضل فصل جميع الأجهزة وإعادة توصيلها مرة أخرى.",
     "Delete existing encrypted files" : "حذف الملفات المشفرة الحالية",
     "Download unencrypted" : "تنزيل غير مشفر",
-    "Could not find the public key belonging to the user %s" : "تعذر العثور على المفتاح العام للمستخدم %s",
     "End-to-end encryption endpoint" : "نقطة نهائية endpoint للتشفير الطرفي E2EE",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "يوفر هذا التطبيق جميع واجهات برمجة التطبيقات API اللازمة لتنفيذ التشفير من الحدّ للحدّ من جهة العميل. بالإضافة إلى ذلك، فإنه ينفذ \"الإفلات الآمن للملفات\" Secure FileDrop ويتأكد من أن الملفات المشفرة من الحدّ للحدّ لا يمكن الوصول إليها عبر واجهة الويب أو عبر عملاء WebDAV الآخرين.",
     "Error while uploading files" : "خطأ أثناء رفع الملفات",

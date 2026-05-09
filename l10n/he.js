@@ -32,7 +32,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",
     "Cancel" : "ביטול",
     "End-to-end encryption" : "הצפנה מקצה לקצה",
-    "Could not find the public key belonging to the user %s" : "לא ניתן למצוא את המפתח הציבורי ששייך למשתמש %s",
     "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

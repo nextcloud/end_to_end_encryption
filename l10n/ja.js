@@ -125,7 +125,6 @@ OC.L10N.register(
     "New encrypted folder" : "新しい暗号化フォルダー",
     "Creating new encrypted folder: Cancelled" : "新しい暗号化フォルダーの作成: キャンセルされました",
     "Creating new encrypted folder: Failed" : "新しい暗号化フォルダの作成: 失敗しました",
-    "Could not find the public key belonging to the user %s" : "ユーザー %s の公開鍵が見つかりません",
     "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "このアプリは、クライアント側でEnd-to-End暗号化を実装するために必要なすべてのAPIを提供します。\nさらに、Secure FileDrop を実装し、End-to-End で暗号化されたファイルには Web インターフェースからも他の WebDAV クライアントからもアクセスできないようにします。",
     "Error while uploading files" : "ファイルのアップロード中にエラーが発生しました",

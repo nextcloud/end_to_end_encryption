@@ -73,7 +73,6 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Zmazať existujúce šifrované súbory",
     "Download unencrypted" : "Stiahnuť nezašifrované",
     "New encrypted folder" : "Nová šifrovaná zložka",
-    "Could not find the public key belonging to the user %s" : "Nedá sa nájsť verejný kľúč patriaci používateľovi %s",
     "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Táto aplikácia poskytuje všetky potrebné rozhrania API pre implementáciu end-to-end šifrovania na strane klienta.\nNavyše implementuje Secure FileDrop a zaisťuje, že end-to-End šifrované súbory nie sú dostupné ani cez webové rozhranie, ani cez iných WebDAV klientov.",
     "Error while uploading files" : "Chyba pri nahrávaní súborov",

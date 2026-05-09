@@ -61,7 +61,6 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Każde nadal podłączone urządzenie może powodować problemy po usunięciu kluczy, dlatego lepiej jest odłączyć i ponownie podłączyć urządzenia.",
     "Delete existing encrypted files" : "Usuń istniejące zaszyfrowane pliki",
     "New encrypted folder" : "Nowy zaszyfrowany folder",
-    "Could not find the public key belonging to the user %s" : "Nie można znaleźć klucza publicznego należącego do użytkownika %s",
     "End-to-end encryption endpoint" : "Końcówka szyfrowania end-to-end",
     "Error while uploading files" : "Błąd podczas przesyłania plików",
     "Error while uploading metadata" : "Błąd podczas przesyłania metadanych"

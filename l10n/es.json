@@ -123,7 +123,6 @@
     "New encrypted folder" : "Nueva carpeta cifrada",
     "Creating new encrypted folder: Cancelled" : "Creación de nueva carpeta cifrada: Cancelado",
     "Creating new encrypted folder: Failed" : "Creación de una nueva carpeta cifrada: Error",
-    "Could not find the public key belonging to the user %s" : "No se ha podido encontrar la clave pública perteneciente al usuario %s",
     "End-to-end encryption endpoint" : "Endpoint del cifrado extremo a extremo",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta app provee todas las APIs necesarias para implementar el cifrado de extremo a extremo del lado del cliente.\nAdicionalmente, implementa FileDrop seguro y se asegura de que los archivos cifrados de extremo a extremo no sean accedidos tanto vía la interfaz web ni por otros clientes WebDAV.",
     "Error while uploading files" : "Error mientras se cargaban los archivos",

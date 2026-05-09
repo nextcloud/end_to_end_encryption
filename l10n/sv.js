@@ -134,7 +134,6 @@ OC.L10N.register(
     "Migrating file drop entries, please do not close this tab…" : "Migrerar fillämningsposter, stäng inte den här fliken…",
     "An error occurred while migrating one file drop entry. Please try again later." : "Ett fel uppstod vid migrering av en fillämningspost. Försök igen senare.",
     "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Det finns väntande uppgifter som behöver slutföras. Är du säker på att du vill lämna?",
-    "Could not find the public key belonging to the user %s" : "Kunde inte hitta den offentliga nyckeln för användaren%s",
     "End-to-end encryption endpoint" : "Endpoint för ände-till-ände-kryptering",
     "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Denna app tillhandahåller alla nödvändiga API:er för att implementera ände-till-ände-kryptering på klientsidan.\nDessutom implementerar den säker fillämning och säkerställer att ände-till-ände-krypterade filer varken är åtkomliga via webbgränssnittet eller andra WebDAV-klienter.",
     "Error while uploading files" : "Fel vid uppladdning av filer",
