@@ -7,6 +7,13 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.1.1 - 2026-05-13
+### Fixed
+* fix: properly handle large encrypted file downloads \([\#1698](https://github.com/nextcloud/end_to_end_encryption/pull/1698)\)
+
+### Changed
+* Updated dependencies
+
 ## v2.1.0 - 2026-04-07
 ### Added
 * Allow to convert files uploaded by public end-to-end encrypted file drops to regular files within the browser \([\#1594](https://github.com/nextcloud/end_to_end_encryption/pull/1594)\).
