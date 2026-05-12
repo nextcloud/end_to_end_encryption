@@ -24,18 +24,6 @@ SPDX-FileCopyrightText = "2022 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 [[annotations]]
-path = [".github/CODEOWNERS"]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2024 Nextcloud GmbH and Nextcloud contributors"
-SPDX-License-Identifier = "AGPL-3.0-or-later"
-
-[[annotations]]
-path = "composer/autoload.php"
-precedence = "aggregate"
-SPDX-FileCopyrightText = "Nils Adermann, Jordi Boggiano"
-SPDX-License-Identifier = "MIT"
-
-[[annotations]]
 path = ["l10n/**.js", "l10n/**.json"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2018 Nextcloud translators <https://www.transifex.com/nextcloud/>"
@@ -48,19 +36,13 @@ SPDX-FileCopyrightText = "2018-2024 Google LLC"
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
-path = ["tsconfig.json", "__tests__/tsconfig.json"]
+path = [".github/CODEOWNERS", "tsconfig.json", "__tests__/tsconfig.json"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2024 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 [[annotations]]
-path = ["css/*.css"]
-precedence = "aggregate"
-SPDX-FileCopyrightText = "2025 Nextcloud GmbH and Nextcloud contributors"
-SPDX-License-Identifier = "AGPL-3.0-or-later"
-
-[[annotations]]
-path = ["openapi.json", "vendor-bin/cs-fixer/*", "vendor-bin/openapi-extractor/*", "vendor-bin/phpunit/*", "vendor-bin/psalm/*"]
+path = ["openapi.json", "vendor-bin/*/composer.json", "vendor-bin/*/composer.lock"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2025 Nextcloud GmbH and Nextcloud contributors"
 SPDX-License-Identifier = "AGPL-3.0-or-later"
