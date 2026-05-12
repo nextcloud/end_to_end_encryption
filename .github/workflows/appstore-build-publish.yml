@@ -65,8 +65,8 @@ jobs:
         continue-on-error: true
         with:
           path: ${{ env.APP_NAME }}
-          fallbackNode: '^20'
-          fallbackNpm: '^10'
+          fallbackNode: '^24'
+          fallbackNpm: '^11.3'
 
       - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
         # Skip if no package.json
@@ -82,7 +82,7 @@ jobs:
 
       - name: Get php version
         id: php-versions
-        uses: icewind1991/nextcloud-version-matrix@8a7bac6300b2f0f3100088b297995a229558ddba # v1.3.2.3.1.3.2
+        uses: icewind1991/nextcloud-version-matrix@8a7bac6300b2f0f3100088b297995a229558ddba # v1.3.2
         with:
           filename: ${{ env.APP_NAME }}/appinfo/info.xml
 
@@ -140,22 +140,30 @@ jobs:
           cd ${{ env.APP_NAME }}
           make appstore
 
-      - name: Checkout server ${{ fromJSON(steps.appinfo.outputs.result).nextcloud.min-version }}
-        continue-on-error: true
-        id: server-checkout
+      - name: Check server download link for ${{ fromJSON(steps.appinfo.outputs.result).nextcloud.min-version }}
         run: |
           NCVERSION='${{ fromJSON(steps.appinfo.outputs.result).nextcloud.min-version }}'
-          wget --quiet https://download.nextcloud.com/server/releases/latest-$NCVERSION.zip
-          unzip latest-$NCVERSION.zip
+          DOWNLOAD_URL=$(curl -s "https://updates.nextcloud.com/updater_server/latest?channel=beta&version=$NCVERSION" | jq -r '.downloads.zip[0]')
+          echo "DOWNLOAD_URL=$DOWNLOAD_URL" >> $GITHUB_ENV
+
+      - name: Download server ${{ fromJSON(steps.appinfo.outputs.result).nextcloud.min-version }}
+        continue-on-error: true
+        id: server-download
+        if: ${{ env.DOWNLOAD_URL != 'null' }}
+        run: |
+          echo "Downloading release tarball from $DOWNLOAD_URL"
+          wget $DOWNLOAD_URL -O nextcloud.zip
+          unzip nextcloud.zip
 
       - name: Checkout server master fallback
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        if: ${{ steps.server-checkout.outcome != 'success' }}
+        if: ${{ steps.server-download.outcome != 'success' }}
         with:
           persist-credentials: false
           submodules: true
           repository: nextcloud/server
           path: nextcloud
+
 
       - name: Sign app
         run: |
