@@ -3,11 +3,14 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { showLoading } from '@nextcloud/dialogs'
 import { DefaultType, File, Folder, Permission, View } from '@nextcloud/files'
 import { defaultRemoteURL } from '@nextcloud/files/dav'
 import { describe, expect, test, vi } from 'vitest'
 import { stringToBuffer } from '../services/bufferUtils.ts'
 import Action from './downloadUnencryptedAction.ts'
+
+vi.mock('@nextcloud/dialogs', { spy: true })
 
 const view = new View({
 	getContents: async () => {
@@ -57,6 +60,9 @@ test('all properties are set correctly', () => {
 })
 
 test('exec method calls downloadNodes', async () => {
+	vi.mocked(showLoading)
+		.mockImplementationOnce(() => ({ hideToast: vi.fn() }))
+
 	const spy = vi.spyOn(window, 'fetch')
 		.mockResolvedValueOnce(new Response(stringToBuffer('decrypted content')))
 
@@ -71,6 +77,7 @@ test('exec method calls downloadNodes', async () => {
 	expect(spy).toHaveBeenCalledWith(encryptedFile.encodedSource)
 	expect(element.href).toContain('blob:')
 	expect(element.click).toHaveBeenCalled()
+	expect(showLoading).toHaveBeenCalledOnce()
 })
 
 describe('enabled method', () => {
