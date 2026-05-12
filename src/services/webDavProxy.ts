@@ -53,7 +53,8 @@ function wrapInterceptor(middleware: BaseMiddleware<FetchContext>, method: strin
 		if (context.req.method !== method) {
 			return next()
 		}
-		if (context.req.headers.get('X-E2EE-SUPPORTED') === 'true'
+		if (
+			context.req.headers.get('X-E2EE-SUPPORTED') === 'true'
 			|| !context.req.url.match(/\/(remote|public)\.php\/dav\/files\//)
 		) {
 			logger.debug(`Pass through ${context.req.method} ${context.req.url}`)
