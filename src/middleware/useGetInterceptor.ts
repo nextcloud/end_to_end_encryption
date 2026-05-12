@@ -7,6 +7,8 @@ import type { FetchContext } from '@rxliuli/vista'
 import type { IMetadataFile } from '../models/metadata.d.ts'
 import type { Metadata } from '../models/Metadata.ts'
 
+import { showError, showLoading } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
 import { basename, dirname } from '@nextcloud/paths'
 import { base64ToBuffer } from '../services/bufferUtils.ts'
 import { decryptWithAES, loadAESPrivateKey } from '../services/crypto.ts'
@@ -40,7 +42,16 @@ export async function useGetInterceptor(context: FetchContext, next: () => Promi
 		throw new Error('Could not find file in metadata')
 	}
 
-	context.res = await decryptFile(response, fileInfo)
+	const loading = showLoading(t('end_to_end_encryption', 'Decrypting {file}', { file: fileInfo.filename }))
+	try {
+		context.res = await decryptFile(response, fileInfo)
+	} catch (error) {
+		logger.error('Error occurred while decrypting file', { error })
+		showError(t('end_to_end_encryption', 'An error occurred while decrypting the file. Please try downloading the file again.'))
+		throw error
+	} finally {
+		loading.hideToast()
+	}
 }
 
 /**
@@ -50,7 +61,7 @@ export async function useGetInterceptor(context: FetchContext, next: () => Promi
  * @param fileInfo - The file encryption info
  */
 async function decryptFile(response: Response, fileInfo: IMetadataFile): Promise<Response> {
-	logger.debug('Decrypting encrypted file', { response, fileInfo })
+	logger.debug('Decrypting encrypted file', { fileInfo })
 	const decryptedFileContent = await decryptWithAES(
 		new Uint8Array(await response.arrayBuffer()),
 		await loadAESPrivateKey(base64ToBuffer(fileInfo.key)),
