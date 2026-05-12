@@ -67,6 +67,7 @@ async function startDownload() {
  * @param target - The target directory handle
  */
 async function downloadFile(name: string, path: string, target: FileSystemDirectoryHandle) {
+	const oldValue = filesDone.value || 0
 	try {
 		logger.debug('Downloading encrypted file', { name, path })
 		const content = await Array.fromAsync(target.keys())
@@ -74,17 +75,17 @@ async function downloadFile(name: string, path: string, target: FileSystemDirect
 
 		// The response will be decrypted as usual by the proxy.
 		const response = await window.fetch(path)
+		filesDone.value! += 0.25
+
 		const file = await target.getFileHandle(filename, { create: true })
 		const stream = await file.createWritable()
 		await stream.write(await response.arrayBuffer())
 		stream.close()
-
-		await new Promise((r) => window.setTimeout(r, 3000))
 	} catch (error) {
 		logger.error('Error downloading file', { error, name, path })
 		filesError.value.push(name)
 	} finally {
-		filesDone.value!++
+		filesDone.value = oldValue + 1
 	}
 }
 
