@@ -6,10 +6,12 @@
 import type { IFileAction, INode } from '@nextcloud/files'
 
 import ArrowDownSvg from '@mdi/svg/svg/arrow-down.svg?raw'
+import { showLoading } from '@nextcloud/dialogs'
 import { DefaultType, FileType } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
 import { spawnDialog } from '@nextcloud/vue/functions/dialog'
 import { defineAsyncComponent } from 'vue'
+import logger from '../services/logger.ts'
 import { isDownloadable } from '../services/permissions.ts'
 
 const DownloadFolderDialog = defineAsyncComponent(() => import('../components/DownloadFolderDialog.vue'))
@@ -21,14 +23,24 @@ const DownloadFolderDialog = defineAsyncComponent(() => import('../components/Do
  */
 async function downloadNode(file: INode) {
 	// Decryption happens in the proxy.
+	logger.debug('Triggering download of unencrypted file', { file })
 	const response = await fetch(file.encodedSource)
-	const decryptedFileContent = await response.arrayBuffer()
-	const blob = new Blob([decryptedFileContent], { type: file.mime })
+	const toast = showLoading(t('end_to_end_encryption', 'Preparing download for {file}', { file: file.displayname }))
 
-	const link = document.createElement('a')
-	link.href = window.URL.createObjectURL(blob)
-	link.download = file.displayname
-	link.click()
+	try {
+		logger.debug('Received response for file download')
+		const decryptedFileContent = await response.arrayBuffer()
+		const blob = new Blob([decryptedFileContent], { type: file.mime })
+
+		logger.debug('Created blob for decrypted file, starting download')
+		const link = document.createElement('a')
+		link.href = window.URL.createObjectURL(blob)
+		link.download = file.displayname
+		logger.debug('Created download link for decrypted file, starting download')
+		link.click()
+	} finally {
+		toast.hideToast()
+	}
 }
 
 export default {
@@ -67,7 +79,7 @@ export default {
 
 	async exec({ nodes }) {
 		const node = nodes[0]
-		if (node.type === FileType.Folder) {
+		if (node.type === FileType.Folder || (node.size && (node.size > 100 * 1024 * 1024) && window.showDirectoryPicker !== undefined)) {
 			await spawnDialog(DownloadFolderDialog, {
 				nodes,
 			})

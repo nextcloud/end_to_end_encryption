@@ -64,7 +64,11 @@ function wrapInterceptor(middleware: BaseMiddleware<FetchContext>, method: strin
 		try {
 			await middleware(context, next)
 		} catch (error) {
-			logger.error(`Error in ${context.req.method} interceptor`, { error, request: context.req })
+			if (error instanceof DOMException && error.name === 'AbortError') {
+				logger.debug('Request was aborted', { error, request: context.req })
+			} else {
+				logger.error(`Error in ${context.req.method} interceptor`, { error, request: context.req })
+			}
 			throw error
 		}
 	}
