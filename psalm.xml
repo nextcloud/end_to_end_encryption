@@ -17,10 +17,11 @@
 		<directory name="lib" />
 		<ignoreFiles>
 			<directory name="vendor" />
+			<directory name="vendor-bin" />
 		</ignoreFiles>
 	</projectFiles>
 	<extraFiles>
-		<directory name="vendor" />
+		<directory name="vendor-bin/nextcloud-ocp/vendor" />
 	</extraFiles>
 	<issueHandlers>
 		<UndefinedMagicMethod>
