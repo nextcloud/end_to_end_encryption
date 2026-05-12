@@ -49,7 +49,8 @@ export async function ensureKeyUsage(key: CryptoKey, usage: 'decrypt' | 'encrypt
 	}
 
 	// we can only convert between private and public keys
-	if ((usage === 'sign' && !key.usages.includes('decrypt'))
+	if (
+		(usage === 'sign' && !key.usages.includes('decrypt'))
 		|| (usage === 'verify' && !key.usages.includes('encrypt'))
 		|| (usage === 'encrypt' && !key.usages.includes('verify'))
 		|| (usage === 'decrypt' && !key.usages.includes('sign'))
