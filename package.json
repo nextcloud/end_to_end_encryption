@@ -78,7 +78,7 @@
     "core-js": "^3.49.0",
     "eslint": "^10.3.0",
     "msw": "^2.13.6",
-    "stylelint": "^17.11.0",
+    "stylelint": "^17.11.1",
     "vite": "^7.3.2",
     "vite-plugin-static-copy": "^4.1.0",
     "vitest": "^4.0.15",
