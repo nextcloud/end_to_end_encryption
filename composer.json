@@ -26,6 +26,7 @@
 		"psalm:update-baseline": "psalm --threads=1 --update-baseline",
 		"psalm:clear": "psalm --clear-cache && psalm --clear-global-cache",
 		"psalm:fix": "psalm --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
+		"rector": "rector && composer cs:fix",
 		"test:unit": "phpunit --configuration tests/phpunit.xml",
 		"openapi": "generate-spec"
 	},
