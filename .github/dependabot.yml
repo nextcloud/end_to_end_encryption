@@ -9,6 +9,8 @@ updates:
     day: sunday
     time: "09:00"
     timezone: Europe/Paris
+  cooldown:
+    default-days: 10
 
 - package-ecosystem: composer
   directories:
@@ -20,6 +22,8 @@ updates:
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
+  cooldown:
+    default-days: 10
   labels:
     - "3. to review"
     - "dependencies"
@@ -33,6 +37,8 @@ updates:
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
+  cooldown:
+    default-days: 10
   labels:
     - "3. to review"
     - "dependencies"
@@ -48,6 +54,26 @@ updates:
 
 # Main stableXX npm
 - package-ecosystem: npm
+  target-branch: stable34
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "03:00"
+    timezone: Europe/Paris
+  cooldown:
+    default-days: 10
+  open-pull-requests-limit: 5
+  versioning-strategy: increase
+  labels:
+    - "3. to review"
+    - "dependencies"
+  ignore:
+    # ignore all GitHub linguist patch updates
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+- package-ecosystem: npm
   target-branch: stable33
   directory: "/"
   schedule:
@@ -55,6 +81,8 @@ updates:
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
+  cooldown:
+    default-days: 10
   open-pull-requests-limit: 5
   versioning-strategy: increase
   labels:
@@ -82,6 +110,8 @@ updates:
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
+  cooldown:
+    default-days: 10
   open-pull-requests-limit: 5
   versioning-strategy: increase
   labels:
@@ -101,20 +131,3 @@ updates:
         - "vitest"
         - "@vitest/*"
 
-- package-ecosystem: npm
-  target-branch: stable31
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  open-pull-requests-limit: 5
-  versioning-strategy: increase
-  labels:
-    - "3. to review"
-    - "dependencies"
-  ignore:
-    # ignore all GitHub linguist patch updates
-    - dependency-name: "*"
-      update-types: ["version-update:semver-major", "version-update:semver-minor"]
