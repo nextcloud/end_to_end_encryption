@@ -17,7 +17,7 @@ import { getSharingToken } from '@nextcloud/sharing/public'
 import { base64ToBuffer, bufferToBase64 } from './bufferUtils.ts'
 import logger from './logger.ts'
 
-// API: https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md
+// API: https://github.com/nextcloud/end_to_end_encryption/blob/main/doc/api.md
 
 const API_ROOT = 'apps/end_to_end_encryption/api/v2'
 const Url = Object.freeze({
