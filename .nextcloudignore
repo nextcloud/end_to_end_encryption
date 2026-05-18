@@ -26,6 +26,7 @@
 /package-lock.json
 /playwright.config.ts
 /psalm.xml
+/rector.php
 /stylelint.config.cjs
 /tsconfig.json
 /vite.config.ts
