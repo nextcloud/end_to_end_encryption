@@ -67,7 +67,7 @@ When the E2EE server app has been successfully enabled and the client app awaits
 ## Documentation
 ### Client API
 
-Here you can find the [API documentation](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api.md). Also some [typical client operations and how to use the API to perform them](https://github.com/nextcloud/end_to_end_encryption/blob/master/doc/api-usage.md) are documented too.
+Here you can find the [API documentation](https://github.com/nextcloud/end_to_end_encryption/blob/main/doc/api.md). Also some [typical client operations and how to use the API to perform them](https://github.com/nextcloud/end_to_end_encryption/blob/main/doc/api-usage.md) are documented too.
 
 ### Specification (RFC)
 
