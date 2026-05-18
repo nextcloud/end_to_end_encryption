@@ -48,22 +48,24 @@ updates:
 
 # Main stableXX npm
 - package-ecosystem: npm
-  target-branch: stable33
+  target-branch: stable-2
   directory: "/"
   schedule:
     interval: weekly
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
+  cooldown:
+    default-days: 10
   open-pull-requests-limit: 5
   versioning-strategy: increase
   labels:
     - "3. to review"
     - "dependencies"
   ignore:
-    # ignore all GitHub linguist patch updates
+    # No major updates on stable branches.
     - dependency-name: "*"
-      update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      update-types: ["version-update:semver-major"]
   groups:
     vite:
       patterns:
@@ -74,6 +76,7 @@ updates:
         - "vitest"
         - "@vitest/*"
 
+# Old stable
 - package-ecosystem: npm
   target-branch: stable32
   directory: "/"
@@ -88,9 +91,9 @@ updates:
     - "3. to review"
     - "dependencies"
   ignore:
-    # ignore all GitHub linguist patch updates
+    # No major updates on stable branches.
     - dependency-name: "*"
-      update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      update-types: ["version-update:semver-major"]
   groups:
     vite:
       patterns:
@@ -100,21 +103,3 @@ updates:
       patterns:
         - "vitest"
         - "@vitest/*"
-
-- package-ecosystem: npm
-  target-branch: stable31
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  open-pull-requests-limit: 5
-  versioning-strategy: increase
-  labels:
-    - "3. to review"
-    - "dependencies"
-  ignore:
-    # ignore all GitHub linguist patch updates
-    - dependency-name: "*"
-      update-types: ["version-update:semver-major", "version-update:semver-minor"]
