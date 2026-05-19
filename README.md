@@ -169,3 +169,12 @@ Therefore we recommend that every contributor adds the following line to the [AU
 For this please make sure to sign-off your commits if you want to contribute code (`git commit -s`).
 
 Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduct/). This document offers some guidance to ensure Nextcloud participants can cooperate effectively in a positive and inspiring atmosphere and to explain how together we can strengthen and support each other.
+
+### Stable branches
+
+Before Nextcloud 33 each we published one app version per Nextcloud version
+and maintained a branch per Nextcloud versions like `stable32` for Nextcloud 32.
+
+Since Nextcloud 33 we switched to a versions based branch process,
+where we will keep support of multiple Nextcloud versions within a single app version.
+So the new naming schema is e.g. `stable-2` for the v2.x series of this app.
