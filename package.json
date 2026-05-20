@@ -74,7 +74,7 @@
     "@vitest/coverage-v8": "^4.0.18",
     "@vue/test-utils": "^2.4.10",
     "@vue/tsconfig": "^0.8.1",
-    "core-js": "^3.48.0",
+    "core-js": "^3.49.0",
     "eslint": "^10.3.0",
     "msw": "^2.12.14",
     "stylelint": "^17.1.1",
