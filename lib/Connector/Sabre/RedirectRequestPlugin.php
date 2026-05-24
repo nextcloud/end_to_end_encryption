@@ -51,26 +51,23 @@ class RedirectRequestPlugin extends APlugin {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function initialize(Server $server) {
+	public function initialize(Server $server): void {
 		parent::initialize($server);
 
-		$this->server->on('method:MKCOL', [$this, 'httpMkColPut'], 95);
-		$this->server->on('method:PUT', [$this, 'httpMkColPut'], 95);
+		$this->server->on('method:MKCOL', $this->httpMkColPut(...), 95);
+		$this->server->on('method:PUT', $this->httpMkColPut(...), 95);
 
-		$this->server->on('method:COPY', [$this, 'httpCopyMove'], 95);
-		$this->server->on('method:MOVE', [$this, 'httpCopyMove'], 95);
+		$this->server->on('method:COPY', $this->httpCopyMove(...), 95);
+		$this->server->on('method:MOVE', $this->httpCopyMove(...), 95);
 
-		$this->server->on('method:DELETE', [$this, 'httpDelete'], 95);
+		$this->server->on('method:DELETE', $this->httpDelete(...), 95);
 
-		$this->server->on('method:GET', [$this, 'httpGetHead'], 5);
-		$this->server->on('method:HEAD', [$this, 'httpGetHead'], 5);
+		$this->server->on('method:GET', $this->httpGetHead(...), 5);
+		$this->server->on('method:HEAD', $this->httpGetHead(...), 5);
 
-		$this->server->on('propFind', [$this, 'propFind'], 500);
+		$this->server->on('propFind', $this->propFind(...), 500);
 	}
 
-	/**
-	 * @param RequestInterface $request
-	 */
 	public function httpCopyMove(RequestInterface $request): void {
 		$node = $this->getNode($request->getPath(), $request->getMethod());
 		if (!$this->isFile($request->getPath(), $node)) {
@@ -88,11 +85,6 @@ class RedirectRequestPlugin extends APlugin {
 		}
 	}
 
-	/**
-	 * @param RequestInterface $request
-	 * @param ResponseInterface $response
-	 * @return bool
-	 */
 	public function httpDelete(RequestInterface $request, ResponseInterface $response): bool {
 		$node = $this->getNode($request->getPath(), $request->getMethod());
 		if (!$this->isFile($request->getPath(), $node)) {
@@ -124,9 +116,6 @@ class RedirectRequestPlugin extends APlugin {
 		return false;
 	}
 
-	/**
-	 * @param RequestInterface $request
-	 */
 	public function httpMkColPut(RequestInterface $request): void {
 		$node = $this->getNode($request->getPath(), $request->getMethod());
 		if (!$this->isFile($request->getPath(), $node)) {
@@ -142,9 +131,6 @@ class RedirectRequestPlugin extends APlugin {
 		$request->setUrl($url);
 	}
 
-	/**
-	 * @param RequestInterface $request
-	 */
 	public function httpGetHead(RequestInterface $request): void {
 		if ($this->server->tree->nodeExists($request->getPath())) {
 			return;
@@ -157,8 +143,6 @@ class RedirectRequestPlugin extends APlugin {
 	}
 
 	/**
-	 * @param PropFind $propFind
-	 * @param INode $node
 	 * @throws NotFound
 	 * @throws \Sabre\DAV\Exception\Conflict
 	 */
@@ -183,11 +167,6 @@ class RedirectRequestPlugin extends APlugin {
 		return true;
 	}
 
-	/**
-	 * @param string $url
-	 * @param string $suffix
-	 * @return string
-	 */
 	protected function addSuffixToUrl(string $url, string $suffix): string {
 		$parts = parse_url($url);
 
@@ -199,14 +178,9 @@ class RedirectRequestPlugin extends APlugin {
 		return $this->buildUrlFromParts($parts);
 	}
 
-	/**
-	 * @param string $path
-	 * @param string $suffix
-	 * @return string
-	 */
 	protected function addSuffixToPath(string $path, string $suffix): string {
 		$hasTrailingSlash = false;
-		if (substr($path, -1) === '/') {
+		if (str_ends_with($path, '/')) {
 			$hasTrailingSlash = true;
 			$path = substr($path, 0, -1);
 		}
@@ -219,10 +193,6 @@ class RedirectRequestPlugin extends APlugin {
 		return $path;
 	}
 
-	/**
-	 * @param array $parts
-	 * @return string
-	 */
 	protected function buildUrlFromParts(array $parts): string {
 		// https://www.php.net/manual/en/function.parse-url.php#106731
 		$scheme = isset($parts['scheme']) ? $parts['scheme'] . '://' : '';

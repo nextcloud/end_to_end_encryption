@@ -33,11 +33,6 @@ class RollbackBackgroundJobTest extends TestCase {
 
 	/**
 	 * @dataProvider runDataProvider
-	 *
-	 * @param string $automaticRollback
-	 * @param bool $expectsServiceCall
-	 * @param int $automaticRollbackTTL
-	 * @param int $expectedTimestamp
 	 */
 	public function testRun(string $automaticRollback, bool $expectsServiceCall, int $automaticRollbackTTL, int $expectedTimestamp):void {
 		$this->config->expects($automaticRollback === 'no' ? $this->once() : $this->exactly(2))

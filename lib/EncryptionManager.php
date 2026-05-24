@@ -27,10 +27,10 @@ use Psr\Log\LoggerInterface;
 class EncryptionManager {
 
 	public function __construct(
-		private IRootFolder $rootFolder,
-		private IDBConnection $dbConnection,
-		private LoggerInterface $logger,
-		private AccessManager $accessManager,
+		private readonly IRootFolder $rootFolder,
+		private readonly IDBConnection $dbConnection,
+		private readonly LoggerInterface $logger,
+		private readonly AccessManager $accessManager,
 	) {
 	}
 

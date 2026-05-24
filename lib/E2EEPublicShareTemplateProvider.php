@@ -26,14 +26,14 @@ use Psr\Log\LoggerInterface;
 
 class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 	public function __construct(
-		private IUserManager $userManager,
-		private IUrlGenerator $urlGenerator,
-		private IL10N $l10n,
-		private Defaults $defaults,
-		private IInitialStateService $initialState,
-		private IKeyStorage $keyStorage,
-		private LoggerInterface $logger,
-		private MetaDataStorage $metadataStorage,
+		private readonly IUserManager $userManager,
+		private readonly IUrlGenerator $urlGenerator,
+		private readonly IL10N $l10n,
+		private readonly Defaults $defaults,
+		private readonly IInitialStateService $initialState,
+		private readonly IKeyStorage $keyStorage,
+		private readonly LoggerInterface $logger,
+		private readonly MetaDataStorage $metadataStorage,
 	) {
 	}
 

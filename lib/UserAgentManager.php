@@ -20,11 +20,11 @@ class UserAgentManager {
 	 *
 	 * @var array<string, string>
 	 */
-	private array $supportedUserAgents;
+	private readonly array $supportedUserAgents;
 
 	public function __construct(
 		IConfig $config,
-		private IRequest $request,
+		private readonly IRequest $request,
 	) {
 		$this->supportedUserAgents = $config->getSystemValue('end_to_end_encryption.supported-user-agents', [
 			'/^Mozilla\/5\.0 \(Android\) Nextcloud\-android\/(?<version>(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)).*$/' => '3.13.0',

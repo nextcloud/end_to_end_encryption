@@ -16,10 +16,6 @@ class MetaDataExistsException extends Exception {
 
 	/**
 	 * MetaDataExistsException constructor.
-	 *
-	 * @param string $message
-	 * @param int $code
-	 * @param Throwable|null $previous
 	 */
 	public function __construct(string $message = 'meta data file already exists', int $code = 0, ?Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);

@@ -34,9 +34,9 @@ class KeyStorage implements IKeyStorage {
 	private ?ISimpleFolder $publicKeysRootFolder = null;
 
 	public function __construct(
-		private IAppData $appData,
-		private IUserSession $userSession,
-		private IManager $shareManager,
+		private readonly IAppData $appData,
+		private readonly IUserSession $userSession,
+		private readonly IManager $shareManager,
 	) {
 	}
 
@@ -96,7 +96,7 @@ class KeyStorage implements IKeyStorage {
 		$fileName = $this->getFileNameForPublicKey($uid, $shareToken);
 		try {
 			$file = $publicKeysRoot->getFile($fileName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			return;
 		}
 

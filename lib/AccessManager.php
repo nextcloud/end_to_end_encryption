@@ -21,10 +21,10 @@ class AccessManager {
 
 
 	public function __construct(
-		private ?string $userId,
-		private IRequest $request,
-		private IRootFolder $rootFolder,
-		private IManager $shareManager,
+		private readonly ?string $userId,
+		private readonly IRequest $request,
+		private readonly IRootFolder $rootFolder,
+		private readonly IManager $shareManager,
 	) {
 		$this->share = null;
 	}

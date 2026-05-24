@@ -16,11 +16,12 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\Settings\ISettings;
 
 class Admin implements ISettings {
-	private Config $config;
-	private IInitialState $initialState;
+	private readonly IInitialState $initialState;
 
-	public function __construct(IInitialState $initialState, Config $config) {
-		$this->config = $config;
+	public function __construct(
+		IInitialState $initialState,
+		private readonly Config $config,
+	) {
 		$this->initialState = $initialState;
 	}
 

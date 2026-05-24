@@ -19,7 +19,7 @@ use RuntimeException;
  * @package OCA\EndToEndEncryption
  */
 class SignatureHandler {
-	private Manager $identityProofManager;
+	private readonly Manager $identityProofManager;
 
 	/** @var int the signature is 20 years (7300 days) valid */
 	private int $validity = 7300;

@@ -36,31 +36,22 @@ use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
 	use ThrottleRequestTrait;
-
-	private ?string $userId;
-	private IMetaDataStorage $metaDataStorage;
-	private LoggerInterface $logger;
-	private LockManager $lockManager;
 	private IL10N $l10n;
 	private ShareManager $shareManager;
 
 	public function __construct(
 		string $AppName,
 		IRequest $request,
-		?string $userId,
-		IMetaDataStorage $metaDataStorage,
-		LockManager $lockManager,
-		LoggerInterface $logger,
+		private ?string $userId,
+		private IMetaDataStorage $metaDataStorage,
+		private LockManager $lockManager,
+		private LoggerInterface $logger,
 		IL10N $l10n,
 		ShareManager $shareManager,
 		private IRootFolder $rootFolder,
 		private AccessManager $accessManager,
 	) {
 		parent::__construct($AppName, $request);
-		$this->userId = $userId;
-		$this->metaDataStorage = $metaDataStorage;
-		$this->logger = $logger;
-		$this->lockManager = $lockManager;
 		$this->l10n = $l10n;
 		$this->shareManager = $shareManager;
 	}
@@ -87,7 +78,7 @@ class MetaDataController extends OCSController {
 
 			$ownerId = $this->accessManager->getOwnerId($id);
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (\InvalidArgumentException|NotPermittedException $e) {
 			$this->logger->warning('Unauthorized access to metadata API', ['exception' => $e]);
@@ -147,7 +138,7 @@ class MetaDataController extends OCSController {
 
 		try {
 			$this->metaDataStorage->setMetaDataIntoIntermediateFile($ownerId, $id, $metaData, $e2eToken, $signature);
-		} catch (MetaDataExistsException $e) {
+		} catch (MetaDataExistsException) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
@@ -204,7 +195,7 @@ class MetaDataController extends OCSController {
 
 		try {
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $metaData, $e2eToken, $signature);
-		} catch (MissingMetaDataException $e) {
+		} catch (MissingMetaDataException) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
@@ -256,7 +247,7 @@ class MetaDataController extends OCSController {
 
 		try {
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, '{}', $e2eToken, '');
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (NotPermittedException $e) {
 			$this->logger->warning('Unauthorized access to metadata API', ['exception' => $e]);
@@ -326,7 +317,7 @@ class MetaDataController extends OCSController {
 
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata, 'filedrop-lock');
 			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
-		} catch (MissingMetaDataException $e) {
+		} catch (MissingMetaDataException) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());

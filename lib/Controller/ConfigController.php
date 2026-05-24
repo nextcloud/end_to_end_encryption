@@ -13,7 +13,6 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\JSONResponse;
-use OCP\IConfig;
 use OCP\IRequest;
 
 class ConfigController extends Controller {
@@ -21,8 +20,8 @@ class ConfigController extends Controller {
 	public function __construct(
 		string $appName,
 		IRequest $request,
-		private IConfig $config,
-		private ?string $userId,
+		private readonly ?string $userId,
+		private readonly \OCP\Config\IUserConfig $userConfig,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -38,7 +37,7 @@ class ConfigController extends Controller {
 			return new JSONResponse([], Http::STATUS_PRECONDITION_FAILED);
 		}
 
-		$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
+		$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value);
 		return new JSONResponse([], Http::STATUS_OK);
 	}
 }

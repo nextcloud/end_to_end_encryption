@@ -63,10 +63,9 @@ class EncryptionManagerTest extends TestCase {
 	/**
 	 * get EncryptionManager instance
 	 *
-	 * @param array $mockedMethods
 	 * @return PHPUnit_Framework_MockObject_MockObject|EncryptionManager
 	 */
-	private function getInstance($mockedMethods = []) {
+	private function getInstance(array $mockedMethods = []) {
 		if (!empty($mockedMethods)) {
 			$instance = $this->getMockBuilder(EncryptionManager::class)
 				->setConstructorArgs(

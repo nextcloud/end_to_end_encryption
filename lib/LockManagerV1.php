@@ -28,19 +28,18 @@ use OCP\Security\ISecureRandom;
  * @package OCA\EndToEndEncryption
  */
 class LockManagerV1 {
-	private LockMapper $lockMapper;
-	private ISecureRandom $secureRandom;
-	private IUserSession $userSession;
-	private IRootFolder $rootFolder;
-	private ITimeFactory $timeFactory;
+	private readonly ISecureRandom $secureRandom;
+	private readonly IUserSession $userSession;
+	private readonly IRootFolder $rootFolder;
+	private readonly ITimeFactory $timeFactory;
 
-	public function __construct(LockMapper $lockMapper,
+	public function __construct(
+		private readonly LockMapper $lockMapper,
 		ISecureRandom $secureRandom,
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
 		ITimeFactory $timeFactory,
 	) {
-		$this->lockMapper = $lockMapper;
 		$this->secureRandom = $secureRandom;
 		$this->userSession = $userSession;
 		$this->rootFolder = $rootFolder;
@@ -58,7 +57,7 @@ class LockManagerV1 {
 		try {
 			$lock = $this->lockMapper->getByFileId($id);
 			return $lock->getToken() === $token ? $token : null;
-		} catch (DoesNotExistException $ex) {
+		} catch (DoesNotExistException) {
 			$newToken = $this->getToken();
 			$lockEntity = new Lock();
 			$lockEntity->setId($id);
@@ -78,7 +77,7 @@ class LockManagerV1 {
 	public function unlockFile(int $id, string $token): void {
 		try {
 			$lock = $this->lockMapper->getByFileId($id);
-		} catch (DoesNotExistException $ex) {
+		} catch (DoesNotExistException) {
 			throw new FileNotLockedException();
 		}
 
@@ -115,7 +114,7 @@ class LockManagerV1 {
 			while ($node->getPath() !== '/') {
 				try {
 					$lock = $this->lockMapper->getByFileId($node->getId());
-				} catch (DoesNotExistException $ex) {
+				} catch (DoesNotExistException) {
 					// If this node is not locked, just check the parent one
 					$node = $node->getParent();
 					continue;

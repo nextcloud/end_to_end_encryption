@@ -14,8 +14,7 @@ use Test\TestCase;
 
 class LockMapperTest extends TestCase {
 
-	/** @var LockMapper */
-	private $lockMapper;
+	private ?\OCA\EndToEndEncryption\Db\LockMapper $lockMapper = null;
 
 	protected function setUp(): void {
 		parent::setUp();

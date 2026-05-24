@@ -74,9 +74,7 @@ class LockingControllerTest extends TestCase {
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->request->expects($this->once())
 			->method('getParam')
@@ -141,9 +139,7 @@ class LockingControllerTest extends TestCase {
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 		$this->request->expects($this->once())
 			->method('getHeader')
 			->with('x-nc-e2ee-counter')
@@ -156,14 +152,6 @@ class LockingControllerTest extends TestCase {
 	}
 
 	/**
-	 * @param bool $getUserFolderThrows
-	 * @param bool $userFolderReturnsNodes
-	 * @param bool $abort
-	 * @param \Exception|null $unlockException
-	 * @param string|null $expectedExceptionClass
-	 * @param string|null $expectedExceptionMessage
-	 * @param array|null $expectedResponseData
-	 * @param int|null $expectedResponseStatus
 	 *
 	 * @dataProvider unlockFolderDataProvider
 	 */
@@ -186,9 +174,7 @@ class LockingControllerTest extends TestCase {
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->request->expects($this->once())
 			->method('getHeader')

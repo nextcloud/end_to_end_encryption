@@ -32,32 +32,23 @@ use Psr\Log\LoggerInterface;
  * and only backup files when they are actually being modified / deleted.
  */
 class RollbackService {
-	private LockMapper $lockMapper;
-	private IMetaDataStorage $metaDataStorage;
-	private FileService $fileService;
-	private IUserMountCache $userMountCache;
-	private IRootFolder $rootFolder;
-	private LoggerInterface $logger;
+	private readonly IUserMountCache $userMountCache;
+	private readonly IRootFolder $rootFolder;
 
-	public function __construct(LockMapper $lockMapper,
-		IMetaDataStorage $metaDataStorage,
-		FileService $fileService,
+	public function __construct(
+		private readonly LockMapper $lockMapper,
+		private readonly IMetaDataStorage $metaDataStorage,
+		private readonly FileService $fileService,
 		IUserMountCache $userMountCache,
 		IRootFolder $rootFolder,
-		LoggerInterface $logger) {
-		$this->lockMapper = $lockMapper;
-		$this->metaDataStorage = $metaDataStorage;
-		$this->fileService = $fileService;
+		private readonly LoggerInterface $logger,
+	) {
 		$this->userMountCache = $userMountCache;
 		$this->rootFolder = $rootFolder;
-		$this->logger = $logger;
 	}
 
 	/**
 	 * Rollback all locks older than given timetstamp
-	 *
-	 * @param int $olderThanTimestamp
-	 * @param int|null $limit
 	 */
 	public function rollbackOlderThan(int $olderThanTimestamp, ?int $limit = null): void {
 		$locks = $this->lockMapper->findAllLocksOlderThan($olderThanTimestamp, $limit);
@@ -84,7 +75,7 @@ class RollbackService {
 				continue;
 			}
 
-			if (strpos($firstMountPoint->getInternalPath(), 'files_trashbin/files/') === 0) {
+			if (str_starts_with((string)$firstMountPoint->getInternalPath(), 'files_trashbin/files/')) {
 				$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 				$this->lockMapper->delete($lock);
 				continue;

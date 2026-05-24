@@ -37,14 +37,14 @@ class RedirectRequestPluginTest extends TestCase {
 		$server->expects($this->exactly(8))
 			->method('on')
 			->withConsecutive(
-				['method:MKCOL', [$this->plugin, 'httpMkColPut'], 95],
-				['method:PUT', [$this->plugin, 'httpMkColPut'], 95],
-				['method:COPY', [$this->plugin, 'httpCopyMove'], 95],
-				['method:MOVE', [$this->plugin, 'httpCopyMove'], 95],
-				['method:DELETE', [$this->plugin, 'httpDelete'], 95],
-				['method:GET', [$this->plugin, 'httpGetHead'], 5],
-				['method:HEAD', [$this->plugin, 'httpGetHead'], 5],
-				['propFind', [$this->plugin, 'propFind'], 500],
+				['method:MKCOL', $this->plugin->httpMkColPut(...), 95],
+				['method:PUT', $this->plugin->httpMkColPut(...), 95],
+				['method:COPY', $this->plugin->httpCopyMove(...), 95],
+				['method:MOVE', $this->plugin->httpCopyMove(...), 95],
+				['method:DELETE', $this->plugin->httpDelete(...), 95],
+				['method:GET', $this->plugin->httpGetHead(...), 5],
+				['method:HEAD', $this->plugin->httpGetHead(...), 5],
+				['propFind', $this->plugin->propFind(...), 500],
 			);
 
 		$this->plugin->initialize($server);

@@ -83,12 +83,6 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	}
 
 	/**
-	 * @param \Exception|null $keyStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param array|null $expectedResponseData
-	 * @param int|null $expectedResponseStatus
-	 * @param bool $expectLogger
 	 *
 	 * @dataProvider getPrivateKeyDataProvider
 	 */
@@ -113,9 +107,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -152,10 +144,6 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	}
 
 	/**
-	 * @param \Exception|null $keyStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
 	 *
 	 * @dataProvider deletePrivateKeyDataProvider
 	 */
@@ -176,9 +164,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -208,10 +194,6 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	}
 
 	/**
-	 * @param \Exception|null $keyStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
 	 * @param array $expectedData
 	 * @param int $expectedStatusCode
 	 *
@@ -238,9 +220,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -361,9 +341,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->expectException(OCSBadRequestException::class);
 		$this->expectExceptionMessage('Cannot decode userlist');
@@ -380,9 +358,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$response = $this->controller->getPublicKeys($users);
 		self::assertEquals($response->getStatus(), 404);
@@ -399,9 +375,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->logger->expects($this->once())
 			->method('critical')
@@ -459,9 +433,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->expectException(OCSForbiddenException::class);
 		$this->expectExceptionMessage('Common name (CN) does not match the current user');
@@ -496,10 +468,6 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	}
 
 	/**
-	 * @param \Exception|null $keyStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
 	 *
 	 * @dataProvider deletePublicKeyDataProvider
 	 */
@@ -520,9 +488,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -575,9 +541,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->logger->expects($this->once())
 			->method('critical')

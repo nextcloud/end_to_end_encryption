@@ -15,8 +15,7 @@ use OCP\Files\Storage\IStorage;
 use Test\TestCase;
 
 class FileServiceTest extends TestCase {
-	/** @var FileService */
-	private $fileService;
+	private ?\OCA\EndToEndEncryption\FileService $fileService = null;
 
 	protected function setUp(): void {
 		parent::setUp();

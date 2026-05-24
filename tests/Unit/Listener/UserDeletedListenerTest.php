@@ -19,8 +19,7 @@ class UserDeletedListenerTest extends TestCase {
 	/** @var IKeyStorage|\PHPUnit\Framework\MockObject\MockObject */
 	private $keyStorage;
 
-	/** @var UserDeletedListener */
-	private $listener;
+	private ?\OCA\EndToEndEncryption\Listener\UserDeletedListener $listener = null;
 
 	protected function setUp(): void {
 		parent::setUp();

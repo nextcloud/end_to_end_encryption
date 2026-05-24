@@ -46,8 +46,7 @@ class LockManagerV1Test extends TestCase {
 	/** @var ITimeFactory|\PHPUnit\Framework\MockObject\MockObject */
 	private $timeFactory;
 
-	/** @var LockManagerV1 */
-	private $lockManager;
+	private ?\OCA\EndToEndEncryption\LockManagerV1 $lockManager = null;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -64,13 +63,6 @@ class LockManagerV1Test extends TestCase {
 
 	/**
 	 * @dataProvider lockDataProvider
-	 *
-	 * @param bool $isLocked
-	 * @param bool $lockDoesNotExist
-	 * @param string $token
-	 * @param bool $expectNull
-	 * @param bool $expectNewToken
-	 * @param bool $expectOldToken
 	 */
 	public function testLock(bool $isLocked, bool $lockDoesNotExist, string $token, bool $expectNull, bool $expectNewToken, bool $expectOldToken): void {
 		$lockManager = $this->getMockBuilder(LockManagerV1::class)
@@ -118,12 +110,10 @@ class LockManagerV1Test extends TestCase {
 
 			$this->lockMapper->expects($this->once())
 				->method('insert')
-				->with($this->callback(static function ($lock) {
-					return ($lock instanceof Lock
+				->with($this->callback(static fn ($lock): bool => $lock instanceof Lock
 							&& $lock->getId() === 42
 							&& $lock->getTimestamp() === 1337
-							&& $lock->getToken() === 'new-token');
-				}));
+							&& $lock->getToken() === 'new-token'));
 		} else {
 			$this->secureRandom->expects($this->never())
 				->method('generate');
@@ -155,12 +145,6 @@ class LockManagerV1Test extends TestCase {
 
 	/**
 	 * @dataProvider unlockDataProvider
-	 *
-	 * @param bool $lockDoesNotExist
-	 * @param string $token
-	 * @param bool $expectFileNotLocked
-	 * @param bool $expectFileLocked
-	 * @param bool $expectDelete
 	 */
 	public function testUnlock(bool $lockDoesNotExist, string $token, bool $expectFileNotLocked, bool $expectFileLocked, bool $expectDelete): void {
 		if ($lockDoesNotExist) {

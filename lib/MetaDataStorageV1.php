@@ -24,8 +24,8 @@ use OCP\Files\SimpleFS\ISimpleFile;
  * @package OCA\EndToEndEncryption
  */
 class MetaDataStorageV1 implements IMetaDataStorageV1 {
-	private IAppData $appData;
-	private IRootFolder $rootFolder;
+	private readonly IAppData $appData;
+	private readonly IRootFolder $rootFolder;
 	private string $metaDataRoot = '/meta-data';
 	private string $metaDataFileName = 'meta.data';
 	private string $intermediateMetaDataFileName = 'intermediate.meta.data';
@@ -71,7 +71,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
 			$dir = $this->appData->getFolder($folderName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			$dir = $this->appData->newFolder($folderName);
 		}
 
@@ -115,7 +115,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 
 		try {
 			$intermediateMetaDataFile = $dir->getFile($this->intermediateMetaDataFileName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			$intermediateMetaDataFile = $dir->newFile($this->intermediateMetaDataFileName);
 		}
 
@@ -133,7 +133,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
 			$dir = $this->appData->getFolder($folderName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			return;
 		}
 
@@ -151,7 +151,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
 			$dir = $this->appData->getFolder($folderName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			throw new MissingMetaDataException('Intermediate meta-data file missing');
 		}
 
@@ -166,7 +166,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		} else {
 			try {
 				$finalFile = $dir->getFile($this->metaDataFileName);
-			} catch (NotFoundException $ex) {
+			} catch (NotFoundException) {
 				$finalFile = $dir->newFile($this->metaDataFileName);
 			}
 
@@ -188,7 +188,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
 			$dir = $this->appData->getFolder($folderName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			return;
 		}
 
@@ -212,7 +212,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	protected function verifyOwner(string $userId, int $id): void {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
-		} catch (NoUserException|NotPermittedException $ex) {
+		} catch (NoUserException|NotPermittedException) {
 			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
@@ -247,7 +247,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		try {
 			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
 			return $legacyFolder->getFile($this->metaDataFileName);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			// Just return if no legacy file exits
 			return null;
 		}
@@ -267,7 +267,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		try {
 			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
 			$legacyFolder->delete();
-		} catch (NotFoundException|NotPermittedException $e) {
+		} catch (NotFoundException|NotPermittedException) {
 			return;
 		}
 	}
@@ -282,7 +282,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	protected function getLegacyOwnerPath(string $userId, int $id):string {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
-		} catch (NoUserException $ex) {
+		} catch (NoUserException) {
 			throw new NotFoundException('No user-root for ' . $userId);
 		}
 

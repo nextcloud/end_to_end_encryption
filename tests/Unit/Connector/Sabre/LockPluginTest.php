@@ -51,11 +51,11 @@ class LockPluginTest extends TestCase {
 		$server->expects($this->exactly(5))
 			->method('on')
 			->withConsecutive(
-				['beforeMethod:DELETE', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:MKCOL', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:PUT', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:COPY', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:MOVE', [$this->plugin, 'checkLock'], 200],
+				['beforeMethod:DELETE', $this->plugin->checkLock(...), 200],
+				['beforeMethod:MKCOL', $this->plugin->checkLock(...), 200],
+				['beforeMethod:PUT', $this->plugin->checkLock(...), 200],
+				['beforeMethod:COPY', $this->plugin->checkLock(...), 200],
+				['beforeMethod:MOVE', $this->plugin->checkLock(...), 200],
 			);
 
 		$this->plugin->initialize($server);
@@ -104,8 +104,6 @@ class LockPluginTest extends TestCase {
 
 	/**
 	 * @dataProvider nonCopyMoveMethodDataProvider
-	 *
-	 * @param string $method
 	 */
 	public function testCheckLockNonCopyMoveNoE2EPath(string $method):void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
@@ -154,8 +152,6 @@ class LockPluginTest extends TestCase {
 
 	/**
 	 * @dataProvider nonCopyMoveMethodDataProvider
-	 *
-	 * @param string $method
 	 */
 	public function testCheckLockBlockUnsupportedClients(string $method): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
@@ -229,12 +225,6 @@ class LockPluginTest extends TestCase {
 
 	/**
 	 * @dataProvider writeMethodDataProvider
-	 *
-	 * @param string $method
-	 * @param string|null $token
-	 * @param bool $isLocked
-	 * @param bool $expectsForbidden
-	 * @param bool $expectsFileLocked
 	 */
 	public function testCheckLockForWrite(string $method,
 		?string $token,
@@ -345,18 +335,6 @@ class LockPluginTest extends TestCase {
 
 	/**
 	 * @dataProvider checkLockForWriteCopyMoveDataProvider
-	 *
-	 * @param string $method
-	 * @param string|null $token
-	 * @param bool $isSrcE2E
-	 * @param bool $isDestE2E
-	 * @param bool $isSrcFutureFile
-	 * @param bool $isSrcLocked
-	 * @param bool $isDestLocked
-	 * @param bool $expectsReturn
-	 * @param bool $expectsForbidden1
-	 * @param bool $expectsForbidden2
-	 * @param bool $expectsFileLocked
 	 */
 	public function testCheckLockForWriteCopyMove(string $method,
 		?string $token,
@@ -598,8 +576,6 @@ class LockPluginTest extends TestCase {
 
 	/**
 	 * @dataProvider isE2EEnabledUserAgentDataProvider
-	 *
-	 * @param bool $supportsE2E
 	 */
 	public function testIsE2EEnabledUserAgent(bool $supportsE2E): void {
 		$this->userAgentManager->expects($this->once())
