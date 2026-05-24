@@ -28,7 +28,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.3.0
 	- license: GPL-3.0-or-later
 - @nextcloud/vue
-	- version: 8.37.0
+	- version: 8.39.0
 	- license: AGPL-3.0-or-later
 - @noble/hashes
 	- version: 1.7.0
@@ -43,7 +43,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.18.2
 	- license: AGPL-3.0-or-later
 - fast-xml-builder
-	- version: 1.1.4
+	- version: 1.2.0
 	- license: MIT
 - path-expression-matcher
 	- version: 1.5.0
@@ -61,5 +61,8 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.24.0
 	- license: MIT
 - webdav
-	- version: 5.9.0
+	- version: 5.10.0
+	- license: MIT
+- xml-naming
+	- version: 0.1.0
 	- license: MIT
