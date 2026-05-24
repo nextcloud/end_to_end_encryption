@@ -93,7 +93,7 @@ class MetaDataController extends OCSController {
 		return new DataResponse(
 			['meta-data' => $metaData],
 			Http::STATUS_OK,
-			['X-NC-E2EE-SIGNATURE' => $this->metaDataStorage->readSignature($id)],
+			['x-nc-e2ee-signature' => $this->metaDataStorage->readSignature($id)],
 		);
 	}
 
