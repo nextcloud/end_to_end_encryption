@@ -26,7 +26,6 @@ use Test\TestCase;
 
 class LockingControllerTest extends TestCase {
 
-
 	/** @var string */
 	private $appName;
 

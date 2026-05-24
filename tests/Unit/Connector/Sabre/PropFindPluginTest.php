@@ -151,9 +151,6 @@ class PropFindPluginTest extends TestCase {
 		];
 	}
 
-
-
-
 	/**
 	 * @dataProvider updatePropertyDataProvider
 	 *

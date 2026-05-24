@@ -5,6 +5,7 @@ declare(strict_types=1);
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 namespace OCA\EndToEndEncryption\Controller\V1;
 
 use OC\User\NoUserException;
@@ -178,7 +179,6 @@ class MetaDataController extends OCSController {
 		}
 		return new DataResponse();
 	}
-
 
 	/**
 	 * Append new entries in the filedrop property of a metadata
