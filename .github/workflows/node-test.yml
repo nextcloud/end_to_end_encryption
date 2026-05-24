@@ -68,8 +68,8 @@ jobs:
         uses: skjnldsv/read-package-engines-version-actions@06d6baf7d8f41934ab630e97d9e6c0bc9c9ac5e4 # v3
         id: versions
         with:
-          fallbackNode: '^20'
-          fallbackNpm: '^10'
+          fallbackNode: '^24'
+          fallbackNpm: '^11.3'
 
       - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
@@ -79,24 +79,20 @@ jobs:
       - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
         run: npm i -g 'npm@${{ steps.versions.outputs.npmVersion }}'
 
-      - name: Install dependencies
+      - name: Install dependencies & build
         env:
           CYPRESS_INSTALL_BINARY: 0
-        run: npm ci
-
-      - name: Test and process coverage
-        id: coverage
-        timeout-minutes: 15
-        continue-on-error: true
-        run: npm run test:coverage
+        run: |
+          npm ci
+          npm run build --if-present
 
       - name: Test
-        if: steps.coverage.outcome != 'success'
-        timeout-minutes: 10
         run: npm run test --if-present
 
+      - name: Test and process coverage
+        run: npm run test:coverage --if-present
+
       - name: Collect coverage
-        if: steps.coverage.outcome == 'success'
         uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
         with:
           files: ./coverage/lcov.info
