@@ -56,7 +56,7 @@ Meaning that some apps in the web interface do not work with encrypted files.
 
 	]]></description>
 	<version>2.1.1</version>
-	<licence>agpl</licence>
+	<licence>AGPL-3.0-or-later</licence>
 	<author>Nextcloud GmbH</author>
 	<namespace>EndToEndEncryption</namespace>
 	<types>
@@ -67,11 +67,11 @@ Meaning that some apps in the web interface do not work with encrypted files.
 	<website>https://github.com/nextcloud/end_to_end_encryption</website>
 	<bugs>https://github.com/nextcloud/end_to_end_encryption/issues</bugs>
 	<repository type="git">https://github.com/nextcloud/end_to_end_encryption.git</repository>
-	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable33/doc/screenshots/new-folder.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable33/doc/screenshots/open-folder.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable33/doc/screenshots/desktop-client.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable-2/doc/screenshots/new-folder.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable-2/doc/screenshots/open-folder.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable-2/doc/screenshots/desktop-client.png</screenshot>
 	<dependencies>
-		<nextcloud min-version="33" max-version="33" />
+		<nextcloud min-version="33" max-version="34" />
 	</dependencies>
 	<background-jobs>
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
