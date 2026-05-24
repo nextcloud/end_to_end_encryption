@@ -6,7 +6,6 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-
 namespace OCA\EndToEndEncryption;
 
 use OCP\DB\QueryBuilder\IQueryBuilder;
@@ -93,7 +92,6 @@ class EncryptionManager {
 		$uid = $this->userSession->getUser()->getUID();
 		return $this->rootFolder->getUserFolder($uid);
 	}
-
 
 	/**
 	 * Check if file ID points to a valid folder

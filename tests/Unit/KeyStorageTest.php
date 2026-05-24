@@ -191,7 +191,6 @@ class KeyStorageTest extends TestCase {
 			}
 		}
 
-
 		if ($expectsNotPermittedException) {
 			$this->expectException(NotPermittedException::class);
 			$this->expectExceptionMessage('You are not allowed to delete the public key');
@@ -508,7 +507,6 @@ class KeyStorageTest extends TestCase {
 
 		$publicKeyFile = $this->createMock(ISimpleFile::class);
 		$privateKeyFile = $this->createMock(ISimpleFile::class);
-
 
 		if ($expectsPublicDelete) {
 			$publicKeyFile->expects($this->once())

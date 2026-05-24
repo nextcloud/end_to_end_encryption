@@ -6,7 +6,6 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-
 namespace OCA\EndToEndEncryption\AppInfo;
 
 use OCA\EndToEndEncryption\Capabilities;
@@ -49,7 +48,6 @@ class Application extends App implements IBootstrap {
 	public function __construct(array $urlParams = []) {
 		parent::__construct(self::APP_ID, $urlParams);
 	}
-
 
 	/**
 	 * @inheritDoc
@@ -94,7 +92,6 @@ class Application extends App implements IBootstrap {
 				$event->disableTrashBin();
 			}
 		});
-
 
 		$eventDispatcher->addListener('OCA\Files_Versions::createVersion', function (CreateVersionEvent $event): void {
 			/** @var EncryptionManager $encryptionManager */

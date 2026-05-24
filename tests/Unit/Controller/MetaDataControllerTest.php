@@ -27,7 +27,6 @@ use Test\TestCase;
 
 class MetaDataControllerTest extends TestCase {
 
-
 	/** @var string */
 	private $appName;
 
@@ -57,7 +56,6 @@ class MetaDataControllerTest extends TestCase {
 
 	/** @var IRootFolder */
 	private $rootFolder;
-
 
 	protected function setUp(): void {
 		parent::setUp();
