@@ -76,7 +76,7 @@
     "@vue/tsconfig": "^0.8.1",
     "core-js": "^3.49.0",
     "eslint": "^10.3.0",
-    "msw": "^2.14.5",
+    "msw": "^2.14.6",
     "stylelint": "^17.1.1",
     "vite": "^7.3.3",
     "vite-plugin-static-copy": "^3.4.0",
