@@ -19,23 +19,17 @@ use OCP\IConfig;
  * @package OCA\EndToEndEncryption\BackgroundJob
  */
 class RollbackBackgroundJob extends TimedJob {
-	private IConfig $config;
-	private RollbackService $rollbackService;
-
-	public function __construct(IConfig $config,
+	public function __construct(
+		private readonly IConfig $config,
 		ITimeFactory $time,
-		RollbackService $rollbackService) {
+		private readonly RollbackService $rollbackService,
+	) {
 		parent::__construct($time);
-		$this->config = $config;
-		$this->rollbackService = $rollbackService;
 
 		// Run once an hour
 		$this->setInterval(60 * 60);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	protected function run($argument) {
 		$automaticRollback = $this->config
 			->getAppValue(Application::APP_ID, 'automatic_rollback', 'yes');

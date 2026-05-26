@@ -75,7 +75,6 @@ class FileService {
 	}
 
 	/**
-	 * @param Folder $folder
 	 * @return array{to_save: Node[], to_delete: Node[]}
 	 */
 	private function getIntermediateFiles(Folder $folder): array {

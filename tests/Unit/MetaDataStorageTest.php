@@ -39,8 +39,6 @@ class MetaDataStorageTest extends TestCase {
 	}
 
 	/**
-	 * @param bool $hasLegacyFile
-	 * @param string $expectedOutput
 	 *
 	 * @dataProvider getMetaDataDataProvider
 	 */
@@ -112,13 +110,6 @@ class MetaDataStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider setMetaDataIntoIntermediateFileDataProvider
-	 *
-	 * @param bool $hasLegacyMetadataFile
-	 * @param bool $folderExists
-	 * @param bool $fileExists
-	 * @param bool $intermediateFileExists
-	 * @param bool $expectsNewFolder
-	 * @param bool $expectsMetaDataExistsException
 	 */
 	public function testSetMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectsNewFolder, bool $expectsMetaDataExistsException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
@@ -231,12 +222,6 @@ class MetaDataStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider updateMetaDataIntoIntermediateFileDataProvider
-	 *
-	 * @param bool $hasLegacyMetadataFile
-	 * @param bool $folderExists
-	 * @param bool $fileExists
-	 * @param bool $intermediateFileExists
-	 * @param bool $expectMissingMetaDataException
 	 */
 	public function testUpdateMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectMissingMetaDataException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
@@ -349,8 +334,6 @@ class MetaDataStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider deleteMetaDataDataProvider
-	 *
-	 * @param bool $folderExists
 	 */
 	public function testDeleteMetaData(bool $folderExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
@@ -566,9 +549,6 @@ class MetaDataStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider deleteIntermediateFileDataProvider
-	 *
-	 * @param bool $folderExists
-	 * @param bool $fileExists
 	 */
 	public function testDeleteIntermediateFile(bool $folderExists, bool $fileExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
@@ -629,11 +609,6 @@ class MetaDataStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider verifyOwnerDataProvider
-	 *
-	 * @param bool $noUserException
-	 * @param bool $emptyOwnerRoot
-	 * @param bool $expectsNotFoundEx
-	 * @param string|null $expectedMessage
 	 */
 	public function testVerifyOwner(bool $noUserException, bool $emptyOwnerRoot, bool $expectsNotFoundEx, ?string $expectedMessage): void {
 		if ($noUserException) {
@@ -680,9 +655,6 @@ class MetaDataStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider verifyFolderStructureDataProvider
-	 *
-	 * @param bool $exists
-	 * @param bool $expectsNewFolder
 	 */
 	public function testVerifyFolderStructure(bool $exists, bool $expectsNewFolder): void {
 		$appDataRoot = $this->createMock(ISimpleFolder::class);
@@ -716,10 +688,6 @@ class MetaDataStorageTest extends TestCase {
 	}
 
 	/**
-	 * @param Exception|null $legacyOwnerException
-	 * @param Exception|null $getFolderException
-	 * @param Exception|null $getFileException
-	 * @param bool $expectsNull
 	 *
 	 * @dataProvider getLegacyFileDataProvider
 	 */
@@ -793,9 +761,6 @@ class MetaDataStorageTest extends TestCase {
 	}
 
 	/**
-	 * @param Exception|null $legacyOwnerException
-	 * @param Exception|null $getFolderException
-	 * @param bool $expectsDelete
 	 *
 	 * @dataProvider cleanupLegacyFileDataProvider
 	 */

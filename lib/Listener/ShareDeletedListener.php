@@ -21,8 +21,8 @@ use Psr\Log\LoggerInterface;
 class ShareDeletedListener implements IEventListener {
 
 	public function __construct(
-		private IKeyStorage $keyStorage,
-		private LoggerInterface $logger,
+		private readonly IKeyStorage $keyStorage,
+		private readonly LoggerInterface $logger,
 	) {
 	}
 

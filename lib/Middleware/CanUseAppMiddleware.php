@@ -42,9 +42,7 @@ class CanUseAppMiddleware extends Middleware {
 	/**
 	 * @param Controller $controller
 	 * @param string $methodName
-	 * @param \Exception $exception
 	 * @throws \Exception
-	 * @return Response
 	 */
 	public function afterException($controller, $methodName, \Exception $exception): Response {
 		if ($exception instanceof CanNotUseAppException) {

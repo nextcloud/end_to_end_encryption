@@ -41,8 +41,7 @@ class RollbackServiceTest extends TestCase {
 	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
 	private $logger;
 
-	/** @var RollbackService */
-	private $rollbackService;
+	private ?\OCA\EndToEndEncryption\RollbackService $rollbackService = null;
 
 	protected function setUp(): void {
 		parent::setUp();

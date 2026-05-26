@@ -100,9 +100,9 @@ class KeyController extends OCSController {
 		try {
 			$this->keyStorage->deletePrivateKey($this->userId, $shareToken);
 			return new DataResponse();
-		} catch (NotPermittedException $e) {
+		} catch (NotPermittedException) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to delete this private key'));
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find the private key belonging to the user %s', [$this->userId]));
 		} catch (Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
@@ -143,7 +143,7 @@ class KeyController extends OCSController {
 
 		try {
 			$this->keyStorage->setPrivateKey($privateKey, $this->userId, $shareToken);
-		} catch (KeyExistsException $e) {
+		} catch (KeyExistsException) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
@@ -213,7 +213,7 @@ class KeyController extends OCSController {
 		if ($subject === false) {
 			throw new OCSBadRequestException($this->l10n->t('Could not parse the CSR, please make sure to submit a valid CSR'));
 		}
-		$cn = isset($subject['CN']) ? $subject['CN'] : '';
+		$cn = $subject['CN'] ?? '';
 		if ($shareToken !== null) {
 			if ($cn !== "s:$shareToken") {
 				throw new OCSForbiddenException($this->l10n->t('Common name (CN) does not match the share token'));
@@ -267,7 +267,7 @@ class KeyController extends OCSController {
 
 		try {
 			$this->keyStorage->setPublicKey($publicKey, $this->userId);
-		} catch (KeyExistsException $e) {
+		} catch (KeyExistsException) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (Exception $e) {
 			$this->logger->error('Fail to set user public key', ['exception' => $e, 'app' => $this->appName]);
@@ -294,9 +294,9 @@ class KeyController extends OCSController {
 		try {
 			$this->keyStorage->deletePublicKey($this->userId, $shareToken);
 			return new DataResponse();
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find the public key belonging to %s', [$this->userId]));
-		} catch (NotPermittedException $e) {
+		} catch (NotPermittedException) {
 			throw new OCSForbiddenException($this->l10n->t('This is not your public key to delete'));
 		} catch (Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
@@ -335,7 +335,6 @@ class KeyController extends OCSController {
 	 * add the currently logged in user if the user isn't part of the list
 	 *
 	 * @param string $users JSON-encoded userlist
-	 * @return array
 	 * @throws OCSBadRequestException
 	 */
 	private function jsonDecode(string $users): array {

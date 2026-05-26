@@ -62,9 +62,9 @@ class PropFindPluginTest extends TestCase {
 		$server->expects($this->atLeast(2))
 			->method('on')
 			->withConsecutive(
-				['afterMethod:PROPFIND', [$this->plugin, 'checkAccess'], 50],
-				['propFind', [$this->plugin, 'setE2EEProperties'], 104],
-				['propFind', [$this->plugin, 'updateProperty'], 105],
+				['afterMethod:PROPFIND', $this->plugin->checkAccess(...), 50],
+				['propFind', $this->plugin->setE2EEProperties(...), 104],
+				['propFind', $this->plugin->updateProperty(...), 105],
 			);
 
 		$this->plugin->initialize($server);
@@ -94,9 +94,6 @@ class PropFindPluginTest extends TestCase {
 
 	/**
 	 * @dataProvider updatePropertyDataProvider
-	 *
-	 * @param bool $supportedUserAgent
-	 * @param bool $fileEncrypted
 	 */
 	public function testUpdateProperty(bool $supportedUserAgent, bool $fileEncrypted): void {
 		$server = $this->createMock(Server::class);
@@ -156,13 +153,10 @@ class PropFindPluginTest extends TestCase {
 
 	/**
 	 * @dataProvider updatePropertyDataProvider
-	 *
-	 * @param bool $supportedUserAgent
-	 * @param bool $fileEncrypted
 	 */
 	public function testCheckAccess(bool $supportedUserAgent, bool $fileEncrypted): void {
 		$server = $this->createMock(Server::class);
-		$propFind = $this->createMock(PropFind::class);
+		$this->createMock(PropFind::class);
 		$iNode = $this->createMock(Directory::class);
 		$request = $this->createMock(RequestInterface::class);
 		$tree = $this->createMock(Tree::class);

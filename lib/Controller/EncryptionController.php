@@ -30,22 +30,15 @@ use Psr\Log\LoggerInterface;
 class EncryptionController extends OCSController {
 	use ThrottleRequestTrait;
 
-	private ?string $userId;
-	private IMetaDataStorage $metaDataStorage;
-	private EncryptionManager $manager;
-	private LoggerInterface $logger;
-
-	public function __construct(string $AppName,
+	public function __construct(
+		string $AppName,
 		IRequest $request,
-		?string $userId,
-		IMetaDataStorage $metaDataStorage,
-		EncryptionManager $manager,
-		LoggerInterface $logger) {
+		private ?string $userId,
+		private IMetaDataStorage $metaDataStorage,
+		private EncryptionManager $manager,
+		private LoggerInterface $logger,
+	) {
 		parent::__construct($AppName, $request);
-		$this->userId = $userId;
-		$this->metaDataStorage = $metaDataStorage;
-		$this->manager = $manager;
-		$this->logger = $logger;
 	}
 
 	/**

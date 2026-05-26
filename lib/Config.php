@@ -12,8 +12,8 @@ use OCP\IGroupManager;
 use OCP\IUser;
 
 class Config {
-	private IConfig $config;
-	private IGroupManager $groupManager;
+	private readonly IConfig $config;
+	private readonly IGroupManager $groupManager;
 
 	public function __construct(IConfig $config, IGroupManager $groupManager) {
 		$this->config = $config;

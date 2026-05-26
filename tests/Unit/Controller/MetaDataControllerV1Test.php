@@ -29,14 +29,12 @@ use Test\TestCase;
 class MetaDataControllerV1Test extends TestCase {
 
 
-	/** @var string */
-	private $appName;
+	private ?string $appName = null;
 
 	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
 	private $request;
 
-	/** @var string */
-	private $userId;
+	private ?string $userId = null;
 
 	/** @var IMetaDataStorageV1|\PHPUnit\Framework\MockObject\MockObject */
 	private $metaDataStorage;
@@ -53,8 +51,7 @@ class MetaDataControllerV1Test extends TestCase {
 	/** @var ShareManager|\PHPUnit\Framework\MockObject\MockObject */
 	private $shareManager;
 
-	/** @var MetaDataController */
-	private $controller;
+	private ?\OCA\EndToEndEncryption\Controller\V1\MetaDataController $controller = null;
 
 	/** @var IRootFolder */
 	private $rootFolder;
@@ -87,10 +84,6 @@ class MetaDataControllerV1Test extends TestCase {
 	}
 
 	/**
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
 	 *
 	 * @dataProvider getMetaDataDataProvider
 	 */
@@ -114,9 +107,7 @@ class MetaDataControllerV1Test extends TestCase {
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -147,12 +138,6 @@ class MetaDataControllerV1Test extends TestCase {
 	}
 
 	/**
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
-	 * @param array|null $expectedResponseData
-	 * @param int|null $expectedResponseCode
 	 *
 	 * @dataProvider setMetaDataDataProvider
 	 */
@@ -177,9 +162,7 @@ class MetaDataControllerV1Test extends TestCase {
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -210,11 +193,6 @@ class MetaDataControllerV1Test extends TestCase {
 	}
 
 	/**
-	 * @param bool $isLocked
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
 	 *
 	 * @dataProvider updateMetaDataDataProvider
 	 */
@@ -251,9 +229,7 @@ class MetaDataControllerV1Test extends TestCase {
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())
@@ -286,10 +262,6 @@ class MetaDataControllerV1Test extends TestCase {
 	}
 
 	/**
-	 * @param \Exception|null $metaDataStorageException
-	 * @param string|null $expectedException
-	 * @param string|null $expectedExceptionMessage
-	 * @param bool $expectLogger
 	 *
 	 * @dataProvider deleteMetaDataDataProvider
 	 */
@@ -311,9 +283,7 @@ class MetaDataControllerV1Test extends TestCase {
 
 		$this->l10n->expects($this->any())
 			->method('t')
-			->willReturnCallback(static function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
 			$this->logger->expects($this->once())

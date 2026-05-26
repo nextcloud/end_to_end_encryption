@@ -19,9 +19,9 @@ use OCP\IRequest;
  */
 class ClientHasCapabilityMiddleware extends Middleware {
 	public function __construct(
-		private IRequest $request,
-		private IMetaDataStorage $metadataStorage,
-		private ?string $userId,
+		private readonly IRequest $request,
+		private readonly IMetaDataStorage $metadataStorage,
+		private readonly ?string $userId,
 	) {
 	}
 

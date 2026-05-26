@@ -17,10 +17,9 @@ use OCP\User\Events\UserDeletedEvent;
  * @template-implements IEventListener<UserDeletedEvent>
  */
 class UserDeletedListener implements IEventListener {
-	private IKeyStorage $keyStorage;
-
-	public function __construct(IKeyStorage $keyStorage) {
-		$this->keyStorage = $keyStorage;
+	public function __construct(
+		private readonly IKeyStorage $keyStorage,
+	) {
 	}
 
 	/**

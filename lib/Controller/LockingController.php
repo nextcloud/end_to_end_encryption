@@ -157,9 +157,9 @@ class LockingController extends OCSController {
 
 		$touchFoldersIds = $this->metaDataStorage->getTouchedFolders($token);
 		$folders = array_map(fn (int $id) => $userFolder->getFirstNodeById($id), $touchFoldersIds);
-		$folders = array_filter($folders, fn (?Node $folder) => $folder instanceof Folder);
+		$folders = array_filter($folders, fn (?Node $folder): bool => $folder instanceof Folder);
 		// ensure we sort to handle deepest folders first
-		usort($folders, fn (Node $a, Node $b)
+		usort($folders, fn (Node $a, Node $b): int
 			=> substr_count($b->getPath(), '/') - substr_count($a->getPath(), '/'),
 		);
 		foreach ($folders as $folder) {

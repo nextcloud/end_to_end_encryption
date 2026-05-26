@@ -14,14 +14,11 @@ use OCP\IUser;
 use OCP\IUserSession;
 
 class Capabilities implements ICapability {
-	private Config $config;
-	private IUserSession $userSession;
-	private IKeyStorage $keyStorage;
-
-	public function __construct(Config $config, IUserSession $userSession, IKeyStorage $keyStorage) {
-		$this->config = $config;
-		$this->userSession = $userSession;
-		$this->keyStorage = $keyStorage;
+	public function __construct(
+		private readonly Config $config,
+		private readonly IUserSession $userSession,
+		private readonly IKeyStorage $keyStorage,
+	) {
 	}
 
 	/**

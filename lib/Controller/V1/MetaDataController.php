@@ -31,31 +31,18 @@ use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
-	private ?string $userId;
-	private IMetaDataStorageV1 $metaDataStorage;
-	private LoggerInterface $logger;
-	private LockManagerV1 $lockManager;
-	private IL10N $l10n;
-	private ShareManager $shareManager;
-
 	public function __construct(
 		string $AppName,
 		IRequest $request,
-		?string $userId,
-		IMetaDataStorageV1 $metaDataStorage,
-		LockManagerV1 $lockManager,
-		LoggerInterface $logger,
-		IL10N $l10n,
-		ShareManager $shareManager,
-		private IRootFolder $rootFolder,
+		private readonly ?string $userId,
+		private readonly IMetaDataStorageV1 $metaDataStorage,
+		private readonly LockManagerV1 $lockManager,
+		private readonly LoggerInterface $logger,
+		private readonly IL10N $l10n,
+		private readonly ShareManager $shareManager,
+		private readonly IRootFolder $rootFolder,
 	) {
 		parent::__construct($AppName, $request);
-		$this->userId = $userId;
-		$this->metaDataStorage = $metaDataStorage;
-		$this->logger = $logger;
-		$this->lockManager = $lockManager;
-		$this->l10n = $l10n;
-		$this->shareManager = $shareManager;
 	}
 
 	/**
@@ -76,7 +63,7 @@ class MetaDataController extends OCSController {
 			$ownerId = $this->getOwnerId($shareToken);
 			$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (\Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
@@ -102,7 +89,7 @@ class MetaDataController extends OCSController {
 		try {
 			$this->metaDataStorage->assertMetadataIsV1($this->userId, $id);
 			$this->metaDataStorage->setMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
-		} catch (MetaDataExistsException $e) {
+		} catch (MetaDataExistsException) {
 			return new DataResponse([], Http::STATUS_CONFLICT);
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
@@ -138,7 +125,7 @@ class MetaDataController extends OCSController {
 
 		try {
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, $metaData);
-		} catch (MissingMetaDataException $e) {
+		} catch (MissingMetaDataException) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());
@@ -168,9 +155,9 @@ class MetaDataController extends OCSController {
 
 		try {
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($this->userId, $id, '{}');
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
-		} catch (NotPermittedException $e) {
+		} catch (NotPermittedException) {
 			throw new OCSForbiddenException($this->l10n->t('Only the owner can delete the metadata-file'));
 		} catch (\Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
@@ -231,7 +218,7 @@ class MetaDataController extends OCSController {
 
 			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata);
 			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
-		} catch (MissingMetaDataException $e) {
+		} catch (MissingMetaDataException) {
 			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
 		} catch (NotFoundException $e) {
 			throw new OCSNotFoundException($e->getMessage());

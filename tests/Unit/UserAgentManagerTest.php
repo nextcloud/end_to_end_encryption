@@ -17,8 +17,6 @@ use Test\TestCase;
 class UserAgentManagerTest extends TestCase {
 
 	/**
-	 * @param string $client
-	 * @param bool $expected
 	 *
 	 * @dataProvider supportsEndToEndEncryptionDataProvider
 	 */
@@ -33,9 +31,6 @@ class UserAgentManagerTest extends TestCase {
 		$this->assertEquals($expected, $actual);
 	}
 
-	/**
-	 * @return array
-	 */
 	public function supportsEndToEndEncryptionDataProvider(): array {
 		return [
 			// Android

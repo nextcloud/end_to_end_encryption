@@ -65,9 +65,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider publicKeyExistsDataProvider
-	 *
-	 * @param bool $exists
-	 * @param bool $expected
 	 */
 	public function testPublicKeyExists(bool $exists, bool $expected): void {
 		$folder = $this->createMock(ISimpleFolder::class);
@@ -93,10 +90,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider setPublicKeyDataProvider
-	 *
-	 * @param bool $exists
-	 * @param bool $expectsKeyExistsException
-	 * @param bool $expectsNewFile
 	 */
 	public function testSetPublicKey(bool $exists, bool $expectsKeyExistsException, bool $expectsNewFile): void {
 		$folder = $this->createMock(ISimpleFolder::class);
@@ -105,7 +98,7 @@ class KeyStorageTest extends TestCase {
 			->with('jane.public.key')
 			->willReturn($exists);
 
-		$matcher = $this->exactly(2);
+		$this->exactly(2);
 		$this->appData->expects($this->once())
 			->method('getFolder')
 			->willReturn($folder);
@@ -138,12 +131,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider deletePublicKeyDataProvider
-	 *
-	 * @param bool $getUserReturnsNull
-	 * @param string $userId
-	 * @param bool $notFoundException
-	 * @param bool $expectsNotPermittedException
-	 * @param bool $expectDelete
 	 */
 	public function testDeletePublicKey(bool $getUserReturnsNull, string $userId, bool $notFoundException, bool $expectsNotPermittedException, bool $expectDelete): void {
 		if ($getUserReturnsNull) {
@@ -208,10 +195,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider getPrivateKeyDataProvider
-	 *
-	 * @param bool $getUserReturnsNull
-	 * @param string $userId
-	 * @param bool $expectsForbiddenException
 	 */
 	public function testGetPrivateKey(bool $getUserReturnsNull, string $userId, bool $expectsForbiddenException): void {
 		if ($getUserReturnsNull) {
@@ -268,12 +251,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider privateKeyExistsDataProvider
-	 *
-	 * @param bool $getUserReturnsNull
-	 * @param string $userId
-	 * @param bool $exists
-	 * @param bool $expected
-	 * @param bool $expectsForbiddenException
 	 */
 	public function testPrivateKeyExists(bool $getUserReturnsNull, string $userId, bool $exists, bool $expected, bool $expectsForbiddenException): void {
 		if ($getUserReturnsNull) {
@@ -325,13 +302,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider setPrivateKeyDataProvider
-	 *
-	 * @param bool $getUserReturnsNull
-	 * @param string $userId
-	 * @param bool $fileExists
-	 * @param bool $expectsForbiddenException
-	 * @param bool $expectsKeyExistsException
-	 * @param bool $expectsPutContent
 	 */
 	public function testSetPrivateKey(bool $getUserReturnsNull, string $userId, bool $fileExists, bool $expectsForbiddenException, bool $expectsKeyExistsException, bool $expectsPutContent): void {
 		if ($getUserReturnsNull) {
@@ -399,12 +369,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider deletePrivateKeyDataProvider
-	 *
-	 * @param bool $getUserReturnsNull
-	 * @param string $userId
-	 * @param bool $fileExists
-	 * @param bool $expectsNotPermittedException
-	 * @param bool $expectsDelete
 	 */
 	public function testDeletePrivateKey(bool $getUserReturnsNull, string $userId, bool $fileExists, bool $expectsNotPermittedException, bool $expectsDelete): void {
 		if ($getUserReturnsNull) {
@@ -468,11 +432,6 @@ class KeyStorageTest extends TestCase {
 
 	/**
 	 * @dataProvider deleteUserKeysDataProvider
-	 *
-	 * @param bool $publicNotFound
-	 * @param bool $privateNotFound
-	 * @param bool $expectsPublicDelete
-	 * @param bool $expectsPrivateDelete
 	 */
 	public function testDeleteUserKeys(bool $publicNotFound, bool $privateNotFound, bool $expectsPublicDelete, bool $expectsPrivateDelete): void {
 		$publicKeyFolder = $this->createMock(ISimpleFolder::class);
@@ -579,7 +538,7 @@ class KeyStorageTest extends TestCase {
 			$matcher = $this->exactly(2);
 			$this->appData->expects($matcher)
 				->method('newFolder')
-				->willReturnCallback(function (string $value) use ($matcher, $privateKeyExists, $publicKeyExists): ISimpleFolder {
+				->willReturnCallback(function (string $value) use ($matcher): ISimpleFolder {
 					switch ($matcher->getInvocationCount()) {
 						case 1:
 							$this->assertEquals($value, '/private-keys');

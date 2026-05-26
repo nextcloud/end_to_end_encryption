@@ -14,18 +14,17 @@ use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\IConfig;
 use OCP\IUserSession;
 use OCP\Settings\ISettings;
 
 class Personal implements ISettings {
 	public function __construct(
-		private IKeyStorage $keyStorage,
-		private IInitialState $initialState,
-		private ?string $userId,
-		private IUserSession $userSession,
-		private Config $e2eConfig,
-		private IConfig $config,
+		private readonly IKeyStorage $keyStorage,
+		private readonly IInitialState $initialState,
+		private readonly ?string $userId,
+		private readonly IUserSession $userSession,
+		private readonly Config $e2eConfig,
+		private readonly \OCP\Config\IUserConfig $userConfig,
 	) {
 	}
 
@@ -39,7 +38,7 @@ class Personal implements ISettings {
 		$this->initialState->provideInitialState(
 			'userConfig',
 			[
-				'e2eeInBrowserEnabled' => $this->config->getUserValue($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true',
+				'e2eeInBrowserEnabled' => $this->userConfig->getValueString($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true',
 			]
 		);
 

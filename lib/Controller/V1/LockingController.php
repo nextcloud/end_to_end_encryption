@@ -30,36 +30,19 @@ use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class LockingController extends OCSController {
-	private ?string $userId;
-	private IMetaDataStorageV1 $metaDataStorage;
-	private IRootFolder $rootFolder;
-	private FileService $fileService;
-	private LockManagerV1 $lockManager;
-	private IL10N $l10n;
-	private LoggerInterface $logger;
-	private ShareManager $shareManager;
-
 	public function __construct(
 		string $AppName,
 		IRequest $request,
-		?string $userId,
-		IMetaDataStorageV1 $metaDataStorage,
-		LockManagerV1 $lockManager,
-		IRootFolder $rootFolder,
-		FileService $fileService,
-		LoggerInterface $logger,
-		IL10N $l10n,
-		ShareManager $shareManager,
+		private readonly ?string $userId,
+		private readonly IMetaDataStorageV1 $metaDataStorage,
+		private readonly LockManagerV1 $lockManager,
+		private readonly IRootFolder $rootFolder,
+		private readonly FileService $fileService,
+		private readonly LoggerInterface $logger,
+		private readonly IL10N $l10n,
+		private readonly ShareManager $shareManager,
 	) {
 		parent::__construct($AppName, $request);
-		$this->userId = $userId;
-		$this->metaDataStorage = $metaDataStorage;
-		$this->rootFolder = $rootFolder;
-		$this->fileService = $fileService;
-		$this->lockManager = $lockManager;
-		$this->logger = $logger;
-		$this->l10n = $l10n;
-		$this->shareManager = $shareManager;
 	}
 
 	/**
@@ -150,9 +133,9 @@ class LockingController extends OCSController {
 
 		try {
 			$this->lockManager->unlockFile($id, $token);
-		} catch (FileLockedException $e) {
+		} catch (FileLockedException) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
-		} catch (FileNotLockedException $e) {
+		} catch (FileNotLockedException) {
 			throw new OCSNotFoundException($this->l10n->t('File not locked'));
 		}
 

@@ -20,14 +20,12 @@ use Test\TestCase;
 
 class EncryptionControllerTest extends TestCase {
 
-	/** @var string */
-	private $appName;
+	private ?string $appName = null;
 
 	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
 	private $request;
 
-	/** @var string */
-	private $userId;
+	private ?string $userId = null;
 
 	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
 	private $metaDataStorage;
@@ -38,8 +36,7 @@ class EncryptionControllerTest extends TestCase {
 	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
 	private $logger;
 
-	/** @var EncryptionController */
-	private $controller;
+	private ?\OCA\EndToEndEncryption\Controller\EncryptionController $controller = null;
 
 	protected function setUp(): void {
 		parent::setUp();

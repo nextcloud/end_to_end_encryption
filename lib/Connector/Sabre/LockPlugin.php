@@ -26,37 +26,32 @@ use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
 
 class LockPlugin extends APlugin {
-	private LockManager $lockManager;
-	private UserAgentManager $userAgentManager;
-
-	public function __construct(IRootFolder $rootFolder,
+	public function __construct(
+		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		LockManager $lockManager,
-		UserAgentManager $userAgentManager,
+		private readonly LockManager $lockManager,
+		private readonly UserAgentManager $userAgentManager,
 	) {
 		parent::__construct($rootFolder, $userSession);
-		$this->lockManager = $lockManager;
-		$this->userAgentManager = $userAgentManager;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function initialize(Server $server) {
+	public function initialize(Server $server): void {
 		parent::initialize($server);
 
-		$this->server->on('beforeMethod:DELETE', [$this, 'checkLock'], 200);
-		$this->server->on('beforeMethod:MKCOL', [$this, 'checkLock'], 200);
-		$this->server->on('beforeMethod:PUT', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:DELETE', $this->checkLock(...), 200);
+		$this->server->on('beforeMethod:MKCOL', $this->checkLock(...), 200);
+		$this->server->on('beforeMethod:PUT', $this->checkLock(...), 200);
 
-		$this->server->on('beforeMethod:COPY', [$this, 'checkLock'], 200);
-		$this->server->on('beforeMethod:MOVE', [$this, 'checkLock'], 200);
+		$this->server->on('beforeMethod:COPY', $this->checkLock(...), 200);
+		$this->server->on('beforeMethod:MOVE', $this->checkLock(...), 200);
 	}
 
 	/**
 	 * Check if a file is locked for end-to-end encryption before trying to download it
 	 *
-	 * @param RequestInterface $request
 	 * @throws Conflict
 	 * @throws FileLocked
 	 * @throws Forbidden
@@ -141,8 +136,6 @@ class LockPlugin extends APlugin {
 	 * Make sure that a user does not write into an E2E folder without
 	 * having a valid lock
 	 *
-	 * @param INode $node
-	 * @param string|null $token
 	 * @throws Forbidden
 	 */
 	protected function verifyTokenOnWriteAccess(INode $node, ?string $token): void {
@@ -158,9 +151,6 @@ class LockPlugin extends APlugin {
 
 	/**
 	 * Checks whether the client supports the latest version of E2E
-	 *
-	 * @param string $userAgent
-	 * @return bool
 	 */
 	protected function isE2EEnabledUserAgent(string $userAgent):bool {
 		return $this->userAgentManager->supportsEndToEndEncryption($userAgent);

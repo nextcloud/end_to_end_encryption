@@ -33,9 +33,9 @@ class PropFindPlugin extends APlugin {
 	public function __construct(
 		IRootFolder $rootFolder,
 		IUserSession $userSession,
-		private UserAgentManager $userAgentManager,
-		private IRequest $request,
-		private IMetaDataStorage $metaDataStorage,
+		private readonly UserAgentManager $userAgentManager,
+		private readonly IRequest $request,
+		private readonly IMetaDataStorage $metaDataStorage,
 	) {
 		parent::__construct($rootFolder, $userSession);
 	}
@@ -43,25 +43,23 @@ class PropFindPlugin extends APlugin {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function initialize(Server $server) {
+	public function initialize(Server $server): void {
 		parent::initialize($server);
 
 		$this->server = $server;
-		$this->server->on('afterMethod:PROPFIND', [$this, 'checkAccess'], 50);
-		$this->server->on('propFind', [$this, 'setE2EEProperties'], 104);
-		$this->server->on('propFind', [$this, 'updateProperty'], 105);
+		$this->server->on('afterMethod:PROPFIND', $this->checkAccess(...), 50);
+		$this->server->on('propFind', $this->setE2EEProperties(...), 104);
+		$this->server->on('propFind', $this->updateProperty(...), 105);
 	}
 
-	public function setE2EEProperties(PropFind $propFind, \Sabre\DAV\INode $node) {
+	public function setE2EEProperties(PropFind $propFind, \Sabre\DAV\INode $node): void {
 		if (!($node instanceof Directory || $node instanceof File)) {
 			return;
 		}
 
 		// Some properties are only for folders.
 		if ($node instanceof Directory) {
-			$propFind->handle(self::IS_ENCRYPTED_PROPERTYNAME, function () use ($node) {
-				return $this->isE2EEnabledPath($node) ? '1' : '0';
-			});
+			$propFind->handle(self::IS_ENCRYPTED_PROPERTYNAME, fn (): string => $this->isE2EEnabledPath($node) ? '1' : '0');
 
 			$propFind->handle(self::E2EE_METADATA_PROPERTYNAME, function () use ($node) {
 				if ($this->isE2EEnabledPath($node)) {
@@ -80,16 +78,11 @@ class PropFindPlugin extends APlugin {
 		}
 
 		// This property was introduced to expose encryption status for both files and folders.
-		$propFind->handle(self::E2EE_IS_ENCRYPTED, function () use ($node) {
-			return $this->isE2EEnabledPath($node) ? '1' : '0';
-		});
+		$propFind->handle(self::E2EE_IS_ENCRYPTED, fn (): string => $this->isE2EEnabledPath($node) ? '1' : '0');
 	}
 
 	/**
 	 * Remove permissions of end-to-end encrypted files for unsupported clients
-	 *
-	 * @param PropFind $propFind
-	 * @param INode $node
 	 */
 	public function updateProperty(PropFind $propFind, INode $node): void {
 		// only apply the plugin to files/directory, not to contacts or calendars
@@ -108,7 +101,7 @@ class PropFindPlugin extends APlugin {
 		}
 	}
 
-	public function checkAccess(RequestInterface $request) {
+	public function checkAccess(RequestInterface $request): void {
 		if ($request->getMethod() !== 'PROPFIND') {
 			return;
 		}

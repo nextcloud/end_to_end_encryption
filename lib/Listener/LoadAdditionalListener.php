@@ -15,7 +15,6 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Files\FileInfo;
-use OCP\IConfig;
 use OCP\Util;
 
 /**
@@ -24,9 +23,9 @@ use OCP\Util;
 class LoadAdditionalListener implements IEventListener {
 
 	public function __construct(
-		private IInitialState $initialState,
-		private IConfig $config,
-		private ?string $userId,
+		private readonly IInitialState $initialState,
+		private readonly ?string $userId,
+		private readonly \OCP\Config\IUserConfig $userConfig,
 	) {
 	}
 
@@ -47,7 +46,7 @@ class LoadAdditionalListener implements IEventListener {
 		}
 
 		$browserE2eeEnabled = $this->userId === null
-			|| $this->config->getUserValue($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true';
+			|| $this->userConfig->getValueString($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true';
 
 		$this->initialState->provideInitialState(
 			'userConfig',

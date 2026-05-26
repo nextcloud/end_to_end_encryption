@@ -43,7 +43,7 @@ abstract class APlugin extends ServerPlugin {
 	/**
 	 * @inheritDoc
 	 */
-	public function initialize(Server $server) {
+	public function initialize(Server $server): void {
 		$this->server = $server;
 	}
 
