@@ -70,7 +70,7 @@ class RollbackService {
 				continue;
 			}
 
-			if (str_starts_with((string)$firstMountPoint->getInternalPath(), 'files_trashbin/files/')) {
+			if (str_starts_with($firstMountPoint->getInternalPath(), 'files_trashbin/files/')) {
 				$this->metaDataStorage->clearTouchedFolders($lock->getToken());
 				$this->lockMapper->delete($lock);
 				continue;

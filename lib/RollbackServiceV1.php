@@ -69,7 +69,7 @@ class RollbackServiceV1 {
 				continue;
 			}
 
-			if (str_starts_with((string)$firstMountPoint->getInternalPath(), 'files_trashbin/files/')) {
+			if (str_starts_with($firstMountPoint->getInternalPath(), 'files_trashbin/files/')) {
 				$this->lockMapper->delete($lock);
 				continue;
 			}
