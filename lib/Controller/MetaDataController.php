@@ -36,24 +36,20 @@ use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
 	use ThrottleRequestTrait;
-	private IL10N $l10n;
-	private ShareManager $shareManager;
 
 	public function __construct(
 		string $AppName,
 		IRequest $request,
-		private ?string $userId,
-		private IMetaDataStorage $metaDataStorage,
-		private LockManager $lockManager,
-		private LoggerInterface $logger,
-		IL10N $l10n,
-		ShareManager $shareManager,
-		private IRootFolder $rootFolder,
-		private AccessManager $accessManager,
+		private readonly ?string $userId,
+		private readonly IMetaDataStorage $metaDataStorage,
+		private readonly LockManager $lockManager,
+		private readonly LoggerInterface $logger,
+		private readonly IL10N $l10n,
+		private readonly ShareManager $shareManager,
+		private readonly IRootFolder $rootFolder,
+		private readonly AccessManager $accessManager,
 	) {
 		parent::__construct($AppName, $request);
-		$this->l10n = $l10n;
-		$this->shareManager = $shareManager;
 	}
 
 	/**

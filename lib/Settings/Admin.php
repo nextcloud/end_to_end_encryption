@@ -16,13 +16,10 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\Settings\ISettings;
 
 class Admin implements ISettings {
-	private readonly IInitialState $initialState;
-
 	public function __construct(
-		IInitialState $initialState,
+		private readonly IInitialState $initialState,
 		private readonly Config $config,
 	) {
-		$this->initialState = $initialState;
 	}
 
 	public function getForm(): TemplateResponse {

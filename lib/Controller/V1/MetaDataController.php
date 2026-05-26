@@ -31,9 +31,6 @@ use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
-	private readonly IL10N $l10n;
-	private readonly ShareManager $shareManager;
-
 	public function __construct(
 		string $AppName,
 		IRequest $request,
@@ -41,13 +38,11 @@ class MetaDataController extends OCSController {
 		private readonly IMetaDataStorageV1 $metaDataStorage,
 		private readonly LockManagerV1 $lockManager,
 		private readonly LoggerInterface $logger,
-		IL10N $l10n,
-		ShareManager $shareManager,
+		private readonly IL10N $l10n,
+		private readonly ShareManager $shareManager,
 		private readonly IRootFolder $rootFolder,
 	) {
 		parent::__construct($AppName, $request);
-		$this->l10n = $l10n;
-		$this->shareManager = $shareManager;
 	}
 
 	/**

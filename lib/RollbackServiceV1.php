@@ -32,19 +32,14 @@ use Psr\Log\LoggerInterface;
  * and only backup files when they are actually being modified / deleted.
  */
 class RollbackServiceV1 {
-	private readonly IUserMountCache $userMountCache;
-	private readonly IRootFolder $rootFolder;
-
 	public function __construct(
 		private readonly LockMapper $lockMapper,
 		private readonly IMetaDataStorageV1 $metaDataStorage,
 		private readonly FileService $fileService,
-		IUserMountCache $userMountCache,
-		IRootFolder $rootFolder,
+		private readonly IUserMountCache $userMountCache,
+		private readonly IRootFolder $rootFolder,
 		private readonly LoggerInterface $logger,
 	) {
-		$this->userMountCache = $userMountCache;
-		$this->rootFolder = $rootFolder;
 	}
 
 	/**

@@ -30,26 +30,19 @@ use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class LockingController extends OCSController {
-	private readonly IRootFolder $rootFolder;
-	private readonly IL10N $l10n;
-	private readonly ShareManager $shareManager;
-
 	public function __construct(
 		string $AppName,
 		IRequest $request,
 		private readonly ?string $userId,
 		private readonly IMetaDataStorageV1 $metaDataStorage,
 		private readonly LockManagerV1 $lockManager,
-		IRootFolder $rootFolder,
+		private readonly IRootFolder $rootFolder,
 		private readonly FileService $fileService,
 		private readonly LoggerInterface $logger,
-		IL10N $l10n,
-		ShareManager $shareManager,
+		private readonly IL10N $l10n,
+		private readonly ShareManager $shareManager,
 	) {
 		parent::__construct($AppName, $request);
-		$this->rootFolder = $rootFolder;
-		$this->l10n = $l10n;
-		$this->shareManager = $shareManager;
 	}
 
 	/**

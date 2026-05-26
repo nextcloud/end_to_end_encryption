@@ -25,8 +25,6 @@ use OCP\Files\SimpleFS\ISimpleFolder;
  * @package OCA\EndToEndEncryption
  */
 class MetaDataStorage implements IMetaDataStorage {
-	private readonly IAppData $appData;
-	private readonly IRootFolder $rootFolder;
 	private string $metaDataRoot = '/meta-data';
 	private string $metaDataFileName = 'meta.data';
 	private string $intermediateMetaDataFileName = 'intermediate.meta.data';
@@ -35,10 +33,10 @@ class MetaDataStorage implements IMetaDataStorage {
 	private string $metaDataCounterFileName = 'meta.data.counter';
 	private string $intermediateMetaDataCounterFileName = 'intermediate.meta.data.counter';
 
-	public function __construct(IAppData $appData,
-		IRootFolder $rootFolder) {
-		$this->appData = $appData;
-		$this->rootFolder = $rootFolder;
+	public function __construct(
+		private readonly IAppData $appData,
+		private readonly IRootFolder $rootFolder,
+	) {
 	}
 
 	/**

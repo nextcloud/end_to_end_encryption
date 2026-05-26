@@ -28,22 +28,13 @@ use OCP\Security\ISecureRandom;
  * @package OCA\EndToEndEncryption
  */
 class LockManagerV1 {
-	private readonly ISecureRandom $secureRandom;
-	private readonly IUserSession $userSession;
-	private readonly IRootFolder $rootFolder;
-	private readonly ITimeFactory $timeFactory;
-
 	public function __construct(
 		private readonly LockMapper $lockMapper,
-		ISecureRandom $secureRandom,
-		IRootFolder $rootFolder,
-		IUserSession $userSession,
-		ITimeFactory $timeFactory,
+		private readonly ISecureRandom $secureRandom,
+		private readonly IRootFolder $rootFolder,
+		private readonly IUserSession $userSession,
+		private readonly ITimeFactory $timeFactory,
 	) {
-		$this->secureRandom = $secureRandom;
-		$this->userSession = $userSession;
-		$this->rootFolder = $rootFolder;
-		$this->timeFactory = $timeFactory;
 	}
 
 	/**
