@@ -22,6 +22,7 @@ OC.L10N.register(
     "Only the owner can delete the metadata-file" : "Tylko właściciel może usuwać metadane pliku",
     "End-to-End Encryption" : "Szyfrowanie End-to-End",
     "Submit" : "Wyślij",
+    "Create folder" : "Utwórz folder",
     "Folder name cannot be empty" : "Nazwa katalogu nie może być pusta",
     "Folder name" : "Nazwa katalogu",
     "Continue" : "Kontynuuj",
