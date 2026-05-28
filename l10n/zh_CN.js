@@ -21,6 +21,7 @@ OC.L10N.register(
     "End-to-End Encryption" : "点对点加密",
     "I understand the risks" : "我了解风险",
     "Submit" : "提交",
+    "Create folder" : "创建文件夹",
     "Folder name cannot be empty" : "文件夹名称不能为空",
     "Folder name" : "文件夹名称",
     "Continue" : "继续",
