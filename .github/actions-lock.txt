@@ -24,3 +24,4 @@ d17de282ccd37f12a5fd78d68a74df96 phpunit-sqlite.yml
 9dc6b717be0006fc7974a50351686fd7 sync-workflow-templates.yml
 78bd5cbcc4b48cb9b0d1b0fbbb4403d7 update-nextcloud-ocp-approve-merge.yml
 94d83c701a5583dc4b36a5f471bb9e41 update-nextcloud-ocp.yml
+92a9def3f7980550ca63038403f43182 npm-build.yml
