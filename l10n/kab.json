@@ -5,10 +5,14 @@
     "Folder name" : "Isem n ukaram",
     "Continue" : "Kemmel",
     "Download" : "Sider",
+    "Permissions" : "Tasirag",
+    "View only" : "Askan kan",
     "Close" : "Mdel",
+    "Read only" : "Taɣuri kan",
     "Edit" : "Ẓreg",
     "Remove" : "Kkes",
     "Save" : "Sekles",
+    "Upload failed" : "Tuccḍa deg usili",
     "Uploading…" : "Asali …",
     "Cancel" : "Cancel"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
