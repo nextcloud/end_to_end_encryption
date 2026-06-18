@@ -1,0 +1,10 @@
+{ "translations": {
+    "Folder name" : "Nombre de carpeta",
+    "Continue" : "Continar",
+    "Download" : "Escargar",
+    "Close" : "Zarrar",
+    "Save" : "Save",
+    "Uploading…" : "Puyando...",
+    "Cancel" : "Cancelar"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

@@ -17,6 +17,7 @@ OC.L10N.register(
     "Folder name" : "Nombre de la carpeta",
     "Download" : "Descargar",
     "Permissions" : "Permisos",
+    "Close" : "Close",
     "Read only" : "Sólo lectura",
     "Edit" : "Editar",
     "Remove" : "Remover",
