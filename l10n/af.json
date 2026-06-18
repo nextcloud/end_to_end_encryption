@@ -1,0 +1,10 @@
+{ "translations": {
+    "Submit" : "Dien in",
+    "Continue" : "Gaan voort",
+    "Download" : "Laai af",
+    "Close" : "Close",
+    "Read only" : "Leesalleen",
+    "Save" : "Bewaar",
+    "Cancel" : "Cancel"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

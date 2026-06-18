@@ -18,6 +18,7 @@ OC.L10N.register(
     "Continue" : "Continuar",
     "Download" : "Descargar",
     "Permissions" : "Permisos",
+    "Close" : "Close",
     "Read only" : "Sólo lectura",
     "Edit" : "Editar",
     "Save" : "Guardar",
