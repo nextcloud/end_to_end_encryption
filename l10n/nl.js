@@ -36,10 +36,13 @@ OC.L10N.register(
     "Encrypting your files in the browser can weaken security" : "Versleuteling van je bestanden in de browser kan je beveiliging verminderen",
     "Continue" : "Doorgaan",
     "Download" : "Download",
+    "End-to-end encrypted link shares" : "Gedeelde links met end-to-end versleuteling",
+    "Link share" : "Link delen",
     "Permissions" : "Rechten",
     "Upload only" : "Alleen uploaden",
     "View only" : "Alleen bekijken",
     "Close" : "Sluit",
+    "End-to-end encrypted shares" : "End-to-end versleutelde bestanden",
     "Read only" : "Alleen-lezen",
     "Edit" : "Bewerken",
     "Remove" : "Verwijderen",
@@ -52,6 +55,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Beperk appgebruik tot groepen",
     "Cancel" : "Annuleren",
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
+    "New encrypted folder" : "Nieuwe versleutelde map",
     "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt"
 },
 "nplurals=2; plural=(n != 1);");
