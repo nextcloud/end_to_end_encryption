@@ -73,7 +73,7 @@
     "@types/wicg-file-system-access": "^2023.10.7",
     "@vitest/browser-playwright": "^4.1.8",
     "@vitest/coverage-v8": "^4.1.2",
-    "@vue/test-utils": "^2.4.10",
+    "@vue/test-utils": "^2.4.11",
     "@vue/tsconfig": "^0.9.1",
     "core-js": "^3.49.0",
     "eslint": "^10.4.1",
