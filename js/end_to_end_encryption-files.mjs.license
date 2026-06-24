@@ -31,7 +31,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 8.39.0
 	- license: AGPL-3.0-or-later
 - @noble/hashes
-	- version: 1.7.0
+	- version: 1.4.0
 	- license: MIT
 - bytestreamjs
 	- version: 2.0.1
@@ -49,7 +49,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.5.0
 	- license: MIT
 - pkijs
-	- version: 3.2.5
+	- version: 3.4.0
 	- license: BSD-3-Clause
 - safe-buffer
 	- version: 5.2.1
