@@ -19,7 +19,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 1.18.2
 	- license: AGPL-3.0-or-later
 - nanoid
-	- version: 3.3.11
+	- version: 3.3.12
 	- license: MIT
 - splitpanes
 	- version: 2.4.1
