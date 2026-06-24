@@ -5,6 +5,7 @@ declare(strict_types=1);
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 namespace OCA\EndToEndEncryption\Controller;
 
 use BadMethodCallException;
@@ -109,7 +110,6 @@ class KeyController extends OCSController {
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 	}
-
 
 	/**
 	 * Set private key
@@ -303,7 +303,6 @@ class KeyController extends OCSController {
 			throw new OCSBadRequestException($this->l10n->t('Internal error'));
 		}
 	}
-
 
 	/**
 	 * Get the public server key so that the clients can verify the

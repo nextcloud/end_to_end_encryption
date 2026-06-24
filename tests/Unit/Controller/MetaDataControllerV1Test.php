@@ -28,7 +28,6 @@ use Test\TestCase;
 
 class MetaDataControllerV1Test extends TestCase {
 
-
 	private ?string $appName = null;
 
 	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
@@ -55,7 +54,6 @@ class MetaDataControllerV1Test extends TestCase {
 
 	/** @var IRootFolder */
 	private $rootFolder;
-
 
 	protected function setUp(): void {
 		parent::setUp();
