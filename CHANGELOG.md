@@ -7,6 +7,13 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.2.0 - 2026-06-18
+### Added
+* Added support for Nextcloud 34
+
+### Changed
+* Updated dependencies
+
 ## v2.1.1 - 2026-05-13
 ### Fixed
 * fix: properly handle large encrypted file downloads \([\#1698](https://github.com/nextcloud/end_to_end_encryption/pull/1698)\)
