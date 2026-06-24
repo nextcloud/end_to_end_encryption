@@ -168,7 +168,6 @@ class MetaDataStorageV1Test extends TestCase {
 					->method('newFolder');
 			}
 
-
 			if ($fileExists) {
 				$metaDataFolder->expects($this->once())
 					->method('fileExists')

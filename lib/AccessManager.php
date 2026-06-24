@@ -6,7 +6,6 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-
 namespace OCA\EndToEndEncryption;
 
 use OCP\Constants;
@@ -18,7 +17,6 @@ use OCP\Share\IShare;
 
 class AccessManager {
 	private ?IShare $share;
-
 
 	public function __construct(
 		private readonly ?string $userId,
