@@ -19,6 +19,7 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\AnonRateLimit;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
 use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\Attribute\RequestHeader;
 use OCP\AppFramework\Http\DataResponse;
@@ -97,6 +98,7 @@ class KeyController extends OCSController {
 	 * 200: Private key deleted successfully
 	 */
 	#[NoAdminRequired]
+	#[PasswordConfirmationRequired(strict: true)]
 	public function deletePrivateKey(?string $shareToken = null): DataResponse {
 		try {
 			$this->keyStorage->deletePrivateKey($this->userId, $shareToken);
@@ -293,6 +295,7 @@ class KeyController extends OCSController {
 	 * 200: Public key deleted successfully
 	 */
 	#[NoAdminRequired]
+	#[PasswordConfirmationRequired(strict: true)]
 	public function deletePublicKey(?string $shareToken = null): ?DataResponse {
 		try {
 			$this->keyStorage->deletePublicKey($this->userId, $shareToken);

@@ -510,6 +510,7 @@
             "delete": {
                 "operationId": "key-delete-private-key",
                 "summary": "Delete the users private key",
+                "description": "This endpoint requires password confirmation",
                 "tags": [
                     "key"
                 ],
@@ -1264,6 +1265,7 @@
             "delete": {
                 "operationId": "key-delete-public-key",
                 "summary": "Delete the users public key",
+                "description": "This endpoint requires password confirmation",
                 "tags": [
                     "key"
                 ],
@@ -2531,6 +2533,7 @@
             "delete": {
                 "operationId": "encryption-remove-encrypted-folders",
                 "summary": "Remove encrypted files",
+                "description": "This endpoint requires password confirmation",
                 "tags": [
                     "encryption"
                 ],

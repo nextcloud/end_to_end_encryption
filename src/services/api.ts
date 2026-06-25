@@ -11,11 +11,14 @@ import type { IRawMetadataFileDrop } from '../models/metadata.d.ts'
 import { getCurrentUser } from '@nextcloud/auth'
 import axios, { isAxiosError } from '@nextcloud/axios'
 import { defaultRootPath, getClient } from '@nextcloud/files/dav'
+import { addPasswordConfirmationInterceptors, PwdConfirmationMode } from '@nextcloud/password-confirmation'
 import { join } from '@nextcloud/paths'
 import { generateOcsUrl } from '@nextcloud/router'
 import { getSharingToken } from '@nextcloud/sharing/public'
 import { base64ToBuffer, bufferToBase64 } from './bufferUtils.ts'
 import logger from './logger.ts'
+
+addPasswordConfirmationInterceptors(axios)
 
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/main/doc/api.md
 
@@ -28,6 +31,7 @@ const Url = Object.freeze({
 	PublicKey: API_ROOT + '/public-key',
 	ServerKey: API_ROOT + '/server-key',
 	FileDrop: API_ROOT + '/meta-data/{fileId}/filedrop',
+	EncryptedFiles: API_ROOT + '/encrypted-files',
 })
 
 const METADATA_PROPFIND = `<?xml version="1.0"?>
@@ -99,7 +103,10 @@ export async function setPrivateKey(privateKeyInfo: PrivateKeyInfo, shareToken?:
 export async function deletePrivateKey(): Promise<void> {
 	await axios.delete(
 		generateOcsUrl(Url.PrivateKey),
-		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
+		{
+			confirmPassword: PwdConfirmationMode.Strict,
+			headers: { 'X-E2EE-SUPPORTED': 'true' },
+		},
 	)
 }
 
@@ -158,7 +165,10 @@ export async function createPublicKey(csr: string, shareToken?: string): Promise
 export async function deletePublicKey(): Promise<void> {
 	await axios.delete(
 		generateOcsUrl(Url.PublicKey),
-		{ headers: { 'X-E2EE-SUPPORTED': 'true' } },
+		{
+			confirmPassword: PwdConfirmationMode.Strict,
+			headers: { 'X-E2EE-SUPPORTED': 'true' },
+		},
 	)
 }
 
@@ -192,6 +202,13 @@ export async function setFolderAsEncrypted(folderId: string): Promise<void> {
 			},
 		},
 	)
+}
+
+/**
+ * Remove all encrypted folders for the current user.
+ */
+export async function removeEncryptedFolders(): Promise<void> {
+	await axios.delete<OCSResponse>(generateOcsUrl(Url.EncryptedFiles), { confirmPassword: PwdConfirmationMode.Strict })
 }
 
 /**

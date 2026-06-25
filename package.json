@@ -42,6 +42,7 @@
     "@nextcloud/initial-state": "^3.0.0",
     "@nextcloud/l10n": "^3.4.0",
     "@nextcloud/logger": "^3.0.2",
+    "@nextcloud/password-confirmation": "^6.1.0",
     "@nextcloud/paths": "^3.1.0",
     "@nextcloud/router": "^3.1.0",
     "@nextcloud/sharing": "^0.4.0",
