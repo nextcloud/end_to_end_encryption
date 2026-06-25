@@ -4,20 +4,19 @@
   -->
 
 <script setup lang="ts">
-import type { OCSResponse } from '@nextcloud/typings/ocs'
-
 import axios from '@nextcloud/axios'
 import { getCapabilities } from '@nextcloud/capabilities'
 import { DialogBuilder, showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
-import { generateOcsUrl, generateUrl } from '@nextcloud/router'
+import { generateUrl } from '@nextcloud/router'
 import { computed, ref } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import IconClose from 'vue-material-design-icons/Close.vue'
+import { deletePrivateKey, deletePublicKey, removeEncryptedFolders } from '../services/api.ts'
 import logger from '../services/logger.ts'
 
 const supportsE2EEInBrowser = typeof window.crypto !== 'undefined' && typeof window.crypto.subtle !== 'undefined'
@@ -71,52 +70,10 @@ async function showDialog() {
 }
 
 /**
- *
+ * Starts the reset process by displaying a warning
  */
 function startResetProcess() {
 	shouldDisplayWarning.value = true
-}
-
-/**
- * Deletes the private key from the server
- */
-async function deletePrivateKey() {
-	const { data } = await axios.delete<OCSResponse>(generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'))
-
-	return handleResponse({
-		status: data.ocs?.meta?.status,
-		errorMessage: data.ocs?.meta?.message ?? t('end_to_end_encryption', 'Unable to delete private key'),
-		error: null,
-	})
-}
-
-/**
- * Deletes the public key from the server
- */
-async function deletePublicKey() {
-	const { data } = await axios.delete<OCSResponse>(generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'))
-
-	return handleResponse({
-		status: data.ocs?.meta?.status,
-		errorMessage: data.ocs?.meta?.message ?? t('end_to_end_encryption', 'Unable to delete encrypted files'),
-		error: null,
-	})
-}
-
-/**
- * Delete encrypted files from the server if requested
- */
-async function deleteFiles() {
-	if (deleteEncryptedFiles.value) {
-		const { data } = await axios.delete<OCSResponse>(generateOcsUrl('/apps/end_to_end_encryption/api/v1/encrypted-files'))
-
-		return handleResponse({
-			status: data.ocs?.meta?.status,
-			errorMessage: data.ocs?.meta?.message ?? t('end_to_end_encryption', 'Unable to delete encrypted files'),
-			error: null,
-		})
-	}
-	return true
 }
 
 /**
@@ -124,17 +81,11 @@ async function deleteFiles() {
  */
 async function resetEncryption() {
 	try {
-		let success = true
-		success = success && (await deletePrivateKey())
-		success = success && (await deletePublicKey())
-		success = success && (await deleteFiles())
+		await deletePrivateKey()
+		await deletePublicKey()
+		await removeEncryptedFolders()
 
-		if (success) {
-			showSuccess(t(
-				'end_to_end_encryption',
-				'End-to-end encryption keys reset',
-			))
-		}
+		showSuccess(t('end_to_end_encryption', 'End-to-end encryption keys reset'))
 	} catch (e) {
 		handleResponse({
 			errorMessage: t(
