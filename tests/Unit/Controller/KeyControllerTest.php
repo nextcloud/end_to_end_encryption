@@ -28,7 +28,7 @@ use Test\TestCase;
 
 class KeyControllerTest extends TestCase {
 
-	private string $userId;
+	private ?string $userId;
 	private IRequest&MockObject $request;
 	private IKeyStorage&MockObject $keyStorage;
 	private SignatureHandler&MockObject $signatureHandler;
@@ -384,7 +384,32 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 				return vsprintf($string, $args);
 			});
 
-		$response = $this->controller->getPublicKeys($users);
+		$this->expectException(OCSNotFoundException::class);
+		$this->controller->getPublicKeys($users);
+	}
+
+	public function testGetPublicKeysNotFoundExceptionPublicPage(): void {
+		$users = '["user1","user2","user3"]';
+
+		$this->keyStorage->expects($this->once())
+			->method('getPublicKey')
+			->willThrowException(new NotFoundException());
+
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
+
+		$this->userId = null;
+		$controller = new KeyController(
+			$this->request,
+			$this->userId,
+			$this->keyStorage,
+			$this->signatureHandler,
+			$this->logger,
+			$this->l10n,
+			$this->shareManager,
+		);
+		$response = $controller->getPublicKeys($users);
 		self::assertEquals($response->getStatus(), 404);
 		self::assertEquals($response->getData(), ['message' => 'Could not find the public key belonging to the user user1']);
 	}
