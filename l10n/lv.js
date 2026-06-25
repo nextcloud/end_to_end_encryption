@@ -19,7 +19,8 @@ OC.L10N.register(
     "Select or drop files" : "Atlasīt vai ievilkt datnes",
     "Upload failed" : "Augšupielāde neizdevās",
     "Uploading…" : "Augšupielādē…",
-    "Limit to groups" : "Grupu ierobežojums",
+    "Limit to groups" : "Ierobežot kopām",
+    "Limit app usage to groups" : "Ierobežot lietotņu izmantošanu kopām",
     "Cancel" : "Atcelt",
     "End-to-end encryption" : "No gala līdz galam šifrēšana"
 },
