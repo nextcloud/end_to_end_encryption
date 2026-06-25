@@ -90,9 +90,12 @@ import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
 import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess, DialogBuilder } from '@nextcloud/dialogs'
+import { addPasswordConfirmationInterceptors, PwdConfirmationMode } from '@nextcloud/password-confirmation'
 import { generateOcsUrl, generateUrl } from '@nextcloud/router'
 
 import logger from '../services/logger.js'
+
+addPasswordConfirmationInterceptors(axios)
 
 export default defineComponent({
 	name: 'SecuritySection',
@@ -165,6 +168,7 @@ export default defineComponent({
 		async deletePrivateKey() {
 			const { data } = await axios.delete(
 				generateOcsUrl('/apps/end_to_end_encryption/api/v1/private-key'),
+				{ confirmPassword: PwdConfirmationMode.Strict },
 			)
 
 			return this.handleResponse({
@@ -175,6 +179,7 @@ export default defineComponent({
 		async deletePublicKey() {
 			const { data } = await axios.delete(
 				generateOcsUrl('/apps/end_to_end_encryption/api/v1/public-key'),
+				{ confirmPassword: PwdConfirmationMode.Strict },
 			)
 
 			return this.handleResponse({
@@ -188,6 +193,7 @@ export default defineComponent({
 					generateOcsUrl(
 						'/apps/end_to_end_encryption/api/v1/encrypted-files',
 					),
+					{ confirmPassword: PwdConfirmationMode.Strict },
 				)
 
 				return this.handleResponse({
