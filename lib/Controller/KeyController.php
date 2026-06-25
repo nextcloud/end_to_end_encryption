@@ -158,7 +158,10 @@ class KeyController extends OCSController {
 				$result['public-keys'][$uid] = $publicKey;
 			} catch (NotFoundException $e) {
 				$this->logger->debug('Could not find the public key of the user: ' . $uid, ['exception' => $e]);
-				return $this->throttleRequest(Http::STATUS_NOT_FOUND, 'Could not find the public key belonging to the user ' . $uid);
+				if ($this->userId === null) {
+					return $this->throttleRequest(Http::STATUS_NOT_FOUND, 'Could not find the public key belonging to the user ' . $uid);
+				}
+				throw new OCSNotFoundException('Could not find the public key belonging to the user ' . $uid);
 			} catch (Exception $e) {
 				$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
 				throw new OCSBadRequestException($this->l10n->t('Internal error'));
