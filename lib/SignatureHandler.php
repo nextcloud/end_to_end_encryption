@@ -35,7 +35,13 @@ class SignatureHandler {
 	 */
 	public function sign(string $csr): string {
 		$systemKeys = $this->identityProofManager->getSystemKey();
-		$signedCertificate = openssl_csr_sign($csr, null, $systemKeys->getPrivate(), $this->validity);
+		$signedCertificate = openssl_csr_sign(
+			$csr,
+			null,
+			$systemKeys->getPrivate(),
+			$this->validity,
+			['digest_alg' => 'sha256'],
+		);
 		if ($signedCertificate === false) {
 			throw new BadMethodCallException('could not sign the CSR, please make sure to submit a valid CSR');
 		}
