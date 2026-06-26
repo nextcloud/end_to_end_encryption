@@ -84,8 +84,6 @@ OC.L10N.register(
     "Reset keys" : "كۇنۇپكىلارنى ئەسلىگە كەلتۈرۈش",
     "End-to-end encryption is currently enabled and correctly setup." : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش ھازىر قوزغىتىلغان ۋە توغرا تەڭشەلگەن.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش چەكلەنگەن. ئۇنى {productName} خېرىدارلىرى بىلەن تەڭشىيەلەيسىز.",
-    "Unable to delete private key" : "شەخسىي ئاچقۇچنى ئۆچۈرگىلى بولمىدى",
-    "Unable to delete encrypted files" : "شىفىرلانغان ھۆججەتلەرنى ئۆچۈرگىلى بولمىدى",
     "End-to-end encryption keys reset" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش كۇنۇپكىسى ئەسلىگە كېلىدۇ",
     "Unable to reset end-to-end encryption" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى ئەسلىگە كەلتۈرەلمىدى",
     "End-to-end encryption" : "ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈش",

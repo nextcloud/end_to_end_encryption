@@ -107,8 +107,6 @@ OC.L10N.register(
     "Reset keys" : "リセットキー",
     "End-to-end encryption is currently enabled and correctly setup." : "End-to-End 暗号化が現在有効になっており、正しくセットアップされています。",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "End-to-End 暗号化は現在無効になっています。{productName}クライアントを使用して設定できます。",
-    "Unable to delete private key" : "秘密鍵を削除できません",
-    "Unable to delete encrypted files" : "暗号化されたファイルを削除できません",
     "End-to-end encryption keys reset" : "End-to-End 暗号化キーのリセット",
     "Unable to reset end-to-end encryption" : "End-to-End 暗号化をリセットできません",
     "End-to-end encryption" : "End-to-End 暗号化",

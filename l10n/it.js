@@ -62,8 +62,6 @@ OC.L10N.register(
     "Reset keys" : "Reimpostare le chiavi",
     "End-to-end encryption is currently enabled and correctly setup." : "La crittografia end-to-end è attualmente abilitata e configurata correttamente.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "La crittografia end-to-end è attualmente disabilitata. Puoi impostarla con i client {productName}.",
-    "Unable to delete private key" : "Impossibile eliminare la chiave privata",
-    "Unable to delete encrypted files" : "Impossibile eliminare i file crittografati",
     "End-to-end encryption keys reset" : "Ripristino delle chiavi di crittografia end-to-end",
     "Unable to reset end-to-end encryption" : "Impossibile reimpostare la crittografia end-to-end",
     "End-to-end encryption" : "Cifratura end-to-end",
