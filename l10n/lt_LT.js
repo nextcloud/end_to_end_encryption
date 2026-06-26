@@ -107,8 +107,6 @@ OC.L10N.register(
     "Reset keys" : "Atstatyti raktus",
     "End-to-end encryption is currently enabled and correctly setup." : "Šiuo metu įjungtas ir tinkamai nustatytas ištisinis šifravimas.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "Šiuo metu išjungtas ištisinis šifravimas. Jį galite nustatyti naudodami {productName} klientus.",
-    "Unable to delete private key" : "Nepavyko ištrinti privataus rakto",
-    "Unable to delete encrypted files" : "Nepavyko ištrinti užšifruotų failų",
     "End-to-end encryption keys reset" : "Ištisinio šifravimo raktai iš naujo nustatyti",
     "Unable to reset end-to-end encryption" : "Nepavyko iš naujo nustatyti ištisinio šifravimo",
     "End-to-end encryption" : "Ištisinis šifravimas",

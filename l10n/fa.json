@@ -105,8 +105,6 @@
     "Reset keys" : "بازنشانی کلیدها",
     "End-to-end encryption is currently enabled and correctly setup." : "رمزگذاری سرتاسری در حال حاضر فعال و به درستی تنظیم شده است.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "رمزگذاری سرتاسری در حال حاضر غیرفعال است. می‌توانید آن را با کلاینت‌های {productName} تنظیم کنید.",
-    "Unable to delete private key" : "امکان حذف کلید خصوصی وجود ندارد",
-    "Unable to delete encrypted files" : "امکان حذف فایل‌های رمزگذاری‌شده وجود ندارد",
     "End-to-end encryption keys reset" : "کلیدهای رمزگذاری سرتاسری بازنشانی شدند",
     "Unable to reset end-to-end encryption" : "امکان بازنشانی رمزگذاری سرتاسری وجود ندارد",
     "End-to-end encryption" : "رمزگذاری سرتاسری",

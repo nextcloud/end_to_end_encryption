@@ -105,8 +105,6 @@
     "Reset keys" : "Restabelecer as chaves",
     "End-to-end encryption is currently enabled and correctly setup." : "A cifraxe de extremo a extremo está activada e configurada correctamente.",
     "End-to-end encryption is currently disabled. You can set it up with the {productName} clients." : "A cifraxe de extremo a extremo está desactivada. Pode configurala cos clientes de {productName}.",
-    "Unable to delete private key" : "Non é posíbel eliminar a chave privada",
-    "Unable to delete encrypted files" : "Non é posíbel eliminar os ficheiros cifrados",
     "End-to-end encryption keys reset" : "Restabelecer as chaves de cifraxe de extremo a extremo",
     "Unable to reset end-to-end encryption" : "Non é posíbel restabelecer a cifraxe de extremo a extremo",
     "End-to-end encryption" : "Cifraxe de extremo a extremo",
