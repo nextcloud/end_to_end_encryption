@@ -29,6 +29,7 @@ OC.L10N.register(
     "Read only" : "Apenas leitura",
     "Edit" : "Editar",
     "Remove" : "Remover",
+    "Share permissions" : "Permissões do compartilhamento",
     "Save" : "Guardar",
     "Select or drop files" : "Selecione ou solte ficheiros",
     "Upload failed" : "Envio falhou",
