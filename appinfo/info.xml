@@ -56,7 +56,7 @@ Meaning that some apps in the web interface do not work with encrypted files.
 
 	]]></description>
 	<version>3.0.0-dev.0</version>
-	<licence>agpl</licence>
+	<licence>AGPL-3.0-or-later</licence>
 	<author>Nextcloud GmbH</author>
 	<namespace>EndToEndEncryption</namespace>
 	<types>
