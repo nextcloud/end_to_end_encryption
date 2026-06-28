@@ -2,7 +2,7 @@
 	"name": "nextcloud/end_to_end_encryption",
 	"description": "-",
 	"type": "project",
-	"license": "AGPL",
+	"license": "AGPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "Nextcloud GmbH and Nextcloud contributors"
