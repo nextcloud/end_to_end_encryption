@@ -31,6 +31,7 @@ OC.L10N.register(
     "Continue" : "Continuar",
     "Download" : "Transferir",
     "End-to-end encrypted link shares" : "Compartilhamentos por link criptografados de ponta-a-ponta",
+    "Permissions" : "Permissões",
     "View only" : "Visualizar apenas",
     "Close" : "Fechar",
     "Share permissions updated successfully." : "Permissões de compartilhamento atualizadas com êxito.",
