@@ -32,7 +32,7 @@
     "@nextcloud/vue": "^8.39.0",
     "@peculiar/x509": "^1.14.3",
     "debounce": "^2.1.0",
-    "fast-xml-parser": "^5.5.12",
+    "fast-xml-parser": "^5.9.3",
     "pkijs": "^3.4.0",
     "uuid": "^11.1.1",
     "vue": "^2.7.16",
