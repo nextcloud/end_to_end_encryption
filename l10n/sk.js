@@ -46,6 +46,7 @@ OC.L10N.register(
     "Enter your 12 words mnemonic" : "Zadajte 12 mnemonických slov",
     "Decrypting your files in the browser can weaken security" : "Dešifrovanie súborov v prehliadači môže oslabiť bezpečnosť",
     "Select or drop files" : "Vyberte alebo položte súbory",
+    "Upload failed" : "Nahrávanie zlyhalo",
     "Upload successful" : "Nahrávanie bolo úspešné",
     "Uploading…" : "Nahrávanie…",
     "Upload encrypted files to {fileName}" : "Nahrať šifrované súbory do {fileName}",
