@@ -108,7 +108,7 @@ class MetaDataStorage implements IMetaDataStorage {
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
 			$dir = $this->appData->getFolder($folderName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			// No folder and no legacy
 			if ($legacyFile === null) {
 				throw new MissingMetaDataException('Meta-data file missing');
@@ -225,7 +225,7 @@ class MetaDataStorage implements IMetaDataStorage {
 			return $dir->getFile($this->metaDataSignatureFileName)->getContent();
 		} catch (NotFoundException $ex) {
 			$metadata = $dir->getFile($this->metaDataFileName)->getContent();
-			$decodedMetadata = json_decode($metadata, true);
+			$decodedMetadata = json_decode((string)$metadata, true);
 
 			if ($decodedMetadata['metadata']['version'] === '1.2') {
 				return '';
@@ -307,7 +307,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	protected function getLegacyFile(string $userId, int $id): ?ISimpleFile {
 		try {
 			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			// Just return if file does not exist for user
 			return null;
 		}
@@ -327,7 +327,7 @@ class MetaDataStorage implements IMetaDataStorage {
 	protected function cleanupLegacyFile(string $userId, int $id): void {
 		try {
 			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			// Just return if file does not exist for user
 			return;
 		}

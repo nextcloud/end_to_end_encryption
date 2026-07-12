@@ -112,7 +112,7 @@ class LockingController extends OCSController {
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
+		} catch (NoUserException) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 
