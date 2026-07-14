@@ -14,6 +14,7 @@ use OCA\EndToEndEncryption\IKeyStorage;
 use OCA\EndToEndEncryption\SignatureHandler;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
+use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
@@ -93,6 +94,7 @@ class KeyController extends OCSController {
 	 *
 	 * 200: Private key deleted successfully
 	 */
+	#[PasswordConfirmationRequired(strict: true)]
 	public function deletePrivateKey(): DataResponse {
 		try {
 			$this->keyStorage->deletePrivateKey($this->userId);
@@ -248,6 +250,7 @@ class KeyController extends OCSController {
 	 *
 	 * 200: Public key deleted successfully
 	 */
+	#[PasswordConfirmationRequired(strict: true)]
 	public function deletePublicKey(): ?DataResponse {
 		try {
 			$this->keyStorage->deletePublicKey($this->userId);

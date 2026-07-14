@@ -11,6 +11,7 @@ use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
+use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
@@ -111,6 +112,7 @@ class EncryptionController extends OCSController {
 	 *
 	 * 200: Encrypted folders removed successfully
 	 */
+	#[PasswordConfirmationRequired(strict: true)]
 	public function removeEncryptedFolders(): DataResponse {
 		try {
 			$ids = $this->manager->removeEncryptedFolders($this->userId);
