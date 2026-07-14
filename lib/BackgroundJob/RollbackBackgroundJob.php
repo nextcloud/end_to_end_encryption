@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\BackgroundJob;
 
-use OCA\EndToEndEncryption\AppInfo\Application;
+use OCA\EndToEndEncryption\AppInfo\ConfigLexicon;
 use OCA\EndToEndEncryption\RollbackService;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\TimedJob;
-use OCP\IConfig;
 
 /**
  * Class RollbackBackgroundJob
@@ -21,9 +21,9 @@ use OCP\IConfig;
  */
 class RollbackBackgroundJob extends TimedJob {
 	public function __construct(
-		private readonly IConfig $config,
 		ITimeFactory $time,
 		private readonly RollbackService $rollbackService,
+		private readonly IAppConfig $appConfig,
 	) {
 		parent::__construct($time);
 
@@ -32,14 +32,14 @@ class RollbackBackgroundJob extends TimedJob {
 	}
 
 	protected function run($argument) {
-		$automaticRollback = $this->config
-			->getAppValue(Application::APP_ID, 'automatic_rollback', 'yes');
-		if ($automaticRollback !== 'yes') {
+		$automaticRollback = $this->appConfig
+			->getAppValueBool(ConfigLexicon::AUTOMATIC_ROLLBACK_ENABLED);
+		if ($automaticRollback === false) {
 			return;
 		}
 
-		$automaticRollbackTTL = (int)$this->config
-			->getAppValue(Application::APP_ID, 'automatic_rollback_ttl', (string)(60 * 60 * 24));
+		$automaticRollbackTTL = $this->appConfig
+			->getAppValueInt(ConfigLexicon::AUTOMATIC_ROLLBACK_TTL);
 		$timestamp = $this->time->getTime() - $automaticRollbackTTL;
 
 		$this->rollbackService->rollbackOlderThan($timestamp, 25);

@@ -54,6 +54,7 @@ class Application extends App implements IBootstrap {
 	#[Override]
 	public function register(IRegistrationContext $context): void {
 		$context->registerCapability(Capabilities::class);
+		$context->registerConfigLexicon(ConfigLexicon::class);
 		$context->registerMiddleware(UserAgentCheckMiddleware::class);
 		$context->registerMiddleware(CanUseAppMiddleware::class);
 		$context->registerMiddleware(ClientHasCapabilityMiddleware::class);

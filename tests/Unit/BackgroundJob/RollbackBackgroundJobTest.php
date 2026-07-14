@@ -11,7 +11,7 @@ namespace OCA\EndToEndEncryption\Tests\Unit\BackgroundJob;
 use OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob;
 use OCA\EndToEndEncryption\RollbackService;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\IConfig;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class RollbackBackgroundJobTest extends TestCase {
