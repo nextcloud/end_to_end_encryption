@@ -100,7 +100,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		$folderName = $this->getFolderNameForFileId($id);
 		try {
 			$dir = $this->appData->getFolder($folderName);
-		} catch (NotFoundException $ex) {
+		} catch (NotFoundException) {
 			// No folder and no legacy
 			if ($legacyFile === null) {
 				throw new MissingMetaDataException('Meta-data file missing');
@@ -239,7 +239,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	protected function getLegacyFile(string $userId, int $id): ?ISimpleFile {
 		try {
 			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			// Just return if file does not exist for user
 			return null;
 		}
@@ -259,7 +259,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	protected function cleanupLegacyFile(string $userId, int $id): void {
 		try {
 			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
-		} catch (NotFoundException $e) {
+		} catch (NotFoundException) {
 			// Just return if file does not exist for user
 			return;
 		}
