@@ -7,16 +7,23 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
-## v1.18.2 - 2026-03-27
-
+## v1.18.3 - 2026-07-15
 ### Fixed
+* fix: add proper error handling for public keys [\#1618](https://github.com/nextcloud/end_to_end_encryption/pull/1618)
+* fix: enforce using SHA256 [\#1852](https://github.com/nextcloud/end_to_end_encryption/pull/1852)
+* fix: only throttle public requests [\#1856](https://github.com/nextcloud/end_to_end_encryption/pull/1856)
+* fix: require password confirmation [\#1857](https://github.com/nextcloud/end_to_end_encryption/pull/1857)
 
+### Changed
+* Updated dependencies
+
+## v1.18.2 - 2026-03-27
+### Fixed
 * feat(api): Hint clients towards using the proper API version [\#1521](https://github.com/nextcloud/end_to_end_encryption/pull/1521)
 * fix(lock): Write counter after creating the lock [\#1534](https://github.com/nextcloud/end_to_end_encryption/pull/1534)
 * fix: add throttling to all public page controllers [\#1530](https://github.com/nextcloud/end_to_end_encryption/pull/1530)
 
 ### Changed
-
 * Updated dependencies
 
 ## v1.18.1 - 2026-02-02
