@@ -7,6 +7,15 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.2.1 - 2026-07-15
+### Fixed
+* fix: enforce using SHA256 \([\#1853](https://github.com/nextcloud/end_to_end_encryption/pull/1853)\)
+* fix: only throttle public requests \([\#1855](https://github.com/nextcloud/end_to_end_encryption/pull/1855)\)
+* fix: require password confirmation \([\#1858](https://github.com/nextcloud/end_to_end_encryption/pull/1858)\)
+
+### Changed
+* Updated dependencies
+
 ## v2.2.0 - 2026-06-18
 ### Added
 * Added support for Nextcloud 34
