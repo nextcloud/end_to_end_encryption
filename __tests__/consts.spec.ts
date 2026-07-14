@@ -140,7 +140,7 @@ export const rootFolderPropfindResponse = `<?xml version="1.0"?>
 				<nc:system-tags />
 				<nc:rich-workspace></nc:rich-workspace>
 				<nc:rich-workspace-file></nc:rich-workspace-file>
-				<nc:e2ee-is-encrypted>1</nc:e2ee-metadata>
+				<nc:e2ee-is-encrypted>1</nc:e2ee-is-encrypted>
 				<nc:e2ee-metadata>${JSON.stringify(rootFolderMetadata)}</nc:e2ee-metadata>
 				<nc:e2ee-metadata-signature>${rootFolderMetadataSignature}</nc:e2ee-metadata-signature>
 			</d:prop>
@@ -326,7 +326,7 @@ export const subFolderPropfindResponse = `<?xml version="1.0"?>
                 <oc:size>778399</oc:size>
                 <nc:hidden>false</nc:hidden>
                 <nc:is-mount-root>false</nc:is-mount-root>
-                <nc:e2ee-is-encrypted>1</nc:e2ee-metadata>
+                <nc:e2ee-is-encrypted>1</nc:e2ee-is-encrypted>
                 <nc:e2ee-metadata>${JSON.stringify(subFolderMetadata)}</nc:e2ee-metadata>
                 <nc:e2ee-metadata-signature>${subFolderMetadataSignature}</nc:e2ee-metadata-signature>
                 <nc:reminder-due-date></nc:reminder-due-date>
@@ -553,6 +553,153 @@ export const unencryptedPropFindResponse = `<?xml version="1.0"?>
 				<nc:e2ee-metadata-signature />
 				<nc:note />
 				<nc:hide-download />
+			</d:prop>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+		</d:propstat>
+	</d:response>
+</d:multistatus>`
+
+// PROPFIND of an unencrypted folder that contains an unencrypted file,
+// an e2ee root folder and (e.g. with "Depth: infinity") a node inside that e2ee root
+export const mixedPropFindResponse = `<?xml version="1.0"?>
+<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns"
+	xmlns:nc="http://nextcloud.org/ns">
+	<d:response>
+		<d:href>/remote.php/dav/files/admin/</d:href>
+		<d:propstat>
+			<d:prop>
+				<d:getetag>&quot;675b116c6ef00&quot;</d:getetag>
+				<d:getlastmodified>Thu, 12 Dec 2024 16:38:04 GMT</d:getlastmodified>
+				<d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+				<d:displayname>admin</d:displayname>
+				<d:quota-available-bytes>-3</d:quota-available-bytes>
+				<d:resourcetype>
+					<d:collection />
+				</d:resourcetype>
+				<nc:has-preview>false</nc:has-preview>
+				<nc:is-encrypted>0</nc:is-encrypted>
+				<nc:mount-type></nc:mount-type>
+				<oc:fileid>1</oc:fileid>
+				<oc:owner-display-name>admin</oc:owner-display-name>
+				<oc:owner-id>admin</oc:owner-id>
+				<oc:permissions>RGDNVCK</oc:permissions>
+				<oc:size>1000</oc:size>
+				<nc:hidden>false</nc:hidden>
+				<nc:is-mount-root>true</nc:is-mount-root>
+				<nc:e2ee-is-encrypted>0</nc:e2ee-is-encrypted>
+			</d:prop>
+			<d:status>HTTP/1.1 200 OK</d:status>
+		</d:propstat>
+		<d:propstat>
+			<d:prop>
+				<d:getcontentlength />
+				<d:getcontenttype />
+				<nc:e2ee-metadata />
+				<nc:e2ee-metadata-signature />
+			</d:prop>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+		</d:propstat>
+	</d:response>
+	<d:response>
+		<d:href>/remote.php/dav/files/admin/plain.txt</d:href>
+		<d:propstat>
+			<d:prop>
+				<d:getcontentlength>10</d:getcontentlength>
+				<d:getcontenttype>text/plain</d:getcontenttype>
+				<d:getetag>&quot;f8797cf9677cd6d24d405c9778471000&quot;</d:getetag>
+				<d:getlastmodified>Thu, 12 Dec 2024 15:36:40 GMT</d:getlastmodified>
+				<d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+				<d:displayname>plain.txt</d:displayname>
+				<d:resourcetype />
+				<nc:has-preview>false</nc:has-preview>
+				<nc:mount-type></nc:mount-type>
+				<oc:fileid>2</oc:fileid>
+				<oc:owner-display-name>admin</oc:owner-display-name>
+				<oc:owner-id>admin</oc:owner-id>
+				<oc:permissions>RGDNVW</oc:permissions>
+				<oc:size>10</oc:size>
+				<nc:hidden>false</nc:hidden>
+				<nc:is-mount-root>false</nc:is-mount-root>
+				<nc:e2ee-is-encrypted>0</nc:e2ee-is-encrypted>
+			</d:prop>
+			<d:status>HTTP/1.1 200 OK</d:status>
+		</d:propstat>
+		<d:propstat>
+			<d:prop>
+				<d:quota-available-bytes />
+				<nc:is-encrypted />
+				<nc:e2ee-metadata />
+				<nc:e2ee-metadata-signature />
+			</d:prop>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+		</d:propstat>
+	</d:response>
+	<d:response>
+		<d:href>/remote.php/dav/files/admin/New%20folder/</d:href>
+		<d:propstat>
+			<d:prop>
+				<d:getetag>&quot;675b116c6ef35&quot;</d:getetag>
+				<d:getlastmodified>Thu, 12 Dec 2024 16:38:04 GMT</d:getlastmodified>
+				<d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+				<d:displayname>New folder</d:displayname>
+				<d:quota-available-bytes>-3</d:quota-available-bytes>
+				<d:resourcetype>
+					<d:collection />
+				</d:resourcetype>
+				<nc:has-preview>false</nc:has-preview>
+				<nc:is-encrypted>1</nc:is-encrypted>
+				<nc:mount-type></nc:mount-type>
+				<oc:fileid>89</oc:fileid>
+				<oc:owner-display-name>admin</oc:owner-display-name>
+				<oc:owner-id>admin</oc:owner-id>
+				<oc:permissions>RGDNVCK</oc:permissions>
+				<oc:size>29</oc:size>
+				<nc:hidden>false</nc:hidden>
+				<nc:is-mount-root>false</nc:is-mount-root>
+				<nc:e2ee-is-encrypted>1</nc:e2ee-is-encrypted>
+				<nc:e2ee-metadata>${JSON.stringify(rootFolderMetadata)}</nc:e2ee-metadata>
+				<nc:e2ee-metadata-signature>${rootFolderMetadataSignature}</nc:e2ee-metadata-signature>
+			</d:prop>
+			<d:status>HTTP/1.1 200 OK</d:status>
+		</d:propstat>
+		<d:propstat>
+			<d:prop>
+				<d:getcontentlength />
+				<d:getcontenttype />
+			</d:prop>
+			<d:status>HTTP/1.1 404 Not Found</d:status>
+		</d:propstat>
+	</d:response>
+	<d:response>
+		<d:href>/remote.php/dav/files/admin/New%20folder/ad3b12554e0d4364854ae3e21b170152</d:href>
+		<d:propstat>
+			<d:prop>
+				<d:getcontentlength>29</d:getcontentlength>
+				<d:getcontenttype>application/octet-stream</d:getcontenttype>
+				<d:getetag>&quot;f8797cf9677cd6d24d405c97784710dc&quot;</d:getetag>
+				<d:getlastmodified>Thu, 12 Dec 2024 15:36:40 GMT</d:getlastmodified>
+				<d:creationdate>1970-01-01T00:00:00+00:00</d:creationdate>
+				<d:displayname>ad3b12554e0d4364854ae3e21b170152</d:displayname>
+				<d:resourcetype />
+				<nc:has-preview>false</nc:has-preview>
+				<nc:mount-type></nc:mount-type>
+				<oc:fileid>237</oc:fileid>
+				<oc:owner-display-name>admin</oc:owner-display-name>
+				<oc:owner-id>admin</oc:owner-id>
+				<oc:permissions>RGDNVW</oc:permissions>
+				<oc:size>29</oc:size>
+				<nc:hidden>false</nc:hidden>
+				<nc:is-mount-root>false</nc:is-mount-root>
+				<nc:e2ee-is-encrypted>1</nc:e2ee-is-encrypted>
+			</d:prop>
+			<d:status>HTTP/1.1 200 OK</d:status>
+		</d:propstat>
+		<d:propstat>
+			<d:prop>
+				<d:quota-available-bytes />
+				<nc:is-encrypted />
+				<nc:e2ee-metadata />
+				<nc:e2ee-metadata-signature />
 			</d:prop>
 			<d:status>HTTP/1.1 404 Not Found</d:status>
 		</d:propstat>
