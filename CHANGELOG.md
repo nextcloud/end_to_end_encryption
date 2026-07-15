@@ -3,7 +3,15 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
-## Release 1.17.2 - 2026-03-27
+
+## v1.17.3 - 2026-07-15
+### Fixed
+* fix: require password confirmation for resetting e2ee [#1897](https://github.com/nextcloud/end_to_end_encryption/pull/1897)
+
+### Changed
+* Updated dependencies
+
+## v1.17.2 - 2026-03-27
 
 * feat(api): Hint clients towards using the proper API version [#1522](https://github.com/nextcloud/end_to_end_encryption/pull/1522)
 * fix(lock): Write counter after creating the lock [#1535](https://github.com/nextcloud/end_to_end_encryption/pull/1535)
