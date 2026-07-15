@@ -42,6 +42,7 @@ class PropFindPlugin extends APlugin {
 	/**
 	 * {@inheritdoc}
 	 */
+	#[\Override]
 	public function initialize(Server $server): void {
 		parent::initialize($server);
 

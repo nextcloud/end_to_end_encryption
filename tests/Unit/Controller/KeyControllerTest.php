@@ -28,7 +28,7 @@ use Test\TestCase;
 
 class KeyControllerTest extends TestCase {
 
-	private ?string $userId;
+	private ?string $userId = null;
 	private IRequest&MockObject $request;
 	private IKeyStorage&MockObject $keyStorage;
 	private SignatureHandler&MockObject $signatureHandler;

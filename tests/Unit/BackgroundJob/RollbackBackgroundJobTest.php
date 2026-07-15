@@ -10,37 +10,41 @@ namespace OCA\EndToEndEncryption\Tests\Unit\BackgroundJob;
 
 use OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob;
 use OCA\EndToEndEncryption\RollbackService;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\IConfig;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class RollbackBackgroundJobTest extends TestCase {
 
-	private IConfig&\PHPUnit\Framework\MockObject\MockObject $config;
-	private ITimeFactory&\PHPUnit\Framework\MockObject\MockObject $timeFactory;
-	private RollbackService&\PHPUnit\Framework\MockObject\MockObject $rollbackService;
+	private IAppConfig&MockObject $appConfig;
+	private ITimeFactory&MockObject $timeFactory;
+	private RollbackService&MockObject $rollbackService;
 	private RollbackBackgroundJob $rollbackBackgroundJob;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->config = $this->createMock(IConfig::class);
+		$this->appConfig = $this->createMock(IAppConfig::class);
 		$this->timeFactory = $this->createMock(ITimeFactory::class);
 		$this->rollbackService = $this->createMock(RollbackService::class);
 
-		$this->rollbackBackgroundJob = new RollbackBackgroundJob($this->config, $this->timeFactory, $this->rollbackService);
+		$this->rollbackBackgroundJob = new RollbackBackgroundJob($this->timeFactory, $this->rollbackService, $this->appConfig);
 	}
 
 	/**
 	 * @dataProvider runDataProvider
 	 */
-	public function testRun(string $automaticRollback, bool $expectsServiceCall, int $automaticRollbackTTL, int $expectedTimestamp):void {
-		$this->config->expects($automaticRollback === 'no' ? $this->once() : $this->exactly(2))
-			->method('getAppValue')
-			->willReturnMap([
-				['end_to_end_encryption', 'automatic_rollback', 'yes', $automaticRollback],
-				['end_to_end_encryption', 'automatic_rollback_ttl', '86400', (string)$automaticRollbackTTL],
-			]);
+	public function testRun(bool $automaticRollback, bool $expectsServiceCall, int $automaticRollbackTTL, int $expectedTimestamp):void {
+		$this->appConfig->expects($this->once())
+			->method('getAppValueBool')
+			->with('automatic_rollback')
+			->willReturn($automaticRollback);
+		$this->appConfig
+			->method('getAppValueInt')
+			->with('automatic_rollback_ttl')
+			->willReturn($automaticRollbackTTL);
 
 		if ($expectsServiceCall) {
 			$this->timeFactory->expects($this->once())
@@ -57,9 +61,9 @@ class RollbackBackgroundJobTest extends TestCase {
 
 	public function runDataProvider(): array {
 		return [
-			['no', false, -1,  -1],
-			['yes', true, 60, 440],
-			['yes', true, 80, 420],
+			[false, false, -1,  -1],
+			[true, true, 60, 440],
+			[true, true, 80, 420],
 		];
 	}
 }
