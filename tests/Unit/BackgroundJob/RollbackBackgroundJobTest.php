@@ -12,13 +12,14 @@ use OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob;
 use OCA\EndToEndEncryption\RollbackService;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class RollbackBackgroundJobTest extends TestCase {
 
-	private IConfig&\PHPUnit\Framework\MockObject\MockObject $config;
-	private ITimeFactory&\PHPUnit\Framework\MockObject\MockObject $timeFactory;
-	private RollbackService&\PHPUnit\Framework\MockObject\MockObject $rollbackService;
+	private IConfig&MockObject $config;
+	private ITimeFactory&MockObject $timeFactory;
+	private RollbackService&MockObject $rollbackService;
 	private RollbackBackgroundJob $rollbackBackgroundJob;
 
 	protected function setUp(): void {
