@@ -4,7 +4,10 @@
 -->
 
 <script setup lang="ts">
+import type { IRawMetadataFileDrop } from '../models/metadata.d.ts'
+
 import { mdiAlertCircleOutline, mdiCheck } from '@mdi/js'
+import { showInfo, showWarning } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import { getSharingToken } from '@nextcloud/sharing/public'
@@ -15,7 +18,7 @@ import NcContent from '@nextcloud/vue/components/NcContent'
 import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import { uploadFileDrop } from '../services/fileDropUtils.ts'
+import { finalizeFileDrop, uploadFileDrop } from '../services/fileDropUtils.ts'
 import logger from '../services/logger.ts'
 
 const folderId = loadState<string>('end_to_end_encryption', 'fileId')
@@ -86,15 +89,22 @@ async function handleUpload(fileList: FileList) {
 		return
 	}
 
+	// clear the list of uploaded files
+	uploadedFiles.value = []
+
 	loading.value = true
-	const promises: Promise<void>[] = []
+	const promises: Promise<[string, IRawMetadataFileDrop]>[] = []
+	const fileNames: string[] = []
 	logger.debug('[FileDrop] Starting upload of files')
 	for (const file of Array.from(fileList)) {
+		fileNames.push(file.name)
+
 		const entry = reactive({ name: file.name, status: 'uploading' as 'uploading' | 'done' | 'error' })
 		uploadedFiles.value.push(entry)
 		promises.push(uploadFileDrop(file, folderId, getSharingToken()!, publicKeys)
-			.then(() => {
+			.then((entries) => {
 				entry.status = 'done'
+				return entries
 			})
 			.catch((error) => {
 				entry.status = 'error'
@@ -104,8 +114,25 @@ async function handleUpload(fileList: FileList) {
 
 	logger.debug('[FileDrop] Waiting for all files to be encrypted and uploaded')
 	try {
-		await Promise.all(promises)
-		logger.debug('[FileDrop] All files encrypted and uploaded')
+		const allEntries = await Promise.all(promises)
+		const result = await finalizeFileDrop(Object.fromEntries(allEntries), folderId, getSharingToken()!)
+		if (result === null) {
+			logger.debug('[FileDrop] Server is still processing the request')
+			showInfo(t('end_to_end_encryption', 'The upload completed, but the file drop is still being processed on the server.'))
+		} else if (result.length < fileNames.length) {
+			const failedFiles: string[] = []
+			for (const [name] of allEntries) {
+				if (!result.includes(name)) {
+					const index = allEntries.findIndex(([encryptedFileName]) => encryptedFileName === name)
+					failedFiles.push(fileNames[index])
+					logger.debug(`[FileDrop] File ${failedFiles.at(-1)} failed to upload`)
+					uploadedFiles.value[index].status = 'error'
+				}
+			}
+			showWarning(t('end_to_end_encryption', 'Some files failed to upload.'))
+		} else {
+			logger.debug('[FileDrop] All files encrypted and uploaded')
+		}
 	} catch (exception) {
 		logger.error('[FileDrop] Error while encrypting and uploading files', { exception })
 	}

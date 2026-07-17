@@ -13,7 +13,6 @@ use OCA\EndToEndEncryption\RollbackService;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class RollbackBackgroundJobTest extends TestCase {
