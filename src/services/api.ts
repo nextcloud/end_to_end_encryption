@@ -500,7 +500,7 @@ export async function searchFolders(path: string) {
  * @param fileId - The fileid of the e2ee root folder to add the entries to
  * @param shareToken - The share token of the public share the folder belongs to
  */
-export async function addFileDrop(fileDropEntries: { [key: string]: IRawMetadataFileDrop }, fileId: string, shareToken?: string): Promise<{ [key: string]: IRawMetadataFileDrop }> {
+export async function addFileDrop(fileDropEntries: { [key: string]: IRawMetadataFileDrop }, fileId: string, shareToken?: string): Promise<null | string[]> {
 	const url = generateOcsUrl(Url.FileDrop, { fileId })
 
 	const response = await axios.put<OCSResponse<{ filedrop: { [key: string]: IRawMetadataFileDrop } }>>(
@@ -516,9 +516,12 @@ export async function addFileDrop(fileDropEntries: { [key: string]: IRawMetadata
 		},
 	)
 
-	if (response.data.ocs.meta.statuscode !== 200) {
-		throw new Error(`Failed to upload metadata: ${response.data.ocs.meta.message}`)
+	if (response.status === 202) {
+		return null // The server is still processing the request, the client should retry later
+	} else if (response.status !== 200 || response.data.ocs.meta.statuscode !== 200) {
+		const message = response.data?.ocs?.meta?.message
+		throw new Error('Failed to upload metadata' + (message ? `: ${message}` : ''))
 	}
 
-	return response.data.ocs.data.filedrop
+	return Object.keys(response.data.ocs.data.filedrop)
 }
