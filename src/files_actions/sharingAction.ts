@@ -39,11 +39,15 @@ export const sharingAction: IFileAction = {
 		}
 
 		// Only allow sharing for encrypted files if the user is the owner
-		if (node.owner === getCurrentUser()?.uid && node.attributes['e2ee-is-encrypted']) {
-			return true
+		if (!node.attributes['e2ee-is-encrypted']) {
+			return false
 		}
 
-		return false
+		if (node.owner !== getCurrentUser()?.uid) {
+			return false
+		}
+
+		return true
 	},
 
 	async exec({ nodes }) {
