@@ -8,6 +8,7 @@ import { parseXML } from 'webdav'
 import {
 	adminMnemonic,
 	adminPrivateKeyInfo,
+	mixedPropFindResponse,
 	rootFilePropfindResponse,
 	rootFolderMetadata,
 	rootFolderMetadataSignature,
@@ -45,6 +46,54 @@ test('passes through non encrypted propfinds', async () => {
 	await usePropFindInterceptor(context, async () => {})
 	expect(spy).not.toHaveBeenCalled()
 	await expect(context.res.text()).resolves.toBe(unencryptedPropFindResponse)
+})
+
+test('Correctly adjust e2ee nodes in PROPFIND of an unencrypted folder', async () => {
+	const metadata = await RootMetadata.fromJson(rootFolderMetadata, 'admin', await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic))
+	metadataStore.getMetadata
+		// @ts-expect-error -- mocking for tests
+		.mockImplementation(async (path: string) => ({ metadata, path: path.replace(/\/+$/g, '') }))
+	metadataStore.setRawMetadata
+		// @ts-expect-error -- mocking for tests
+		.mockImplementation(async () => {})
+
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin', { method: 'PROPFIND' }),
+		res: new Response(mixedPropFindResponse),
+		type: 'fetch' as const,
+	}
+
+	await usePropFindInterceptor(context, async () => {})
+
+	// the metadata shipped with the e2ee root child is cached
+	expect(metadataStore.setRawMetadata).toHaveBeenCalledTimes(1)
+	expect(metadataStore.setRawMetadata).toHaveBeenCalledWith(
+		'/remote.php/dav/files/admin/New%20folder',
+		89,
+		JSON.stringify(rootFolderMetadata),
+		rootFolderMetadataSignature,
+	)
+
+	const xml = await parseXML(await context.res.text())
+	expect(xml.multistatus.response).toHaveLength(4)
+	// the unencrypted PROPFIND target and the unencrypted sibling are kept untouched
+	expect(xml.multistatus.response[0]!.propstat?.prop.displayname).toBe('admin')
+	expect(xml.multistatus.response[0]!.propstat?.prop.permissions).toBe('RGDNVCK')
+	expect(xml.multistatus.response[1]!.propstat?.prop.displayname).toBe('plain.txt')
+	expect(xml.multistatus.response[1]!.propstat?.prop.getcontenttype).toBe('text/plain')
+	expect(xml.multistatus.response[1]!.propstat?.prop.permissions).toBe('RGDNVW')
+	// the e2ee root keeps its unencrypted name but loses the share permission
+	expect(xml.multistatus.response[2]!.propstat?.prop.displayname).toBe('New folder')
+	expect(xml.multistatus.response[2]!.propstat?.prop.permissions).toBe('GDNVCK')
+	// the node inside the e2ee root is decrypted
+	expect(xml.multistatus.response[3]!.propstat?.prop.displayname).toBe('test.txt')
+	expect(xml.multistatus.response[3]!.propstat?.prop.getcontenttype).toBe('text/plain')
+	expect(xml.multistatus.response[3]!.propstat?.prop.permissions).toBe('GDNVW')
+
+	// metadata is only resolved for the parent of the node inside the e2ee root,
+	// never for the unencrypted nodes or the e2ee root itself
+	expect(metadataStore.getMetadata).toHaveBeenCalledTimes(1)
+	expect(metadataStore.getMetadata).toHaveBeenCalledWith('/remote.php/dav/files/admin/New%20folder')
 })
 
 test('Correctly replace root file info in PROPFIND', async () => {
