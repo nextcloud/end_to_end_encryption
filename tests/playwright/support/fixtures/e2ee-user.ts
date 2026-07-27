@@ -9,9 +9,7 @@ import { createRandomUser, login } from '@nextcloud/e2e-test-server/playwright'
 import { test as baseTest, expect } from '@playwright/test'
 import { FilesAppPage } from '../sections/FilesAppPage.ts'
 import { setBrowserE2eeEnabled } from '../utils/config.ts'
-
-/** How long to back off before retrying a failed setup round trip. */
-const RETRY_DELAY = 800
+import { withRetry } from '../utils/retry.ts'
 
 interface E2eeAccount {
 	user: User
@@ -78,23 +76,3 @@ export const test = baseTest.extend<{ mnemonic: string }, { e2eeAccount: E2eeAcc
 		await use({ user, mnemonic })
 	}, { scope: 'worker' }],
 })
-
-/**
- * Run a setup round trip that talks to the container, retrying it once.
- *
- * Creating a user shells out to `occ` and logging in costs three requests -
- * either can fail outright while the CI machine is busy, which must not fail the
- * test.
- *
- * @param action - The round trip to run
- * @param description - What is attempted, for the log message on the first failure
- */
-async function withRetry<T>(action: () => Promise<T>, description: string): Promise<T> {
-	try {
-		return await action()
-	} catch (error) {
-		console.info(`Failed to ${description}, retrying`, error)
-		await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY))
-		return await action()
-	}
-}
