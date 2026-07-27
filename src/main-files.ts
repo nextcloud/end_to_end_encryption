@@ -10,6 +10,7 @@ import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
 import { isPublicShare } from '@nextcloud/sharing/public'
 import downloadUnencryptedAction from './files_actions/downloadUnencryptedAction.ts'
+import { sharingAction } from './files_actions/sharingAction.ts'
 import { registerNewEncryptedFolderEntry } from './files_newMenu/new-encrypted-folder.ts'
 import { setupEventBusProxy } from './services/eventBusProxy.ts'
 import { registerSharingSidebarSection } from './services/filesSharingSection.ts'
@@ -29,6 +30,7 @@ if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCr
 	registerDavProperty('nc:e2ee-metadata-signature', { nc: 'http://nextcloud.org/ns' })
 	// Register file integrations
 	registerFileAction(downloadUnencryptedAction)
+	registerFileAction(sharingAction)
 	disableFileAction('download')
 	registerNewEncryptedFolderEntry()
 	// Register sharing integrations
