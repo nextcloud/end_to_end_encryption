@@ -6,13 +6,16 @@
 import type { Locator, Page } from '@playwright/test'
 
 import { expect } from '@playwright/test'
+import { SectionFileActionsMenu } from './SectionFileActionsMenu.ts'
+import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
 
-/** How long to keep retrying to open the "New" menu. */
+/** How long to keep retrying to open a menu. */
 const OPEN_MENU_TIMEOUT = 15000
 
 export class FilesAppPage {
 	public readonly buttonNewMenuLocator: Locator
+	public readonly dialogMnemonicLocator: Locator
 	public readonly tableFilesList: Locator
 	public readonly filesListLocator: Locator
 
@@ -25,6 +28,7 @@ export class FilesAppPage {
 		this.buttonNewMenuLocator = this.page.locator('[data-cy-upload-picker]')
 			.getByRole('button', { name: 'New' })
 			.first()
+		this.dialogMnemonicLocator = this.page.getByRole('dialog', { name: 'Enter your 12 words mnemonic' })
 	}
 
 	/**
@@ -92,6 +96,77 @@ export class FilesAppPage {
 		return this.tableFilesList
 			.getByRole('row')
 			.filter({ has: this.page.getByRole('cell', { name }) })
+	}
+
+	public openFileOrFolder(name: string): Promise<void> {
+		return this.getFileOrFolder(name)
+			.getByRole('button', { name: `Open folder ${name}` })
+			.click()
+	}
+
+	public getMnemonicDialog(): SectionMnemonicDialog {
+		return new SectionMnemonicDialog(this.dialogMnemonicLocator)
+	}
+
+	/**
+	 * Reload the files app and navigate back into an encrypted folder, unlocking
+	 * it again on the way.
+	 *
+	 * Reloading drops the decrypted private key - it is only ever held in memory -
+	 * so entering the folder asks for the recovery phrase again. This is what
+	 * makes an assertion afterwards a statement about the server state instead of
+	 * about the list the browser still had in its store.
+	 *
+	 * @param name - Name of the encrypted folder to open
+	 * @param mnemonic - Recovery phrase to unlock it with
+	 */
+	public async reopenEncryptedFolder(name: string, mnemonic: string): Promise<void> {
+		await this.openFilesApp()
+		await this.openFileOrFolder(name)
+		await this.getMnemonicDialog().fillAndSubmit(mnemonic)
+		await this.waitForListLoaded()
+	}
+
+	/**
+	 * Open the actions menu of a row.
+	 *
+	 * Retried like {@link openNewMenu}: the row's NcActions can swallow a click
+	 * while the list is still settling, and only clicking while the menu is
+	 * closed keeps a retry from toggling an open menu shut again.
+	 *
+	 * @param name - Name of the file or folder whose menu to open
+	 */
+	public async openActionsMenu(name: string): Promise<SectionFileActionsMenu> {
+		const trigger = this.getFileOrFolder(name).getByRole('button', { name: 'Actions' })
+		const actionsMenu = new SectionFileActionsMenu(this.page)
+
+		await expect(async () => {
+			if (!(await actionsMenu.menuLocator.isVisible())) {
+				await trigger.click()
+			}
+			await expect(actionsMenu.menuLocator).toBeVisible({ timeout: 2000 })
+		}).toPass({ timeout: OPEN_MENU_TIMEOUT })
+
+		return actionsMenu
+	}
+
+	/**
+	 * Delete a file or folder through its actions menu and wait for it to be gone
+	 * from the list.
+	 *
+	 * Deleting is not confirmed by a dialog: the files app only asks when the
+	 * `show_dialog_deletion` user config is enabled, which it is not by default.
+	 *
+	 * Note that for a node inside an encrypted folder this returns while the
+	 * parent metadata is still being rewritten - wrap the call in
+	 * `withEncryptedFolderUpdate` to await that too.
+	 *
+	 * @param name - Name of the file or folder to delete
+	 */
+	public async deleteFileOrFolder(name: string): Promise<void> {
+		const actionsMenu = await this.openActionsMenu(name)
+		await actionsMenu.getDeleteEntry().click()
+		await expect(this.getFileOrFolder(name)).toHaveCount(0)
 	}
 
 	/** The size cell of a row, e.g. "0 KB" for a freshly created folder. */
