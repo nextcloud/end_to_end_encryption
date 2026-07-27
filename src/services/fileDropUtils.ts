@@ -3,6 +3,8 @@
  * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
  */
 
+import type { IRawMetadataFileDrop } from '../models/metadata.d.ts'
+
 import { getCapabilities } from '@nextcloud/capabilities'
 import { getClient, getRemoteURL, getRootPath } from '@nextcloud/files/dav'
 import { join } from '@nextcloud/paths'
@@ -24,7 +26,7 @@ const client = getClient(getRemoteURL())
  * @param shareToken - The share token of the public share to upload the file to
  * @param users - Mapping of user IDs to their public keys to encrypt the file drop entry for
  */
-export async function uploadFileDrop(unencryptedFile: File, fileId: string, shareToken: string, users: { userId: string, key: CryptoKey }[]): Promise<void> {
+export async function uploadFileDrop(unencryptedFile: File, fileId: string, shareToken: string, users: { userId: string, key: CryptoKey }[]): Promise<[string, IRawMetadataFileDrop]> {
 	const key = await generateAESKey()
 	const encryptedFileName = generateUuid()
 
@@ -43,7 +45,18 @@ export async function uploadFileDrop(unencryptedFile: File, fileId: string, shar
 	})
 
 	const rawEntry = await fileDropEntry.export(users)
-	await api.addFileDrop({ [encryptedFileName]: rawEntry }, fileId, shareToken)
+	return [encryptedFileName, rawEntry]
+}
+
+/**
+ * Finalize the file drop by uploading the metadata entries.
+ *
+ * @param entries - The entries to upload
+ * @param fileId - The id of the file drop folder to add the entries to
+ * @param shareToken - The current share token of the public share to upload the entries to
+ */
+export async function finalizeFileDrop(entries: Record<string, IRawMetadataFileDrop>, fileId: string, shareToken: string): Promise<null | string[]> {
+	return await api.addFileDrop(entries, fileId, shareToken)
 }
 
 /**
