@@ -5,7 +5,6 @@
 
 import type { Locator, Page } from '@playwright/test'
 
-import { expect } from '@playwright/test'
 import { SectionCreateE2eeFolderDialog } from './SectionCreateE2eeFolderDialog.ts'
 
 export class SectionNewMenu {
@@ -23,10 +22,14 @@ export class SectionNewMenu {
 		return this.getMenuEntry(/New encrypted folder/i)
 	}
 
+	/**
+	 * Trigger the "New encrypted folder" entry and wait until the dialog has got
+	 * past its initial "Checking encryption setup …" step.
+	 */
 	public async createNewE2eeFolder(): Promise<SectionCreateE2eeFolderDialog> {
-		this.getNewEncryptedFolderEntry().click()
+		await this.getNewEncryptedFolderEntry().click()
 		const section = new SectionCreateE2eeFolderDialog(this.page)
-		await expect(section.dialogLocator).toBeVisible()
+		await section.waitForSetupCheck()
 		return section
 	}
 }

@@ -10,9 +10,11 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Listener;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
+use OCA\EndToEndEncryption\AppInfo\ConfigLexicon;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
 use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Config\IUserConfig;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Files\FileInfo;
@@ -26,7 +28,7 @@ class LoadAdditionalListener implements IEventListener {
 	public function __construct(
 		private readonly IInitialState $initialState,
 		private readonly ?string $userId,
-		private readonly \OCP\Config\IUserConfig $userConfig,
+		private readonly IUserConfig $userConfig,
 	) {
 	}
 
@@ -47,7 +49,7 @@ class LoadAdditionalListener implements IEventListener {
 		}
 
 		$browserE2eeEnabled = $this->userId === null
-			|| $this->userConfig->getValueString($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true';
+			|| $this->userConfig->getValueBool($this->userId, Application::APP_ID, ConfigLexicon::E2EE_IN_BROWSER_ENABLED);
 
 		$this->initialState->provideInitialState(
 			'userConfig',
