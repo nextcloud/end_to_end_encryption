@@ -11,6 +11,14 @@ import { defineConfig, devices } from '@playwright/test'
 export default defineConfig({
 	testDir: './tests/playwright',
 	fullyParallel: true,
+	// The E2EE flows do RSA key generation and 600k PBKDF2 rounds in the browser
+	// on top of the usual Nextcloud page loads, which is far slower on a shared
+	// CI runner (and in Firefox/WebKit) than locally — the defaults of 30s/5s are
+	// not enough headroom for that and time out instead of failing on a real bug.
+	timeout: 90_000,
+	expect: {
+		timeout: 10_000,
+	},
 	// ensure no `test.only` is left in the code causing false positives
 	forbidOnly: !!process.env.CI,
 	// on CI we retry once to get traces of failures
@@ -26,6 +34,8 @@ export default defineConfig({
 		baseURL: 'http://localhost:8089/index.php/',
 		// we record traces but only keep them when the test fails
 		trace: 'on-first-retry',
+		actionTimeout: 15_000,
+		navigationTimeout: 30_000,
 	},
 
 	projects: [

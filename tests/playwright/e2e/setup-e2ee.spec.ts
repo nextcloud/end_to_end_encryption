@@ -4,25 +4,25 @@
  */
 
 import { expect, mergeTests } from '@playwright/test'
+import { test as browserE2eeTest } from '../support/fixtures/browser-e2ee.ts'
 import { test as filesTest } from '../support/fixtures/files-app.ts'
-import { test as settingsTest } from '../support/fixtures/personal-settings.ts'
-import { test as randomUserTest } from '../support/fixtures/random-user.ts'
 
-const test = mergeTests(randomUserTest, filesTest, settingsTest)
+const test = mergeTests(browserE2eeTest, filesTest)
 
 test('No new-menu entry if browser support is disabled', async ({ filesApp }) => {
 	await filesApp.openFilesApp()
 	await expect(filesApp.buttonNewMenuLocator).toBeVisible()
 
 	const newMenu = await filesApp.openNewMenu()
-	await expect(newMenu.menuLocator).toBeVisible()
 	await expect(newMenu.getNewEncryptedFolderEntry()).toHaveCount(0)
 })
 
 test.describe('with enabled browser e2ee', () => {
-	test.beforeEach(async ({ filesApp, personalSettings }) => {
-		await personalSettings.openSettingsPage()
-		await personalSettings.enableBrowserE2ee()
+	// Enabled through the config API instead of clicking through the settings
+	// page: these tests are about what the feature does, not about turning it on.
+	test.use({ browserE2ee: true })
+
+	test.beforeEach(async ({ filesApp }) => {
 		await filesApp.openFilesApp()
 	})
 
@@ -30,7 +30,6 @@ test.describe('with enabled browser e2ee', () => {
 		await expect(filesApp.buttonNewMenuLocator).toBeVisible()
 
 		const newMenu = await filesApp.openNewMenu()
-		await expect(newMenu.menuLocator).toBeVisible()
 		await expect(newMenu.getNewEncryptedFolderEntry()).toBeVisible()
 	})
 
@@ -38,50 +37,33 @@ test.describe('with enabled browser e2ee', () => {
 		// See the folder does not exist
 		await expect(filesApp.getFileOrFolder('test-folder')).toHaveCount(0)
 
-		await expect(filesApp.buttonNewMenuLocator).toBeVisible()
 		const newMenu = await filesApp.openNewMenu()
 		await expect(newMenu.getNewEncryptedFolderEntry()).toBeVisible()
 		const dialog = await newMenu.createNewE2eeFolder()
 
-		await expect(dialog.buttonSetupEncryption).toBeVisible()
-		await expect(dialog.buttonSetupEncryption).not.toBeDisabled()
-		await dialog.buttonSetupEncryption.click()
-
-		// see the recovery phrase
-		await expect(dialog.codeRecoveryPhrase).toBeVisible()
+		// generate the key pair and see the recovery phrase
+		await dialog.setupEncryption()
 		await expect(dialog.codeRecoveryPhrase).toHaveText(/(\w+ ){11}\w+/)
 
-		// see the count down
-		await expect(dialog.buttonContinue).toBeVisible()
-		await expect(dialog.buttonContinue).toBeDisabled()
-		await Promise.all([
-			expect(dialog.buttonContinue).toHaveText('Continue (4)'),
-			expect(dialog.buttonContinue).toHaveText('Continue (3)'),
-			expect(dialog.buttonContinue).toHaveText('Continue (2)'),
-			expect(dialog.buttonContinue).toHaveText('Continue (1)'),
-		])
-		await expect(dialog.buttonContinue).toHaveText('Continue')
-		await expect(dialog.buttonContinue).not.toBeDisabled() // now the button is enabled
+		// The count down keeps the user on the recovery phrase for a moment.
+		// Label and disabled state are read as one sample so a tick boundary
+		// cannot split them; the individual ticks are not asserted because each
+		// only lasts a second and can elapse between two polls.
+		const { disabled } = await dialog.waitForCountdown()
+		expect(disabled).toBe(true)
 
-		// continue
-		await dialog.buttonContinue.click()
+		// once it ran out the button is enabled again and we can continue
+		await dialog.continueAfterCountdown()
 
-		// see the folder name input
-		await expect(dialog.inputFolderName).toBeVisible()
-		// see that the create button is disabled
-		await expect(dialog.buttonCreateFolder).toBeDisabled()
-		// can type and continue
-		await dialog.inputFolderName.fill('test-folder')
-		await expect(dialog.buttonCreateFolder).not.toBeDisabled()
-		await dialog.buttonCreateFolder.click()
+		// see the folder name input, name the folder and create it
+		await dialog.createFolder('test-folder')
 
-		// see the dialog is closed
-		await expect(dialog.dialogLocator).toHaveCount(0)
 		// the folder was created
 		const row = filesApp.getFileOrFolder('test-folder')
 		await expect(row).toBeVisible()
-		// see its not pending (in that case a size is shown) and has modification time
-		await expect(row.getByRole('cell', { name: /0 kb/i })).toBeVisible()
-		await expect(row.getByRole('cell', { name: /few seconds ago/i })).toBeVisible()
+		// see its not pending (in that case no size is shown) and has a modification time
+		await expect(filesApp.getSizeCell(row)).toHaveText(/^0 [KM]?B$/i)
+		// a slow runner can push this past "a few seconds", so accept minutes too
+		await expect(filesApp.getModifiedCell(row)).toHaveText(/(seconds|minutes?) ago/i)
 	})
 })
