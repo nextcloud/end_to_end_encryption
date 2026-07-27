@@ -19,6 +19,7 @@ use OCP\Config\ValueType;
 class ConfigLexicon implements ILexicon {
 	public const AUTOMATIC_ROLLBACK_ENABLED = 'automatic_rollback';
 	public const AUTOMATIC_ROLLBACK_TTL = 'automatic_rollback_ttl';
+	public const E2EE_IN_BROWSER_ENABLED = 'e2eeInBrowserEnabled';
 
 	#[\Override]
 	public function getStrictness(): Strictness {
@@ -46,6 +47,12 @@ class ConfigLexicon implements ILexicon {
 	#[\Override]
 	public function getUserConfigs(): array {
 		return [
+			new Entry(
+				key: self::E2EE_IN_BROWSER_ENABLED,
+				type: ValueType::BOOL,
+				defaultRaw: false,
+				definition: 'Whether the user opted in to navigating end-to-end encrypted files in the browser',
+			),
 		];
 	}
 }

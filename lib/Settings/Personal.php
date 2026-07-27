@@ -10,10 +10,12 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Settings;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
+use OCA\EndToEndEncryption\AppInfo\ConfigLexicon;
 use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Config\IUserConfig;
 use OCP\IUserSession;
 use OCP\Settings\ISettings;
 
@@ -24,7 +26,7 @@ class Personal implements ISettings {
 		private readonly ?string $userId,
 		private readonly IUserSession $userSession,
 		private readonly Config $e2eConfig,
-		private readonly \OCP\Config\IUserConfig $userConfig,
+		private readonly IUserConfig $userConfig,
 	) {
 	}
 
@@ -38,7 +40,7 @@ class Personal implements ISettings {
 		$this->initialState->provideInitialState(
 			'userConfig',
 			[
-				'e2eeInBrowserEnabled' => $this->userConfig->getValueString($this->userId, 'end_to_end_encryption', 'e2eeInBrowserEnabled', 'false') === 'true',
+				'e2eeInBrowserEnabled' => $this->userConfig->getValueBool($this->userId, Application::APP_ID, ConfigLexicon::E2EE_IN_BROWSER_ENABLED),
 			]
 		);
 

@@ -9,11 +9,13 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Controller;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
+use OCA\EndToEndEncryption\AppInfo\ConfigLexicon;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\JSONResponse;
+use OCP\Config\IUserConfig;
 use OCP\IRequest;
 
 class ConfigController extends Controller {
@@ -22,7 +24,7 @@ class ConfigController extends Controller {
 		string $appName,
 		IRequest $request,
 		private readonly ?string $userId,
-		private readonly \OCP\Config\IUserConfig $userConfig,
+		private readonly IUserConfig $userConfig,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -34,11 +36,11 @@ class ConfigController extends Controller {
 			return new JSONResponse([], Http::STATUS_PRECONDITION_FAILED);
 		}
 
-		if (!in_array($key, ['e2eeInBrowserEnabled'])) {
-			return new JSONResponse([], Http::STATUS_PRECONDITION_FAILED);
+		if ($key === ConfigLexicon::E2EE_IN_BROWSER_ENABLED) {
+			$this->userConfig->setValueBool($this->userId, Application::APP_ID, $key, $value === 'true');
+			return new JSONResponse([], Http::STATUS_OK);
 		}
 
-		$this->userConfig->setValueString($this->userId, Application::APP_ID, $key, $value);
-		return new JSONResponse([], Http::STATUS_OK);
+		return new JSONResponse([], Http::STATUS_PRECONDITION_FAILED);
 	}
 }
