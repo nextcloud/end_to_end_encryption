@@ -181,8 +181,9 @@ class RollbackServiceTest extends TestCase {
 		$calls = [];
 		$this->lockMapper->expects($this->exactly(3))
 			->method('delete')
-			->willReturnCallback(function (Lock $lock) use (&$calls) {
+			->willReturnCallback(function (Lock $lock) use (&$calls): Lock {
 				$calls[] = $lock;
+				return $lock;
 			});
 
 		$this->rollbackService->rollbackOlderThan(1337, 10);

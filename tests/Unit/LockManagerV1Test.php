@@ -135,7 +135,7 @@ class LockManagerV1Test extends TestCase {
 		}
 	}
 
-	public function lockDataProvider(): array {
+	public static function lockDataProvider(): array {
 		return [
 			[true,  false, 'correct-token123', true,  false, false],
 			[false, true,  'correct-token123', false, true,  false],
@@ -181,7 +181,7 @@ class LockManagerV1Test extends TestCase {
 		$this->lockManager->unlockFile(42, $token);
 	}
 
-	public function unlockDataProvider(): array {
+	public static function unlockDataProvider(): array {
 		return [
 			[true,  'correct-token123', true,  false, false],
 			[false, 'correct-token123', false, false, true],
@@ -360,11 +360,10 @@ class LockManagerV1Test extends TestCase {
 
 		$this->lockMapper->expects($this->exactly(2))
 			->method('getByFileId')
-			->withConsecutive([1337], [7331])
-			->willReturnOnConsecutiveCalls(
-				$this->throwException(new DoesNotExistException('')),
-				$lock
-			);
+			->willReturnCallback(fn (int $fileId): Lock => match ($fileId) {
+				1337 => throw new DoesNotExistException(''),
+				7331 => $lock,
+			});
 
 		$actual = $this->lockManager->isLocked(42, 'wrong-token456');
 		$this->assertTrue($actual);

@@ -81,7 +81,7 @@ class KeyStorageTest extends TestCase {
 		$this->assertEquals($expected, $actual);
 	}
 
-	public function publicKeyExistsDataProvider(): array {
+	public static function publicKeyExistsDataProvider(): array {
 		return [
 			[true, true],
 			[false, false],
@@ -122,7 +122,7 @@ class KeyStorageTest extends TestCase {
 		$this->keyStorage->setPublicKey('public-key-content', 'jane');
 	}
 
-	public function setPublicKeyDataProvider(): array {
+	public static function setPublicKeyDataProvider(): array {
 		return [
 			[true,  true,  false],
 			[false, false, true],
@@ -183,7 +183,7 @@ class KeyStorageTest extends TestCase {
 		$this->keyStorage->deletePublicKey($userId);
 	}
 
-	public function deletePublicKeyDataProvider(): array {
+	public static function deletePublicKeyDataProvider(): array {
 		return [
 			[true,  'wrong-userId',   false, true,  false],
 			[false, 'wrong-userId',   false, true,  false],
@@ -240,7 +240,7 @@ class KeyStorageTest extends TestCase {
 		}
 	}
 
-	public function getPrivateKeyDataProvider(): array {
+	public static function getPrivateKeyDataProvider(): array {
 		return [
 			[true,  'wrong-userId',   true],
 			[false, 'wrong-userId',   true],
@@ -290,7 +290,7 @@ class KeyStorageTest extends TestCase {
 		}
 	}
 
-	public function privateKeyExistsDataProvider(): array {
+	public static function privateKeyExistsDataProvider(): array {
 		return [
 			[true,  'wrong-userId',   false, false, true],
 			[false, 'wrong-userId',   false, false, true],
@@ -357,7 +357,7 @@ class KeyStorageTest extends TestCase {
 		}
 	}
 
-	public function setPrivateKeyDataProvider(): array {
+	public static function setPrivateKeyDataProvider(): array {
 		return [
 			[true,  'wrong-userId',   false, true, false, false],
 			[false, 'wrong-userId',   false, true, false, false],
@@ -420,7 +420,7 @@ class KeyStorageTest extends TestCase {
 		}
 	}
 
-	public function deletePrivateKeyDataProvider(): array {
+	public static function deletePrivateKeyDataProvider(): array {
 		return [
 			[true,  'wrong-userId',   false, true,  false],
 			[false, 'wrong-userId',   false, true,  false],
@@ -440,7 +440,7 @@ class KeyStorageTest extends TestCase {
 		$this->appData->expects($matcher)
 			->method('getFolder')
 			->willReturnCallback(function (string $value) use ($matcher, $publicKeyFolder, $privateKeyFolder): ISimpleFolder {
-				switch ($matcher->getInvocationCount()) {
+				switch ($matcher->numberOfInvocations()) {
 					case 1:
 						$this->assertEquals($value, '/public-keys');
 						return $publicKeyFolder;
@@ -495,7 +495,7 @@ class KeyStorageTest extends TestCase {
 		$this->keyStorage->deleteUserKeys($user);
 	}
 
-	public function deleteUserKeysDataProvider(): array {
+	public static function deleteUserKeysDataProvider(): array {
 		return [
 			[false, false, true,  true],
 			[false, true,  true,  false],
@@ -512,7 +512,7 @@ class KeyStorageTest extends TestCase {
 		$this->appData->expects($matcher)
 			->method('getFolder')
 			->willReturnCallback(function (string $value) use ($matcher, $privateKeyExists, $publicKeyExists): ISimpleFolder {
-				switch ($matcher->getInvocationCount()) {
+				switch ($matcher->numberOfInvocations()) {
 					case 1:
 						$this->assertEquals($value, '/private-keys');
 						if ($privateKeyExists) {
@@ -537,7 +537,7 @@ class KeyStorageTest extends TestCase {
 			$this->appData->expects($matcher)
 				->method('newFolder')
 				->willReturnCallback(function (string $value) use ($matcher): ISimpleFolder {
-					switch ($matcher->getInvocationCount()) {
+					switch ($matcher->numberOfInvocations()) {
 						case 1:
 							$this->assertEquals($value, '/private-keys');
 							return $this->createMock(ISimpleFolder::class);
@@ -564,7 +564,7 @@ class KeyStorageTest extends TestCase {
 		self::invokePrivate($this->keyStorage, 'getPublicKeysRootFolder');
 	}
 
-	public function getRootFoldersDataProvider(): array {
+	public static function getRootFoldersDataProvider(): array {
 		return [
 			[false, false, true,  true],
 			[false, true,  true,  false],
