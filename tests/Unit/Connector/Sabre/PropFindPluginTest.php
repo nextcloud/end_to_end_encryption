@@ -17,6 +17,7 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\PropFind;
 use Sabre\DAV\Server;
@@ -98,11 +99,10 @@ class PropFindPluginTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider updatePropertyDataProvider
-	 *
 	 * @param bool $supportedUserAgent
 	 * @param bool $fileEncrypted
 	 */
+	#[DataProvider('updatePropertyDataProvider')]
 	public function testUpdateProperty(bool $supportedUserAgent, bool $fileEncrypted): void {
 		$server = $this->createMock(Server::class);
 		$propFind = $this->createMock(PropFind::class);
@@ -160,11 +160,10 @@ class PropFindPluginTest extends TestCase {
 
 
 	/**
-	 * @dataProvider updatePropertyDataProvider
-	 *
 	 * @param bool $supportedUserAgent
 	 * @param bool $fileEncrypted
 	 */
+	#[DataProvider('updatePropertyDataProvider')]
 	public function testCheckAccess(bool $supportedUserAgent, bool $fileEncrypted): void {
 		$server = $this->createMock(Server::class);
 		$propFind = $this->createMock(PropFind::class);

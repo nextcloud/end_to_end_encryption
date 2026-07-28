@@ -22,13 +22,15 @@ use OCP\Files\NotPermittedException;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Security\ISecureRandom;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Test\TestCase;
 
 /**
  * Class LockManagerV1Test
  *
- * @group DB
  */
+#[Group('DB')]
 class LockManagerV1Test extends TestCase {
 
 	/** @var LockMapper|\PHPUnit\Framework\MockObject\MockObject */
@@ -63,8 +65,6 @@ class LockManagerV1Test extends TestCase {
 	}
 
 	/**
-	 * @dataProvider lockDataProvider
-	 *
 	 * @param bool $isLocked
 	 * @param bool $lockDoesNotExist
 	 * @param string $token
@@ -72,6 +72,7 @@ class LockManagerV1Test extends TestCase {
 	 * @param bool $expectNewToken
 	 * @param bool $expectOldToken
 	 */
+	#[DataProvider('lockDataProvider')]
 	public function testLock(bool $isLocked, bool $lockDoesNotExist, string $token, bool $expectNull, bool $expectNewToken, bool $expectOldToken): void {
 		$lockManager = $this->getMockBuilder(LockManagerV1::class)
 			->onlyMethods(['isLocked'])
@@ -154,14 +155,13 @@ class LockManagerV1Test extends TestCase {
 	}
 
 	/**
-	 * @dataProvider unlockDataProvider
-	 *
 	 * @param bool $lockDoesNotExist
 	 * @param string $token
 	 * @param bool $expectFileNotLocked
 	 * @param bool $expectFileLocked
 	 * @param bool $expectDelete
 	 */
+	#[DataProvider('unlockDataProvider')]
 	public function testUnlock(bool $lockDoesNotExist, string $token, bool $expectFileNotLocked, bool $expectFileLocked, bool $expectDelete): void {
 		if ($lockDoesNotExist) {
 			$this->lockMapper->expects($this->once())
