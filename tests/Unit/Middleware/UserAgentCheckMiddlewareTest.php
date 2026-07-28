@@ -71,7 +71,7 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 		$this->middleware->beforeController($controller, 'methodName');
 	}
 
-	public function beforeControllerDataProvider(): array {
+	public static function beforeControllerDataProvider(): array {
 		return [
 			[false, false, false, false],
 			[false, true, false, false],

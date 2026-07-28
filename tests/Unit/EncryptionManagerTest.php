@@ -127,38 +127,24 @@ class EncryptionManagerTest extends TestCase {
 	/**
 	 * @dataProvider dataTestIsEncryptedFile
 	 *
-	 * @param Node&MockObject $node
-	 * @param bool $expected
+	 * @param list<bool> $encrypted whether the node, its parent and its grandparent are encrypted
 	 */
-	public function testIsEncryptedFile($node, $expected): void {
+	public function testIsEncryptedFile(array $encrypted, bool $expected): void {
+		[$node, $parent, $grandParent] = $this->constructNestedNodes();
+		$node->method('isEncrypted')->willReturn($encrypted[0]);
+		$parent->method('isEncrypted')->willReturn($encrypted[1]);
+		$grandParent->method('isEncrypted')->willReturn($encrypted[2]);
+
 		$instance = $this->getInstance();
 		$result = $instance->isEncryptedFile($node);
 		$this->assertSame($expected, $result);
 	}
 
-	public function dataTestIsEncryptedFile(): array {
-		// no node is encrypted
-		[$node1_1, $node1_2, $node1_3] = $this->constructNestedNodes();
-		$node1_1->expects($this->any())->method('isEncrypted')->willReturn(false);
-		$node1_2->expects($this->any())->method('isEncrypted')->willReturn(false);
-		$node1_3->expects($this->any())->method('isEncrypted')->willReturn(false);
-
-		//first node is encrypted
-		[$node2_1, $node2_2, $node2_3] = $this->constructNestedNodes();
-		$node2_1->expects($this->any())->method('isEncrypted')->willReturn(true);
-		$node2_2->expects($this->any())->method('isEncrypted')->willReturn(false);
-		$node2_3->expects($this->any())->method('isEncrypted')->willReturn(false);
-
-		//parent node is encrypted
-		[$node3_1, $node3_2, $node3_3] = $this->constructNestedNodes();
-		$node3_1->expects($this->any())->method('isEncrypted')->willReturn(false);
-		$node3_2->expects($this->any())->method('isEncrypted')->willReturn(true);
-		$node3_3->expects($this->any())->method('isEncrypted')->willReturn(false);
-
+	public static function dataTestIsEncryptedFile(): array {
 		return [
-			[$node1_1, false],
-			[$node2_1, true],
-			[$node3_1, true],
+			'no node is encrypted' => [[false, false, false], false],
+			'first node is encrypted' => [[true, false, false], true],
+			'parent node is encrypted' => [[false, true, false], true],
 		];
 	}
 

@@ -34,20 +34,25 @@ class RedirectRequestPluginTest extends TestCase {
 	public function testInitialize(): void {
 		$server = $this->createMock(Server::class);
 
+		$calls = [];
 		$server->expects($this->exactly(8))
 			->method('on')
-			->withConsecutive(
-				['method:MKCOL', [$this->plugin, 'httpMkColPut'], 95],
-				['method:PUT', [$this->plugin, 'httpMkColPut'], 95],
-				['method:COPY', [$this->plugin, 'httpCopyMove'], 95],
-				['method:MOVE', [$this->plugin, 'httpCopyMove'], 95],
-				['method:DELETE', [$this->plugin, 'httpDelete'], 95],
-				['method:GET', [$this->plugin, 'httpGetHead'], 5],
-				['method:HEAD', [$this->plugin, 'httpGetHead'], 5],
-				['propFind', [$this->plugin, 'propFind'], 500],
-			);
+			->willReturnCallback(function (string $event, callable $callback, int $priority) use (&$calls): void {
+				$calls[] = [$event, (new \ReflectionFunction(\Closure::fromCallable($callback)))->getName(), $priority];
+			});
 
 		$this->plugin->initialize($server);
+
+		$this->assertEquals([
+			['method:MKCOL', 'httpMkColPut', 95],
+			['method:PUT', 'httpMkColPut', 95],
+			['method:COPY', 'httpCopyMove', 95],
+			['method:MOVE', 'httpCopyMove', 95],
+			['method:DELETE', 'httpDelete', 95],
+			['method:GET', 'httpGetHead', 5],
+			['method:HEAD', 'httpGetHead', 5],
+			['propFind', 'propFind', 500],
+		], $calls);
 	}
 
 	public function testHttpCopyMoveInsideE2E(): void {

@@ -49,17 +49,22 @@ class LockPluginTest extends TestCase {
 	public function testInitialize(): void {
 		$server = $this->createMock(Server::class);
 
+		$calls = [];
 		$server->expects($this->exactly(5))
 			->method('on')
-			->withConsecutive(
-				['beforeMethod:DELETE', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:MKCOL', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:PUT', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:COPY', [$this->plugin, 'checkLock'], 200],
-				['beforeMethod:MOVE', [$this->plugin, 'checkLock'], 200],
-			);
+			->willReturnCallback(function (string $event, callable $callback, int $priority) use (&$calls): void {
+				$calls[] = [$event, (new \ReflectionFunction(\Closure::fromCallable($callback)))->getName(), $priority];
+			});
 
 		$this->plugin->initialize($server);
+
+		$this->assertEquals([
+			['beforeMethod:DELETE', 'checkLock', 200],
+			['beforeMethod:MKCOL', 'checkLock', 200],
+			['beforeMethod:PUT', 'checkLock', 200],
+			['beforeMethod:COPY', 'checkLock', 200],
+			['beforeMethod:MOVE', 'checkLock', 200],
+		], $calls);
 	}
 
 	public function testCheckLockForCalendar(): void {
@@ -215,7 +220,7 @@ class LockPluginTest extends TestCase {
 		$plugin->checkLock($request);
 	}
 
-	public function nonCopyMoveMethodDataProvider(): array {
+	public static function nonCopyMoveMethodDataProvider(): array {
 		return [
 			['GET'],
 			['PROPFIND'],
@@ -327,7 +332,7 @@ class LockPluginTest extends TestCase {
 		$plugin->checkLock($request);
 	}
 
-	public function writeMethodDataProvider(): array {
+	public static function writeMethodDataProvider(): array {
 		return [
 			['PUT', null, false, true, false],
 			['PUT', 'token123', false, false, false],
@@ -462,7 +467,7 @@ class LockPluginTest extends TestCase {
 		$plugin->checkLock($request);
 	}
 
-	public function checkLockForWriteCopyMoveDataProvider(): array {
+	public static function checkLockForWriteCopyMoveDataProvider(): array {
 		return [
 			// Neither src nor dest is e2e
 			['COPY', 'token123', false, false, false, false, false, true, false, false, false],
@@ -611,7 +616,7 @@ class LockPluginTest extends TestCase {
 		$this->assertEquals($result, $supportsE2E);
 	}
 
-	public function isE2EEnabledUserAgentDataProvider(): array {
+	public static function isE2EEnabledUserAgentDataProvider(): array {
 		return [
 			[true],
 			[false],

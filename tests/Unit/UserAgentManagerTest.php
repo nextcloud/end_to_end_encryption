@@ -33,10 +33,7 @@ class UserAgentManagerTest extends TestCase {
 		$this->assertEquals($expected, $actual);
 	}
 
-	/**
-	 * @return array
-	 */
-	public function supportsEndToEndEncryptionDataProvider(): array {
+	public static function supportsEndToEndEncryptionDataProvider(): array {
 		return [
 			// Android
 			['Mozilla/5.0 (Android) Nextcloud-android/1.9.9', false],
