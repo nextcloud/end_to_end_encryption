@@ -41,6 +41,7 @@ OC.L10N.register(
     "Cancel" : "Peruuta",
     "End-to-end encryption" : "Päästä päähän -salaus",
     "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
+    "Sharing options" : "Jakamisen valinnat",
     "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste"
 },
 "nplurals=2; plural=(n != 1);");

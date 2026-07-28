@@ -121,6 +121,7 @@
     "Delete existing encrypted files" : "Excluir arquivos criptografados existentes",
     "Preparing download for {file}" : "Preparando o download para {file}",
     "Download unencrypted" : "Baixar não criptografado",
+    "Sharing options" : "Opções de compartilhamento",
     "New encrypted folder" : "Nova pasta criptografada",
     "Creating new encrypted folder: Cancelled" : "Criação da nova pasta criptografada: Cancelada",
     "Creating new encrypted folder: Failed" : "Criação da nova pasta criptografada: Falhou",

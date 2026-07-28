@@ -121,6 +121,7 @@
     "Delete existing encrypted files" : "Eliminar os ficheiros cifrados existentes",
     "Preparing download for {file}" : "Preparando a descarga de {file}",
     "Download unencrypted" : "Descargar sen cifrar",
+    "Sharing options" : "Opcións de compartir",
     "New encrypted folder" : "Novo cartafol cifrado",
     "Creating new encrypted folder: Cancelled" : "Creando un novo cartafol cifrado: cancelado",
     "Creating new encrypted folder: Failed" : "Creando un novo cartafol cifrado: fallado",

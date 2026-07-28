@@ -20,6 +20,7 @@ OC.L10N.register(
     "Uploading…" : "Прикачување…",
     "Limit to groups" : "Ограничување на групи",
     "Limit app usage to groups" : "Ограничување за користење на апликации во групи",
-    "Cancel" : "Откажи"
+    "Cancel" : "Откажи",
+    "Sharing options" : "Опции за споделување"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

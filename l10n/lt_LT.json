@@ -121,6 +121,7 @@
     "Delete existing encrypted files" : "Ištrinti esamus šifruotus failus",
     "Preparing download for {file}" : "Ruošiamasi atsisiųsti {file}",
     "Download unencrypted" : "Atsisiųsti neužšifruotą",
+    "Sharing options" : "Bendrinimo parinktys",
     "New encrypted folder" : "Nepavyko gauti pokalbių sąrašo",
     "Creating new encrypted folder: Cancelled" : "Kuriamas naujas užšifruotas aplankas: atšauktas",
     "Creating new encrypted folder: Failed" : "Naujo užšifruoto aplanko kūrimas: nepavyko",

@@ -120,6 +120,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Διαγραφή υπαρχόντων κρυπτογραφημένων αρχείων",
     "Preparing download for {file}" : "Προετοιμασία λήψης για το αρχείο {file}",
     "Download unencrypted" : "Λήψη μη κρυπτογραφημένων",
+    "Sharing options" : "Επιλογές διαμοιρασμού",
     "New encrypted folder" : "Νέος κρυπτογραφημένος φάκελος",
     "Creating new encrypted folder: Cancelled" : "Δημιουργία νέου κρυπτογραφημένου φακέλου: Ακυρώθηκε",
     "Creating new encrypted folder: Failed" : "Δημιουργία νέου κρυπτογραφημένου φακέλου: Απέτυχε",

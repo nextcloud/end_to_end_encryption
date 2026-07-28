@@ -123,6 +123,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "刪除既有的已加密檔案",
     "Preparing download for {file}" : "正在準備下載 {file}",
     "Download unencrypted" : "下載未加密",
+    "Sharing options" : "分享選項",
     "New encrypted folder" : "新的加密資料夾",
     "Creating new encrypted folder: Cancelled" : "正在建立新的加密資料夾：已取消",
     "Creating new encrypted folder: Failed" : "正在建立新的加密資料夾：失敗",

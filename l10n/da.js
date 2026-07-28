@@ -43,6 +43,7 @@ OC.L10N.register(
     "Limit app usage to groups" : "Begræns appbrug til grupper",
     "Cancel" : "Annuller",
     "End-to-end encryption" : "End-to-end kryptering",
+    "Sharing options" : "Delingsindstillinger",
     "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering"
 },
 "nplurals=2; plural=(n != 1);");

@@ -19,6 +19,7 @@ OC.L10N.register(
     "Uploading…" : "Байршуулж байна…",
     "Limit to groups" : "Бүлгүүдэд хязгаарлах",
     "Limit app usage to groups" : "Апп ашиглалтыг бүлгүүдэд хязгаарлах",
-    "Cancel" : "–¶—É—Ü–ª–∞—Ö"
+    "Cancel" : "–¶—É—Ü–ª–∞—Ö",
+    "Sharing options" : "Хуваалцах сонголтууд"
 },
 "nplurals=2; plural=(n != 1);");

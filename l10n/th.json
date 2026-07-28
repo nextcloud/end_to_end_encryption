@@ -12,6 +12,7 @@
     "Upload failed" : "อัปโหลดล้มเหลว",
     "Uploading…" : "กำลังอัปโหลด…",
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
-    "Cancel" : "ยกเลิก"
+    "Cancel" : "ยกเลิก",
+    "Sharing options" : "ตัวเลือกการแชร์"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

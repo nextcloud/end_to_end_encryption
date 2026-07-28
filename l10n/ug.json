@@ -97,6 +97,7 @@
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "ئۇلانغان ھەر قانداق ئۈسكۈنە ئاچقۇچنى ئۆچۈرگەندىن كېيىن مەسىلە كەلتۈرۈپ چىقىرىشى مۇمكىن ، شۇڭا ئۈسكۈنىلەرنى ئۈزۈپ قايتا ئۇلىغان ياخشى.",
     "Delete existing encrypted files" : "مەۋجۇت شىفىرلانغان ھۆججەتلەرنى ئۆچۈرۈڭ",
     "Download unencrypted" : "شىفىرلانمىغان ھالدا چۈشۈر",
+    "Sharing options" : "ھەمبەھىر تاللانمىلىرى",
     "New encrypted folder" : "يېڭى شىفىرلانغان قىسقۇچ",
     "Creating new encrypted folder: Cancelled" : "يېڭى شىفىرلانغان قىسقۇچ قۇرۇش: ئەمەلدىن قالدى",
     "Creating new encrypted folder: Failed" : "يېڭى شىفىرلانغان قىسقۇچ قۇرۇش: مەغلۇپ بولدى",

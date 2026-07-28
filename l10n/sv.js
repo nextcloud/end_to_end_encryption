@@ -123,6 +123,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Radera befintliga krypterade filer",
     "Preparing download for {file}" : "Förbereder nedladdning av {file}",
     "Download unencrypted" : "Ladda ner okrypterad",
+    "Sharing options" : "Delningsalternativ",
     "New encrypted folder" : "Ny krypterad mapp",
     "Creating new encrypted folder: Cancelled" : "Skapandet av den nya krypterade mappen avbröts",
     "Creating new encrypted folder: Failed" : "Det gick inte att skapa den nya krypterade mappen",

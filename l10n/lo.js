@@ -87,6 +87,7 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again.",
     "Delete existing encrypted files" : "Delete existing encrypted files",
     "Download unencrypted" : "Download unencrypted",
+    "Sharing options" : "ຕົວເລືອກການແບ່ງປັນ",
     "New encrypted folder" : "New encrypted folder",
     "Creating new encrypted folder: Cancelled" : "Creating new encrypted folder: Cancelled",
     "Creating new encrypted folder: Failed" : "Creating new encrypted folder: Failed",
