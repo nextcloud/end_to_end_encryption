@@ -142,7 +142,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		}
 	}
 
-	public function getPrivateKeyDataProvider(): array {
+	public static function getPrivateKeyDataProvider(): array {
 		return [
 			[null, null, null, null, null, false],
 			[new ForbiddenException('', false), null, null, ['message' => 'Not allowed to get private key'], 403, false],
@@ -198,7 +198,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		}
 	}
 
-	public function deletePrivateKeyDataProvider(): array {
+	public static function deletePrivateKeyDataProvider(): array {
 		return [
 			[null, null, null, false],
 			[new NotPermittedException(), OCSForbiddenException::class, 'You are not allowed to delete this private key', false],
@@ -261,7 +261,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		}
 	}
 
-	public function setPrivateKeyDataProvider(): array {
+	public static function setPrivateKeyDataProvider(): array {
 		$keyValid = base64_encode('MY-SECRET-PRIVATE-KEY');
 		$keyInvalid = 'INVALID-BASE64-KEY';
 		$saltValid = base64_encode(str_repeat('A', 40));
@@ -570,7 +570,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		}
 	}
 
-	public function deletePublicKeyDataProvider(): array {
+	public static function deletePublicKeyDataProvider(): array {
 		return [
 			[null, null, null, false],
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find the public key belonging to admin', false],

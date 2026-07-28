@@ -128,7 +128,7 @@ class MetaDataControllerTest extends TestCase {
 		}
 	}
 
-	public function getMetaDataDataProvider(): array {
+	public static function getMetaDataDataProvider(): array {
 		return [
 			[null, null, null, false],
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', false],
@@ -201,7 +201,7 @@ class MetaDataControllerTest extends TestCase {
 		}
 	}
 
-	public function setMetaDataDataProvider(): array {
+	public static function setMetaDataDataProvider(): array {
 		return [
 			[null, null, null, false, ['meta-data' => 'JSON-ENCODED-META-DATA'], 200],
 			[new MetaDataExistsException(), null, null, false, [], 409],
@@ -293,7 +293,7 @@ class MetaDataControllerTest extends TestCase {
 		}
 	}
 
-	public function updateMetaDataDataProvider(): array {
+	public static function updateMetaDataDataProvider(): array {
 		return [
 			[false, null, null, null, null, null, false],
 			[true, null, null, null, ['message' => 'Folder is not locked'], 412, false],
@@ -370,7 +370,7 @@ class MetaDataControllerTest extends TestCase {
 		}
 	}
 
-	public function deleteMetaDataDataProvider(): array {
+	public static function deleteMetaDataDataProvider(): array {
 		return [
 			[null, null, null, null, null, false],
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', null, null, false],
