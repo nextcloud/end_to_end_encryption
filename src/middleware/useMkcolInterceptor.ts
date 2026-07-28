@@ -12,6 +12,7 @@ import stringify from 'safe-stable-stringify'
 import { Metadata } from '../models/Metadata.ts'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
+import { decodePath } from '../services/path.ts'
 import { generateUuid } from '../services/uuid.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
@@ -25,7 +26,8 @@ import * as metadataStore from '../store/metadata.ts'
 export async function useMkcolInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	logger.debug('Handling MKCOL request', { request: context.req })
 	const url = new URL(context.req.url)
-	const path = url.pathname
+	// the metadata knows the parent by its decoded path, the request URL carries it encoded
+	const path = decodePath(url.pathname)
 	const parentPath = dirname(path)
 
 	let rootMetadata: RootMetadata
@@ -43,14 +45,14 @@ export async function useMkcolInterceptor(context: FetchContext, next: () => Pro
 	await keyStore.loadPrivateKey()
 
 	const parentMetadata = await metadataStore.getMetadata(parentPath)
-	const originalName = getUniqueName(decodeURIComponent(basename(path)), parentMetadata.metadata.listContents())
+	const originalName = getUniqueName(basename(path), parentMetadata.metadata.listContents())
 	const uuid = generateUuid()
 	parentMetadata.metadata.addFolder(uuid, originalName)
 
 	const parentLockToken = await api.lockFolder(parentMetadata.id, parentMetadata.metadata.counter)
 	try {
 		// adjust to the new uuid
-		url.pathname = join(parentPath, uuid)
+		url.pathname = join(dirname(url.pathname), uuid)
 		context.req = new Request(url, context.req)
 		context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 		context.req.headers.set('E2E-TOKEN', parentLockToken)
@@ -80,7 +82,7 @@ export async function useMkcolInterceptor(context: FetchContext, next: () => Pro
 			parentLockToken,
 			metadataRaw.signature,
 		)
-		metadataStore.setMetadata(url.pathname, fileId, metadata)
+		metadataStore.setMetadata(join(parentPath, uuid), fileId, metadata)
 	} finally {
 		// ensure we unlock the parent folder on failure
 		await api.unlockFolder(parentMetadata.id, parentLockToken)

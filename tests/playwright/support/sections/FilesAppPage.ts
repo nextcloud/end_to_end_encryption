@@ -162,10 +162,16 @@ export class FilesAppPage {
 	 * `withEncryptedFolderUpdate` to await that too.
 	 *
 	 * @param name - Name of the file or folder to delete
+	 * @param mnemonic - Recovery phrase, if the deletion is expected to ask for it.
+	 * Deleting an encrypted root folder rewrites its metadata, so a browser session
+	 * that has not unlocked the key pair yet - a freshly loaded page - is asked to.
 	 */
-	public async deleteFileOrFolder(name: string): Promise<void> {
+	public async deleteFileOrFolder(name: string, mnemonic?: string): Promise<void> {
 		const actionsMenu = await this.openActionsMenu(name)
 		await actionsMenu.getDeleteEntry().click()
+		if (mnemonic !== undefined) {
+			await this.getMnemonicDialog().fillAndSubmit(mnemonic)
+		}
 		await expect(this.getFileOrFolder(name)).toHaveCount(0)
 	}
 
