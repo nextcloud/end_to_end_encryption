@@ -23,6 +23,7 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -69,10 +70,7 @@ class MetaDataControllerTest extends TestCase {
 		);
 	}
 
-	/**
-	 *
-	 * @dataProvider getMetaDataDataProvider
-	 */
+	#[DataProvider('getMetaDataDataProvider')]
 	public function testGetMetaData(
 		?\Exception $metaDataStorageException,
 		?string $expectedException,
@@ -130,10 +128,7 @@ class MetaDataControllerTest extends TestCase {
 		];
 	}
 
-	/**
-	 *
-	 * @dataProvider setMetaDataDataProvider
-	 */
+	#[DataProvider('setMetaDataDataProvider')]
 	public function testSetMetaData(?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
@@ -196,10 +191,7 @@ class MetaDataControllerTest extends TestCase {
 		];
 	}
 
-	/**
-	 *
-	 * @dataProvider updateMetaDataDataProvider
-	 */
+	#[DataProvider('updateMetaDataDataProvider')]
 	public function testUpdateMetaData(bool $isLocked,
 		?\Exception $metaDataStorageException,
 		?string $expectedException,
@@ -280,10 +272,7 @@ class MetaDataControllerTest extends TestCase {
 		];
 	}
 
-	/**
-	 *
-	 * @dataProvider deleteMetaDataDataProvider
-	 */
+	#[DataProvider('deleteMetaDataDataProvider')]
 	public function testDeleteMetaData(?\Exception $metaDataStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,

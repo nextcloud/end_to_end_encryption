@@ -19,6 +19,7 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\Storage\IStorage;
 use OCP\IDBConnection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
@@ -123,10 +124,10 @@ class EncryptionManagerTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider dataTestIsEncryptedFile
 	 *
 	 * @param list<bool> $encrypted whether the node, its parent and its grandparent are encrypted
 	 */
+	#[DataProvider('dataTestIsEncryptedFile')]
 	public function testIsEncryptedFile(array $encrypted, bool $expected): void {
 		[$node, $parent, $grandParent] = $this->constructNestedNodes();
 		$node->method('isEncrypted')->willReturn($encrypted[0]);

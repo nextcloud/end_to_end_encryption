@@ -19,6 +19,7 @@ use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Share\IManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
@@ -63,9 +64,7 @@ class KeyStorageTest extends TestCase {
 		$this->assertEquals('public-key-content', $actual);
 	}
 
-	/**
-	 * @dataProvider publicKeyExistsDataProvider
-	 */
+	#[DataProvider('publicKeyExistsDataProvider')]
 	public function testPublicKeyExists(bool $exists, bool $expected): void {
 		$folder = $this->createMock(ISimpleFolder::class);
 		$folder->expects($this->once())
@@ -88,9 +87,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider setPublicKeyDataProvider
-	 */
+	#[DataProvider('setPublicKeyDataProvider')]
 	public function testSetPublicKey(bool $exists, bool $expectsKeyExistsException, bool $expectsNewFile): void {
 		$folder = $this->createMock(ISimpleFolder::class);
 		$folder->expects($this->once())
@@ -129,9 +126,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider deletePublicKeyDataProvider
-	 */
+	#[DataProvider('deletePublicKeyDataProvider')]
 	public function testDeletePublicKey(bool $getUserReturnsNull, string $userId, bool $notFoundException, bool $expectsNotPermittedException, bool $expectDelete): void {
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
@@ -192,9 +187,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider getPrivateKeyDataProvider
-	 */
+	#[DataProvider('getPrivateKeyDataProvider')]
 	public function testGetPrivateKey(bool $getUserReturnsNull, string $userId, bool $expectsForbiddenException): void {
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
@@ -248,9 +241,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider privateKeyExistsDataProvider
-	 */
+	#[DataProvider('privateKeyExistsDataProvider')]
 	public function testPrivateKeyExists(bool $getUserReturnsNull, string $userId, bool $exists, bool $expected, bool $expectsForbiddenException): void {
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
@@ -299,9 +290,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider setPrivateKeyDataProvider
-	 */
+	#[DataProvider('setPrivateKeyDataProvider')]
 	public function testSetPrivateKey(bool $getUserReturnsNull, string $userId, bool $fileExists, bool $expectsForbiddenException, bool $expectsKeyExistsException, bool $expectsPutContent): void {
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
@@ -366,9 +355,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider deletePrivateKeyDataProvider
-	 */
+	#[DataProvider('deletePrivateKeyDataProvider')]
 	public function testDeletePrivateKey(bool $getUserReturnsNull, string $userId, bool $fileExists, bool $expectsNotPermittedException, bool $expectsDelete): void {
 		if ($getUserReturnsNull) {
 			$this->userSession->expects($this->once())
@@ -429,9 +416,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider deleteUserKeysDataProvider
-	 */
+	#[DataProvider('deleteUserKeysDataProvider')]
 	public function testDeleteUserKeys(bool $publicNotFound, bool $privateNotFound, bool $expectsPublicDelete, bool $expectsPrivateDelete): void {
 		$publicKeyFolder = $this->createMock(ISimpleFolder::class);
 		$privateKeyFolder = $this->createMock(ISimpleFolder::class);
@@ -504,9 +489,7 @@ class KeyStorageTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider getRootFoldersDataProvider
-	 */
+	#[DataProvider('getRootFoldersDataProvider')]
 	public function testGetRootFolders(bool $privateKeyExists, bool $publicKeyExists, bool $expectPrivateNewFolder, bool $expectPublicNewFolder): void {
 		$matcher = $this->exactly(2);
 		$this->appData->expects($matcher)
