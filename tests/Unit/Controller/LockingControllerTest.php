@@ -21,6 +21,7 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -164,9 +165,8 @@ class LockingControllerTest extends TestCase {
 	 * @param string|null $expectedExceptionMessage
 	 * @param array|null $expectedResponseData
 	 * @param int|null $expectedResponseStatus
-	 *
-	 * @dataProvider unlockFolderDataProvider
 	 */
+	#[DataProvider('unlockFolderDataProvider')]
 	public function testUnlockFolder(
 		bool $getUserFolderThrows,
 		bool $userFolderReturnsNodes,

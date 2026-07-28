@@ -20,6 +20,7 @@ use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\INode;
@@ -109,10 +110,9 @@ class LockPluginTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider nonCopyMoveMethodDataProvider
-	 *
 	 * @param string $method
 	 */
+	#[DataProvider('nonCopyMoveMethodDataProvider')]
 	public function testCheckLockNonCopyMoveNoE2EPath(string $method):void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
 			->onlyMethods(['isFile', 'getNode', 'isE2EEnabledPath'])
@@ -159,10 +159,9 @@ class LockPluginTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider nonCopyMoveMethodDataProvider
-	 *
 	 * @param string $method
 	 */
+	#[DataProvider('nonCopyMoveMethodDataProvider')]
 	public function testCheckLockBlockUnsupportedClients(string $method): void {
 		$plugin = $this->getMockBuilder(LockPlugin::class)
 			->onlyMethods(['isFile', 'getNode', 'isE2EEnabledPath', 'isE2EEnabledUserAgent'])
@@ -234,14 +233,13 @@ class LockPluginTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider writeMethodDataProvider
-	 *
 	 * @param string $method
 	 * @param string|null $token
 	 * @param bool $isLocked
 	 * @param bool $expectsForbidden
 	 * @param bool $expectsFileLocked
 	 */
+	#[DataProvider('writeMethodDataProvider')]
 	public function testCheckLockForWrite(string $method,
 		?string $token,
 		bool $isLocked,
@@ -350,8 +348,6 @@ class LockPluginTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider checkLockForWriteCopyMoveDataProvider
-	 *
 	 * @param string $method
 	 * @param string|null $token
 	 * @param bool $isSrcE2E
@@ -364,6 +360,7 @@ class LockPluginTest extends TestCase {
 	 * @param bool $expectsForbidden2
 	 * @param bool $expectsFileLocked
 	 */
+	#[DataProvider('checkLockForWriteCopyMoveDataProvider')]
 	public function testCheckLockForWriteCopyMove(string $method,
 		?string $token,
 		bool $isSrcE2E,
@@ -602,10 +599,9 @@ class LockPluginTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider isE2EEnabledUserAgentDataProvider
-	 *
 	 * @param bool $supportsE2E
 	 */
+	#[DataProvider('isE2EEnabledUserAgentDataProvider')]
 	public function testIsE2EEnabledUserAgent(bool $supportsE2E): void {
 		$this->userAgentManager->expects($this->once())
 			->method('supportsEndToEndEncryption')

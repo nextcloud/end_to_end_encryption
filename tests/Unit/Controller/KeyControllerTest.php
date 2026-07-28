@@ -22,6 +22,7 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -89,9 +90,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @param array|null $expectedResponseData
 	 * @param int|null $expectedResponseStatus
 	 * @param bool $expectLogger
-	 *
-	 * @dataProvider getPrivateKeyDataProvider
 	 */
+	#[DataProvider('getPrivateKeyDataProvider')]
 	public function testGetPrivateKey(?\Exception $keyStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
@@ -156,9 +156,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @param string|null $expectedException
 	 * @param string|null $expectedExceptionMessage
 	 * @param bool $expectLogger
-	 *
-	 * @dataProvider deletePrivateKeyDataProvider
 	 */
+	#[DataProvider('deletePrivateKeyDataProvider')]
 	public function testDeletePrivateKey(?\Exception $keyStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,
@@ -215,8 +214,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @param array $expectedData
 	 * @param int $expectedStatusCode
 	 *
-	 * @dataProvider setPrivateKeyDataProvider
 	 */
+	#[DataProvider('setPrivateKeyDataProvider')]
 	public function testSetPrivateKey(
 		string $privateKey,
 		?\Exception $keyStorageException,
@@ -525,9 +524,8 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	 * @param string|null $expectedException
 	 * @param string|null $expectedExceptionMessage
 	 * @param bool $expectLogger
-	 *
-	 * @dataProvider deletePublicKeyDataProvider
 	 */
+	#[DataProvider('deletePublicKeyDataProvider')]
 	public function testDeletePublicKey(?\Exception $keyStorageException,
 		?string $expectedException,
 		?string $expectedExceptionMessage,

@@ -12,6 +12,7 @@ use OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob;
 use OCA\EndToEndEncryption\RollbackService;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
@@ -33,13 +34,12 @@ class RollbackBackgroundJobTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider runDataProvider
-	 *
 	 * @param string $automaticRollback
 	 * @param bool $expectsServiceCall
 	 * @param int $automaticRollbackTTL
 	 * @param int $expectedTimestamp
 	 */
+	#[DataProvider('runDataProvider')]
 	public function testRun(string $automaticRollback, bool $expectsServiceCall, int $automaticRollbackTTL, int $expectedTimestamp):void {
 		$this->config->expects($automaticRollback === 'no' ? $this->once() : $this->exactly(2))
 			->method('getAppValue')
