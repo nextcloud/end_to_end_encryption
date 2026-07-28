@@ -121,6 +121,7 @@
     "Delete existing encrypted files" : "Kustuta olemasolevad krüptitud failid",
     "Preparing download for {file}" : "Valmistun „{file}“ faili allalaadimiseks",
     "Download unencrypted" : "Laadi alla krüptimata variandina",
+    "Sharing options" : "Jagamise valikud",
     "New encrypted folder" : "Uus krüptitud kaust",
     "Creating new encrypted folder: Cancelled" : "Uue krüptokausta lisamine on katkestatud",
     "Creating new encrypted folder: Failed" : "Uue krüptokausta lisamine ei õnnestunud",

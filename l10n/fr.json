@@ -121,6 +121,7 @@
     "Delete existing encrypted files" : "Supprimer les fichiers chiffrés existants",
     "Preparing download for {file}" : "Dépôt de fichiers chiffré",
     "Download unencrypted" : "Télécharger en clair",
+    "Sharing options" : "Options de partage",
     "New encrypted folder" : "Nouveau dossier chiffré",
     "Creating new encrypted folder: Cancelled" : "Création d'un nouveau dossier chiffré : annulée",
     "Creating new encrypted folder: Failed" : "Création d'un nouveau dossier chiffré : échec",

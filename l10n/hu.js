@@ -64,6 +64,7 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Nézze meg az összes kapcsolódó eszközét, hogy vissza tudja-e szerezni a mnemonikus kódját.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Minden továbbra is csatlakoztatott eszköz problémát okozhat a kulcsok törlése után, így érdemes bontani velük a kapcsolatot, majd újrakapcsolódni.",
     "Delete existing encrypted files" : "Meglévő titkosított fájlok törlése",
+    "Sharing options" : "Megosztási beállítások",
     "New encrypted folder" : "Új titkosított mappa",
     "End-to-end encryption endpoint" : "Végpontok közötti titkosítási végpont",
     "Error while uploading files" : "Hiba a fájlok feltöltése során",

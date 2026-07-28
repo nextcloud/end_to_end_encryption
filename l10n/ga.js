@@ -123,6 +123,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Scrios comhaid criptithe atá ann cheana féin",
     "Preparing download for {file}" : "Ag ullmhú íoslódáil do {file}",
     "Download unencrypted" : "Íosluchtaigh gan criptithe",
+    "Sharing options" : "Roghanna comhroinnte",
     "New encrypted folder" : "Fillteán criptithe nua",
     "Creating new encrypted folder: Cancelled" : "Ag cruthú fillteáin chriptithe nua: Cealaithe",
     "Creating new encrypted folder: Failed" : "Ag cruthú fillteán criptithe nua: Theip air",

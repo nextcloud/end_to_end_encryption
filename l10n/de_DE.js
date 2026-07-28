@@ -123,6 +123,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Vorhandene verschlüsselte Dateien löschen",
     "Preparing download for {file}" : "Herunterladen vorbereiten für {file}",
     "Download unencrypted" : "Unverschlüsselt herunterladen",
+    "Sharing options" : "Freigabeoptionen",
     "New encrypted folder" : "Neuer verschlüsselter Ordner",
     "Creating new encrypted folder: Cancelled" : "Erstelle einen neuen verschlüsselten Ordner: Abgebrochen",
     "Creating new encrypted folder: Failed" : "Erstelle einen neuen verschlüsselten Ordner: Fehlgeschlagen",

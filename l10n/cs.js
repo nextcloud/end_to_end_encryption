@@ -120,6 +120,7 @@ OC.L10N.register(
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Jakékoli z připojených zařízení může po smazání klíčů způsobovat problémy, takže je lepší zařízení odpojit a připojit znovu zpět.",
     "Delete existing encrypted files" : "Smazat existující šifrované soubory",
     "Download unencrypted" : "Stáhnout nešifrovaně",
+    "Sharing options" : "Předvolby pro sdílení",
     "New encrypted folder" : "Nová šifrovaná složka",
     "Creating new encrypted folder: Cancelled" : "Vytváření nové šifrované složky: zrušeno ",
     "Creating new encrypted folder: Failed" : "Vytváření nové šifrované složky: nezdařilo se",

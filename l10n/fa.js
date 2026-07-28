@@ -123,6 +123,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "حذف فایل‌های رمزگذاری‌شده موجود",
     "Preparing download for {file}" : "آماده‌سازی دانلود برای {file}",
     "Download unencrypted" : "دانلود بدون رمزگذاری",
+    "Sharing options" : "گزینه‌های اشتراک‌گذاری",
     "New encrypted folder" : "پوشه رمزگذاری‌شده جدید",
     "Creating new encrypted folder: Cancelled" : "ایجاد پوشه رمزگذاری‌شده جدید: لغو شد",
     "Creating new encrypted folder: Failed" : "ایجاد پوشه رمزگذاری‌شده جدید: ناموفق",

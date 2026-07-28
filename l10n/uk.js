@@ -121,6 +121,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Вилучити наявні зашифровані файли",
     "Preparing download for {file}" : "Підготовка до звантаження {file}",
     "Download unencrypted" : "Завантажити незашифровані",
+    "Sharing options" : "Параметри спільного доступу",
     "New encrypted folder" : "Новий зашифрований каталог",
     "Creating new encrypted folder: Cancelled" : "Створення нового зашифрованого каталогу: скасовано",
     "Creating new encrypted folder: Failed" : "Створення нового зашифрованого каталогу: не вдалося",

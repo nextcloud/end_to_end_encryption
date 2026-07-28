@@ -121,6 +121,7 @@
     "Delete existing encrypted files" : "Var olan şifrelenmiş dosyalar silinsin",
     "Preparing download for {file}" : "{file} için indirme hazırlanıyor",
     "Download unencrypted" : "Şifresini çözmeden indir",
+    "Sharing options" : "Paylaşım seçenekleri",
     "New encrypted folder" : "Yeni şifrelenmiş klasör",
     "Creating new encrypted folder: Cancelled" : "Yeni şifrelenmiş klasör ekleniyor: İptal edildi",
     "Creating new encrypted folder: Failed" : "Yeni şifrelenmiş klasör ekleniyor: Tamamlanamadı",

@@ -123,6 +123,7 @@ OC.L10N.register(
     "Delete existing encrypted files" : "既存の暗号化されたファイルの削除",
     "Preparing download for {file}" : "{file}のダウンロードを準備中",
     "Download unencrypted" : "暗号化されていない状態でダウンロードする",
+    "Sharing options" : "共有オプション",
     "New encrypted folder" : "新しい暗号化フォルダー",
     "Creating new encrypted folder: Cancelled" : "新しい暗号化フォルダーの作成: キャンセルされました",
     "Creating new encrypted folder: Failed" : "新しい暗号化フォルダの作成: 失敗しました",
