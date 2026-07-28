@@ -58,7 +58,7 @@ class RollbackBackgroundJobTest extends TestCase {
 		self::invokePrivate($this->rollbackBackgroundJob, 'run', [[]]);
 	}
 
-	public function runDataProvider(): array {
+	public static function runDataProvider(): array {
 		return [
 			[false, false, -1,  -1],
 			[true, true, 60, 440],

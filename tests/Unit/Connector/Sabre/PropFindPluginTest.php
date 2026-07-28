@@ -59,15 +59,20 @@ class PropFindPluginTest extends TestCase {
 	public function testInitialize(): void {
 		$server = $this->createMock(Server::class);
 
-		$server->expects($this->atLeast(2))
+		$calls = [];
+		$server->expects($this->exactly(3))
 			->method('on')
-			->withConsecutive(
-				['afterMethod:PROPFIND', $this->plugin->checkAccess(...), 50],
-				['propFind', $this->plugin->setE2EEProperties(...), 104],
-				['propFind', $this->plugin->updateProperty(...), 105],
-			);
+			->willReturnCallback(function (string $event, callable $callback, int $priority) use (&$calls): void {
+				$calls[] = [$event, (new \ReflectionFunction($callback))->getName(), $priority];
+			});
 
 		$this->plugin->initialize($server);
+
+		$this->assertEquals([
+			['afterMethod:PROPFIND', 'checkAccess', 50],
+			['propFind', 'setE2EEProperties', 104],
+			['propFind', 'updateProperty', 105],
+		], $calls);
 	}
 
 	public function testUpdatePropertyIgnoreCalendar(): void {
@@ -139,7 +144,7 @@ class PropFindPluginTest extends TestCase {
 		$this->plugin->updateProperty($propFind, $iNode);
 	}
 
-	public function updatePropertyDataProvider(): array {
+	public static function updatePropertyDataProvider(): array {
 		return [
 			[false, false],
 			[false, true],

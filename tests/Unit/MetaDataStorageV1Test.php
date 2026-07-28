@@ -47,7 +47,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testGetMetaData(bool $hasLegacyFile, string $expectedOutput): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -104,7 +104,7 @@ class MetaDataStorageV1Test extends TestCase {
 		$this->assertEquals($expectedOutput, $actual);
 	}
 
-	public function getMetaDataDataProvider(): array {
+	public static function getMetaDataDataProvider(): array {
 		return [
 			[true, 'legacy-metadata-file-content'],
 			[false, 'metadata-file-content'],
@@ -116,7 +116,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testSetMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectsNewFolder, bool $expectsMetaDataExistsException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -176,8 +176,10 @@ class MetaDataStorageV1Test extends TestCase {
 			} else {
 				$metaDataFolder->expects($this->exactly(2))
 					->method('fileExists')
-					->withConsecutive(['meta.data'], ['intermediate.meta.data'])
-					->willReturnOnConsecutiveCalls($fileExists, $intermediateFileExists);
+					->willReturnCallback(fn (string $name): bool => match ($name) {
+						'meta.data' => $fileExists,
+						'intermediate.meta.data' => $intermediateFileExists,
+					});
 			}
 		}
 
@@ -206,7 +208,7 @@ class MetaDataStorageV1Test extends TestCase {
 		$metaDataStorage->setMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content');
 	}
 
-	public function setMetaDataIntoIntermediateFileDataProvider(): array {
+	public static function setMetaDataIntoIntermediateFileDataProvider(): array {
 		return [
 			[true, false, false, false, false, true],
 			[false, false, false, false, true,  false],
@@ -222,7 +224,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testUpdateMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectMissingMetaDataException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -308,7 +310,7 @@ class MetaDataStorageV1Test extends TestCase {
 		$metaDataStorage->updateMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content');
 	}
 
-	public function updateMetaDataIntoIntermediateFileDataProvider(): array {
+	public static function updateMetaDataIntoIntermediateFileDataProvider(): array {
 		return [
 			[false, true,  true,  true,  false],
 			[false, true,  true,  false, false],
@@ -325,7 +327,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testDeleteMetaData(bool $folderExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'cleanupLegacyFile',
@@ -364,7 +366,7 @@ class MetaDataStorageV1Test extends TestCase {
 		$metaDataStorage->deleteMetaData('userId', 42);
 	}
 
-	public function deleteMetaDataDataProvider(): array {
+	public static function deleteMetaDataDataProvider(): array {
 		return [
 			[true],
 			[false],
@@ -376,7 +378,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testSaveIntermediateFile(bool $folderExists, bool $intermediateFileExists, bool $intermediateFileIsEmpty, bool $finalFileExists, bool $expectsException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'cleanupLegacyFile',
@@ -432,16 +434,17 @@ class MetaDataStorageV1Test extends TestCase {
 					if ($finalFileExists) {
 						$metaDataFolder->expects($this->exactly(2))
 							->method('getFile')
-							->withConsecutive(['intermediate.meta.data'], ['meta.data'])
-							->willReturn($intermediateFile, $finalFile);
+							->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+								'intermediate.meta.data' => $intermediateFile,
+								'meta.data' => $finalFile,
+							});
 					} else {
 						$metaDataFolder->expects($this->exactly(2))
 							->method('getFile')
-							->withConsecutive(['intermediate.meta.data'], ['meta.data'])
-							->willReturnOnConsecutiveCalls(
-								$intermediateFile,
-								$this->throwException(new NotFoundException()),
-							);
+							->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+								'intermediate.meta.data' => $intermediateFile,
+								'meta.data' => throw new NotFoundException(),
+							});
 
 						$metaDataFolder->expects($this->once())
 							->method('newFile')
@@ -472,7 +475,7 @@ class MetaDataStorageV1Test extends TestCase {
 		$metaDataStorage->saveIntermediateFile('userId', 42);
 	}
 
-	public function saveIntermediateFileDataProvider(): array {
+	public static function saveIntermediateFileDataProvider(): array {
 		return [
 			[false, false, false, false, true],
 			[true, false, false, false, true],
@@ -488,7 +491,7 @@ class MetaDataStorageV1Test extends TestCase {
 	 */
 	public function testDeleteIntermediateFile(bool $folderExists, bool $fileExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 			])
@@ -531,7 +534,7 @@ class MetaDataStorageV1Test extends TestCase {
 		$metaDataStorage->deleteIntermediateFile('userId', 42);
 	}
 
-	public function deleteIntermediateFileDataProvider(): array {
+	public static function deleteIntermediateFileDataProvider(): array {
 		return [
 			[false, false],
 			[true,  false],
@@ -577,7 +580,7 @@ class MetaDataStorageV1Test extends TestCase {
 		self::invokePrivate($this->metaDataStorage, 'verifyOwner', ['userId', 42]);
 	}
 
-	public function verifyOwnerDataProvider(): array {
+	public static function verifyOwnerDataProvider(): array {
 		return [
 			[true,  false, true, 'No user-root for userId'],
 			[false, true,  true, 'No file for owner with ID 42'],
@@ -612,7 +615,7 @@ class MetaDataStorageV1Test extends TestCase {
 		self::invokePrivate($this->metaDataStorage, 'verifyFolderStructure');
 	}
 
-	public function verifyFolderStructureDataProvider(): array {
+	public static function verifyFolderStructureDataProvider(): array {
 		return [
 			[true, false],
 			[false, true],
@@ -628,7 +631,7 @@ class MetaDataStorageV1Test extends TestCase {
 		?Exception $getFileException,
 		bool $expectsNull): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'getLegacyOwnerPath',
 			])
 			->setConstructorArgs([
@@ -683,7 +686,7 @@ class MetaDataStorageV1Test extends TestCase {
 		}
 	}
 
-	public function getLegacyFileDataProvider(): array {
+	public static function getLegacyFileDataProvider(): array {
 		return [
 			[new NotFoundException(), null, null, true],
 			[null, new NotFoundException(), null, true],
@@ -700,7 +703,7 @@ class MetaDataStorageV1Test extends TestCase {
 		?Exception $getFolderException,
 		bool $expectsDelete): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
-			->setMethods([
+			->onlyMethods([
 				'getLegacyOwnerPath',
 			])
 			->setConstructorArgs([
@@ -745,7 +748,7 @@ class MetaDataStorageV1Test extends TestCase {
 		self::invokePrivate($metaDataStorage, 'cleanupLegacyFile', ['john.doe', 42]);
 	}
 
-	public function cleanupLegacyFileDataProvider(): array {
+	public static function cleanupLegacyFileDataProvider(): array {
 		return [
 			[new NotFoundException(), null, false],
 			[null, new NotFoundException(), false],

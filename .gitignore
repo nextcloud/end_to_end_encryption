@@ -94,3 +94,4 @@ test-results/
 playwright-report/
 
 .phpunit.result.cache
+.phpunit.cache/

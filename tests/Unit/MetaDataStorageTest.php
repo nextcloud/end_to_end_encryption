@@ -44,7 +44,7 @@ class MetaDataStorageTest extends TestCase {
 	 */
 	public function testGetMetaData(bool $hasLegacyFile, string $expectedOutput): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -101,7 +101,7 @@ class MetaDataStorageTest extends TestCase {
 		$this->assertEquals($expectedOutput, $actual);
 	}
 
-	public function getMetaDataDataProvider(): array {
+	public static function getMetaDataDataProvider(): array {
 		return [
 			[true, 'legacy-metadata-file-content'],
 			[false, 'metadata-file-content'],
@@ -113,7 +113,7 @@ class MetaDataStorageTest extends TestCase {
 	 */
 	public function testSetMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectsNewFolder, bool $expectsMetaDataExistsException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -151,8 +151,9 @@ class MetaDataStorageTest extends TestCase {
 			} else {
 				$this->appData->expects($this->exactly($expectsMetaDataExistsException ? 1 : 2))
 					->method('getFolder')
-					->withConsecutive(['/meta-data/42'], ['/tokens/e2e-token'])
-					->willThrowException(new NotFoundException());
+					->willReturnCallback(fn (string $path): ISimpleFolder => match ($path) {
+						'/meta-data/42', '/tokens/e2e-token' => throw new NotFoundException(),
+					});
 			}
 
 			if ($expectsNewFolder) {
@@ -174,8 +175,10 @@ class MetaDataStorageTest extends TestCase {
 			} else {
 				$metaDataFolder->expects($this->exactly(2))
 					->method('fileExists')
-					->withConsecutive(['meta.data'], ['intermediate.meta.data'])
-					->willReturnOnConsecutiveCalls($fileExists, $intermediateFileExists);
+					->willReturnCallback(fn (string $name): bool => match ($name) {
+						'meta.data' => $fileExists,
+						'intermediate.meta.data' => $intermediateFileExists,
+					});
 			}
 		}
 
@@ -202,14 +205,16 @@ class MetaDataStorageTest extends TestCase {
 
 			$metaDataFolder->expects($this->exactly(2))
 				->method('newFile')
-				->withConsecutive(['intermediate.meta.data'], ['intermediate.meta.data.signature'])
-				->willReturnOnConsecutiveCalls($intermediateFile, $intermediateSignatureFile);
+				->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+					'intermediate.meta.data' => $intermediateFile,
+					'intermediate.meta.data.signature' => $intermediateSignatureFile,
+				});
 		}
 
 		$metaDataStorage->setMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content', 'e2e-token', 'signature');
 	}
 
-	public function setMetaDataIntoIntermediateFileDataProvider(): array {
+	public static function setMetaDataIntoIntermediateFileDataProvider(): array {
 		return [
 			[true, false, false, false, false, true],
 			[false, false, false, false, true,  false],
@@ -225,7 +230,7 @@ class MetaDataStorageTest extends TestCase {
 	 */
 	public function testUpdateMetaDataIntoIntermediateFile(bool $hasLegacyMetadataFile, bool $folderExists, bool $fileExists, bool $intermediateFileExists, bool $expectMissingMetaDataException): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'getLegacyFile',
@@ -270,8 +275,9 @@ class MetaDataStorageTest extends TestCase {
 		} else {
 			$this->appData->expects($this->exactly($expectMissingMetaDataException ? 1 : 2))
 				->method('getFolder')
-				->withConsecutive(['/meta-data/42'], ['/tokens/e2e-token'])
-				->willThrowException(new NotFoundException());
+				->willReturnCallback(fn (string $path): ISimpleFolder => match ($path) {
+					'/meta-data/42', '/tokens/e2e-token' => throw new NotFoundException(),
+				});
 
 			if ($hasLegacyMetadataFile) {
 				$this->appData->expects($this->exactly($expectMissingMetaDataException ? 1 : 2))
@@ -297,18 +303,23 @@ class MetaDataStorageTest extends TestCase {
 			if ($intermediateFileExists) {
 				$metaDataFolder->expects($this->exactly(2))
 					->method('getFile')
-					->withConsecutive(['intermediate.meta.data'], ['intermediate.meta.data.signature'])
-					->willReturnOnConsecutiveCalls($intermediateFile, $intermediateSignatureFile);
+					->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+						'intermediate.meta.data' => $intermediateFile,
+						'intermediate.meta.data.signature' => $intermediateSignatureFile,
+					});
 			} else {
 				$metaDataFolder->expects($this->exactly(2))
 					->method('getFile')
-					->withConsecutive(['intermediate.meta.data'], ['intermediate.meta.data.signature'])
-					->willThrowException(new NotFoundException());
+					->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+						'intermediate.meta.data', 'intermediate.meta.data.signature' => throw new NotFoundException(),
+					});
 
 				$metaDataFolder->expects($this->exactly(2))
 					->method('newFile')
-					->withConsecutive(['intermediate.meta.data'], ['intermediate.meta.data.signature'])
-					->willReturnOnConsecutiveCalls($intermediateFile, $intermediateSignatureFile);
+					->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+						'intermediate.meta.data' => $intermediateFile,
+						'intermediate.meta.data.signature' => $intermediateSignatureFile,
+					});
 			}
 
 			$tokenFolder->expects($this->once())
@@ -320,7 +331,7 @@ class MetaDataStorageTest extends TestCase {
 		$metaDataStorage->updateMetaDataIntoIntermediateFile('userId', 42, 'metadata-file-content', 'e2e-token', 'signature');
 	}
 
-	public function updateMetaDataIntoIntermediateFileDataProvider(): array {
+	public static function updateMetaDataIntoIntermediateFileDataProvider(): array {
 		return [
 			[false, true,  true,  true,  false],
 			[false, true,  true,  false, false],
@@ -337,7 +348,7 @@ class MetaDataStorageTest extends TestCase {
 	 */
 	public function testDeleteMetaData(bool $folderExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 				'cleanupLegacyFile',
@@ -376,7 +387,7 @@ class MetaDataStorageTest extends TestCase {
 		$metaDataStorage->deleteMetaData('userId', 42);
 	}
 
-	public function deleteMetaDataDataProvider(): array {
+	public static function deleteMetaDataDataProvider(): array {
 		return [
 			[true],
 			[false],
@@ -434,8 +445,11 @@ class MetaDataStorageTest extends TestCase {
 
 				$metaDataFolder->expects($this->exactly(3))
 					->method('fileExists')
-					->withConsecutive(['intermediate.meta.data'], ['intermediate.meta.data.signature'], ['intermediate.meta.data.counter'])
-					->willReturn($intermediateFileExists);
+					->willReturnCallback(fn (string $name): bool => match ($name) {
+						'intermediate.meta.data',
+						'intermediate.meta.data.signature',
+						'intermediate.meta.data.counter' => $intermediateFileExists,
+					});
 			}
 
 			if ($intermediateFileExists) {
@@ -485,25 +499,31 @@ class MetaDataStorageTest extends TestCase {
 					if ($finalFileExists) {
 						$metaDataFolder->expects($this->exactly(6))
 							->method('getFile')
-							->withConsecutive(['intermediate.meta.data'], ['meta.data'], ['intermediate.meta.data.signature'], ['meta.data.signature'], ['intermediate.meta.data.counter'], ['meta.data.counter'])
-							->willReturnOnConsecutiveCalls($intermediateFile, $finalFile, $intermediateSignatureFile, $signatureFile, $intermediateCounterFile, $counterFile);
+							->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+								'intermediate.meta.data' => $intermediateFile,
+								'meta.data' => $finalFile,
+								'intermediate.meta.data.signature' => $intermediateSignatureFile,
+								'meta.data.signature' => $signatureFile,
+								'intermediate.meta.data.counter' => $intermediateCounterFile,
+								'meta.data.counter' => $counterFile,
+							});
 					} else {
 						$metaDataFolder->expects($this->exactly(6))
 							->method('getFile')
-							->withConsecutive(['intermediate.meta.data'], ['meta.data'], ['intermediate.meta.data.signature'], ['meta.data.signature'], ['intermediate.meta.data.counter'], ['meta.data.counter'])
-							->willReturnOnConsecutiveCalls(
-								$intermediateFile,
-								$this->throwException(new NotFoundException()),
-								$intermediateSignatureFile,
-								$this->throwException(new NotFoundException()),
-								$intermediateCounterFile,
-								$this->throwException(new NotFoundException()),
-							);
+							->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+								'intermediate.meta.data' => $intermediateFile,
+								'intermediate.meta.data.signature' => $intermediateSignatureFile,
+								'intermediate.meta.data.counter' => $intermediateCounterFile,
+								'meta.data', 'meta.data.signature', 'meta.data.counter' => throw new NotFoundException(),
+							});
 
 						$metaDataFolder->expects($this->exactly(3))
 							->method('newFile')
-							->withConsecutive(['meta.data'], ['meta.data.signature'], ['meta.data.counter'])
-							->willReturn($finalFile, $signatureFile, $counterFile);
+							->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+								'meta.data' => $finalFile,
+								'meta.data.signature' => $signatureFile,
+								'meta.data.counter' => $counterFile,
+							});
 					}
 
 					$intermediateFile->expects($this->once())
@@ -535,7 +555,7 @@ class MetaDataStorageTest extends TestCase {
 		$metaDataStorage->saveIntermediateFile('userId', 42, $deleted);
 	}
 
-	public function saveIntermediateFileDataProvider(): array {
+	public static function saveIntermediateFileDataProvider(): array {
 		return [
 			[false, false, false, false, true, false],
 			[true, false, false, false, true, false],
@@ -552,7 +572,7 @@ class MetaDataStorageTest extends TestCase {
 	 */
 	public function testDeleteIntermediateFile(bool $folderExists, bool $fileExists): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'verifyOwner',
 				'verifyFolderStructure',
 			])
@@ -577,8 +597,9 @@ class MetaDataStorageTest extends TestCase {
 
 			$metaDataFolder->expects($this->exactly(2))
 				->method('fileExists')
-				->withConsecutive(['intermediate.meta.data'], ['intermediate.meta.data.counter'])
-				->willReturn($fileExists);
+				->willReturnCallback(fn (string $name): bool => match ($name) {
+					'intermediate.meta.data', 'intermediate.meta.data.counter' => $fileExists,
+				});
 
 			if ($fileExists) {
 				$intermediateFile = $this->createMock(ISimpleFile::class);
@@ -591,15 +612,17 @@ class MetaDataStorageTest extends TestCase {
 
 				$metaDataFolder->expects($this->exactly(2))
 					->method('getFile')
-					->withConsecutive(['intermediate.meta.data'], ['intermediate.meta.data.counter'])
-					->willReturnOnConsecutiveCalls($intermediateFile, $intermediateCounterFile);
+					->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+						'intermediate.meta.data' => $intermediateFile,
+						'intermediate.meta.data.counter' => $intermediateCounterFile,
+					});
 			}
 		}
 
 		$metaDataStorage->deleteIntermediateFile('userId', 42);
 	}
 
-	public function deleteIntermediateFileDataProvider(): array {
+	public static function deleteIntermediateFileDataProvider(): array {
 		return [
 			[false, false],
 			[true,  false],
@@ -645,7 +668,7 @@ class MetaDataStorageTest extends TestCase {
 		self::invokePrivate($this->metaDataStorage, 'verifyOwner', ['userId', 42]);
 	}
 
-	public function verifyOwnerDataProvider(): array {
+	public static function verifyOwnerDataProvider(): array {
 		return [
 			[true,  false, true, 'No user-root for userId'],
 			[false, true,  true, 'No file for owner with ID 42'],
@@ -680,7 +703,7 @@ class MetaDataStorageTest extends TestCase {
 		self::invokePrivate($this->metaDataStorage, 'verifyFolderStructure');
 	}
 
-	public function verifyFolderStructureDataProvider(): array {
+	public static function verifyFolderStructureDataProvider(): array {
 		return [
 			[true, false],
 			[false, true],
@@ -696,7 +719,7 @@ class MetaDataStorageTest extends TestCase {
 		?Exception $getFileException,
 		bool $expectsNull): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'getLegacyOwnerPath',
 			])
 			->setConstructorArgs([
@@ -751,7 +774,7 @@ class MetaDataStorageTest extends TestCase {
 		}
 	}
 
-	public function getLegacyFileDataProvider(): array {
+	public static function getLegacyFileDataProvider(): array {
 		return [
 			[new NotFoundException(), null, null, true],
 			[null, new NotFoundException(), null, true],
@@ -768,7 +791,7 @@ class MetaDataStorageTest extends TestCase {
 		?Exception $getFolderException,
 		bool $expectsDelete): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorage::class)
-			->setMethods([
+			->onlyMethods([
 				'getLegacyOwnerPath',
 			])
 			->setConstructorArgs([
@@ -813,7 +836,7 @@ class MetaDataStorageTest extends TestCase {
 		self::invokePrivate($metaDataStorage, 'cleanupLegacyFile', ['john.doe', 42]);
 	}
 
-	public function cleanupLegacyFileDataProvider(): array {
+	public static function cleanupLegacyFileDataProvider(): array {
 		return [
 			[new NotFoundException(), null, false],
 			[null, new NotFoundException(), false],
