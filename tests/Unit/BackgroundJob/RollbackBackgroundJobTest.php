@@ -12,10 +12,12 @@ use OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob;
 use OCA\EndToEndEncryption\RollbackService;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Utility\ITimeFactory;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class RollbackBackgroundJobTest extends TestCase {
 
 	private IAppConfig&MockObject $appConfig;

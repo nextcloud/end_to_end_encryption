@@ -120,7 +120,7 @@ class FileServiceTest extends TestCase {
 		$file4 = $this->createMock(Node::class);
 		$file4->method('getName')->willReturn('a9473ded85aa51851deb4859cdd53f98');
 
-		$folder = $this->createMock(Folder::class);
+		$folder = $this->createStub(Folder::class);
 		$folder->method('getDirectoryListing')->willReturn([
 			$file1,
 			$file2,
@@ -141,7 +141,7 @@ class FileServiceTest extends TestCase {
 	}
 
 	private function getSampleFolderForNonEmpty(): array {
-		$storage = $this->createMock(IStorage::class);
+		$storage = $this->createStub(IStorage::class);
 
 		$file1 = $this->createMock(Node::class);
 		$file1->method('getName')->willReturn('7215ee9c7d9dc229d2921a40e899ec5f.e2e-to-save');
@@ -163,7 +163,7 @@ class FileServiceTest extends TestCase {
 		$file4->method('getStorage')->willReturn($storage);
 		$file4->method('getId')->willReturn(4);
 
-		$folder = $this->createMock(Folder::class);
+		$folder = $this->createStub(Folder::class);
 		$folder->method('getDirectoryListing')->willReturn([
 			$file1,
 			$file2,

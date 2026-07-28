@@ -19,43 +19,44 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\Storage\IStorage;
 use OCP\IDBConnection;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class EncryptionManagerTest extends TestCase {
 
 	private IRootFolder&MockObject $rootFolderInterface;
-	private Folder&MockObject $rootFolder;
-	private IStorage&MockObject $storage;
+	private Folder&Stub $rootFolder;
+	private IStorage&Stub $storage;
 	private ICache&MockObject $fileCache;
-	private IDBConnection&MockObject $dbConnection;
-	private LoggerInterface&MockObject $logger;
+	private IDBConnection&Stub $dbConnection;
+	private LoggerInterface&Stub $logger;
 	private AccessManager&MockObject $accessManager;
 
 	protected function setUp(): void {
 		parent::setUp();
 		$this->rootFolderInterface = $this->createMock(IRootFolder::class);
-		$this->rootFolder = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-		$this->storage = $this->createMock(IStorage::class);
+		$this->rootFolder = $this->createStub(Folder::class);
+		$this->storage = $this->createStub(IStorage::class);
 		$this->fileCache = $this->createMock(ICache::class);
-		$this->dbConnection = $this->createMock(IDBConnection::class);
-		$this->logger = $this->createMock(LoggerInterface::class);
+		$this->dbConnection = $this->createStub(IDBConnection::class);
+		$this->logger = $this->createStub(LoggerInterface::class);
 		$this->accessManager = $this->createMock(AccessManager::class);
 
-		$node = $this->createMock(Node::class);
+		$node = $this->createStub(Node::class);
 		$node->method('getStorage')->willReturn($this->storage);
 		$this->rootFolder
-			->expects($this->any())
 			->method('getStorage')
 			->willReturn($this->storage);
 		$this->rootFolder
 			->method('getFirstNodeById')
 			->willReturn($node);
 		$this->storage
-			->expects($this->any())
 			->method('getCache')
 			->willReturn($this->fileCache);
 	}
@@ -152,13 +153,13 @@ class EncryptionManagerTest extends TestCase {
 	 */
 	public function constructNestedNodes(): array {
 		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-		$node3 = $this->getMockBuilder(Node::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->createStub(Folder::class);
+		$node3 = $this->createStub(Node::class);
 		$node1->expects($this->any())->method('getParent')->willReturn($node2);
 		$node1->expects($this->any())->method('getPath')->willReturn('/data/user');
-		$node2->expects($this->any())->method('getParent')->willReturn($node3);
-		$node2->expects($this->any())->method('getPath')->willReturn('/data');
-		$node3->expects($this->any())->method('getPath')->willReturn('/');
+		$node2->method('getParent')->willReturn($node3);
+		$node2->method('getPath')->willReturn('/data');
+		$node3->method('getPath')->willReturn('/');
 
 		return [$node1, $node2, $node3];
 	}
@@ -216,7 +217,7 @@ class EncryptionManagerTest extends TestCase {
 		$instance = $this->getInstance();
 
 		$node1 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
-		$node2 = $this->getMockBuilder(Folder::class)->disableOriginalConstructor()->getMock();
+		$node2 = $this->createStub(Folder::class);
 
 		$this->rootFolderInterface->expects($this->once())
 			->method('getFirstNodeById')

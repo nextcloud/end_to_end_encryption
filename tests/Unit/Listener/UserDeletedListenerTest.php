@@ -29,7 +29,7 @@ class UserDeletedListenerTest extends TestCase {
 	}
 
 	public function testHandle(): void {
-		$user = $this->createMock(IUser::class);
+		$user = $this->createStub(IUser::class);
 
 		$this->keyStorage->expects($this->once())
 			->method('deleteUserKeys')

@@ -21,11 +21,14 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class LockingControllerTest extends TestCase {
 
 	private string $appName;
@@ -34,9 +37,9 @@ class LockingControllerTest extends TestCase {
 	private LockManager&MockObject $lockManager;
 	private IRootFolder&MockObject $rootFolder;
 	private FileService&MockObject $fileService;
-	private LoggerInterface&MockObject $logger;
-	private IL10N&MockObject $l10n;
-	private AccessManager&MockObject $accessManager;
+	private LoggerInterface&Stub $logger;
+	private IL10N&Stub $l10n;
+	private AccessManager&Stub $accessManager;
 	private LockingController $controller;
 
 	protected function setUp(): void {
@@ -48,9 +51,9 @@ class LockingControllerTest extends TestCase {
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->fileService = $this->createMock(FileService::class);
-		$this->logger = $this->createMock(LoggerInterface::class);
-		$this->l10n = $this->createMock(IL10N::class);
-		$this->accessManager = $this->createMock(AccessManager::class);
+		$this->logger = $this->createStub(LoggerInterface::class);
+		$this->l10n = $this->createStub(IL10N::class);
+		$this->accessManager = $this->createStub(AccessManager::class);
 
 		$this->controller = new LockingController(
 			$this->appName,
@@ -70,11 +73,11 @@ class LockingControllerTest extends TestCase {
 		$sendE2E = 'e2eToken';
 
 		$this->accessManager->method('getOwnerId')
-			->with($fileId)
-			->willReturn('john.doe');
+			->willReturnMap([
+				[$fileId, 'john.doe'],
+			]);
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->request->expects($this->once())
@@ -87,7 +90,7 @@ class LockingControllerTest extends TestCase {
 			->method('getUserFolder')
 			->with('john.doe')
 			->willReturn($userFolder);
-		$node = $this->createMock(Folder::class);
+		$node = $this->createStub(Folder::class);
 		$userFolder->expects($this->once())
 			->method('getFirstNodeById')
 			->with($fileId)
@@ -114,8 +117,9 @@ class LockingControllerTest extends TestCase {
 		$sendE2E = 'e2eToken';
 
 		$this->accessManager->method('getOwnerId')
-			->with($fileId)
-			->willReturn('john.doe');
+			->willReturnMap([
+				[$fileId, 'john.doe'],
+			]);
 
 		$this->request->expects($this->once())
 			->method('getParam')
@@ -127,7 +131,7 @@ class LockingControllerTest extends TestCase {
 			->method('getUserFolder')
 			->with('john.doe')
 			->willReturn($userFolder);
-		$node = $this->createMock(Folder::class);
+		$node = $this->createStub(Folder::class);
 		$userFolder->expects($this->once())
 			->method('getFirstNodeById')
 			->with($fileId)
@@ -138,8 +142,7 @@ class LockingControllerTest extends TestCase {
 			->with($fileId, $sendE2E)
 			->willReturn(null);
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 		$this->request->expects($this->once())
 			->method('getHeader')
@@ -167,11 +170,11 @@ class LockingControllerTest extends TestCase {
 		$sendE2E = 'e2e-token';
 
 		$this->accessManager->method('getOwnerId')
-			->with($fileId)
-			->willReturn('john.doe');
+			->willReturnMap([
+				[$fileId, 'john.doe'],
+			]);
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->request->expects($this->once())
@@ -197,7 +200,7 @@ class LockingControllerTest extends TestCase {
 					->with($fileId)
 					->willReturn(null);
 			} else {
-				$node = $this->createMock(Folder::class);
+				$node = $this->createStub(Folder::class);
 				$node->method('getId')
 					->willReturn($fileId);
 				$node->method('getPath')

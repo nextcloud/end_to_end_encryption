@@ -18,10 +18,9 @@ class UserAgentManagerTest extends TestCase {
 
 	#[DataProvider('supportsEndToEndEncryptionDataProvider')]
 	public function testSupportsEndToEndEncryption(string $client, bool $expected): void {
-		/** @var IRequest&\PHPUnit\Framework\MockObject\MockObject */
-		$request = $this->createMock(IRequest::class);
-		$request->expects($this->any())
-			->method('getHeader')
+		/** @var IRequest&\PHPUnit\Framework\MockObject\Stub */
+		$request = $this->createStub(IRequest::class);
+		$request->method('getHeader')
 			->willReturn('');
 		$userAgentManager = new UserAgentManager(\OCP\Server::get(IConfig::class), $request);
 		$actual = $userAgentManager->supportsEndToEndEncryption($client);

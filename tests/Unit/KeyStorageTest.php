@@ -19,15 +19,18 @@ use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Share\IManager;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class KeyStorageTest extends TestCase {
 
 	private IAppData&MockObject $appData;
 	private IUserSession&MockObject $userSession;
-	private IManager&MockObject $shareManager;
+	private IManager&Stub $shareManager;
 	private KeyStorage $keyStorage;
 
 	protected function setUp(): void {
@@ -35,7 +38,7 @@ class KeyStorageTest extends TestCase {
 
 		$this->appData = $this->createMock(IAppData::class);
 		$this->userSession = $this->createMock(IUserSession::class);
-		$this->shareManager = $this->createMock(IManager::class);
+		$this->shareManager = $this->createStub(IManager::class);
 
 		$this->keyStorage = new KeyStorage(
 			$this->appData,

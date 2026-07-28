@@ -13,9 +13,11 @@ use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\IKeyStorage;
 use OCP\IUser;
 use OCP\IUserSession;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class CapabilitiesTest extends TestCase {
 	private Capabilities $capabilities;
 
@@ -37,7 +39,7 @@ class CapabilitiesTest extends TestCase {
 	}
 
 	public function testGetCapabilities(): void {
-		$user = $this->createMock(IUser::class);
+		$user = $this->createStub(IUser::class);
 		$this->userSession->expects($this->once())
 			->method('getUser')
 			->willReturn($user);
@@ -66,7 +68,7 @@ class CapabilitiesTest extends TestCase {
 	}
 
 	public function testGetCapabilitiesDisabled(): void {
-		$user = $this->createMock(IUser::class);
+		$user = $this->createStub(IUser::class);
 		$this->userSession->expects($this->once())
 			->method('getUser')
 			->willReturn($user);

@@ -23,11 +23,14 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class MetaDataControllerV1Test extends TestCase {
 
 	private MetaDataController $controller;
@@ -38,9 +41,9 @@ class MetaDataControllerV1Test extends TestCase {
 	private IMetaDataStorageV1&MockObject $metaDataStorage;
 	private LockManagerV1&MockObject $lockManager;
 	private LoggerInterface&MockObject $logger;
-	private IL10N&MockObject $l10n;
-	private ShareManager&MockObject $shareManager;
-	private IRootFolder&MockObject $rootFolder;
+	private IL10N&Stub $l10n;
+	private ShareManager&Stub $shareManager;
+	private IRootFolder&Stub $rootFolder;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -51,9 +54,9 @@ class MetaDataControllerV1Test extends TestCase {
 		$this->metaDataStorage = $this->createMock(IMetaDataStorageV1::class);
 		$this->lockManager = $this->createMock(LockManagerV1::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
-		$this->l10n = $this->createMock(IL10N::class);
-		$this->shareManager = $this->createMock(ShareManager::class);
-		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->l10n = $this->createStub(IL10N::class);
+		$this->shareManager = $this->createStub(ShareManager::class);
+		$this->rootFolder = $this->createStub(IRootFolder::class);
 
 		$this->controller = new MetaDataController(
 			$this->appName,
@@ -89,8 +92,7 @@ class MetaDataControllerV1Test extends TestCase {
 				->willReturn($metaData);
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -143,8 +145,7 @@ class MetaDataControllerV1Test extends TestCase {
 				->with('john.doe', $fileId, $metaData);
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -209,8 +210,7 @@ class MetaDataControllerV1Test extends TestCase {
 			}
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -262,8 +262,7 @@ class MetaDataControllerV1Test extends TestCase {
 				->with('john.doe', $fileId, '{}');
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {

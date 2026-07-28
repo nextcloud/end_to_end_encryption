@@ -22,20 +22,23 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class KeyControllerTest extends TestCase {
 
 	private ?string $userId = null;
-	private IRequest&MockObject $request;
+	private IRequest&Stub $request;
 	private IKeyStorage&MockObject $keyStorage;
 	private SignatureHandler&MockObject $signatureHandler;
 	private LoggerInterface&MockObject $logger;
-	private IL10N&MockObject $l10n;
-	private IManager&MockObject $shareManager;
+	private IL10N&Stub $l10n;
+	private IManager&Stub $shareManager;
 	private KeyController $controller;
 
 	/** valid CSR (CN set to "admin") */
@@ -64,13 +67,13 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->request = $this->createMock(IRequest::class);
+		$this->request = $this->createStub(IRequest::class);
 		$this->userId = 'admin';
 		$this->keyStorage = $this->createMock(IKeyStorage::class);
 		$this->signatureHandler = $this->createMock(SignatureHandler::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
-		$this->l10n = $this->createMock(IL10N::class);
-		$this->shareManager = $this->createMock(IManager::class);
+		$this->l10n = $this->createStub(IL10N::class);
+		$this->shareManager = $this->createStub(IManager::class);
 
 		$this->controller = new KeyController(
 			$this->request,
@@ -103,8 +106,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 				->willReturn($privateKey);
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -157,8 +159,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 				->with('admin');
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -213,8 +214,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 				->with($privateKey, 'admin');
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -334,8 +334,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		$this->keyStorage->expects($this->never())
 			->method('getPublicKey');
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->expectException(OCSBadRequestException::class);
@@ -351,8 +350,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->method('getPublicKey')
 			->willThrowException(new NotFoundException());
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->expectException(OCSNotFoundException::class);
@@ -366,8 +364,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->method('getPublicKey')
 			->willThrowException(new NotFoundException());
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->userId = null;
@@ -393,8 +390,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->method('getPublicKey')
 			->willThrowException($exception);
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->logger->expects($this->once())
@@ -451,8 +447,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 		$this->keyStorage->expects($this->never())
 			->method('setPublicKey');
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->expectException(OCSForbiddenException::class);
@@ -503,8 +498,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 				->with('admin');
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -556,8 +550,7 @@ AYzYQFPtjsDZ4Tju4VZKM4YpF2GwQgT7zhzDBvywGPqvfw==
 			->method('getPublicServerKey')
 			->willThrowException($exception);
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		$this->logger->expects($this->once())
