@@ -23,13 +23,15 @@ use OCP\Files\NotPermittedException;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Security\ISecureRandom;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Test\TestCase;
 
 /**
  * Class LockManagerV1Test
  *
- * @group DB
  */
+#[Group('DB')]
 class LockManagerV1Test extends TestCase {
 
 	/** @var LockMapper|\PHPUnit\Framework\MockObject\MockObject */
@@ -62,9 +64,7 @@ class LockManagerV1Test extends TestCase {
 			$this->rootFolder, $this->userSession, $this->timeFactory);
 	}
 
-	/**
-	 * @dataProvider lockDataProvider
-	 */
+	#[DataProvider('lockDataProvider')]
 	public function testLock(bool $isLocked, bool $lockDoesNotExist, string $token, bool $expectNull, bool $expectNewToken, bool $expectOldToken): void {
 		$lockManager = $this->getMockBuilder(LockManagerV1::class)
 			->onlyMethods(['isLocked'])
@@ -144,9 +144,7 @@ class LockManagerV1Test extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider unlockDataProvider
-	 */
+	#[DataProvider('unlockDataProvider')]
 	public function testUnlock(bool $lockDoesNotExist, string $token, bool $expectFileNotLocked, bool $expectFileLocked, bool $expectDelete): void {
 		if ($lockDoesNotExist) {
 			$this->lockMapper->expects($this->once())

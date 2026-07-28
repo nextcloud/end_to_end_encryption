@@ -46,9 +46,7 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 		$this->middleware = new UserAgentCheckMiddleware($this->request, $this->userAgentManager);
 	}
 
-	/**
-	 * @dataProvider beforeControllerDataProvider
-	 */
+	#[DataProvider('beforeControllerDataProvider')]
 	public function testBeforeController(bool $hasAnnotation, bool $supportsE2E, bool $expectException, bool $forceSupport): void {
 		$this->request->expects($hasAnnotation ? $this->once() : $this->never())
 			->method('getHeader')

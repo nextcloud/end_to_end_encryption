@@ -11,14 +11,12 @@ namespace OCA\EndToEndEncryption\Tests\Unit;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\IConfig;
 use OCP\IRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Test\TestCase;
 
 class UserAgentManagerTest extends TestCase {
 
-	/**
-	 *
-	 * @dataProvider supportsEndToEndEncryptionDataProvider
-	 */
+	#[DataProvider('supportsEndToEndEncryptionDataProvider')]
 	public function testSupportsEndToEndEncryption(string $client, bool $expected): void {
 		/** @var IRequest&\PHPUnit\Framework\MockObject\MockObject */
 		$request = $this->createMock(IRequest::class);
