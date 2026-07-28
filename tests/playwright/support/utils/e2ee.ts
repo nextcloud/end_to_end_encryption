@@ -4,8 +4,27 @@
  */
 
 import type { Page } from '@playwright/test'
+import type { FilesAppPage } from '../sections/FilesAppPage.ts'
 
 export const LOCK_ENDPOINT = '/ocs/v2.php/apps/end_to_end_encryption/api/v2/lock/'
+
+/**
+ * Create an encrypted root folder through the "New encrypted folder" dialog.
+ *
+ * The recovery phrase is needed because the key pair of the shared account
+ * already exists while a fresh browser session has not unlocked it yet, so the
+ * dialog asks for it before it gets to the folder name.
+ *
+ * @param filesApp - The files app, opened and settled
+ * @param name - Name of the folder to create
+ * @param mnemonic - Recovery phrase of the account
+ */
+export async function createEncryptedRootFolder(filesApp: FilesAppPage, name: string, mnemonic: string): Promise<void> {
+	await filesApp.openNewMenu()
+		.then((menu) => menu.createNewE2eeFolder())
+		.then((dialog) => dialog.fillMnemonic(mnemonic))
+		.then((dialog) => dialog.createFolder(name))
+}
 
 /**
  * Run an action that mutates the contents of an encrypted folder and wait for

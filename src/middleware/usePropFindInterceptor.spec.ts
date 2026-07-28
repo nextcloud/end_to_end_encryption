@@ -8,6 +8,7 @@ import { parseXML } from 'webdav'
 import {
 	adminMnemonic,
 	adminPrivateKeyInfo,
+	homeListingPropFindResponse,
 	mixedPropFindResponse,
 	rootFilePropfindResponse,
 	rootFolderMetadata,
@@ -68,7 +69,7 @@ test('Correctly adjust e2ee nodes in PROPFIND of an unencrypted folder', async (
 	// the metadata shipped with the e2ee root child is cached
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledTimes(1)
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledWith(
-		'/remote.php/dav/files/admin/New%20folder',
+		'/remote.php/dav/files/admin/New folder',
 		89,
 		JSON.stringify(rootFolderMetadata),
 		rootFolderMetadataSignature,
@@ -93,7 +94,29 @@ test('Correctly adjust e2ee nodes in PROPFIND of an unencrypted folder', async (
 	// metadata is only resolved for the parent of the node inside the e2ee root,
 	// never for the unencrypted nodes or the e2ee root itself
 	expect(metadataStore.getMetadata).toHaveBeenCalledTimes(1)
-	expect(metadataStore.getMetadata).toHaveBeenCalledWith('/remote.php/dav/files/admin/New%20folder')
+	expect(metadataStore.getMetadata).toHaveBeenCalledWith('/remote.php/dav/files/admin/New folder')
+})
+
+test('Does not decrypt the metadata of a listed e2ee root', async () => {
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin', { method: 'PROPFIND' }),
+		res: new Response(homeListingPropFindResponse),
+		type: 'fetch' as const,
+	}
+
+	await usePropFindInterceptor(context, async () => {})
+
+	// The listing does not contain any encrypted name, so no metadata is needed -
+	// touching it would ask the user for the recovery phrase just to list the home
+	// folder, as decrypting the metadata of an e2ee root needs their private key.
+	expect(metadataStore.setRawMetadata).not.toHaveBeenCalled()
+	expect(metadataStore.getMetadata).not.toHaveBeenCalled()
+
+	const xml = await parseXML(await context.res.text())
+	expect(xml.multistatus.response).toHaveLength(3)
+	expect(xml.multistatus.response[2]!.propstat?.prop.displayname).toBe('New folder')
+	// the share permission is still dropped for the e2ee root
+	expect(xml.multistatus.response[2]!.propstat?.prop.permissions).toBe('GDNVCK')
 })
 
 test('Correctly replace root file info in PROPFIND', async () => {
@@ -114,7 +137,7 @@ test('Correctly replace root file info in PROPFIND', async () => {
 	await usePropFindInterceptor(context, async () => {})
 
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledWith(
-		'/remote.php/dav/files/admin/New%20folder',
+		'/remote.php/dav/files/admin/New folder',
 		89,
 		JSON.stringify(rootFolderMetadata),
 		rootFolderMetadataSignature,
@@ -157,7 +180,7 @@ test('Correctly replace subfolder file info in PROPFIND', async () => {
 	await usePropFindInterceptor(context, async () => {})
 
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledWith(
-		'/remote.php/dav/files/admin/New%20folder/fa666d819a6c4315abba421172f0a0b1',
+		'/remote.php/dav/files/admin/New folder/fa666d819a6c4315abba421172f0a0b1',
 		266,
 		JSON.stringify(subFolderMetadata),
 		subFolderMetadataSignature,
@@ -178,7 +201,7 @@ test('Correctly replace file info in PROPFIND of file', async () => {
 	const metadata = await RootMetadata.fromJson(rootFolderMetadata, 'admin', await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic))
 	metadataStore.getMetadata
 		// @ts-expect-error -- mocking for tests
-		.mockResolvedValue({ metadata, path: '/remote.php/dav/files/admin/New%20folder' })
+		.mockResolvedValue({ metadata, path: '/remote.php/dav/files/admin/New folder' })
 	metadataStore.setRawMetadata
 		// @ts-expect-error -- mocking for tests
 		.mockImplementation(async () => {})

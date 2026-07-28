@@ -6,13 +6,13 @@
 import type { IRawMetadata } from '../models/metadata.d.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
-import { defaultRemoteURL, defaultRootPath } from '@nextcloud/files/dav'
 import { dirname } from '@nextcloud/paths'
 import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { Metadata } from '../models/Metadata.ts'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import * as api from '../services/api.ts'
 import { isRootMetadata, validateMetadataSignature } from '../services/metadata.ts'
+import { normalizePath } from '../services/path.ts'
 import * as keyStore from './keys.ts'
 
 export interface IStoreMetadata {
@@ -24,6 +24,14 @@ export interface IStoreMetadata {
 	path: string
 }
 
+/**
+ * Cache of all known metadata, keyed by the DAV root relative path.
+ *
+ * Paths are expected to be decoded, so that the same folder is always cached
+ * under one key - no matter whether it was seen as a request URL, as the `href`
+ * of a PROPFIND response or as the name of a node. `decodePath` is what turns
+ * the former two into that.
+ */
 const metadataCache = new Map<string, Omit<IStoreMetadata, 'path'>>()
 const currentUser = isPublicShare()
 	? `s:${getSharingToken()}`
@@ -178,26 +186,4 @@ export async function loadAllSubfolders(root: RootMetadata): Promise<IStoreMetad
 		})
 	}
 	return results
-}
-
-const RELATIVE_REMOTE_URL = new URL(defaultRemoteURL).pathname
-
-/**
- * Normalize the given path to be relative to the DAV root.
- *
- * @param path - The path to normalize
- */
-function normalizePath(path: string): string {
-	if (path.startsWith(defaultRemoteURL)) {
-		path = path.slice(defaultRemoteURL.length)
-	} else if (path.startsWith(RELATIVE_REMOTE_URL)) {
-		path = path.slice(RELATIVE_REMOTE_URL.length)
-	}
-
-	if (path.startsWith(defaultRootPath)) {
-		path = path.slice(defaultRootPath.length)
-	}
-	return `/${path}`
-		.replace(/^\/\/+/, '/')
-		.replace(/\/+$/, '')
 }

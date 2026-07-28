@@ -5,10 +5,11 @@
 
 import type { FetchContext } from '@rxliuli/vista'
 
-import { basename, dirname, join } from '@nextcloud/paths'
+import { basename, dirname, encodePath, join } from '@nextcloud/paths'
 import stringify from 'safe-stable-stringify'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
+import { decodePath } from '../services/path.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
 
@@ -21,8 +22,9 @@ import * as metadataStore from '../store/metadata.ts'
 export async function useMoveInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	const source = new URL(context.req.url)
 	const destination = new URL(context.req.headers.get('Destination')!)
-	const pathSrc = source.pathname
-	const pathDst = destination.pathname
+	// the metadata knows both nodes by their decoded paths, the request carries them encoded
+	const pathSrc = decodePath(source.pathname)
+	const pathDst = decodePath(destination.pathname)
 
 	if (pathSrc === pathDst) {
 		return next() // this is invalid but let the server handle it
@@ -42,7 +44,7 @@ export async function useMoveInterceptor(context: FetchContext, next: () => Prom
 		const metadata = await metadataStore.getMetadata(dirname(pathSrc))
 		// check if the target name is already an uuid or use it as the new name (first case happens for overrides)
 		const filenameDst = basename(pathDst)
-		const newName = metadata.metadata.getByUuid(filenameDst)?.filename ?? decodeURIComponent(filenameDst)
+		const newName = metadata.metadata.getByUuid(filenameDst)?.filename ?? filenameDst
 		metadata.metadata.rename(basename(pathSrc), newName)
 
 		logger.debug(`[MOVE] Renamed ${basename(pathSrc)} to ${newName}`, { metadata: metadata.metadata })
@@ -62,7 +64,7 @@ export async function useMoveInterceptor(context: FetchContext, next: () => Prom
 	const metadataSrc = await metadataStore.getMetadata(pathSrc).catch(() => null)
 	if (metadataSrc && basename(pathSrc) === basename(pathDst) && metadataSrc.metadata.hasUuid(basename(pathSrc))) {
 		// the source was encrypted so we need to adjust the destination to use the real filename
-		destination.pathname = join(dirname(pathDst), metadataSrc.metadata.getByUuid(basename(pathSrc))!.filename)
+		destination.pathname = encodePath(join(dirname(pathDst), metadataSrc.metadata.getByUuid(basename(pathSrc))!.filename))
 	}
 
 	context.res = await fetch(context.req, {

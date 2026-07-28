@@ -12,7 +12,24 @@ const RELATIVE_REMOTE_URL = new URL(defaultRemoteURL).pathname
  * @param url - The request URL to decode
  */
 export function getPath(url: URL): string {
-	return normalizePath(decodeURI(url.pathname))
+	return normalizePath(decodePath(url.pathname))
+}
+
+/**
+ * Decode a percent-encoded path, segment by segment.
+ *
+ * Paths are handled decoded everywhere outside of the requests themselves: it is
+ * how the metadata stores the names, how `@nextcloud/files` nodes report them,
+ * and what the WebDAV client expects to encode itself.
+ *
+ * `decodeURI` is not enough for that, as it keeps the characters that are
+ * reserved in URLs percent-encoded - `#`, `?` and `&` are all legal in file
+ * names, so a folder called "a#b" would not match its own name anymore.
+ *
+ * @param path - The percent-encoded path
+ */
+export function decodePath(path: string): string {
+	return path.split('/').map(decodeURIComponent).join('/')
 }
 
 /**
