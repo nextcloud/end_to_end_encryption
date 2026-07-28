@@ -17,6 +17,7 @@ use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\IRequest;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Test\TestCase;
 
 class HasAnnotationController extends Controller {
@@ -34,14 +35,14 @@ class HasNoAnnotationController extends Controller {
 
 class UserAgentCheckMiddlewareTest extends TestCase {
 	private IRequest&MockObject $request;
-	private UserAgentManager&MockObject $userAgentManager;
+	private UserAgentManager&Stub $userAgentManager;
 	private UserAgentCheckMiddleware $middleware;
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->request = $this->createMock(IRequest::class);
-		$this->userAgentManager = $this->createMock(UserAgentManager::class);
+		$this->userAgentManager = $this->createStub(UserAgentManager::class);
 
 		$this->middleware = new UserAgentCheckMiddleware($this->request, $this->userAgentManager);
 	}
@@ -56,8 +57,9 @@ class UserAgentCheckMiddlewareTest extends TestCase {
 			]);
 
 		$this->userAgentManager->method('supportsEndToEndEncryption')
-			->with('user-agent-string')
-			->willReturn($supportsE2E);
+			->willReturnMap([
+				['user-agent-string', $supportsE2E],
+			]);
 
 		if ($expectException) {
 			$this->expectException(OCSForbiddenException::class);

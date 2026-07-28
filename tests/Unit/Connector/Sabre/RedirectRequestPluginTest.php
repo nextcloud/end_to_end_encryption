@@ -18,15 +18,15 @@ use Test\TestCase;
 
 class RedirectRequestPluginTest extends TestCase {
 
-	private IRootFolder&\PHPUnit\Framework\MockObject\MockObject $rootFolder;
-	private IUserSession&\PHPUnit\Framework\MockObject\MockObject $userSession;
+	private IRootFolder&\PHPUnit\Framework\MockObject\Stub $rootFolder;
+	private IUserSession&\PHPUnit\Framework\MockObject\Stub $userSession;
 	private RedirectRequestPlugin $plugin;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->rootFolder = $this->createMock(IRootFolder::class);
-		$this->userSession = $this->createMock(IUserSession::class);
+		$this->rootFolder = $this->createStub(IRootFolder::class);
+		$this->userSession = $this->createStub(IUserSession::class);
 
 		$this->plugin = new RedirectRequestPlugin($this->rootFolder, $this->userSession);
 	}
@@ -84,7 +84,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setHeader')
 			->with('Destination', '/foo/bar/DestinationPath123.e2e-to-save');
 
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -130,7 +130,7 @@ class RedirectRequestPluginTest extends TestCase {
 		$request->expects($this->never())
 			->method('setHeader');
 
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -167,7 +167,7 @@ class RedirectRequestPluginTest extends TestCase {
 		$request->expects($this->never())
 			->method('setHeader');
 
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -200,7 +200,7 @@ class RedirectRequestPluginTest extends TestCase {
 		$request->expects($this->never())
 			->method('setHeader');
 
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -242,7 +242,7 @@ class RedirectRequestPluginTest extends TestCase {
 			->method('setUrl')
 			->with('http://username:password@hostname:9090/path/123/foo.e2e-to-save?arg=value#anchor');
 
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -279,7 +279,7 @@ class RedirectRequestPluginTest extends TestCase {
 		$request->expects($this->never())
 			->method('setUrl');
 
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('getNode')
@@ -312,7 +312,7 @@ class RedirectRequestPluginTest extends TestCase {
 		$request->expects($this->never())
 			->method('setUrl');
 
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('getNode')

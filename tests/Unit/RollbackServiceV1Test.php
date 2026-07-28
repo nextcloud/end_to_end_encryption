@@ -35,7 +35,7 @@ class RollbackServiceV1Test extends TestCase {
 	/** @var IUserMountCache|\PHPUnit\Framework\MockObject\MockObject */
 	private $userMountCache;
 
-	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var IRootFolder|\PHPUnit\Framework\MockObject\Stub */
 	private $rootFolder;
 
 	/** @var LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
@@ -50,7 +50,7 @@ class RollbackServiceV1Test extends TestCase {
 		$this->metaDataStorage = $this->createMock(IMetaDataStorageV1::class);
 		$this->fileService = $this->createMock(FileService::class);
 		$this->userMountCache = $this->createMock(IUserMountCache::class);
-		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->rootFolder = $this->createStub(IRootFolder::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->rollbackService = new RollbackServiceV1($this->lockMapper,
@@ -69,12 +69,12 @@ class RollbackServiceV1Test extends TestCase {
 			->with(1337, 10)
 			->willReturn($locks);
 
-		$mountFileInfo2 = $this->createMock(ICachedMountFileInfo::class);
-		$mountFileInfo3 = $this->createMock(ICachedMountFileInfo::class);
-		$mountFileInfo4 = $this->createMock(ICachedMountFileInfo::class);
-		$mountFileInfo5 = $this->createMock(ICachedMountFileInfo::class);
-		$mountFileInfo6 = $this->createMock(ICachedMountFileInfo::class);
-		$mountFileInfo7 = $this->createMock(ICachedMountFileInfo::class);
+		$mountFileInfo2 = $this->createStub(ICachedMountFileInfo::class);
+		$mountFileInfo3 = $this->createStub(ICachedMountFileInfo::class);
+		$mountFileInfo4 = $this->createStub(ICachedMountFileInfo::class);
+		$mountFileInfo5 = $this->createStub(ICachedMountFileInfo::class);
+		$mountFileInfo6 = $this->createStub(ICachedMountFileInfo::class);
+		$mountFileInfo7 = $this->createStub(ICachedMountFileInfo::class);
 
 		$mountFileInfo7->method('getInternalPath')
 			->willReturn('files_trashbin/files/a_deleted_file.jpg.d1682517431');
@@ -91,17 +91,17 @@ class RollbackServiceV1Test extends TestCase {
 				[100007, null, [$mountFileInfo7]],
 			]);
 
-		$user2 = $this->createMock(IUser::class);
+		$user2 = $this->createStub(IUser::class);
 		$user2->method('getUID')->willReturn('user2');
-		$user3 = $this->createMock(IUser::class);
+		$user3 = $this->createStub(IUser::class);
 		$user3->method('getUID')->willReturn('user3');
-		$user4 = $this->createMock(IUser::class);
+		$user4 = $this->createStub(IUser::class);
 		$user4->method('getUID')->willReturn('user4');
-		$user5 = $this->createMock(IUser::class);
+		$user5 = $this->createStub(IUser::class);
 		$user5->method('getUID')->willReturn('user5');
-		$user6 = $this->createMock(IUser::class);
+		$user6 = $this->createStub(IUser::class);
 		$user6->method('getUID')->willReturn('user6');
-		$user7 = $this->createMock(IUser::class);
+		$user7 = $this->createStub(IUser::class);
 		$user7->method('getUID')->willReturn('user7');
 
 		$mountFileInfo2->method('getUser')->willReturn($user2);
@@ -115,7 +115,7 @@ class RollbackServiceV1Test extends TestCase {
 		$userFolder4 = $this->createMock(Folder::class);
 		$userFolder5 = $this->createMock(Folder::class);
 		$userFolder6 = $this->createMock(Folder::class);
-		$userFolder7 = $this->createMock(Folder::class);
+		$userFolder7 = $this->createStub(Folder::class);
 
 		$this->rootFolder->method('getUserFolder')
 			->willReturnCallback(fn (string $userId): Folder => match ($userId) {

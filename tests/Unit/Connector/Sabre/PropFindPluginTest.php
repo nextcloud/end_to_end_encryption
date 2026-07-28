@@ -17,6 +17,7 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\PropFind;
@@ -25,27 +26,28 @@ use Sabre\DAV\Tree;
 use Sabre\HTTP\RequestInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class PropFindPluginTest extends TestCase {
 
-	private IRootFolder&\PHPUnit\Framework\MockObject\MockObject $rootFolder;
-	private IUserSession&\PHPUnit\Framework\MockObject\MockObject $userSession;
+	private IRootFolder&\PHPUnit\Framework\MockObject\Stub $rootFolder;
+	private IUserSession&\PHPUnit\Framework\MockObject\Stub $userSession;
 	private UserAgentManager&\PHPUnit\Framework\MockObject\MockObject $userAgentManager;
 	private IRequest&\PHPUnit\Framework\MockObject\MockObject $request;
-	protected Server&\PHPUnit\Framework\MockObject\MockObject $server;
-	protected IMetaDataStorage&\PHPUnit\Framework\MockObject\MockObject $metaDataStorage;
-	protected Folder&\PHPUnit\Framework\MockObject\MockObject $userFolder;
+	protected Server&\PHPUnit\Framework\MockObject\Stub $server;
+	protected IMetaDataStorage&\PHPUnit\Framework\MockObject\Stub $metaDataStorage;
+	protected Folder&\PHPUnit\Framework\MockObject\Stub $userFolder;
 	private PropFindPlugin $plugin;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->rootFolder = $this->createMock(IRootFolder::class);
-		$this->userSession = $this->createMock(IUserSession::class);
+		$this->rootFolder = $this->createStub(IRootFolder::class);
+		$this->userSession = $this->createStub(IUserSession::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 		$this->request = $this->createMock(IRequest::class);
-		$this->server = $this->createMock(Server::class);
-		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
-		$this->userFolder = $this->createMock(Folder::class);
+		$this->server = $this->createStub(Server::class);
+		$this->metaDataStorage = $this->createStub(IMetaDataStorage::class);
+		$this->userFolder = $this->createStub(Folder::class);
 
 		$this->plugin = new PropFindPlugin(
 			$this->rootFolder,
@@ -77,9 +79,9 @@ class PropFindPluginTest extends TestCase {
 	}
 
 	public function testUpdatePropertyIgnoreCalendar(): void {
-		$server = $this->createMock(Server::class);
+		$server = $this->createStub(Server::class);
 		$propFind = $this->createMock(PropFind::class);
-		$iNode = $this->createMock(ICalendar::class);
+		$iNode = $this->createStub(ICalendar::class);
 
 		$this->plugin->initialize($server);
 
@@ -100,9 +102,9 @@ class PropFindPluginTest extends TestCase {
 
 	#[DataProvider('updatePropertyDataProvider')]
 	public function testUpdateProperty(bool $supportedUserAgent, bool $fileEncrypted): void {
-		$server = $this->createMock(Server::class);
+		$server = $this->createStub(Server::class);
 		$propFind = $this->createMock(PropFind::class);
-		$iNode = $this->createMock(Directory::class);
+		$iNode = $this->createStub(Directory::class);
 
 		$this->plugin->initialize($server);
 
@@ -156,7 +158,7 @@ class PropFindPluginTest extends TestCase {
 	public function testCheckAccess(bool $supportedUserAgent, bool $fileEncrypted): void {
 		$server = $this->createMock(Server::class);
 		$this->createMock(PropFind::class);
-		$iNode = $this->createMock(Directory::class);
+		$iNode = $this->createStub(Directory::class);
 		$request = $this->createMock(RequestInterface::class);
 		$tree = $this->createMock(Tree::class);
 

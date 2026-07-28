@@ -20,10 +20,12 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\Files\SimpleFS\ISimpleFolder;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class MetaDataStorageTest extends TestCase {
 
 	private IAppData&MockObject $appData;
@@ -127,7 +129,7 @@ class MetaDataStorageTest extends TestCase {
 			->method('verifyFolderStructure');
 
 		if ($hasLegacyMetadataFile) {
-			$legacyMetaDataFile = $this->createMock(ISimpleFile::class);
+			$legacyMetaDataFile = $this->createStub(ISimpleFile::class);
 			$metaDataStorage->expects($this->once())
 				->method('getLegacyFile')
 				->with('userId', 42)
@@ -139,7 +141,7 @@ class MetaDataStorageTest extends TestCase {
 				->willReturn(null);
 
 			$metaDataFolder = $this->createMock(ISimpleFolder::class);
-			$tokenFolder = $this->createMock(ISimpleFolder::class);
+			$tokenFolder = $this->createStub(ISimpleFolder::class);
 			if ($folderExists) {
 				$this->appData->expects($this->exactly($expectsMetaDataExistsException ? 1 : 2))
 					->method('getFolder')
@@ -286,7 +288,7 @@ class MetaDataStorageTest extends TestCase {
 		} else {
 			$intermediateFile = $this->createMock(ISimpleFile::class);
 			$intermediateSignatureFile = $this->createMock(ISimpleFile::class);
-			$tokenFile = $this->createMock(ISimpleFile::class);
+			$tokenFile = $this->createStub(ISimpleFile::class);
 			$intermediateFile->expects($this->once())
 				->method('putContent')
 				->with('metadata-file-content');
@@ -638,7 +640,7 @@ class MetaDataStorageTest extends TestCase {
 					->with(42)
 					->willReturn(null);
 			} else {
-				$ownerNode = $this->createMock(Node::class);
+				$ownerNode = $this->createStub(Node::class);
 				$ownerRoot->expects($this->once())
 					->method('getFirstNodeById')
 					->with(42)
@@ -710,7 +712,7 @@ class MetaDataStorageTest extends TestCase {
 			->getMock();
 
 		$legacyFolder = $this->createMock(ISimpleFolder::class);
-		$legacyFile = $this->createMock(ISimpleFile::class);
+		$legacyFile = $this->createStub(ISimpleFile::class);
 		if ($legacyOwnerException) {
 			$metaDataStorage->expects($this->once())
 				->method('getLegacyOwnerPath')

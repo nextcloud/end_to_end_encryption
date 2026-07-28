@@ -15,14 +15,16 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Files\NotFoundException;
 use OCP\IRequest;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class EncryptionControllerTest extends TestCase {
 
 	private ?string $appName = null;
 
-	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
+	/** @var IRequest|\PHPUnit\Framework\MockObject\Stub */
 	private $request;
 
 	private ?string $userId = null;
@@ -42,7 +44,7 @@ class EncryptionControllerTest extends TestCase {
 		parent::setUp();
 
 		$this->appName = 'end_to_end_encryption';
-		$this->request = $this->createMock(IRequest::class);
+		$this->request = $this->createStub(IRequest::class);
 		$this->userId = 'john.doe';
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->encryptionManager = $this->createMock(EncryptionManager::class);

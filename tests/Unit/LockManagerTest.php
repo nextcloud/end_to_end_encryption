@@ -24,6 +24,7 @@ use OCP\Files\NotPermittedException;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Security\ISecureRandom;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use Test\TestCase;
@@ -33,6 +34,7 @@ use Test\TestCase;
  *
  */
 #[Group('DB')]
+#[AllowMockObjectsWithoutExpectations]
 class LockManagerTest extends TestCase {
 
 	/** @var LockMapper|\PHPUnit\Framework\MockObject\MockObject */
@@ -221,7 +223,7 @@ class LockManagerTest extends TestCase {
 	}
 
 	public function testIsLockedRoot(): void {
-		$user = $this->createMock(IUser::class);
+		$user = $this->createStub(IUser::class);
 		$user->method('getUID')
 			->willReturn('jane');
 
@@ -250,7 +252,7 @@ class LockManagerTest extends TestCase {
 	}
 
 	public function testIsLockedNodeDifferentToken(): void {
-		$user = $this->createMock(IUser::class);
+		$user = $this->createStub(IUser::class);
 		$user->method('getUID')
 			->willReturn('jane');
 
@@ -290,7 +292,7 @@ class LockManagerTest extends TestCase {
 	}
 
 	public function testIsLockedNodeCorrectToken(): void {
-		$user = $this->createMock(IUser::class);
+		$user = $this->createStub(IUser::class);
 		$user->method('getUID')
 			->willReturn('jane');
 
@@ -338,7 +340,7 @@ class LockManagerTest extends TestCase {
 	}
 
 	public function testIsLockedParent(): void {
-		$user = $this->createMock(IUser::class);
+		$user = $this->createStub(IUser::class);
 		$user->method('getUID')
 			->willReturn('jane');
 

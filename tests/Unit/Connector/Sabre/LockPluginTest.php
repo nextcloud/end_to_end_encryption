@@ -20,18 +20,21 @@ use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IUserSession;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Sabre\CalDAV\ICalendar;
 use Sabre\DAV\INode;
 use Sabre\DAV\Server;
 use Sabre\HTTP\RequestInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class LockPluginTest extends TestCase {
 
-	private IRootFolder&MockObject $rootFolder;
-	private IUserSession&MockObject $userSession;
+	private IRootFolder&Stub $rootFolder;
+	private IUserSession&Stub $userSession;
 	private LockManager&MockObject $lockManager;
 	private UserAgentManager&MockObject $userAgentManager;
 	private LockPlugin $plugin;
@@ -39,8 +42,8 @@ class LockPluginTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->rootFolder = $this->createMock(IRootFolder::class);
-		$this->userSession = $this->createMock(IUserSession::class);
+		$this->rootFolder = $this->createStub(IRootFolder::class);
+		$this->userSession = $this->createStub(IUserSession::class);
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->userAgentManager = $this->createMock(UserAgentManager::class);
 
@@ -82,7 +85,7 @@ class LockPluginTest extends TestCase {
 		$path = '/path/123';
 		$method = 'GET';
 		$url = 'url://path/123';
-		$node = $this->createMock(INode::class);
+		$node = $this->createStub(INode::class);
 
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -123,7 +126,7 @@ class LockPluginTest extends TestCase {
 
 		$path = '/path/123';
 		$url = 'url://path/123';
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$plugin->expects($this->once())
 			->method('isFile')
@@ -169,7 +172,7 @@ class LockPluginTest extends TestCase {
 
 		$path = '/path/123';
 		$url = 'url://path/123';
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 		$userAgentString = 'User-Agent-String';
 
 		$plugin->expects($this->once())
@@ -357,12 +360,12 @@ class LockPluginTest extends TestCase {
 			->getMock();
 
 		if ($isSrcFutureFile) {
-			$srcNode = $this->createMock(FutureFile::class);
+			$srcNode = $this->createStub(FutureFile::class);
 		} else {
-			$srcNode = $this->createMock(File::class);
+			$srcNode = $this->createStub(File::class);
 			$srcNode->method('getId')->willReturn(42);
 		}
-		$destNode = $this->createMock(File::class);
+		$destNode = $this->createStub(File::class);
 		$destNode->method('getId')->willReturn(1337);
 
 		$path = '/path/123';
@@ -474,21 +477,21 @@ class LockPluginTest extends TestCase {
 	}
 
 	public function testIsFileCalendar(): void {
-		$node = $this->createMock(ICalendar::class);
+		$node = $this->createStub(ICalendar::class);
 
 		$actual = self::invokePrivate($this->plugin, 'isFile', ['path123', $node]);
 		$this->assertFalse($actual);
 	}
 
 	public function testIsFileFile(): void {
-		$node = $this->createMock(File::class);
+		$node = $this->createStub(File::class);
 
 		$actual = self::invokePrivate($this->plugin, 'isFile', ['path123', $node]);
 		$this->assertTrue($actual);
 	}
 
 	public function testIsFileDirectory(): void {
-		$node = $this->createMock(Directory::class);
+		$node = $this->createStub(Directory::class);
 
 		$actual = self::invokePrivate($this->plugin, 'isFile', ['path123', $node]);
 		$this->assertTrue($actual);
@@ -509,7 +512,7 @@ class LockPluginTest extends TestCase {
 			->method('isEncrypted')
 			->willReturn(true);
 
-		$davNode = $this->createMock(\OCA\DAV\Connector\Sabre\Node::class);
+		$davNode = $this->createStub(\OCA\DAV\Connector\Sabre\Node::class);
 		$davNode->method('getNode')->willReturn($node);
 
 		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', [$davNode]);
@@ -538,7 +541,7 @@ class LockPluginTest extends TestCase {
 			->method('getParent')
 			->willReturn($parentNode);
 
-		$davNode = $this->createMock(\OCA\DAV\Connector\Sabre\Node::class);
+		$davNode = $this->createStub(\OCA\DAV\Connector\Sabre\Node::class);
 		$davNode->method('getNode')->willReturn($fileNode);
 
 		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', [$davNode]);
@@ -565,7 +568,7 @@ class LockPluginTest extends TestCase {
 			->method('getParent')
 			->willReturn($parentNode);
 
-		$davNode = $this->createMock(\OCA\DAV\Connector\Sabre\Node::class);
+		$davNode = $this->createStub(\OCA\DAV\Connector\Sabre\Node::class);
 		$davNode->method('getNode')->willReturn($fileNode);
 
 		$actual = self::invokePrivate($plugin, 'isE2EEnabledPath', [$davNode]);

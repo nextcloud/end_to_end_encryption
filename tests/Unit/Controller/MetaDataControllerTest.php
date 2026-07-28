@@ -23,11 +23,14 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class MetaDataControllerTest extends TestCase {
 
 	private string $appName;
@@ -36,11 +39,11 @@ class MetaDataControllerTest extends TestCase {
 	private IMetaDataStorage&MockObject $metaDataStorage;
 	private LockManager&MockObject $lockManager;
 	private LoggerInterface&MockObject $logger;
-	private IL10N&MockObject $l10n;
-	private ShareManager&MockObject $shareManager;
+	private IL10N&Stub $l10n;
+	private ShareManager&Stub $shareManager;
 	private MetaDataController $controller;
-	private IRootFolder&MockObject $rootFolder;
-	private AccessManager&MockObject $accessManager;
+	private IRootFolder&Stub $rootFolder;
+	private AccessManager&Stub $accessManager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -51,10 +54,10 @@ class MetaDataControllerTest extends TestCase {
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
-		$this->l10n = $this->createMock(IL10N::class);
-		$this->shareManager = $this->createMock(ShareManager::class);
-		$this->rootFolder = $this->createMock(IRootFolder::class);
-		$this->accessManager = $this->createMock(AccessManager::class);
+		$this->l10n = $this->createStub(IL10N::class);
+		$this->shareManager = $this->createStub(ShareManager::class);
+		$this->rootFolder = $this->createStub(IRootFolder::class);
+		$this->accessManager = $this->createStub(AccessManager::class);
 
 		$this->controller = new MetaDataController(
 			$this->appName,
@@ -81,8 +84,9 @@ class MetaDataControllerTest extends TestCase {
 		$metaData = 'JSON-ENCODED-META-DATA';
 
 		$this->accessManager->method('getOwnerId')
-			->with($fileId)
-			->willReturn('john.doe');
+			->willReturnMap([
+				[$fileId, 'john.doe'],
+			]);
 
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
@@ -96,8 +100,7 @@ class MetaDataControllerTest extends TestCase {
 				->willReturn($metaData);
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -139,8 +142,9 @@ class MetaDataControllerTest extends TestCase {
 		$metaData = 'JSON-ENCODED-META-DATA';
 
 		$this->accessManager->method('getOwnerId')
-			->with($fileId)
-			->willReturn('john.doe');
+			->willReturnMap([
+				[$fileId, 'john.doe'],
+			]);
 
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
@@ -153,8 +157,7 @@ class MetaDataControllerTest extends TestCase {
 				->with('john.doe', $fileId, $metaData);
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 		$this->request->expects($this->any())
 			->method('getHeader')
@@ -205,8 +208,9 @@ class MetaDataControllerTest extends TestCase {
 		$metaData = 'JSON-ENCODED-META-DATA';
 
 		$this->accessManager->method('getOwnerId')
-			->with($fileId)
-			->willReturn('john.doe');
+			->willReturnMap([
+				[$fileId, 'john.doe'],
+			]);
 
 		$this->request->expects($this->exactly(2))
 			->method('getHeader')
@@ -233,8 +237,7 @@ class MetaDataControllerTest extends TestCase {
 			}
 		}
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
@@ -282,8 +285,9 @@ class MetaDataControllerTest extends TestCase {
 		$fileId = 42;
 
 		$this->accessManager->method('getOwnerId')
-			->with($fileId)
-			->willReturn('john.doe');
+			->willReturnMap([
+				[$fileId, 'john.doe'],
+			]);
 
 		if ($metaDataStorageException) {
 			$this->metaDataStorage->expects($this->once())
@@ -301,8 +305,7 @@ class MetaDataControllerTest extends TestCase {
 			->with('e2e-token')
 			->willReturn('e2e-token');
 
-		$this->l10n->expects($this->any())
-			->method('t')
+		$this->l10n->method('t')
 			->willReturnCallback(static fn ($string, $args): string => vsprintf($string, $args));
 
 		if ($expectLogger) {
