@@ -6,5 +6,7 @@
 import { createApp } from 'vue'
 import FileDrop from './views/FileDrop.vue'
 
+import 'core-js/proposals/reflect-metadata.js' // for @peculiar/x509
+
 const createAppInstance = createApp(FileDrop)
 createAppInstance.mount('#content')

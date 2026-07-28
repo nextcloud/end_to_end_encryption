@@ -16,6 +16,8 @@ import logger from './services/logger.ts'
 import { setupTasksManager } from './services/TasksManager.ts'
 import { setupWebDavProxy } from './services/webDavProxy.ts'
 
+import 'core-js/proposals/reflect-metadata.js' // for @peculiar/x509
+
 const userConfig = loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false })
 const browserSupportsWebCrypto = typeof window.crypto !== 'undefined' && typeof window.crypto.subtle !== 'undefined'
 
