@@ -11,6 +11,7 @@ import { XMLBuilder } from 'fast-xml-parser'
 import { parseStat, parseXML } from 'webdav'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import logger from '../services/logger.ts'
+import { decodePath } from '../services/path.ts'
 import * as metadataStore from '../store/metadata.ts'
 import * as taskStore from '../store/tasks.ts'
 
@@ -46,7 +47,7 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 		return
 	}
 
-	await cacheMetadataFromPropfind(xml, isEncryptedNode)
+	await cacheMetadataFromPropfind(xml, isEncryptedNode, targetIsEncrypted)
 	await replacePlaceholdersInPropfind(xml, isEncryptedNode)
 
 	context.res = new Response(new XMLBuilder().build(xml), response)
@@ -57,10 +58,24 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
  *
  * @param xml - The XML response
  * @param isEncryptedNode - Whether a given response node is end-to-end encrypted
+ * @param targetIsEncrypted - Whether the PROPFIND target itself is end-to-end encrypted
  */
-async function cacheMetadataFromPropfind(xml: DAVResult, isEncryptedNode: (node: DAVResultResponse) => boolean): Promise<void> {
+async function cacheMetadataFromPropfind(
+	xml: DAVResult,
+	isEncryptedNode: (node: DAVResultResponse) => boolean,
+	targetIsEncrypted: boolean,
+): Promise<void> {
 	for (const node of xml.multistatus.response) {
 		if (!isEncryptedNode(node) || node.propstat === undefined) {
+			continue
+		}
+
+		// An encrypted node in the response of an unencrypted target is an e2ee root,
+		// and the name of an e2ee root is not encrypted - so its metadata is only
+		// needed if the response reaches into it. Decrypting it either way would ask
+		// the user for their recovery phrase just to list the folder the root sits in.
+		if (!targetIsEncrypted && !hasContentsInResponse(xml, nodePath(node))) {
+			logger.debug('Skipping metadata of a listed e2ee root', { node })
 			continue
 		}
 
@@ -187,10 +202,23 @@ async function hasEncryptedParent(node: DAVResultResponse, isFolder: boolean, en
 }
 
 /**
- * Get the path of a response node (its href without trailing slash).
+ * Check whether the response contains any node located inside the given path.
+ *
+ * @param xml - The XML response
+ * @param path - The path of the folder to check
+ */
+function hasContentsInResponse(xml: DAVResult, path: string): boolean {
+	return xml.multistatus.response.some((node) => nodePath(node).startsWith(`${path}/`))
+}
+
+/**
+ * Get the path of a response node (its decoded href without trailing slash).
+ *
+ * The `href` is percent-encoded, while everything outside of the requests works
+ * on decoded paths - including the keys of the metadata cache.
  *
  * @param node - The response node
  */
 function nodePath(node: DAVResultResponse): string {
-	return node.href.replace(/\/+$/, '')
+	return decodePath(node.href.replace(/\/+$/, ''))
 }

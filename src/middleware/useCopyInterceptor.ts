@@ -6,9 +6,10 @@
 import type { FetchContext } from '@rxliuli/vista'
 
 import { defaultRemoteURL } from '@nextcloud/files/dav'
-import { basename, dirname, join } from '@nextcloud/paths'
+import { basename, dirname, encodePath, join } from '@nextcloud/paths'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
+import { decodePath } from '../services/path.ts'
 import * as metadataStore from '../store/metadata.ts'
 
 /**
@@ -19,8 +20,9 @@ import * as metadataStore from '../store/metadata.ts'
  */
 export async function useCopyInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	const destination = new URL(context.req.headers.get('Destination')!)
-	const pathSrc = new URL(context.req.url).pathname
-	const pathDst = destination.pathname
+	// the metadata knows both nodes by their decoded paths, the request carries them encoded
+	const pathSrc = decodePath(new URL(context.req.url).pathname)
+	const pathDst = decodePath(destination.pathname)
 
 	if (pathSrc === pathDst) {
 		return next() // this is invalid but let the server handle it
@@ -56,14 +58,14 @@ export async function useCopyInterceptor(context: FetchContext, next: () => Prom
 }
 
 /**
- * @param source - The source path
- * @param destination - The destination path
+ * @param source - The decoded source path
+ * @param destination - The decoded destination path
  */
 async function copyFolder(source: string, destination: string): Promise<void> {
 	logger.debug('[COPY] Copying folder', { source, destination })
 
 	// create the target folder
-	const response = await fetch(defaultRemoteURL + destination, {
+	const response = await fetch(defaultRemoteURL + encodePath(destination), {
 		method: 'MKCOL',
 		headers: {
 			'OCS-APIRequest': 'true',
@@ -96,19 +98,19 @@ async function copyFolder(source: string, destination: string): Promise<void> {
 }
 
 /**
- * @param source - The source path
- * @param destination - The destination path
+ * @param source - The decoded source path
+ * @param destination - The decoded destination path
  */
 async function copyFile(source: string, destination: string): Promise<void> {
 	logger.debug('[COPY] Copying file', { source, destination })
 	// 1. fetch the file (decryption is handled by interceptor)
-	let response = await fetch(defaultRemoteURL + source)
+	let response = await fetch(defaultRemoteURL + encodePath(source))
 	if (!response.ok) {
 		throw new Error('Failed to fetch source file for COPY')
 	}
 
 	// 2. upload the file (encryption is handled by interceptor)
-	response = await fetch(defaultRemoteURL + destination, {
+	response = await fetch(defaultRemoteURL + encodePath(destination), {
 		method: 'PUT',
 		headers: {
 			// keep the same content type

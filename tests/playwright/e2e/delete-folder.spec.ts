@@ -5,7 +5,7 @@
 
 import { expect } from '@playwright/test'
 import { test } from '../support/fixtures/encrypted-folder.ts'
-import { withEncryptedFolderUpdate } from '../support/utils/e2ee.ts'
+import { createEncryptedRootFolder, withEncryptedFolderUpdate } from '../support/utils/e2ee.ts'
 import { disableDefaultHomeContents } from '../support/utils/occ.ts'
 
 test.describe('deleting subfolders', () => {
@@ -56,5 +56,52 @@ test.describe('deleting subfolders', () => {
 		await filesApp.reopenEncryptedFolder(encryptedFolder, mnemonic)
 		await expect(filesApp.buttonNewMenuLocator).toBeVisible()
 		await expect(filesApp.getFileOrFolder('deleted-folder')).toHaveCount(0)
+	})
+})
+
+test.describe('deleting encrypted root folders', () => {
+	test.beforeAll(disableDefaultHomeContents)
+
+	/**
+	 * Unlike the contents of an encrypted folder - which are stored under a UUID
+	 * and only carry their real name in the metadata - the name of an encrypted
+	 * root folder is the name on the server. It is therefore the one folder name
+	 * that travels through URL encoding on every WebDAV request, and the app has
+	 * to look it up by the very same name it stored it under.
+	 */
+	test('delete a folder with a space in its name', async ({ filesApp, page, mnemonic }) => {
+		const name = `folder - ${globalThis.crypto.randomUUID()}`
+
+		await filesApp.openFilesApp()
+		await createEncryptedRootFolder(filesApp, name, mnemonic)
+
+		// reloaded before deleting: the row of a just created encrypted folder is
+		// added to the list without its real permissions, so it has no delete action
+		await filesApp.openFilesApp()
+		await expect(filesApp.getFileOrFolder(name)).toBeVisible()
+
+		await withEncryptedFolderUpdate(page, () => filesApp.deleteFileOrFolder(name, mnemonic))
+
+		// still gone after a reload, i.e. it is gone on the server and not just
+		// dropped from the list the browser was holding
+		await filesApp.openFilesApp()
+		await expect(filesApp.getFileOrFolder(name)).toHaveCount(0)
+	})
+
+	test.describe('with a space in the encrypted folder name', () => {
+		test.use({ encryptedFolderPrefix: 'folder - ' })
+
+		test('delete a subfolder', async ({ filesApp, page, mnemonic, encryptedFolder }) => {
+			await withEncryptedFolderUpdate(page, () => filesApp.openNewMenu()
+				.then((menu) => menu.createNewFolder())
+				.then((dialog) => dialog.createFolder('deleted-folder')))
+			await expect(filesApp.getFileOrFolder('deleted-folder')).toBeVisible()
+
+			await withEncryptedFolderUpdate(page, () => filesApp.deleteFileOrFolder('deleted-folder'))
+
+			// still gone once the folder is decrypted from scratch
+			await filesApp.reopenEncryptedFolder(encryptedFolder, mnemonic)
+			await expect(filesApp.getFileOrFolder('deleted-folder')).toHaveCount(0)
+		})
 	})
 })

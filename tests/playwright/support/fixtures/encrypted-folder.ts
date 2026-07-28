@@ -4,8 +4,19 @@
  */
 
 import { mergeTests } from '@playwright/test'
+import { createEncryptedRootFolder } from '../utils/e2ee.ts'
 import { test as e2eeUserTest } from './e2ee-user.ts'
 import { test as filesAppTest } from './files-app.ts'
+
+interface EncryptedFolderOptions {
+	/**
+	 * Prefix of the {@link EncryptedFolderFixture.encryptedFolder} name, so a test
+	 * can pin down the characters it is about - for instance a space, which needs
+	 * URL encoding on the way to the server. Declare it per spec file or per
+	 * describe block with `test.use({ encryptedFolderPrefix: 'my prefix - ' })`.
+	 */
+	encryptedFolderPrefix: string
+}
 
 interface EncryptedFolderFixture {
 	/**
@@ -18,24 +29,23 @@ interface EncryptedFolderFixture {
 /**
  * Provides a fresh encrypted folder, created through the UI by the e2ee user.
  *
- * The name is random because the folder lives in the home directory of a user
- * that is shared by all tests of a worker - a fixed name would make the tests
- * depend on their execution order.
+ * The name always ends in a random part because the folder lives in the home
+ * directory of a user that is shared by all tests of a worker - a fixed name
+ * would make the tests depend on their execution order.
  */
-export const test = mergeTests(e2eeUserTest, filesAppTest).extend<EncryptedFolderFixture>({
-	encryptedFolder: async ({ filesApp, mnemonic }, use) => {
-		const name = globalThis.crypto.randomUUID()
+export const test = mergeTests(e2eeUserTest, filesAppTest)
+	.extend<EncryptedFolderOptions & EncryptedFolderFixture>({
+		encryptedFolderPrefix: ['', { option: true }],
 
-		await filesApp.openFilesApp()
-		await filesApp.openNewMenu()
-			.then((menu) => menu.createNewE2eeFolder())
-			// the key pair exists but this browser session has not unlocked it yet
-			.then((dialog) => dialog.fillMnemonic(mnemonic))
-			.then((dialog) => dialog.createFolder(name))
+		encryptedFolder: async ({ filesApp, mnemonic, encryptedFolderPrefix }, use) => {
+			const name = `${encryptedFolderPrefix}${globalThis.crypto.randomUUID()}`
 
-		await filesApp.openFileOrFolder(name)
-		await filesApp.waitForListLoaded()
+			await filesApp.openFilesApp()
+			await createEncryptedRootFolder(filesApp, name, mnemonic)
 
-		await use(name)
-	},
-})
+			await filesApp.openFileOrFolder(name)
+			await filesApp.waitForListLoaded()
+
+			await use(name)
+		},
+	})

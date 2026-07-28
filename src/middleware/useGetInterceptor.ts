@@ -13,6 +13,7 @@ import { basename, dirname } from '@nextcloud/paths'
 import { base64ToBuffer } from '../services/bufferUtils.ts'
 import { decryptWithAES, loadAESPrivateKey } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
+import { decodePath } from '../services/path.ts'
 import * as metadataStore from '../store/metadata.ts'
 
 /**
@@ -22,7 +23,8 @@ import * as metadataStore from '../store/metadata.ts'
  * @param next - The next middleware function
  */
 export async function useGetInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
-	const path = new URL(context.req.url).pathname
+	// the metadata knows the parent by its decoded path, the request URL carries it encoded
+	const path = decodePath(new URL(context.req.url).pathname)
 
 	await next()
 	const response = context.res.clone()
