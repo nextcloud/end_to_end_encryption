@@ -7,8 +7,10 @@ import type { FetchContext } from '@rxliuli/vista'
 
 import { basename, dirname } from '@nextcloud/paths'
 import stringify from 'safe-stable-stringify'
+import { RootMetadata } from '../models/RootMetadata.ts'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
+import { decodePath } from '../services/path.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
 
@@ -25,37 +27,37 @@ import * as metadataStore from '../store/metadata.ts'
 export async function useDeleteInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	logger.debug('Handling DELETE request', { request: context.req })
 
-	const url = new URL(context.req.url)
+	// the metadata knows the target by its decoded path, the request URL carries it encoded
+	const path = decodePath(new URL(context.req.url).pathname)
+	let isRootFolder: boolean
 	try {
-		await metadataStore.getRootMetadata(url.pathname)
+		const { metadata } = await metadataStore.getMetadata(path)
+		isRootFolder = metadata instanceof RootMetadata
 	} catch (error) {
 		logger.debug('Could not get root metadata for DELETE', { error })
 		// not end-to-end encrypted
 		return next()
 	}
 
-	const metadata = await metadataStore.getRootMetadata(dirname(url.pathname)).catch(() => null)
-	const isRootFolder = metadata === null
-
 	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 	if (isRootFolder) {
-		logger.debug('Deleting e2ee root folder', { path: url.pathname })
+		logger.debug('Deleting e2ee root folder', { path })
 		await handleDeleteRoot(
-			url.pathname,
+			path,
 			context,
 			next,
 		)
 	} else {
-		logger.debug('Deleting e2ee sub-folder', { path: url.pathname })
+		logger.debug('Deleting e2ee sub-folder', { path })
 		await handleDelete(
-			url.pathname,
+			path,
 			context,
 			next,
 		)
 	}
 
 	// clear cache
-	metadataStore.deleteMetadata(url.pathname)
+	metadataStore.deleteMetadata(path)
 }
 
 /**
@@ -112,9 +114,12 @@ async function handleDelete(path: string, context: FetchContext, next: () => Pro
 	const parentMetadata = await metadataStore.getMetadata(dirname(path))
 
 	if (!parentMetadata.metadata.hasUuid(filename)) {
-		logger.warn('File to delete not found in metadata', { filename })
-		// The file is likely not end-to-end encrypted
-		// or this is a bug of another client not updating the metadata properly
+		logger.warn(
+			'File to delete not found in metadata.'
+			+ '\nThe file is likely not end-to-end encrypted.'
+			+ '\nThis is likely a bug of another client not updating the metadata properly.',
+			{ filename },
+		)
 		return next()
 	}
 

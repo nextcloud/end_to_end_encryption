@@ -14,6 +14,7 @@ import * as api from '../services/api.ts'
 import { bufferToBase64 } from '../services/bufferUtils.ts'
 import { encryptWithAES, generateAESKey } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
+import { decodePath } from '../services/path.ts'
 import { generateUuid } from '../services/uuid.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
@@ -28,8 +29,9 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 	logger.debug('Handling PUT request', { request: context.req.bodyUsed })
 
 	const url = new URL(context.req.url)
-	const path = url.pathname
-	const filename = decodeURIComponent(basename(path))
+	// the metadata knows the parent by its decoded path, the request URL carries it encoded
+	const path = decodePath(url.pathname)
+	const filename = basename(path)
 	let metadata: IStoreMetadata
 	try {
 		metadata = await metadataStore.getMetadata(dirname(path))

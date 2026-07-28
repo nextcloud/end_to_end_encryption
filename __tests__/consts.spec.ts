@@ -559,12 +559,18 @@ export const unencryptedPropFindResponse = `<?xml version="1.0"?>
 	</d:response>
 </d:multistatus>`
 
-// PROPFIND of an unencrypted folder that contains an unencrypted file,
-// an e2ee root folder and (e.g. with "Depth: infinity") a node inside that e2ee root
-export const mixedPropFindResponse = `<?xml version="1.0"?>
+const multistatusHeader = `<?xml version="1.0"?>
 <d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns"
-	xmlns:nc="http://nextcloud.org/ns">
-	<d:response>
+	xmlns:nc="http://nextcloud.org/ns">`
+
+/**
+ * Wrap PROPFIND response nodes into a multistatus document.
+ *
+ * @param responses - The `d:response` nodes of the document
+ */
+const multistatus = (...responses: string[]): string => [multistatusHeader, ...responses, '</d:multistatus>'].join('\n')
+
+const homeFolderResponse = `<d:response>
 		<d:href>/remote.php/dav/files/admin/</d:href>
 		<d:propstat>
 			<d:prop>
@@ -599,8 +605,9 @@ export const mixedPropFindResponse = `<?xml version="1.0"?>
 			</d:prop>
 			<d:status>HTTP/1.1 404 Not Found</d:status>
 		</d:propstat>
-	</d:response>
-	<d:response>
+	</d:response>`
+
+const plainFileResponse = `<d:response>
 		<d:href>/remote.php/dav/files/admin/plain.txt</d:href>
 		<d:propstat>
 			<d:prop>
@@ -633,8 +640,9 @@ export const mixedPropFindResponse = `<?xml version="1.0"?>
 			</d:prop>
 			<d:status>HTTP/1.1 404 Not Found</d:status>
 		</d:propstat>
-	</d:response>
-	<d:response>
+	</d:response>`
+
+const e2eeRootFolderResponse = `<d:response>
 		<d:href>/remote.php/dav/files/admin/New%20folder/</d:href>
 		<d:propstat>
 			<d:prop>
@@ -669,8 +677,9 @@ export const mixedPropFindResponse = `<?xml version="1.0"?>
 			</d:prop>
 			<d:status>HTTP/1.1 404 Not Found</d:status>
 		</d:propstat>
-	</d:response>
-	<d:response>
+	</d:response>`
+
+const e2eeRootFileResponse = `<d:response>
 		<d:href>/remote.php/dav/files/admin/New%20folder/ad3b12554e0d4364854ae3e21b170152</d:href>
 		<d:propstat>
 			<d:prop>
@@ -703,5 +712,25 @@ export const mixedPropFindResponse = `<?xml version="1.0"?>
 			</d:prop>
 			<d:status>HTTP/1.1 404 Not Found</d:status>
 		</d:propstat>
-	</d:response>
-</d:multistatus>`
+	</d:response>`
+
+/**
+ * A depth 1 listing of an unencrypted folder that contains an e2ee root:
+ * the root is part of the response, its contents are not.
+ */
+export const homeListingPropFindResponse = multistatus(
+	homeFolderResponse,
+	plainFileResponse,
+	e2eeRootFolderResponse,
+)
+
+/**
+ * Like `homeListingPropFindResponse`, but reaching into the e2ee root as well -
+ * as a PROPFIND with "Depth: infinity" would.
+ */
+export const mixedPropFindResponse = multistatus(
+	homeFolderResponse,
+	plainFileResponse,
+	e2eeRootFolderResponse,
+	e2eeRootFileResponse,
+)
