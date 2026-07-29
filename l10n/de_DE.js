@@ -87,6 +87,8 @@ OC.L10N.register(
     "Save" : "Speichern",
     "Enter your 12 words mnemonic" : "Die 12-Wörter-Gedächtnisstütze eingeben",
     "Decrypting your files in the browser can weaken security" : "Das Entschlüsseln Ihrer Dateien im Browser kann unsicher sein",
+    "The upload completed, but the file drop is still being processed on the server." : "Das Hochladen ist abgeschlossen, die Datei wird jedoch noch auf dem Server verarbeitet.",
+    "Some files failed to upload." : "Einige Dateien konnten nicht hochgeladen werden.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "Diese Freigabe verwendet eine ältere Verschlüsselungsmethode. Bitte den Freigabebesitzer darum bitten, die Verschlüsselungsmetadaten zu aktualisieren.",
     "Select or drop files" : "Dateien auswählen oder hierher ziehen",
     "Uploaded files" : "Hochgeladene Dateien",

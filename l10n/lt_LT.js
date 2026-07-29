@@ -87,6 +87,8 @@ OC.L10N.register(
     "Save" : "Įrašyti",
     "Enter your 12 words mnemonic" : "Įveskite savo 12 žodžių mnemoninę frazę",
     "Decrypting your files in the browser can weaken security" : "Failų iššifravimas naršyklėje gali susilpninti saugumą",
+    "The upload completed, but the file drop is still being processed on the server." : "Įkėlimas baigtas, tačiau įkeltas failas serveryje vis dar apdorojamas.",
+    "Some files failed to upload." : "Kai kurių failų nepavyko įkelti.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "Šiame bendrinimą naudojamas senasis šifravimo metodas. Paprašykite bendrinimo savininko atnaujinti šifravimo metaduomenis.",
     "Select or drop files" : "Pasirinkite arba vilkite failus",
     "Uploaded files" : "Įkelti failai",
