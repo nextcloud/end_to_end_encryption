@@ -85,6 +85,8 @@
     "Save" : "Salvesta",
     "Enter your 12 words mnemonic" : "Sisesta oma 12-sõnaline mnemofraas ehk salafraas",
     "Decrypting your files in the browser can weaken security" : "Failide dekrüptimine veebibrauseris võib nõrgendada turvalisust",
+    "The upload completed, but the file drop is still being processed on the server." : "Üleslaadimine on lõppenud, kuid server veel töötleb neid faile või andmeid.",
+    "Some files failed to upload." : "Mõnda faili üleslaadimine ei õnnestunud",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "See jaosmeedia kasutab vanemat tüüpi krüptimismeetodit. Palu jagamise loonud kasutajat ja/või omanikku, et ta uuendaks krüptimise metateavet.",
     "Select or drop files" : "Vali või lohista failid",
     "Uploaded files" : "Üleslaaditud failid",

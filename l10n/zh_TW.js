@@ -87,6 +87,8 @@ OC.L10N.register(
     "Save" : "儲存",
     "Enter your 12 words mnemonic" : "輸入您的 12 個字助記字串",
     "Decrypting your files in the browser can weaken security" : "在瀏覽器中解密您的檔案可能會弱化安全性",
+    "The upload completed, but the file drop is still being processed on the server." : "上傳完成，但伺服器仍在處理投遞的檔案。",
+    "Some files failed to upload." : "部份檔案上傳失敗。",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "此分享使用舊版加密方式。請要求分享擁有者更新加密中介資料。",
     "Select or drop files" : "選取或拖曳檔案",
     "Uploaded files" : "已上傳的檔案",
