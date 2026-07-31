@@ -20,6 +20,12 @@ import logger from './logger.ts'
 
 addPasswordConfirmationInterceptors(axios)
 
+/**
+ * Error thrown when no metadata is found for a given path.
+ */
+export class NoMetadataError extends Error {
+}
+
 // API: https://github.com/nextcloud/end_to_end_encryption/blob/main/doc/api.md
 
 const API_ROOT = 'apps/end_to_end_encryption/api/v2'
@@ -377,14 +383,14 @@ interface MetdataResponse {
  *
  * @param path - The file path of the folder relative to the DAV root
  * @return The metadata response or false if the path is not a folder
- * @throws {Error} If metadata could not be fetched, is not available or incomplete
+ * @throws {NoMetadataError} If metadata could not be fetched, is not available or incomplete
  */
 export async function getMetadataByPath(path: string): Promise<MetdataResponse | false> {
 	const result = await getNodeStat(path)
 
 	if (!result.props) {
 		logger.debug('No props found in PROPFIND result', { result, path })
-		throw new Error('No metadata found for path ' + path)
+		throw new NoMetadataError('No metadata found for path ' + path)
 	}
 
 	const isFolder = typeof result.props.resourcetype.collection !== 'undefined'
@@ -399,7 +405,7 @@ export async function getMetadataByPath(path: string): Promise<MetdataResponse |
 	} = result.props
 	if (!fileId || !metadata || !signature) {
 		logger.debug('Not all props provided by PROPFIND', { path, fileId, metadata, signature })
-		throw new Error('No metadata found for path ' + path)
+		throw new NoMetadataError('No metadata found for path ' + path)
 	}
 
 	return {

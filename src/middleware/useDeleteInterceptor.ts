@@ -10,7 +10,7 @@ import stringify from 'safe-stable-stringify'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
-import { decodePath } from '../services/path.ts'
+import { getPath } from '../services/path.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
 
@@ -27,16 +27,22 @@ import * as metadataStore from '../store/metadata.ts'
 export async function useDeleteInterceptor(context: FetchContext, next: () => Promise<void>): Promise<void> {
 	logger.debug('Handling DELETE request', { request: context.req })
 
-	// the metadata knows the target by its decoded path, the request URL carries it encoded
-	const path = decodePath(new URL(context.req.url).pathname)
+	// the metadata knows the target by its decoded path relative to the DAV root,
+	// the request URL carries it encoded and absolute
+	const path = getPath(new URL(context.req.url))
 	let isRootFolder: boolean
 	try {
-		const { metadata } = await metadataStore.getMetadata(path)
-		isRootFolder = metadata instanceof RootMetadata
+		const { metadata, path: metadataPath } = await metadataStore.getMetadata(path)
+		// only the e2ee root folder has root metadata of its own - for the files
+		// directly inside it the very same metadata is the one of their parent
+		isRootFolder = metadata instanceof RootMetadata && path === metadataPath
 	} catch (error) {
-		logger.debug('Could not get root metadata for DELETE', { error })
-		// not end-to-end encrypted
-		return next()
+		if (error instanceof api.NoMetadataError) {
+			logger.debug('Could not get root metadata for DELETE', { error })
+			// not end-to-end encrypted
+			return next()
+		}
+		throw error
 	}
 
 	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
@@ -85,6 +91,7 @@ async function handleDeleteRoot(path: string, context: FetchContext, next: () =>
 		)
 
 		// now the proper delete
+		context.req.headers.set('X-NC-Skip-Trashbin', 'true')
 		context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 		context.req.headers.set('E2E-TOKEN', lockToken)
 		await next()
