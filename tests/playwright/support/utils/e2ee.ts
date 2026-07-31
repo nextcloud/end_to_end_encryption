@@ -27,6 +27,36 @@ export async function createEncryptedRootFolder(filesApp: FilesAppPage, name: st
 }
 
 /**
+ * Create a folder inside the encrypted folder the files app is navigated into,
+ * and wait for the metadata of that parent to be written back.
+ *
+ * @param page - Page the files app runs on
+ * @param filesApp - The files app, navigated into an encrypted folder
+ * @param name - Name of the folder to create
+ */
+export async function createFolderInEncryptedFolder(page: Page, filesApp: FilesAppPage, name: string): Promise<void> {
+	await withEncryptedFolderUpdate(page, () => filesApp.openNewMenu()
+		.then((menu) => menu.createNewFolder())
+		.then((dialog) => dialog.createFolder(name)))
+}
+
+/**
+ * Upload a text file into the encrypted folder the files app is navigated into,
+ * and wait for the metadata of that folder to be written back.
+ *
+ * One file per call: each upload is its own lock-write-unlock cycle, and
+ * {@link withEncryptedFolderUpdate} can only await one of them.
+ *
+ * @param page - Page the files app runs on
+ * @param filesApp - The files app, navigated into an encrypted folder
+ * @param name - Name of the file to create
+ * @param content - Contents of the file
+ */
+export async function uploadFileToEncryptedFolder(page: Page, filesApp: FilesAppPage, name: string, content?: string): Promise<void> {
+	await withEncryptedFolderUpdate(page, () => filesApp.uploadTextFile(name, content))
+}
+
+/**
  * Run an action that mutates the contents of an encrypted folder and wait for
  * the app to have written the folder's metadata back to the server.
  *

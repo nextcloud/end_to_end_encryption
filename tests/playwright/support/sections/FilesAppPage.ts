@@ -104,6 +104,32 @@ export class FilesAppPage {
 			.click()
 	}
 
+	/**
+	 * Navigate into a folder and wait until its contents are rendered.
+	 *
+	 * @param name - Name of the folder to open
+	 */
+	public async openFolder(name: string): Promise<void> {
+		await this.openFileOrFolder(name)
+		await this.waitForListLoaded()
+	}
+
+	/**
+	 * Upload a text file into the current folder and wait for its row to appear.
+	 *
+	 * Note that inside an encrypted folder this returns while the parent metadata
+	 * is still being rewritten - wrap the call in `withEncryptedFolderUpdate` to
+	 * await that too, or use `uploadFileToEncryptedFolder`.
+	 *
+	 * @param name - Name of the file to create
+	 * @param content - Contents of the file
+	 */
+	public async uploadTextFile(name: string, content: string = `content of ${name}\n`): Promise<void> {
+		const newMenu = await this.openNewMenu()
+		await newMenu.uploadFiles({ name, mimeType: 'text/plain', buffer: Buffer.from(content) })
+		await expect(this.getFileOrFolder(name)).toBeVisible()
+	}
+
 	public getMnemonicDialog(): SectionMnemonicDialog {
 		return new SectionMnemonicDialog(this.dialogMnemonicLocator)
 	}
