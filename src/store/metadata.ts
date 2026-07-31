@@ -20,7 +20,9 @@ export interface IStoreMetadata {
 	id: string
 	/** The metadata itself */
 	metadata: Metadata
-	/** The path of the metadata */
+	/**
+	 * The path of the folder the metadata belongs to.
+	 */
 	path: string
 }
 
@@ -32,7 +34,7 @@ export interface IStoreMetadata {
  * of a PROPFIND response or as the name of a node. `decodePath` is what turns
  * the former two into that.
  */
-const metadataCache = new Map<string, Omit<IStoreMetadata, 'path'>>()
+const metadataCache = new Map<string, IStoreMetadata>()
 const currentUser = isPublicShare()
 	? `s:${getSharingToken()}`
 	: getCurrentUser()!.uid
@@ -43,11 +45,12 @@ const currentUser = isPublicShare()
  * @param metadata - The root metadata
  */
 export function getRootFolder(metadata: RootMetadata): IStoreMetadata & { metadata: RootMetadata } {
-	const entry = metadataCache.entries().find(([, { metadata: md }]) => md === metadata)!
+	// any entry pointing to this metadata knows the path of the folder it belongs to,
+	// so it does not matter whether the folder itself or one of its files is found
+	const entry = metadataCache.values().find(({ metadata: md }) => md === metadata)!
 	return {
-		id: entry[1].id,
-		metadata: entry[1].metadata as RootMetadata,
-		path: entry[0],
+		...entry,
+		metadata: entry.metadata as RootMetadata,
 	}
 }
 
@@ -56,7 +59,7 @@ export function getRootFolder(metadata: RootMetadata): IStoreMetadata & { metada
  *
  * @param path - The path to get the root metadata for
  * @throws {Error} - If the root metadata signature verification fails
- * @throws {AxiosError} - If the target path is not end-to-end encrypted
+ * @throws {NoMetadataError} - If the target path is not end-to-end encrypted
  */
 export async function getRootMetadata(path: string): Promise<RootMetadata> {
 	path = normalizePath(path)
@@ -73,8 +76,9 @@ export async function getRootMetadata(path: string): Promise<RootMetadata> {
 	if (data === false) {
 		// its a file so get its parent metadata
 		const root = await getRootMetadata(dirname(path))
-		const { metadata, id } = await getMetadata(dirname(path))
-		setMetadata(path, id, metadata)
+		const { id, metadata } = await getMetadata(dirname(path))
+		// the file is an entry of its parent metadata, it has none of its own
+		setMetadata(path, id, metadata, dirname(path))
 		return root
 	}
 
@@ -103,27 +107,26 @@ export async function getMetadata(path: string): Promise<IStoreMetadata> {
 		await getRootMetadata(path)
 	}
 
-	return {
-		...metadataCache.get(path)!,
-		path,
-	}
+	return { ...metadataCache.get(path)! }
 }
 
 /**
  * Set the metadata for the given path.
  *
- * @param path - The path of the metadata
+ * @param path - The path to cache the metadata for
  * @param id - The file id of the metadata
  * @param metadata - The metadata object
+ * @param ownerPath - The path of the folder the metadata belongs to, if that is not `path` itself (see `IStoreMetadata.path`)
  */
-export function setMetadata(path: string, id: string, metadata: Metadata): IStoreMetadata {
+export function setMetadata(path: string, id: string, metadata: Metadata, ownerPath: string = path): IStoreMetadata {
 	path = normalizePath(path)
-	metadataCache.set(path, { id, metadata })
-	return {
+	const entry = {
 		id,
 		metadata,
-		path,
+		path: normalizePath(ownerPath),
 	}
+	metadataCache.set(path, entry)
+	return { ...entry }
 }
 
 /**
