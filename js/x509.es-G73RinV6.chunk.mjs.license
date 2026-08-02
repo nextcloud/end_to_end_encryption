@@ -2,6 +2,7 @@ SPDX-License-Identifier: 0BSD
 SPDX-License-Identifier: Apache-2.0
 SPDX-License-Identifier: BSD-3-Clause
 SPDX-License-Identifier: MIT
+SPDX-FileCopyrightText: David Myers <hello@davidmyers.dev>
 SPDX-FileCopyrightText: James Halliday
 SPDX-FileCopyrightText: Microsoft Corp.
 SPDX-FileCopyrightText: Peculiar Ventures LLC
@@ -71,4 +72,7 @@ This file is generated from multiple sources. Included packages:
 	- license: 0BSD
 - tsyringe
 	- version: 4.10.0
+	- license: MIT
+- vite-plugin-node-polyfills
+	- version: 0.24.0
 	- license: MIT
