@@ -87,6 +87,8 @@ OC.L10N.register(
     "Save" : "Sábháil",
     "Enter your 12 words mnemonic" : "Cuir isteach do 12 focal cuimhneacháin",
     "Decrypting your files in the browser can weaken security" : "Má dhéantar do chuid comhad a dhíchriptiú sa bhrabhsálaí is féidir an tslándáil a lagú",
+    "The upload completed, but the file drop is still being processed on the server." : "Tá an uaslódáil críochnaithe, ach tá an comhad fós á phróiseáil ar an bhfreastalaí.",
+    "Some files failed to upload." : "Theip ar roinnt comhad a uaslódáil.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "Tá an comhroinnt seo ag baint úsáide as modh criptithe oidhreachta. Iarr ar úinéir na comhroinnte na meiteashonraí criptithe a nuashonrú.",
     "Select or drop files" : "Roghnaigh nó scaoil comhaid",
     "Uploaded files" : "Comhaid uaslódáilte",

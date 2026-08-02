@@ -87,6 +87,8 @@ OC.L10N.register(
     "Save" : "Enregistrer",
     "Enter your 12 words mnemonic" : "Entrez vos 12 mots mnémotechniques",
     "Decrypting your files in the browser can weaken security" : "Le déchiffrement de vos fichiers dans le navigateur peut affaiblir la sécurité",
+    "The upload completed, but the file drop is still being processed on the server." : "Le téléversement est terminé, mais le dépôt de fichiers est encore en cours de traitement sur le serveur.",
+    "Some files failed to upload." : "Certains fichiers n’ont pas pu être téléversés.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "Ce partage utilise une méthode de chiffrement héritée. Demandez au propriétaire du partage de mettre à jour les métadonnées de chiffrement.",
     "Select or drop files" : "Sélectionner ou glisser-déposer des fichiers",
     "Uploaded files" : "Mettre à jour les métadonnées de chiffrement",
