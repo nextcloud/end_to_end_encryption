@@ -1,0 +1,27 @@
+.notecard[data-v-39906421] {
+  position: relative;
+}
+.notecard .close-button[data-v-39906421] {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+}
+li[data-v-39906421] {
+  list-style-type: initial;
+  margin-inline-start: 1rem;
+  padding: 0.25rem 0;
+}
+.margin-bottom[data-v-39906421] {
+  margin-bottom: 0.75rem;
+}
+.modal-container[data-v-39906421] {
+  padding: 16px;
+}
+.modal-container button[data-v-39906421] {
+  margin-top: 16px;
+  margin-inline-start: 8px;
+}
+.button-row[data-v-39906421] {
+  display: flex;
+  justify-content: end;
+}
