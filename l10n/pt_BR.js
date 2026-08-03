@@ -88,7 +88,7 @@ OC.L10N.register(
     "Enter your 12 words mnemonic" : "Digite seu mnemônico de 12 palavras",
     "Decrypting your files in the browser can weaken security" : "A descriptografia de seus arquivos no navegador pode enfraquecer a segurança",
     "The upload completed, but the file drop is still being processed on the server." : "O envio foi concluído, mas o arquivo ainda está sendo processado no servidor.",
-    "Some files failed to upload." : "Alguns arquivos não foram enviados.",
+    "Some files failed to upload." : "Falha ao fazer upload de alguns arquivos.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "Este compartilhamento utiliza um método de criptografia obsoleto. Peça ao proprietário do compartilhamento para atualizar os metadados de criptografia.",
     "Select or drop files" : "Selecione ou solte arquivos",
     "Uploaded files" : "Arquivos enviados",
