@@ -57,7 +57,7 @@ class LockingController extends OCSController {
 		LoggerInterface $logger,
 		IL10N $l10n,
 		ShareManager $shareManager,
-		private AccessManager $accessManager
+		private AccessManager $accessManager,
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;
@@ -93,10 +93,10 @@ class LockingController extends OCSController {
 	#[RequestHeader(name: 'x-nc-e2ee-counter', description: 'The next counter value of the metadata to check for consistency')]
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
-		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
+		$e2eCounter = (int)$this->request->getHeader('x-nc-e2ee-counter');
 
 		if ($e2eCounter === 0) {
-			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'X-NC-E2EE-COUNTER is missing in the request');
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'x-nc-e2ee-counter is missing in the request');
 		}
 
 		$ownerId = $this->getOwnerId($shareToken);

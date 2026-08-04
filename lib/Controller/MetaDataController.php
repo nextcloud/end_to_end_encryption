@@ -118,7 +118,7 @@ class MetaDataController extends OCSController {
 	#[RequestHeader(name: 'x-nc-e2ee-signature', description: 'The signature of the metadata to verify integrity')]
 	public function setMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
-		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
+		$signature = $this->request->getHeader('x-nc-e2ee-signature');
 
 		if ($e2eToken === '') {
 			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'e2e-token is empty');
@@ -165,7 +165,7 @@ class MetaDataController extends OCSController {
 	#[RequestHeader(name: 'x-nc-e2ee-signature', description: 'The signature of the metadata to verify integrity')]
 	public function updateMetaData(int $id, string $metaData): DataResponse {
 		$e2eToken = $this->request->getHeader('e2e-token');
-		$signature = $this->request->getHeader('X-NC-E2EE-SIGNATURE');
+		$signature = $this->request->getHeader('x-nc-e2ee-signature');
 
 		if ($e2eToken === '') {
 			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'e2e-token is empty');

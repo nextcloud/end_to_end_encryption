@@ -5,7 +5,7 @@
         "version": "0.0.1",
         "description": "End-to-end encryption endpoint",
         "license": {
-            "name": "agpl"
+            "name": "AGPL-3.0-or-later"
         }
     },
     "components": {
@@ -227,6 +227,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -312,64 +340,62 @@
                         "description": "Not allowed to get private key",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -377,69 +403,95 @@
                         "description": "Private key not found",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
                     "400": {
                         "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -620,6 +672,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -752,6 +832,34 @@
                     },
                     "400": {
                         "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -961,6 +1069,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -1094,6 +1230,34 @@
                     },
                     "400": {
                         "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1274,6 +1438,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1359,6 +1551,34 @@
                     },
                     "400": {
                         "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1566,6 +1786,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -1684,6 +1932,34 @@
                     },
                     "400": {
                         "description": "Cannot read metadata",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1894,6 +2170,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -2020,6 +2324,34 @@
                     },
                     "400": {
                         "description": "Cannot delete metadata",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2349,6 +2681,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2390,6 +2750,14 @@
                         "schema": {
                             "type": "integer",
                             "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "x-nc-e2ee-share-token",
+                        "in": "header",
+                        "description": "The share token when interacting with the API as an external share user",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     {
@@ -2462,6 +2830,34 @@
                     },
                     "403": {
                         "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2570,6 +2966,34 @@
                     },
                     "404": {
                         "description": "File not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2919,13 +3343,15 @@
                     {
                         "name": "e2e-token",
                         "in": "header",
+                        "description": "The lock token this folder was locked with",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "X-NC-E2EE-SIGNATURE",
+                        "name": "x-nc-e2ee-signature",
                         "in": "header",
+                        "description": "The signature of the metadata to verify integrity",
                         "schema": {
                             "type": "string"
                         }
@@ -2984,64 +3410,62 @@
                         "description": "Cannot store metadata",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -3123,6 +3547,34 @@
                     },
                     "404": {
                         "description": "Metadata-file does not exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3336,6 +3788,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -3386,13 +3866,15 @@
                     {
                         "name": "e2e-token",
                         "in": "header",
+                        "description": "The lock token this folder was locked with",
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "X-NC-E2EE-SIGNATURE",
+                        "name": "x-nc-e2ee-signature",
                         "in": "header",
+                        "description": "The signature of the metadata to verify integrity",
                         "schema": {
                             "type": "string"
                         }
@@ -3451,64 +3933,62 @@
                         "description": "Cannot store metadata",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -3516,64 +3996,62 @@
                         "description": "User is not allowed to edit the file",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -3642,6 +4120,34 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -3673,6 +4179,7 @@
                     {
                         "name": "e2e-token",
                         "in": "header",
+                        "description": "The lock token this folder was locked with",
                         "schema": {
                             "type": "string"
                         }
@@ -3721,64 +4228,62 @@
                         "description": "Cannot delete metadata",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -3786,64 +4291,62 @@
                         "description": "User is not allowed to edit the file",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -3887,6 +4390,34 @@
                     },
                     "404": {
                         "description": "Metadata for the file not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Current user is not logged in",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -4022,64 +4553,62 @@
                         "description": "Cannot update filedrop",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -4087,64 +4616,62 @@
                         "description": "User is not allowed to create the lock",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -4230,8 +4757,9 @@
                         }
                     },
                     {
-                        "name": "X-NC-E2EE-COUNTER",
+                        "name": "x-nc-e2ee-counter",
                         "in": "header",
+                        "description": "The next counter value of the metadata to check for consistency",
                         "schema": {
                             "type": "string"
                         }
@@ -4328,64 +4856,62 @@
                         "description": "User is not allowed to create the lock",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -4481,6 +5007,7 @@
                     {
                         "name": "e2e-token",
                         "in": "header",
+                        "description": "The lock token to unlock",
                         "schema": {
                             "type": "string"
                         }
@@ -4567,64 +5094,62 @@
                         "description": "Forbidden",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     },
@@ -4632,64 +5157,62 @@
                         "description": "Folder not locked",
                         "content": {
                             "application/json": {
-                                "schema": [
-                                    {
-                                        "oneOf": [
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {
-                                                                "type": "object",
-                                                                "required": [
-                                                                    "message"
-                                                                ],
-                                                                "properties": {
-                                                                    "message": {
-                                                                        "type": "string"
-                                                                    }
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "message"
+                                                            ],
+                                                            "properties": {
+                                                                "message": {
+                                                                    "type": "string"
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            },
-                                            {
-                                                "type": "object",
-                                                "required": [
-                                                    "ocs"
-                                                ],
-                                                "properties": {
-                                                    "ocs": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "meta",
-                                                            "data"
-                                                        ],
-                                                        "properties": {
-                                                            "meta": {
-                                                                "$ref": "#/components/schemas/OCSMeta"
-                                                            },
-                                                            "data": {}
-                                                        }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "ocs"
+                                            ],
+                                            "properties": {
+                                                "ocs": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "meta",
+                                                        "data"
+                                                    ],
+                                                    "properties": {
+                                                        "meta": {
+                                                            "$ref": "#/components/schemas/OCSMeta"
+                                                        },
+                                                        "data": {}
                                                     }
                                                 }
                                             }
-                                        ]
-                                    }
-                                ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     }
