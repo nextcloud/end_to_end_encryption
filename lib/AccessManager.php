@@ -12,6 +12,7 @@ namespace OCA\EndToEndEncryption;
 use OCP\Constants;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\Storage\ISharedStorage;
 use OCP\IRequest;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
@@ -60,6 +61,20 @@ class AccessManager {
 		if ($this->userId === null) {
 			throw new \InvalidArgumentException('No user logged in');
 		}
+
+		$node = $this->rootFolder->getUserFolder($this->userId)
+			->getFirstNodeById($fileId);
+		if ($node === null) {
+			throw new \InvalidArgumentException('File not found');
+		}
+
+		$storage = $node->getStorage();
+		if ($storage->instanceOfStorage(ISharedStorage::class)) {
+			/** @var ISharedStorage $storage */
+			$this->share = $storage->getShare();
+			return $node->getOwner()->getUID();
+		}
+
 		return $this->userId;
 	}
 
