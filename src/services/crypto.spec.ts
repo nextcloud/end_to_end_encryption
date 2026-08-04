@@ -3,10 +3,55 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { X509Certificate } from '@peculiar/x509'
-import { expect, test } from 'vitest'
-import { base64ToBuffer } from './bufferUtils.ts'
-import { generateAESKey, sha256Hash, validateCertificateSignature } from './crypto.ts'
+import { BasicConstraintsExtension, X509Certificate, X509CertificateGenerator } from '@peculiar/x509'
+import stringify from 'safe-stable-stringify'
+import { describe, expect, test } from 'vitest'
+import { RootMetadata } from '../models/RootMetadata.ts'
+import { base64ToBuffer, bufferToPem, stringToBuffer } from './bufferUtils.ts'
+import { exportRSAKey, generateAESKey, sha256Hash, validateCertificateSignature, validateCMSSignature } from './crypto.ts'
+import { generatePrivateKey } from './privateKeyUtils.ts'
+
+const MINUTE = 60_000
+
+const userId = 'alice'
+const userKeys = await generatePrivateKey()
+const serverKeys = await globalThis.crypto.subtle.generateKey(
+	{
+		name: 'RSASSA-PKCS1-v1_5',
+		modulusLength: 2048,
+		publicExponent: new Uint8Array([1, 0, 1]),
+		hash: 'SHA-256',
+	},
+	true,
+	['sign', 'verify'],
+)
+const serverPublicKeyPem = bufferToPem(await exportRSAKey(serverKeys.publicKey), 'public')
+
+/**
+ * Create a user certificate signed by the server key, like the server does when signing a CSR.
+ *
+ * @param validity - The validity period of the certificate, relative to now in milliseconds
+ * @param validity.notBefore - Start of the validity period, defaults to one hour ago
+ * @param validity.notAfter - End of the validity period, defaults to one hour from now
+ */
+async function createUserCertificate({ notBefore = -60 * MINUTE, notAfter = 60 * MINUTE } = {}): Promise<X509Certificate> {
+	const now = Date.now()
+	const certificate = await X509CertificateGenerator.create({
+		serialNumber: '01',
+		subject: `CN=${userId}`,
+		issuer: `CN=${userId}`,
+		notBefore: new Date(now + notBefore),
+		notAfter: new Date(now + notAfter),
+		publicKey: userKeys.publicKey,
+		signingKey: serverKeys.privateKey,
+		extensions: [
+			// the server signs the user certificates as a CA certificate
+			new BasicConstraintsExtension(true, undefined, true),
+		],
+	})
+	certificate.privateKey = userKeys.privateKey
+	return certificate
+}
 
 test('sha256Hash correctly returns a hex string', async () => {
 	const buffer = 'KPJswKr0owRxrcj4/3SRIw=='
@@ -31,6 +76,96 @@ test('Validate user certificate signed with SHA-256', async () => {
 	const result = await validateCertificateSignature(new X509Certificate(certificate), rawPublicKey)
 
 	expect(result).toBeTruthy()
+})
+
+describe('validateCertificateSignature', () => {
+	test('accepts a currently valid certificate', async () => {
+		const certificate = await createUserCertificate()
+		expect(await validateCertificateSignature(certificate, serverPublicKeyPem)).toBe(true)
+	})
+
+	test('rejects a certificate signed by another key', async () => {
+		const otherKeys = await globalThis.crypto.subtle.generateKey(
+			{
+				name: 'RSASSA-PKCS1-v1_5',
+				modulusLength: 2048,
+				publicExponent: new Uint8Array([1, 0, 1]),
+				hash: 'SHA-256',
+			},
+			true,
+			['sign', 'verify'],
+		)
+		const certificate = await createUserCertificate()
+
+		const otherPublicKeyPem = bufferToPem(await exportRSAKey(otherKeys.publicKey), 'public')
+		expect(await validateCertificateSignature(certificate, otherPublicKeyPem)).toBe(false)
+	})
+
+	test('rejects an expired certificate', async () => {
+		const certificate = await createUserCertificate({ notBefore: -60 * MINUTE, notAfter: -5 * MINUTE })
+		expect(await validateCertificateSignature(certificate, serverPublicKeyPem)).toBe(false)
+	})
+
+	test('accepts a certificate that expired within the allowed leeway', async () => {
+		const certificate = await createUserCertificate({ notBefore: -60 * MINUTE, notAfter: -MINUTE / 2 })
+		expect(await validateCertificateSignature(certificate, serverPublicKeyPem)).toBe(true)
+	})
+
+	test('rejects a certificate that is not yet valid', async () => {
+		const certificate = await createUserCertificate({ notBefore: 5 * MINUTE, notAfter: 60 * MINUTE })
+		expect(await validateCertificateSignature(certificate, serverPublicKeyPem)).toBe(false)
+	})
+
+	test('accepts a certificate that is not yet valid but within the allowed leeway', async () => {
+		const certificate = await createUserCertificate({ notBefore: MINUTE / 2, notAfter: 60 * MINUTE })
+		expect(await validateCertificateSignature(certificate, serverPublicKeyPem)).toBe(true)
+	})
+})
+
+describe('validateCMSSignature', () => {
+	/**
+	 * Sign metadata with the given certificate, like the client does when updating the metadata.
+	 *
+	 * @param certificate - The signers certificate, including the private key
+	 */
+	async function signMetadata(certificate: X509Certificate) {
+		const metadata = await RootMetadata.createNew()
+		await metadata.addUser(userId, certificate)
+		const exported = await metadata.export(certificate)
+
+		return [
+			stringToBuffer(btoa(stringify(exported.metadata)!)),
+			base64ToBuffer(exported.signature),
+			exported.metadata.users,
+		] as const
+	}
+
+	test('accepts a signature of a currently valid certificate', async () => {
+		const signed = await signMetadata(await createUserCertificate())
+		expect(await validateCMSSignature(...signed)).toBe(true)
+	})
+
+	test('rejects a signature of an expired certificate', async () => {
+		const signed = await signMetadata(await createUserCertificate({ notBefore: -60 * MINUTE, notAfter: -5 * MINUTE }))
+		// PKI.js throws instead of returning false if the certificate chain is not valid
+		await expect(validateCMSSignature(...signed)).rejects.toThrow('The certificate is either not yet valid or expired')
+	})
+
+	test('accepts a signature of a certificate that expired within the allowed leeway', async () => {
+		const signed = await signMetadata(await createUserCertificate({ notBefore: -60 * MINUTE, notAfter: -MINUTE / 2 }))
+		expect(await validateCMSSignature(...signed)).toBe(true)
+	})
+
+	test('rejects a signature of a certificate that is not yet valid', async () => {
+		const signed = await signMetadata(await createUserCertificate({ notBefore: 5 * MINUTE, notAfter: 60 * MINUTE }))
+		// PKI.js throws instead of returning false if the certificate chain is not valid
+		await expect(validateCMSSignature(...signed)).rejects.toThrow('The certificate is either not yet valid or expired')
+	})
+
+	test('accepts a signature of a certificate that is not yet valid but within the allowed leeway', async () => {
+		const signed = await signMetadata(await createUserCertificate({ notBefore: MINUTE / 2, notAfter: 60 * MINUTE }))
+		expect(await validateCMSSignature(...signed)).toBe(true)
+	})
 })
 
 test('generateAESKey', async () => {
