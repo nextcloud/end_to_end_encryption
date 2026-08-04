@@ -33,4 +33,27 @@ export class SectionFileActionsMenu {
 	public getDeleteEntry(): Locator {
 		return this.getMenuEntry(/^Delete (file|folder)$/i)
 	}
+
+	/**
+	 * The entry that opens the destination picker.
+	 *
+	 * The files app words it after what the permissions of the node allow, so all
+	 * three wordings are accepted - a node that can only be copied has no "Move"
+	 * in its label, and one that can only be moved has no "Copy".
+	 */
+	public getMoveOrCopyEntry(): Locator {
+		return this.getMenuEntry(/^(Move or copy|Move|Copy)$/i)
+	}
+
+	/**
+	 * The entry that downloads the node.
+	 *
+	 * This app replaces the files app download action for encrypted nodes with one
+	 * that decrypts on the way out ("Download unencrypted"), so which of the two
+	 * is offered depends on where the node is - which is exactly what a test
+	 * copying a file out of an encrypted folder must not have to know.
+	 */
+	public getDownloadEntry(): Locator {
+		return this.getMenuEntry(/^Download( unencrypted)?$/i)
+	}
 }

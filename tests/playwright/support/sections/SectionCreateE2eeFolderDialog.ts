@@ -71,6 +71,25 @@ export class SectionCreateE2eeFolderDialog {
 	}
 
 	/**
+	 * Unlock the encryption if the dialog asks for it.
+	 *
+	 * It only asks while the browser session does not hold the decrypted private
+	 * key: the first encrypted folder created after a page load has to unlock it,
+	 * a second one in the same page load finds it in memory and goes straight to
+	 * the folder name. Which step is shown is decided once the setup check
+	 * resolved, so waiting for either of the two inputs is what settles that.
+	 *
+	 * @param mnemonic - Recovery phrase of the account
+	 */
+	public async fillMnemonicIfRequested(mnemonic: string): Promise<this> {
+		await expect(this.inputMnemonic.or(this.inputFolderName)).toBeVisible()
+		if (await this.inputMnemonic.isVisible()) {
+			await this.fillMnemonic(mnemonic)
+		}
+		return this
+	}
+
+	/**
 	 * Wait for the dialog and for its initial "Checking encryption setup …" step
 	 * to resolve. That step fetches the user's public key, so the first
 	 * interactive step only appears after a network round trip.

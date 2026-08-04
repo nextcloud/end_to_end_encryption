@@ -26,8 +26,12 @@ interface E2eeAccount {
  * another is invalidated by the remember-me token rotation as soon as a second
  * context uses it, which surfaces as seemingly random 401s mid-test.
  */
-export const test = baseTest.extend<{ mnemonic: string }, { e2eeAccount: E2eeAccount }>({
+export const test = baseTest.extend<{ mnemonic: string, user: User }, { e2eeAccount: E2eeAccount }>({
 	mnemonic: ({ e2eeAccount }, use) => use(e2eeAccount.mnemonic),
+
+	// exposed so a test can talk to the server as this account itself, e.g. to
+	// read a file through WebDAV without this app in between
+	user: ({ e2eeAccount }, use) => use(e2eeAccount.user),
 
 	page: async ({ browser, baseURL, e2eeAccount }, use) => {
 		// Important: make sure we authenticate in a clean environment by unsetting storage state.

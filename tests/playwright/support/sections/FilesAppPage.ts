@@ -6,12 +6,23 @@
 import type { Locator, Page } from '@playwright/test'
 
 import { expect } from '@playwright/test'
+import { SectionCopyMoveDialog } from './SectionCopyMoveDialog.ts'
 import { SectionFileActionsMenu } from './SectionFileActionsMenu.ts'
 import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
 
 /** How long to keep retrying to open a menu. */
 const OPEN_MENU_TIMEOUT = 15000
+
+/**
+ * Escape a string for use inside a regular expression, so a file name is matched
+ * as itself - the dot of an extension especially.
+ *
+ * @param value - The string to escape
+ */
+function escapeRegExp(value: string): string {
+	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
 
 export class FilesAppPage {
 	public readonly buttonNewMenuLocator: Locator
@@ -98,6 +109,43 @@ export class FilesAppPage {
 			.filter({ has: this.page.getByRole('cell', { name }) })
 	}
 
+	/**
+	 * The row of the file or folder with exactly this name.
+	 *
+	 * {@link getFileOrFolder} matches the name as a substring of the accessible
+	 * name of a cell, so it cannot tell apart the very names a test about copying
+	 * has to: a copy that ended up as "file (1).txt" next to the "file.txt" it was
+	 * made from. This matches the name element of the row instead, which holds the
+	 * display name and nothing else.
+	 *
+	 * The files app renders that name in two elements - the base name and the
+	 * extension - so the text of their common parent has the whitespace that sits
+	 * between them in the template ("file" + " " + ".txt"), which the pattern below
+	 * allows for.
+	 *
+	 * @param name - Full name of the file or folder, extension included
+	 */
+	public getFileOrFolderExactly(name: string): Locator {
+		const extension = name.match(/\.[^.]*$/)?.[0] ?? ''
+		const base = extension ? name.slice(0, -extension.length) : name
+		const pattern = new RegExp(`^${escapeRegExp(base)}\\s*${escapeRegExp(extension)}$`)
+
+		return this.tableFilesList
+			.getByRole('row')
+			.filter({ has: this.page.locator('[data-cy-files-list-row-name-link]').filter({ hasText: pattern }) })
+	}
+
+	/**
+	 * All rows of the files list, i.e. its contents without the header row.
+	 *
+	 * Counting them is how a test states that nothing *else* ended up in a folder -
+	 * a second copy of a file, or one stored under the UUID it has on the server
+	 * instead of under its name.
+	 */
+	public getAllRows(): Locator {
+		return this.filesListLocator.locator('[data-cy-files-list-row]')
+	}
+
 	public openFileOrFolder(name: string): Promise<void> {
 		return this.getFileOrFolder(name)
 			.getByRole('button', { name: `Open folder ${name}` })
@@ -111,6 +159,22 @@ export class FilesAppPage {
 	 */
 	public async openFolder(name: string): Promise<void> {
 		await this.openFileOrFolder(name)
+		await this.waitForListLoaded()
+	}
+
+	/**
+	 * Navigate back to the home directory through the breadcrumbs.
+	 *
+	 * Unlike {@link openFilesApp} this does not reload the page, which is what a
+	 * test that has to get out of an encrypted folder and back in needs: the
+	 * decrypted private key is only held in memory, so a reload means unlocking it
+	 * again - with a recovery phrase prompt in the middle of whatever the test was
+	 * doing, or a stuck folder listing if nothing answers it.
+	 */
+	public async navigateToHome(): Promise<void> {
+		await this.page.getByRole('navigation', { name: 'Current directory path' })
+			.getByRole('button', { name: 'All files' })
+			.click()
 		await this.waitForListLoaded()
 	}
 
@@ -199,6 +263,44 @@ export class FilesAppPage {
 			await this.getMnemonicDialog().fillAndSubmit(mnemonic)
 		}
 		await expect(this.getFileOrFolder(name)).toHaveCount(0)
+	}
+
+	/**
+	 * Open the destination picker of the "Move or copy" action for a row.
+	 *
+	 * @param name - Name of the file or folder to move or copy
+	 */
+	public async openMoveOrCopyDialog(name: string): Promise<SectionCopyMoveDialog> {
+		const actionsMenu = await this.openActionsMenu(name)
+		await actionsMenu.getMoveOrCopyEntry().click()
+
+		return await new SectionCopyMoveDialog(this.page).waitForOpen()
+	}
+
+	/**
+	 * Download a file through its actions menu and return what was downloaded.
+	 *
+	 * For an encrypted file this is the only way to state that its contents made it
+	 * through an operation intact: the file is stored encrypted with a key that
+	 * only lives in the metadata of the folder it is in, so a copy that kept its
+	 * name but lost - or mismatched - its key looks exactly like a correct one in
+	 * the list, and only fails once something decrypts it.
+	 *
+	 * @param name - Name of the file to download
+	 */
+	public async downloadFileContent(name: string): Promise<string> {
+		const actionsMenu = await this.openActionsMenu(name)
+
+		// armed before the click: the download starts with it
+		const download = this.page.waitForEvent('download')
+		await actionsMenu.getDownloadEntry().click()
+
+		const stream = await (await download).createReadStream()
+		const chunks: Buffer[] = []
+		for await (const chunk of stream) {
+			chunks.push(Buffer.from(chunk))
+		}
+		return Buffer.concat(chunks).toString('utf-8')
 	}
 
 	/** The size cell of a row, e.g. "0 KB" for a freshly created folder. */

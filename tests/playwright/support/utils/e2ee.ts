@@ -13,7 +13,9 @@ export const LOCK_ENDPOINT = '/ocs/v2.php/apps/end_to_end_encryption/api/v2/lock
  *
  * The recovery phrase is needed because the key pair of the shared account
  * already exists while a fresh browser session has not unlocked it yet, so the
- * dialog asks for it before it gets to the folder name.
+ * dialog asks for it before it gets to the folder name. It only asks once per
+ * page load though, so a second folder created without reloading in between
+ * skips that step.
  *
  * @param filesApp - The files app, opened and settled
  * @param name - Name of the folder to create
@@ -22,7 +24,7 @@ export const LOCK_ENDPOINT = '/ocs/v2.php/apps/end_to_end_encryption/api/v2/lock
 export async function createEncryptedRootFolder(filesApp: FilesAppPage, name: string, mnemonic: string): Promise<void> {
 	await filesApp.openNewMenu()
 		.then((menu) => menu.createNewE2eeFolder())
-		.then((dialog) => dialog.fillMnemonic(mnemonic))
+		.then((dialog) => dialog.fillMnemonicIfRequested(mnemonic))
 		.then((dialog) => dialog.createFolder(name))
 }
 
