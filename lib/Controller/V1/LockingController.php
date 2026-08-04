@@ -66,7 +66,6 @@ class LockingController extends OCSController {
 	 * Lock folder
 	 *
 	 * @param int $id file ID
-	 * @param ?string $shareToken Token of the share if available
 	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to create the lock
 	 *
@@ -74,10 +73,10 @@ class LockingController extends OCSController {
 	 */
 	#[PublicPage]
 	#[E2ERestrictUserAgent]
-	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
+	public function lockFolder(int $id): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
 
-		$ownerId = $this->getOwnerId($shareToken);
+		$ownerId = $this->getOwnerId();
 
 		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 
@@ -110,7 +109,6 @@ class LockingController extends OCSController {
 	 * Unlock folder
 	 *
 	 * @param int $id file ID
-	 * @param ?string $shareToken Token of the share if available
 	 *
 	 * @return DataResponse<Http::STATUS_OK, list<empty>, array{}>
 	 * @throws OCSForbiddenException User is not allowed to remove the lock
@@ -120,10 +118,10 @@ class LockingController extends OCSController {
 	 */
 	#[PublicPage]
 	#[E2ERestrictUserAgent]
-	public function unlockFolder(int $id, ?string $shareToken = null): DataResponse {
+	public function unlockFolder(int $id): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
 
-		$ownerId = $this->getOwnerId($shareToken);
+		$ownerId = $this->getOwnerId();
 
 		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 

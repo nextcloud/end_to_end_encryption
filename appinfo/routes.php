@@ -22,7 +22,6 @@ return [
 		['name' => 'V1\MetaData#getMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'GET'],
 		['name' => 'V1\MetaData#updateMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'PUT'],
 		['name' => 'V1\MetaData#deleteMetaData', 'url' => '/api/v1/meta-data/{id}', 'verb' => 'DELETE'],
-		['name' => 'V1\MetaData#addMetadataFileDrop', 'url' => '/api/v1/meta-data/{id}/filedrop', 'verb' => 'PUT'],
 		['name' => 'Encryption#removeEncryptedFolders', 'url' => '/api/v{apiVersion}/encrypted-files', 'verb' => 'DELETE', 'requirements' => ['apiVersion' => '(1|2)']],
 		['name' => 'Encryption#setEncryptionFlag', 'url' => '/api/v{apiVersion}/encrypted/{id}', 'verb' => 'PUT', 'requirements' => ['apiVersion' => '(1|2)']],
 		['name' => 'Encryption#removeEncryptionFlag', 'url' => '/api/v{apiVersion}/encrypted/{id}', 'verb' => 'DELETE', 'requirements' => ['apiVersion' => '(1|2)']],
