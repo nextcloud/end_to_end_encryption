@@ -8,7 +8,7 @@ import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { X509Certificate } from '@peculiar/x509'
 import * as api from '../services/api.ts'
 import { pemToBuffer } from '../services/bufferUtils.ts'
-import { loadServerPublicKey } from '../services/crypto.ts'
+import { loadServerPublicKey, validateCertificateSignature } from '../services/crypto.ts'
 import { promptUserForMnemonic } from '../services/mnemonicDialogs.ts'
 import { decryptPrivateKey } from '../services/privateKeyUtils.ts'
 
@@ -16,6 +16,7 @@ let privateKey: CryptoKey | undefined
 let publicKey: CryptoKey | undefined
 let certificate: X509Certificate | undefined
 let serverKey: CryptoKey | undefined
+let serverKeyPem: string | undefined
 
 const userKeys = new Map<string, X509Certificate | undefined>()
 const MEMORY_LIMIT = 100
@@ -31,10 +32,19 @@ const currentUser = isPublicShare()
  */
 export async function getServerKey(): Promise<CryptoKey> {
 	if (!serverKey) {
-		const serverKeyPem = await api.getServerPublicKey()
-		serverKey = await loadServerPublicKey(pemToBuffer(serverKeyPem), 'SHA-256')
+		serverKey = await loadServerPublicKey(pemToBuffer(await getServerKeyPem()), 'SHA-256')
 	}
 	return serverKey!
+}
+
+/**
+ * Get the server's public key in PEM format.
+ *
+ * If not already loaded, it fetches it from the API.
+ */
+async function getServerKeyPem(): Promise<string> {
+	serverKeyPem ??= await api.getServerPublicKey()
+	return serverKeyPem
 }
 
 /**
@@ -94,7 +104,7 @@ export async function loadPublicKey(): Promise<boolean> {
 		}
 
 		const cert = new X509Certificate(pem)
-		if (!cert.verify({ publicKey: await getServerKey() })) {
+		if (!await validateCertificateSignature(cert, await getServerKeyPem())) {
 			throw new Error('User certificate signature verification failed')
 		}
 		if (privateKey) {
@@ -173,7 +183,7 @@ export async function getUserKey(userId: string): Promise<X509Certificate | unde
 		const pem = await api.getPublicKey(userId)
 		if (pem) {
 			const cert = new X509Certificate(pem)
-			if (!cert.verify({ publicKey: await getServerKey() })) {
+			if (!await validateCertificateSignature(cert, await getServerKeyPem())) {
 				throw new Error('User certificate signature verification failed')
 			}
 			setUserKey(userId, cert)
