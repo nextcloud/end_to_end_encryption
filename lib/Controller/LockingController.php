@@ -10,6 +10,8 @@ namespace OCA\EndToEndEncryption\Controller;
 
 use InvalidArgumentException;
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
+use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\FileService;
@@ -25,6 +27,7 @@ use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
@@ -75,12 +78,13 @@ class LockingController extends OCSController {
 	 * @param int $id file ID
 	 * @param ?string $shareToken Token of the share if available
 	 *
-	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_LOCKED, array{message: string}, array{}>
+	 * @return DataResponse<Http::STATUS_OK, array{e2e-token: string}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST|Http::STATUS_FORBIDDEN|Http::STATUS_LOCKED|Http::STATUS_PRECONDITION_FAILED, array{message: string}, array{}>
 	 * @throws OCSForbiddenException User is not allowed to create the lock
 	 *
 	 * 200: Folder locked successfully
 	 * 400: Bad request, e.g. missing counter header
 	 * 403: Forbidden
+	 * 412: Outdated counter provided
 	 * 423: Folder already locked
 	 */
 	#[BruteForceProtection('e2ee')]
@@ -107,16 +111,26 @@ class LockingController extends OCSController {
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
 		}
 
-		$nodes = $userFolder->getById($id);
-		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+		$node = $userFolder->getFirstNodeById($id);
+		if ($node === null || !($node instanceof Folder)) {
 			$this->logger->info('Tried to lock non-folder e2ee node', ['nodeId' => $id]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
 		}
 
-		$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
-		if ($newToken === null) {
-			$this->logger->debug('Tried to lock already locked e2ee folder', ['nodeId' => $id]);
-			return $this->throttleRequest(Http::STATUS_LOCKED, 'File already locked');
+		if (!EncryptionManager::isEncryptedFile($node)) {
+			$this->logger->info('Tried to lock not encrypted node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
+		}
+
+		try {
+			$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
+			if ($newToken === null) {
+				$this->logger->debug('Tried to lock already locked e2ee folder', ['nodeId' => $id]);
+				return $this->throttleRequest(Http::STATUS_LOCKED, 'File already locked');
+			}
+		} catch (NotPermittedException $e) {
+			$this->logger->debug('Tried to lock e2ee folder with outdated counter', ['nodeId' => $id, 'exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_PRECONDITION_FAILED, 'The provided counter is smaller than the current counter.');
 		}
 		return new DataResponse(['e2e-token' => $newToken]);
 	}
@@ -158,19 +172,35 @@ class LockingController extends OCSController {
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
 		}
 
-		$nodes = $userFolder->getById($id);
-		if (!isset($nodes[0]) || !$nodes[0] instanceof Folder) {
+		$node = $userFolder->getFirstNodeById($id);
+		if ($node === null || !($node instanceof Folder)) {
 			$this->logger->info('Tried to unlock non-folder e2ee node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+		}
+
+		if (!EncryptionManager::isEncryptedFile($node)) {
+			$this->logger->info('Tried to unlock not encrypted node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+		}
+
+		try {
+			// returns true if the folder is not locked by the given token
+			if ($this->lockManager->isLocked($id, $token, $ownerId, true)) {
+				$this->logger->info('Tried to unlock e2ee folder with invalid token', ['nodeId' => $id]);
+				return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+			}
+		} catch (\Exception $e) {
+			$this->logger->info('Could not verify the lock of the e2ee folder', ['nodeId' => $id, 'exception' => $e]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
 		}
 
 		$touchFoldersIds = $this->metaDataStorage->getTouchedFolders($token);
 		foreach ($touchFoldersIds as $folderId) {
 			if ($abort === 'true') {
-				$this->fileService->revertChanges($userFolder->getById($folderId)[0]);
+				$this->fileService->revertChanges($userFolder->getFirstNodeById($folderId));
 				$this->metaDataStorage->deleteIntermediateFile($ownerId, $folderId);
 			} else {
-				$this->fileService->finalizeChanges($userFolder->getById($folderId)[0]);
+				$this->fileService->finalizeChanges($userFolder->getFirstNodeById($folderId));
 				$this->metaDataStorage->saveIntermediateFile($ownerId, $folderId);
 			}
 		}

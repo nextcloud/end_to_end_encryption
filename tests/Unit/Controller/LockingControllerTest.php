@@ -18,9 +18,11 @@ use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
 
@@ -87,6 +89,29 @@ class LockingControllerTest extends TestCase {
 		);
 	}
 
+	/**
+	 * Create a folder node as returned by the user folder
+	 *
+	 * @param bool $encrypted Whether the folder is end-to-end encrypted
+	 * @return Folder|MockObject
+	 */
+	private function createFolderNode(bool $encrypted) {
+		$node = $this->createMock(Folder::class);
+		$node->method('isEncrypted')
+			->willReturn($encrypted);
+
+		if (!$encrypted) {
+			// EncryptionManager::isEncryptedFile traverses up to the root
+			$root = $this->createMock(Folder::class);
+			$root->method('getPath')
+				->willReturn('/');
+			$node->method('getParent')
+				->willReturn($root);
+		}
+
+		return $node;
+	}
+
 	public function testLockFolder(): void {
 		$fileId = 42;
 		$sendE2E = 'e2eToken';
@@ -107,11 +132,11 @@ class LockingControllerTest extends TestCase {
 			->method('getUserFolder')
 			->with('john.doe')
 			->willReturn($userFolder);
-		$node = $this->createMock(Folder::class);
+		$node = $this->createFolderNode(true);
 		$userFolder->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with($fileId)
-			->willReturn([$node]);
+			->willReturn($node);
 
 		$this->lockManager->expects($this->once())
 			->method('lockFile')
@@ -142,11 +167,11 @@ class LockingControllerTest extends TestCase {
 			->method('getUserFolder')
 			->with('john.doe')
 			->willReturn($userFolder);
-		$node = $this->createMock(Folder::class);
+		$node = $this->createFolderNode(true);
 		$userFolder->expects($this->once())
-			->method('getById')
+			->method('getFirstNodeById')
 			->with($fileId)
-			->willReturn([$node]);
+			->willReturn($node);
 
 		$this->lockManager->expects($this->once())
 			->method('lockFile')
@@ -167,6 +192,150 @@ class LockingControllerTest extends TestCase {
 		$this->assertInstanceOf(DataResponse::class, $response);
 		$this->assertSame(423, $response->getStatus());
 		$this->assertSame(['message' => 'File already locked'], $response->getData());
+	}
+
+	/**
+	 * Only end-to-end encrypted folders can be locked
+	 */
+	public function testLockFolderNotEncrypted(): void {
+		$fileId = 42;
+
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static function ($string, $args) {
+				return vsprintf($string, $args);
+			});
+
+		$this->request->expects($this->once())
+			->method('getParam')
+			->with('e2e-token', '')
+			->willReturn('e2eToken');
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('X-NC-E2EE-COUNTER')
+			->willReturn('1');
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('john.doe')
+			->willReturn($userFolder);
+		$userFolder->expects($this->once())
+			->method('getFirstNodeById')
+			->with($fileId)
+			->willReturn($this->createFolderNode(false));
+
+		$this->lockManager->expects($this->never())
+			->method('lockFile');
+
+		$response = $this->controller->lockFolder($fileId);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertSame(403, $response->getStatus());
+		$this->assertSame(['message' => 'You are not allowed to create the lock'], $response->getData());
+	}
+
+	/**
+	 * Only end-to-end encrypted folders can be unlocked
+	 */
+	public function testUnlockFolderNotEncrypted(): void {
+		$fileId = 42;
+
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static function ($string, $args) {
+				return vsprintf($string, $args);
+			});
+
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('e2e-token')
+			->willReturn('e2e-token');
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('john.doe')
+			->willReturn($userFolder);
+		$userFolder->expects($this->once())
+			->method('getFirstNodeById')
+			->with($fileId)
+			->willReturn($this->createFolderNode(false));
+
+		$this->lockManager->expects($this->never())
+			->method('isLocked');
+		$this->lockManager->expects($this->never())
+			->method('unlockFile');
+		$this->metaDataStorage->expects($this->never())
+			->method('getTouchedFolders');
+
+		$response = $this->controller->unlockFolder($fileId);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertSame(403, $response->getStatus());
+		$this->assertSame(['message' => 'You are not allowed to remove the lock'], $response->getData());
+	}
+
+	/**
+	 * The folder must not be touched if it is not locked by the provided token,
+	 * `LockManager::isLocked` returns true in that case (or throws).
+	 *
+	 * @param bool|\Exception $lockState
+	 *
+	 * @dataProvider unlockFolderLockStateDataProvider
+	 */
+	public function testUnlockFolderWithInvalidLockState($lockState): void {
+		$fileId = 42;
+		$sendE2E = 'e2e-token';
+
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static function ($string, $args) {
+				return vsprintf($string, $args);
+			});
+
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('e2e-token')
+			->willReturn($sendE2E);
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('john.doe')
+			->willReturn($userFolder);
+		$userFolder->expects($this->once())
+			->method('getFirstNodeById')
+			->with($fileId)
+			->willReturn($this->createFolderNode(true));
+
+		$isLocked = $this->lockManager->expects($this->once())
+			->method('isLocked')
+			->with($fileId, $sendE2E, 'john.doe', true);
+		if ($lockState instanceof \Exception) {
+			$isLocked->willThrowException($lockState);
+		} else {
+			$isLocked->willReturn($lockState);
+		}
+
+		$this->metaDataStorage->expects($this->never())
+			->method('getTouchedFolders');
+		$this->fileService->expects($this->never())
+			->method('finalizeChanges');
+		$this->fileService->expects($this->never())
+			->method('revertChanges');
+		$this->lockManager->expects($this->never())
+			->method('unlockFile');
+
+		$response = $this->controller->unlockFolder($fileId);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertSame(403, $response->getStatus());
+		$this->assertSame(['message' => 'You are not allowed to remove the lock'], $response->getData());
+	}
+
+	public function unlockFolderLockStateDataProvider(): array {
+		return [
+			'locked by another token or not locked at all' => [true],
+			'lock state could not be checked' => [new NotFoundException()],
+		];
 	}
 
 	/**
@@ -219,15 +388,21 @@ class LockingControllerTest extends TestCase {
 
 			if (!$userFolderReturnsNodes) {
 				$userFolder->expects($this->once())
-					->method('getById')
+					->method('getFirstNodeById')
 					->with($fileId)
-					->willReturn([]);
+					->willReturn(null);
 			} else {
-				$node = $this->createMock(Folder::class);
+				$node = $this->createFolderNode(true);
+				// resolved once for the lock itself and once while handling the touched folder
 				$userFolder->expects($this->exactly(2))
-					->method('getById')
+					->method('getFirstNodeById')
 					->with($fileId)
-					->willReturn([$node]);
+					->willReturn($node);
+
+				$this->lockManager->expects($this->once())
+					->method('isLocked')
+					->with($fileId, $sendE2E, 'john.doe', true)
+					->willReturn(false);
 
 				$this->metaDataStorage->expects($this->once())
 					->method('getTouchedFolders')
