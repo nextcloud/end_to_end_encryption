@@ -8,6 +8,9 @@ import type { IRawMetadataUser } from '../models/metadata.d.ts'
 
 import { Certificate, ContentInfo, CryptoEngine, SignedData } from 'pkijs'
 import { bufferToHex, pemToBuffer } from './bufferUtils.ts'
+import logger from './logger.ts'
+
+const CERTIFICATE_VALIDITY_LEEWAY_MS = 60_000 // allow up to 1 minute of leeway for certificate validity checks
 
 /**
  * Encrypts content using AES-GCM encryption algorithm
@@ -158,12 +161,51 @@ export async function sha256Hash(buffer: Uint8Array<ArrayBuffer>): Promise<strin
  * @param publicKeyPEM - The public key in PEM format to use for validation
  */
 export async function validateCertificateSignature(certificate: X509Certificate, publicKeyPEM: string): Promise<boolean> {
+	const NOW = Date.now()
 	const publicKey = await loadServerPublicKey(
 		pemToBuffer(publicKeyPEM),
 		certificate.signatureAlgorithm.hash.name as 'SHA-1' | 'SHA-256',
 	)
 
-	return certificate.verify({ publicKey }, getPatchedCrypto())
+	if (!await certificate.verify({ publicKey, signatureOnly: true }, getPatchedCrypto())) {
+		logger.debug('Certificate signature validation failed', { subject: certificate.subject })
+		return false
+	}
+
+	const notBefore = certificate.notBefore.getTime()
+	if (notBefore > (NOW + CERTIFICATE_VALIDITY_LEEWAY_MS)) {
+		logger.debug('Certificate is not yet valid', { subject: certificate.subject, notBefore, NOW })
+		return false
+	}
+
+	const notAfter = certificate.notAfter.getTime()
+	if (notAfter < (NOW - CERTIFICATE_VALIDITY_LEEWAY_MS)) {
+		logger.debug('Certificate has expired', { subject: certificate.subject, notAfter, NOW })
+		return false
+	}
+
+	logger.debug('Certificate signature validation succeeded', { subject: certificate.subject })
+	return true
+}
+
+/**
+ * Get the point in time to validate a certificate validity period against.
+ *
+ * The current time is moved into the validity period, if it is outside of it by no more than the
+ * allowed leeway. This is needed for APIs like PKI.js which only accept a single point in time
+ * instead of a leeway, so a slightly off client clock does not reject an otherwise valid certificate.
+ *
+ * @param notBefore - The date on which the certificate validity period begins
+ * @param notAfter - The date on which the certificate validity period ends
+ */
+function getValidityCheckDate(notBefore: Date, notAfter: Date): Date {
+	const now = Date.now()
+	const withinValidityPeriod = Math.min(Math.max(now, notBefore.getTime()), notAfter.getTime())
+	if (Math.abs(withinValidityPeriod - now) > CERTIFICATE_VALIDITY_LEEWAY_MS) {
+		// off by more than the allowed leeway, so the certificate is really not valid
+		return new Date(now)
+	}
+	return new Date(withinValidityPeriod)
 }
 
 /**
@@ -216,6 +258,8 @@ export async function validateCMSSignature(signedData: Uint8Array<ArrayBuffer>, 
 			trustedCerts: [signerCertificate],
 			data: signedData.buffer,
 			checkChain: true,
+			// the chain check also validates the certificate validity period, so allow some clock leeway
+			checkDate: getValidityCheckDate(signerCertificate.notBefore.value, signerCertificate.notAfter.value),
 		},
 		getPatchedCryptoEngine(),
 	)
