@@ -163,7 +163,7 @@ class RollbackServiceTest extends TestCase {
 
 		$this->fileService->expects($this->exactly(3))
 			->method('revertChanges')
-			->willReturnCallback(fn (Folder $folder) => match ($folder) {
+			->willReturnCallback(fn (Folder $folder): true => match ($folder) {
 				$node4 => throw new \Exception('Exception while reverting changes'),
 				$node5 => true,
 				$node6 => true,
@@ -171,7 +171,7 @@ class RollbackServiceTest extends TestCase {
 
 		$this->metaDataStorage->expects($this->exactly(2))
 			->method('deleteIntermediateFile')
-			->willReturnCallback(fn (string $userId, int $fileId) => match ([$userId, $fileId]) {
+			->willReturnCallback(fn (string $userId, int $fileId): null => match ([$userId, $fileId]) {
 				['user5', 100005] => throw new \Exception('Exception while deleting intermediate file'),
 				['user6', 100006] => null,
 			});
