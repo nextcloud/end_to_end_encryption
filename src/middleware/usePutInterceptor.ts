@@ -85,7 +85,13 @@ export async function usePutInterceptor(context: FetchContext, next: () => Promi
 			headers,
 			body: result.encryptedContent,
 		})
+
 		await next()
+		if (!context.res.ok) {
+			logger.error('Failed to upload encrypted file', { status: context.res.status, statusText: context.res.statusText })
+			metadata.metadata.rollback()
+			return // do not update metadata if the upload failed
+		}
 
 		const { metadata: rawMetadata, signature } = await metadata.metadata.export(await keyStore.getCertificate())
 		await api.updateMetadata(metadata.id, stringify(rawMetadata), lockToken, signature)
