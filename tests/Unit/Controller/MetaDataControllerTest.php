@@ -179,7 +179,7 @@ class MetaDataControllerTest extends TestCase {
 			});
 		$this->request->expects($this->any())
 			->method('getHeader')
-			->withConsecutive(['e2e-token'], ['X-NC-E2EE-SIGNATURE'])
+			->withConsecutive(['e2e-token'], ['x-nc-e2ee-signature'])
 			->willReturn('e2e-token', 'e2eSignature');
 
 		if ($expectLogger) {
@@ -234,7 +234,7 @@ class MetaDataControllerTest extends TestCase {
 		$metaData = 'JSON-ENCODED-META-DATA';
 		$this->request->expects($this->exactly(2))
 			->method('getHeader')
-			->withConsecutive(['e2e-token'], ['X-NC-E2EE-SIGNATURE'])
+			->withConsecutive(['e2e-token'], ['x-nc-e2ee-signature'])
 			->willReturnOnConsecutiveCalls($sendToken, $signature);
 
 		$this->lockManager->expects($this->once())

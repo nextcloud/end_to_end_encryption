@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Controller;
 
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Controller\LockingController;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
@@ -21,7 +22,6 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\Share\IManager as ShareManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -33,9 +33,6 @@ class LockingControllerTest extends TestCase {
 
 	/** @var IRequest|\PHPUnit\Framework\MockObject\MockObject */
 	private $request;
-
-	/** @var string */
-	private $userId;
 
 	/** @var IMetaDataStorage|\PHPUnit\Framework\MockObject\MockObject */
 	private $metaDataStorage;
@@ -55,8 +52,8 @@ class LockingControllerTest extends TestCase {
 	/** @var IL10N|\PHPUnit\Framework\MockObject\MockObject */
 	private $l10n;
 
-	/** @var ShareManager|\PHPUnit\Framework\MockObject\MockObject */
-	private $shareManager;
+	/** @var AccessManager|\PHPUnit\Framework\MockObject\MockObject */
+	private $accessManager;
 
 	/** @var LockingController */
 	private $controller;
@@ -66,26 +63,27 @@ class LockingControllerTest extends TestCase {
 
 		$this->appName = 'end_to_end_encryption';
 		$this->request = $this->createMock(IRequest::class);
-		$this->userId = 'john.doe';
 		$this->metaDataStorage = $this->createMock(IMetaDataStorage::class);
 		$this->lockManager = $this->createMock(LockManager::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 		$this->fileService = $this->createMock(FileService::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createMock(IL10N::class);
-		$this->shareManager = $this->createMock(ShareManager::class);
+		$this->accessManager = $this->createMock(AccessManager::class);
+		// without a share token the owner is the logged in user, otherwise the share owner
+		$this->accessManager->method('getOwnerId')
+			->willReturnCallback(static fn (int $id, ?string $shareToken = null): string => $shareToken === null ? 'john.doe' : 'jane.doe');
 
 		$this->controller = new LockingController(
 			$this->appName,
 			$this->request,
-			$this->userId,
 			$this->metaDataStorage,
 			$this->lockManager,
 			$this->rootFolder,
 			$this->fileService,
 			$this->logger,
 			$this->l10n,
-			$this->shareManager
+			$this->accessManager,
 		);
 	}
 
@@ -144,7 +142,7 @@ class LockingControllerTest extends TestCase {
 			->willReturn('new-token');
 		$this->request->expects($this->once())
 			->method('getHeader')
-			->with('X-NC-E2EE-COUNTER')
+			->with('x-nc-e2ee-counter')
 			->willReturn('1');
 
 		$response = $this->controller->lockFolder($fileId);
@@ -185,7 +183,7 @@ class LockingControllerTest extends TestCase {
 			});
 		$this->request->expects($this->once())
 			->method('getHeader')
-			->with('X-NC-E2EE-COUNTER')
+			->with('x-nc-e2ee-counter')
 			->willReturn('1');
 
 		$response = $this->controller->lockFolder($fileId);
@@ -212,7 +210,7 @@ class LockingControllerTest extends TestCase {
 			->willReturn('e2eToken');
 		$this->request->expects($this->once())
 			->method('getHeader')
-			->with('X-NC-E2EE-COUNTER')
+			->with('x-nc-e2ee-counter')
 			->willReturn('1');
 
 		$userFolder = $this->createMock(Folder::class);
@@ -453,6 +451,92 @@ class LockingControllerTest extends TestCase {
 			$this->assertInstanceOf(DataResponse::class, $response);
 			$this->assertEquals([], $response->getData());
 		}
+	}
+
+	/**
+	 * Locking is denied if the user has no write access, e.g. on a read-only share.
+	 */
+	public function testLockFolderWithoutPermission(): void {
+		$fileId = 42;
+
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static function ($string, $args) {
+				return vsprintf($string, $args);
+			});
+
+		$this->request->expects($this->once())
+			->method('getParam')
+			->with('e2e-token', '')
+			->willReturn('e2eToken');
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('x-nc-e2ee-counter')
+			->willReturn('1');
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('john.doe')
+			->willReturn($userFolder);
+		$userFolder->expects($this->once())
+			->method('getFirstNodeById')
+			->with($fileId)
+			->willReturn($this->createFolderNode(true));
+
+		$this->accessManager->expects($this->once())
+			->method('checkPermissions')
+			->with($fileId, true, null)
+			->willThrowException(new \InvalidArgumentException('Insufficient permissions on share'));
+
+		$this->lockManager->expects($this->never())
+			->method('lockFile');
+
+		$response = $this->controller->lockFolder($fileId);
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertSame(403, $response->getStatus());
+		$this->assertSame(['message' => 'You are not allowed to create the lock'], $response->getData());
+	}
+
+	/**
+	 * A share token is resolved by the access manager and the permissions
+	 * are checked on the share it belongs to.
+	 */
+	public function testLockFolderWithShareToken(): void {
+		$fileId = 42;
+		$sendE2E = 'e2eToken';
+
+		$this->request->expects($this->once())
+			->method('getParam')
+			->with('e2e-token', '')
+			->willReturn($sendE2E);
+		$this->request->expects($this->once())
+			->method('getHeader')
+			->with('x-nc-e2ee-counter')
+			->willReturn('1');
+
+		$userFolder = $this->createMock(Folder::class);
+		$this->rootFolder->expects($this->once())
+			->method('getUserFolder')
+			->with('jane.doe')
+			->willReturn($userFolder);
+		$userFolder->expects($this->once())
+			->method('getFirstNodeById')
+			->with($fileId)
+			->willReturn($this->createFolderNode(true));
+
+		$this->accessManager->expects($this->once())
+			->method('checkPermissions')
+			->with($fileId, true, 'shareToken');
+
+		$this->lockManager->expects($this->once())
+			->method('lockFile')
+			->with($fileId, $sendE2E, 1, 'jane.doe')
+			->willReturn('new-token');
+
+		$response = $this->controller->lockFolder($fileId, 'shareToken');
+		$this->assertInstanceOf(DataResponse::class, $response);
+		$this->assertSame(['e2e-token' => 'new-token'], $response->getData());
 	}
 
 	public function unlockFolderDataProvider(): array {
