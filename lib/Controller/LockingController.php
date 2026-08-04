@@ -10,6 +10,7 @@ namespace OCA\EndToEndEncryption\Controller;
 
 use InvalidArgumentException;
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
@@ -56,6 +57,7 @@ class LockingController extends OCSController {
 		LoggerInterface $logger,
 		IL10N $l10n,
 		ShareManager $shareManager,
+		private AccessManager $accessManager
 	) {
 		parent::__construct($AppName, $request);
 		$this->userId = $userId;
@@ -123,6 +125,13 @@ class LockingController extends OCSController {
 		}
 
 		try {
+			$this->accessManager->checkPermissions($id, true);
+		} catch (InvalidArgumentException $e) {
+			$this->logger->info('Tried to lock e2ee folder without permission', ['exception' => $e]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
+		}
+
+		try {
 			$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
 			if ($newToken === null) {
 				$this->logger->debug('Tried to lock already locked e2ee folder', ['nodeId' => $id]);
@@ -180,6 +189,13 @@ class LockingController extends OCSController {
 
 		if (!EncryptionManager::isEncryptedFile($node)) {
 			$this->logger->info('Tried to unlock not encrypted node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+		}
+
+		try {
+			$this->accessManager->checkPermissions($id, true);
+		} catch (InvalidArgumentException $e) {
+			$this->logger->info('Tried to unlock e2ee folder without permission', ['exception' => $e]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
 		}
 
