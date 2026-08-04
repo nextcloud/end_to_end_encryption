@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use OC\User\NoUserException;
 use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
+use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\FileService;
@@ -98,6 +99,11 @@ class LockingController extends OCSController {
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
 		}
 
+		if (!EncryptionManager::isEncryptedFile($node)) {
+			$this->logger->info('Tried to lock not encrypted node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
+		}
+
 		try {
 			$newToken = $this->lockManager->lockFile($id, $e2eToken, $e2eCounter, $ownerId);
 			if ($newToken === null) {
@@ -152,6 +158,22 @@ class LockingController extends OCSController {
 		$node = $userFolder->getFirstNodeById($id);
 		if (!$node instanceof Folder) {
 			$this->logger->info('Tried to unlock non-folder e2ee node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+		}
+
+		if (!EncryptionManager::isEncryptedFile($node)) {
+			$this->logger->info('Tried to unlock not encrypted node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+		}
+
+		try {
+			// returns true if the folder is not locked by the given token
+			if ($this->lockManager->isLocked($id, $token, $ownerId, true)) {
+				$this->logger->info('Tried to unlock e2ee folder with invalid token', ['nodeId' => $id]);
+				return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+			}
+		} catch (\Exception $e) {
+			$this->logger->info('Could not verify the lock of the e2ee folder', ['nodeId' => $id, 'exception' => $e]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
 		}
 
