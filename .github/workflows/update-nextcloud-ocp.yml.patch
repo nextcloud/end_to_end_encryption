@@ -1,14 +1,26 @@
 diff --git a/.github/workflows/update-nextcloud-ocp.yml b/.github/workflows/update-nextcloud-ocp.yml
-index 55f6c217..75b48972 100644
+index f09ae8f9..810ec19b 100644
 --- a/.github/workflows/update-nextcloud-ocp.yml
 +++ b/.github/workflows/update-nextcloud-ocp.yml
-@@ -26,8 +26,7 @@ jobs:
+@@ -29,9 +29,10 @@ jobs:
        matrix:
          branches:
            - ${{ github.event.repository.default_branch }}
 -          - 'stable34'
 -          - 'stable33'
-+          - 'stable-2'
            - 'stable32'
++        include:
++          - branches: 'stable-2'
++            server: 'stable33'
  
      name: update-nextcloud-ocp-${{ matrix.branches }}
+ 
+@@ -76,7 +77,7 @@ jobs:
+         id: update_branch
+         env:
+           USE_COMPOSER_BIN: ${{ steps.check_composer_bin.outputs.files_exists }}
+-          BRANCH_NAME: ${{ matrix.branches }}
++          BRANCH_NAME: ${{ matrix.server || matrix.branches }}
+         run: |
+           COMPOSER_CMD='composer'
+           if [[ "$USE_COMPOSER_BIN" == 'true' ]]; then
