@@ -19,11 +19,16 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 	#filedrop?: Record<string, FileDropEntry>
 	#users: IRawMetadataUser[]
 	#usersModified: boolean
+	/** Part of the state a rollback returns to, see `_commitState` */
+	#committedFiledrop?: Record<string, FileDropEntry>
+	/** Part of the state a rollback returns to, see `_commitState` */
+	#committedUsers: IRawMetadataUser[]
 
 	protected constructor(metadataKey: CryptoKey, version: string = '2.0', initialMetadata?: IMetadata) {
 		super(metadataKey, version, initialMetadata)
 		this.#users = []
 		this.#usersModified = false
+		this.#committedUsers = []
 	}
 
 	public get fileDropEntries(): string[] {
@@ -101,6 +106,23 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 		this._metadata.files = {}
 		this._metadata.folders = {}
 		this.#filedrop = {}
+	}
+
+	/**
+	 * The users and the file drop entries are held next to the metadata itself, so
+	 * they need to be remembered and restored next to it as well.
+	 */
+	protected override _commitState(): void {
+		super._commitState()
+		this.#committedUsers = this.#users.map((user) => ({ ...user }))
+		this.#committedFiledrop = this.#filedrop && { ...this.#filedrop }
+	}
+
+	protected override _restoreState(): void {
+		super._restoreState()
+		this.#users = this.#committedUsers.map((user) => ({ ...user }))
+		this.#usersModified = false
+		this.#filedrop = this.#committedFiledrop && { ...this.#committedFiledrop }
 	}
 
 	protected async _exportMetadata(): Promise<IRawRootMetadata> {
@@ -203,6 +225,12 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			metadata.#filedrop = Object.fromEntries(fileDropEntries)
 		}
 		metadata.#users = json.users
+
+		// The users and the file drop entries are set after the constructor ran, so
+		// the state a rollback returns to has to be taken here - this is where the
+		// instance is the metadata that was passed in, and nothing more.
+		metadata._commitState()
+
 		return metadata
 	}
 }
