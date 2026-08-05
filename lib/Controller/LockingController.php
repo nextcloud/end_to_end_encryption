@@ -10,6 +10,7 @@ namespace OCA\EndToEndEncryption\Controller;
 
 use InvalidArgumentException;
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\EncryptionManager;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
@@ -21,7 +22,6 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\BruteForceProtection;
 use OCP\AppFramework\Http\Attribute\RequestHeader;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
@@ -30,42 +30,36 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class LockingController extends OCSController {
-	private ?string $userId;
 	private IMetaDataStorage $metaDataStorage;
 	private IRootFolder $rootFolder;
 	private FileService $fileService;
 	private LockManager $lockManager;
 	private IL10N $l10n;
 	private LoggerInterface $logger;
-	private ShareManager $shareManager;
 
 	use ThrottleRequestTrait;
 
 	public function __construct(
 		string $AppName,
 		IRequest $request,
-		?string $userId,
 		IMetaDataStorage $metaDataStorage,
 		LockManager $lockManager,
 		IRootFolder $rootFolder,
 		FileService $fileService,
 		LoggerInterface $logger,
 		IL10N $l10n,
-		ShareManager $shareManager,
+		private AccessManager $accessManager,
 	) {
 		parent::__construct($AppName, $request);
-		$this->userId = $userId;
 		$this->metaDataStorage = $metaDataStorage;
 		$this->rootFolder = $rootFolder;
 		$this->fileService = $fileService;
 		$this->lockManager = $lockManager;
 		$this->logger = $logger;
 		$this->l10n = $l10n;
-		$this->shareManager = $shareManager;
 	}
 
 	/**
@@ -91,17 +85,16 @@ class LockingController extends OCSController {
 	#[RequestHeader(name: 'x-nc-e2ee-counter', description: 'The next counter value of the metadata to check for consistency')]
 	public function lockFolder(int $id, ?string $shareToken = null): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
-		$e2eCounter = (int)$this->request->getHeader('X-NC-E2EE-COUNTER');
+		$e2eCounter = (int)$this->request->getHeader('x-nc-e2ee-counter');
 
 		if ($e2eCounter === 0) {
-			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'X-NC-E2EE-COUNTER is missing in the request');
+			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'x-nc-e2ee-counter is missing in the request');
 		}
 
-		$ownerId = $this->getOwnerId($shareToken);
-
 		try {
+			$ownerId = $this->accessManager->getOwnerId($id, $shareToken);
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
+		} catch (NoUserException|InvalidArgumentException $e) {
 			$this->logger->info('Tried to lock e2ee folder without permission', ['exception' => $e]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
 		}
@@ -119,6 +112,13 @@ class LockingController extends OCSController {
 
 		if (!EncryptionManager::isEncryptedFile($node)) {
 			$this->logger->info('Tried to lock not encrypted node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
+		}
+
+		try {
+			$this->accessManager->checkPermissions($id, true, $shareToken);
+		} catch (InvalidArgumentException $e) {
+			$this->logger->info('Tried to lock e2ee folder without permission', ['exception' => $e]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to create the lock');
 		}
 
@@ -163,9 +163,8 @@ class LockingController extends OCSController {
 			return $this->throttleRequest(Http::STATUS_BAD_REQUEST, 'e2e-token is empty');
 		}
 
-		$ownerId = $this->getOwnerId($shareToken);
-
 		try {
+			$ownerId = $this->accessManager->getOwnerId($id, $shareToken);
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
 		} catch (NoUserException|InvalidArgumentException $e) {
 			$this->logger->info('Tried to unlock e2ee folder without permission', ['exception' => $e]);
@@ -180,6 +179,13 @@ class LockingController extends OCSController {
 
 		if (!EncryptionManager::isEncryptedFile($node)) {
 			$this->logger->info('Tried to unlock not encrypted node', ['nodeId' => $id]);
+			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
+		}
+
+		try {
+			$this->accessManager->checkPermissions($id, true, $shareToken);
+		} catch (InvalidArgumentException $e) {
+			$this->logger->info('Tried to unlock e2ee folder without permission', ['exception' => $e]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, 'You are not allowed to remove the lock');
 		}
 
@@ -218,21 +224,5 @@ class LockingController extends OCSController {
 		}
 
 		return new DataResponse();
-	}
-
-	private function getOwnerId(?string $shareToken = null): string {
-		if ($shareToken !== null) {
-			$share = $this->shareManager->getShareByToken($shareToken);
-
-			if (!($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE)) {
-				throw new OCSForbiddenException("Can't lock share without create permission");
-			}
-
-			return $share->getShareOwner();
-		} elseif ($this->userId !== null) {
-			return $this->userId;
-		} else {
-			throw new OCSBadRequestException("Couldn't find the owner of the encrypted folder");
-		}
 	}
 }
