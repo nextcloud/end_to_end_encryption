@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Controller\V1;
 
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
@@ -16,14 +15,11 @@ use OCA\EndToEndEncryption\IMetaDataStorageV1;
 use OCA\EndToEndEncryption\LockManagerV1;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
-use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
-use OCP\Files\Folder;
-use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
@@ -41,7 +37,6 @@ class MetaDataController extends OCSController {
 		private readonly LoggerInterface $logger,
 		private readonly IL10N $l10n,
 		private readonly ShareManager $shareManager,
-		private readonly IRootFolder $rootFolder,
 	) {
 		parent::__construct($AppName, $request);
 	}
@@ -165,71 +160,6 @@ class MetaDataController extends OCSController {
 			throw new OCSBadRequestException($this->l10n->t('Cannot delete metadata'));
 		}
 		return new DataResponse();
-	}
-
-	/**
-	 * Append new entries in the filedrop property of a metadata
-	 *
-	 * @param int $id File ID
-	 * @param string $fileDrop File drop metadata
-	 * @param ?string $shareToken Token of the share if available
-	 * @return DataResponse<Http::STATUS_OK, array{meta-data: string}, array{}>
-	 * @throws OCSForbiddenException User is not allowed to create the lock
-	 * @throws OCSBadRequestException Cannot update filedrop
-	 * @throws OCSNotFoundException Metadata-file does not exist
-	 *
-	 * 200: File drop metadata added successfully
-	 */
-	#[NoAdminRequired]
-	#[PublicPage]
-	public function addMetadataFileDrop(int $id, string $fileDrop, ?string $shareToken = null): DataResponse {
-		$ownerId = $this->getOwnerId($shareToken);
-
-		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
-
-		try {
-			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
-			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
-		}
-
-		if ($userFolder->getId() === $id) {
-			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
-			$this->logger->error($e->getMessage(), ['exception' => $e]);
-			throw $e;
-		}
-
-		$node = $userFolder->getFirstNodeById($id);
-		if (!$node instanceof Folder) {
-			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
-		}
-
-		$lockToken = $this->lockManager->lockFile($id, 'filedrop-token', $ownerId);
-		if ($lockToken === null) {
-			throw new OCSForbiddenException($this->l10n->t('File already locked'));
-		}
-
-		try {
-			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
-			$decodedMetadata = json_decode($metaData, true);
-			$decodedFileDrop = json_decode($fileDrop, true);
-			$decodedMetadata['filedrop'] = array_merge($decodedMetadata['filedrop'] ?? [], $decodedFileDrop);
-			$encodedMetadata = json_encode($decodedMetadata);
-
-			$this->metaDataStorage->updateMetaDataIntoIntermediateFile($ownerId, $id, $encodedMetadata);
-			$this->metaDataStorage->saveIntermediateFile($ownerId, $id);
-		} catch (MissingMetaDataException) {
-			throw new OCSNotFoundException($this->l10n->t('Metadata-file does not exist'));
-		} catch (NotFoundException $e) {
-			throw new OCSNotFoundException($e->getMessage());
-		} catch (\Exception $e) {
-			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
-			throw new OCSBadRequestException($this->l10n->t('Cannot update filedrop'));
-		} finally {
-			$this->lockManager->unlockFile($id, $lockToken);
-		}
-
-		return new DataResponse(['meta-data' => $metaData]);
 	}
 
 	private function getOwnerId(?string $shareToken = null): string {
