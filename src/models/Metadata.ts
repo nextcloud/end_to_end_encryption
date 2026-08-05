@@ -16,6 +16,16 @@ import logger from '../services/logger.ts'
 import { decryptMetadata } from '../services/metadata.ts'
 import { ensureKeyUsage } from '../services/rsaUtils.ts'
 
+/**
+ * A copy of everything a metadata object holds, taken at the point it last matched
+ * the metadata on the server - see {@link Metadata.rollback}.
+ */
+interface IMetadataState {
+	metadata: IMetadata
+	metadataKey: CryptoKey
+	version: string
+}
+
 export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	protected _metadataKey: CryptoKey
 	protected _metadata: IMetadata
@@ -23,6 +33,8 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	protected _modified: boolean
 	/** The internal real metadata */
 	#metadata: IMetadata
+	/** The state {@link rollback} returns to */
+	#committedState: IMetadataState
 
 	/**
 	 * Constructor for E2EE Metadata
@@ -57,6 +69,12 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 				return true
 			},
 		})
+
+		// Nothing has been changed yet, so this is the state of the folder on the
+		// server. Taken here and not through `_commitState`, as calling an
+		// overridden method from a constructor would run it before the fields of
+		// the subclass exist.
+		this.#committedState = this.#createState()
 	}
 
 	public get counter(): number {
@@ -199,6 +217,14 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 	}
 
 	/**
+	 * Undo every change made since this metadata was loaded or last exported.
+	 */
+	public rollback(): void {
+		logger.debug('Rolling back metadata changes')
+		this._restoreState()
+	}
+
+	/**
 	 * Export the metadata and its signature
 	 *
 	 * @param certificate - The x509 certificate including the private key of the current user for signing
@@ -214,6 +240,7 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 		// apply all changes
 		this.#metadata.counter = this.counter
 		this._modified = false
+		this._commitState()
 
 		return { metadata, signature }
 	}
@@ -232,6 +259,44 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 
 	public static async createNew(metadataKey: CryptoKey): Promise<Metadata> {
 		return new Metadata(metadataKey)
+	}
+
+	/**
+	 * Remember the current state as the one a {@link rollback} returns to, i.e. as
+	 * the state the server has.
+	 *
+	 * Subclasses have to extend this to cover what they hold themselves, and to
+	 * call it once they are done setting up an instance from existing metadata.
+	 */
+	protected _commitState(): void {
+		this.#committedState = this.#createState()
+	}
+
+	/**
+	 * Restore the state remembered by the last {@link _commitState}.
+	 *
+	 * Subclasses have to extend this to cover what they hold themselves.
+	 */
+	protected _restoreState(): void {
+		// Assigned into the existing object instead of replacing it: this object is
+		// the target of the `_metadata` proxy, so swapping it would leave every
+		// change from here on going to an object nobody reads anymore. Every
+		// property of the metadata is part of the state, so all of them are restored.
+		Object.assign(this.#metadata, structuredClone(this.#committedState.metadata))
+		this._metadataKey = this.#committedState.metadataKey
+		this._version = this.#committedState.version
+		this._modified = false
+	}
+
+	/**
+	 * Take a copy of the current state, deep enough to be unaffected by later changes.
+	 */
+	#createState(): IMetadataState {
+		return {
+			metadata: structuredClone(this.#metadata),
+			metadataKey: this._metadataKey,
+			version: this._version,
+		}
 	}
 
 	protected async _exportMetadata(): Promise<MetaData> {
