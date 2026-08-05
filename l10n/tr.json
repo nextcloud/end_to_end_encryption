@@ -85,6 +85,8 @@
     "Save" : "Kaydet",
     "Enter your 12 words mnemonic" : "12 sözcüklü anımsatıcınızı yazın",
     "Decrypting your files in the browser can weaken security" : "Dosyalarınızın şifresini tarayıcınızda çözmek güvenliği zayıflatabilir",
+    "The upload completed, but the file drop is still being processed on the server." : "Yükleme tamamlandı, ancak bırakılan dosyanın sunucuda işlenmesi sürüyor.",
+    "Some files failed to upload." : "Bazı dosyalar yüklenemedi.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "Bu paylaşım eski bir şifreleme yöntemi kullanıyor. Lütfen paylaşım sahibinden şifreleme üst verilerini güncellemesini isteyin.",
     "Select or drop files" : "Dosyaları seçin ya da sürükleyip bırakın",
     "Uploaded files" : "Yüklenmiş dosyalar",
