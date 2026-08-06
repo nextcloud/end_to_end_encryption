@@ -7,6 +7,27 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.2.2 - 2026-08-06
+### Fixed
+* fix(filedrop): properly handle rejected files \([#1936](https://github.com/nextcloud/end_to_end_encryption/pull/1936)\)
+* fix(propfind): properly handle PROPFIND when only a child is e2ee \([#1940](https://github.com/nextcloud/end_to_end_encryption/pull/1940)\)
+* fix: properly handle encoded paths \([#1943](https://github.com/nextcloud/end_to_end_encryption/pull/1943)\)
+* fix(web): properly handle DELETE requests \([#1951](https://github.com/nextcloud/end_to_end_encryption/pull/1951)\)
+* fix: ensure to properly handle read-only shares \([#1969](https://github.com/nextcloud/end_to_end_encryption/pull/1969)\)
+* fix: add some leeway for certificate validation \([#1974](https://github.com/nextcloud/end_to_end_encryption/pull/1974)\)
+* fix: ensure folder can be properly locked or unlocked \([#1973](https://github.com/nextcloud/end_to_end_encryption/pull/1973)\)
+* fix: handle failed uploads \([#1984](https://github.com/nextcloud/end_to_end_encryption/pull/1984)\)
+* fix: resolve type error in propfind plugin \([#1988](https://github.com/nextcloud/end_to_end_encryption/pull/1988)\)
+
+### Changed
+* Drop v1 API for filedrop handling - use v2 API instead
+* Updated dependencies
+  * Bump `@nextcloud/dialogs` to 7.4.1
+  * Bump `@nextcloud/vue` to 9.9.0
+  * Bump `fast-xml-parser` to 5.10.1
+  * Bump `vue` to 3.5.40
+  * Bump various sub-dependencies
+
 ## v2.2.1 - 2026-07-15
 ### Fixed
 * fix: enforce using SHA256 \([\#1853](https://github.com/nextcloud/end_to_end_encryption/pull/1853)\)
