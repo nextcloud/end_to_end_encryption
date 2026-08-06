@@ -7,6 +7,18 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v1.18.4 - 2026-08-06
+### Fixed
+* fix: ensure folder can be properly locked or unlocked
+* fix: ensure to properly handle read-only shares
+* fix: resolve type error in propfind plugin
+
+### Changed
+* Dropped v1 API endpoint for file-drop in favor of v2.
+* Updated dependencies
+  * Bump `fast-xml-parser` to 5.10.1
+  * Bump various sub-dependencies
+
 ## v1.18.3 - 2026-07-15
 ### Fixed
 * fix: add proper error handling for public keys [\#1618](https://github.com/nextcloud/end_to_end_encryption/pull/1618)
