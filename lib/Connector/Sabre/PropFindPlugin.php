@@ -86,7 +86,7 @@ class PropFindPlugin extends APlugin {
 	 */
 	public function updateProperty(PropFind $propFind, INode $node): void {
 		// only apply the plugin to files/directory, not to contacts or calendars
-		if (!$this->isFile($node->getName(), $node)) {
+		if (!$this->isFile((string)$node->getName(), $node)) {
 			return;
 		}
 
