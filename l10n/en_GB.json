@@ -85,6 +85,8 @@
     "Save" : "Save",
     "Enter your 12 words mnemonic" : "Enter your 12 words mnemonic",
     "Decrypting your files in the browser can weaken security" : "Decrypting your files in the browser can weaken security",
+    "The upload completed, but the file drop is still being processed on the server." : "The upload completed, but the file drop is still being processed on the server.",
+    "Some files failed to upload." : "Some files failed to upload.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata.",
     "Select or drop files" : "Select or drop files",
     "Uploaded files" : "Uploaded files",
