@@ -85,6 +85,8 @@
     "Save" : "保存",
     "Enter your 12 words mnemonic" : "12語のニーモニックを入力",
     "Decrypting your files in the browser can weaken security" : "ブラウザーでファイルを復号化すると、セキュリティが弱まる可能性があります",
+    "The upload completed, but the file drop is still being processed on the server." : "アップロードは完了しましたが、ファイルドロップはまだサーバで処理中です。",
+    "Some files failed to upload." : "一部のファイルのアップロードに失敗しました。",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "この共有フォルダは、旧式の暗号化方式を使用しています。共有フォルダの所有者に、暗号化メタデータの更新を依頼してください。",
     "Select or drop files" : "ファイルを選択するか、ドラッグ&ドロップしてください",
     "Uploaded files" : "アップロード済ファイル",
