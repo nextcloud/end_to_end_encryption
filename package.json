@@ -49,7 +49,7 @@
     "@nextcloud/vue": "^9.8.2",
     "@peculiar/x509": "^2.0.0",
     "@rxliuli/vista": "^0.5.2",
-    "@vueuse/core": "^14.2.1",
+    "@vueuse/core": "^14.4.0",
     "asn1js": "^3.0.10",
     "bip39": "^3.1.0",
     "core-js": "^3.49.0",
