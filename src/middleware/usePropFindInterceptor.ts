@@ -26,31 +26,44 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 
 	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 	await next()
-	const response = context.res.clone()
-	const path = new URL(context.req.url).pathname
-	const body = await response.text()
-	const xml = await parseXML(body)
-	const stat = parseStat(xml, path, true)
 
-	// The requested node itself might not be encrypted while the result still contains
-	// encrypted nodes, e.g. when listing an unencrypted folder that contains an e2ee root.
-	// So the encryption state has to be decided for each node individually.
-	const targetIsEncrypted = stat.props !== undefined && String(stat.props['e2ee-is-encrypted']) === '1'
-	const isEncryptedNode = (node: DAVResultResponse): boolean => (
-		// all nodes within an encrypted PROPFIND target are encrypted as well
-		targetIsEncrypted
-		|| String(node.propstat?.prop['e2ee-is-encrypted']) === '1'
-	)
+	// This interceptor is a transparency layer on top of every single PROPFIND
+	// request, including ones that have nothing to do with e2ee. If anything
+	// below fails to parse or process the response - for whatever reason - we
+	// must not let that take down the original, otherwise perfectly fine,
+	// PROPFIND response with it. Worst case, e2ee placeholders are left
+	// unresolved for this one request instead of the whole file listing
+	// breaking (see #1991 for a case where an unencrypted instance with no
+	// e2ee folders at all had every single PROPFIND fail because of this).
+	try {
+		const response = context.res.clone()
+		const path = new URL(context.req.url).pathname
+		const body = await response.text()
+		const xml = await parseXML(body)
+		const stat = parseStat(xml, path, true)
 
-	if (!xml.multistatus.response.some(isEncryptedNode)) {
-		logger.debug('No e2ee nodes in PROPFIND result', { xml })
-		return
+		// The requested node itself might not be encrypted while the result still contains
+		// encrypted nodes, e.g. when listing an unencrypted folder that contains an e2ee root.
+		// So the encryption state has to be decided for each node individually.
+		const targetIsEncrypted = stat.props !== undefined && String(stat.props['e2ee-is-encrypted']) === '1'
+		const isEncryptedNode = (node: DAVResultResponse): boolean => (
+			// all nodes within an encrypted PROPFIND target are encrypted as well
+			targetIsEncrypted
+			|| String(node.propstat?.prop['e2ee-is-encrypted']) === '1'
+		)
+
+		if (!xml.multistatus.response.some(isEncryptedNode)) {
+			logger.debug('No e2ee nodes in PROPFIND result', { xml })
+			return
+		}
+
+		await cacheMetadataFromPropfind(xml, isEncryptedNode, targetIsEncrypted)
+		await replacePlaceholdersInPropfind(xml, isEncryptedNode)
+
+		context.res = new Response(new XMLBuilder().build(xml), response)
+	} catch (error) {
+		logger.error('Failed to process PROPFIND response for e2ee, passing it through unmodified', { error, request: context.req })
 	}
-
-	await cacheMetadataFromPropfind(xml, isEncryptedNode, targetIsEncrypted)
-	await replacePlaceholdersInPropfind(xml, isEncryptedNode)
-
-	context.res = new Response(new XMLBuilder().build(xml), response)
 }
 
 /**

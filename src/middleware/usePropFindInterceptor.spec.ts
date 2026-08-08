@@ -49,6 +49,21 @@ test('passes through non encrypted propfinds', async () => {
 	await expect(context.res.text()).resolves.toBe(unencryptedPropFindResponse)
 })
 
+test('does not throw and passes through the response as-is when it cannot be parsed', async () => {
+	// e.g. an empty body, an HTML error page, or any other response that is
+	// not a well-formed WebDAV multistatus - this must never take down the
+	// whole PROPFIND request, see #1991.
+	const malformedBody = 'this is not xml'
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin/unencrypted', { method: 'PROPFIND' }),
+		res: new Response(malformedBody),
+		type: 'fetch' as const,
+	}
+
+	await expect(usePropFindInterceptor(context, async () => {})).resolves.not.toThrow()
+	await expect(context.res.text()).resolves.toBe(malformedBody)
+})
+
 test('Correctly adjust e2ee nodes in PROPFIND of an unencrypted folder', async () => {
 	const metadata = await RootMetadata.fromJson(rootFolderMetadata, 'admin', await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic))
 	metadataStore.getMetadata
