@@ -55,7 +55,7 @@ The clients and the web interface will handle the encryption and decryption proc
 Meaning that some apps in the web interface do not work with encrypted files.
 
 	]]></description>
-	<version>2.2.2</version>
+	<version>2.2.3</version>
 	<licence>AGPL-3.0-or-later</licence>
 	<author>Nextcloud GmbH</author>
 	<namespace>EndToEndEncryption</namespace>
@@ -71,7 +71,7 @@ Meaning that some apps in the web interface do not work with encrypted files.
 	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable-2/doc/screenshots/open-folder.png</screenshot>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/end_to_end_encryption/stable-2/doc/screenshots/desktop-client.png</screenshot>
 	<dependencies>
-		<nextcloud min-version="33" max-version="34" />
+		<nextcloud min-version="33" max-version="35" />
 	</dependencies>
 	<background-jobs>
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
