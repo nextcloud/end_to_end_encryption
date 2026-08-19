@@ -7,6 +7,13 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.2.3 - 2026-08-18
+### Changed
+* Added support for *Nextcloud 2026 Summer* (Nextcloud 35).
+* Updated dependencies
+  * Bump `@vueuse/core` to 14.4.0
+  * Bump `@rxliuli/vista` to 0.5.3
+
 ## v2.2.2 - 2026-08-06
 ### Fixed
 * fix(filedrop): properly handle rejected files \([#1936](https://github.com/nextcloud/end_to_end_encryption/pull/1936)\)
