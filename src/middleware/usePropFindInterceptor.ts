@@ -15,6 +15,17 @@ import { decodePath } from '../services/path.ts'
 import * as metadataStore from '../store/metadata.ts'
 import * as taskStore from '../store/tasks.ts'
 
+// `parseXML()` (see below) parses every PROPFIND response with `textNodeName: 'text'`
+// and `attributeNamePrefix: '@'` (the `webdav` package's own defaults, see its
+// `parseXML()`/`getParser()` in `source/tools/dav.ts`) - but `XMLBuilder` defaults to
+// `textNodeName: '#text'`, `attributeNamePrefix: '@_'` and `ignoreAttributes: true`.
+// Building with the builder's own defaults after parsing with the parser's therefore
+// does not round-trip: any node whose text content ends up wrapped in an object (e.g.
+// because the node also carries attributes) keeps sitting under the key `'text'`, which
+// the builder - looking for `'#text'` - does not recognise as special and instead
+// serialises as a literal `<text>` child element, corrupting the rebuilt response.
+const XML_BUILDER_OPTIONS = { attributeNamePrefix: '@', textNodeName: 'text', ignoreAttributes: false }
+
 /**
  * Callback to handle PROPFIND requests.
  *
@@ -60,7 +71,7 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 		await cacheMetadataFromPropfind(xml, isEncryptedNode, targetIsEncrypted)
 		await replacePlaceholdersInPropfind(xml, isEncryptedNode)
 
-		context.res = new Response(new XMLBuilder().build(xml), response)
+		context.res = new Response(new XMLBuilder(XML_BUILDER_OPTIONS).build(xml), response)
 	} catch (error) {
 		logger.error('Failed to process PROPFIND response for e2ee, passing it through unmodified', { error, request: context.req })
 	}
