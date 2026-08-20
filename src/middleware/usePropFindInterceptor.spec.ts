@@ -134,6 +134,43 @@ test('Does not decrypt the metadata of a listed e2ee root', async () => {
 	expect(xml.multistatus.response[2]!.propstat?.prop.permissions).toBe('GDNVCK')
 })
 
+test('does not corrupt a PROPFIND property that also carries an XML attribute when rebuilding the response', async () => {
+	// fast-xml-parser only wraps a node's text content in an object under the
+	// configured `textNodeName` key - instead of returning it as a plain string -
+	// when the node also has to carry other keys alongside it, e.g. an attribute.
+	// `parseXML()` (from the `webdav` package) parses with `textNodeName: 'text'`,
+	// so the `XMLBuilder` used to rebuild the response has to use the same value
+	// for the round trip to be symmetric. Without it, `XMLBuilder`'s own default
+	// (`'#text'`) does not recognise the wrapped text and serialises it as a
+	// literal `<text>` child element instead - plus an invalid `<@attr>` tag for
+	// the attribute itself - corrupting the response Nextcloud's own DAV client
+	// then fails to parse back ("Invalid tag name: text").
+	//
+	// No known Nextcloud DAV property currently ships an attribute like this
+	// (the one pre-existing case in these fixtures, `x1:share-permissions`'s
+	// inline `xmlns:x1`, is filtered out by the parser as a namespace
+	// declaration rather than kept as data), so this uses a synthetic one to
+	// pin the invariant regardless of whether one exists in the wild today.
+	const response = homeListingPropFindResponse.replace(
+		'<d:displayname>New folder</d:displayname>',
+		'<d:displayname synthetic-attr="1">New folder</d:displayname>',
+	)
+	expect(response).not.toBe(homeListingPropFindResponse)
+
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin', { method: 'PROPFIND' }),
+		res: new Response(response),
+		type: 'fetch' as const,
+	}
+
+	await usePropFindInterceptor(context, async () => {})
+
+	const raw = await context.res.text()
+	expect(raw).not.toContain('<text>')
+	expect(raw).not.toContain('<@')
+	expect(raw).toContain('<displayname synthetic-attr="1">New folder</displayname>')
+})
+
 test('Correctly replace root file info in PROPFIND', async () => {
 	const metadata = await RootMetadata.fromJson(rootFolderMetadata, 'admin', await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic))
 	metadataStore.getMetadata
