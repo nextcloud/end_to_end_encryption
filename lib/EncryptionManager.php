@@ -65,7 +65,9 @@ class EncryptionManager {
 	}
 
 	/**
-	 * Check if a file is in a folder marked as encrypted
+	 * Check if a file is in a folder marked as encrypted.
+	 *
+	 * The filesystem root is not an encrypted file or folder, so it returns false.
 	 */
 	public static function isEncryptedFile(Node $node): bool {
 		// traverse up if node is not a folder to prevent false positives for SSE files
@@ -74,12 +76,12 @@ class EncryptionManager {
 			$node = $node->getParent();
 		}
 
-		do {
+		while ($node->getPath() !== '/') {
 			if ($node->isEncrypted()) {
 				return true;
 			}
 			$node = $node->getParent();
-		} while ($node->getPath() !== '/');
+		}
 
 		return false;
 	}
@@ -88,7 +90,7 @@ class EncryptionManager {
 	 * Check if file ID points to a valid folder
 	 * @throws NotFoundException
 	 */
-	protected function isValidFolder(int $id):void {
+	protected function isValidFolder(int $id): void {
 		$this->accessManager->checkPermissions($id, true);
 
 		$node = $this->rootFolder->getFirstNodeById($id);
