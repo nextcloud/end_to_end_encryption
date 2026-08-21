@@ -242,9 +242,6 @@ class MetaDataStorage implements IMetaDataStorage {
 		}
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function deleteIntermediateFile(string $userId, int $id): void {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
@@ -263,6 +260,11 @@ class MetaDataStorage implements IMetaDataStorage {
 
 		if ($dir->fileExists($this->intermediateMetaDataCounterFileName)) {
 			$dir->getFile($this->intermediateMetaDataCounterFileName)
+				->delete();
+		}
+
+		if ($dir->fileExists($this->intermediateMetaDataSignatureFileName)) {
+			$dir->getFile($this->intermediateMetaDataSignatureFileName)
 				->delete();
 		}
 	}
