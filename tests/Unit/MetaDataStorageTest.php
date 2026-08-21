@@ -612,7 +612,7 @@ class MetaDataStorageTest extends TestCase {
 				->with('/meta-data/42')
 				->willReturn($metaDataFolder);
 
-			$metaDataFolder->expects($this->exactly(2))
+			$metaDataFolder->expects($this->exactly(3))
 				->method('fileExists')
 				->willReturnCallback(fn (string $name): bool => match ($name) {
 					'intermediate.meta.data',
@@ -633,7 +633,7 @@ class MetaDataStorageTest extends TestCase {
 				$intermediateSignatureFile->expects($this->once())
 					->method('delete');
 
-				$metaDataFolder->expects($this->exactly(2))
+				$metaDataFolder->expects($this->exactly(3))
 					->method('getFile')
 					->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
 						'intermediate.meta.data' => $intermediateFile,
