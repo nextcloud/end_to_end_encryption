@@ -588,7 +588,9 @@ class MetaDataStorageTest extends TestCase {
 			$metaDataFolder->expects($this->exactly(2))
 				->method('fileExists')
 				->willReturnCallback(fn (string $name): bool => match ($name) {
-					'intermediate.meta.data', 'intermediate.meta.data.counter' => $fileExists,
+					'intermediate.meta.data',
+					'intermediate.meta.data.counter',
+					'intermediate.meta.data.signature' => $fileExists,
 				});
 
 			if ($fileExists) {
@@ -600,11 +602,16 @@ class MetaDataStorageTest extends TestCase {
 				$intermediateCounterFile->expects($this->once())
 					->method('delete');
 
+				$intermediateSignatureFile = $this->createMock(ISimpleFile::class);
+				$intermediateSignatureFile->expects($this->once())
+					->method('delete');
+
 				$metaDataFolder->expects($this->exactly(2))
 					->method('getFile')
 					->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
 						'intermediate.meta.data' => $intermediateFile,
 						'intermediate.meta.data.counter' => $intermediateCounterFile,
+						'intermediate.meta.data.signature' => $intermediateSignatureFile,
 					});
 			}
 		}
