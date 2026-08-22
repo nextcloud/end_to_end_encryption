@@ -227,15 +227,7 @@ class MetaDataStorage implements IMetaDataStorage {
 			$metadata = $dir->getFile($this->metaDataFileName)->getContent();
 			$decodedMetadata = json_decode($metadata, true);
 
-			if ($decodedMetadata['metadata']['version'] === '1.2') {
-				return '';
-			}
-
-			if ($decodedMetadata['metadata']['version'] === 1.2) {
-				return '';
-			}
-
-			if ($decodedMetadata['metadata']['version'] === 1) {
+			if (MetaDataVersion::isV1($decodedMetadata['metadata']['version'])) {
 				return '';
 			}
 
