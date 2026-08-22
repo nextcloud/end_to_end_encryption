@@ -298,9 +298,10 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		$metadata = $this->getMetadata($userId, $id);
 		$decodedMetadata = json_decode($metadata, true);
 
-		return match ($decodedMetadata['metadata']['version']) {
-			'1.2', 1.2, 1 => true,
-			default => throw new NotPermittedException('Use the v2 endpoint for this file'),
-		};
+		if (MetaDataVersion::isV1($decodedMetadata['metadata']['version'])) {
+			return true;
+		}
+
+		throw new NotPermittedException('Use the v2 endpoint for this file');
 	}
 }
