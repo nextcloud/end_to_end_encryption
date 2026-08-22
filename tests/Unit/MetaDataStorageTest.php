@@ -356,11 +356,17 @@ class MetaDataStorageTest extends TestCase {
 		$metaDataStorage->expects($this->once())
 			->method('verifyOwner')
 			->with('userId', 42);
+
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
 
+		$metaDataStorage->expects($this->once())
+			->method('cleanupLegacyFile')
+			->with('userId', 42);
+
 		if ($folderExists) {
 			$metaDataFolder = $this->createMock(ISimpleFolder::class);
+
 			$this->appData->expects($this->once())
 				->method('getFolder')
 				->with('/meta-data/42')
@@ -368,9 +374,6 @@ class MetaDataStorageTest extends TestCase {
 
 			$metaDataFolder->expects($this->once())
 				->method('delete');
-			$metaDataStorage->expects($this->once())
-				->method('cleanupLegacyFile')
-				->with('userId', 42);
 		} else {
 			$this->appData->expects($this->once())
 				->method('getFolder')
