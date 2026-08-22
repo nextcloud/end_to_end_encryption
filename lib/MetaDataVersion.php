@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-final class MetadataVersion {
+final class MetaDataVersion {
 	/**
 	 * These are the legacy values emitted by v1 clients.
 	 *
