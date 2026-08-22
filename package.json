@@ -52,7 +52,7 @@
     "@vueuse/core": "^14.4.0",
     "asn1js": "^3.0.10",
     "bip39": "^3.1.0",
-    "core-js": "^3.49.0",
+    "core-js": "^3.50.0",
     "debounce": "^3.0.0",
     "fast-xml-parser": "^5.10.1",
     "fflate": "^0.8.3",
