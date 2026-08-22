@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Middleware;
 
 use OCA\EndToEndEncryption\IMetaDataStorage;
+use OCA\EndToEndEncryption\MetaDataVersion;
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\IRequest;
@@ -48,15 +49,7 @@ class ClientHasCapabilityMiddleware extends Middleware {
 		$metadata = $this->metadataStorage->getMetaData($this->userId ?? '', (int)$fileId);
 		$decodedMetadata = json_decode($metadata, true);
 
-		if ($decodedMetadata['metadata']['version'] === 1) {
-			return;
-		}
-
-		if ($decodedMetadata['metadata']['version'] === '1.2') {
-			return;
-		}
-
-		if ($decodedMetadata['metadata']['version'] === 1.2) {
+		if (MetaDataVersion::isV1($decodedMetadata['metadata']['version'])) {
 			return;
 		}
 
