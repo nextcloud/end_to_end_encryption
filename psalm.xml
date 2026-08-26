@@ -29,15 +29,5 @@
 				<referencedMethod name="/Db\\.*::.*/" />
 			</errorLevel>
 		</UndefinedMagicMethod>
-		<UndefinedDocblockClass>
-			<errorLevel type="suppress">
-				<referencedClass name="OC\AppFramework\OCS\BaseResponse"/>
-				<referencedClass name="Doctrine\DBAL\Schema\Schema" />
-				<referencedClass name="Doctrine\DBAL\Schema\SchemaException" />
-				<referencedClass name="Doctrine\DBAL\Driver\Statement" />
-				<referencedClass name="Doctrine\DBAL\Schema\Table" />
-				<referencedClass name="OC\Security\CSP\ContentSecurityPolicyNonceManager" />
-			</errorLevel>
-		</UndefinedDocblockClass>
 	</issueHandlers>
 </psalm>
