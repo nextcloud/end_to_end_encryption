@@ -1731,6 +1731,34 @@
                             }
                         }
                     },
+                    "403": {
+                        "description": "User is not allowed to edit the metadata",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "ocs"
+                                    ],
+                                    "properties": {
+                                        "ocs": {
+                                            "type": "object",
+                                            "required": [
+                                                "meta",
+                                                "data"
+                                            ],
+                                            "properties": {
+                                                "meta": {
+                                                    "$ref": "#/components/schemas/OCSMeta"
+                                                },
+                                                "data": {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "File not found",
                         "content": {
@@ -2038,6 +2066,14 @@
                         }
                     },
                     {
+                        "name": "e2e-token",
+                        "in": "header",
+                        "description": "The lock token this folder was locked with, alternatively passed as request parameter",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "OCS-APIRequest",
                         "in": "header",
                         "description": "Required to be true for the API request to pass",
@@ -2227,6 +2263,22 @@
                         }
                     },
                     {
+                        "name": "e2e-token",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "e2e-token",
+                        "in": "header",
+                        "description": "The lock token this folder was locked with, alternatively passed as request parameter",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "OCS-APIRequest",
                         "in": "header",
                         "description": "Required to be true for the API request to pass",
@@ -2267,7 +2319,7 @@
                         }
                     },
                     "403": {
-                        "description": "Only the owner can delete the metadata-file",
+                        "description": "User is not allowed to delete the metadata-file",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2987,6 +3039,7 @@
                     {
                         "name": "e2e-token",
                         "in": "header",
+                        "description": "The lock token to unlock",
                         "schema": {
                             "type": "string"
                         }
