@@ -65,6 +65,24 @@ class LockManagerV1 {
 	 * @throws FileNotLockedException
 	 */
 	public function unlockFile(int $id, string $token): void {
+		$this->lockMapper->delete($this->getLock($id, $token));
+	}
+
+	/**
+	 * Assert the file is locked with the given token, without releasing the lock
+	 *
+	 * @throws FileLockedException The file is locked with a different token
+	 * @throws FileNotLockedException The file is not locked
+	 */
+	public function assertLockedByToken(int $id, string $token): void {
+		$this->getLock($id, $token);
+	}
+
+	/**
+	 * @throws FileLockedException The file is locked with a different token
+	 * @throws FileNotLockedException The file is not locked
+	 */
+	private function getLock(int $id, string $token): Lock {
 		try {
 			$lock = $this->lockMapper->getByFileId($id);
 		} catch (DoesNotExistException) {
@@ -75,7 +93,7 @@ class LockManagerV1 {
 			throw new FileLockedException();
 		}
 
-		$this->lockMapper->delete($lock);
+		return $lock;
 	}
 
 	/**

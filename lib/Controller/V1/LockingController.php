@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Controller\V1;
 
 use OC\User\NoUserException;
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
@@ -18,8 +19,8 @@ use OCA\EndToEndEncryption\IMetaDataStorageV1;
 use OCA\EndToEndEncryption\LockManagerV1;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\PublicPage;
+use OCP\AppFramework\Http\Attribute\RequestHeader;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
@@ -27,21 +28,19 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class LockingController extends OCSController {
 	public function __construct(
 		string $AppName,
 		IRequest $request,
-		private readonly ?string $userId,
 		private readonly IMetaDataStorageV1 $metaDataStorage,
 		private readonly LockManagerV1 $lockManager,
 		private readonly IRootFolder $rootFolder,
 		private readonly FileService $fileService,
 		private readonly LoggerInterface $logger,
 		private readonly IL10N $l10n,
-		private readonly ShareManager $shareManager,
+		private readonly AccessManager $accessManager,
 	) {
 		parent::__construct($AppName, $request);
 	}
@@ -60,15 +59,16 @@ class LockingController extends OCSController {
 	public function lockFolder(int $id): DataResponse {
 		$e2eToken = $this->request->getParam('e2e-token', '');
 
-		$ownerId = $this->getOwnerId();
-
-		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
-
 		try {
+			$this->accessManager->checkPermissions($id, true);
+			$ownerId = $this->accessManager->getOwnerId($id);
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
+		} catch (NoUserException|\InvalidArgumentException $e) {
+			$this->logger->info('Tried to lock e2ee folder without permission', ['exception' => $e]);
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
+
+		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 
 		if ($userFolder->getId() === $id) {
 			$e = new OCSForbiddenException($this->l10n->t('You are not allowed to lock the root'));
@@ -101,22 +101,34 @@ class LockingController extends OCSController {
 	 */
 	#[PublicPage]
 	#[E2ERestrictUserAgent]
+	#[RequestHeader(name: 'e2e-token', description: 'The lock token to unlock')]
 	public function unlockFolder(int $id): DataResponse {
 		$token = $this->request->getHeader('e2e-token');
 
-		$ownerId = $this->getOwnerId();
-
-		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
-
 		try {
+			$this->accessManager->checkPermissions($id, true);
+			$ownerId = $this->accessManager->getOwnerId($id);
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException) {
+		} catch (NoUserException|\InvalidArgumentException $e) {
+			$this->logger->info('Tried to unlock e2ee folder without permission', ['exception' => $e]);
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
+
+		$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 
 		$node = $userFolder->getFirstNodeById($id);
 		if (!$node instanceof Folder) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
+		}
+
+		// The lock has to be verified before any changes are applied,
+		// as those can not be rolled back if the lock turns out to be invalid.
+		try {
+			$this->lockManager->assertLockedByToken($id, $token);
+		} catch (FileLockedException) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
+		} catch (FileNotLockedException) {
+			throw new OCSNotFoundException($this->l10n->t('File not locked'));
 		}
 
 		$hadChanges = $this->fileService->finalizeChanges($node) !== false;
@@ -138,21 +150,5 @@ class LockingController extends OCSController {
 		}
 
 		return new DataResponse();
-	}
-
-	private function getOwnerId(?string $shareToken = null): string {
-		if ($shareToken !== null) {
-			$share = $this->shareManager->getShareByToken($shareToken);
-
-			if (!($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE)) {
-				throw new OCSForbiddenException("Can't lock share without create permission");
-			}
-
-			return $share->getShareOwner();
-		} elseif ($this->userId !== null) {
-			return $this->userId;
-		} else {
-			throw new OCSBadRequestException("Couldn't find the owner of the encrypted folder");
-		}
 	}
 }
