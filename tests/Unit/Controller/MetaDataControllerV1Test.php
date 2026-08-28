@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Controller;
 
+use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Controller\V1\MetaDataController;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
@@ -59,6 +60,8 @@ class MetaDataControllerV1Test extends TestCase {
 	/** @var IRootFolder */
 	private $rootFolder;
 
+	/** @var AccessManager|\PHPUnit\Framework\MockObject\MockObject */
+	private $accessManager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -72,6 +75,9 @@ class MetaDataControllerV1Test extends TestCase {
 		$this->l10n = $this->createMock(IL10N::class);
 		$this->shareManager = $this->createMock(ShareManager::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->accessManager = $this->createMock(AccessManager::class);
+		$this->accessManager->method('getOwnerId')
+			->willReturn($this->userId);
 
 		$this->controller = new MetaDataController(
 			$this->appName,
@@ -83,6 +89,7 @@ class MetaDataControllerV1Test extends TestCase {
 			$this->l10n,
 			$this->shareManager,
 			$this->rootFolder,
+			$this->accessManager,
 		);
 	}
 
@@ -340,5 +347,90 @@ class MetaDataControllerV1Test extends TestCase {
 			[new NotPermittedException(), OCSForbiddenException::class, 'Only the owner can delete the metadata-file', false],
 			[new \Exception(), OCSBadRequestException::class, 'Cannot delete metadata', true],
 		];
+	}
+
+	/**
+	 * The lock token can also be passed as a header, like on the v2 API.
+	 */
+	public function testDeleteMetaDataWithTokenHeader(): void {
+		$this->request->method('getParam')
+			->willReturn(null);
+		$this->request->method('getHeader')
+			->with('e2e-token')
+			->willReturn('sendE2EToken');
+
+		$this->lockManager->expects($this->once())
+			->method('isLocked')
+			->with(42, 'sendE2EToken', $this->userId, true)
+			->willReturn(false);
+
+		$this->metaDataStorage->expects($this->once())
+			->method('updateMetaDataIntoIntermediateFile')
+			->with($this->userId, 42, '{}');
+
+		$response = $this->controller->deleteMetaData(42);
+		$this->assertEquals([], $response->getData());
+	}
+
+	public function testDeleteMetaDataWithoutLock(): void {
+		$this->mockL10N();
+		$this->request->method('getParam')
+			->with('e2e-token')
+			->willReturn('sendE2EToken');
+
+		$this->lockManager->expects($this->once())
+			->method('isLocked')
+			->with(42, 'sendE2EToken', $this->userId, true)
+			->willReturn(true);
+
+		$this->metaDataStorage->expects($this->never())
+			->method('updateMetaDataIntoIntermediateFile');
+
+		$this->expectException(OCSForbiddenException::class);
+		$this->expectExceptionMessage('You are not allowed to edit the file, make sure to first lock it, and then send the right token');
+		$this->controller->deleteMetaData(42);
+	}
+
+	/**
+	 * Write access is required for every operation modifying the metadata.
+	 *
+	 * @dataProvider writeAccessDataProvider
+	 */
+	public function testWithoutWritePermission(string $method): void {
+		$this->mockL10N();
+		$this->accessManager->expects($this->once())
+			->method('checkPermissions')
+			->with(42, true)
+			->willThrowException(new \InvalidArgumentException('Insufficient permissions on share'));
+
+		$this->metaDataStorage->expects($this->never())
+			->method('setMetaDataIntoIntermediateFile');
+		$this->metaDataStorage->expects($this->never())
+			->method('updateMetaDataIntoIntermediateFile');
+
+		$this->expectException(OCSForbiddenException::class);
+		$this->expectExceptionMessage('You are not allowed to edit the metadata of this folder');
+
+		match ($method) {
+			'setMetaData' => $this->controller->setMetaData(42, 'JSON-ENCODED-META-DATA'),
+			'updateMetaData' => $this->controller->updateMetaData(42, 'JSON-ENCODED-META-DATA'),
+			'deleteMetaData' => $this->controller->deleteMetaData(42),
+		};
+	}
+
+	public function writeAccessDataProvider(): array {
+		return [
+			['setMetaData'],
+			['updateMetaData'],
+			['deleteMetaData'],
+		];
+	}
+
+	private function mockL10N(): void {
+		$this->l10n->expects($this->any())
+			->method('t')
+			->willReturnCallback(static function ($string, $args) {
+				return vsprintf($string, $args);
+			});
 	}
 }
