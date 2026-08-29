@@ -24,6 +24,7 @@ OC.L10N.register(
     "File not locked" : "O arquivo não trancado",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Você não tem permissão para editar o arquivo. Certifique-se de trancá-lo e então envie o token correto",
     "Only the owner can delete the metadata-file" : "Somente o proprietário pode excluir o arquivo de metadados",
+    "You are not allowed to edit the metadata of this folder" : "Você não tem permissão para editar os metadados desta pasta",
     "Encrypted share" : "Compartilhamento criptografado",
     "End-to-End Encryption" : "Criptografia de ponta-a-ponta",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Habilite a criptografia ponta-a-ponta no lado do cliente para seus arquivos mais confidenciais, garantindo privacidade total com segurança de conhecimento zero.",

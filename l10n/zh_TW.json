@@ -22,6 +22,7 @@
     "File not locked" : "檔案沒有上鎖",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "您不被允許編輯檔案，請確認有先鎖定檔案然後傳送正確的符記",
     "Only the owner can delete the metadata-file" : "只有擁有者可以刪除詮釋資料檔案",
+    "You are not allowed to edit the metadata of this folder" : "您無權編輯此資料夾的中介資料",
     "Encrypted share" : "已加密的分享",
     "End-to-End Encryption" : "終端對終端的加密",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "為您的敏感檔案啟用客戶端的端到端加密，透過零知識安全確保完整隱私。",
