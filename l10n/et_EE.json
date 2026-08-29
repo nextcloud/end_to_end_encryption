@@ -22,6 +22,7 @@
     "File not locked" : "Fail pole lukus",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Sul pole õigust seda faili muuta. Esmalt pead ta lukustama ja siis edasta õige tunnusluba",
     "Only the owner can delete the metadata-file" : "Vaid omanik saab metaandmeid kustutada",
+    "You are not allowed to edit the metadata of this folder" : "Sul pole õigusi sellele kausta metateabe muutmiseks",
     "Encrypted share" : "Krüptitud jagamine",
     "End-to-End Encryption" : "Läbiv krüptimine",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Kasuta kliendipoolset läbivat krüptimist oma kõikide delikaatse ja tundliku sisuga failide jaoks. Arvestades lahendust, kus serveri pool ei tea krüptimisest mitte midagi (nullteadmistega arhitektuur), siis tagad sellega olulise osa privaatsusest.",
