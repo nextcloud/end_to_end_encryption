@@ -4,12 +4,15 @@ SPDX-License-Identifier: MIT
 SPDX-FileCopyrightText: Anthony Fu <anthonyfu117@hotmail.com>
 SPDX-FileCopyrightText: Anthony Fu <https://github.com/antfu>
 SPDX-FileCopyrightText: Eric Norris (https://github.com/ericnorris)
+SPDX-FileCopyrightText: Eugene Sharygin <eush77@gmail.com>
+SPDX-FileCopyrightText: Evan You
 SPDX-FileCopyrightText: Feross Aboukhadijeh
 SPDX-FileCopyrightText: Jacob Clevenger<https://github.com/wheatjs>
 SPDX-FileCopyrightText: Jeff Sagal <sagalbot@gmail.com>
 SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
 SPDX-FileCopyrightText: Paul Vorbach <paul@vorb.de> (http://vorb.de)
 SPDX-FileCopyrightText: Paul Vorbach <paul@vorba.ch> (http://paul.vorba.ch)
+SPDX-FileCopyrightText: Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)
 SPDX-FileCopyrightText: atomiks
 SPDX-FileCopyrightText: debounce developers
 
@@ -21,7 +24,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 0.2.12
 	- license: MIT
 - @nextcloud/vue
-	- version: 8.40.0
+	- version: 8.41.0
 	- license: AGPL-3.0-or-later
 - @nextcloud/vue-select
 	- version: 3.26.0
@@ -52,6 +55,18 @@ This file is generated from multiple sources. Included packages:
 	- license: BSD-3-Clause
 - striptags
 	- version: 3.2.0
+	- license: MIT
+- unist-builder
+	- version: 4.0.0
+	- license: MIT
+- unist-util-is
+	- version: 6.0.0
+	- license: MIT
+- unist-util-visit-parents
+	- version: 6.0.2
+	- license: MIT
+- vite
+	- version: 7.3.6
 	- license: MIT
 - vue-demi
 	- version: 0.14.10
