@@ -22,6 +22,7 @@
     "File not locked" : "Níl an comhad faoi ghlas",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Níl cead agat an comhad a chur in eagar, déan cinnte é a ghlasáil ar dtús, agus ansin an comhartha ceart a sheoladh",
     "Only the owner can delete the metadata-file" : "Ní féidir ach leis an úinéir an comhad meiteashonraí a scriosadh",
+    "You are not allowed to edit the metadata of this folder" : "Níl cead agat meiteashonraí an fhillteáin seo a chur in eagar",
     "Encrypted share" : "Roinn criptithe",
     "End-to-End Encryption" : "Criptiú Ceann go Deireadh",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Cumasaigh criptiú foirceann go foirceann taobh an chliaint do do chuid comhad is íogaire, ag cinntiú príobháideachta iomlán le slándáil nialasach eolais.",
