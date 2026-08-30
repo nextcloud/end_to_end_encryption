@@ -22,6 +22,7 @@
     "File not locked" : "Datei nicht gesperrt",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Sie sind nicht berechtigt, die Datei zu bearbeiten. Stellen Sie sicher, dass Sie sie zuerst sperren und das richtige Token senden.",
     "Only the owner can delete the metadata-file" : "Nur der Besitzer kann die Metadaten-Datei löschen",
+    "You are not allowed to edit the metadata of this folder" : "Sie sind nicht berechtigt, die Metadaten dieses Ordners zu bearbeiten",
     "Encrypted share" : "Verschlüsselte Freigabe",
     "End-to-End Encryption" : "Ende-zu-Ende-Verschlüsselung",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Die clientseitige Ende-zu-Ende-Verschlüsselung für Ihre sensibelsten Dateien aktivieren und gewährleisten Sie so die vollständige Privatsphäre mit Zero-Knowledge-Sicherheit.",

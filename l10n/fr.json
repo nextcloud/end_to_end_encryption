@@ -22,6 +22,7 @@
     "File not locked" : "Fichier non verrouillé",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "Vous n'êtes pas autorisé à modifier le fichier, assurez-vous de le verrouiller au préalable puis envoyez le jeton correspondant",
     "Only the owner can delete the metadata-file" : "Seul le propriétaire peut supprimer le fichier de métadonnées",
+    "You are not allowed to edit the metadata of this folder" : "Vous n'êtes pas autorisé à modifier les métadonnées de ce dossier",
     "Encrypted share" : "Partage chiffré",
     "End-to-End Encryption" : "Chiffrement de bout en bout",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Activez le chiffrement de bout en bout côté client pour vos fichiers les plus sensibles afin de garantir une confidentialité totale grâce à une architecture Zero Knowledge.",
