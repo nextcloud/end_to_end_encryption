@@ -7,6 +7,14 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v1.18.5 - 2026-08-31
+### Fixed
+* fix: align v1 measures with existing measures on v2 endpoints \([\#2046](https://github.com/nextcloud/end_to_end_encryption/pull/2046)\)
+
+### Changed
+* Updated dependencies
+* ci(actions): Update workflow templates from organization template repository
+
 ## v1.18.4 - 2026-08-06
 ### Fixed
 * fix: ensure folder can be properly locked or unlocked
