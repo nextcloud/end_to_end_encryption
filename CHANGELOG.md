@@ -3,6 +3,9 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
+## v1.17.4 - 2026-08-31
+### Fixed
+* fix: align v1 measures with existing measures on v2 endpoints \([\#2047](https://github.com/nextcloud/end_to_end_encryption/pull/2047)\)
 
 ## v1.17.3 - 2026-07-15
 ### Fixed
