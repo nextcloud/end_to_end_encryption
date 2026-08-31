@@ -7,6 +7,17 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.2.4 - 2026-08-31
+### Fixed
+* fix: add 2.1 metadata version support to "legacy" models.ts \([\#2038](https://github.com/nextcloud/end_to_end_encryption/pull/2038)\)
+* fix: align v1 measures with existing measures on v2 endpoints \([\#2045](https://github.com/nextcloud/end_to_end_encryption/pull/2045)\)
+* fix: handle filesystem root in encrypted file checks \([\#2049](https://github.com/nextcloud/end_to_end_encryption/pull/2049)\)
+
+### Changed
+* Updated dependencies
+  * Bump `vue` to 3.5.41
+  * Bump `fast-xml-parser` to 5.11.0
+
 ## v2.2.3 - 2026-08-18
 ### Changed
 * Added support for *Nextcloud 2026 Summer* (Nextcloud 35).
