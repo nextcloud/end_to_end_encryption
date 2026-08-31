@@ -171,6 +171,36 @@ test('does not corrupt a PROPFIND property that also carries an XML attribute wh
 	expect(raw).toContain('<displayname synthetic-attr="1">New folder</displayname>')
 })
 
+test('does not drop a boolean-valued XML attribute when rebuilding the response', async () => {
+	// `XMLBuilder`'s `suppressBooleanAttributes` defaults to `true`: it omits the
+	// `="value"` part for any attribute whose value is exactly the string 'true',
+	// e.g. `attr="true"` round-trips as the bare `attr`. That does not corrupt the
+	// XML the way the mismatched `textNodeName` above does, but a stricter parser
+	// downstream can silently lose the attribute instead of reading it back as
+	// `'true'`. Unlike the synthetic case above, this one ships in the wild today:
+	// a folder tagged with a Nextcloud collaborative system tag gets a
+	// `<nc:system-tag oc:can-assign="true" oc:user-visible="true">` in every
+	// PROPFIND response that lists it.
+	const response = homeListingPropFindResponse.replace(
+		'<d:displayname>New folder</d:displayname>',
+		'<d:displayname>New folder</d:displayname>'
+			+ '<nc:system-tags><nc:system-tag oc:can-assign="true" oc:id="8" oc:user-assignable="false" '
+			+ 'oc:user-visible="true" nc:color="B0B0B0">BACKUP</nc:system-tag></nc:system-tags>',
+	)
+	expect(response).not.toBe(homeListingPropFindResponse)
+
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin', { method: 'PROPFIND' }),
+		res: new Response(response),
+		type: 'fetch' as const,
+	}
+
+	await usePropFindInterceptor(context, async () => {})
+
+	const raw = await context.res.text()
+	expect(raw).toContain('<system-tag can-assign="true" id="8" user-assignable="false" user-visible="true" color="B0B0B0">BACKUP</system-tag>')
+})
+
 test('Correctly replace root file info in PROPFIND', async () => {
 	const metadata = await RootMetadata.fromJson(rootFolderMetadata, 'admin', await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic))
 	metadataStore.getMetadata

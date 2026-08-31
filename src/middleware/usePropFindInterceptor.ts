@@ -24,7 +24,24 @@ import * as taskStore from '../store/tasks.ts'
 // because the node also carries attributes) keeps sitting under the key `'text'`, which
 // the builder - looking for `'#text'` - does not recognise as special and instead
 // serialises as a literal `<text>` child element, corrupting the rebuilt response.
-const XML_BUILDER_OPTIONS = { attributeNamePrefix: '@', textNodeName: 'text', ignoreAttributes: false }
+//
+// `suppressBooleanAttributes` (builder default: `true`) is a second, independent
+// mismatch: it omits the `="value"` part for any attribute whose value is exactly
+// the string `'true'`, e.g. `<nc:system-tag oc:can-assign="true">` round-trips as
+// the bare `<system-tag can-assign>`. That is valid XML - it does not reproduce the
+// `<text>`/`<@attr>` crash above - but a parser that (correctly) treats a bare
+// attribute as boolean `true` rather than the string `'true'`, or one that follows
+// fast-xml-parser's own parsing default of ignoring bare attributes altogether
+// (`allowBooleanAttributes` also defaults to `false` on the parsing side), silently
+// loses that attribute from the rebuilt response. Confirmed against a real, in-the-
+// wild PROPFIND response: a folder tagged with a collaborative system tag ships
+// `oc:can-assign="true"` and `oc:user-visible="true"` on its `<nc:system-tag>`.
+const XML_BUILDER_OPTIONS = {
+	attributeNamePrefix: '@',
+	textNodeName: 'text',
+	ignoreAttributes: false,
+	suppressBooleanAttributes: false,
+}
 
 /**
  * Callback to handle PROPFIND requests.
