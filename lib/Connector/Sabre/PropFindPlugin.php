@@ -14,6 +14,7 @@ use OCA\DAV\Connector\Sabre\File;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException;
 use OCP\IRequest;
 use OCP\IUserSession;
 use Sabre\DAV\INode;
@@ -52,7 +53,7 @@ class PropFindPlugin extends APlugin {
 		$this->server->on('propFind', $this->updateProperty(...), 105);
 	}
 
-	public function setE2EEProperties(PropFind $propFind, \Sabre\DAV\INode $node): void {
+	public function setE2EEProperties(PropFind $propFind, INode $node): void {
 		if (!($node instanceof Directory || $node instanceof File)) {
 			return;
 		}
@@ -61,18 +62,32 @@ class PropFindPlugin extends APlugin {
 		if ($node instanceof Directory) {
 			$propFind->handle(self::IS_ENCRYPTED_PROPERTYNAME, fn (): string => $this->isE2EEnabledPath($node) ? '1' : '0');
 
-			$propFind->handle(self::E2EE_METADATA_PROPERTYNAME, function () use ($node) {
-				if ($this->isE2EEnabledPath($node)) {
+			$propFind->handle(self::E2EE_METADATA_PROPERTYNAME, function () use ($node): ?string {
+				if (!$this->isE2EEnabledPath($node)) {
+					return null;
+				}
+
+				try {
 					return $this->metaDataStorage->getMetaData(
 						($this->userSession->getUser() ?? $node->getNode()->getOwner())->getUID(),
 						$node->getId(),
 					);
+				} catch (NotFoundException) {
+					// Leave this property at 404 without failing the complete PROPFIND.
+					return null;
 				}
 			});
 
-			$propFind->handle(self::E2EE_METADATA_SIGNATURE_PROPERTYNAME, function () use ($node) {
-				if ($this->isE2EEnabledPath($node)) {
+			$propFind->handle(self::E2EE_METADATA_SIGNATURE_PROPERTYNAME, function () use ($node): ?string {
+				if (!$this->isE2EEnabledPath($node)) {
+					return null;
+				}
+
+				try {
 					return $this->metaDataStorage->readSignature($node->getId());
+				} catch (NotFoundException) {
+					// Leave this property at 404 without failing the complete PROPFIND.
+					return null;
 				}
 			});
 		}

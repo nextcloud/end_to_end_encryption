@@ -15,7 +15,9 @@ use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCA\EndToEndEncryption\UserAgentManager;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\NotFoundException;
 use OCP\IRequest;
+use OCP\IUser;
 use OCP\IUserSession;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -76,6 +78,80 @@ class PropFindPluginTest extends TestCase {
 			['propFind', 'setE2EEProperties', 104],
 			['propFind', 'updateProperty', 105],
 		], $calls);
+	}
+
+	public function testMissingMetadataReturnsPropertyNotFound(): void {
+		$user = $this->createStub(IUser::class);
+		$user->method('getUID')->willReturn('john');
+		$this->userSession->method('getUser')->willReturn($user);
+
+		$metadataStorage = $this->createMock(IMetaDataStorage::class);
+		$metadataStorage->expects($this->once())
+			->method('getMetaData')
+			->with('john', 42)
+			->willThrowException(new NotFoundException());
+
+		$plugin = $this->getMockBuilder(PropFindPlugin::class)
+			->setConstructorArgs([
+				$this->rootFolder,
+				$this->userSession,
+				$this->userAgentManager,
+				$this->request,
+				$metadataStorage,
+			])
+			->onlyMethods(['isE2EEnabledPath'])
+			->getMock();
+		$plugin->method('isE2EEnabledPath')->willReturn(true);
+
+		$node = $this->createStub(Directory::class);
+		$node->method('getId')->willReturn(42);
+
+		$propFind = new PropFind(
+			'files/john/encrypted',
+			[PropFindPlugin::E2EE_METADATA_PROPERTYNAME],
+		);
+
+		$plugin->setE2EEProperties($propFind, $node);
+
+		$this->assertSame(
+			404,
+			$propFind->getStatus(PropFindPlugin::E2EE_METADATA_PROPERTYNAME),
+		);
+	}
+
+	public function testMissingMetadataSignatureReturnsPropertyNotFound(): void {
+		$metadataStorage = $this->createMock(IMetaDataStorage::class);
+		$metadataStorage->expects($this->once())
+			->method('readSignature')
+			->with(42)
+			->willThrowException(new NotFoundException());
+
+		$plugin = $this->getMockBuilder(PropFindPlugin::class)
+			->setConstructorArgs([
+				$this->rootFolder,
+				$this->userSession,
+				$this->userAgentManager,
+				$this->request,
+				$metadataStorage,
+			])
+			->onlyMethods(['isE2EEnabledPath'])
+			->getMock();
+		$plugin->method('isE2EEnabledPath')->willReturn(true);
+
+		$node = $this->createStub(Directory::class);
+		$node->method('getId')->willReturn(42);
+
+		$propFind = new PropFind(
+			'files/john/encrypted',
+			[PropFindPlugin::E2EE_METADATA_SIGNATURE_PROPERTYNAME],
+		);
+
+		$plugin->setE2EEProperties($propFind, $node);
+
+		$this->assertSame(
+			404,
+			$propFind->getStatus(PropFindPlugin::E2EE_METADATA_SIGNATURE_PROPERTYNAME),
+		);
 	}
 
 	public function testUpdatePropertyIgnoreCalendar(): void {
