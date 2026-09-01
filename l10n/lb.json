@@ -1,11 +1,14 @@
 { "translations": {
+    "Submit" : "Iwwermëttelen",
     "Folder name" : "Dossiers Numm:",
     "Continue" : "Weider",
     "Download" : "Eroflueden",
     "Close" : "Zoumaachen",
     "Edit" : "Änneren",
+    "Remove" : "Ewechhuelen",
     "Save" : "Späicheren",
     "Upload failed" : "Eropluede feelgeschloen",
+    "Uploading…" : "Lued erop …",
     "Cancel" : "Cancel"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
