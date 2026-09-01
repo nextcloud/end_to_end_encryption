@@ -10,6 +10,7 @@ namespace OCA\EndToEndEncryption\Middleware;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\OCS\OCSForbiddenException;
+use OCP\Files\NotFoundException;
 use OCP\IRequest;
 
 /**
