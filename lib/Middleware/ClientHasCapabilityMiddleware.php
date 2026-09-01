@@ -11,6 +11,7 @@ namespace OCA\EndToEndEncryption\Middleware;
 use OCA\EndToEndEncryption\IMetaDataStorage;
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\OCS\OCSForbiddenException;
+use OCP\Files\NotFoundException;
 use OCP\IRequest;
 
 /**
@@ -45,7 +46,14 @@ class ClientHasCapabilityMiddleware extends Middleware {
 		}
 
 		$fileId = $this->request->getParam('id');
-		$metadata = $this->metadataStorage->getMetaData($this->userId ?? '', (int)$fileId);
+		try {
+			$metadata = $this->metadataStorage->getMetaData($this->userId ?? '', (int)$fileId);
+		} catch (NotFoundException) {
+			// There is no metadata version to validate. Let the controller
+			// handle missing metadata or create the initial metadata.
+			return;
+		}
+
 		$decodedMetadata = json_decode($metadata, true);
 
 		if ($decodedMetadata['metadata']['version'] === 1) {
