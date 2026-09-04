@@ -49,6 +49,21 @@ test('passes through non encrypted propfinds', async () => {
 	await expect(context.res.text()).resolves.toBe(unencryptedPropFindResponse)
 })
 
+test('does not throw and passes through the response as-is when it cannot be parsed', async () => {
+	// e.g. an empty body, an HTML error page, or any other response that is
+	// not a well-formed WebDAV multistatus - this must never take down the
+	// whole PROPFIND request, see #1991.
+	const malformedBody = 'this is not xml'
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin/unencrypted', { method: 'PROPFIND' }),
+		res: new Response(malformedBody),
+		type: 'fetch' as const,
+	}
+
+	await expect(usePropFindInterceptor(context, async () => {})).resolves.not.toThrow()
+	await expect(context.res.text()).resolves.toBe(malformedBody)
+})
+
 test('Correctly adjust e2ee nodes in PROPFIND of an unencrypted folder', async () => {
 	const metadata = await RootMetadata.fromJson(rootFolderMetadata, 'admin', await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic))
 	metadataStore.getMetadata
@@ -117,6 +132,73 @@ test('Does not decrypt the metadata of a listed e2ee root', async () => {
 	expect(xml.multistatus.response[2]!.propstat?.prop.displayname).toBe('New folder')
 	// the share permission is still dropped for the e2ee root
 	expect(xml.multistatus.response[2]!.propstat?.prop.permissions).toBe('GDNVCK')
+})
+
+test('does not corrupt a PROPFIND property that also carries an XML attribute when rebuilding the response', async () => {
+	// fast-xml-parser only wraps a node's text content in an object under the
+	// configured `textNodeName` key - instead of returning it as a plain string -
+	// when the node also has to carry other keys alongside it, e.g. an attribute.
+	// `parseXML()` (from the `webdav` package) parses with `textNodeName: 'text'`,
+	// so the `XMLBuilder` used to rebuild the response has to use the same value
+	// for the round trip to be symmetric. Without it, `XMLBuilder`'s own default
+	// (`'#text'`) does not recognise the wrapped text and serialises it as a
+	// literal `<text>` child element instead - plus an invalid `<@attr>` tag for
+	// the attribute itself - corrupting the response Nextcloud's own DAV client
+	// then fails to parse back ("Invalid tag name: text").
+	//
+	// No known Nextcloud DAV property currently ships an attribute like this
+	// (the one pre-existing case in these fixtures, `x1:share-permissions`'s
+	// inline `xmlns:x1`, is filtered out by the parser as a namespace
+	// declaration rather than kept as data), so this uses a synthetic one to
+	// pin the invariant regardless of whether one exists in the wild today.
+	const response = homeListingPropFindResponse.replace(
+		'<d:displayname>New folder</d:displayname>',
+		'<d:displayname synthetic-attr="1">New folder</d:displayname>',
+	)
+	expect(response).not.toBe(homeListingPropFindResponse)
+
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin', { method: 'PROPFIND' }),
+		res: new Response(response),
+		type: 'fetch' as const,
+	}
+
+	await usePropFindInterceptor(context, async () => {})
+
+	const raw = await context.res.text()
+	expect(raw).not.toContain('<text>')
+	expect(raw).not.toContain('<@')
+	expect(raw).toContain('<displayname synthetic-attr="1">New folder</displayname>')
+})
+
+test('does not drop a boolean-valued XML attribute when rebuilding the response', async () => {
+	// `XMLBuilder`'s `suppressBooleanAttributes` defaults to `true`: it omits the
+	// `="value"` part for any attribute whose value is exactly the string 'true',
+	// e.g. `attr="true"` round-trips as the bare `attr`. That does not corrupt the
+	// XML the way the mismatched `textNodeName` above does, but a stricter parser
+	// downstream can silently lose the attribute instead of reading it back as
+	// `'true'`. Unlike the synthetic case above, this one ships in the wild today:
+	// a folder tagged with a Nextcloud collaborative system tag gets a
+	// `<nc:system-tag oc:can-assign="true" oc:user-visible="true">` in every
+	// PROPFIND response that lists it.
+	const response = homeListingPropFindResponse.replace(
+		'<d:displayname>New folder</d:displayname>',
+		'<d:displayname>New folder</d:displayname>'
+			+ '<nc:system-tags><nc:system-tag oc:can-assign="true" oc:id="8" oc:user-assignable="false" '
+			+ 'oc:user-visible="true" nc:color="B0B0B0">BACKUP</nc:system-tag></nc:system-tags>',
+	)
+	expect(response).not.toBe(homeListingPropFindResponse)
+
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin', { method: 'PROPFIND' }),
+		res: new Response(response),
+		type: 'fetch' as const,
+	}
+
+	await usePropFindInterceptor(context, async () => {})
+
+	const raw = await context.res.text()
+	expect(raw).toContain('<system-tag can-assign="true" id="8" user-assignable="false" user-visible="true" color="B0B0B0">BACKUP</system-tag>')
 })
 
 test('Correctly replace root file info in PROPFIND', async () => {
