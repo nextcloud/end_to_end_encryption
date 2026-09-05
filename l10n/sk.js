@@ -26,6 +26,7 @@ OC.L10N.register(
     "The server could serve malicious source code to extract the secret that protects your files." : "Server by mohol poskytnúť škodlivý zdrojový kód na extrahovanie tajomstva, ktoré chráni vaše súbory.",
     "I understand the risks" : "Rozumiem rizikám.",
     "Submit" : "Odoslať",
+    "Create folder" : "Vytvoriť priečinok",
     "Folder name cannot be empty" : "Názov adresára nemôže byť prázdny",
     "Folder name" : "Názov priečinka",
     "Mnemonic" : "Mnemonické",

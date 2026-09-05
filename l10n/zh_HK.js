@@ -24,6 +24,7 @@ OC.L10N.register(
     "File not locked" : "檔案沒有上鎖",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "您無權編輯該文件。請先鎖定它，然後發送正確的權杖",
     "Only the owner can delete the metadata-file" : "只有擁有者可以刪除元數據檔案",
+    "You are not allowed to edit the metadata of this folder" : "你沒有權限編輯此資料夾的元數據",
     "Encrypted share" : "加密分享",
     "End-to-End Encryption" : "端到端加密",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "為您的敏感文件啟用客戶端對端加密，透過零知識安全確保完全隱私。",

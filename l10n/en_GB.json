@@ -22,6 +22,7 @@
     "File not locked" : "File not locked",
     "You are not allowed to edit the file, make sure to first lock it, and then send the right token" : "You are not allowed to edit the file, make sure to lock it first, and then send the right token",
     "Only the owner can delete the metadata-file" : "Only the owner can delete the metadata-file",
+    "You are not allowed to edit the metadata of this folder" : "You are not allowed to edit the metadata of this folder",
     "Encrypted share" : "Encrypted share",
     "End-to-End Encryption" : "End-to-End Encryption",
     "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security." : "Enable client-side end-to-end encryption for your most sensitive files, ensuring complete privacy with zero-knowledge security.",
