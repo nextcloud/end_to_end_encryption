@@ -1,0 +1,50 @@
+diff --git a/.github/workflows/playwright.yml b/.github/workflows/playwright.yml
+index 3f1ab487..e54d84c0 100644
+--- a/.github/workflows/playwright.yml
++++ b/.github/workflows/playwright.yml
+@@ -29,10 +29,8 @@ name: Playwright Tests
+ on:
+   pull_request:
+     branches:
+-      - master
+-      - stable35
+-      - stable34
+-      - stable33
++      - main
++      - stable-2
+ 
+ permissions:
+   contents: read
+@@ -127,6 +125,10 @@ jobs:
+         path: blob-report
+         retention-days: 1
+ 
++    - name: Show Nextcloud logs
++      if: ${{ !cancelled() }}
++      run: cat nextcloud.log
++
+   merge-reports:
+     # Merge reports after playwright-tests, even if some shards have failed
+     if: ${{ !cancelled() }}
+diff --git a/.github/workflows/playwright.yml.patch b/.github/workflows/playwright.yml.patch
+index 1c303113..e69de29b 100644
+--- a/.github/workflows/playwright.yml.patch
++++ b/.github/workflows/playwright.yml.patch
+@@ -1,17 +0,0 @@
+-diff --git a/.github/workflows/playwright.yml b/.github/workflows/playwright.yml
+-index 3f1ab487..9d68cf80 100644
+---- a/.github/workflows/playwright.yml
+-+++ b/.github/workflows/playwright.yml
+-@@ -29,10 +29,8 @@ name: Playwright Tests
+- on:
+-   pull_request:
+-     branches:
+--      - master
+--      - stable35
+--      - stable34
+--      - stable33
+-+      - main
+-+      - stable-2
+- 
+- permissions:
+-   contents: read

@@ -13,10 +13,10 @@
   "scripts": {
     "build": "vite --mode production build",
     "dev": "export NODE_ENV=development; vite --mode development build",
-    "postinstall": "playwright install chromium-headless-shell",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "playwright": "playwright test",
+    "playwright:install-ci": "playwright install --with-deps firefox",
     "stylelint": "stylelint src",
     "stylelint:fix": "stylelint src --fix",
     "test": "vitest run",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@nextcloud/browserslist-config": "^3.1.2",
-    "@nextcloud/e2e-test-server": "^0.5.1",
+    "@nextcloud/e2e-test-server": "^0.6.0",
     "@nextcloud/eslint-config": "^9.0.1",
     "@nextcloud/stylelint-config": "^3.2.2",
     "@nextcloud/typings": "^1.10.0",
@@ -87,5 +87,13 @@
   "engines": {
     "node": "^24.0.0",
     "npm": "^11.3.0"
+  },
+  "allowScripts": {
+    "core-js": true,
+    "cpu-features": true,
+    "esbuild": true,
+    "msw": true,
+    "protobufjs": true,
+    "ssh2": false
   }
 }

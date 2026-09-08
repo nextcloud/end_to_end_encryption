@@ -2,12 +2,18 @@
  * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+/// <reference types="@types/node" />
 
 import { defineConfig, devices } from '@playwright/test'
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
+type DeviceDescriptor = typeof devices[string]
+const BROWSWER_CONFIG_CHROME: DeviceDescriptor & { channel: string } = {
+	...devices['Desktop Chrome'],
+	channel: process.env.CI
+		? 'chrome' // on CI use the chrome browser provided by the GitHub Actions runner
+		: 'chromium', // locally use the default playwright chromium browser
+}
+
 export default defineConfig({
 	testDir: './tests/playwright',
 	fullyParallel: true,
@@ -40,9 +46,9 @@ export default defineConfig({
 
 	projects: [
 		{
-			name: 'chromium',
+			name: 'default',
 			use: {
-				...devices['Desktop Chrome'],
+				...BROWSWER_CONFIG_CHROME,
 			},
 		},
 

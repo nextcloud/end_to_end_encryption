@@ -24,7 +24,7 @@ async function start() {
 
 async function stop() {
 	process.stderr.write('Stopping Nextcloud server…\n')
-	await stopNextcloud()
+	await stopNextcloud({ saveLogTo: 'nextcloud.log' })
 	process.exit(0)
 }
 
