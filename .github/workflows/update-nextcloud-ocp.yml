@@ -109,7 +109,7 @@ jobs:
           signoff: true
           branch: 'automated/noid/${{ matrix.branches }}-update-nextcloud-ocp'
           title: '[${{ matrix.branches }}] Update nextcloud/ocp dependency'
-          add-path: |
+          add-paths: |
             composer.json
             composer.lock
             vendor-bin/nextcloud-ocp/composer.json
