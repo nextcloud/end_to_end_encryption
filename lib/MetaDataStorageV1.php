@@ -29,6 +29,8 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	private string $metaDataRoot = '/meta-data';
 	private string $metaDataFileName = 'meta.data';
 	private string $intermediateMetaDataFileName = 'intermediate.meta.data';
+	private string $intermediateMetaDataSignatureFileName = 'intermediate.meta.data.signature';
+	private string $intermediateMetaDataCounterFileName = 'intermediate.meta.data.counter';
 
 	public function __construct(IAppData $appData,
 		IRootFolder $rootFolder) {
@@ -177,9 +179,6 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		$this->cleanupLegacyFile($userId, $id);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function deleteIntermediateFile(string $userId, int $id): void {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
@@ -191,12 +190,20 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 			return;
 		}
 
-		if (!$dir->fileExists($this->intermediateMetaDataFileName)) {
-			return;
+		if ($dir->fileExists($this->intermediateMetaDataFileName)) {
+			$dir->getFile($this->intermediateMetaDataFileName)
+				->delete();
 		}
 
-		$dir->getFile($this->intermediateMetaDataFileName)
-			->delete();
+		if ($dir->fileExists($this->intermediateMetaDataCounterFileName)) {
+			$dir->getFile($this->intermediateMetaDataCounterFileName)
+				->delete();
+		}
+
+		if ($dir->fileExists($this->intermediateMetaDataSignatureFileName)) {
+			$dir->getFile($this->intermediateMetaDataSignatureFileName)
+				->delete();
+		}
 	}
 
 	private function getFolderNameForFileId(int $id): string {
