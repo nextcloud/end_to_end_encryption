@@ -1,6 +1,10 @@
 <?php
 
 declare(strict_types=1);
+/*!
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 
 namespace OCA\EndToEndEncryption;
 
@@ -16,7 +20,7 @@ final class MetaDataVersion {
 	 *
 	 * @var list<int|float|string>
 	 */
-	private const LEGACY_V1_VERSIONS = [1, 1.2, '1.2'];
+	private const array LEGACY_V1_VERSIONS = [1, 1.2, '1.2'];
 
 	public static function isV1(mixed $version): bool {
 		return in_array($version, self::LEGACY_V1_VERSIONS, true);
