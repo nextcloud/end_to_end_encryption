@@ -29,10 +29,8 @@ name: Playwright Tests
 on:
   pull_request:
     branches:
-      - master
-      - stable35
-      - stable34
-      - stable33
+      - main
+      - stable-2
 
 permissions:
   contents: read
@@ -126,6 +124,10 @@ jobs:
         name: blob-report-${{ matrix.shardIndex }}
         path: blob-report
         retention-days: 1
+
+    - name: Show Nextcloud logs
+      if: ${{ !cancelled() }}
+      run: cat nextcloud.log
 
   merge-reports:
     # Merge reports after playwright-tests, even if some shards have failed
