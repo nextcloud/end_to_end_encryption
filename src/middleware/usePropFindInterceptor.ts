@@ -4,12 +4,22 @@
  */
 
 import type { FetchContext } from '@rxliuli/vista'
-import type { DAVResult, DAVResultResponse } from 'webdav'
 
 import { dirname } from '@nextcloud/paths'
-import { XMLBuilder } from 'fast-xml-parser'
-import { parseStat, parseXML } from 'webdav'
 import { RootMetadata } from '../models/RootMetadata.ts'
+import {
+	DAV_NS,
+	getHref,
+	getProperty,
+	getResponses,
+	hasProperties,
+	isCollection,
+	NC_NS,
+	OC_NS,
+	parseMultiStatus,
+	serializeDocument,
+	setProperty,
+} from '../services/davXml.ts'
 import logger from '../services/logger.ts'
 import { decodePath } from '../services/path.ts'
 import * as metadataStore from '../store/metadata.ts'
@@ -27,46 +37,55 @@ export async function usePropFindInterceptor(context: FetchContext, next: () => 
 	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
 	await next()
 	const response = context.res.clone()
-	const path = new URL(context.req.url).pathname
 	const body = await response.text()
-	const xml = await parseXML(body)
-	const stat = parseStat(xml, path, true)
+
+	const document = parseMultiStatus(body)
+	if (document === undefined) {
+		// not a multistatus response, e.g. an error - nothing to replace
+		logger.debug('PROPFIND response is not a multistatus document', { body })
+		return
+	}
+
+	const nodes = getResponses(document)
 
 	// The requested node itself might not be encrypted while the result still contains
 	// encrypted nodes, e.g. when listing an unencrypted folder that contains an e2ee root.
 	// So the encryption state has to be decided for each node individually.
-	const targetIsEncrypted = stat.props !== undefined && String(stat.props['e2ee-is-encrypted']) === '1'
-	const isEncryptedNode = (node: DAVResultResponse): boolean => (
+	const targetPath = trimSlashes(decodePath(new URL(context.req.url).pathname))
+	// the target is the node for the requested path - it is reported first, which is the
+	// fallback in case the server answers with a href we do not recognize as that path
+	const target = nodes.find((node) => nodePath(node) === targetPath) ?? nodes[0]
+	const targetIsEncrypted = target !== undefined && isEncrypted(target)
+	const isEncryptedNode = (node: Element): boolean => (
 		// all nodes within an encrypted PROPFIND target are encrypted as well
-		targetIsEncrypted
-		|| String(node.propstat?.prop['e2ee-is-encrypted']) === '1'
+		targetIsEncrypted || isEncrypted(node)
 	)
 
-	if (!xml.multistatus.response.some(isEncryptedNode)) {
-		logger.debug('No e2ee nodes in PROPFIND result', { xml })
+	if (!nodes.some(isEncryptedNode)) {
+		logger.debug('No e2ee nodes in PROPFIND result', { body })
 		return
 	}
 
-	await cacheMetadataFromPropfind(xml, isEncryptedNode, targetIsEncrypted)
-	await replacePlaceholdersInPropfind(xml, isEncryptedNode)
+	await cacheMetadataFromPropfind(nodes, isEncryptedNode, targetIsEncrypted)
+	await replacePlaceholdersInPropfind(nodes, isEncryptedNode)
 
-	context.res = new Response(new XMLBuilder().build(xml), response)
+	context.res = new Response(serializeDocument(document), response)
 }
 
 /**
  * Cache all e2ee metadata that is shipped as part of the PROPFIND response.
  *
- * @param xml - The XML response
+ * @param nodes - The `d:response` nodes of the XML response
  * @param isEncryptedNode - Whether a given response node is end-to-end encrypted
  * @param targetIsEncrypted - Whether the PROPFIND target itself is end-to-end encrypted
  */
 async function cacheMetadataFromPropfind(
-	xml: DAVResult,
-	isEncryptedNode: (node: DAVResultResponse) => boolean,
+	nodes: Element[],
+	isEncryptedNode: (node: Element) => boolean,
 	targetIsEncrypted: boolean,
 ): Promise<void> {
-	for (const node of xml.multistatus.response) {
-		if (!isEncryptedNode(node) || node.propstat === undefined) {
+	for (const node of nodes) {
+		if (!isEncryptedNode(node) || !hasProperties(node)) {
 			continue
 		}
 
@@ -74,18 +93,15 @@ async function cacheMetadataFromPropfind(
 		// and the name of an e2ee root is not encrypted - so its metadata is only
 		// needed if the response reaches into it. Decrypting it either way would ask
 		// the user for their recovery phrase just to list the folder the root sits in.
-		if (!targetIsEncrypted && !hasContentsInResponse(xml, nodePath(node))) {
-			logger.debug('Skipping metadata of a listed e2ee root', { node })
+		if (!targetIsEncrypted && !hasContentsInResponse(nodes, nodePath(node))) {
+			logger.debug('Skipping metadata of a listed e2ee root', { href: getHref(node) })
 			continue
 		}
 
-		const isFolder = typeof node.propstat.prop?.resourcetype.collection !== 'undefined'
-		const {
-			fileid: fileId,
-			'e2ee-metadata': rawMetadata,
-			'e2ee-metadata-signature': metadataSignature,
-		} = node.propstat.prop as Record<string, string>
-		if (isFolder && fileId && rawMetadata && metadataSignature) {
+		const fileId = getProperty(node, OC_NS, 'fileid')
+		const rawMetadata = getProperty(node, NC_NS, 'e2ee-metadata')
+		const metadataSignature = getProperty(node, NC_NS, 'e2ee-metadata-signature')
+		if (isCollection(node) && fileId && rawMetadata && metadataSignature) {
 			await metadataStore.setRawMetadata(
 				nodePath(node),
 				fileId,
@@ -100,79 +116,78 @@ async function cacheMetadataFromPropfind(
  * Replace the encrypted placeholder names and mimetypes of all encrypted nodes
  * with the real ones from the metadata of their parent folder.
  *
- * @param xml - The XML response
+ * @param nodes - The `d:response` nodes of the XML response
  * @param isEncryptedNode - Whether a given response node is end-to-end encrypted
  */
-async function replacePlaceholdersInPropfind(xml: DAVResult, isEncryptedNode: (node: DAVResultResponse) => boolean): Promise<void> {
-	logger.debug('Updating PROPFIND info', { xml })
+async function replacePlaceholdersInPropfind(nodes: Element[], isEncryptedNode: (node: Element) => boolean): Promise<void> {
+	logger.debug('Updating PROPFIND info', { nodes })
 
 	// Encryption state of all nodes in the response - used to look up whether the parent of a node is encrypted.
 	const encryptedPaths = new Map<string, boolean>()
-	for (const node of xml.multistatus.response) {
+	for (const node of nodes) {
 		encryptedPaths.set(nodePath(node), isEncryptedNode(node))
 	}
 
-	const parsedNodes: DAVResultResponse[] = []
-	for (const node of xml.multistatus.response) {
+	for (const node of nodes) {
 		if (!isEncryptedNode(node)) {
 			// e.g. an unencrypted sibling of an e2ee root - keep it untouched
-			parsedNodes.push(node)
 			continue
 		}
 
-		if (node.propstat === undefined) {
+		if (!hasProperties(node)) {
 			throw new Error('Invalid PROPFIND response: missing propstat')
 		}
 
-		if (node.propstat.prop.permissions) {
+		const permissions = getProperty(node, OC_NS, 'permissions')
+		if (permissions !== undefined) {
 			// remove share permissions as we have internal sharing methods for e2ee
-			node.propstat.prop.permissions = (node.propstat.prop.permissions as string).replace(/R/g, '')
+			setProperty(node, OC_NS, 'permissions', permissions.replace(/R/g, ''))
 		}
 
-		const isFolder = typeof node.propstat.prop?.resourcetype.collection !== 'undefined'
+		const isFolder = isCollection(node)
 		if (!(await hasEncryptedParent(node, isFolder, encryptedPaths))) {
 			// The node is an e2ee root: its name is not encrypted so only the permissions needed adjustment.
-			logger.debug('Node is an e2ee root, skipping PROPFIND replacement', { node })
-			parsedNodes.push(node)
+			logger.debug('Node is an e2ee root, skipping PROPFIND replacement', { href: getHref(node) })
 			continue
 		}
 
 		const { metadata, path: parentPath } = await metadataStore.getMetadata(dirname(nodePath(node)))
-		const identifier = node.propstat.prop.displayname
+		const identifier = getProperty(node, DAV_NS, 'displayname')
 		if (isFolder) {
-			const name = metadata.getFolder(identifier)
+			const name = identifier && metadata.getFolder(identifier)
 			if (!name) {
 				logger.error('Could not find folder in metadata for PROPFIND replacement', { node, identifier, metadata })
+				node.remove()
 				continue
 			}
 
-			node.propstat.prop.displayname = name
-			node.propstat.prop.getcontenttype = 'httpd/unix-directory'
+			setProperty(node, DAV_NS, 'displayname', name)
+			setProperty(node, DAV_NS, 'getcontenttype', 'httpd/unix-directory')
 		} else {
-			const info = metadata.getFile(identifier)
+			const info = identifier ? metadata.getFile(identifier) : undefined
 			if (!info) {
-				if (metadata instanceof RootMetadata && metadata.fileDropEntries.includes(identifier)) {
+				if (identifier && metadata instanceof RootMetadata && metadata.fileDropEntries.includes(identifier)) {
 					logger.debug('File drop entry found for PROPFIND replacement', { node, identifier })
-					if (node.propstat.prop.permissions && (node.propstat.prop.permissions as string).includes('NV')) {
+					if (permissions?.includes('NV')) {
 						// we found a file drop entry and we have permissions to migrate it
 						// so we do not want to block this request any longer but we should
 						// notify the user that this entry needs migration
 						taskStore.addFileDropMigration(parentPath)
 					}
 
+					node.remove()
 					continue
 				}
 
 				logger.error('Could not find file in metadata for PROPFIND replacement', { node, identifier, metadata })
+				node.remove()
 				continue
 			}
 
-			node.propstat.prop.displayname = info.filename
-			node.propstat.prop.getcontenttype = info.mimetype
+			setProperty(node, DAV_NS, 'displayname', info.filename)
+			setProperty(node, DAV_NS, 'getcontenttype', info.mimetype)
 		}
-		parsedNodes.push(node)
 	}
-	xml.multistatus.response = parsedNodes
 }
 
 /**
@@ -184,7 +199,7 @@ async function replacePlaceholdersInPropfind(xml: DAVResult, isEncryptedNode: (n
  * @param isFolder - Whether the node is a folder
  * @param encryptedPaths - Encryption state of all nodes in the response
  */
-async function hasEncryptedParent(node: DAVResultResponse, isFolder: boolean, encryptedPaths: Map<string, boolean>): Promise<boolean> {
+async function hasEncryptedParent(node: Element, isFolder: boolean, encryptedPaths: Map<string, boolean>): Promise<boolean> {
 	const parentState = encryptedPaths.get(dirname(nodePath(node)))
 	if (parentState !== undefined) {
 		return parentState
@@ -204,11 +219,20 @@ async function hasEncryptedParent(node: DAVResultResponse, isFolder: boolean, en
 /**
  * Check whether the response contains any node located inside the given path.
  *
- * @param xml - The XML response
+ * @param nodes - The `d:response` nodes of the XML response
  * @param path - The path of the folder to check
  */
-function hasContentsInResponse(xml: DAVResult, path: string): boolean {
-	return xml.multistatus.response.some((node) => nodePath(node).startsWith(`${path}/`))
+function hasContentsInResponse(nodes: Element[], path: string): boolean {
+	return nodes.some((node) => nodePath(node).startsWith(`${path}/`))
+}
+
+/**
+ * Check whether a response node is end-to-end encrypted.
+ *
+ * @param node - The response node
+ */
+function isEncrypted(node: Element): boolean {
+	return getProperty(node, NC_NS, 'e2ee-is-encrypted') === '1'
 }
 
 /**
@@ -219,6 +243,15 @@ function hasContentsInResponse(xml: DAVResult, path: string): boolean {
  *
  * @param node - The response node
  */
-function nodePath(node: DAVResultResponse): string {
-	return decodePath(node.href.replace(/\/+$/, ''))
+function nodePath(node: Element): string {
+	return trimSlashes(decodePath(getHref(node)))
+}
+
+/**
+ * Remove trailing slashes from a path, as folders are reported with one.
+ *
+ * @param path - The path to trim
+ */
+function trimSlashes(path: string): string {
+	return path.replace(/\/+$/, '')
 }
