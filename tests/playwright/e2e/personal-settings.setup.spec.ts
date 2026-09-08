@@ -27,19 +27,19 @@ test('Can enable browser based end-to-end encryption', async ({ page, personalSe
 	await expect(personalSettings.sectionLocator).toBeVisible()
 
 	await personalSettings.enableBrowserE2ee()
-	await expect(personalSettings.checkboxEnableBrowserE2ee).toBeChecked()
+	await expect(personalSettings.switchEnableBrowserE2ee).toBeChecked()
 
 	// page reload preserves the settings
 	await page.reload()
-	await expect(personalSettings.checkboxEnableBrowserE2ee).toBeChecked()
+	await expect(personalSettings.switchEnableBrowserE2ee).toBeChecked()
 })
 
 test('Can disable browser based end-to-end encryption', async ({ page, personalSettings }) => {
 	await personalSettings.enableBrowserE2ee()
-	await expect(personalSettings.checkboxEnableBrowserE2ee).toBeChecked()
+	await expect(personalSettings.switchEnableBrowserE2ee).toBeChecked()
 
 	await personalSettings.disableBrowserE2ee()
-	await expect(personalSettings.checkboxEnableBrowserE2ee).not.toBeChecked()
+	await expect(personalSettings.switchEnableBrowserE2ee).not.toBeChecked()
 
 	// page reload preserves the settings. Wait for the section to be mounted
 	// again first: "no note card" would otherwise also hold for a page that has

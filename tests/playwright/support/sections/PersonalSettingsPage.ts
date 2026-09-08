@@ -16,7 +16,7 @@ export class PersonalSettingsPage {
 	public readonly noteCardBrowserE2ee: Locator
 	public readonly buttonEnableBrowserE2ee: Locator
 	public readonly buttonResetE2ee: Locator
-	public readonly checkboxEnableBrowserE2ee: Locator
+	public readonly switchEnableBrowserE2ee: Locator
 
 	constructor(public readonly page: Page) {
 		this.sectionHeaderLocator = page.getByRole('heading', { name: 'End-to-end encryption' })
@@ -27,7 +27,8 @@ export class PersonalSettingsPage {
 		this.buttonEnableBrowserE2ee = this.sectionLocator.getByRole('button', { name: /Enable E2EE navigation in browser/i })
 
 		this.noteCardBrowserE2ee = this.sectionLocator.getByRole('alert')
-		this.checkboxEnableBrowserE2ee = this.noteCardBrowserE2ee.getByRole('checkbox', { name: /Enable E2EE navigation in browser/i })
+		// NcCheckboxRadioSwitch exposes `type="switch"` as role `switch`, not `checkbox`
+		this.switchEnableBrowserE2ee = this.noteCardBrowserE2ee.getByRole('switch', { name: /Enable E2EE navigation in browser/i })
 	}
 
 	/**
@@ -72,14 +73,14 @@ export class PersonalSettingsPage {
 	 */
 	private async toggleBrowserE2ee(enabled: boolean): Promise<void> {
 		await expect(this.noteCardBrowserE2ee).toBeVisible()
-		await expect(this.checkboxEnableBrowserE2ee).toBeChecked({ checked: !enabled })
+		await expect(this.switchEnableBrowserE2ee).toBeChecked({ checked: !enabled })
 
 		const saved = this.page.waitForResponse((response) => response.request().method() === 'PUT'
 			&& response.url().endsWith(BROWSER_E2EE_CONFIG_ENDPOINT))
 		// the input is visually hidden inside NcCheckboxRadioSwitch
-		await this.checkboxEnableBrowserE2ee.click({ force: true })
+		await this.switchEnableBrowserE2ee.click({ force: true })
 
 		expect((await saved).status()).toBe(200)
-		await expect(this.checkboxEnableBrowserE2ee).toBeChecked({ checked: enabled })
+		await expect(this.switchEnableBrowserE2ee).toBeChecked({ checked: enabled })
 	}
 }

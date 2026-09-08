@@ -35,7 +35,7 @@ export class SectionCreateE2eeFolderDialog {
 	public readonly buttonCreateFolder: Locator
 	public readonly buttonSetupEncryption: Locator
 	public readonly buttonSubmitMnemonic: Locator
-	public readonly checkboxConsent: Locator
+	public readonly switchConsent: Locator
 	public readonly codeRecoveryPhrase: Locator
 	public readonly inputFolderName: Locator
 	public readonly inputMnemonic: Locator
@@ -48,7 +48,8 @@ export class SectionCreateE2eeFolderDialog {
 		this.buttonContinue = this.dialogLocator.getByRole('button', { name: /^Continue/i })
 		this.buttonCreateFolder = this.dialogLocator.getByRole('button', { name: /Create folder/i })
 		this.buttonSubmitMnemonic = this.dialogLocator.getByRole('button', { name: /Submit/i })
-		this.checkboxConsent = this.dialogLocator.getByRole('checkbox', { name: /I understand the risks/i })
+		// NcCheckboxRadioSwitch exposes `type="switch"` as role `switch`, not `checkbox`
+		this.switchConsent = this.dialogLocator.getByRole('switch', { name: /I understand the risks/i })
 		this.loadingCheckSetup = this.dialogLocator.getByText(/Checking encryption setup/i)
 		this.codeRecoveryPhrase = this.dialogLocator.getByRole('code')
 		this.inputFolderName = this.dialogLocator.getByRole('textbox', { name: /Folder name/i })
@@ -64,7 +65,7 @@ export class SectionCreateE2eeFolderDialog {
 	public async fillMnemonic(mnemonic: string): Promise<this> {
 		await expect(this.inputMnemonic).toBeVisible()
 		await this.inputMnemonic.fill(mnemonic)
-		await this.checkboxConsent.click({ force: true })
+		await this.switchConsent.click({ force: true })
 		await expect(this.buttonSubmitMnemonic).toBeEnabled()
 		await this.buttonSubmitMnemonic.click()
 		return this
