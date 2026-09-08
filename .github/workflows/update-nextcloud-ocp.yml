@@ -27,12 +27,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branches:
-          - ${{ github.event.repository.default_branch }}
-          - 'stable35'
-          - 'stable34'
-          - 'stable33'
-          - 'stable32'
+        include:
+          - branches: 'main'
+            server: 'master'
+          - branches: 'stable-2'
+            server: 'stable33'
 
     name: update-nextcloud-ocp-${{ matrix.branches }}
 
