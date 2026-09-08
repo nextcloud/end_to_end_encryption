@@ -1,0 +1,122 @@
+diff --git a/.github/workflows/playwright.yml b/.github/workflows/playwright.yml
+index b8cbb236..abbe8f99 100644
+--- a/.github/workflows/playwright.yml
++++ b/.github/workflows/playwright.yml
+@@ -29,10 +29,8 @@ name: Playwright Tests
+ on:
+   pull_request:
+     branches:
+-      - master
+-      - stable35
+-      - stable34
+-      - stable33
++      - main
++      - stable-2
+ 
+ permissions:
+   contents: read
+@@ -71,13 +69,14 @@ jobs:
+   playwright-tests:
+     needs: [playwright-setup]
+     timeout-minutes: 30
+-    name: Playwright tests ${{ matrix.shardIndex }} / ${{ matrix.shardTotal }}
++    name: Playwright tests ${{ matrix.shardIndex }} / ${{ matrix.shardTotal }} (${{ matrix.browsers }})
+     runs-on: ubuntu-latest
+     strategy:
+       fail-fast: false
+       matrix:
+         shardIndex: [1, 2] # adjust to your needs
+         shardTotal: [2]
++        browsers: ['chrome', 'firefox']
+     outputs:
+       node-version: ${{ steps.versions.outputs.node-version }}
+       package-manager-version: ${{ steps.versions.outputs.package-manager-version }}
+@@ -114,19 +113,24 @@ jobs:
+         npm run build --if-present
+ 
+     - name: Install Playwright browsers
++      if: matrix.browsers == 'firefox'
+       run: npm run playwright:install-ci --if-present
+ 
+     - name: Run Playwright tests
+-      run: npm run playwright -- --shard='${{ matrix.shardIndex }}/${{ matrix.shardTotal }}'
++      run: npx playwright test --shard='${{ matrix.shardIndex }}/${{ matrix.shardTotal }}' --project=${{ matrix.browsers }}
+ 
+     - name: Upload blob report to GitHub Actions Artifacts
+       if: ${{ !cancelled() }}
+       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+       with:
+-        name: blob-report-${{ matrix.shardIndex }}
++        name: blob-report-${{ matrix.shardIndex }}-${{ matrix.browsers }}
+         path: blob-report
+         retention-days: 1
+ 
++    - name: Show Nextcloud logs
++      if: ${{ !cancelled() }}
++      run: cat nextcloud.log || echo "No nextcloud.log found"
++
+   merge-reports:
+     # Merge reports after playwright-tests, even if some shards have failed
+     if: ${{ !cancelled() }}
+@@ -194,4 +198,4 @@ jobs:
+ 
+     steps:
+       - name: Summary status
+-        run: if ${{ needs.playwright-tests.result != 'success' }}; then exit 1; fi
+\ No newline at end of file
++        run: if ${{ needs.playwright-tests.result != 'success' }}; then exit 1; fi
+diff --git a/.github/workflows/playwright.yml.patch b/.github/workflows/playwright.yml.patch
+index b5222718..e69de29b 100644
+--- a/.github/workflows/playwright.yml.patch
++++ b/.github/workflows/playwright.yml.patch
+@@ -1,50 +0,0 @@
+-diff --git a/.github/workflows/playwright.yml b/.github/workflows/playwright.yml
+-index 3f1ab487..e54d84c0 100644
+---- a/.github/workflows/playwright.yml
+-+++ b/.github/workflows/playwright.yml
+-@@ -29,10 +29,8 @@ name: Playwright Tests
+- on:
+-   pull_request:
+-     branches:
+--      - master
+--      - stable35
+--      - stable34
+--      - stable33
+-+      - main
+-+      - stable-2
+- 
+- permissions:
+-   contents: read
+-@@ -127,6 +125,10 @@ jobs:
+-         path: blob-report
+-         retention-days: 1
+- 
+-+    - name: Show Nextcloud logs
+-+      if: ${{ !cancelled() }}
+-+      run: cat nextcloud.log
+-+
+-   merge-reports:
+-     # Merge reports after playwright-tests, even if some shards have failed
+-     if: ${{ !cancelled() }}
+-diff --git a/.github/workflows/playwright.yml.patch b/.github/workflows/playwright.yml.patch
+-index 1c303113..e69de29b 100644
+---- a/.github/workflows/playwright.yml.patch
+-+++ b/.github/workflows/playwright.yml.patch
+-@@ -1,17 +0,0 @@
+--diff --git a/.github/workflows/playwright.yml b/.github/workflows/playwright.yml
+--index 3f1ab487..9d68cf80 100644
+----- a/.github/workflows/playwright.yml
+--+++ b/.github/workflows/playwright.yml
+--@@ -29,10 +29,8 @@ name: Playwright Tests
+-- on:
+--   pull_request:
+--     branches:
+---      - master
+---      - stable35
+---      - stable34
+---      - stable33
+--+      - main
+--+      - stable-2
+-- 
+-- permissions:
+--   contents: read
