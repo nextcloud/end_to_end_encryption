@@ -280,7 +280,9 @@ export const rootFilePropfindResponse = `<?xml version="1.0"?>
 				<nc:share-attributes>[]</nc:share-attributes>
 				<oc:share-types />
 				<x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">19</x1:share-permissions>
-				<nc:system-tags />
+				<nc:system-tags>
+					<nc:system-tag can-assign="true" id="7">Secret</nc:system-tag>
+				</nc:system-tags>
 			</d:prop>
 			<d:status>HTTP/1.1 200 OK</d:status>
 		</d:propstat>
