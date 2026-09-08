@@ -25,7 +25,7 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
 		browser: {
-			provider: playwright(),
+			provider: playwright({ launchOptions: { channel: process.env.CI ? 'chrome' : undefined } }),
 			enabled: true,
 			headless: true,
 			screenshotFailures: false,
