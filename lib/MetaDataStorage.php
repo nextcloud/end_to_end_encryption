@@ -138,9 +138,6 @@ class MetaDataStorage implements IMetaDataStorage {
 		$this->getTokenFolder($token)->newFile("$id", '');
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function deleteMetaData(string $userId, int $id): void {
 		$this->verifyFolderStructure();
 		$this->verifyOwner($userId, $id);
@@ -149,6 +146,8 @@ class MetaDataStorage implements IMetaDataStorage {
 		try {
 			$dir = $this->appData->getFolder($folderName);
 		} catch (NotFoundException) {
+			// Metadata may exist only in the legacy location.
+			$this->cleanupLegacyFile($userId, $id);
 			return;
 		}
 
