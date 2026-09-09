@@ -70,7 +70,7 @@ test('Correctly adjust e2ee nodes in PROPFIND of an unencrypted folder', async (
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledTimes(1)
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledWith(
 		'/remote.php/dav/files/admin/New folder',
-		89,
+		'89',
 		JSON.stringify(rootFolderMetadata),
 		rootFolderMetadataSignature,
 	)
@@ -138,7 +138,7 @@ test('Correctly replace root file info in PROPFIND', async () => {
 
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledWith(
 		'/remote.php/dav/files/admin/New folder',
-		89,
+		'89',
 		JSON.stringify(rootFolderMetadata),
 		rootFolderMetadataSignature,
 	)
@@ -181,7 +181,7 @@ test('Correctly replace subfolder file info in PROPFIND', async () => {
 
 	expect(metadataStore.setRawMetadata).toHaveBeenCalledWith(
 		'/remote.php/dav/files/admin/New folder/fa666d819a6c4315abba421172f0a0b1',
-		266,
+		'266',
 		JSON.stringify(subFolderMetadata),
 		subFolderMetadataSignature,
 	)
@@ -221,4 +221,33 @@ test('Correctly replace file info in PROPFIND of file', async () => {
 	expect(xml.multistatus.response[0]!.propstat?.prop.displayname).toBe('test.txt')
 	expect(xml.multistatus.response[0]!.propstat?.prop.getcontenttype).toBe('text/plain')
 	expect(xml.multistatus.response[0]!.propstat?.prop.permissions).toBe('GDNVW')
+})
+
+test('Hands everything but the replaced properties on unchanged', async () => {
+	const metadata = await RootMetadata.fromJson(rootFolderMetadata, 'admin', await decryptPrivateKey(adminPrivateKeyInfo, adminMnemonic))
+	metadataStore.getMetadata
+		// @ts-expect-error -- mocking for tests
+		.mockResolvedValue({ metadata, path: '/remote.php/dav/files/admin/New folder' })
+
+	const context = {
+		req: new Request('https://example.com/remote.php/dav/files/admin/New%20folder/ad3b12554e0d4364854ae3e21b170152', { method: 'PROPFIND' }),
+		res: new Response(rootFilePropfindResponse),
+		type: 'fetch' as const,
+	}
+
+	await usePropFindInterceptor(context, async () => {})
+	const body = await context.res.text()
+
+	// namespace prefixes and declarations are kept, including the ones declared on a property
+	expect(body).toContain('<d:multistatus xmlns:d="DAV:"')
+	expect(body).toContain('<x1:share-permissions xmlns:x1="http://open-collaboration-services.org/ns">19</x1:share-permissions>')
+	// properties are allowed to have attributes and children of their own
+	expect(body).toContain('<nc:system-tag can-assign="true" id="7">Secret</nc:system-tag>')
+	// the propstat of the properties the server could not provide is kept as well
+	expect(body).toContain('<d:status>HTTP/1.1 404 Not Found</d:status>')
+	expect(body).toContain('<nc:metadata-blurhash/>')
+	// only the encrypted values are replaced
+	expect(body).toContain('<d:displayname>test.txt</d:displayname>')
+	expect(body).toContain('<d:getcontenttype>text/plain</d:getcontenttype>')
+	expect(body).toContain('<oc:permissions>GDNVW</oc:permissions>')
 })
