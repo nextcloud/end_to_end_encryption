@@ -540,20 +540,34 @@ class MetaDataStorageV1Test extends TestCase {
 				->with('/meta-data/42')
 				->willReturn($metaDataFolder);
 
-			$metaDataFolder->expects($this->once())
+			$metaDataFolder->expects($this->exactly(3))
 				->method('fileExists')
-				->with('intermediate.meta.data')
-				->willReturn($fileExists);
+				->willReturnCallback(fn (string $name): bool => match ($name) {
+					'intermediate.meta.data',
+					'intermediate.meta.data.counter',
+					'intermediate.meta.data.signature' => $fileExists,
+				});
 
 			if ($fileExists) {
 				$intermediateFile = $this->createMock(ISimpleFile::class);
 				$intermediateFile->expects($this->once())
 					->method('delete');
 
-				$metaDataFolder->expects($this->once())
+				$intermediateCounterFile = $this->createMock(ISimpleFile::class);
+				$intermediateCounterFile->expects($this->once())
+					->method('delete');
+
+				$intermediateSignatureFile = $this->createMock(ISimpleFile::class);
+				$intermediateSignatureFile->expects($this->once())
+					->method('delete');
+
+				$metaDataFolder->expects($this->exactly(3))
 					->method('getFile')
-					->with('intermediate.meta.data')
-					->willReturn($intermediateFile);
+					->willReturnCallback(fn (string $name): ISimpleFile => match ($name) {
+						'intermediate.meta.data' => $intermediateFile,
+						'intermediate.meta.data.counter' => $intermediateCounterFile,
+						'intermediate.meta.data.signature' => $intermediateSignatureFile,
+					});
 			}
 		}
 
