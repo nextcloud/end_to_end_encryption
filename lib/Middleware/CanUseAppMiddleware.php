@@ -11,7 +11,7 @@ use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\Middleware\Exceptions\CanNotUseAppException;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\RedirectResponse
+use OCP\AppFramework\Http\RedirectResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\OCS\OCSException;
