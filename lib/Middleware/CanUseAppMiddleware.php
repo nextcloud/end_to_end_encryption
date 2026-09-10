@@ -12,11 +12,12 @@ use OCA\EndToEndEncryption\Config;
 use OCA\EndToEndEncryption\Middleware\Exceptions\CanNotUseAppException;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\RedirectToDefaultAppResponse;
+use OCP\AppFramework\Http\RedirectResponse
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\OCS\OCSException;
 use OCP\AppFramework\OCSController;
+use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserSession;
 
@@ -24,6 +25,7 @@ class CanUseAppMiddleware extends Middleware {
 	public function __construct(
 		private readonly IUserSession $userSession,
 		private readonly Config $config,
+		private readonly IURLGenerator $url,
 	) {
 	}
 
@@ -51,7 +53,7 @@ class CanUseAppMiddleware extends Middleware {
 				throw new OCSException($exception->getMessage(), Http::STATUS_FORBIDDEN);
 			}
 
-			return new RedirectToDefaultAppResponse();
+			return new RedirectResponse($this->url->linkToDefaultPageUrl());
 		}
 
 		throw $exception;
