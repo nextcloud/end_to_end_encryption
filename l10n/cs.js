@@ -124,6 +124,7 @@ OC.L10N.register(
     "New encrypted folder" : "Nová šifrovaná složka",
     "Creating new encrypted folder: Cancelled" : "Vytváření nové šifrované složky: zrušeno ",
     "Creating new encrypted folder: Failed" : "Vytváření nové šifrované složky: nezdařilo se",
+    "Decrypting {file}" : "Rozšifrovávání {file}",
     "Migrate now" : "Zmigrovat nyní",
     "Migrate later" : "Zmigrovat později",
     "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
