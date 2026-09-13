@@ -224,7 +224,7 @@ class MetaDataStorage implements IMetaDataStorage {
 			return $dir->getFile($this->metaDataSignatureFileName)->getContent();
 		} catch (NotFoundException $ex) {
 			$metadata = $dir->getFile($this->metaDataFileName)->getContent();
-			$decodedMetadata = json_decode($metadata, true);
+			$decodedMetadata = json_decode((string)$metadata, true);
 
 			if (MetaDataVersion::isV1($decodedMetadata['metadata']['version'])) {
 				return '';
