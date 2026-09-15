@@ -13,9 +13,9 @@ use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\MetaDataStorageV1;
-use OCP\Files\Folder;
 use OCP\Files\IAppData;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\SimpleFS\ISimpleFile;
@@ -557,7 +557,7 @@ class MetaDataStorageV1Test extends TestCase {
 				->with('userId')
 				->willThrowException(new NoUserException());
 		} else {
-			$ownerRoot = $this->createMock(Folder::class);
+			$ownerRoot = $this->createMock(IUserFolder::class);
 			$this->rootFolder->expects($this->once())
 				->method('getUserFolder')
 				->with('userId')

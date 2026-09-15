@@ -19,6 +19,7 @@ use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\Files\NotFoundException;
 use OCP\IL10N;
 use OCP\IRequest;
@@ -108,7 +109,7 @@ class LockingControllerTest extends TestCase {
 			->with('e2e-token', '')
 			->willReturn($sendE2E);
 
-		$userFolder = $this->createMock(Folder::class);
+		$userFolder = $this->createMock(IUserFolder::class);
 		$this->rootFolder->expects($this->once())
 			->method('getUserFolder')
 			->with('john.doe')
@@ -149,7 +150,7 @@ class LockingControllerTest extends TestCase {
 			->with('e2e-token', '')
 			->willReturn($sendE2E);
 
-		$userFolder = $this->createMock(Folder::class);
+		$userFolder = $this->createMock(IUserFolder::class);
 		$this->rootFolder->expects($this->once())
 			->method('getUserFolder')
 			->with('john.doe')
@@ -198,7 +199,7 @@ class LockingControllerTest extends TestCase {
 			->with('x-nc-e2ee-counter')
 			->willReturn('1');
 
-		$userFolder = $this->createMock(Folder::class);
+		$userFolder = $this->createMock(IUserFolder::class);
 		$this->rootFolder->expects($this->once())
 			->method('getUserFolder')
 			->with('john.doe')
@@ -232,7 +233,7 @@ class LockingControllerTest extends TestCase {
 			->with('e2e-token')
 			->willReturn('e2e-token');
 
-		$userFolder = $this->createMock(Folder::class);
+		$userFolder = $this->createMock(IUserFolder::class);
 		$this->rootFolder->expects($this->once())
 			->method('getUserFolder')
 			->with('john.doe')
@@ -276,7 +277,7 @@ class LockingControllerTest extends TestCase {
 			->with('e2e-token')
 			->willReturn($sendE2E);
 
-		$userFolder = $this->createMock(Folder::class);
+		$userFolder = $this->createMock(IUserFolder::class);
 		$this->rootFolder->expects($this->once())
 			->method('getUserFolder')
 			->with('john.doe')
@@ -349,7 +350,7 @@ class LockingControllerTest extends TestCase {
 				->with('john.doe')
 				->willThrowException(new NoUserException());
 		} else {
-			$userFolder = $this->createMock(Folder::class);
+			$userFolder = $this->createMock(IUserFolder::class);
 			$this->rootFolder->expects($this->once())
 				->method('getUserFolder')
 				->with('john.doe')

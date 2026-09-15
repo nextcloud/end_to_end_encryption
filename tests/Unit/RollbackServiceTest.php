@@ -17,6 +17,7 @@ use OCP\Files\Config\ICachedMountFileInfo;
 use OCP\Files\Config\IUserMountCache;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\IUser;
 use Psr\Log\LoggerInterface;
 use Test\TestCase;
@@ -111,11 +112,11 @@ class RollbackServiceTest extends TestCase {
 		$mountFileInfo6->method('getUser')->willReturn($user6);
 		$mountFileInfo7->method('getUser')->willReturn($user7);
 
-		$userFolder3 = $this->createMock(Folder::class);
-		$userFolder4 = $this->createMock(Folder::class);
-		$userFolder5 = $this->createMock(Folder::class);
-		$userFolder6 = $this->createMock(Folder::class);
-		$userFolder7 = $this->createStub(Folder::class);
+		$userFolder3 = $this->createMock(IUserFolder::class);
+		$userFolder4 = $this->createMock(IUserFolder::class);
+		$userFolder5 = $this->createMock(IUserFolder::class);
+		$userFolder6 = $this->createMock(IUserFolder::class);
+		$userFolder7 = $this->createStub(IUserFolder::class);
 
 		$this->rootFolder->method('getUserFolder')
 			->willReturnCallback(fn (string $userId) => match ($userId) {
