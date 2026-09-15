@@ -33,15 +33,10 @@ export class FilesAppPage {
 
 	/**
 	 * Open the files app and wait until its list is rendered and settled.
-	 *
-	 * `page.goto` resolves on the `load` event, long before Vue has mounted the
-	 * list and its upload picker. Returning early would let callers assert on —
-	 * or click into — a half-mounted app, which is where "element not found" and
-	 * dropped clicks come from on slower machines. It also makes `toHaveCount(0)`
-	 * assertions pass for the wrong reason.
 	 */
 	public async openFilesApp(): Promise<void> {
 		await this.page.goto('/apps/files')
+		// make sure Vue is mounted and the list is rendered before returning
 		await this.filesListLocator.waitFor({ state: 'visible' })
 		await this.waitForListLoaded()
 	}
@@ -58,31 +53,25 @@ export class FilesAppPage {
 	/**
 	 * Wait for a pending list fetch to settle, i.e. for the loading indicator to
 	 * come and go.
-	 *
-	 * The indicator is only waited for briefly: a fetch that resolves before the
-	 * first poll is never observed as visible, and since the app raises the
-	 * loading state synchronously with the action that triggers the fetch, an
-	 * absent indicator means the fetch already finished — so missing its
-	 * appearance is not an error. Waiting for it to be gone is what matters.
 	 */
 	public async waitForListLoaded(): Promise<void> {
 		const indicator = this.getLoadingIndicator()
+		// is triggered synchronously with the action that triggers the fetch,
+		// so it can be missed if the fetch resolves before the first poll
 		await indicator.waitFor({ state: 'visible', timeout: 2000 }).catch(() => {})
 		await indicator.waitFor({ state: 'hidden' })
 	}
 
 	/**
 	 * Open the "New" menu of the files list header.
-	 *
-	 * Opening is retried until the menu is actually visible: the upload picker's
-	 * NcActions can swallow the first click while it is still mounting, which
-	 * otherwise surfaces much later as a missing menu entry. Only click while the
-	 * menu is closed so an already-open menu is never toggled shut again.
 	 */
 	public async openNewMenu(): Promise<SectionNewMenu> {
 		const newMenu = new SectionNewMenu(this.page)
 
 		await expect(async () => {
+			// * Opening is retried until the menu is actually visible:
+			// the upload picker's NcActions can swallow the first click
+			// while it is still mounting
 			if (!(await newMenu.menuLocator.isVisible())) {
 				await this.buttonNewMenuLocator.click()
 			}
@@ -90,6 +79,11 @@ export class FilesAppPage {
 		}).toPass({ timeout: OPEN_MENU_TIMEOUT })
 
 		return newMenu
+	}
+
+	/** The breadcrumbs of the files list, naming the folder that is open. */
+	public getBreadcrumbs(): Locator {
+		return this.page.getByRole('navigation', { name: 'Current directory path' })
 	}
 
 	public getFileOrFolder(name: string): Locator {
@@ -199,6 +193,51 @@ export class FilesAppPage {
 			await this.getMnemonicDialog().fillAndSubmit(mnemonic)
 		}
 		await expect(this.getFileOrFolder(name)).toHaveCount(0)
+	}
+
+	/**
+	 * The rename input of the row that is currently being renamed.
+	 *
+	 * @param type - Whether a file or a folder is being renamed
+	 */
+	public getRenameInput(type: 'file' | 'folder' = 'file'): Locator {
+		// looked up page wide: the renamed row replaces its name cell with the
+		// form, and only one row can be in rename mode at a time
+		return this.page.getByRole('form', { name: 'Rename file' })
+			.getByRole('textbox', { name: type === 'folder' ? 'Folder name' : 'Filename' })
+	}
+
+	/**
+	 * Start renaming a file or folder and return the rename input, which the
+	 * files app has prefilled with the current name.
+	 *
+	 * @param name - Name of the file or folder to rename
+	 * @param type - Whether the target is a file or a folder
+	 */
+	public async startRenaming(name: string, type: 'file' | 'folder' = 'file'): Promise<Locator> {
+		const actionsMenu = await this.openActionsMenu(name)
+		await actionsMenu.getRenameEntry().click()
+
+		const input = this.getRenameInput(type)
+		await expect(input).toBeVisible()
+		return input
+	}
+
+	/**
+	 * Rename a file or folder and wait for the renamed row to appear.
+	 *
+	 * Inside an encrypted folder this returns while the parent metadata is still
+	 * being rewritten - wrap the call in `withEncryptedFolderUpdate` to await that.
+	 *
+	 * @param name - Current name of the file or folder
+	 * @param newName - Name to rename it to
+	 * @param type - Whether the target is a file or a folder
+	 */
+	public async renameFileOrFolder(name: string, newName: string, type: 'file' | 'folder' = 'file'): Promise<void> {
+		const input = await this.startRenaming(name, type)
+		await input.fill(newName)
+		await input.press('Enter')
+		await expect(this.getFileOrFolder(newName)).toBeVisible()
 	}
 
 	/** The size cell of a row, e.g. "0 KB" for a freshly created folder. */
