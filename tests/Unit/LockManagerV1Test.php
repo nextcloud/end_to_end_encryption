@@ -16,8 +16,8 @@ use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
 use OCA\EndToEndEncryption\LockManagerV1;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\Files\Node;
 use OCP\Files\NotPermittedException;
 use OCP\IUser;
@@ -213,7 +213,7 @@ class LockManagerV1Test extends TestCase {
 			->method('getPath')
 			->willReturn('/');
 
-		$userRoot = $this->createMock(Folder::class);
+		$userRoot = $this->createMock(IUserFolder::class);
 		$userRoot->expects($this->once())
 			->method('getById')
 			->with(42)
@@ -245,7 +245,7 @@ class LockManagerV1Test extends TestCase {
 			->method('getId')
 			->willReturn(1337);
 
-		$userRoot = $this->createMock(Folder::class);
+		$userRoot = $this->createMock(IUserFolder::class);
 		$userRoot->expects($this->once())
 			->method('getById')
 			->with(42)
@@ -293,7 +293,7 @@ class LockManagerV1Test extends TestCase {
 			->method('getParent')
 			->willReturn($parentNode);
 
-		$userRoot = $this->createMock(Folder::class);
+		$userRoot = $this->createMock(IUserFolder::class);
 		$userRoot->expects($this->once())
 			->method('getById')
 			->with(42)
@@ -344,7 +344,7 @@ class LockManagerV1Test extends TestCase {
 			->method('getParent')
 			->willReturn($parentNode);
 
-		$userRoot = $this->createMock(Folder::class);
+		$userRoot = $this->createMock(IUserFolder::class);
 		$userRoot->expects($this->once())
 			->method('getById')
 			->with(42)

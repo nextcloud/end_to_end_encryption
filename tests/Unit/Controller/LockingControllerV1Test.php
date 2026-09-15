@@ -19,6 +19,7 @@ use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\IL10N;
 use OCP\IRequest;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
@@ -77,8 +78,8 @@ class LockingControllerV1Test extends TestCase {
 	 *
 	 * @param int $userFolderId The file id of the user folder itself
 	 */
-	private function mockUserFolder(?Folder $node, int $userFolderId = 1): Folder&Stub {
-		$userFolder = $this->createStub(Folder::class);
+	private function mockUserFolder(?Folder $node, int $userFolderId = 1): IUserFolder&Stub {
+		$userFolder = $this->createStub(IUserFolder::class);
 		$userFolder->method('getId')
 			->willReturn($userFolderId);
 		$userFolder->method('getFirstNodeById')

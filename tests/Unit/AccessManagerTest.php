@@ -13,6 +13,7 @@ use OCP\Constants;
 use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\Files\Node;
 use OCP\Files\Storage\ISharedStorage;
 use OCP\Files\Storage\IStorage;
@@ -62,7 +63,7 @@ class AccessManagerTest extends TestCase {
 	private function mockUserFolders(array $nodeByUser): void {
 		$folders = [];
 		foreach ($nodeByUser as $userId => $node) {
-			$folder = $this->createStub(Folder::class);
+			$folder = $this->createStub(IUserFolder::class);
 			$folder->method('getFirstNodeById')
 				->willReturnMap([[self::FILE_ID, $node]]);
 			$folders[] = [$userId, $folder];

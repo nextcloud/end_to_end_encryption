@@ -15,6 +15,7 @@ use OCA\EndToEndEncryption\EncryptionManager;
 use OCP\Files\Cache\ICache;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\Storage\IStorage;
@@ -31,7 +32,7 @@ use Test\TestCase;
 class EncryptionManagerTest extends TestCase {
 
 	private IRootFolder&MockObject $rootFolderInterface;
-	private Folder&Stub $rootFolder;
+	private IUserFolder&Stub $rootFolder;
 	private IStorage&Stub $storage;
 	private ICache&MockObject $fileCache;
 	private IDBConnection&Stub $dbConnection;
@@ -41,7 +42,7 @@ class EncryptionManagerTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		$this->rootFolderInterface = $this->createMock(IRootFolder::class);
-		$this->rootFolder = $this->createStub(Folder::class);
+		$this->rootFolder = $this->createStub(IUserFolder::class);
 		$this->storage = $this->createStub(IStorage::class);
 		$this->fileCache = $this->createMock(ICache::class);
 		$this->dbConnection = $this->createStub(IDBConnection::class);
