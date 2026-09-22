@@ -6,6 +6,7 @@
 import type { Locator } from '@playwright/test'
 
 import { expect } from '@playwright/test'
+import { toggleSwitch } from '../utils/switches.ts'
 
 export class SectionMnemonicDialog {
 	public readonly buttonSubmit: Locator
@@ -22,7 +23,7 @@ export class SectionMnemonicDialog {
 	public async fillAndSubmit(mnemonic: string): Promise<void> {
 		await expect(this.dialogLocator).toBeVisible()
 		await this.inputMnemonic.fill(mnemonic)
-		await this.switchConsent.check({ force: true })
+		await toggleSwitch(this.switchConsent)
 		await expect(this.buttonSubmit).not.toBeDisabled()
 		await this.buttonSubmit.click()
 		await expect(this.dialogLocator).toHaveCount(0)
