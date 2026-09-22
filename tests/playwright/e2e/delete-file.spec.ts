@@ -5,7 +5,7 @@
 
 import { expect } from '@playwright/test'
 import { test } from '../support/fixtures/encrypted-folder.ts'
-import { createFolderInEncryptedFolder, uploadFileToEncryptedFolder, withEncryptedFolderUpdate } from '../support/utils/e2ee.ts'
+import { createFolderInEncryptedFolder, uploadFileToEncryptedFolder, watchUntokenizedDeletes, withEncryptedFolderUpdate, withEncryptedFolderUpdates } from '../support/utils/e2ee.ts'
 import { disableDefaultHomeContents } from '../support/utils/occ.ts'
 
 /**
@@ -72,5 +72,105 @@ test.describe('deleting files in encrypted folders', () => {
 		await expect(filesApp.getFileOrFolder('kept-file.txt')).toBeVisible()
 		await expect(filesApp.getFileOrFolder('first-file.txt')).toHaveCount(0)
 		await expect(filesApp.getFileOrFolder('second-file.txt')).toHaveCount(0)
+	})
+})
+
+/**
+ * Deleting a multi-row selection is the same operation as deleting a single
+ * file, only that the files app fires up to five of them at once against the
+ * metadata of the same folder. These tests are about that folder ending up with
+ * exactly the entries that were not selected - on the server as well as in what
+ * the app kept in memory.
+ */
+test.describe('deleting several files at once', () => {
+	test.beforeAll(disableDefaultHomeContents)
+
+	test('delete a selection of files', async ({ filesApp, page, mnemonic, encryptedFolder }) => {
+		const deleted = ['first-file.txt', 'second-file.txt', 'third-file.txt']
+		for (const name of ['kept-file.txt', ...deleted]) {
+			await uploadFileToEncryptedFolder(page, filesApp, name)
+		}
+
+		await filesApp.selectFilesOrFolders(...deleted)
+		await withEncryptedFolderUpdates(page, deleted.length, () => filesApp.deleteSelection(deleted))
+
+		// gone from the list, and the file that was not selected untouched
+		await expect(filesApp.getFileOrFolder('kept-file.txt')).toBeVisible()
+
+		// decrypted from scratch, as a metadata that kept a deleted entry or lost the
+		// kept one only shows here
+		await filesApp.reopenEncryptedFolder(encryptedFolder, mnemonic)
+		await expect(filesApp.getFileOrFolder('kept-file.txt')).toBeVisible()
+		for (const name of deleted) {
+			await expect(filesApp.getFileOrFolder(name)).toHaveCount(0)
+		}
+	})
+
+	test('delete a selection of files and folders', async ({ filesApp, page, mnemonic, encryptedFolder }) => {
+		await createFolderInEncryptedFolder(page, filesApp, 'kept-folder')
+		await createFolderInEncryptedFolder(page, filesApp, 'deleted-folder')
+		await uploadFileToEncryptedFolder(page, filesApp, 'kept-file.txt')
+		await uploadFileToEncryptedFolder(page, filesApp, 'deleted-file.txt')
+
+		// a folder takes an extra request under the same lock to drop its own
+		// metadata, so a mixed selection races the two branches against each other
+		const deleted = ['deleted-folder', 'deleted-file.txt']
+		await filesApp.selectFilesOrFolders(...deleted)
+		await withEncryptedFolderUpdates(page, deleted.length, () => filesApp.deleteSelection(deleted))
+
+		await filesApp.reopenEncryptedFolder(encryptedFolder, mnemonic)
+		await expect(filesApp.getFileOrFolder('kept-folder')).toBeVisible()
+		await expect(filesApp.getFileOrFolder('kept-file.txt')).toBeVisible()
+		for (const name of deleted) {
+			await expect(filesApp.getFileOrFolder(name)).toHaveCount(0)
+		}
+	})
+
+	test('delete the whole contents of a folder at once', async ({ filesApp, page, mnemonic, encryptedFolder }) => {
+		const deleted = ['first-file.txt', 'second-file.txt', 'third-file.txt']
+		for (const name of deleted) {
+			await uploadFileToEncryptedFolder(page, filesApp, name)
+		}
+
+		await filesApp.selectFilesOrFolders(...deleted)
+		await withEncryptedFolderUpdates(page, deleted.length, () => filesApp.deleteSelection(deleted))
+
+		// emptying the folder may not take the folder itself with it
+		await filesApp.reopenEncryptedFolder(encryptedFolder, mnemonic)
+		for (const name of deleted) {
+			await expect(filesApp.getFileOrFolder(name)).toHaveCount(0)
+		}
+		await uploadFileToEncryptedFolder(page, filesApp, 'later-file.txt')
+
+		await filesApp.reopenEncryptedFolder(encryptedFolder, mnemonic)
+		await expect(filesApp.getFileOrFolder('later-file.txt')).toBeVisible()
+	})
+
+	/**
+	 * Ten files are more than the five deletes the files app has in flight at once,
+	 * so unlike the selections above this also covers a delete starting while the
+	 * folder is still being rewritten by an earlier one.
+	 */
+	test('delete ten files at once', async ({ filesApp, page, mnemonic, encryptedFolder }) => {
+		// eleven uploads and ten deletes, each a full lock-write-unlock round trip
+		test.slow()
+
+		const deleted = Array.from({ length: 10 }, (_, index) => `file-${index}.txt`)
+		for (const name of ['kept-file.txt', ...deleted]) {
+			await uploadFileToEncryptedFolder(page, filesApp, name)
+		}
+
+		const untokenized = watchUntokenizedDeletes(page)
+		await filesApp.selectFilesOrFolders(...deleted)
+		await withEncryptedFolderUpdates(page, deleted.length, () => filesApp.deleteSelection(deleted))
+
+		expect(untokenized).toEqual([])
+		await expect(filesApp.getFileOrFolder('kept-file.txt')).toBeVisible()
+
+		await filesApp.reopenEncryptedFolder(encryptedFolder, mnemonic)
+		await expect(filesApp.getFileOrFolder('kept-file.txt')).toBeVisible()
+		for (const name of deleted) {
+			await expect(filesApp.getFileOrFolder(name)).toHaveCount(0)
+		}
 	})
 })

@@ -75,12 +75,57 @@ export async function uploadFileToEncryptedFolder(page: Page, filesApp: FilesApp
  * @param page - Page the action runs on
  * @param action - The mutation to perform
  */
-export async function withEncryptedFolderUpdate<T>(page: Page, action: () => Promise<T>): Promise<T> {
+export function withEncryptedFolderUpdate<T>(page: Page, action: () => Promise<T>): Promise<T> {
+	return withEncryptedFolderUpdates(page, 1, action)
+}
+
+/**
+ * Like {@link withEncryptedFolderUpdate}, for an action that runs several of
+ * those operations - for instance deleting a multi-row selection, which the
+ * files app turns into one delete per selected node.
+ *
+ * All of them have to be awaited, as the metadata is only settled once the last
+ * one released the lock. Counting them also makes a test time out here instead
+ * of passing on a folder that was only half rewritten.
+ *
+ * @param page - Page the action runs on
+ * @param count - Number of operations the action is expected to perform
+ * @param action - The mutations to perform
+ */
+export async function withEncryptedFolderUpdates<T>(page: Page, count: number, action: () => Promise<T>): Promise<T> {
+	let seen = 0
 	const unlocked = page.waitForResponse((response) => response.request().method() === 'DELETE'
-		&& response.url().includes(LOCK_ENDPOINT))
+		&& response.url().includes(LOCK_ENDPOINT)
+		&& ++seen === count)
 
 	const result = await action()
 	await unlocked
 
 	return result
+}
+
+/**
+ * Collect the WebDAV deletes a page sends without a lock token, for a test to
+ * assert stayed empty. The array is filled while the page runs, so read it after
+ * the action.
+ *
+ * The server rejects those with "Write access to end-to-end encrypted folder
+ * requires token - no token sent". The app only sends one when it does not find
+ * the node in the metadata it holds, so this is what cached metadata that
+ * drifted out of sync with the server looks like from the outside.
+ *
+ * @param page - Page to watch
+ */
+export function watchUntokenizedDeletes(page: Page): string[] {
+	const untokenized: string[] = []
+
+	page.on('request', (request) => {
+		if (request.method() === 'DELETE'
+			&& /\/(remote|public)\.php\/dav\/files\//.test(request.url())
+			&& request.headers()['e2e-token'] === undefined) {
+			untokenized.push(request.url())
+		}
+	})
+
+	return untokenized
 }

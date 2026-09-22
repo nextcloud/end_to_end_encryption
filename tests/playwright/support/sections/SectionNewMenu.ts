@@ -57,6 +57,7 @@ export class SectionNewMenu {
 	 */
 	public async createNewE2eeFolder(): Promise<SectionCreateE2eeFolderDialog> {
 		await this.getNewEncryptedFolderEntry().click()
+		await this.waitForClosed()
 		const section = new SectionCreateE2eeFolderDialog(this.page)
 		await section.waitForSetupCheck()
 		return section
@@ -64,8 +65,19 @@ export class SectionNewMenu {
 
 	public async createNewFolder(): Promise<SectionCreateFolderDialog> {
 		await this.getNewFolderEntry().click()
+		await this.waitForClosed()
 		const section = new SectionCreateFolderDialog(this.page)
 		await expect(section.dialogLocator).toBeVisible()
 		return section
+	}
+
+	/**
+	 * Wait for the menu to be gone.
+	 *
+	 * Its popover outlives the click that opens a dialog and is rendered on top of
+	 * it, so a click meant for the dialog can land on a menu entry instead.
+	 */
+	private async waitForClosed(): Promise<void> {
+		await expect(this.menuLocator).toBeHidden()
 	}
 }

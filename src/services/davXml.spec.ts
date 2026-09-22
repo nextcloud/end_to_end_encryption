@@ -19,7 +19,7 @@ import {
 } from './davXml.ts'
 
 const multiStatus = `<?xml version="1.0"?>
-<d:multistatus xmlns:d="DAV:" xmlns:oc="http://owncloud.org/ns" xmlns:nc="http://nextcloud.org/ns">
+<d:multistatus xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns" xmlns:oc="http://owncloud.org/ns">
 	<d:response>
 		<d:href>/remote.php/dav/files/admin/New%20folder/</d:href>
 		<d:propstat>

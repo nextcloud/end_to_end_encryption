@@ -10,6 +10,7 @@ import stringify from 'safe-stable-stringify'
 import { RootMetadata } from '../models/RootMetadata.ts'
 import * as api from '../services/api.ts'
 import logger from '../services/logger.ts'
+import { queueMetadataUpdate } from '../services/metadataQueue.ts'
 import { getPath } from '../services/path.ts'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
@@ -46,20 +47,22 @@ export async function useDeleteInterceptor(context: FetchContext, next: () => Pr
 	}
 
 	context.req.headers.set('X-E2EE-SUPPORTED', 'true')
+	// deleting a selection starts one of these per node at once, and they may not
+	// overlap on the folder whose metadata they rewrite
 	if (isRootFolder) {
 		logger.debug('Deleting e2ee root folder', { path })
-		await handleDeleteRoot(
+		await queueMetadataUpdate(path, () => handleDeleteRoot(
 			path,
 			context,
 			next,
-		)
+		))
 	} else {
 		logger.debug('Deleting e2ee sub-folder', { path })
-		await handleDelete(
+		await queueMetadataUpdate(dirname(path), () => handleDelete(
 			path,
 			context,
 			next,
-		)
+		))
 	}
 
 	// clear cache
@@ -155,6 +158,11 @@ async function handleDelete(path: string, context: FetchContext, next: () => Pro
 		)
 		// make sure to empty the cache
 		metadataStore.deleteMetadata(path)
+	} catch (error) {
+		// the entry was only removed in the metadata the browser holds - keeping it
+		// removed would write a file that is still there off the server on the next operation
+		parentMetadata.metadata.rollback()
+		throw error
 	} finally {
 		await api.unlockFolder(parentMetadata.id, lockToken)
 	}

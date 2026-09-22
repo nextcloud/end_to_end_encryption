@@ -6,6 +6,7 @@
 import type { Locator, Page } from '@playwright/test'
 
 import { expect } from '@playwright/test'
+import { toggleSwitch } from '../utils/switches.ts'
 
 /**
  * Generating the key pair (RSA-2048) and encrypting the private key with 600k
@@ -65,8 +66,10 @@ export class SectionCreateE2eeFolderDialog {
 	public async fillMnemonic(mnemonic: string): Promise<this> {
 		await expect(this.inputMnemonic).toBeVisible()
 		await this.inputMnemonic.fill(mnemonic)
-		await this.switchConsent.click({ force: true })
+
+		await toggleSwitch(this.switchConsent)
 		await expect(this.buttonSubmitMnemonic).toBeEnabled()
+
 		await this.buttonSubmitMnemonic.click()
 		return this
 	}
