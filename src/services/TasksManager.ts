@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { FileStat, ResponseDataDetailed } from 'webdav'
 import type { ITask } from '../store/tasks.ts'
 
 import { showConfirmation, showError, showLoading } from '@nextcloud/dialogs'
+import { emit } from '@nextcloud/event-bus'
+import { getClient, getDefaultPropfind, getRootPath, resultToNode } from '@nextcloud/files/dav'
 import { t } from '@nextcloud/l10n'
+import { join } from '@nextcloud/paths'
 import * as keyStore from '../store/keys.ts'
 import * as metadataStore from '../store/metadata.ts'
 import * as taskStore from '../store/tasks.ts'
@@ -91,8 +95,9 @@ async function executeFileDropMigrationTask(task: ITask) {
 
 	const { id, path } = metadataStore.getRootFolder(metadata)
 	const token = await api.lockFolder(id, metadata.counter + 1)
+	const entryNames = metadata.fileDropEntries
 	try {
-		for (const entryName of metadata.fileDropEntries) {
+		for (const entryName of entryNames) {
 			metadata.migrateFileDrop(entryName)
 		}
 
@@ -103,6 +108,31 @@ async function executeFileDropMigrationTask(task: ITask) {
 		logger.error('Error while updating metadata during file drop migration', { path, error, metadata })
 		showError(t('end_to_end_encryption', 'An error occurred while migrating one file drop entry. Please try again later.'))
 		await api.unlockFolder(id, token, true)
+		return
+	}
+
+	await emitMigratedNodes(path, entryNames)
+}
+
+/**
+ * Announce the migrated file drop entries so the files list shows them without a reload.
+ * They were hidden from the list while they were file drop entries.
+ *
+ * @param folderPath - The path of the folder the entries were migrated in
+ * @param entryNames - The encrypted names of the migrated entries
+ */
+async function emitMigratedNodes(folderPath: string, entryNames: string[]) {
+	const client = getClient()
+	for (const entryName of entryNames) {
+		try {
+			const { data } = await client.stat(join(getRootPath(), folderPath, entryName), {
+				details: true,
+				data: getDefaultPropfind(),
+			}) as ResponseDataDetailed<FileStat>
+			emit('files:node:created', resultToNode(data))
+		} catch (error) {
+			logger.error('Could not fetch migrated file drop entry', { folderPath, entryName, error })
+		}
 	}
 }
 
