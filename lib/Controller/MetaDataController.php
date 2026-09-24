@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Controller;
 
 use InvalidArgumentException;
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
@@ -31,6 +30,7 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use OCP\User\Exceptions\UserNotFoundException;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
@@ -272,7 +272,7 @@ class MetaDataController extends OCSController {
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
+		} catch (UserNotFoundException $e) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 

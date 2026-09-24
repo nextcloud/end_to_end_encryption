@@ -7,7 +7,6 @@ declare(strict_types=1);
  */
 namespace OCA\EndToEndEncryption\Controller\V1;
 
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
 use OCA\EndToEndEncryption\Exceptions\FileNotLockedException;
@@ -27,6 +26,7 @@ use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use OCP\User\Exceptions\UserNotFoundException;
 use Psr\Log\LoggerInterface;
 
 class LockingController extends OCSController {
@@ -81,7 +81,7 @@ class LockingController extends OCSController {
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
+		} catch (UserNotFoundException $e) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
 
@@ -125,7 +125,7 @@ class LockingController extends OCSController {
 
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException $e) {
+		} catch (UserNotFoundException $e) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}
 

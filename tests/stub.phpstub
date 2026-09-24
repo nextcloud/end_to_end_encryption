@@ -48,10 +48,6 @@ namespace OC\Security\IdentityProof {
     }
 }
 
-namespace OC\User {
-    class NoUserException extends \Exception {}
-}
-
 namespace Sabre\DAV {
     class ServerPlugin {}
 

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCP\Files\IAppData;
@@ -16,6 +15,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\Files\SimpleFS\ISimpleFile;
+use OCP\User\Exceptions\UserNotFoundException;
 
 /**
  * Class MetaDataStorage
@@ -211,7 +211,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	protected function verifyOwner(string $userId, int $id): void {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
-		} catch (NoUserException|NotPermittedException $ex) {
+		} catch (UserNotFoundException|NotPermittedException $ex) {
 			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
@@ -281,7 +281,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	protected function getLegacyOwnerPath(string $userId, int $id):string {
 		try {
 			$userFolder = $this->rootFolder->getUserFolder($userId);
-		} catch (NoUserException $ex) {
+		} catch (UserNotFoundException $ex) {
 			throw new NotFoundException('No user-root for ' . $userId);
 		}
 
