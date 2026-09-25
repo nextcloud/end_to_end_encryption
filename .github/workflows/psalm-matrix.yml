@@ -18,27 +18,43 @@ permissions:
   contents: read
 
 jobs:
-  static-analysis:
-    runs-on: ubuntu-latest
-
-    name: static-psalm-analysis
+  matrix:
+    runs-on: ubuntu-latest-low
+    outputs:
+      ocp-matrix: ${{ steps.versions.outputs.ocp-matrix }}
+      php-min: ${{ steps.versions.outputs.php-min }}
     steps:
-      - name: Checkout
+      - name: Checkout app
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: Get php version
+      - name: Get version matrix
         id: versions
         uses: nextcloud-libraries/nextcloud-version-matrix@cd0211ffcef1065e2020cd579e4843b8746e7a58 # v1.3.3
 
       - name: Check enforcement of minimum PHP version ${{ steps.versions.outputs.php-min }} in psalm.xml
         run: grep 'phpVersion="${{ steps.versions.outputs.php-min }}' psalm.xml
 
-      - name: Set up php${{ steps.versions.outputs.php-available }}
+  static-analysis:
+    runs-on: ubuntu-latest
+    needs: matrix
+    strategy:
+      # do not stop on another job's failure
+      fail-fast: false
+      matrix: ${{ fromJson(needs.matrix.outputs.ocp-matrix) }}
+
+    name: static-psalm-analysis ${{ matrix.ocp-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up php${{ needs.matrix.outputs.php-min }}
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
         with:
-          php-version: ${{ steps.versions.outputs.php-available }}
+          php-version: ${{ needs.matrix.outputs.php-min }}
           extensions: bz2, ctype, curl, dom, fileinfo, gd, iconv, intl, json, libxml, mbstring, openssl, pcntl, posix, session, simplexml, xmlreader, xmlwriter, zip, zlib, sqlite, pdo_sqlite
           coverage: none
           ini-file: development
@@ -54,8 +70,22 @@ jobs:
       - name: Install composer dependencies
         uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
 
-      - name: Install nextcloud/ocp:dev-${{ steps.versions.outputs.branches-max }}
-        run: composer require --dev nextcloud/ocp:dev-${{ steps.versions.outputs.branches-max }} --ignore-platform-reqs --with-dependencies
+      - name: Install nextcloud/ocp:${{ matrix.ocp-version }}
+        env:
+          OCP_VERSION: ${{ matrix.ocp-version }}
+        run: composer require --dev "nextcloud/ocp:$OCP_VERSION" --ignore-platform-reqs --with-dependencies
 
       - name: Run coding standards check
         run: composer run psalm -- --threads=1 --monochrome --no-progress --output-format=github
+
+  summary:
+    runs-on: ubuntu-latest-low
+    needs: static-analysis
+
+    if: always()
+
+    name: static-psalm-analysis-summary
+
+    steps:
+      - name: Summary status
+        run: if ${{ needs.static-analysis.result != 'success' }}; then exit 1; fi
