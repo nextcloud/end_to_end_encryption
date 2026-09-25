@@ -162,6 +162,72 @@ describe('deleting a folder', () => {
 	})
 })
 
+describe('deleting several nodes at once', () => {
+	/**
+	 * The server locks the folder for one operation at a time, so overlapping ones
+	 * are rejected - which is what the files app runs into when it deletes a
+	 * selection five requests at a time.
+	 */
+	beforeEach(() => {
+		let locked: string | undefined
+		vi.mocked(api.lockFolder).mockImplementation(async (id) => {
+			if (locked !== undefined) {
+				throw new Error('File already locked')
+			}
+			locked = id
+			return 'lock-token'
+		})
+		vi.mocked(api.unlockFolder).mockImplementation(async () => {
+			locked = undefined
+		})
+	})
+
+	test('removes every deleted file from the metadata', async () => {
+		const metadata = await seedRootFolder()
+		const uuids = ['aaaa12554e0d4364854ae3e21b170152', 'bbbb12554e0d4364854ae3e21b170152']
+		for (const [index, uuid] of uuids.entries()) {
+			metadata.addFile(uuid, file(`extra-${index}.txt`))
+		}
+		await metadata.export(await (await import('../store/keys.ts')).getCertificate())
+
+		await Promise.all([FILE_UUID, ...uuids].map((uuid) => runDelete(`${ROOT}/${uuid}`)))
+
+		expect(metadata.listContents()).toEqual(['Test'])
+		// one lock per delete, each with the counter the previous one left behind
+		expect(vi.mocked(api.lockFolder).mock.calls.map(([, counter]) => counter))
+			.toEqual([COUNTER + 2, COUNTER + 3, COUNTER + 4])
+		expect(api.updateMetadata).toHaveBeenCalledTimes(3)
+	})
+})
+
+describe('a failing delete', () => {
+	test('keeps the file in the metadata', async () => {
+		const metadata = await seedRootFolder()
+		const next = async () => {
+			throw new Error('Request failed')
+		}
+
+		await expect(runDelete(`${ROOT}/${FILE_UUID}`, next)).rejects.toThrow('Request failed')
+
+		// the entry is only gone once the server has it gone too
+		expect(metadata.listContents()).toEqual(['Test', 'test.txt'])
+		expect(metadata.counter).toBe(COUNTER)
+		expect(api.updateMetadata).not.toHaveBeenCalled()
+		expect(api.unlockFolder).toHaveBeenCalledExactlyOnceWith('89', 'lock-token')
+	})
+
+	test('keeps the folder in the metadata', async () => {
+		const root = await seedRootFolder()
+		await seedSubFolder(root.key)
+		vi.mocked(api.deleteMetadata).mockRejectedValue(new Error('Request failed'))
+
+		await expect(runDelete(`${ROOT}/${SUB_UUID}`)).rejects.toThrow('Request failed')
+
+		expect(root.listContents()).toEqual(['Test', 'test.txt'])
+		expect(root.counter).toBe(COUNTER)
+	})
+})
+
 /**
  * Seed the cache with the metadata of the e2ee root folder, like a PROPFIND would.
  */
@@ -187,9 +253,10 @@ async function seedSubFolder(key: CryptoKey): Promise<Metadata> {
  * Run the DELETE interceptor for the given path.
  *
  * @param path - The path of the node to delete
+ * @param callback - What the request itself does
  */
-async function runDelete(path: string) {
-	const next = vi.fn(async () => {})
+async function runDelete(path: string, callback: () => Promise<void> = async () => {}) {
+	const next = vi.fn(callback)
 	const context = {
 		req: new Request(`https://example.com${path}`, { method: 'DELETE' }),
 		res: new Response(),
