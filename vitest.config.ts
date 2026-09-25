@@ -12,6 +12,14 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		nodePolyfills(),
+		{
+			name: 'msw-service-worker',
+			resolveId(id) {
+				if (id === '/mockServiceWorker.js') {
+					return this.resolve('msw/mockServiceWorker.js', undefined, { skipSelf: true })
+				}
+			},
+		},
 	],
 	optimizeDeps: {
 		include: [
