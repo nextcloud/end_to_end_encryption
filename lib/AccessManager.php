@@ -8,11 +8,13 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
+use OCP\AppFramework\PublicShareController;
 use OCP\Constants;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\Storage\ISharedStorage;
 use OCP\IRequest;
+use OCP\ISession;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
 
@@ -24,6 +26,7 @@ class AccessManager {
 		private readonly IRequest $request,
 		private readonly IRootFolder $rootFolder,
 		private readonly IManager $shareManager,
+		private readonly ISession $session,
 	) {
 		$this->share = null;
 	}
@@ -40,6 +43,10 @@ class AccessManager {
 		if ($shareToken !== null) {
 			if ($this->share === null) {
 				$this->share = $this->shareManager->getShareByToken($shareToken);
+			}
+
+			if (!$this->isShareAuthenticated($this->share)) {
+				throw new \InvalidArgumentException('Share is not authenticated');
 			}
 
 			if ($this->share->getNode()->getId() !== $fileId) {
@@ -98,4 +105,19 @@ class AccessManager {
 		}
 	}
 
+	/**
+	 * Check that the current session passed the password check of the share.
+	 *
+	 * @param IShare $share - The share accessed by its token
+	 */
+	public function isShareAuthenticated(IShare $share): bool {
+		if (!$share->isPasswordProtected()) {
+			return true;
+		}
+
+		// Same session state the public share page stores after a successful password check
+		$allowedTokens = json_decode($this->session->get(PublicShareController::DAV_AUTHENTICATED_FRONTEND) ?? '[]', true);
+		return is_array($allowedTokens)
+			&& ($allowedTokens[$share->getToken()] ?? null) === $share->getPassword();
+	}
 }

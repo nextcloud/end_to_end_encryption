@@ -335,6 +335,10 @@ class MetaDataController extends OCSController {
 			return $this->userId;
 		}
 
+		if (!$this->accessManager->isShareAuthenticated($share)) {
+			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
+		}
+
 		if (!($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE)) {
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
