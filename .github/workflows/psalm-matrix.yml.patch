@@ -1,0 +1,35 @@
+diff --git a/.github/workflows/psalm-matrix.yml b/.github/workflows/psalm-matrix.yml
+index 3fa1abf7..b9d9dd18 100644
+--- a/.github/workflows/psalm-matrix.yml
++++ b/.github/workflows/psalm-matrix.yml
+@@ -63,7 +63,14 @@ jobs:
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+ 
++      - name: Check composer bin for nextcloud/ocp exists
++        id: check_composer_bin
++        uses: andstor/file-existence-action@558493d6c74bf472d87c84eab196434afc2fa029 # v3.1.0
++        with:
++          files: vendor-bin/nextcloud-ocp/composer.json
++
+       - name: Remove nextcloud/ocp
++        if: steps.check_composer_bin.outputs.files_exists != 'true'
+         run: |
+           composer remove nextcloud/ocp --dev --no-scripts
+ 
+@@ -73,7 +80,14 @@ jobs:
+       - name: Install nextcloud/ocp:${{ matrix.ocp-version }}
+         env:
+           OCP_VERSION: ${{ matrix.ocp-version }}
+-        run: composer require --dev "nextcloud/ocp:$OCP_VERSION" --ignore-platform-reqs --with-dependencies
++          USE_COMPOSER_BIN: ${{ steps.check_composer_bin.outputs.files_exists }}
++        run: |
++          COMPOSER_CMD='composer'
++          if [[ "$USE_COMPOSER_BIN" == 'true' ]]; then
++            COMPOSER_CMD='composer bin nextcloud-ocp'
++          fi
++          echo $COMPOSER_CMD require --dev "nextcloud/ocp:$OCP_VERSION" --ignore-platform-reqs --with-dependencies
++          $COMPOSER_CMD require --dev "nextcloud/ocp:$OCP_VERSION" --ignore-platform-reqs --with-dependencies
+ 
+       - name: Run coding standards check
+         run: composer run psalm -- --threads=1 --monochrome --no-progress --output-format=github
