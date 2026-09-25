@@ -7,6 +7,7 @@ import type { Locator, Page } from '@playwright/test'
 
 import { expect } from '@playwright/test'
 import { SectionFileActionsMenu } from './SectionFileActionsMenu.ts'
+import { SectionFileDropMigrationDialog } from './SectionFileDropMigrationDialog.ts'
 import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
 
@@ -132,6 +133,10 @@ export class FilesAppPage {
 
 	public getMnemonicDialog(): SectionMnemonicDialog {
 		return new SectionMnemonicDialog(this.dialogMnemonicLocator)
+	}
+
+	public getFileDropMigrationDialog(): SectionFileDropMigrationDialog {
+		return new SectionFileDropMigrationDialog(this.page)
 	}
 
 	/**
