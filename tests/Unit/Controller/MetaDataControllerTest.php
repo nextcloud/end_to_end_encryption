@@ -20,7 +20,6 @@ use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Constants;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
-use OCP\Files\IUserFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
@@ -426,7 +425,7 @@ class MetaDataControllerTest extends TestCase {
 		$this->accessManager->method('isShareAuthenticated')
 			->willReturnMap([[$share, $isAuthenticated]]);
 
-		$userFolder = $this->createStub(IUserFolder::class);
+		$userFolder = $this->createStub(Folder::class);
 		$userFolder->method('getId')->willReturn(1);
 		$userFolder->method('getFirstNodeById')
 			->willReturnMap([[$folderId, $folder]]);
