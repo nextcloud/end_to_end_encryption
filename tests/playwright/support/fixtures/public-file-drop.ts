@@ -4,19 +4,19 @@
  */
 
 import { test as baseTest } from '@playwright/test'
-import { PublicFileDropPage } from '../sections/PublicFileDropPage.ts'
+import { FileDropPage } from '../sections/FileDropPage.ts'
 
 interface PublicFileDropFixture {
-	/** Public file drop page in a separate browser context, so the guest has no session */
-	publicFileDrop: PublicFileDropPage
+	/** File drop page in a separate browser context, so the guest has no session */
+	fileDrop: FileDropPage
 }
 
 export const test = baseTest.extend<PublicFileDropFixture>({
-	publicFileDrop: async ({ browser, baseURL }, use) => {
+	fileDrop: async ({ browser, baseURL }, use) => {
 		const context = await browser.newContext({ storageState: undefined, baseURL })
 		const page = await context.newPage()
 
-		await use(new PublicFileDropPage(page))
+		await use(new FileDropPage(page))
 		await context.close()
 	},
 })

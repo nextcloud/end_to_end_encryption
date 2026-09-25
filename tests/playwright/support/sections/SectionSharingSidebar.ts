@@ -30,7 +30,7 @@ export class SectionSharingSidebar {
 	}
 
 	/**
-	 * Create a file drop share and return its public URL.
+	 * Create a file drop share and return its token.
 	 *
 	 * @param options - Optional password and note of the share
 	 * @param options.password - Password of the share
@@ -42,6 +42,7 @@ export class SectionSharingSidebar {
 
 		const link = this.listLinkShares.getByRole('link')
 		await expect(link).toHaveCount(1)
-		return (await link.getAttribute('href'))!
+		const url = (await link.getAttribute('href'))!
+		return url.split('/s/').at(-1)!
 	}
 }
