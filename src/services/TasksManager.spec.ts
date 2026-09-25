@@ -8,7 +8,7 @@ import type { INode } from '@nextcloud/files'
 import { showConfirmation } from '@nextcloud/dialogs'
 import { emit } from '@nextcloud/event-bus'
 import { getClient } from '@nextcloud/files/dav'
-import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterAll, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
 import * as metadataStore from '../store/metadata.ts'
 import * as taskStore from '../store/tasks.ts'
 import * as api from './api.ts'
@@ -51,6 +51,10 @@ const metadata = {
 // the tasks manager keeps its interval across tests, so the fake clock must be shared as well
 beforeAll(() => {
 	vi.useFakeTimers()
+})
+
+afterAll(() => {
+	vi.useRealTimers()
 })
 
 beforeEach(() => {
