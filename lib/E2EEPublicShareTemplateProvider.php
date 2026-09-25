@@ -95,6 +95,7 @@ class E2EEPublicShareTemplateProvider implements IPublicShareTemplateProvider {
 		$this->initialState->provideInitialState(Application::APP_ID, 'fileId', (string)$shareNode->getId()); // explicit cast to string for future snowflake support
 		$this->initialState->provideInitialState(Application::APP_ID, 'fileName', $shareNode->getName());
 		$this->initialState->provideInitialState(Application::APP_ID, 'metadataVersion', (float)$metadata['version']);
+		$this->initialState->provideInitialState(Application::APP_ID, 'note', $share->getNote());
 
 		// OpenGraph Support: http://ogp.me/
 		Util::addHeader('meta', ['property' => 'og:title', 'content' => $this->l10n->t('Encrypted share')]);
