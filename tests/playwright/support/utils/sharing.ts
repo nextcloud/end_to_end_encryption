@@ -24,13 +24,14 @@ export async function createFileDropShare(request: APIRequestContext, path: stri
 		headers: { 'OCS-APIRequest': 'true', Accept: 'application/json' },
 		data: { path, permissions: PERMISSION_CREATE, shareType: SHARE_TYPE_LINK },
 	})
-	const { ocs } = await response.json()
-
 	expect(response.status(), `Sharing ${path} as file drop failed`).toBe(200)
+
+	const { ocs } = await response.json()
+	// OCS v2 reports success as 200, only v1 uses 100
 	expect(
 		ocs.meta.statuscode,
 		`Sharing ${path} as file drop failed (OCS statuscode: ${ocs.meta.statuscode}, message: ${ocs.meta.message})`,
-	).toBe(100)
+	).toBe(200)
 
 	return ocs.data.token
 }
