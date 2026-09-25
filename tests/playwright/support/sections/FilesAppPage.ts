@@ -201,6 +201,60 @@ export class FilesAppPage {
 		await expect(this.getFileOrFolder(name)).toHaveCount(0)
 	}
 
+	/**
+	 * Select rows of the files list through their checkboxes.
+	 *
+	 * The checkbox is visually hidden inside NcCheckboxRadioSwitch, so the click
+	 * has to be forced. It is matched within the row rather than by its label,
+	 * which is built from the basename - inside an encrypted folder that is the
+	 * uuid and not the name the test knows the node by.
+	 *
+	 * @param names - Names of the files or folders to select
+	 */
+	public async selectFilesOrFolders(...names: string[]): Promise<void> {
+		for (const name of names) {
+			const row = this.getFileOrFolder(name)
+			await expect(row).toBeVisible()
+			await row.getByRole('checkbox').check({ force: true })
+		}
+	}
+
+	/**
+	 * Delete everything that is currently selected through the selection toolbar,
+	 * and wait for the rows to be gone from the list.
+	 *
+	 * The toolbar renders the first actions inline and moves the rest into an
+	 * overflow menu, so the menu is only opened when the entry is not already on
+	 * screen. The entry is matched on its attribute, as its label is worded after
+	 * the selection.
+	 *
+	 * With the `show_dialog_deletion` user config left at its default, a selection
+	 * of five or more nodes is the only thing that brings up a confirmation.
+	 *
+	 * @param names - Names of the selected files or folders, awaited to disappear
+	 */
+	public async deleteSelection(names: string[]): Promise<void> {
+		const entry = this.page.locator('[data-cy-files-list-selection-action="delete"]')
+		if (await entry.isVisible()) {
+			await entry.click()
+		} else {
+			await this.page.locator('[data-cy-files-list-selection-actions]')
+				.getByRole('button', { name: 'Actions' })
+				.click({ force: true })
+			await entry.getByRole('menuitem').click()
+		}
+
+		if (names.length >= 5) {
+			await this.page.getByRole('dialog', { name: 'Confirm deletion' })
+				.getByRole('button', { name: /^Delete/ })
+				.click()
+		}
+
+		for (const name of names) {
+			await expect(this.getFileOrFolder(name)).toHaveCount(0)
+		}
+	}
+
 	/** The size cell of a row, e.g. "0 KB" for a freshly created folder. */
 	public getSizeCell(row: Locator): Locator {
 		return row.locator('[data-cy-files-list-row-size]')
