@@ -10,6 +10,7 @@ import { SectionFileActionsMenu } from './SectionFileActionsMenu.ts'
 import { SectionFileDropMigrationDialog } from './SectionFileDropMigrationDialog.ts'
 import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
+import { SectionSharingSidebar } from './SectionSharingSidebar.ts'
 
 /** How long to keep retrying to open a menu. */
 const OPEN_MENU_TIMEOUT = 15000
@@ -258,6 +259,20 @@ export class FilesAppPage {
 		for (const name of names) {
 			await expect(this.getFileOrFolder(name)).toHaveCount(0)
 		}
+	}
+
+	/**
+	 * Open the sharing tab of the sidebar for a file or folder.
+	 *
+	 * @param name - Name of the file or folder to share
+	 */
+	public async openSharingSidebar(name: string): Promise<SectionSharingSidebar> {
+		const actionsMenu = await this.openActionsMenu(name)
+		await actionsMenu.getMenuEntry('Sharing options').click()
+
+		const sidebar = new SectionSharingSidebar(this.page)
+		await expect(sidebar.buttonCreateLinkShare).toBeVisible()
+		return sidebar
 	}
 
 	/** The size cell of a row, e.g. "0 KB" for a freshly created folder. */

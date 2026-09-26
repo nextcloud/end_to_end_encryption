@@ -18,13 +18,21 @@ export interface IShare extends Record<string, string | number> {
 	share_with_displayname: string
 }
 
+export interface IFileDropShareOptions {
+	/** Password required to access the share */
+	password?: string
+	/** Note shown to the recipient */
+	note?: string
+}
+
 /**
  * Create a new file drop
  *
  * @param path - Path of the root encrypted folder
+ * @param options - Optional share settings
  */
-export async function createFileDropShare(path: string) {
-	return await createShare(path, Permission.CREATE)
+export async function createFileDropShare(path: string, options: IFileDropShareOptions = {}) {
+	return await createShare(path, Permission.CREATE, options)
 }
 
 /**
@@ -50,14 +58,17 @@ export async function createPublicLinkShare(path: string, metadata: RootMetadata
  *
  * @param path - The path to share
  * @param permissions - The permissions for the share
+ * @param options - Optional share settings
  */
-async function createShare(path: string, permissions: number) {
+async function createShare(path: string, permissions: number, options: IFileDropShareOptions = {}) {
 	const { data } = await axios.post<OCSResponse<IShare>>(
 		generateOcsUrl('/apps/files_sharing/api/v1/shares'),
 		{
 			path: decodeURI(path),
 			permissions,
 			shareType: ShareType.Link,
+			password: options.password || undefined,
+			note: options.note || undefined,
 		},
 	)
 	return data.ocs.data
