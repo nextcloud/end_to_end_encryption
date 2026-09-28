@@ -76,6 +76,9 @@ Meaning that some apps in the web interface do not work with encrypted files.
 	<background-jobs>
 		<job>OCA\EndToEndEncryption\BackgroundJob\RollbackBackgroundJob</job>
 	</background-jobs>
+	<commands>
+		<command>OCA\EndToEndEncryption\Command\ListV1MetaData</command>
+	</commands>
 	<settings>
 		<admin>OCA\EndToEndEncryption\Settings\Admin</admin>
 		<personal>OCA\EndToEndEncryption\Settings\Personal</personal>
