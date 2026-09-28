@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
+use OCA\EndToEndEncryption\AuditLogger;
+use OCA\EndToEndEncryption\AuditOperation;
 use OCA\EndToEndEncryption\Exceptions\KeyExistsException;
 use OCA\EndToEndEncryption\KeyStorage;
 use OCP\Files\ForbiddenException;
@@ -19,6 +21,7 @@ use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Share\IManager;
+use OCP\Share\IShare;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -31,6 +34,7 @@ class KeyStorageTest extends TestCase {
 	private IAppData&MockObject $appData;
 	private IUserSession&MockObject $userSession;
 	private IManager&Stub $shareManager;
+	private AuditLogger&MockObject $auditLogger;
 	private KeyStorage $keyStorage;
 
 	protected function setUp(): void {
@@ -39,11 +43,13 @@ class KeyStorageTest extends TestCase {
 		$this->appData = $this->createMock(IAppData::class);
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->shareManager = $this->createStub(IManager::class);
+		$this->auditLogger = $this->createMock(AuditLogger::class);
 
 		$this->keyStorage = new KeyStorage(
 			$this->appData,
 			$this->userSession,
 			$this->shareManager,
+			$this->auditLogger,
 		);
 	}
 
@@ -114,6 +120,10 @@ class KeyStorageTest extends TestCase {
 				->with('jane.public.key')
 				->willReturn($node);
 		}
+		$this->auditLogger->expects($expectsNewFile ? $this->once() : $this->never())
+			->method('log')
+			->with(AuditOperation::StorePublicKey, $this->anything(), ['userId' => 'jane']);
+
 		if ($expectsKeyExistsException) {
 			$this->expectException(KeyExistsException::class);
 			$this->expectExceptionMessage('Public key already exists');
@@ -152,18 +162,15 @@ class KeyStorageTest extends TestCase {
 					->method('getFolder')
 					->willReturn($folder);
 
-				if ($expectDelete) {
+				if ($notFoundException) {
 					$folder->expects($this->once())
 						->method('getFile')
 						->with('correct-userId.public.key')
 						->willThrowException(new NotFoundException());
 				} else {
 					$node = $this->createMock(ISimpleFile::class);
-
-					if ($expectDelete) {
-						$node->expects($this->once())
-							->method('delete');
-					}
+					$node->expects($this->once())
+						->method('delete');
 
 					$folder->expects($this->once())
 						->method('getFile')
@@ -172,6 +179,10 @@ class KeyStorageTest extends TestCase {
 				}
 			}
 		}
+
+		$this->auditLogger->expects($expectDelete ? $this->once() : $this->never())
+			->method('log')
+			->with(AuditOperation::DeletePublicKey, $this->anything(), ['userId' => 'correct-userId']);
 
 		if ($expectsNotPermittedException) {
 			$this->expectException(NotPermittedException::class);
@@ -334,6 +345,10 @@ class KeyStorageTest extends TestCase {
 			}
 		}
 
+		$this->auditLogger->expects($expectsPutContent ? $this->once() : $this->never())
+			->method('log')
+			->with(AuditOperation::StorePrivateKey, $this->anything(), ['userId' => 'correct-userId']);
+
 		if ($expectsForbiddenException) {
 			$this->expectException(ForbiddenException::class);
 			$this->expectExceptionMessage('You are not allowed to write the private key');
@@ -399,6 +414,10 @@ class KeyStorageTest extends TestCase {
 				}
 			}
 		}
+
+		$this->auditLogger->expects($expectsDelete ? $this->once() : $this->never())
+			->method('log')
+			->with(AuditOperation::DeletePrivateKey, $this->anything(), ['userId' => 'correct-userId']);
 
 		if ($expectsNotPermittedException) {
 			$this->expectException(NotPermittedException::class);
@@ -475,12 +494,69 @@ class KeyStorageTest extends TestCase {
 				->willReturn($privateKeyFile);
 		}
 
+		$expectedOperations = [];
+		if ($expectsPublicDelete) {
+			$expectedOperations[] = AuditOperation::DeletePublicKey;
+		}
+		if ($expectsPrivateDelete) {
+			$expectedOperations[] = AuditOperation::DeletePrivateKey;
+		}
+		$loggedOperations = [];
+		$this->auditLogger->expects($this->exactly(count($expectedOperations)))
+			->method('log')
+			->willReturnCallback(function (AuditOperation $operation, string $message, array $parameters) use (&$loggedOperations): void {
+				$this->assertEquals(['userId' => 'jane'], $parameters);
+				$loggedOperations[] = $operation;
+			});
+
 		$user = $this->createMock(IUser::class);
 		$user->expects($this->once())
 			->method('getUID')
 			->willReturn('jane');
 
 		$this->keyStorage->deleteUserKeys($user);
+		$this->assertEquals($expectedOperations, $loggedOperations);
+	}
+
+	public function testSetPublicKeyForShareLogsShareIdNotToken(): void {
+		$share = $this->createStub(IShare::class);
+		$share->method('getId')->willReturn('42');
+		$this->shareManager->method('getShareByToken')->willReturn($share);
+
+		$folder = $this->createStub(ISimpleFolder::class);
+		$folder->method('fileExists')->willReturn(false);
+		$folder->method('newFile')->willReturn($this->createStub(ISimpleFile::class));
+		$this->appData->method('getFolder')->willReturn($folder);
+
+		$this->auditLogger->expects($this->once())
+			->method('log')
+			->with(AuditOperation::StorePublicKey, $this->anything(), ['shareId' => '42', 'userId' => 'jane']);
+
+		$this->keyStorage->setPublicKey('public-key-content', 'jane', 'share-token');
+	}
+
+	public function testDeletePrivateKeyForShareLogsShareIdNotToken(): void {
+		$user = $this->createStub(IUser::class);
+		$user->method('getUID')->willReturn('jane');
+		$this->userSession->method('getUser')->willReturn($user);
+
+		$share = $this->createStub(IShare::class);
+		$share->method('getShareOwner')->willReturn('jane');
+		$share->method('getId')->willReturn('42');
+		$this->shareManager->method('getShareByToken')->willReturn($share);
+
+		$folder = $this->createMock(ISimpleFolder::class);
+		$folder->expects($this->once())
+			->method('getFile')
+			->with('share-token.share.private.key')
+			->willReturn($this->createStub(ISimpleFile::class));
+		$this->appData->method('getFolder')->willReturn($folder);
+
+		$this->auditLogger->expects($this->once())
+			->method('log')
+			->with(AuditOperation::DeletePrivateKey, $this->anything(), ['shareId' => '42', 'userId' => 'jane']);
+
+		$this->keyStorage->deletePrivateKey('jane', 'share-token');
 	}
 
 	public static function deleteUserKeysDataProvider(): array {

@@ -32,8 +32,11 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	private string $intermediateMetaDataSignatureFileName = 'intermediate.meta.data.signature';
 	private string $intermediateMetaDataCounterFileName = 'intermediate.meta.data.counter';
 
-	public function __construct(IAppData $appData,
-		IRootFolder $rootFolder) {
+	public function __construct(
+		IAppData $appData,
+		IRootFolder $rootFolder,
+		private readonly AuditLogger $auditLogger,
+	) {
 		$this->appData = $appData;
 		$this->rootFolder = $rootFolder;
 	}
@@ -134,12 +137,23 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 			$dir = $this->appData->getFolder($folderName);
 		} catch (NotFoundException) {
 			// Metadata may exist only in the legacy location.
-			$this->cleanupLegacyFile($userId, $id);
-			return;
+			$dir = null;
 		}
 
-		$dir->delete();
-		$this->cleanupLegacyFile($userId, $id);
+		$dir?->delete();
+		$deleted = $dir !== null;
+		$legacyDeleted = $this->cleanupLegacyFile($userId, $id);
+		if ($deleted || $legacyDeleted) {
+			$this->logMetaDataDeletion($userId, $id);
+		}
+	}
+
+	private function logMetaDataDeletion(string $ownerId, int $id): void {
+		$this->auditLogger->log(
+			AuditOperation::DeleteMetadata,
+			'The end-to-end encryption metadata of the folder with id %d owned by user "%s" was deleted',
+			['fileId' => $id, 'ownerId' => $ownerId],
+		);
 	}
 
 	/**
@@ -164,6 +178,7 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 		// If the intermediate file is empty, delete the metadata file
 		if ($intermediateMetaDataFile->getContent() === '{}') {
 			$dir->delete();
+			$this->logMetaDataDeletion($userId, $id);
 		} else {
 			try {
 				$finalFile = $dir->getFile($this->metaDataFileName);
@@ -260,22 +275,24 @@ class MetaDataStorageV1 implements IMetaDataStorageV1 {
 	}
 
 	/**
+	 * @return bool whether legacy metadata was deleted
 	 * @throws NotPermittedException
 	 */
-	protected function cleanupLegacyFile(string $userId, int $id): void {
+	protected function cleanupLegacyFile(string $userId, int $id): bool {
 		try {
 			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
 		} catch (NotFoundException) {
 			// Just return if file does not exist for user
-			return;
+			return false;
 		}
 
 		try {
 			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
 			$legacyFolder->delete();
 		} catch (NotFoundException|NotPermittedException) {
-			return;
+			return false;
 		}
+		return true;
 	}
 
 	/**
