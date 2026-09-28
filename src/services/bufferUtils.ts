@@ -5,18 +5,25 @@
 
 import { PemConverter } from '@peculiar/x509'
 
+const utf8Decoder = new TextDecoder('utf-8', { fatal: true })
+
 /**
- * @param buffer - The buffer (Uint8Array) to convert to a string
+ * @param buffer - The UTF-8 encoded buffer (Uint8Array) to convert to a string
  */
 export function bufferToString(buffer: Uint8Array<ArrayBuffer> | ArrayBuffer): string {
-	return String.fromCharCode(...new Uint8Array(buffer))
+	try {
+		return utf8Decoder.decode(buffer)
+	} catch {
+		// older versions of this app wrote metadata as Latin-1
+		return Array.from(new Uint8Array(buffer), (byte) => String.fromCharCode(byte)).join('')
+	}
 }
 
 /**
- * @param str - The string to convert to a buffer (Uint8Array)
+ * @param str - The string to convert to a UTF-8 encoded buffer (Uint8Array)
  */
 export function stringToBuffer(str: string): Uint8Array<ArrayBuffer> {
-	return Uint8Array.from(str, (c) => c.charCodeAt(0))
+	return new TextEncoder().encode(str)
 }
 
 /**

@@ -3,12 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import stringify from 'safe-stable-stringify'
 import { describe, expect, test } from 'vitest'
 import * as Alice from '../../__tests__/fixtures/Alice.spec.ts'
 import * as Bob from '../../__tests__/fixtures/Bob.spec.ts'
-import { base64ToBuffer, stringToBuffer } from '../services/bufferUtils.ts'
-import { validateCMSSignature } from '../services/crypto.ts'
+import { validateMetadataSignature } from '../services/metadata.ts'
 import { RootMetadata } from './RootMetadata.ts'
 
 describe('Creating metadata', () => {
@@ -39,11 +37,7 @@ describe('Export metadata', () => {
 		expect(exported.metadata.version).toBe('2.0')
 
 		// validate signature
-		expect(await validateCMSSignature(
-			stringToBuffer(btoa(stringify(exported.metadata))),
-			base64ToBuffer(exported.signature),
-			exported.metadata.users,
-		)).toBe(true)
+		await expect(validateMetadataSignature(exported.metadata, exported.signature, exported.metadata.users)).resolves.not.toThrow()
 	})
 })
 

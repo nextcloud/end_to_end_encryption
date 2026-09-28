@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { base64ToBuffer, bufferToBase64, bufferToHex, bufferToPem, bufferToString, pemToBuffer, stringToBuffer } from './bufferUtils.ts'
 
 // until we use Node 25+
@@ -22,9 +22,27 @@ test('bufferToHex', async () => {
 	expect(bufferToHex(buffer)).toMatchInlineSnapshot('"000f10ff80402001"')
 })
 
-test('bufferToString and stringToBuffer', async () => {
-	const text = 'hello'.repeat(100)
-	expect(bufferToString(stringToBuffer(text))).toEqual(text)
+describe('bufferToString and stringToBuffer', () => {
+	test.for([
+		'hello'.repeat(100),
+		'Prüfung.txt',
+		'Grüße 😀 日本語.txt',
+	])('round trip of "%s"', (text) => {
+		expect(bufferToString(stringToBuffer(text))).toBe(text)
+	})
+
+	test('strings are encoded as UTF-8', () => {
+		expect(stringToBuffer('ü😀')).toEqual(Uint8Array.from([0xC3, 0xBC, 0xF0, 0x9F, 0x98, 0x80]))
+	})
+
+	test('Latin-1 encoded buffers written by older versions are decoded', () => {
+		expect(bufferToString(Uint8Array.from([0x50, 0x72, 0xFC, 0x66, 0x75, 0x6E, 0x67]))).toBe('Prüfung')
+	})
+
+	test('large buffers are decoded', () => {
+		const text = 'a'.repeat(1024 * 1024)
+		expect(bufferToString(stringToBuffer(text))).toBe(text)
+	})
 })
 
 test('PEM string is correctly loaded', async () => {
