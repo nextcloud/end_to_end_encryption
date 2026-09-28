@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Controller;
 
 use InvalidArgumentException;
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
@@ -33,6 +32,7 @@ use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use OCP\User\Exceptions\UserNotFoundException;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
@@ -282,7 +282,7 @@ class MetaDataController extends OCSController {
 				? $this->getFileDropOwnerId($shareToken, $id)
 				: $this->userId;
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException|OCSForbiddenException $e) {
+		} catch (UserNotFoundException|OCSForbiddenException $e) {
 			$this->logger->error('Tried to create filedrop lock without permission', ['exception' => $e]);
 			return $this->throttleRequest(Http::STATUS_FORBIDDEN, $this->l10n->t('You are not allowed to create the lock'));
 		}

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Tests\Controller;
 
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Controller\LockingController;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
@@ -23,6 +22,7 @@ use OCP\Files\IUserFolder;
 use OCP\Files\NotFoundException;
 use OCP\IL10N;
 use OCP\IRequest;
+use OCP\User\Exceptions\UserNotFoundException;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -348,7 +348,7 @@ class LockingControllerTest extends TestCase {
 			$this->rootFolder->expects($this->once())
 				->method('getUserFolder')
 				->with('john.doe')
-				->willThrowException(new NoUserException());
+				->willThrowException(new UserNotFoundException());
 		} else {
 			$userFolder = $this->createMock(IUserFolder::class);
 			$this->rootFolder->expects($this->once())

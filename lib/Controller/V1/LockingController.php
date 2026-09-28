@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption\Controller\V1;
 
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\AccessManager;
 use OCA\EndToEndEncryption\Attributes\E2ERestrictUserAgent;
 use OCA\EndToEndEncryption\Exceptions\FileLockedException;
@@ -28,6 +27,7 @@ use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IL10N;
 use OCP\IRequest;
+use OCP\User\Exceptions\UserNotFoundException;
 use Psr\Log\LoggerInterface;
 
 class LockingController extends OCSController {
@@ -63,7 +63,7 @@ class LockingController extends OCSController {
 			$this->accessManager->checkPermissions($id, true);
 			$ownerId = $this->accessManager->getOwnerId($id);
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException|\InvalidArgumentException $e) {
+		} catch (UserNotFoundException|\InvalidArgumentException $e) {
 			$this->logger->info('Tried to lock e2ee folder without permission', ['exception' => $e]);
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to create the lock'));
 		}
@@ -109,7 +109,7 @@ class LockingController extends OCSController {
 			$this->accessManager->checkPermissions($id, true);
 			$ownerId = $this->accessManager->getOwnerId($id);
 			$userFolder = $this->rootFolder->getUserFolder($ownerId);
-		} catch (NoUserException|\InvalidArgumentException $e) {
+		} catch (UserNotFoundException|\InvalidArgumentException $e) {
 			$this->logger->info('Tried to unlock e2ee folder without permission', ['exception' => $e]);
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to remove the lock'));
 		}

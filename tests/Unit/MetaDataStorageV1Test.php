@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
 use Exception;
-use OC\User\NoUserException;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\MetaDataStorageV1;
@@ -20,6 +19,7 @@ use OCP\Files\Node;
 use OCP\Files\NotFoundException;
 use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\Files\SimpleFS\ISimpleFolder;
+use OCP\User\Exceptions\UserNotFoundException;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Test\TestCase;
@@ -555,7 +555,7 @@ class MetaDataStorageV1Test extends TestCase {
 			$this->rootFolder->expects($this->once())
 				->method('getUserFolder')
 				->with('userId')
-				->willThrowException(new NoUserException());
+				->willThrowException(new UserNotFoundException());
 		} else {
 			$ownerRoot = $this->createMock(IUserFolder::class);
 			$this->rootFolder->expects($this->once())
