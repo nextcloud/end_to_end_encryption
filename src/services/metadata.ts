@@ -9,7 +9,7 @@ import type { IStoreMetadata } from '../store/metadata.ts'
 
 import stringify from 'safe-stable-stringify'
 import * as api from './api.ts'
-import { base64ToBuffer, bufferToString, stringToBuffer } from './bufferUtils.ts'
+import { base64ToBuffer, bufferToBase64, bufferToString, stringToBuffer } from './bufferUtils.ts'
 import { uncompress } from './compression.ts'
 import { validateCMSSignature } from './crypto.ts'
 import { ensureKeyUsage } from './rsaUtils.ts'
@@ -56,6 +56,22 @@ export async function decryptMetadata(json: IRawMetadata, metadataKey: CryptoKey
  * @param users - The users with access to the metadata
  */
 export async function validateMetadataSignature(metadata: IRawMetadata, signature: string, users: IRawMetadataUser[]): Promise<void> {
+	const result = await validateCMSSignature(
+		getMetadataSignedData(metadata),
+		base64ToBuffer(signature),
+		users,
+	)
+	if (!result) {
+		throw new Error('Metadata signature verification failed')
+	}
+}
+
+/**
+ * Get the data the signature of the given metadata is created over.
+ *
+ * @param metadata - The raw metadata
+ */
+export function getMetadataSignedData(metadata: Partial<IRawMetadata>): Uint8Array<ArrayBuffer> {
 	const signedData = stringify(metadata, (key, value) => {
 		if (key === 'filedrop') {
 			return undefined
@@ -63,14 +79,7 @@ export async function validateMetadataSignature(metadata: IRawMetadata, signatur
 		return value
 	})!
 
-	const result = await validateCMSSignature(
-		stringToBuffer(btoa(signedData)),
-		base64ToBuffer(signature),
-		users,
-	)
-	if (!result) {
-		throw new Error('Metadata signature verification failed')
-	}
+	return stringToBuffer(bufferToBase64(stringToBuffer(signedData)))
 }
 
 /**
