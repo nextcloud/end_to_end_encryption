@@ -18,6 +18,7 @@ on the client side and in the browser.
 - [Documentation](#documentation)
   - [Client API](#client-api)
   - [Specification (RFC)](#specification-rfc)
+  - [Audit logging](#audit-logging)
   - [Installing](#installing)
   - [Configuring](#configuring)
   - [Using](#using)
@@ -72,7 +73,11 @@ Here you can find the [API documentation](https://github.com/nextcloud/end_to_en
 
 ### Specification (RFC)
 
-The end-to-end encryption implemented by the Nextcloud sync and mobile clients, as well as the functionality provided by this app to faciliate it, is based on the approach documented in the [RFC repository](https://github.com/nextcloud/end_to_end_encryption_rfc/).
+The end-to-end encryption implemented by the Nextcloud sync and mobile clients, as well as the functionality provided by this app to facilitate it, is based on the approach documented in the [RFC repository](https://github.com/nextcloud/end_to_end_encryption_rfc/).
+
+### Audit logging
+
+Security relevant actions, like storing or deleting encryption keys, are recorded in the audit log when the `admin_audit` app is enabled. All recorded actions and their stable operation identifiers are listed in the [audit log actions documentation](https://github.com/nextcloud/end_to_end_encryption/blob/main/doc/audit-log-actions.md).
 
 ### Installing
 

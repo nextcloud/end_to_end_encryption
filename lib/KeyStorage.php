@@ -34,9 +34,10 @@ class KeyStorage implements IKeyStorage {
 	private ?ISimpleFolder $publicKeysRootFolder = null;
 
 	public function __construct(
-		private IAppData $appData,
-		private IUserSession $userSession,
-		private IManager $shareManager,
+		private readonly IAppData $appData,
+		private readonly IUserSession $userSession,
+		private readonly IManager $shareManager,
+		private readonly AuditLogger $auditLogger,
 	) {
 	}
 
@@ -71,9 +72,12 @@ class KeyStorage implements IKeyStorage {
 			throw new KeyExistsException('Public key already exists');
 		}
 
+		$shareId = $shareToken === null ? null : $this->shareManager->getShareByToken($shareToken)->getId();
 		$publicKeysRoot
 			->newFile($fileName)
 			->putContent($publicKey);
+
+		$this->logKeyAction(AuditOperation::StorePublicKey, 'public', 'stored', $uid, $shareId);
 	}
 
 	/**
@@ -86,21 +90,19 @@ class KeyStorage implements IKeyStorage {
 		if ($user === null || $user->getUID() !== $uid) {
 			throw new NotPermittedException('You are not allowed to delete the public key');
 		}
+		$shareId = null;
 		if ($shareToken !== null) {
 			$share = $this->shareManager->getShareByToken($shareToken);
 			if ($share->getShareOwner() !== $user->getUID()) {
 				throw new NotPermittedException('You are not allowed to delete the public key');
 			}
+			$shareId = $share->getId();
 		}
 
 		$fileName = $this->getFileNameForPublicKey($uid, $shareToken);
-		try {
-			$file = $publicKeysRoot->getFile($fileName);
-		} catch (NotFoundException $ex) {
-			return;
+		if ($this->deleteKeyFile($publicKeysRoot, $fileName)) {
+			$this->logKeyAction(AuditOperation::DeletePublicKey, 'public', 'deleted', $uid, $shareId);
 		}
-
-		$file->delete();
 	}
 
 	/**
@@ -143,11 +145,13 @@ class KeyStorage implements IKeyStorage {
 		if ($user === null || $user->getUID() !== $uid) {
 			throw new ForbiddenException('You are not allowed to write the private key', false);
 		}
+		$shareId = null;
 		if ($shareToken !== null) {
 			$share = $this->shareManager->getShareByToken($shareToken);
 			if ($share->getShareOwner() !== $user->getUID()) {
 				throw new ForbiddenException('You are not allowed to write the private key', false);
 			}
+			$shareId = $share->getId();
 		}
 
 		$fileName = $this->getFileNameForPrivateKey($uid, $shareToken);
@@ -158,6 +162,8 @@ class KeyStorage implements IKeyStorage {
 		$privateKeysRoot
 			->newFile($fileName)
 			->putContent($privateKey);
+
+		$this->logKeyAction(AuditOperation::StorePrivateKey, 'private', 'stored', $uid, $shareId);
 	}
 
 	/**
@@ -170,21 +176,19 @@ class KeyStorage implements IKeyStorage {
 		if ($user === null || $user->getUID() !== $uid) {
 			throw new NotPermittedException('You are not allowed to delete the private key');
 		}
+		$shareId = null;
 		if ($shareToken !== null) {
 			$share = $this->shareManager->getShareByToken($shareToken);
 			if ($share->getShareOwner() !== $user->getUID()) {
 				throw new NotPermittedException('You are not allowed to delete the private key');
 			}
+			$shareId = $share->getId();
 		}
 
 		$fileName = $this->getFileNameForPrivateKey($uid, $shareToken);
-		try {
-			$file = $privateKeysRoot->getFile($fileName);
-		} catch (NotFoundException) {
-			return;
+		if ($this->deleteKeyFile($privateKeysRoot, $fileName)) {
+			$this->logKeyAction(AuditOperation::DeletePrivateKey, 'private', 'deleted', $uid, $shareId);
 		}
-
-		$file->delete();
 	}
 
 	/**
@@ -206,10 +210,8 @@ class KeyStorage implements IKeyStorage {
 		$publicKeysRoot = $this->getPublicKeysRootFolder();
 		$fileName = $this->getFileNameForPublicKey($uid);
 
-		try {
-			$publicKeysRoot->getFile($fileName)->delete();
-		} catch (NotFoundException) {
-			return;
+		if ($this->deleteKeyFile($publicKeysRoot, $fileName)) {
+			$this->logKeyAction(AuditOperation::DeletePublicKey, 'public', 'deleted', $uid, null);
 		}
 	}
 
@@ -222,10 +224,46 @@ class KeyStorage implements IKeyStorage {
 		$privateKeysRoot = $this->getPrivateKeysRootFolder();
 		$fileName = $this->getFileNameForPrivateKey($uid);
 
+		if ($this->deleteKeyFile($privateKeysRoot, $fileName)) {
+			$this->logKeyAction(AuditOperation::DeletePrivateKey, 'private', 'deleted', $uid, null);
+		}
+	}
+
+	/**
+	 * Delete a key file if it exists
+	 *
+	 * @return bool whether a key file was deleted
+	 * @throws NotPermittedException
+	 */
+	private function deleteKeyFile(ISimpleFolder $root, string $fileName): bool {
 		try {
-			$privateKeysRoot->getFile($fileName)->delete();
+			$root->getFile($fileName)->delete();
 		} catch (NotFoundException) {
-			return;
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Keys are identified by user and, for share keys, by share id.
+	 * The share token is never logged as it grants access to the share.
+	 *
+	 * @param 'public'|'private' $keyType
+	 * @param 'stored'|'deleted' $action
+	 */
+	private function logKeyAction(AuditOperation $operation, string $keyType, string $action, string $uid, ?string $shareId): void {
+		if ($shareId === null) {
+			$this->auditLogger->log(
+				$operation,
+				'The end-to-end encryption ' . $keyType . ' key of user "%s" was ' . $action,
+				['userId' => $uid],
+			);
+		} else {
+			$this->auditLogger->log(
+				$operation,
+				'The end-to-end encryption ' . $keyType . ' key of share "%s" owned by user "%s" was ' . $action,
+				['shareId' => $shareId, 'userId' => $uid],
+			);
 		}
 	}
 

@@ -27,10 +27,11 @@ use Psr\Log\LoggerInterface;
 class EncryptionManager {
 
 	public function __construct(
-		private IRootFolder $rootFolder,
-		private IDBConnection $dbConnection,
-		private LoggerInterface $logger,
-		private AccessManager $accessManager,
+		private readonly IRootFolder $rootFolder,
+		private readonly IDBConnection $dbConnection,
+		private readonly LoggerInterface $logger,
+		private readonly AccessManager $accessManager,
+		private readonly AuditLogger $auditLogger,
 	) {
 	}
 
@@ -47,6 +48,12 @@ class EncryptionManager {
 			throw new NotFoundException('No cache available for folder with ID ' . $id);
 		}
 		$cache->update($id, ['encrypted' => '1']);
+
+		$this->auditLogger->log(
+			AuditOperation::SetEncryptionFlag,
+			'The folder with id %d owned by user "%s" was marked as end-to-end encrypted',
+			['fileId' => $id, 'ownerId' => $ownerId],
+		);
 	}
 
 	/**
@@ -62,6 +69,12 @@ class EncryptionManager {
 			throw new NotFoundException('No cache available for folder with ID ' . $id);
 		}
 		$cache->update($id, ['encrypted' => '0']);
+
+		$this->auditLogger->log(
+			AuditOperation::RemoveEncryptionFlag,
+			'The folder with id %d owned by user "%s" is no longer marked as end-to-end encrypted',
+			['fileId' => $id, 'ownerId' => $ownerId],
+		);
 	}
 
 	/**
@@ -128,6 +141,12 @@ class EncryptionManager {
 				$this->logger->error('Error while deleting file', ['exception' => $e]);
 			}
 		}
+
+		$this->auditLogger->log(
+			AuditOperation::DeleteEncryptedFolders,
+			'All end-to-end encrypted folders of user "%s" were deleted (%d folders)',
+			['userId' => $userId, 'deletedCount' => count($fileIds)],
+		);
 
 		return $fileIds;
 	}
