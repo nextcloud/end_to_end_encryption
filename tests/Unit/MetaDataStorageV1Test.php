@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
 use Exception;
+use OCA\EndToEndEncryption\AuditLogger;
+use OCA\EndToEndEncryption\AuditOperation;
 use OCA\EndToEndEncryption\Exceptions\MetaDataExistsException;
 use OCA\EndToEndEncryption\Exceptions\MissingMetaDataException;
 use OCA\EndToEndEncryption\MetaDataStorageV1;
@@ -22,6 +24,7 @@ use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\User\Exceptions\UserNotFoundException;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 #[AllowMockObjectsWithoutExpectations]
@@ -33,6 +36,8 @@ class MetaDataStorageV1Test extends TestCase {
 	/** @var IRootFolder|\PHPUnit\Framework\MockObject\MockObject */
 	private $rootFolder;
 
+	private AuditLogger&MockObject $auditLogger;
+
 	private ?\OCA\EndToEndEncryption\MetaDataStorageV1 $metaDataStorage = null;
 
 	protected function setUp(): void {
@@ -40,8 +45,9 @@ class MetaDataStorageV1Test extends TestCase {
 
 		$this->appData = $this->createMock(IAppData::class);
 		$this->rootFolder = $this->createMock(IRootFolder::class);
+		$this->auditLogger = $this->createMock(AuditLogger::class);
 
-		$this->metaDataStorage = new MetaDataStorageV1($this->appData, $this->rootFolder);
+		$this->metaDataStorage = new MetaDataStorageV1($this->appData, $this->rootFolder, $this->auditLogger);
 	}
 
 	#[DataProvider('getMetaDataDataProvider')]
@@ -55,6 +61,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
@@ -122,6 +129,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
@@ -228,6 +236,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
@@ -319,7 +328,7 @@ class MetaDataStorageV1Test extends TestCase {
 	}
 
 	#[DataProvider('deleteMetaDataDataProvider')]
-	public function testDeleteMetaData(bool $folderExists): void {
+	public function testDeleteMetaData(bool $folderExists, bool $legacyDeleted, bool $expectsLog): void {
 		$metaDataStorage = $this->getMockBuilder(MetaDataStorageV1::class)
 			->onlyMethods([
 				'verifyOwner',
@@ -329,6 +338,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
@@ -341,7 +351,12 @@ class MetaDataStorageV1Test extends TestCase {
 
 		$metaDataStorage->expects($this->once())
 			->method('cleanupLegacyFile')
-			->with('userId', 42);
+			->with('userId', 42)
+			->willReturn($legacyDeleted);
+
+		$this->auditLogger->expects($expectsLog ? $this->once() : $this->never())
+			->method('log')
+			->with(AuditOperation::DeleteMetadata, $this->anything(), ['fileId' => 42, 'ownerId' => 'userId']);
 
 		if ($folderExists) {
 			$metaDataFolder = $this->createMock(ISimpleFolder::class);
@@ -365,8 +380,9 @@ class MetaDataStorageV1Test extends TestCase {
 
 	public static function deleteMetaDataDataProvider(): array {
 		return [
-			[true],
-			[false],
+			'metadata folder deleted' => [true, false, true],
+			'only legacy metadata deleted' => [false, true, true],
+			'nothing to delete' => [false, false, false],
 		];
 	}
 
@@ -381,6 +397,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
@@ -389,6 +406,10 @@ class MetaDataStorageV1Test extends TestCase {
 			->with('userId', 42);
 		$metaDataStorage->expects($this->once())
 			->method('verifyFolderStructure');
+
+		$this->auditLogger->expects($folderExists && $intermediateFileExists && $intermediateFileIsEmpty ? $this->once() : $this->never())
+			->method('log')
+			->with(AuditOperation::DeleteMetadata, $this->anything(), ['fileId' => 42, 'ownerId' => 'userId']);
 
 		if ($folderExists) {
 			$metaDataFolder = $this->createMock(ISimpleFolder::class);
@@ -491,6 +512,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
@@ -637,6 +659,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
@@ -706,6 +729,7 @@ class MetaDataStorageV1Test extends TestCase {
 			->setConstructorArgs([
 				$this->appData,
 				$this->rootFolder,
+				$this->auditLogger,
 			])
 			->getMock();
 
