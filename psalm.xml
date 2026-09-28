@@ -8,6 +8,7 @@
 	errorBaseline="tests/psalm-baseline.xml"
 	phpVersion="8.2"
 	findUnusedCode="false"
+	findUnusedIssueHandlerSuppression="false"
 	ensureOverrideAttribute="false"
 >
 	<stubs>

@@ -11,10 +11,17 @@ import { expect } from '@playwright/test'
 export class FileDropPage {
 	public readonly inputFiles: Locator
 	public readonly listUploadedFiles: Locator
+	public readonly inputPassword: Locator
+	public readonly buttonSubmitPassword: Locator
+	public readonly textWrongPassword: Locator
 
 	constructor(public readonly page: Page) {
 		this.inputFiles = page.getByLabel('Select or drop files')
 		this.listUploadedFiles = page.getByRole('list', { name: 'Uploaded files' })
+		// password inputs have no ARIA role
+		this.inputPassword = page.getByLabel('Password', { exact: true })
+		this.buttonSubmitPassword = page.getByRole('button', { name: 'Submit' })
+		this.textWrongPassword = page.getByText(/The password is wrong/)
 	}
 
 	/**
@@ -23,6 +30,29 @@ export class FileDropPage {
 	public async open(token: string): Promise<void> {
 		await this.page.goto(`s/${token}`)
 		await expect(this.inputFiles).toBeEnabled()
+	}
+
+	/**
+	 * Open a password protected file drop, stopping at the password prompt.
+	 *
+	 * @param token - Token of the file drop share
+	 */
+	public async openPasswordPrompt(token: string): Promise<void> {
+		await this.page.goto(`s/${token}`)
+		await expect(this.inputPassword).toBeVisible()
+	}
+
+	public async submitPassword(password: string): Promise<void> {
+		await this.inputPassword.fill(password)
+		await this.buttonSubmitPassword.click()
+	}
+
+	public getHeading(folderName: string): Locator {
+		return this.page.getByText(`Upload encrypted files to ${folderName}`)
+	}
+
+	public getNote(): Locator {
+		return this.page.getByRole('note').filter({ hasText: 'Note from the owner' })
 	}
 
 	public getUploadedFile(name: string): Locator {

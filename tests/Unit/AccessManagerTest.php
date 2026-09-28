@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace OCA\EndToEndEncryption\Tests\Unit;
 
 use OCA\EndToEndEncryption\AccessManager;
+use OCP\AppFramework\PublicShareController;
 use OCP\Constants;
 use OCP\Files\File;
 use OCP\Files\Folder;
@@ -17,10 +18,12 @@ use OCP\Files\Node;
 use OCP\Files\Storage\ISharedStorage;
 use OCP\Files\Storage\IStorage;
 use OCP\IRequest;
+use OCP\ISession;
 use OCP\IUser;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use Test\TestCase;
 
@@ -31,6 +34,7 @@ class AccessManagerTest extends TestCase {
 	private IRequest&Stub $request;
 	private IRootFolder&Stub $rootFolder;
 	private IManager&Stub $shareManager;
+	private ISession&Stub $session;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -38,6 +42,7 @@ class AccessManagerTest extends TestCase {
 		$this->request = $this->createStub(IRequest::class);
 		$this->rootFolder = $this->createStub(IRootFolder::class);
 		$this->shareManager = $this->createStub(IManager::class);
+		$this->session = $this->createStub(ISession::class);
 	}
 
 	private function getAccessManager(?string $userId): AccessManager {
@@ -46,6 +51,7 @@ class AccessManagerTest extends TestCase {
 			$this->request,
 			$this->rootFolder,
 			$this->shareManager,
+			$this->session,
 		);
 	}
 
@@ -208,6 +214,47 @@ class AccessManagerTest extends TestCase {
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('File ID does not belong to the share');
 		$accessManager->getOwnerId(self::FILE_ID);
+	}
+
+	public function testGetOwnerIdShareTokenOnUnauthenticatedShare(): void {
+		$this->mockShareToken('token123');
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+		$share = $this->mockShare($node, 'bob');
+		$share->method('getToken')->willReturn('token123');
+		$share->method('getPassword')->willReturn('password-hash');
+		$this->shareManager->method('getShareByToken')
+			->willReturn($share);
+
+		$accessManager = $this->getAccessManager(null);
+
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Share is not authenticated');
+		$accessManager->getOwnerId(self::FILE_ID);
+	}
+
+	public static function isShareAuthenticatedDataProvider(): array {
+		return [
+			'no password' => [null, null, true],
+			'empty password' => ['', null, true],
+			'password without session' => ['password-hash', null, false],
+			'password with invalid session' => ['password-hash', 'not-json', false],
+			'password with other share authenticated' => ['password-hash', json_encode(['other-token' => 'password-hash']), false],
+			'password with outdated password' => ['password-hash', json_encode(['token123' => 'old-password-hash']), false],
+			'password with authenticated session' => ['password-hash', json_encode(['token123' => 'password-hash']), true],
+		];
+	}
+
+	#[DataProvider('isShareAuthenticatedDataProvider')]
+	public function testIsShareAuthenticated(?string $password, ?string $sessionValue, bool $expected): void {
+		$share = $this->mockShare();
+		$share->method('getToken')->willReturn('token123');
+		$share->method('getPassword')->willReturn($password);
+		$this->session->method('get')
+			->willReturnMap([[PublicShareController::DAV_AUTHENTICATED_FRONTEND, $sessionValue]]);
+
+		$accessManager = $this->getAccessManager(null);
+		$this->assertSame($expected, $accessManager->isShareAuthenticated($share));
 	}
 
 	public function testGetOwnerIdInvalidShareToken(): void {

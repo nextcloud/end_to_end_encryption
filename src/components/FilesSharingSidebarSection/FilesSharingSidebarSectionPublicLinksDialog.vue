@@ -7,6 +7,9 @@
 import type { RootMetadata } from '../../models/RootMetadata.ts'
 import type { IShare } from '../../services/sharing.ts'
 
+import { isAxiosError } from '@nextcloud/axios'
+import { getCapabilities } from '@nextcloud/capabilities'
+import { showError } from '@nextcloud/dialogs'
 import { Permission } from '@nextcloud/files'
 import { t } from '@nextcloud/l10n'
 import stringify from 'safe-stable-stringify'
@@ -16,8 +19,10 @@ import NcDialog from '@nextcloud/vue/components/NcDialog'
 import NcFormBox from '@nextcloud/vue/components/NcFormBox'
 import NcFormBoxCopyButton from '@nextcloud/vue/components/NcFormBoxCopyButton'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcPasswordField from '@nextcloud/vue/components/NcPasswordField'
 import NcRadioGroup from '@nextcloud/vue/components/NcRadioGroup'
 import NcRadioGroupButton from '@nextcloud/vue/components/NcRadioGroupButton'
+import NcTextArea from '@nextcloud/vue/components/NcTextArea'
 import * as api from '../../services/api.ts'
 import logger from '../../services/logger.ts'
 import { reencryptSubfolders } from '../../services/metadata.ts'
@@ -53,6 +58,11 @@ watchEffect(() => {
 	}
 })
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isPasswordEnforced = (getCapabilities() as any).files_sharing?.public?.password?.enforced === true
+const password = ref('')
+const note = ref('')
+
 const sharedMnemonic = ref<string>()
 const internalShare = ref<IShare>()
 const shareUrl = computed(() => internalShare.value?.url as string | undefined)
@@ -69,7 +79,13 @@ async function createShare() {
 
 	const { path, id } = metadataStore.getRootFolder(metadata)
 	if (sharePermissions.value === Permissions.UploadOnly) {
-		internalShare.value = await createFileDropShare(path)
+		try {
+			internalShare.value = await createFileDropShare(path, { password: password.value, note: note.value })
+		} catch (error) {
+			logger.error('Failed to create file drop share', { error })
+			const message = isAxiosError(error) ? error.response?.data?.ocs?.meta?.message : undefined
+			showError(message || t('end_to_end_encryption', 'Failed to create the file drop share.'))
+		}
 		return
 	}
 
@@ -120,6 +136,22 @@ async function createShare() {
 		<p v-if="sharePermissions === Permissions.ViewOnly" :class="$style.publicLinksDialog__hint">
 			{{ t('end_to_end_encryption', 'Unlike upload-only shares view-only shares require a trusted server to enforce the restriction.') }}
 		</p>
+
+		<template v-if="sharePermissions === Permissions.UploadOnly">
+			<NcPasswordField
+				v-model="password"
+				autocomplete="new-password"
+				checkPasswordStrength
+				:disabled="!!internalShare"
+				:helperText="isPasswordEnforced ? undefined : t('end_to_end_encryption', 'Leave empty to share without password.')"
+				:label="t('end_to_end_encryption', 'Password')"
+				:required="isPasswordEnforced" />
+			<NcTextArea
+				v-model="note"
+				:disabled="!!internalShare"
+				:label="t('end_to_end_encryption', 'Note to recipient')"
+				resize="vertical" />
+		</template>
 
 		<template v-if="shareUrl">
 			<NcFormBox :class="$style.publicLinksDialog__formBox">

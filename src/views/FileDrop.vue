@@ -24,6 +24,7 @@ import logger from '../services/logger.ts'
 const folderId = loadState<string>('end_to_end_encryption', 'fileId')
 const fileName = loadState<string>('end_to_end_encryption', 'fileName')
 const metadataVersion = loadState<number>('end_to_end_encryption', 'metadataVersion')
+const note = loadState<string>('end_to_end_encryption', 'note', '')
 const publicKeys: { userId: string, key: CryptoKey }[] = []
 
 const uploadedFiles = ref<{ name: string, status: 'uploading' | 'done' | 'error' }[]>([])
@@ -160,6 +161,14 @@ async function handleUpload(fileList: FileList) {
 					<div class="uploader-form__icon icon-folder" />
 					{{ t("end_to_end_encryption", "Upload encrypted files to {fileName}", { fileName }) }}
 
+					<NcNoteCard
+						v-if="note"
+						class="uploader-form__note"
+						:heading="t('end_to_end_encryption', 'Note from the owner')"
+						type="info">
+						{{ note }}
+					</NcNoteCard>
+
 					<label
 						class="uploader-form__input button primary"
 						:class="{ loading }">
@@ -233,6 +242,13 @@ async function handleUpload(fileList: FileList) {
 			height: 48px;
 			width: 48px;
 			background-size: 48px;
+		}
+
+		&__note {
+			font-size: var(--default-font-size);
+			font-weight: normal;
+			text-align: start;
+			white-space: pre-line;
 		}
 
 		&__input {
