@@ -221,7 +221,6 @@ class AccessManagerTest extends TestCase {
 		$node = $this->createStub(File::class);
 		$node->method('getId')->willReturn(self::FILE_ID);
 		$share = $this->mockShare($node, 'bob');
-		$share->method('isPasswordProtected')->willReturn(true);
 		$share->method('getToken')->willReturn('token123');
 		$share->method('getPassword')->willReturn('password-hash');
 		$this->shareManager->method('getShareByToken')
@@ -236,21 +235,21 @@ class AccessManagerTest extends TestCase {
 
 	public static function isShareAuthenticatedDataProvider(): array {
 		return [
-			'no password' => [false, null, true],
-			'password without session' => [true, null, false],
-			'password with invalid session' => [true, 'not-json', false],
-			'password with other share authenticated' => [true, json_encode(['other-token' => 'password-hash']), false],
-			'password with outdated password' => [true, json_encode(['token123' => 'old-password-hash']), false],
-			'password with authenticated session' => [true, json_encode(['token123' => 'password-hash']), true],
+			'no password' => [null, null, true],
+			'empty password' => ['', null, true],
+			'password without session' => ['password-hash', null, false],
+			'password with invalid session' => ['password-hash', 'not-json', false],
+			'password with other share authenticated' => ['password-hash', json_encode(['other-token' => 'password-hash']), false],
+			'password with outdated password' => ['password-hash', json_encode(['token123' => 'old-password-hash']), false],
+			'password with authenticated session' => ['password-hash', json_encode(['token123' => 'password-hash']), true],
 		];
 	}
 
 	#[DataProvider('isShareAuthenticatedDataProvider')]
-	public function testIsShareAuthenticated(bool $isPasswordProtected, ?string $sessionValue, bool $expected): void {
+	public function testIsShareAuthenticated(?string $password, ?string $sessionValue, bool $expected): void {
 		$share = $this->mockShare();
-		$share->method('isPasswordProtected')->willReturn($isPasswordProtected);
 		$share->method('getToken')->willReturn('token123');
-		$share->method('getPassword')->willReturn($isPasswordProtected ? 'password-hash' : null);
+		$share->method('getPassword')->willReturn($password);
 		$this->session->method('get')
 			->willReturnMap([[PublicShareController::DAV_AUTHENTICATED_FRONTEND, $sessionValue]]);
 

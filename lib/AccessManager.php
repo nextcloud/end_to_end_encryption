@@ -112,13 +112,14 @@ class AccessManager {
 	 * @param IShare $share - The share accessed by its token
 	 */
 	public function isShareAuthenticated(IShare $share): bool {
-		if (!$share->isPasswordProtected()) {
+		$password = $share->getPassword();
+		if ($password === null || $password === '') {
 			return true;
 		}
 
 		// Same session state the public share page stores after a successful password check
 		$allowedTokens = json_decode($this->session->get(PublicShareController::DAV_AUTHENTICATED_FRONTEND) ?? '[]', true);
 		return is_array($allowedTokens)
-			&& ($allowedTokens[$share->getToken()] ?? null) === $share->getPassword();
+			&& ($allowedTokens[$share->getToken()] ?? null) === $password;
 	}
 }
