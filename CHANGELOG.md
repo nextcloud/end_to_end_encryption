@@ -7,6 +7,28 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.3.0 - 2026-09-28
+### Added
+* feat(filedrop): add share password and note to recipient \([\#2144](https://github.com/nextcloud/end_to_end_encryption/pull/2144)\)
+
+### Fixed
+* fix(dav): multistatus response with property-level 404s \([\#2070](https://github.com/nextcloud/end_to_end_encryption/pull/2070)\)
+* fix(metadata): defer missing metadata handling to controller \([\#2071](https://github.com/nextcloud/end_to_end_encryption/pull/2071)\)
+* fix: clean up legacy metadata when deleting files \([\#2091](https://github.com/nextcloud/end_to_end_encryption/pull/2091)\)
+* fix: delete stale intermediate metadata signatures after rollback \([\#2093](https://github.com/nextcloud/end_to_end_encryption/pull/2093)\)
+* fix(webui): keep propstat as xml during interceptor handling \([\#2094](https://github.com/nextcloud/end_to_end_encryption/pull/2094)\)
+* fix(delete): serialize metadata updates per folder \([\#2131](https://github.com/nextcloud/end_to_end_encryption/pull/2131)\)
+* fix: refresh files list when migrating filedrop files \([\#2133](https://github.com/nextcloud/end_to_end_encryption/pull/2133)\)
+
+### Changed
+* Move away from deprecated `RedirectToDefaultAppResponse` \([\#2096](https://github.com/nextcloud/end_to_end_encryption/pull/2096)\)
+* Updated dependencies
+  * Bump `@nextcloud/dialogs` to 7.5.0
+  * Bump `@nextcloud/vue` to 9.12.0
+  * Bump `fast-xml-parser` to 5.11.1
+  * Bump `vue` to 3.5.42
+  * Bump various sub-dependencies
+
 ## v2.2.4 - 2026-08-31
 ### Fixed
 * fix: add 2.1 metadata version support to "legacy" models.ts \([\#2038](https://github.com/nextcloud/end_to_end_encryption/pull/2038)\)
