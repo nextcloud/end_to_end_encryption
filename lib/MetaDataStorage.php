@@ -24,8 +24,6 @@ use OCP\Files\SimpleFS\ISimpleFolder;
  * @package OCA\EndToEndEncryption
  */
 class MetaDataStorage implements IMetaDataStorage {
-	private IAppData $appData;
-	private IRootFolder $rootFolder;
 	private string $metaDataRoot = '/meta-data';
 	private string $metaDataFileName = 'meta.data';
 	private string $intermediateMetaDataFileName = 'intermediate.meta.data';
@@ -34,10 +32,11 @@ class MetaDataStorage implements IMetaDataStorage {
 	private string $metaDataCounterFileName = 'meta.data.counter';
 	private string $intermediateMetaDataCounterFileName = 'intermediate.meta.data.counter';
 
-	public function __construct(IAppData $appData,
-		IRootFolder $rootFolder) {
-		$this->appData = $appData;
-		$this->rootFolder = $rootFolder;
+	public function __construct(
+		private readonly IAppData $appData,
+		private readonly IRootFolder $rootFolder,
+		private readonly AuditLogger $auditLogger,
+	) {
 	}
 
 	/**
@@ -148,12 +147,23 @@ class MetaDataStorage implements IMetaDataStorage {
 			$dir = $this->appData->getFolder($folderName);
 		} catch (NotFoundException) {
 			// Metadata may exist only in the legacy location.
-			$this->cleanupLegacyFile($userId, $id);
-			return;
+			$dir = null;
 		}
 
-		$dir->delete();
-		$this->cleanupLegacyFile($userId, $id);
+		$dir?->delete();
+		$deleted = $dir !== null;
+		$legacyDeleted = $this->cleanupLegacyFile($userId, $id);
+		if ($deleted || $legacyDeleted) {
+			$this->logMetaDataDeletion($userId, $id);
+		}
+	}
+
+	private function logMetaDataDeletion(string $ownerId, int $id): void {
+		$this->auditLogger->log(
+			AuditOperation::DeleteMetadata,
+			'The end-to-end encryption metadata of the folder with id %d owned by user "%s" was deleted',
+			['fileId' => $id, 'ownerId' => $ownerId],
+		);
 	}
 
 	/**
@@ -181,6 +191,7 @@ class MetaDataStorage implements IMetaDataStorage {
 		// If the intermediate file is empty, delete the metadata file
 		if ($intermediateMetaDataFile->getContent() === '{}') {
 			$dir->delete();
+			$this->logMetaDataDeletion($userId, $id);
 		} else {
 			try {
 				$finalFile = $dir->getFile($this->metaDataFileName);
@@ -324,22 +335,24 @@ class MetaDataStorage implements IMetaDataStorage {
 	}
 
 	/**
+	 * @return bool whether legacy metadata was deleted
 	 * @throws NotPermittedException
 	 */
-	protected function cleanupLegacyFile(string $userId, int $id): void {
+	protected function cleanupLegacyFile(string $userId, int $id): bool {
 		try {
 			$legacyOwnerPath = $this->getLegacyOwnerPath($userId, $id);
 		} catch (NotFoundException $e) {
 			// Just return if file does not exist for user
-			return;
+			return false;
 		}
 
 		try {
 			$legacyFolder = $this->appData->getFolder($this->metaDataRoot . '/' . $legacyOwnerPath);
 			$legacyFolder->delete();
-		} catch (NotFoundException|NotPermittedException $e) {
-			return;
+		} catch (NotFoundException|NotPermittedException) {
+			return false;
 		}
+		return true;
 	}
 
 	/**

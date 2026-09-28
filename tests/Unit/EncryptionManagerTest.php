@@ -12,7 +12,12 @@ namespace OCA\EndToEndEncryption\Tests\Unit;
 use InvalidArgumentException;
 use OC\Files\Node\File;
 use OCA\EndToEndEncryption\AccessManager;
+use OCA\EndToEndEncryption\AuditLogger;
+use OCA\EndToEndEncryption\AuditOperation;
 use OCA\EndToEndEncryption\EncryptionManager;
+use OCP\DB\IResult;
+use OCP\DB\QueryBuilder\IExpressionBuilder;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\Cache\ICache;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
@@ -35,6 +40,7 @@ class EncryptionManagerTest extends TestCase {
 	private IDBConnection&MockObject $dbConnection;
 	private LoggerInterface&MockObject $logger;
 	private AccessManager&MockObject $accessManager;
+	private AuditLogger&MockObject $auditLogger;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -45,6 +51,7 @@ class EncryptionManagerTest extends TestCase {
 		$this->dbConnection = $this->createMock(IDBConnection::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->accessManager = $this->createMock(AccessManager::class);
+		$this->auditLogger = $this->createMock(AuditLogger::class);
 
 		$node = $this->createMock(Node::class);
 		$node->method('getStorage')->willReturn($this->storage);
@@ -76,12 +83,13 @@ class EncryptionManagerTest extends TestCase {
 						$this->dbConnection,
 						$this->logger,
 						$this->accessManager,
+						$this->auditLogger,
 					]
 				)
 				->onlyMethods($mockedMethods)
 				->getMock();
 		} else {
-			$instance = new EncryptionManager($this->rootFolderInterface, $this->dbConnection, $this->logger, $this->accessManager);
+			$instance = new EncryptionManager($this->rootFolderInterface, $this->dbConnection, $this->logger, $this->accessManager, $this->auditLogger);
 		}
 
 		return $instance;
@@ -102,8 +110,22 @@ class EncryptionManagerTest extends TestCase {
 			->willReturn($this->rootFolder);
 
 		$this->fileCache->expects($this->once())->method('update')->with($fileId, ['encrypted' => '1']);
+		$this->auditLogger->expects($this->once())
+			->method('log')
+			->with(AuditOperation::SetEncryptionFlag, $this->anything(), ['fileId' => $fileId, 'ownerId' => 'userId']);
 
 		$instance->setEncryptionFlag($fileId);
+	}
+
+	public function testSetEncryptionFlagInvalidFolderIsNotLogged(): void {
+		$instance = $this->getInstance(['isValidFolder']);
+		$instance->method('isValidFolder')->willThrowException(new NotFoundException());
+
+		$this->fileCache->expects($this->never())->method('update');
+		$this->auditLogger->expects($this->never())->method('log');
+
+		$this->expectException(NotFoundException::class);
+		$instance->setEncryptionFlag(42);
 	}
 
 	public function testRemoveEncryptionFlag(): void {
@@ -122,7 +144,48 @@ class EncryptionManagerTest extends TestCase {
 			->with('userId')
 			->willReturn($this->rootFolder);
 
+		$this->auditLogger->expects($this->once())
+			->method('log')
+			->with(AuditOperation::RemoveEncryptionFlag, $this->anything(), ['fileId' => $fileId, 'ownerId' => 'userId']);
+
 		$instance->removeEncryptionFlag($fileId);
+	}
+
+	public function testRemoveEncryptedFolders(): void {
+		$expr = $this->createStub(IExpressionBuilder::class);
+		$result = $this->createStub(IResult::class);
+		$result->method('fetch')->willReturnOnConsecutiveCalls(['fileid' => 1], ['fileid' => 2], false);
+		$qb = $this->createStub(IQueryBuilder::class);
+		$qb->method('select')->willReturnSelf();
+		$qb->method('from')->willReturnSelf();
+		$qb->method('where')->willReturnSelf();
+		$qb->method('andWhere')->willReturnSelf();
+		$qb->method('expr')->willReturn($expr);
+		$qb->method('executeQuery')->willReturn($result);
+		$this->dbConnection->method('getQueryBuilder')->willReturn($qb);
+
+		$deleted = $this->createMock(Folder::class);
+		$deleted->expects($this->once())->method('delete');
+		$deleted->method('getId')->willReturn(1);
+		$failing = $this->createMock(Folder::class);
+		$failing->method('delete')->willThrowException(new \Exception());
+
+		$userFolder = $this->createStub(Folder::class);
+		$userFolder->method('getStorage')->willReturn($this->storage);
+		$userFolder->method('getById')->willReturnMap([
+			[1, [$deleted]],
+			[2, [$failing]],
+		]);
+		$this->rootFolderInterface
+			->method('getUserFolder')
+			->with('userId')
+			->willReturn($userFolder);
+
+		$this->auditLogger->expects($this->once())
+			->method('log')
+			->with(AuditOperation::DeleteEncryptedFolders, $this->anything(), ['userId' => 'userId', 'deletedCount' => 1]);
+
+		$this->assertSame([1], $this->getInstance()->removeEncryptedFolders('userId'));
 	}
 
 	/**
