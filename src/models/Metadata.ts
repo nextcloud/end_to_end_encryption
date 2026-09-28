@@ -13,7 +13,7 @@ import { bufferToBase64, stringToBuffer } from '../services/bufferUtils.ts'
 import { compress } from '../services/compression.ts'
 import { encryptWithAES } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
-import { decryptMetadata } from '../services/metadata.ts'
+import { decryptMetadata, getMetadataSignedData } from '../services/metadata.ts'
 import { ensureKeyUsage } from '../services/rsaUtils.ts'
 
 /**
@@ -337,7 +337,7 @@ export class Metadata<MetaData extends IRawMetadata = IRawMetadata> {
 			delete rawMetadata.filedrop
 		}
 
-		const metadataForSignature = stringToBuffer(btoa(stringify(rawMetadata)))
+		const metadataForSignature = getMetadataSignedData(rawMetadata)
 
 		const certs = certificates.map((certificate) => Certificate.fromBER(certificate.rawData))
 		const cms = new SignedData({

@@ -7,6 +7,10 @@ import type { IMetadataFile } from './metadata.d.ts'
 
 import { beforeEach, describe, expect, test } from 'vitest'
 import * as Alice from '../../__tests__/fixtures/Alice.spec.ts'
+import { base64ToBuffer, bufferToBase64 } from '../services/bufferUtils.ts'
+import { compress, uncompress } from '../services/compression.ts'
+import { decryptWithAES, encryptWithAES } from '../services/crypto.ts'
+import { validateMetadataSignature } from '../services/metadata.ts'
 import { Metadata } from './Metadata.ts'
 
 describe('Rolling back metadata', () => {
@@ -141,6 +145,55 @@ describe('Rolling back metadata', () => {
 		const exported = await metadata.export(certificate)
 		const reloaded = await Metadata.fromJson(exported.metadata, metadata.key)
 		expect(reloaded.listContents()).toEqual([])
+	})
+})
+
+describe('Encoding of metadata', () => {
+	const FILENAMES = ['Prüfung.txt', 'Grüße 😀 日本語.txt']
+
+	test.for(FILENAMES)('"%s" survives an export and import', async (filename) => {
+		const metadata = await Metadata.createNew(await metadataKey())
+		metadata.addFile('uuid-1', fileInfo(filename))
+
+		const exported = await metadata.export(await signingCertificate())
+		const reloaded = await Metadata.fromJson(exported.metadata, metadata.key)
+		expect(reloaded.listContents()).toEqual([filename])
+	})
+
+	test.for(FILENAMES)('"%s" is exported as UTF-8', async (filename) => {
+		const metadata = await Metadata.createNew(await metadataKey())
+		metadata.addFile('uuid-1', fileInfo(filename))
+
+		const { metadata: raw } = await metadata.export(await signingCertificate())
+		const compressed = await decryptWithAES(base64ToBuffer(raw.metadata.ciphertext), metadata.key, { iv: base64ToBuffer(raw.metadata.nonce) })
+		// the other clients read the metadata as UTF-8
+		const json = new TextDecoder('utf-8', { fatal: true }).decode(await uncompress(new Uint8Array(compressed)))
+		expect(JSON.parse(json).files['uuid-1'].filename).toBe(filename)
+	})
+
+	test('metadata written as Latin-1 by older versions can be imported', async () => {
+		const key = await metadataKey()
+		const json = JSON.stringify({ keyChecksums: [], deleted: false, counter: 0, folders: {}, files: { 'uuid-1': fileInfo('Prüfung.txt') } })
+		const { encryptedContent, iv, tag } = await encryptWithAES(await compress(Uint8Array.from(json, (char) => char.charCodeAt(0))), key)
+
+		const metadata = await Metadata.fromJson({
+			metadata: {
+				ciphertext: bufferToBase64(encryptedContent),
+				nonce: bufferToBase64(iv),
+				authenticationTag: bufferToBase64(tag),
+			},
+			version: '2.0',
+		}, key)
+		expect(metadata.listContents()).toEqual(['Prüfung.txt'])
+	})
+
+	test('the exported signature is valid', async () => {
+		const certificate = await signingCertificate()
+		const metadata = await Metadata.createNew(await metadataKey())
+		metadata.addFile('uuid-1', fileInfo('Grüße 😀.txt'))
+
+		const { metadata: raw, signature } = await metadata.export(certificate)
+		await expect(validateMetadataSignature(raw, signature, [{ userId: Alice.userId, certificate: Alice.certificatePem, encryptedMetadataKey: '' }])).resolves.not.toThrow()
 	})
 })
 
