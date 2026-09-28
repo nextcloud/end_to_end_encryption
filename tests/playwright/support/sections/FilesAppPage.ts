@@ -12,6 +12,7 @@ import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
 import { SectionMoveCopyDialog } from './SectionMoveCopyDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
 import { SectionSharingSidebar } from './SectionSharingSidebar.ts'
+import { SectionSharingTab } from './SectionSharingTab.ts'
 
 /** How long to keep retrying to open a menu. */
 const OPEN_MENU_TIMEOUT = 15000
@@ -131,6 +132,28 @@ export class FilesAppPage {
 		const newMenu = await this.openNewMenu()
 		await newMenu.uploadFiles({ name, mimeType: 'text/plain', buffer: Buffer.from(content) })
 		await expect(this.getFileOrFolder(name)).toBeVisible()
+	}
+
+	/**
+	 * The inline sharing status action of a row.
+	 * Its name is "Sharing options" or describes the shares, its text is "Shared" once shared.
+	 *
+	 * @param name - Name of the file or folder
+	 */
+	public getSharingStatusAction(name: string): Locator {
+		return this.getFileOrFolder(name).getByRole('button', { name: /^(Sharing options|Shared )/ })
+	}
+
+	/**
+	 * Open the sharing tab of the sidebar through the sharing status action of a row.
+	 *
+	 * @param name - Name of the file or folder
+	 */
+	public async openSharingTab(name: string): Promise<SectionSharingTab> {
+		await this.getSharingStatusAction(name).click()
+		const sharingTab = new SectionSharingTab(this.page)
+		await expect(sharingTab.panelLocator).toBeVisible()
+		return sharingTab
 	}
 
 	public getMnemonicDialog(): SectionMnemonicDialog {
