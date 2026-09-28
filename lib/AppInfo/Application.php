@@ -27,6 +27,7 @@ use OCA\EndToEndEncryption\MetaDataStorageV1;
 use OCA\EndToEndEncryption\Middleware\CanUseAppMiddleware;
 use OCA\EndToEndEncryption\Middleware\ClientHasCapabilityMiddleware;
 use OCA\EndToEndEncryption\Middleware\UserAgentCheckMiddleware;
+use OCA\EndToEndEncryption\SetupChecks\V1MetaDataCheck;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
 use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCA\Files_Trashbin\Events\MoveToTrashEvent;
@@ -67,6 +68,7 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(LoadAdditionalScriptsEvent::class, LoadAdditionalListener::class);
 		$context->registerEventListener(AddContentSecurityPolicyEvent::class, AllowBlobMediaInCSPListener::class);
 		$context->registerPublicShareTemplateProvider(E2EEPublicShareTemplateProvider::class);
+		$context->registerSetupCheck(V1MetaDataCheck::class);
 	}
 
 	#[Override]

@@ -27,6 +27,7 @@ on the client side and in the browser.
       - [Data not being encrypted](#data-not-being-encrypted)
       - [User agent configuration](#user-agent-configuration)
       - [Recovery](#recovery)
+      - [Legacy v1 metadata](#legacy-v1-metadata)
   - [Development](#development)
     - [Building the app](#building-the-app)
     - [Contributing](#contributing)
@@ -130,6 +131,30 @@ The default user agent configuration is reasonable for all current official stab
 ##### Recovery
 
 There are various recovery scenarios where it may be useful to access (decrypt) your files independent of your Nextcloud installation. A separate set of tools called the [`encryption-recovery-tools`](https://github.com/nextcloud/encryption-recovery-tools) can be used for this.
+
+##### Legacy v1 metadata
+
+Encrypted folders created with older clients may still use the legacy v1 metadata format.
+Support for v1 metadata will be dropped soon, after which these folders can no longer be accessed.
+Affected users need to open their encrypted folders with an up-to-date desktop client, which migrates them to the current v2 metadata format.
+
+The app adds a setup check to the administration overview (*Administration settings -> Overview*) that warns if v1 metadata is still in use and lists the affected accounts.
+
+To get a detailed list of all affected folders use the `end_to_end_encryption:list-v1-metadata` occ command:
+
+```sh
+# List all folders with v1 metadata (owner, file ID, path and metadata version)
+occ end_to_end_encryption:list-v1-metadata
+
+# Only list the affected accounts
+occ end_to_end_encryption:list-v1-metadata --users-only
+
+# Output as JSON (can be combined with --users-only)
+occ end_to_end_encryption:list-v1-metadata --json
+```
+
+Entries with an unknown owner usually belong to metadata of folders that have already been deleted.
+Metadata stored in the very old path-based layout is reported with the version `legacy`.
 
 
 ## Development
