@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { FileAction, FileActionData } from '@nextcloud/files'
+import type { IFileAction, INode } from '@nextcloud/files'
 
 import { getFileActions, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
@@ -32,6 +32,12 @@ if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCr
 	registerFileAction(downloadUnencryptedAction)
 	registerFileAction(sharingAction)
 	disableFileAction('download')
+	if (getNextcloudMajorVersion() < 36) {
+		// The viewer only supports previewing encrypted media files (our WebDAV interceptor is used)
+		// in Nextcloud 36+ the viewer is aware of e2ee itself
+		disableFileAction('view', (node) => !/^(image|video|audio|text)\//.test(node.mime ?? ''))
+	}
+
 	registerNewEncryptedFolderEntry()
 	// Register sharing integrations
 	registerSharingSidebarSection()
@@ -47,28 +53,32 @@ if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCr
  * Disable a file action by monkey patching a custom enabled function.
  *
  * @param actionId - The ID of the action to disable
+ * @param shouldDisable - Optional additional check whether the action should be disabled for an encrypted node
  */
-function disableFileAction(actionId: string) {
+function disableFileAction(actionId: string, shouldDisable: (node: INode) => boolean = () => true) {
 	logger.debug(`Inhibiting ${actionId} actions for e2ee files`)
 	const actions = getFileActions()
 
-	const action = actions.find((action) => action.id === actionId) as FileAction | FileActionData | undefined
+	const action = actions.find((action) => action.id === actionId) as IFileAction | undefined
 	if (!action) {
 		logger.error(`Could not find action with ID ${actionId} to inhibit it for e2ee files.`)
 		return
 	}
 
-	const realAction = '_action' in action
-		? (action as unknown as { _action: FileActionData })._action
-		: action
-
-	const originalEnabled = realAction.enabled
-
-	realAction.enabled = (context) => {
-		if (context.nodes.some((node) => node.attributes['e2ee-is-encrypted'] === 1)) {
+	const originalEnabled = action.enabled
+	action.enabled = (context) => {
+		if (context.nodes.some((node) => node.attributes['e2ee-is-encrypted'] === 1 && shouldDisable(node))) {
 			return false
 		}
 
 		return originalEnabled?.(context) ?? true
 	}
+}
+
+/**
+ * Get the major version of the running Nextcloud server.
+ */
+function getNextcloudMajorVersion(): number {
+	const version = (window as { OC?: { config?: { version?: string } } }).OC?.config?.version ?? ''
+	return Number.parseInt(version.split('.')[0]!) || 0
 }
