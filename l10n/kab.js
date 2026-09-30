@@ -7,6 +7,8 @@ OC.L10N.register(
     "Folder name" : "Isem n ukaram",
     "Continue" : "Kemmel",
     "Download" : "Sider",
+    "End-to-end encrypted link shares" : "Beṭṭu n useɣwen s uwgelhen seg yixef ɣer yixef",
+    "Link share" : "Beṭṭu n useɣwen",
     "Permissions" : "Tasirag",
     "View only" : "Askan kan",
     "Close" : "Mdel",
