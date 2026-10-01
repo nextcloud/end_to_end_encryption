@@ -64,6 +64,9 @@ function wrapInterceptor(middleware: BaseMiddleware<FetchContext>, method: strin
 		logger.debug(`[${context.req.method}] Proxying ${context.req.url}`)
 		try {
 			await middleware(context, next)
+			// an interceptor may still be working on the response when the request gets aborted,
+			// so its result would reach the caller although it does not expect one anymore
+			context.req.signal.throwIfAborted()
 		} catch (error) {
 			if (error instanceof DOMException && error.name === 'AbortError') {
 				logger.debug('Request was aborted', { error, request: context.req })
