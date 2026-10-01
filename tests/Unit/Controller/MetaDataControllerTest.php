@@ -17,12 +17,16 @@ use OCA\EndToEndEncryption\LockManager;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSBadRequestException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
+use OCP\Constants;
+use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
+use OCP\Files\IUserFolder;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\Share\IManager as ShareManager;
+use OCP\Share\IShare;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -338,5 +342,77 @@ class MetaDataControllerTest extends TestCase {
 			[new NotPermittedException(), null, null, ['message' => 'You are not allowed to delete the metadata of this folder'], 403, false],
 			[new \Exception(), OCSBadRequestException::class, 'Cannot delete metadata', null, null, true],
 		];
+	}
+
+	public function testAddMetadataFileDropUnauthenticatedShare(): void {
+		$this->mockFileDropShare(42, false);
+
+		$this->lockManager->expects($this->never())
+			->method('lockFile');
+
+		$response = $this->getGuestController()->addMetadataFileDrop(42, '{}', 'token123');
+		$this->assertSame(403, $response->getStatus());
+		$this->assertSame(['message' => 'You are not allowed to create the lock'], $response->getData());
+	}
+
+	public function testAddMetadataFileDropAuthenticatedShare(): void {
+		$this->mockFileDropShare(42, true);
+
+		$this->lockManager->expects($this->once())
+			->method('lockFile')
+			->with(42, 'filedrop-lock', 0, 'john.doe', true)
+			->willReturn('lock-token');
+		$this->metaDataStorage->method('getMetaData')
+			->willReturn('{"filedrop":{"a":{"key":"a"}}}');
+		$this->metaDataStorage->expects($this->once())
+			->method('updateMetaDataIntoIntermediateFile')
+			->with('john.doe', 42, '{"filedrop":{"a":{"key":"a"},"b":{"key":"b"}}}', 'filedrop-lock');
+
+		$response = $this->getGuestController()->addMetadataFileDrop(42, '{"b":{"key":"b"}}', 'token123');
+		$this->assertSame(200, $response->getStatus());
+		$this->assertSame(['filedrop' => ['b' => ['key' => 'b']]], $response->getData());
+	}
+
+	/**
+	 * Mock an encrypted file drop share of john.doe on the folder with the given id
+	 */
+	private function mockFileDropShare(int $folderId, bool $isAuthenticated): void {
+		$folder = $this->createStub(Folder::class);
+		$folder->method('getId')->willReturn($folderId);
+		$folder->method('isEncrypted')->willReturn(true);
+
+		$share = $this->createStub(IShare::class);
+		$share->method('getShareOwner')->willReturn('john.doe');
+		$share->method('getPermissions')->willReturn(Constants::PERMISSION_CREATE);
+		$share->method('getNode')->willReturn($folder);
+		$this->shareManager->method('getShareByToken')
+			->willReturnMap([['token123', $share]]);
+		$this->accessManager->method('isShareAuthenticated')
+			->willReturnMap([[$share, $isAuthenticated]]);
+
+		$userFolder = $this->createStub(IUserFolder::class);
+		$userFolder->method('getId')->willReturn(1);
+		$userFolder->method('getFirstNodeById')
+			->willReturnMap([[$folderId, $folder]]);
+		$this->rootFolder->method('getUserFolder')
+			->willReturnMap([['john.doe', $userFolder]]);
+
+		$this->l10n->method('t')
+			->willReturnArgument(0);
+	}
+
+	private function getGuestController(): MetaDataController {
+		return new MetaDataController(
+			$this->appName,
+			$this->request,
+			null,
+			$this->metaDataStorage,
+			$this->lockManager,
+			$this->logger,
+			$this->l10n,
+			$this->shareManager,
+			$this->rootFolder,
+			$this->accessManager,
+		);
 	}
 }
