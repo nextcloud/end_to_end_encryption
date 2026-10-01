@@ -33,4 +33,9 @@ export class SectionFileActionsMenu {
 	public getDeleteEntry(): Locator {
 		return this.getMenuEntry(/^Delete (file|folder)$/i)
 	}
+
+	/** The entry that opens the file picker to move or copy the node. */
+	public getMoveCopyEntry(): Locator {
+		return this.getMenuEntry('Move or copy')
+	}
 }
