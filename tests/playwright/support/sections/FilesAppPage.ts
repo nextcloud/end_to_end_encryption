@@ -44,7 +44,7 @@ export class FilesAppPage {
 	 * assertions pass for the wrong reason.
 	 */
 	public async openFilesApp(): Promise<void> {
-		await this.page.goto('/apps/files')
+		await this.page.goto('apps/files')
 		await this.filesListLocator.waitFor({ state: 'visible' })
 		await this.waitForListLoaded()
 	}
