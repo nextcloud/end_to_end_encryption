@@ -18,8 +18,8 @@ test.describe('sharing status of encrypted folders', () => {
 
 		// without reload the row is built by the app, not from the server response
 		await expect(filesApp.getSharingStatusAction(name)).toBeVisible()
-		const sharingTab = await filesApp.openSharingTab(name)
-		await expect(sharingTab.headingUserShares).toBeVisible()
+		const sidebar = await filesApp.openSharingSidebar(name)
+		await expect(sidebar.headingUserShares).toBeVisible()
 
 		await filesApp.openFilesApp()
 		await expect(filesApp.getSharingStatusAction(name)).toBeVisible()
@@ -31,8 +31,8 @@ test.describe('sharing status of encrypted folders', () => {
 		await createEncryptedRootFolder(filesApp, name, mnemonic)
 		await expect(filesApp.getSharingStatusAction(name)).not.toContainText('Shared')
 
-		const sharingTab = await filesApp.openSharingTab(name)
-		await sharingTab.createUploadOnlyLinkShare()
+		const sidebar = await filesApp.openSharingSidebar(name)
+		await sidebar.createFileDrop()
 
 		// updated without reload
 		await expect(filesApp.getSharingStatusAction(name)).toContainText('Shared')
