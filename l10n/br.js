@@ -5,6 +5,7 @@ OC.L10N.register(
     "Folder name" : "Anv teuliad",
     "Continue" : "Kendec'hel",
     "Download" : "Pellgargañ",
+    "Note to recipient" : "Kemenañ d'an degemerer",
     "Close" : "Serriñ",
     "Read only" : "Da lenn nemetken",
     "Edit" : "Embann",

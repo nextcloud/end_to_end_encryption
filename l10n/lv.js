@@ -11,6 +11,8 @@ OC.L10N.register(
     "Download" : "Lejupielādēt",
     "Permissions" : "Atļaujas",
     "View only" : "Tikai skatīt",
+    "Password" : "Parole",
+    "Note to recipient" : "Piezīme saņēmējam",
     "Close" : "Aizvērt",
     "Read only" : "Tikai lasāms",
     "Edit" : "Labot",

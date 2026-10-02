@@ -71,6 +71,8 @@ OC.L10N.register(
     "View only" : "Yalnızca görüntüleme",
     "View and upload" : "Görüntüle ve yükle",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Yalnızca yükleme paylaşımlarının aksine, yalnızca görüntüleme paylaşımlarında, kısıtlamayı uygulamak için güvenilen bir sunucu gerekir.",
+    "Password" : "Parola",
+    "Note to recipient" : "Alıcıya not",
     "Share url" : "Adresi paylaş",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Lütfen güvenli bir ikinci kanaldan gizli anımsatıcıyı alıcıyla paylaşın.",
     "Update link share" : "Bağlantı paylaşımını güncelle",

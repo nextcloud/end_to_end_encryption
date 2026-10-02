@@ -54,6 +54,8 @@ OC.L10N.register(
     "Upload only" : "Somente upload",
     "View only" : "Visualizar apenas",
     "View and upload" : "Ver e enviar",
+    "Password" : "Password",
+    "Note to recipient" : "Nota para o destinatário",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Compartilhe a mnemônica secreta com o destinatário usando um segundo canal seguro.",
     "Update link share" : "Atualizar compartilhamento por link",
     "Create link share" : "Criar compartilhamento por link",

@@ -63,6 +63,8 @@
     "View only" : "Amharc amháin",
     "View and upload" : "Féach agus uaslódáil",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Murab ionann agus scaireanna uaslódála amháin, ní mór freastalaí iontaofa a bheith ag teastáil ó scaireanna amhairc amháin chun an srian a fhorfheidhmiú.",
+    "Password" : "Pasfhocal",
+    "Note to recipient" : "Nóta don fhaighteoir",
     "Share url" : "Comhroinn URL",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Roinn an mnemonic rúnda leis an bhfaighteoir ag baint úsáide as dara cainéal slán, le do thoil.",
     "Update link share" : "Nuashonraigh comhroinnt nasc",

@@ -25,6 +25,8 @@ OC.L10N.register(
     "Download" : "Lataa",
     "Permissions" : "Oikeudet",
     "View only" : "Vain katselu",
+    "Password" : "Salasana",
+    "Note to recipient" : "Huomio vastaanottajalle",
     "Close" : "Sulje",
     "Read only" : "Vain luku",
     "Edit" : "Muokkaa",

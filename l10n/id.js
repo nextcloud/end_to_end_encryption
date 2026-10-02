@@ -14,6 +14,8 @@ OC.L10N.register(
     "Permissions" : "Izin",
     "Upload only" : "Hanya unggah",
     "View only" : "Hanya lihat",
+    "Password" : "Kata sandi",
+    "Note to recipient" : "Catatan untuk penerima",
     "Close" : "Tutup",
     "Read only" : "Hanya baca",
     "Edit" : "Sunting",

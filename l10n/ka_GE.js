@@ -17,6 +17,7 @@ OC.L10N.register(
     "Folder name" : "დირექტორიის სახელი",
     "Download" : "ჩამოტვირთვა",
     "Permissions" : "უფლებები",
+    "Password" : "პაროლ",
     "Close" : "დახურვა",
     "Read only" : "მხოლოდ-კითხვადი",
     "Edit" : "შეცვლა",

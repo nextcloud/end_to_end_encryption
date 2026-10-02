@@ -32,6 +32,8 @@ OC.L10N.register(
     "Permissions" : "Baimenak",
     "Upload only" : "Igoera soilik",
     "View only" : "Ikustea soilik",
+    "Password" : "Pasahitza",
+    "Note to recipient" : "Oharra hartzailearentzat",
     "Close" : "Itxi",
     "Read only" : "Irakurtzeko soilik",
     "Edit" : "Editatu",

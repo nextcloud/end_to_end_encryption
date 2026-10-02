@@ -64,6 +64,8 @@ OC.L10N.register(
     "View only" : "Tik peržiūrėti",
     "View and upload" : "Peržiūrėti ir įkelti",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Skirtingai nuo bendrinimo, skirto tik įkėlimui, bendrinimui, skirtam tik peržiūrai, apribojimui taikyti reikalingas patikimas serveris.",
+    "Password" : "Slaptažodis",
+    "Note to recipient" : "Pastaba gavėjui",
     "Share url" : "Bendrinti URL",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Prašome pasidalyti slapta mnemonika su gavėju naudodami saugų antrąjį kanalą.",
     "Update link share" : "Atnaujinti nuorodos bendrinimą",

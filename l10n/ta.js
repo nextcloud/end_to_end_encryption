@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Folder name" : "கோப்புறை பெயர்",
     "Download" : "பதிவிறக்குக",
+    "Password" : "கடவுச்சொல்",
     "Close" : "மூடுக",
     "Edit" : "தொகுக்க",
     "Remove" : "அகற்றுக",

@@ -27,6 +27,8 @@ OC.L10N.register(
     "Permissions" : "Dovoljenja",
     "Upload only" : "Le pošiljanje",
     "View only" : "Le ogled",
+    "Password" : "Geslo",
+    "Note to recipient" : "Sporočilo za prejemnika",
     "Close" : "Zapri",
     "Read only" : "Le za branje",
     "Edit" : "Uredi",

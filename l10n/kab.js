@@ -11,6 +11,7 @@ OC.L10N.register(
     "Link share" : "Beṭṭu n useɣwen",
     "Permissions" : "Tasirag",
     "View only" : "Askan kan",
+    "Password" : "Awal n uɛeddi",
     "Close" : "Mdel",
     "Read only" : "Taɣuri kan",
     "Edit" : "Ẓreg",

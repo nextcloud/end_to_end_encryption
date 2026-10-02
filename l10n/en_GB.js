@@ -65,6 +65,8 @@ OC.L10N.register(
     "View only" : "View only",
     "View and upload" : "View and upload",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction.",
+    "Password" : "Password",
+    "Note to recipient" : "Note to recipient",
     "Share url" : "Share url",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Please share the secret mnemonic with the recipient using a secure second channel.",
     "Update link share" : "Update link share",

@@ -71,6 +71,8 @@ OC.L10N.register(
     "View only" : "Afficher seulement",
     "View and upload" : "Consulter et téléverser",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Consulter uniquement",
+    "Password" : "Mot de passe",
+    "Note to recipient" : "Note au destinataire",
     "Share url" : "Téléverser uniquement",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "La phrase de récupération est incorrecte.",
     "Update link share" : "Vérification de la phrase de récupération…",

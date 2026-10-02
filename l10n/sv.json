@@ -63,6 +63,8 @@
     "View only" : "Endast visning",
     "View and upload" : "Visa och ladda upp",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Till skillnad från delningar som endast tillåter uppladdning kräver delningar som endast tillåter visning en betrodd server för att säkerställa att begränsningen efterlevs.",
+    "Password" : "Lösenord",
+    "Note to recipient" : "Anteckning till mottagaren",
     "Share url" : "Delningsadress",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Dela den hemliga minnesfrasen med mottagaren via en säker separat kanal.",
     "Update link share" : "Uppdatera delningslänk",

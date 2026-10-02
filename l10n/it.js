@@ -38,6 +38,8 @@ OC.L10N.register(
     "Permissions" : "Permessi",
     "Upload only" : "Solo caricamento",
     "View only" : "Sola lettura",
+    "Password" : "Password",
+    "Note to recipient" : "Nota al destinatario",
     "Close" : "Chiudi",
     "Read, write, and share" : "Lettura, scrittura e condivisione",
     "Read only" : "Sola lettura",

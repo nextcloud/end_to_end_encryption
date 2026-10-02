@@ -65,6 +65,8 @@ OC.L10N.register(
     "View only" : "僅檢視",
     "View and upload" : "檢視及上傳",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "與僅限上傳的分享不同，僅限檢視的分享需要可信任的伺服器來強制執行限制。",
+    "Password" : "密碼",
+    "Note to recipient" : "給收件人的備註",
     "Share url" : "分享 URL",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "請透過另一個安全的通道，將秘密助記詞分享給收件人。",
     "Update link share" : "更新連結分享",

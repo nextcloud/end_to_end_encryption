@@ -29,6 +29,8 @@ OC.L10N.register(
     "Permissions" : "Rettigheder",
     "Upload only" : "Kun upload",
     "View only" : "Kun visning",
+    "Password" : "Adgangskode",
+    "Note to recipient" : "Note til modtager",
     "Close" : "Luk",
     "Read only" : "Skrivebeskyttet",
     "Edit" : "Redigér",

@@ -24,6 +24,8 @@ OC.L10N.register(
     "Download" : "Iscàrriga",
     "Permissions" : "Permissos",
     "View only" : "Isceti in visualizatzione",
+    "Password" : "Crae",
+    "Note to recipient" : "Notas pro sa persone destinatària",
     "Close" : "Serra",
     "Read only" : "letura sola",
     "Edit" : "Modìfica",

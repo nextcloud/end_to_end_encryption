@@ -4,6 +4,7 @@ OC.L10N.register(
     "Folder name" : "Պանակի անուն",
     "Continue" : "Շարունակել",
     "Download" : "Ներբեռնել",
+    "Password" : "գախտնաբառ",
     "Close" : "Փակել",
     "Edit" : "մշակել",
     "Save" : "Պահպանել",
