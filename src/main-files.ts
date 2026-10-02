@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFileAction, INode } from '@nextcloud/files'
+import type { ActionContext, INode } from '@nextcloud/files'
 
-import { getFileActions, registerFileAction } from '@nextcloud/files'
+import { getFileActions, getFilesRegistry, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
 import { isPublicShare } from '@nextcloud/sharing/public'
 import downloadUnencryptedAction from './files_actions/downloadUnencryptedAction.ts'
-import { sharingAction } from './files_actions/sharingAction.ts'
 import { registerNewEncryptedFolderEntry } from './files_newMenu/new-encrypted-folder.ts'
 import { setupEventBusProxy } from './services/eventBusProxy.ts'
 import { registerSharingSidebarSection } from './services/filesSharingSection.ts'
 import logger from './services/logger.ts'
+import { canManageEncryptedShares } from './services/permissions.ts'
 import { setupTasksManager } from './services/TasksManager.ts'
 import { setupWebDavProxy } from './services/webDavProxy.ts'
 
@@ -30,7 +30,9 @@ if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCr
 	registerDavProperty('nc:e2ee-metadata-signature', { nc: 'http://nextcloud.org/ns' })
 	// Register file integrations
 	registerFileAction(downloadUnencryptedAction)
-	registerFileAction(sharingAction)
+	// e2ee nodes have no share permission, but the owner can share them with our sidebar section
+	patchFileActionEnabled('sharing-status', ({ nodes }, originalEnabled) => originalEnabled()
+		|| (nodes.length === 1 && canManageEncryptedShares(nodes[0]!)))
 	disableFileAction('download')
 	if (getNextcloudMajorVersion() < 36) {
 		// The viewer only supports previewing encrypted media files (our WebDAV interceptor is used)
@@ -56,23 +58,48 @@ if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCr
  * @param shouldDisable - Optional additional check whether the action should be disabled for an encrypted node
  */
 function disableFileAction(actionId: string, shouldDisable: (node: INode) => boolean = () => true) {
-	logger.debug(`Inhibiting ${actionId} actions for e2ee files`)
-	const actions = getFileActions()
+	patchFileActionEnabled(actionId, ({ nodes }, originalEnabled) => !nodes.some((node) => isEncrypted(node) && shouldDisable(node))
+		&& originalEnabled())
+}
 
-	const action = actions.find((action) => action.id === actionId) as IFileAction | undefined
+/**
+ * Patch the enabled function of a file action for e2ee nodes.
+ *
+ * @param actionId - The ID of the action to patch
+ * @param enabled - The enabled function used for e2ee nodes
+ */
+function patchFileActionEnabled(actionId: string, enabled: (context: ActionContext, originalEnabled: () => boolean) => boolean) {
+	const action = getFileActions().find((action) => action.id === actionId)
 	if (!action) {
-		logger.error(`Could not find action with ID ${actionId} to inhibit it for e2ee files.`)
+		// the init script of the providing app might be loaded after ours
+		const registry = getFilesRegistry()
+		registry.addEventListener('register:action', function onRegister({ detail }) {
+			if (detail.id === actionId) {
+				registry.removeEventListener('register:action', onRegister)
+				patchFileActionEnabled(actionId, enabled)
+			}
+		})
 		return
 	}
 
+	logger.debug(`Patching ${actionId} action for e2ee files`)
 	const originalEnabled = action.enabled
 	action.enabled = (context) => {
-		if (context.nodes.some((node) => node.attributes['e2ee-is-encrypted'] === 1 && shouldDisable(node))) {
-			return false
+		const isOriginallyEnabled = () => originalEnabled?.(context) ?? true
+		if (!context.nodes.some(isEncrypted)) {
+			return isOriginallyEnabled()
 		}
-
-		return originalEnabled?.(context) ?? true
+		return enabled(context, isOriginallyEnabled)
 	}
+}
+
+/**
+ * Check if a node is end-to-end encrypted.
+ *
+ * @param node - The node to check
+ */
+function isEncrypted(node: INode): boolean {
+	return node.attributes['e2ee-is-encrypted'] === 1
 }
 
 /**

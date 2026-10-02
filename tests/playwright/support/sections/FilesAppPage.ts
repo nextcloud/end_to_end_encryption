@@ -133,6 +133,16 @@ export class FilesAppPage {
 		await expect(this.getFileOrFolder(name)).toBeVisible()
 	}
 
+	/**
+	 * The inline sharing status action of a row.
+	 * Its name is "Sharing options" or describes the shares, its text is "Shared" once shared.
+	 *
+	 * @param name - Name of the file or folder
+	 */
+	public getSharingStatusAction(name: string): Locator {
+		return this.getFileOrFolder(name).getByRole('button', { name: /^(Sharing options|Shared )/ })
+	}
+
 	public getMnemonicDialog(): SectionMnemonicDialog {
 		return new SectionMnemonicDialog(this.dialogMnemonicLocator)
 	}
@@ -278,13 +288,12 @@ export class FilesAppPage {
 	}
 
 	/**
-	 * Open the sharing tab of the sidebar for a file or folder.
+	 * Open the sharing tab of the sidebar through the sharing status action of a row.
 	 *
 	 * @param name - Name of the file or folder to share
 	 */
 	public async openSharingSidebar(name: string): Promise<SectionSharingSidebar> {
-		const actionsMenu = await this.openActionsMenu(name)
-		await actionsMenu.getMenuEntry('Sharing options').click()
+		await this.getSharingStatusAction(name).click()
 
 		const sidebar = new SectionSharingSidebar(this.page)
 		await expect(sidebar.buttonCreateLinkShare).toBeVisible()
