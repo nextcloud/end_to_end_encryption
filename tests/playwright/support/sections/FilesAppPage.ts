@@ -9,6 +9,7 @@ import { expect } from '@playwright/test'
 import { SectionFileActionsMenu } from './SectionFileActionsMenu.ts'
 import { SectionFileDropMigrationDialog } from './SectionFileDropMigrationDialog.ts'
 import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
+import { SectionMoveCopyDialog } from './SectionMoveCopyDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
 import { SectionSharingSidebar } from './SectionSharingSidebar.ts'
 
@@ -43,7 +44,7 @@ export class FilesAppPage {
 	 * assertions pass for the wrong reason.
 	 */
 	public async openFilesApp(): Promise<void> {
-		await this.page.goto('/apps/files')
+		await this.page.goto('apps/files')
 		await this.filesListLocator.waitFor({ state: 'visible' })
 		await this.waitForListLoaded()
 	}
@@ -205,6 +206,21 @@ export class FilesAppPage {
 			await this.getMnemonicDialog().fillAndSubmit(mnemonic)
 		}
 		await expect(this.getFileOrFolder(name)).toHaveCount(0)
+	}
+
+	/**
+	 * Open the "Move or copy" file picker for a file or folder through its
+	 * actions menu.
+	 *
+	 * @param name - Name of the file or folder to move or copy
+	 */
+	public async openMoveCopyDialog(name: string): Promise<SectionMoveCopyDialog> {
+		const actionsMenu = await this.openActionsMenu(name)
+		await actionsMenu.getMoveCopyEntry().click()
+
+		const dialog = new SectionMoveCopyDialog(this.page)
+		await expect(dialog.dialogLocator).toBeVisible()
+		return dialog
 	}
 
 	/**

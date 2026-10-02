@@ -48,11 +48,15 @@ export async function useCopyInterceptor(context: FetchContext, next: () => Prom
 	const davPathDst = pathDst.replace(new RegExp(`^${base}`), '')
 
 	const result = await api.getNodeStat(davPath)
+	// an encrypted source is addressed by its uuid, so a destination keeping that name needs the real name instead
+	const filenameDst = basename(davPathDst) === result.basename
+		? result.props?.displayname || result.basename
+		: basename(davPathDst)
+	const destinationPath = join(dirname(davPathDst), filenameDst)
 	if (result.type === 'directory') {
-		// if the source is e2ee we need to also use the displayname for the destination
-		await copyFolder(davPath, join(dirname(davPathDst), result.props!.displayname || result.basename))
+		await copyFolder(davPath, destinationPath)
 	} else {
-		await copyFile(davPath, davPathDst)
+		await copyFile(davPath, destinationPath)
 	}
 	context.res = new Response(null, { status: 201 })
 }

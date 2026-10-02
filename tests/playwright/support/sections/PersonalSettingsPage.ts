@@ -9,7 +9,7 @@ import { expect } from '@playwright/test'
 import { BROWSER_E2EE_CONFIG_ENDPOINT } from '../utils/config.ts'
 
 export class PersonalSettingsPage {
-	public readonly URL = '/settings/user/security'
+	public readonly URL = 'settings/user/security'
 
 	public readonly sectionLocator: Locator
 	public readonly sectionHeaderLocator: Locator
