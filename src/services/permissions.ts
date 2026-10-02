@@ -6,7 +6,9 @@
 import type { INode } from '@nextcloud/files'
 import type { ShareAttribute } from '../models/sharing.d.ts'
 
+import { getCurrentUser } from '@nextcloud/auth'
 import { Permission } from '@nextcloud/files'
+import { isPublicShare } from '@nextcloud/sharing/public'
 
 /**
  * Check permissions on the node if it can be downloaded
@@ -29,4 +31,25 @@ export function isDownloadable(node: INode): boolean {
 	}
 
 	return true
+}
+
+/**
+ * Check if the current user can manage the shares of an e2ee node.
+ * Needed as e2ee nodes have no share permission, see `usePropFindInterceptor`.
+ *
+ * @param node The node to check
+ */
+export function canManageEncryptedShares(node: INode): boolean {
+	// Do not leak information about users to public shares
+	if (isPublicShare()) {
+		return false
+	}
+
+	// Needed to open the sharing sidebar
+	if ((node.permissions & Permission.READ) === 0) {
+		return false
+	}
+
+	return node.attributes['e2ee-is-encrypted'] === 1
+		&& node.owner === getCurrentUser()?.uid
 }

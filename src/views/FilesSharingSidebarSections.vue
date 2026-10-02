@@ -6,15 +6,19 @@
 <script setup lang="ts">
 import type { INode } from '@nextcloud/files'
 import type { OCSResponse } from '@nextcloud/typings/ocs'
+import type { FileStat, ResponseDataDetailed } from 'webdav'
 import type { RootMetadata } from '../models/RootMetadata.ts'
 import type { IShare } from '../services/sharing.ts'
 
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
+import { emit } from '@nextcloud/event-bus'
+import { getClient, getDefaultPropfind, getRootPath, resultToNode } from '@nextcloud/files/dav'
 import { t } from '@nextcloud/l10n'
+import { join } from '@nextcloud/paths'
 import { generateOcsUrl } from '@nextcloud/router'
 import { ShareType } from '@nextcloud/sharing'
-import { ref, toRaw, watch } from 'vue'
+import { computed, ref, toRaw, watch } from 'vue'
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import FilesSharingSidebarSectionPublicLinks from '../components/FilesSharingSidebarSection/FilesSharingSidebarSectionPublicLinks.vue'
@@ -35,6 +39,16 @@ watch(() => props.node, loadMetadata, { immediate: true })
 const userShares = ref<IShare[]>([])
 const publicLinkShares = ref<IShare[]>([])
 watch(metadata, loadShares, { immediate: true })
+
+// only shares changed in this section need a node update
+let loadedShareIds = ''
+const shareIds = computed(() => [...userShares.value, ...publicLinkShares.value].map(({ id }) => id).sort().join())
+watch(shareIds, (ids) => {
+	if (ids !== loadedShareIds) {
+		loadedShareIds = ids
+		updateNode()
+	}
+})
 
 /**
  * Handle loading metadata for the current node
@@ -75,11 +89,27 @@ async function loadShares() {
 		const shares = data.ocs.data
 		userShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.User)
 		publicLinkShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.Link)
+		loadedShareIds = shareIds.value
 	} catch (error) {
 		logger.error('Failed to load shares', { error })
 		showError(t('end_to_end_encryption', 'Failed to load shares.'))
 	} finally {
 		isLoadingShares.value = false
+	}
+}
+
+/**
+ * Update the node in the files app so its sharing status is shown
+ */
+async function updateNode() {
+	try {
+		const { data } = await getClient().stat(join(getRootPath(), props.node.path), {
+			details: true,
+			data: getDefaultPropfind(),
+		}) as ResponseDataDetailed<FileStat>
+		emit('files:node:updated', resultToNode(data))
+	} catch (error) {
+		logger.error('Failed to update node after sharing changes', { error })
 	}
 }
 </script>
