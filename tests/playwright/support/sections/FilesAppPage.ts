@@ -12,7 +12,6 @@ import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
 import { SectionMoveCopyDialog } from './SectionMoveCopyDialog.ts'
 import { SectionNewMenu } from './SectionNewMenu.ts'
 import { SectionSharingSidebar } from './SectionSharingSidebar.ts'
-import { SectionSharingTab } from './SectionSharingTab.ts'
 
 /** How long to keep retrying to open a menu. */
 const OPEN_MENU_TIMEOUT = 15000
@@ -142,18 +141,6 @@ export class FilesAppPage {
 	 */
 	public getSharingStatusAction(name: string): Locator {
 		return this.getFileOrFolder(name).getByRole('button', { name: /^(Sharing options|Shared )/ })
-	}
-
-	/**
-	 * Open the sharing tab of the sidebar through the sharing status action of a row.
-	 *
-	 * @param name - Name of the file or folder
-	 */
-	public async openSharingTab(name: string): Promise<SectionSharingTab> {
-		await this.getSharingStatusAction(name).click()
-		const sharingTab = new SectionSharingTab(this.page)
-		await expect(sharingTab.panelLocator).toBeVisible()
-		return sharingTab
 	}
 
 	public getMnemonicDialog(): SectionMnemonicDialog {
@@ -301,13 +288,12 @@ export class FilesAppPage {
 	}
 
 	/**
-	 * Open the sharing tab of the sidebar for a file or folder.
+	 * Open the sharing tab of the sidebar through the sharing status action of a row.
 	 *
 	 * @param name - Name of the file or folder to share
 	 */
 	public async openSharingSidebar(name: string): Promise<SectionSharingSidebar> {
-		const actionsMenu = await this.openActionsMenu(name)
-		await actionsMenu.getMenuEntry('Sharing options').click()
+		await this.getSharingStatusAction(name).click()
 
 		const sidebar = new SectionSharingSidebar(this.page)
 		await expect(sidebar.buttonCreateLinkShare).toBeVisible()

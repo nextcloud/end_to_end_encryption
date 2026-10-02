@@ -13,12 +13,14 @@ import { SectionLinkShareDialog } from './SectionLinkShareDialog.ts'
  */
 export class SectionSharingSidebar {
 	public readonly sidebarLocator: Locator
+	public readonly headingUserShares: Locator
 	public readonly buttonCreateLinkShare: Locator
 	public readonly listLinkShares: Locator
 
 	constructor(public readonly page: Page) {
 		this.sidebarLocator = page.getByRole('complementary')
-		this.buttonCreateLinkShare = this.sidebarLocator.getByRole('button', { name: 'Link share' })
+		this.headingUserShares = this.sidebarLocator.getByRole('heading', { name: 'End-to-end encrypted shares' })
+		this.buttonCreateLinkShare = this.sidebarLocator.getByRole('button', { name: 'Link share', exact: true })
 		this.listLinkShares = this.sidebarLocator.getByRole('list', { name: 'End-to-end encrypted link shares' })
 	}
 
@@ -37,12 +39,14 @@ export class SectionSharingSidebar {
 	 * @param options.note - Note to the recipient
 	 */
 	public async createFileDrop(options: { password?: string, note?: string } = {}): Promise<string> {
+		const shares = this.listLinkShares.getByRole('listitem')
+		const count = await shares.count()
+
 		const dialog = await this.openLinkShareDialog()
 		await dialog.createFileDrop(options)
+		await expect(shares).toHaveCount(count + 1)
 
-		const link = this.listLinkShares.getByRole('link')
-		await expect(link).toHaveCount(1)
-		const url = (await link.getAttribute('href'))!
+		const url = (await shares.last().getByRole('link').getAttribute('href'))!
 		return url.split('/s/').at(-1)!
 	}
 }
