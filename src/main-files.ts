@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFileAction, INode } from '@nextcloud/files'
+import type { ActionContext, INode } from '@nextcloud/files'
 
 import { getFileActions, getFilesRegistry, registerFileAction } from '@nextcloud/files'
 import { registerDavProperty } from '@nextcloud/files/dav'
@@ -62,7 +62,14 @@ function disableFileAction(actionId: string, shouldDisable: (node: INode) => boo
 		&& originalEnabled())
 }
 
-	const action = actions.find((action) => action.id === actionId) as IFileAction | undefined
+/**
+ * Patch the enabled function of a file action for e2ee nodes.
+ *
+ * @param actionId - The ID of the action to patch
+ * @param enabled - The enabled function used for e2ee nodes
+ */
+function patchFileActionEnabled(actionId: string, enabled: (context: ActionContext, originalEnabled: () => boolean) => boolean) {
+	const action = getFileActions().find((action) => action.id === actionId)
 	if (!action) {
 		// the init script of the providing app might be loaded after ours
 		const registry = getFilesRegistry()
