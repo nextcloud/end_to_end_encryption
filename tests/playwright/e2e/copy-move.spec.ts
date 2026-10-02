@@ -33,8 +33,7 @@ test.describe('copying and moving out of encrypted folders', () => {
 		await uploadFileToEncryptedFolder(page, filesApp, 'copied-file.txt', 'secret content\n')
 
 		const dialog = await filesApp.openMoveCopyDialog('copied-file.txt')
-		await dialog.openRoot()
-		await dialog.openFolder(unencryptedFolder)
+		await dialog.openFolderInRoot(unencryptedFolder)
 		await dialog.copy()
 
 		await filesApp.openFilesApp()
@@ -53,8 +52,7 @@ test.describe('copying and moving out of encrypted folders', () => {
 		await createFolderInEncryptedFolder(page, filesApp, 'copied-folder')
 
 		const dialog = await filesApp.openMoveCopyDialog('copied-folder')
-		await dialog.openRoot()
-		await dialog.openFolder(unencryptedFolder)
+		await dialog.openFolderInRoot(unencryptedFolder)
 		await dialog.copy()
 
 		await filesApp.openFilesApp()
@@ -70,8 +68,7 @@ test.describe('copying and moving out of encrypted folders', () => {
 		await uploadFileToEncryptedFolder(page, filesApp, 'moved-file.txt')
 
 		const dialog = await filesApp.openMoveCopyDialog('moved-file.txt')
-		await dialog.openRoot()
-		await dialog.openFolder(unencryptedFolder)
+		await dialog.openFolderInRoot(unencryptedFolder)
 		// removing the source rewrites the metadata of the encrypted folder
 		await withEncryptedFolderUpdate(page, () => dialog.move())
 
