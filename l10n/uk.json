@@ -61,6 +61,8 @@
     "View only" : "Лише перегляд",
     "View and upload" : "Переглянути та завантажити",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "На відміну від спільних ресурсів тільки для завантаження, ресурси тільки для перегляду вимагають довіреного сервера для посилення обмежень.",
+    "Password" : "Пароль",
+    "Note to recipient" : "Примітка для одержувача",
     "Share url" : "Поділитися посиланням",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Поділіться секретною парольною фразою з отримувачем, для цього скористайтеся альтернативним засобом передачі.",
     "Update link share" : "Оновити спільне посилання",

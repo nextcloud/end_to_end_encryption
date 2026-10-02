@@ -50,6 +50,8 @@ OC.L10N.register(
     "Permissions" : "ئىجازەت",
     "Upload only" : "پەقەت يۈكلەڭ",
     "View only" : "پەقەت كۆرۈش",
+    "Password" : "پارول",
+    "Note to recipient" : "تاپشۇرۇۋالغۇچىغا دىققەت قىلىڭ",
     "Close" : "تاقاش",
     "The selected user has not yet enabled end-to-end encryption." : "تاللانغان ئىشلەتكۈچى تېخى باشتىن-ئاياق شىفىرلاشنى قوزغاتمىدى.",
     "Share permissions updated successfully." : "ھەمبەھىرلەش تەڭشەكلىرى مۇۋەپپەقىيەتلىك يېڭىلاندى.",

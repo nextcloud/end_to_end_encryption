@@ -8,6 +8,8 @@ OC.L10N.register(
     "Download" : "Teledescargar",
     "Permissions" : "Autorizacions",
     "View only" : "Veire solament",
+    "Password" : "Senhal",
+    "Note to recipient" : "Nòta pel destinari",
     "Close" : "Plegar",
     "Read only" : "Lectura sola",
     "Edit" : "Modificar",

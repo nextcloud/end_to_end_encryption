@@ -11,6 +11,7 @@ OC.L10N.register(
     "Continue" : "Continuar",
     "Download" : "Descargar",
     "Permissions" : "Permisos",
+    "Password" : "Clave",
     "Close" : "Cerrar",
     "Read only" : "Sólo lectura",
     "Edit" : "Editar",

@@ -62,6 +62,8 @@
     "View only" : "Só ver",
     "View and upload" : "Ver e enviar",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "A diferenza das comparticións só para enviar, as comparticións só para ver requiren un servidor de confianza para aplicar a restrición.",
+    "Password" : "Contrasinal",
+    "Note to recipient" : "Nota para o destinatario",
     "Share url" : "URL para compartir",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Comparte o mnemónico segredo co destinatario empregando unha canle segura.",
     "Update link share" : "Actualizar a ligazón para compartir",

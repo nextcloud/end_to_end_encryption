@@ -71,6 +71,7 @@ OC.L10N.register(
     "View only" : "Nur anzeigen",
     "View and upload" : "Anzeigen und hochladen",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Im Gegensatz zu reinen Upload-Freigaben erfordern reine Ansichtsfreigaben einen vertrauenswürdigen Server, um die Beschränkung durchzusetzen.",
+    "Password" : "Passwort",
     "Share url" : "Freigabe-URL",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Bitte die geheime Gedächtnisstütze über einen sicheren zweiten Kanal mit dem Empfänger teilen.",
     "Update link share" : "Linkfreigabe aktualisieren",

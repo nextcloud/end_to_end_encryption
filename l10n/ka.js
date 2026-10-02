@@ -10,6 +10,8 @@ OC.L10N.register(
     "Permissions" : "Permissions",
     "Upload only" : "Upload only",
     "View only" : "View only",
+    "Password" : "Password",
+    "Note to recipient" : "Note to recipient",
     "Close" : "Close",
     "Read only" : "Read only",
     "Edit" : "Edit",

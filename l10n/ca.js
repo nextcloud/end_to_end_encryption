@@ -34,6 +34,7 @@ OC.L10N.register(
     "Permissions" : "Permisos",
     "Upload only" : "Només pujada",
     "View only" : "Només visualitació",
+    "Password" : "Contrasenya",
     "Close" : "Tanca",
     "Read only" : "Només de lectura",
     "Edit" : "Edició",

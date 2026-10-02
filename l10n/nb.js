@@ -34,6 +34,8 @@ OC.L10N.register(
     "Permissions" : "Rettigheter",
     "Upload only" : "Kun opplasting",
     "View only" : "Kun se",
+    "Password" : "PassordP",
+    "Note to recipient" : "Melding til mottaker",
     "Close" : "Lukk",
     "End-to-end encrypted shares" : "Ende-til-endre-krypterte delinger",
     "Read only" : "Skrivebeskyttet",

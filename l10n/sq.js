@@ -10,6 +10,8 @@ OC.L10N.register(
     "Continue" : "Vazhdo",
     "Download" : "Shkarko",
     "Permissions" : "Lejet",
+    "Password" : "Fjalëkalimi",
+    "Note to recipient" : "Shënim për marrësin",
     "Close" : "Mbylleni",
     "Read only" : "Vetëm i lexueshëm",
     "Edit" : "Përpuno",

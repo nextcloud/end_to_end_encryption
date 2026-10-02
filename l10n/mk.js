@@ -9,6 +9,8 @@ OC.L10N.register(
     "Permissions" : "Дозволи",
     "Upload only" : "Само прикачување",
     "View only" : "Само за гледање",
+    "Password" : "Лозинка",
+    "Note to recipient" : "Белешка до примачот",
     "Close" : "Затвори",
     "Read only" : "Само читај",
     "Edit" : "Уреди",

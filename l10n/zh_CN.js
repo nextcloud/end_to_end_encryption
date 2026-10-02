@@ -31,6 +31,8 @@ OC.L10N.register(
     "Permissions" : "权限",
     "Upload only" : "仅上传",
     "View only" : "仅查看",
+    "Password" : "密码",
+    "Note to recipient" : "接收者备注",
     "Close" : "关闭",
     "End-to-end encrypted shares" : "端到端加密共享",
     "Read only" : "只读",

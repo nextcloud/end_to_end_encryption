@@ -53,6 +53,8 @@ OC.L10N.register(
     "Permissions" : "Rechten",
     "Upload only" : "Alleen uploaden",
     "View only" : "Alleen bekijken",
+    "Password" : "Wachtwoord",
+    "Note to recipient" : "Notitie voor ontvanger",
     "Close" : "Sluit",
     "Delete file drop" : "Bestandsaanvraag verwijderen",
     "End-to-end encrypted shares" : "End-to-end versleutelde bestanden",

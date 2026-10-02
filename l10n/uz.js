@@ -8,6 +8,8 @@ OC.L10N.register(
     "Continue" : "Davom etish",
     "Download" : "Yuklab olish",
     "Permissions" : "Ruxsatnomalar",
+    "Password" : "Parol",
+    "Note to recipient" : "Qabul qiluvchiga eslatma",
     "Close" : "Yopish",
     "Read only" : "Faqat o'qish",
     "Edit" : "Tahrirlash",

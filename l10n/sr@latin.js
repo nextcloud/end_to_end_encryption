@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Internal error" : "Interna greška",
     "Folder name" : "Naziv fascikle",
+    "Note to recipient" : "Beleška primaocu",
     "Close" : "Zatvori",
     "Edit" : "Izmeni",
     "Save" : "Sačuvaj",

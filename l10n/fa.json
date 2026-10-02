@@ -62,6 +62,8 @@
     "View only" : "فقط مشاهده",
     "View and upload" : "مشاهده و آپلود",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "برخلاف اشتراک‌های فقط آپلود، اشتراک‌های فقط مشاهده برای اعمال محدودیت به سرور معتمد نیاز دارند.",
+    "Password" : "رمز عبور",
+    "Note to recipient" : "یادداشت برای گیرنده",
     "Share url" : "URL اشتراک",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "لطفاً عبارت یادآور مخفی را از طریق یک کانال دوم امن برای گیرنده ارسال کنید.",
     "Update link share" : "به‌روزرسانی اشتراک لینک",

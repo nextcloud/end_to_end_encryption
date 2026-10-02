@@ -62,6 +62,8 @@
     "View only" : "閲覧のみ",
     "View and upload" : "閲覧とアップロード",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "アップロード専用共有とは異なり、閲覧専用共有では制限を適用するために信頼されたサーバーが必要です。",
+    "Password" : "パスワード",
+    "Note to recipient" : "受取人への注意",
     "Share url" : "URLを共有",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "安全な2番目のチャネルを使用して、秘密のニーモニックを受信者と共有してください。",
     "Update link share" : "リンク共有の更新",

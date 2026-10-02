@@ -71,6 +71,8 @@ OC.L10N.register(
     "View only" : "Iba pre čítanie",
     "View and upload" : "Zobraziť a nahrať",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Na rozdiel od zdieľaní určených iba na nahrávanie si zdieľania určené iba na zobrazenie vyžadujú dôveryhodný server, ktorý vynúti toto obmedzenie.",
+    "Password" : "Heslo",
+    "Note to recipient" : "Poznámka pre príjemcu",
     "Share url" : "Adresa URL zdieľania",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Tajnú mnemotechnickú frázu odovzdajte príjemcovi zabezpečeným alternatívnym kanálom.",
     "Update link share" : "Aktualizovať zdieľanie odkazom",

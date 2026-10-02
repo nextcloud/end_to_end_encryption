@@ -34,6 +34,8 @@ OC.L10N.register(
     "Permissions" : "권한",
     "Upload only" : "업로드만",
     "View only" : "읽기 전용",
+    "Password" : "암호",
+    "Note to recipient" : "받는이에게 메모",
     "Close" : "닫기",
     "Read only" : "Read only",
     "Edit" : "편집",

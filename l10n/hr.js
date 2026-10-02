@@ -28,6 +28,8 @@ OC.L10N.register(
     "Permissions" : "Dopuštenja",
     "Upload only" : "Samo učitavanje",
     "View only" : "Samo za gledanje",
+    "Password" : "Lozinka",
+    "Note to recipient" : "Obavijest primatelju",
     "Close" : "Zatvori",
     "Read only" : "Samo za čitanje",
     "Edit" : "Uredi",

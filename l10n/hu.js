@@ -34,6 +34,8 @@ OC.L10N.register(
     "Permissions" : "Jogosultságok",
     "Upload only" : "Csak feltöltés",
     "View only" : "Csak megtekintés",
+    "Password" : "Jelszó",
+    "Note to recipient" : "Jegyzet a címzettnek",
     "Close" : "Bezárás",
     "End-to-end encrypted shares" : "Végpontok közti titkosítással rendelkező megosztások",
     "Read only" : "Csak olvasható",

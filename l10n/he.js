@@ -20,6 +20,8 @@ OC.L10N.register(
     "Download" : "הורדה",
     "Permissions" : "הרשאות",
     "View only" : "לצפיה בלבד",
+    "Password" : "ססמה",
+    "Note to recipient" : "מסר לנמען",
     "Close" : "סגירה",
     "Read only" : "קריאה בלבד",
     "Edit" : "עריכה",

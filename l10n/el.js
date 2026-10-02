@@ -61,6 +61,8 @@ OC.L10N.register(
     "View only" : "Μόνο προβολή",
     "View and upload" : "Προβολή και μεταφόρτωση",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Σε αντίθεση με τους διαμοιρασμούς μόνο για μεταφόρτωση, οι διαμοιρασμοί μόνο για προβολή απαιτούν έναν έμπιστο διακομιστή για την επιβολή του περιορισμού.",
+    "Password" : "Συνθηματικό",
+    "Note to recipient" : "Σημείωση προς τον παραλήπτη",
     "Share url" : "URL διαμοιρασμού",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Παρακαλούμε μοιραστείτε το κρυφό μνημονικό με τον παραλήπτη χρησιμοποιώντας ένα δεύτερο, ασφαλές κανάλι επικοινωνίας.",
     "Update link share" : "Ενημέρωση διαμοιρασμού συνδέσμου",

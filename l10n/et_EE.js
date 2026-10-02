@@ -71,6 +71,8 @@ OC.L10N.register(
     "View only" : "Ainult vaatamiseks",
     "View and upload" : "Vaatamine ja üleslaadimine",
     "Unlike upload-only shares view-only shares require a trusted server to enforce the restriction." : "Erinevalt vaid üleslaadimiseks mõeldud kaustadest vajavad vaid vaatamiseks mõeldud kaustad usaldusväärset serverit, mis suudab ettenähtud piiranguid kontrollida ja jõustada.",
+    "Password" : "Salasõna",
+    "Note to recipient" : "Märge saajale",
     "Share url" : "Jagamise võrguaadress",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Palun jaga saajaga krüptimise salakoodi teise ja turvalise sidekanali/sidevahendi vahendusel.",
     "Update link share" : "Uuenda lingiga jagamist",

@@ -10,6 +10,8 @@ OC.L10N.register(
     "Download" : "Descărcare",
     "Permissions" : "Permisiuni",
     "View only" : "Numai se vizualizează",
+    "Password" : "Parolă",
+    "Note to recipient" : "Notă către destinatar",
     "Close" : "Închide",
     "Read only" : "Doar citire",
     "Edit" : "Editează",

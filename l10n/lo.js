@@ -50,6 +50,8 @@ OC.L10N.register(
     "Permissions" : "ການອະນຸຍາດ",
     "Upload only" : "ອັບໂຫຼດເທົ່ານັ້ນ",
     "View only" : "ເບິ່ງເທົ່ານັ້ນ",
+    "Password" : "ລະຫັດຜ່ານ",
+    "Note to recipient" : "ໝາຍເຫດເຖິງຜູ້ຮັບ",
     "Close" : "ປິດ",
     "Read only" : "ອ່ານຢ່າງດຽວ",
     "Edit" : "ແກ້ໄຂ",

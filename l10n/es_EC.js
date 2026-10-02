@@ -30,6 +30,7 @@ OC.L10N.register(
     "Download" : "Descargar",
     "Permissions" : "Permisos",
     "View only" : "Solo vista",
+    "Note to recipient" : "Nota para el destinatario",
     "Close" : "Cerrar",
     "Read only" : "Sólo lectura",
     "Edit" : "Editar",
