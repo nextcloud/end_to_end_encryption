@@ -74,7 +74,7 @@
     "@types/wicg-file-system-access": "^2023.10.7",
     "@vitest/browser-playwright": "^5.0.2",
     "@vitest/coverage-v8": "^5.0.2",
-    "@vue/test-utils": "^2.5.0",
+    "@vue/test-utils": "^2.5.1",
     "@vue/tsconfig": "^0.9.1",
     "eslint": "^10.10.0",
     "msw": "^2.15.0",
