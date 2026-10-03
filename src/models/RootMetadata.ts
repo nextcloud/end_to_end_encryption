@@ -5,6 +5,7 @@
 
 import type { IMetadata, IRawMetadataFileDrop, IRawMetadataUser, IRawRootMetadata } from './metadata.d.ts'
 
+import { getUniqueName } from '@nextcloud/files'
 import { X509Certificate } from '@peculiar/x509'
 import { base64ToBuffer, bufferToBase64 } from '../services/bufferUtils.ts'
 import { sha256Hash } from '../services/crypto.ts'
@@ -55,7 +56,10 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			return
 		}
 
-		this.addFile(entryName, this.#filedrop[entryName].getFile())
+		const fileEntry = this.#filedrop[entryName].getFile()
+		const name = getUniqueName(fileEntry.filename, this.listContents())
+		this.addFile(entryName, { ...fileEntry, filename: name })
+
 		delete this.#filedrop[entryName]
 	}
 
