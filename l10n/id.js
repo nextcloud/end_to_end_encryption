@@ -27,7 +27,6 @@ OC.L10N.register(
     "Uploading…" : "Menunggah…",
     "Limit to groups" : "Batasi ke grup",
     "Limit app usage to groups" : "Batas pemakaian aplikasi untuk grup",
-    "Cancel" : "Batal",
-    "Sharing options" : "Opsi berbagi"
+    "Cancel" : "Batal"
 },
 "nplurals=1; plural=0;");

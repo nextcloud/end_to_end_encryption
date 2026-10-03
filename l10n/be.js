@@ -16,6 +16,7 @@ OC.L10N.register(
     "Download" : "Спампаваць",
     "Permissions" : "Дазволы",
     "View only" : "Толькі прагляд",
+    "Password" : "Пароль",
     "Close" : "Закрыць",
     "Read only" : "Толькі для чытання",
     "Edit" : "Рэдагаваць",

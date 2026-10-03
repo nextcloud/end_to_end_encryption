@@ -30,6 +30,8 @@ OC.L10N.register(
     "Download" : "Изтегляне",
     "Permissions" : "Права",
     "View only" : "Само изглед",
+    "Password" : "Парола",
+    "Note to recipient" : "Бележка за получателя",
     "Close" : "Затваряне",
     "Read only" : "Само за четене",
     "Edit" : "Промяна",
@@ -57,7 +59,6 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Проверете на всички свързани устройства дали можете да извлечете вашата мнемоника.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Всяко устройство, което все още е свързано, може да причини проблеми след изтриването на ключовете, така че е по-добре да прекъснете връзката и по късно отново да свържете отново устройствата.",
     "Delete existing encrypted files" : "Изтриване на съществуващите криптирани файлове",
-    "Sharing options" : "Опции за споделяне",
     "End-to-end encryption endpoint" : "Крайна точка на цялостно криптиране",
     "Error while uploading files" : "Грешка при качване на файлове",
     "Error while uploading metadata" : "Грешка при качване на метаданни"

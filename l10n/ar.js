@@ -34,6 +34,7 @@ OC.L10N.register(
     "Permissions" : "الصلاحيّات",
     "Upload only" : "رفع فقط",
     "View only" : "للعرض فقط",
+    "Password" : "كلمة المرور",
     "Close" : "إغلاق",
     "Read only" : "للقراءة فقط",
     "Edit" : "تحرير",
