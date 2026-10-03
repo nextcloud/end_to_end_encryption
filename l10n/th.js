@@ -14,7 +14,6 @@ OC.L10N.register(
     "Upload failed" : "อัปโหลดล้มเหลว",
     "Uploading…" : "กำลังอัปโหลด…",
     "Limit app usage to groups" : "จำกัดการใช้แอปสำหรับกลุ่ม",
-    "Cancel" : "ยกเลิก",
-    "Sharing options" : "ตัวเลือกการแชร์"
+    "Cancel" : "ยกเลิก"
 },
 "nplurals=1; plural=0;");

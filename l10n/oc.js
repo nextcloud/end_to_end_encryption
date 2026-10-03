@@ -17,7 +17,6 @@ OC.L10N.register(
     "Save" : "Enregistrar",
     "Upload failed" : "Fracàs del mandadís",
     "Limit to groups" : "Limitar als grops",
-    "Cancel" : "Anullar",
-    "Sharing options" : "Opcions de partatge"
+    "Cancel" : "Anullar"
 },
 "nplurals=2; plural=(n > 1);");

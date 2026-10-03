@@ -21,6 +21,8 @@ OC.L10N.register(
     "Permissions" : "Permisos",
     "Upload only" : "Xubir namás",
     "View only" : "Ver namás",
+    "Password" : "Contraseña",
+    "Note to recipient" : "Nota al destinatariu",
     "Close" : "Zarrar",
     "Read only" : "Namás llectura",
     "Edit" : "Editar",

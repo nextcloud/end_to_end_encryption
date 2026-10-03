@@ -111,7 +111,6 @@ OC.L10N.register(
     "Delete existing encrypted files" : "Eyða fyrirliggjandi dulrituðum skrám",
     "Preparing download for {file}" : "Undirbý niðurhal fyrir {file}",
     "Download unencrypted" : "Sækja ódulritað",
-    "Sharing options" : "Valkostir deilingar",
     "New encrypted folder" : "Ný dulrituð mappa",
     "Creating new encrypted folder: Cancelled" : "Bý til nýja dulritaða möppu: Hætti við",
     "Creating new encrypted folder: Failed" : "Bý til nýja dulritaða möppu: Mistókst",
