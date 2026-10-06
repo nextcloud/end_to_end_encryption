@@ -7,6 +7,25 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.4.0 - 2026-10-06
+### Added
+* feat: add setup check and occ command to detect v1 metadata \([\#2151](https://github.com/nextcloud/end_to_end_encryption/pull/2151)\)
+
+### Fixed
+* fix(metadata): encode metadata and file drop entries as UTF-8 \([\#2152](https://github.com/nextcloud/end_to_end_encryption/pull/2152)\)
+* fix(sharing): show sharing status action for encrypted folders \([\#2163](https://github.com/nextcloud/end_to_end_encryption/pull/2163)\)
+* fix: add missing audit-logging for important events \([\#2150](https://github.com/nextcloud/end_to_end_encryption/pull/2150)\)
+* fix: disable viewer where it does not handle e2ee itself \([\#2154](https://github.com/nextcloud/end_to_end_encryption/pull/2154)\)
+* fix: properly handle COPY to store displayname instead of UUID \([\#2160](https://github.com/nextcloud/end_to_end_encryption/pull/2160)\)
+* fix: ensure filedrop migration results in unique names \([\#2186](https://github.com/nextcloud/end_to_end_encryption/pull/2186)\)
+
+### Changed
+* Updated dependencies
+  * Bump `@nextcloud/router` to 3.2.0
+  * Bump `pkijs` to 3.4.1
+  * Bump `vue` to 3.5.43
+  * Updated various sub-dependencies
+
 ## v2.3.0 - 2026-09-28
 ### Added
 * feat(filedrop): add share password and note to recipient \([\#2144](https://github.com/nextcloud/end_to_end_encryption/pull/2144)\)
