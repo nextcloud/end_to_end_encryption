@@ -10,7 +10,7 @@ import { ShareType } from '@nextcloud/sharing'
 import { http, HttpResponse } from 'msw'
 import { describe, expect } from 'vitest'
 import { test } from '../../__tests__/api-mock.ts'
-import { createFileDropShare } from './sharing.ts'
+import { createFileDropShare, getShareUrl } from './sharing.ts'
 
 const SHARES_URL = '**/ocs/v2.php/apps/files_sharing/api/v1/shares'
 
@@ -47,11 +47,35 @@ describe('createFileDropShare', () => {
 		expect(body.value).toMatchObject({ password: 'secret', note: 'Hello' })
 	})
 
+	test('creates an email share', async ({ worker }) => {
+		const body = captureRequest(worker)
+
+		await createFileDropShare('/folder', { email: 'alice@example.com' })
+		expect(body.value).toEqual({
+			path: '/folder',
+			permissions: Permission.CREATE,
+			shareType: ShareType.Email,
+			shareWith: 'alice@example.com',
+		})
+	})
+
 	test('omits empty password and note', async ({ worker }) => {
 		const body = captureRequest(worker)
 
 		await createFileDropShare('/folder', { password: '', note: '' })
 		expect(body.value).not.toHaveProperty('password')
 		expect(body.value).not.toHaveProperty('note')
+	})
+})
+
+describe('getShareUrl', () => {
+	const share = { id: 1, token: 'abc', share_with: '', share_with_displayname: '' }
+
+	test('uses the url of link shares', () => {
+		expect(getShareUrl({ ...share, url: 'https://cloud.example.com/s/abc' })).toBe('https://cloud.example.com/s/abc')
+	})
+
+	test('builds the url from the token for email shares', () => {
+		expect(getShareUrl(share)).toBe(`${window.location.origin}/index.php/s/abc`)
 	})
 })

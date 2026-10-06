@@ -23,16 +23,19 @@ import NcPasswordField from '@nextcloud/vue/components/NcPasswordField'
 import NcRadioGroup from '@nextcloud/vue/components/NcRadioGroup'
 import NcRadioGroupButton from '@nextcloud/vue/components/NcRadioGroupButton'
 import NcTextArea from '@nextcloud/vue/components/NcTextArea'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 import * as api from '../../services/api.ts'
 import logger from '../../services/logger.ts'
 import { reencryptSubfolders } from '../../services/metadata.ts'
-import { createFileDropShare, createPublicLinkShare } from '../../services/sharing.ts'
+import { createFileDropShare, createPublicLinkShare, getShareUrl } from '../../services/sharing.ts'
 import * as keyStore from '../../store/keys.ts'
 import * as metadataStore from '../../store/metadata.ts'
 
 const props = defineProps<{
 	share?: IShare
 	metadata: RootMetadata
+	/** Create an email share instead of a link share */
+	isEmailShare?: boolean
 }>()
 
 defineEmits<{
@@ -60,12 +63,13 @@ watchEffect(() => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isPasswordEnforced = (getCapabilities() as any).files_sharing?.public?.password?.enforced === true
+const email = ref('')
 const password = ref('')
 const note = ref('')
 
 const sharedMnemonic = ref<string>()
 const internalShare = ref<IShare>()
-const shareUrl = computed(() => internalShare.value?.url as string | undefined)
+const shareUrl = computed(() => internalShare.value && getShareUrl(internalShare.value))
 
 /**
  * Create a new end-to-end link share
@@ -80,7 +84,7 @@ async function createShare() {
 	const { path, id } = metadataStore.getRootFolder(metadata)
 	if (sharePermissions.value === Permissions.UploadOnly) {
 		try {
-			internalShare.value = await createFileDropShare(path, { password: password.value, note: note.value })
+			internalShare.value = await createFileDropShare(path, { email: email.value || undefined, password: password.value, note: note.value })
 		} catch (error) {
 			logger.error('Failed to create file drop share', { error })
 			const message = isAxiosError(error) ? error.response?.data?.ocs?.meta?.message : undefined
@@ -95,7 +99,17 @@ async function createShare() {
 		// we need to reencrypt all folders later with the new key
 		const subfolders = await metadataStore.loadAllSubfolders(metadata)
 
-		const { share, mnemonic } = await createPublicLinkShare(path, metadata, sharePermissions.value === Permissions.ViewOnly)
+		let result: Awaited<ReturnType<typeof createPublicLinkShare>>
+		try {
+			result = await createPublicLinkShare(path, metadata, sharePermissions.value === Permissions.ViewOnly, email.value || undefined)
+		} catch (error) {
+			logger.error('Failed to create link share', { error })
+			const message = isAxiosError(error) ? error.response?.data?.ocs?.meta?.message : undefined
+			showError(message || t('end_to_end_encryption', 'Failed to create the link share.'))
+			return
+		}
+
+		const { share, mnemonic } = result
 		internalShare.value = share
 		sharedMnemonic.value = mnemonic.join(' ')
 
@@ -115,9 +129,17 @@ async function createShare() {
 	<NcDialog
 		isForm
 		:contentClasses="$style.publicLinksDialog"
-		:name="t('end_to_end_encryption', 'End-to-end encrypted link share')"
+		:name="isEmailShare ? t('end_to_end_encryption', 'End-to-end encrypted email share') : t('end_to_end_encryption', 'End-to-end encrypted link share')"
 		@submit="createShare"
 		@update:open="$event || $emit('close', internalShare)">
+		<NcTextField
+			v-if="isEmailShare"
+			v-model="email"
+			autocomplete="email"
+			:disabled="!!internalShare"
+			:label="t('end_to_end_encryption', 'Email address')"
+			required
+			type="email" />
 		<NcRadioGroup
 			v-model="sharePermissions"
 			:disabled="!!internalShare"
@@ -164,6 +186,9 @@ async function createShare() {
 					:value="sharedMnemonic" />
 			</NcFormBox>
 
+			<NcNoteCard v-if="isEmailShare" type="success">
+				{{ t('end_to_end_encryption', 'The share link was sent to {email}.', { email: internalShare!.share_with }) }}
+			</NcNoteCard>
 			<NcNoteCard v-if="sharedMnemonic" type="info">
 				{{ t('end_to_end_encryption', 'Please share the secret mnemonic with the recipient using a secure second channel.') }}
 			</NcNoteCard>
@@ -171,7 +196,12 @@ async function createShare() {
 
 		<template #actions>
 			<NcButton v-if="!internalShare" type="submit" variant="primary">
-				{{ share ? t('end_to_end_encryption', 'Update link share') : t('end_to_end_encryption', 'Create link share') }}
+				<template v-if="isEmailShare">
+					{{ t('end_to_end_encryption', 'Create email share') }}
+				</template>
+				<template v-else>
+					{{ share ? t('end_to_end_encryption', 'Update link share') : t('end_to_end_encryption', 'Create link share') }}
+				</template>
 			</NcButton>
 			<NcButton v-else variant="primary" @click="$emit('close', internalShare)">
 				{{ t('end_to_end_encryption', 'Close') }}
