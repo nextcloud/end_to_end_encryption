@@ -88,7 +88,7 @@ async function loadShares() {
 		logger.debug(`Loaded ${data.ocs.data.length} shares for path: ${path}`, { shares: data.ocs.data })
 		const shares = data.ocs.data
 		userShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.User)
-		publicLinkShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.Link)
+		publicLinkShares.value = shares.filter(({ share_type: shareType }) => shareType === ShareType.Link || shareType === ShareType.Email)
 		loadedShareIds = shareIds.value
 	} catch (error) {
 		logger.error('Failed to load shares', { error })
