@@ -13,6 +13,7 @@ OC.L10N.register(
     "View only" : "Askan kan",
     "Password" : "Awal n uɛeddi",
     "Close" : "Mdel",
+    "End-to-end encrypted shares" : "Betṭu yettwawgelhen seg yixef ɣer yixef",
     "Read only" : "Taɣuri kan",
     "Edit" : "Ẓreg",
     "Remove" : "Kkes",
