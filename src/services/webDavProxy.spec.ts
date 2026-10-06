@@ -108,6 +108,21 @@ test('ignores requests non registered method', async () => {
 	expect(useGetInterceptor).not.toHaveBeenCalled()
 })
 
+test('rejects requests aborted while the interceptor handles the response', async () => {
+	const controller = new AbortController()
+	useGetInterceptor.mockImplementationOnce(async (context, next) => {
+		await next()
+		controller.abort()
+		context.res = new Response('stale')
+	})
+	setupWebDavProxy()
+
+	await expect(window.fetch(new URL('/remote.php/dav/files/user/file.txt', window.location.href), { signal: controller.signal }))
+		.rejects.toThrow(expect.objectContaining({ name: 'AbortError' }))
+	expect(logger.debug).toHaveBeenCalledWith('Request was aborted', expect.anything())
+	expect(logger.error).not.toHaveBeenCalled()
+})
+
 test('log exceptions in handler', async () => {
 	await expect(async () => {
 		useGetInterceptor.mockImplementationOnce(() => {

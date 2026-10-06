@@ -49,20 +49,40 @@ export class SectionMoveCopyDialog {
 	}
 
 	/**
-	 * Navigate the picker back to the root of the user's files through its
-	 * breadcrumbs.
+	 * Navigate the picker into a folder in the root of the user's files.
+	 *
+	 * Up to @nextcloud/dialogs 7.5.0 the picker can lose track of a listing it
+	 * still has to abort, which then replaces the listing of the folder navigated
+	 * to once it is done. Listing an encrypted folder takes long enough for that
+	 * to happen to the folder the picker was opened in, so the root is listed
+	 * again until the folder shows up in it.
 	 *
 	 * The picker has two navigations: the views on the side, which also have an
 	 * "All files" entry, and the breadcrumbs - told apart by the views having
 	 * "Favorites" as well.
+	 *
+	 * @param name - Name of the folder to open
 	 */
-	public async openRoot(): Promise<void> {
-		await this.dialogLocator
+	public async openFolderInRoot(name: string): Promise<void> {
+		const views = this.dialogLocator
+			.getByRole('navigation')
+			.filter({ has: this.page.getByRole('button', { name: 'Favorites' }) })
+		const breadcrumbs = this.dialogLocator
 			.getByRole('navigation')
 			.filter({ hasNot: this.page.getByRole('button', { name: 'Favorites' }) })
-			.getByRole('button', { name: 'All files' })
-			.click()
-		await expect(this.buttonCopy).toHaveAccessibleName('Copy')
+
+		await breadcrumbs.getByRole('button', { name: 'All files' }).click()
+		let attempt = 0
+		await expect(async () => {
+			if (attempt++ > 0 && !(await this.getRow(name).isVisible())) {
+				// selecting the current view again does not list it anew, so go through another one
+				await views.getByRole('button', { name: 'Recent' }).click()
+				await views.getByRole('button', { name: 'All files' }).click()
+			}
+			await expect(this.buttonCopy).toHaveAccessibleName('Copy')
+			await this.getRow(name).getByRole('cell', { name, exact: true }).click({ timeout: 5000 })
+		}).toPass({ timeout: 30_000 })
+		await expect(this.getRow(name)).toHaveCount(0)
 	}
 
 	/** Copy into the folder the picker shows and wait for the copy to be done. */
