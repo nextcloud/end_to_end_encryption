@@ -16,6 +16,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\Storage\ISharedStorage;
 use OCP\IRequest;
 use OCP\ISession;
+use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
 
@@ -37,13 +38,18 @@ class AccessManager {
 	 * In case of a share the share is validated.
 	 *
 	 * @param int $fileId - The file id
+	 * @param ?string $shareToken - The share token if available
 	 * @throws \InvalidArgumentException in case of invalid share token or no user logged in
 	 */
-	public function getOwnerId(int $fileId): string {
-		$shareToken = $this->request->getHeader('x-nc-e2ee-share-token') ?: null;
+	public function getOwnerId(int $fileId, ?string $shareToken = null): string {
+		$shareToken ??= $this->request->getHeader('x-nc-e2ee-share-token') ?: null;
 		if ($shareToken !== null) {
 			if ($this->share === null) {
-				$this->share = $this->shareManager->getShareByToken($shareToken);
+				try {
+					$this->share = $this->shareManager->getShareByToken($shareToken);
+				} catch (ShareNotFound $e) {
+					throw new \InvalidArgumentException('Invalid share token', previous: $e);
+				}
 			}
 
 			if (!$this->isShareAuthenticated($this->share)) {
@@ -89,10 +95,11 @@ class AccessManager {
 	 *
 	 * @param int $fileId - The file id to check
 	 * @param bool $write - True if write access is required
+	 * @param ?string $shareToken - The share token if available
 	 * @throws \InvalidArgumentException in case of insufficient permissions or file not found
 	 */
-	public function checkPermissions(int $fileId, bool $write = true): void {
-		$owner = $this->getOwnerId($fileId);
+	public function checkPermissions(int $fileId, bool $write = true, ?string $shareToken = null): void {
+		$owner = $this->getOwnerId($fileId, $shareToken);
 		if ($this->share !== null) {
 			if (($this->share->getPermissions() & ($write ? Constants::PERMISSION_UPDATE : Constants::PERMISSION_READ)) === 0) {
 				throw new \InvalidArgumentException('Insufficient permissions on share');

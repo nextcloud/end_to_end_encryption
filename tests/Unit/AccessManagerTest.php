@@ -264,8 +264,51 @@ class AccessManagerTest extends TestCase {
 
 		$accessManager = $this->getAccessManager(null);
 
-		$this->expectException(ShareNotFound::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid share token');
 		$accessManager->getOwnerId(self::FILE_ID);
+	}
+
+	public function testGetOwnerIdExplicitShareToken(): void {
+		$this->mockShareToken(null);
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+		$this->shareManager->method('getShareByToken')
+			->willReturnMap([['token123', $this->mockShare($node, 'bob')]]);
+
+		$accessManager = $this->getAccessManager(null);
+		$this->assertSame('bob', $accessManager->getOwnerId(self::FILE_ID, 'token123'));
+	}
+
+	/**
+	 * A logged in user accessing a public share by token gets the share owner, not themselves.
+	 */
+	public function testGetOwnerIdExplicitShareTokenWithUser(): void {
+		$this->mockShareToken(null);
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+		$this->shareManager->method('getShareByToken')
+			->willReturnMap([['token123', $this->mockShare($node, 'bob')]]);
+		$this->mockUserFolders(['alice' => null]);
+
+		$accessManager = $this->getAccessManager('alice');
+		$this->assertSame('bob', $accessManager->getOwnerId(self::FILE_ID, 'token123'));
+	}
+
+	public function testGetOwnerIdExplicitShareTokenPrecedesHeader(): void {
+		$this->mockShareToken('header-token');
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+
+		$shareManager = $this->createMock(IManager::class);
+		$shareManager->expects($this->once())
+			->method('getShareByToken')
+			->with('token123')
+			->willReturn($this->mockShare($node, 'bob'));
+		$this->shareManager = $shareManager;
+
+		$accessManager = $this->getAccessManager(null);
+		$this->assertSame('bob', $accessManager->getOwnerId(self::FILE_ID, 'token123'));
 	}
 
 	/**
@@ -386,5 +429,41 @@ class AccessManagerTest extends TestCase {
 		$accessManager = $this->getAccessManager(null);
 		$accessManager->checkPermissions(self::FILE_ID);
 		$this->addToAssertionCount(1);
+	}
+
+	public function testCheckPermissionsExplicitShareTokenReadOnly(): void {
+		$this->mockShareToken(null);
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+		$this->shareManager->method('getShareByToken')
+			->willReturnMap([['token123', $this->mockShare($node, 'bob', Constants::PERMISSION_READ)]]);
+		$this->mockUserFolders(['bob' => $node]);
+
+		$accessManager = $this->getAccessManager(null);
+
+		// reading is allowed
+		$accessManager->checkPermissions(self::FILE_ID, false, 'token123');
+
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Insufficient permissions on share');
+		$accessManager->checkPermissions(self::FILE_ID, true, 'token123');
+	}
+
+	/**
+	 * A share with only create permission (file drop) does not allow reading.
+	 */
+	public function testCheckPermissionsExplicitShareTokenFileDrop(): void {
+		$this->mockShareToken(null);
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+		$this->shareManager->method('getShareByToken')
+			->willReturnMap([['token123', $this->mockShare($node, 'bob', Constants::PERMISSION_CREATE)]]);
+		$this->mockUserFolders(['bob' => $node]);
+
+		$accessManager = $this->getAccessManager(null);
+
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Insufficient permissions on share');
+		$accessManager->checkPermissions(self::FILE_ID, false, 'token123');
 	}
 }

@@ -22,7 +22,6 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\Share\IManager as ShareManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -40,7 +39,6 @@ class MetaDataControllerV1Test extends TestCase {
 	private LockManagerV1&MockObject $lockManager;
 	private LoggerInterface&MockObject $logger;
 	private IL10N&Stub $l10n;
-	private ShareManager&Stub $shareManager;
 	private AccessManager&MockObject $accessManager;
 
 	protected function setUp(): void {
@@ -53,7 +51,6 @@ class MetaDataControllerV1Test extends TestCase {
 		$this->lockManager = $this->createMock(LockManagerV1::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->l10n = $this->createStub(IL10N::class);
-		$this->shareManager = $this->createStub(ShareManager::class);
 		$this->accessManager = $this->createMock(AccessManager::class);
 		$this->accessManager->method('getOwnerId')
 			->willReturn($this->userId);
@@ -61,12 +58,10 @@ class MetaDataControllerV1Test extends TestCase {
 		$this->controller = new MetaDataController(
 			$this->appName,
 			$this->request,
-			$this->userId,
 			$this->metaDataStorage,
 			$this->lockManager,
 			$this->logger,
 			$this->l10n,
-			$this->shareManager,
 			$this->accessManager,
 		);
 	}
@@ -120,6 +115,55 @@ class MetaDataControllerV1Test extends TestCase {
 			[new NotFoundException(), OCSNotFoundException::class, 'Could not find metadata for "42"', false],
 			[new \Exception(), OCSBadRequestException::class, 'Cannot read metadata', true],
 		];
+	}
+
+	public function testGetMetaDataWithShareToken(): void {
+		$accessManager = $this->createMock(AccessManager::class);
+		$accessManager->expects($this->once())
+			->method('checkPermissions')
+			->with(42, false, 'token123');
+		$accessManager->expects($this->once())
+			->method('getOwnerId')
+			->with(42, 'token123')
+			->willReturn('bob');
+		$this->accessManager = $accessManager;
+
+		$this->metaDataStorage->expects($this->once())
+			->method('getMetaData')
+			->with('bob', 42)
+			->willReturn('JSON-ENCODED-META-DATA');
+
+		$controller = new MetaDataController(
+			$this->appName,
+			$this->request,
+			$this->metaDataStorage,
+			$this->lockManager,
+			$this->logger,
+			$this->l10n,
+			$this->accessManager,
+		);
+		$response = $controller->getMetaData(42, 'token123');
+		$this->assertEquals(['meta-data' => 'JSON-ENCODED-META-DATA'], $response->getData());
+	}
+
+	/**
+	 * Missing read access is reported as not found to not leak the existence of the metadata.
+	 */
+	public function testGetMetaDataWithoutReadPermission(): void {
+		$this->mockL10N();
+		$this->accessManager->expects($this->once())
+			->method('checkPermissions')
+			->with(42, false, null)
+			->willThrowException(new \InvalidArgumentException('Insufficient permissions on share'));
+
+		$this->metaDataStorage->expects($this->never())
+			->method('getMetaData');
+		$this->logger->expects($this->never())
+			->method('critical');
+
+		$this->expectException(OCSNotFoundException::class);
+		$this->expectExceptionMessage('Could not find metadata for "42"');
+		$this->controller->getMetaData(42);
 	}
 
 	#[DataProvider('setMetaDataDataProvider')]
