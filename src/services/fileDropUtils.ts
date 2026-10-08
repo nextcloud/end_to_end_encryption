@@ -5,8 +5,10 @@
 
 import type { IRawMetadataFileDrop } from '../models/metadata.d.ts'
 
+import { isAxiosError } from '@nextcloud/axios'
 import { getCapabilities } from '@nextcloud/capabilities'
 import { getClient, getRemoteURL, getRootPath } from '@nextcloud/files/dav'
+import { t } from '@nextcloud/l10n'
 import { join } from '@nextcloud/paths'
 import { getSharingToken } from '@nextcloud/sharing/public'
 import { FileDropEntry } from '../models/FileDropEntry.ts'
@@ -57,6 +59,49 @@ export async function uploadFileDrop(unencryptedFile: File, fileId: string, shar
  */
 export async function finalizeFileDrop(entries: Record<string, IRawMetadataFileDrop>, fileId: string, shareToken: string): Promise<null | string[]> {
 	return await api.addFileDrop(entries, fileId, shareToken)
+}
+
+/**
+ * Get a translated, user facing message for an error that occurred while uploading a file drop file.
+ *
+ * @param error - The error thrown by the upload or by finalizing the file drop
+ */
+export function getUploadErrorMessage(error: unknown): string {
+	const status = getErrorStatus(error)
+	// reading or encrypting a file that does not fit into memory fails with a RangeError
+	if (status === 413 || error instanceof RangeError) {
+		return t('end_to_end_encryption', 'The file is too large to be uploaded.')
+	}
+	if (status === 507) {
+		return t('end_to_end_encryption', 'There is not enough free space to upload the file.')
+	}
+	if (status === 401 || status === 403) {
+		return t('end_to_end_encryption', 'You are not allowed to upload files to this share.')
+	}
+	if (status === 404) {
+		return t('end_to_end_encryption', 'The share does not exist anymore.')
+	}
+	// requests that never got a response: fetch rejects with a TypeError, axios with an error without response
+	if (status === undefined && (error instanceof TypeError || isAxiosError(error))) {
+		return t('end_to_end_encryption', 'The connection to the server was lost. Please check your network connection and try again.')
+	}
+	return t('end_to_end_encryption', 'An unexpected error occurred while uploading the file.')
+}
+
+/**
+ * Get the HTTP status code of a failed request.
+ * Handles errors thrown by the WebDAV client (`error.status`) as well as by axios (`error.response.status`).
+ *
+ * @param error - The error to get the status code of
+ */
+function getErrorStatus(error: unknown): number | undefined {
+	if (isAxiosError(error)) {
+		return error.response?.status
+	}
+	if (error instanceof Error && 'status' in error && typeof error.status === 'number') {
+		return error.status
+	}
+	return undefined
 }
 
 /**
