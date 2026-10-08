@@ -75,6 +75,8 @@ class MetaDataController extends OCSController {
 	 *
 	 * 200: Metadata returned
 	 * 403: Forbidden
+	 *
+	 * @psalm-suppress InvalidReturnType - False positive, on master the type of DataResponse makes it ok
 	 */
 	#[BruteForceProtection(('e2ee'))]
 	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
