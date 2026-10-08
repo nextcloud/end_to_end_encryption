@@ -15,18 +15,27 @@ export class SectionSharingSidebar {
 	public readonly sidebarLocator: Locator
 	public readonly headingUserShares: Locator
 	public readonly buttonCreateLinkShare: Locator
+	public readonly buttonCreateEmailShare: Locator
 	public readonly listLinkShares: Locator
 
 	constructor(public readonly page: Page) {
 		this.sidebarLocator = page.getByRole('complementary')
 		this.headingUserShares = this.sidebarLocator.getByRole('heading', { name: 'End-to-end encrypted shares' })
 		this.buttonCreateLinkShare = this.sidebarLocator.getByRole('button', { name: 'Link share', exact: true })
+		this.buttonCreateEmailShare = this.sidebarLocator.getByRole('button', { name: 'Email share', exact: true })
 		this.listLinkShares = this.sidebarLocator.getByRole('list', { name: 'End-to-end encrypted link shares' })
 	}
 
 	public async openLinkShareDialog(): Promise<SectionLinkShareDialog> {
 		const dialog = new SectionLinkShareDialog(this.page)
 		await this.buttonCreateLinkShare.click()
+		await expect(dialog.dialogLocator).toBeVisible()
+		return dialog
+	}
+
+	public async openEmailShareDialog(): Promise<SectionLinkShareDialog> {
+		const dialog = new SectionLinkShareDialog(this.page, true)
+		await this.buttonCreateEmailShare.click()
 		await expect(dialog.dialogLocator).toBeVisible()
 		return dialog
 	}
