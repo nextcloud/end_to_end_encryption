@@ -26,19 +26,16 @@ use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\Share\IManager as ShareManager;
 use Psr\Log\LoggerInterface;
 
 class MetaDataController extends OCSController {
 	public function __construct(
 		string $AppName,
 		IRequest $request,
-		private readonly ?string $userId,
 		private readonly IMetaDataStorageV1 $metaDataStorage,
 		private readonly LockManagerV1 $lockManager,
 		private readonly LoggerInterface $logger,
 		private readonly IL10N $l10n,
-		private readonly ShareManager $shareManager,
 		private readonly AccessManager $accessManager,
 	) {
 		parent::__construct($AppName, $request);
@@ -59,10 +56,12 @@ class MetaDataController extends OCSController {
 	#[E2ERestrictUserAgent]
 	public function getMetaData(int $id, ?string $shareToken = null): DataResponse {
 		try {
-			$ownerId = $this->getOwnerId($shareToken);
+			$this->accessManager->checkPermissions($id, false, $shareToken);
+
+			$ownerId = $this->accessManager->getOwnerId($id, $shareToken);
 			$this->metaDataStorage->assertMetadataIsV1($ownerId, $id);
 			$metaData = $this->metaDataStorage->getMetaData($ownerId, $id);
-		} catch (NotFoundException) {
+		} catch (NotFoundException|\InvalidArgumentException) {
 			throw new OCSNotFoundException($this->l10n->t('Could not find metadata for "%s"', [$id]));
 		} catch (\Exception $e) {
 			$this->logger->critical($e->getMessage(), ['exception' => $e, 'app' => $this->appName]);
@@ -198,22 +197,6 @@ class MetaDataController extends OCSController {
 		} catch (\InvalidArgumentException $e) {
 			$this->logger->warning('Unauthorized access to metadata API', ['exception' => $e]);
 			throw new OCSForbiddenException($this->l10n->t('You are not allowed to edit the metadata of this folder'));
-		}
-	}
-
-	private function getOwnerId(?string $shareToken = null): string {
-		if ($shareToken !== null) {
-			$share = $this->shareManager->getShareByToken($shareToken);
-
-			if (!($share->getPermissions() & \OCP\Constants::PERMISSION_CREATE)) {
-				throw new OCSForbiddenException("Can't lock share without create permission");
-			}
-
-			return $share->getShareOwner();
-		} elseif ($this->userId !== null) {
-			return $this->userId;
-		} else {
-			throw new OCSBadRequestException("Couldn't find the owner of the encrypted folder");
 		}
 	}
 }
