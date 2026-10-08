@@ -7,6 +7,13 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v1.18.6 - 2026-10-08
+### Fixed
+* fix: properly handle shares for v1 API \([\#2190](https://github.com/nextcloud/end_to_end_encryption/pull/2190)\)
+
+### Changed
+* Updated dependencies
+
 ## v1.18.5 - 2026-08-31
 ### Fixed
 * fix: align v1 measures with existing measures on v2 endpoints \([\#2046](https://github.com/nextcloud/end_to_end_encryption/pull/2046)\)
