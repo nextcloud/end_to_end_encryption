@@ -150,6 +150,20 @@ class AccessManagerTest extends TestCase {
 		$this->assertSame('bob', $accessManager->getOwnerId(self::FILE_ID, self::SHARE_TOKEN));
 	}
 
+	/**
+	 * A logged in user accessing a public share by token gets the share owner, not themselves.
+	 */
+	public function testGetOwnerIdShareTokenWithUser(): void {
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+		$this->shareManager->method('getShareByToken')
+			->willReturnMap([[self::SHARE_TOKEN, $this->mockShare($node, 'bob')]]);
+		$this->mockUserFolders(['alice' => null]);
+
+		$accessManager = $this->getAccessManager('alice');
+		$this->assertSame('bob', $accessManager->getOwnerId(self::FILE_ID, self::SHARE_TOKEN));
+	}
+
 	public function testGetOwnerIdShareTokenOnChildOfSharedFolder(): void {
 		$folder = $this->createStub(Folder::class);
 		$folder->method('getId')->willReturn(1);
@@ -198,7 +212,8 @@ class AccessManagerTest extends TestCase {
 
 		$accessManager = $this->getAccessManager(null);
 
-		$this->expectException(ShareNotFound::class);
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid share token');
 		$accessManager->getOwnerId(self::FILE_ID, self::SHARE_TOKEN);
 	}
 
@@ -312,5 +327,22 @@ class AccessManagerTest extends TestCase {
 		$accessManager = $this->getAccessManager(null);
 		$accessManager->checkPermissions(self::FILE_ID, true, self::SHARE_TOKEN);
 		$this->addToAssertionCount(1);
+	}
+
+	/**
+	 * A share with only create permission (file drop) does not allow reading.
+	 */
+	public function testCheckPermissionsShareTokenFileDrop(): void {
+		$node = $this->createStub(File::class);
+		$node->method('getId')->willReturn(self::FILE_ID);
+		$this->shareManager->method('getShareByToken')
+			->willReturn($this->mockShare($node, 'bob', Constants::PERMISSION_CREATE));
+		$this->mockUserFolders(['bob' => $node]);
+
+		$accessManager = $this->getAccessManager(null);
+
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Insufficient permissions on share');
+		$accessManager->checkPermissions(self::FILE_ID, false, self::SHARE_TOKEN);
 	}
 }

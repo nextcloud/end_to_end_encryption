@@ -17,6 +17,7 @@ trait ThrottleRequestTrait {
 	 * @template S of Http::STATUS_*
 	 * @template M of string
 	 * @param S $statusCode
+	 * @param M $message
 	 * @return DataResponse<S, array{message: M}, array{}>
 	 */
 	private function throttleRequest(int $statusCode, string $message): DataResponse {
