@@ -8,7 +8,7 @@ import type { RootMetadata } from '../models/RootMetadata.ts'
 
 import axios from '@nextcloud/axios'
 import { Permission } from '@nextcloud/files'
-import { generateOcsUrl } from '@nextcloud/router'
+import { generateOcsUrl, generateUrl, getBaseUrl } from '@nextcloud/router'
 import { ShareType } from '@nextcloud/sharing'
 import { initializeEncryption } from './encryptionService.ts'
 
@@ -19,10 +19,22 @@ export interface IShare extends Record<string, string | number> {
 }
 
 export interface IFileDropShareOptions {
+	/** Email address to share with, creates an email share instead of a link share */
+	email?: string
 	/** Password required to access the share */
 	password?: string
 	/** Note shown to the recipient */
 	note?: string
+}
+
+/**
+ * Get the public URL of a link or email share.
+ * The API only includes the URL for link shares, so it is built from the token otherwise.
+ *
+ * @param share - The share
+ */
+export function getShareUrl(share: IShare): string {
+	return (share.url as string | undefined) ?? generateUrl('/s/{token}', { token: share.token }, { baseURL: getBaseUrl() })
 }
 
 /**
@@ -41,9 +53,10 @@ export async function createFileDropShare(path: string, options: IFileDropShareO
  * @param path - Path of the root encrypted folder to share
  * @param metadata - The root metadata
  * @param readonly - If the share should only have read permissions
+ * @param email - Email address to share with, creates an email share instead of a link share
  */
-export async function createPublicLinkShare(path: string, metadata: RootMetadata, readonly: boolean = false) {
-	const share = await createShare(path, readonly ? Permission.READ : (Permission.READ | Permission.UPDATE | Permission.CREATE))
+export async function createPublicLinkShare(path: string, metadata: RootMetadata, readonly: boolean = false, email?: string) {
+	const share = await createShare(path, readonly ? Permission.READ : (Permission.READ | Permission.UPDATE | Permission.CREATE), { email })
 	const keyData = await initializeEncryption(share.token as string)
 	await metadata.addUser(`s:${share.token}`, keyData.publicKeyCertificate)
 
@@ -54,7 +67,7 @@ export async function createPublicLinkShare(path: string, metadata: RootMetadata
 }
 
 /**
- * Create a new link share
+ * Create a new link share, or an email share if an email address is given
  *
  * @param path - The path to share
  * @param permissions - The permissions for the share
@@ -66,7 +79,8 @@ async function createShare(path: string, permissions: number, options: IFileDrop
 		{
 			path: decodeURI(path),
 			permissions,
-			shareType: ShareType.Link,
+			shareType: options.email ? ShareType.Email : ShareType.Link,
+			shareWith: options.email || undefined,
 			password: options.password || undefined,
 			note: options.note || undefined,
 		},

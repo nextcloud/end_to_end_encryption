@@ -7,7 +7,8 @@
 import type { RootMetadata } from '../../models/RootMetadata.ts'
 import type { IShare } from '../../services/sharing.ts'
 
-import { mdiPlus } from '@mdi/js'
+import { mdiEmailOutline, mdiPlus } from '@mdi/js'
+import { getCapabilities } from '@nextcloud/capabilities'
 import { t } from '@nextcloud/l10n'
 import { spawnDialog } from '@nextcloud/vue/functions/dialog'
 import NcButton from '@nextcloud/vue/components/NcButton'
@@ -20,12 +21,18 @@ const props = defineProps<{
 	metadata: RootMetadata
 }>()
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isShareByMailEnabled = (getCapabilities() as any).files_sharing?.sharebymail?.enabled === true
+
 /**
- * Create a new end-to-end file drop
+ * Create a new end-to-end link or email share
+ *
+ * @param isEmailShare - If an email share should be created
  */
-async function openDialog() {
+async function openDialog(isEmailShare: boolean = false) {
 	const share = await spawnDialog(FilesSharingSidebarSectionPublicLinksDialog, {
 		metadata: props.metadata,
+		isEmailShare,
 	})
 	if (share) {
 		publicLinkShares.value.push(share)
@@ -43,13 +50,27 @@ async function openDialog() {
 				:share="share"
 				@delete="publicLinkShares = publicLinkShares.filter((s) => s !== share)" />
 		</ul>
-		<div>
-			<NcButton @click="openDialog">
+		<div :class="$style.publicLinks__actions">
+			<NcButton @click="openDialog()">
 				<template #icon>
 					<NcIconSvgWrapper :path="mdiPlus" />
 				</template>
 				{{ t('end_to_end_encryption', 'Link share') }}
 			</NcButton>
+			<NcButton v-if="isShareByMailEnabled" @click="openDialog(true)">
+				<template #icon>
+					<NcIconSvgWrapper :path="mdiEmailOutline" />
+				</template>
+				{{ t('end_to_end_encryption', 'Email share') }}
+			</NcButton>
 		</div>
 	</section>
 </template>
+
+<style module>
+.publicLinks__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--default-grid-baseline);
+}
+</style>
