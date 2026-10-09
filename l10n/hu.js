@@ -31,6 +31,7 @@ OC.L10N.register(
     "Download" : "Letöltés",
     "End-to-end encrypted link shares" : "Végpontok közti titkosítással rendelkező megosztási hivatkozások",
     "Link share" : "Megosztási hivatkozás",
+    "Email address" : "E-mail-cím",
     "Permissions" : "Jogosultságok",
     "Upload only" : "Csak feltöltés",
     "View only" : "Csak megtekintés",

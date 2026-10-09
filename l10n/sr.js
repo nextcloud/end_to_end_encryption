@@ -32,6 +32,7 @@ OC.L10N.register(
     "Mnemonic" : "Мнемоник",
     "Continue" : "Настави",
     "Download" : "Преузми",
+    "Email address" : "Адреса е-поште",
     "Permissions" : "Дозволе",
     "Upload only" : "Само отпремање",
     "View only" : "Само преглед",

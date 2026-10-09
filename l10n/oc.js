@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "Nom del dorsièr",
     "Continue" : "Contunhar",
     "Download" : "Teledescargar",
+    "Email address" : "Adreça mail",
     "Permissions" : "Autorizacions",
     "View only" : "Veire solament",
     "Password" : "Senhal",

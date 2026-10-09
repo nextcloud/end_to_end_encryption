@@ -33,6 +33,7 @@ OC.L10N.register(
     "Download" : "Скачать",
     "End-to-end encrypted link shares" : "Сквозное зашифрованное совместное использование ссылок",
     "Link share" : "Поделиться ссылкой",
+    "Email address" : "Адрес электронной почты",
     "Permissions" : "Права",
     "Upload only" : "Только загружать",
     "View only" : "Для просмотра",

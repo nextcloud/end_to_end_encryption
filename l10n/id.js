@@ -11,6 +11,7 @@ OC.L10N.register(
     "Folder name" : "Nama folder",
     "Continue" : "Lanjutkan",
     "Download" : "Unduh",
+    "Email address" : "Alamat email",
     "Permissions" : "Izin",
     "Upload only" : "Hanya unggah",
     "View only" : "Hanya lihat",

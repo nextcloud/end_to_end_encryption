@@ -28,6 +28,7 @@ OC.L10N.register(
     "Folder name" : "Nombre de la carpeta",
     "Continue" : "Continuar",
     "Download" : "Descargar",
+    "Email address" : "Dirección de correo electrónico",
     "Permissions" : "Permisos",
     "View only" : "Solo vista",
     "Note to recipient" : "Nota para el destinatario",

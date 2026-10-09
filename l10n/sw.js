@@ -47,6 +47,8 @@ OC.L10N.register(
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Tafadhali hakikisha kuwa umeweka nakala rudufu ya kifungu kifuatacho cha urejeshi, kwani kitahitajika kufikia faili zako zilizosimbwa.",
     "Your recovery phrase is:" : "Maneno yako ya kurejesha ni:",
     "Download" : "Pakua",
+    "Email share" : "Shiriki barua pepe",
+    "Email address" : "Anwani ya barua pepe",
     "Permissions" : "Ruhusa",
     "Upload only" : "Pakua tu",
     "View only" : "Tazama pekee",

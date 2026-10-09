@@ -23,6 +23,7 @@ OC.L10N.register(
     "Folder name" : "Kansion nimi",
     "Continue" : "Jatka",
     "Download" : "Lataa",
+    "Email address" : "Sähköpostiosoite",
     "Permissions" : "Oikeudet",
     "View only" : "Vain katselu",
     "Password" : "Salasana",

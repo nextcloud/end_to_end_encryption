@@ -22,6 +22,7 @@ OC.L10N.register(
     "Submit" : "Imbia",
     "Folder name" : "Nùmene de sa cartella",
     "Download" : "Iscàrriga",
+    "Email address" : "Indiritzu de posta eletrònica",
     "Permissions" : "Permissos",
     "View only" : "Isceti in visualizatzione",
     "Password" : "Crae",

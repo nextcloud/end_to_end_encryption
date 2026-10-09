@@ -31,6 +31,7 @@ OC.L10N.register(
     "Mnemonic" : "الاختزالية",
     "Continue" : "متابعة",
     "Download" : "تنزيل",
+    "Email address" : "عنوان البريد الإلكتروني",
     "Permissions" : "الصلاحيّات",
     "Upload only" : "رفع فقط",
     "View only" : "للعرض فقط",

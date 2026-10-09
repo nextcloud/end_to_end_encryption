@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "ชื่อโฟลเดอร์",
     "Continue" : "ดำเนินการต่อ",
     "Download" : "ดาวน์โหลด",
+    "Email address" : "ที่อยู่อีเมล",
     "View only" : "ดูเท่านั้น",
     "Close" : "ปิด",
     "Edit" : "แก้ไข",

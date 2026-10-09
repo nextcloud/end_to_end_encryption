@@ -7,6 +7,7 @@ OC.L10N.register(
     "Folder name" : "Folder name",
     "Continue" : "Continue",
     "Download" : "გადმოწერა",
+    "Email address" : "ელფოსტის მისამართი",
     "Permissions" : "Permissions",
     "Upload only" : "Upload only",
     "View only" : "View only",

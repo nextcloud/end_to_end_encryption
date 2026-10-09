@@ -29,6 +29,8 @@ OC.L10N.register(
     "Download" : "Pobierz",
     "End-to-end encrypted link shares" : "Udostępnianie linków szyfrowanych end-to-end",
     "Link share" : "Udostępnianie linkiem",
+    "Email share" : "Udostępnienie e-mail",
+    "Email address" : "Adres e-mail",
     "Permissions" : "Uprawnienia",
     "Upload only" : "Tylko wyślij",
     "View only" : "Tylko podgląd",

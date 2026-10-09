@@ -56,6 +56,7 @@ OC.L10N.register(
     "End-to-end encrypted link shares" : "Σύνδεσμοι διαμοιρασμού με κρυπτογράφηση από άκρο σε άκρο",
     "Link share" : "Διαμοιρασμός συνδέσμου",
     "End-to-end encrypted link share" : "Διαμοιρασμός συνδέσμου με κρυπτογράφηση από άκρο σε άκρο",
+    "Email address" : "Διεύθυνση email",
     "Permissions" : "Δικαιώματα",
     "Upload only" : "Μόνο μεταφόρτωση",
     "View only" : "Μόνο προβολή",

@@ -25,6 +25,7 @@ OC.L10N.register(
     "Folder name" : "Naziv mape",
     "Continue" : "Nastavi",
     "Download" : "Preuzmi",
+    "Email address" : "Adresa e-pošte",
     "Permissions" : "Dopuštenja",
     "Upload only" : "Samo učitavanje",
     "View only" : "Samo za gledanje",

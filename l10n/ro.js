@@ -8,6 +8,7 @@ OC.L10N.register(
     "Folder name" : "Denumire director",
     "Continue" : "Continuă",
     "Download" : "Descărcare",
+    "Email address" : "Email",
     "Permissions" : "Permisiuni",
     "View only" : "Numai se vizualizează",
     "Password" : "Parolă",

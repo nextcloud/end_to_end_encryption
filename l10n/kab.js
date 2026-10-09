@@ -9,6 +9,7 @@ OC.L10N.register(
     "Download" : "Sider",
     "End-to-end encrypted link shares" : "Beṭṭu n useɣwen s uwgelhen seg yixef ɣer yixef",
     "Link share" : "Beṭṭu n useɣwen",
+    "Email address" : "Tansa imayl",
     "Permissions" : "Tasirag",
     "View only" : "Askan kan",
     "Password" : "Awal n uɛeddi",

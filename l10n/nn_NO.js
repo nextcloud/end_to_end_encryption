@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "Katalognavn",
     "Continue" : "Gå vidare",
     "Download" : "Last ned",
+    "Email share" : "Del via e-post",
     "Close" : "Lat att",
     "Edit" : "Rediger",
     "Remove" : "Fjern",

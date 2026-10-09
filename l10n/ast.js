@@ -18,6 +18,7 @@ OC.L10N.register(
     "Folder name" : "Nome de la carpeta",
     "Continue" : "Siguir",
     "Download" : "Baxar",
+    "Email address" : "Direición de corréu electrónicu",
     "Permissions" : "Permisos",
     "Upload only" : "Xubir namás",
     "View only" : "Ver namás",

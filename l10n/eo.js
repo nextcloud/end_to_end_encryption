@@ -17,6 +17,7 @@ OC.L10N.register(
     "Folder name" : "Dosierujnomo",
     "Continue" : "Daŭrigi",
     "Download" : "Elŝuti",
+    "Email address" : "Retpoŝtadreso",
     "Note to recipient" : "Noto por la ricevonto",
     "Close" : "Malfermi",
     "Read only" : "Nurlega",

@@ -31,6 +31,7 @@ OC.L10N.register(
     "Mnemonic" : "Mnemotècnic",
     "Continue" : "Continuar",
     "Download" : "Baixa",
+    "Email address" : "Adreça electrònica",
     "Permissions" : "Permisos",
     "Upload only" : "Només pujada",
     "View only" : "Només visualitació",
