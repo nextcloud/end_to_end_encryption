@@ -58,6 +58,7 @@ OC.L10N.register(
     "End-to-end encrypted link shares" : "Наскрізно зашифровані спільні посилання",
     "Link share" : "Спільне посилання",
     "End-to-end encrypted link share" : "Наскрізно зашифроване спільне посилання",
+    "Email address" : "Адреса ел.пошти",
     "Permissions" : "Дозволи ",
     "Upload only" : "Тільки завантаження",
     "View only" : "Лише перегляд",

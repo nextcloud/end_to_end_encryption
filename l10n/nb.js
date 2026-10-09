@@ -31,6 +31,7 @@ OC.L10N.register(
     "Download" : "Last ned",
     "End-to-end encrypted link shares" : "Ende-til-ende-kryptert linkdeling",
     "Link share" : "Linkdeling",
+    "Email address" : "E-post adresse",
     "Permissions" : "Rettigheter",
     "Upload only" : "Kun opplasting",
     "View only" : "Kun se",

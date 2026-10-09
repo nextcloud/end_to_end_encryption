@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "–•–∞–≤—Ç–∞—Å–Ω—ã –Ω—ç—Ä",
     "Continue" : "“Ø—Ä–≥—ç–ª–∂–ª“Ø“Ø–ª—ç—Ö",
     "Download" : "–¢–∞—Ç–∞—Ö",
+    "Email address" : "Имэйл хаяг",
     "Permissions" : "Зөвшөөрлүүд",
     "Upload only" : "Зөвхөн байршуулах",
     "View only" : "–ó”©–≤—Ö”©–Ω “Ø–∑—ç—Ö",

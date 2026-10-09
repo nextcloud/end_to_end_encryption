@@ -56,6 +56,7 @@ OC.L10N.register(
     "End-to-end encrypted link shares" : "Enda-í-enda dulritaðir sameignatenglar",
     "Link share" : "Tengill á sameign",
     "End-to-end encrypted link share" : "Enda-í-enda dulritaður sameignatengill",
+    "Email address" : "Tölvupóstfang",
     "Permissions" : "Heimildir",
     "Upload only" : "Einungis innsending",
     "View only" : "Einungis skoða",

@@ -35,6 +35,7 @@ OC.L10N.register(
     "Continue ({secondsLeft})" : "Continua ({secondsLeft})",
     "Continue" : "Continua",
     "Download" : "Scarica",
+    "Email address" : "Indirizzo email",
     "Permissions" : "Permessi",
     "Upload only" : "Solo caricamento",
     "View only" : "Sola lettura",

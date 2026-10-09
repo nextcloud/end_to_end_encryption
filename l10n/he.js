@@ -18,6 +18,7 @@ OC.L10N.register(
     "Folder name" : "שם התיקייה",
     "Continue" : "להמשך",
     "Download" : "הורדה",
+    "Email address" : "כתובת דוא״ל",
     "Permissions" : "הרשאות",
     "View only" : "לצפיה בלבד",
     "Password" : "ססמה",

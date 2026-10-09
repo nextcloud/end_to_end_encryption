@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "Име на папка",
     "Continue" : "Продолжи",
     "Download" : "Преземи",
+    "Email address" : "Е-пошта адреса",
     "Permissions" : "Дозволи",
     "Upload only" : "Само прикачување",
     "View only" : "Само за гледање",

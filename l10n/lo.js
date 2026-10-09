@@ -47,6 +47,7 @@ OC.L10N.register(
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files.",
     "Your recovery phrase is:" : "Your recovery phrase is:",
     "Download" : "ດາວໂຫຼດ",
+    "Email address" : "ທີ່ຢູ່ອີເມວ",
     "Permissions" : "ການອະນຸຍາດ",
     "Upload only" : "ອັບໂຫຼດເທົ່ານັ້ນ",
     "View only" : "ເບິ່ງເທົ່ານັ້ນ",

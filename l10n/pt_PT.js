@@ -50,6 +50,7 @@ OC.L10N.register(
     "Download" : "Transferir",
     "End-to-end encrypted link shares" : "Compartilhamentos por link criptografados de ponta-a-ponta",
     "Link share" : "Compartilhamento por link",
+    "Email address" : "Endereço de E-mail",
     "Permissions" : "Permissões",
     "Upload only" : "Somente upload",
     "View only" : "Visualizar apenas",

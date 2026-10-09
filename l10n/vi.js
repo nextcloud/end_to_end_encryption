@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "Tên thư mục",
     "Continue" : "Tiếp tục",
     "Download" : "Tải xuống",
+    "Email address" : "Địa chỉ thư điện tử",
     "Upload only" : "Chỉ tải lên",
     "View only" : "Chỉ xem",
     "Password" : "Mật khẩu",

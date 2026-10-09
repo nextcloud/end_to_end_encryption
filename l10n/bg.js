@@ -28,6 +28,7 @@ OC.L10N.register(
     "Folder name" : "Име на папка",
     "Continue" : "Продължаване",
     "Download" : "Изтегляне",
+    "Email address" : "Имейл адрес",
     "Permissions" : "Права",
     "View only" : "Само изглед",
     "Password" : "Парола",

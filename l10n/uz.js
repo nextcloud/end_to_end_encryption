@@ -7,6 +7,8 @@ OC.L10N.register(
     "Folder name" : "Papka nomi",
     "Continue" : "Davom etish",
     "Download" : "Yuklab olish",
+    "Email share" : "Elektron pochta orqali ulashish",
+    "Email address" : "E-pochta manzili",
     "Permissions" : "Ruxsatnomalar",
     "Password" : "Parol",
     "Note to recipient" : "Qabul qiluvchiga eslatma",

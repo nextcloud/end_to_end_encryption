@@ -29,6 +29,7 @@ OC.L10N.register(
     "Folder name" : "Karpetaren izena",
     "Continue" : "Jarraitu",
     "Download" : "Deskargatu",
+    "Email address" : "Helbide elektronikoa",
     "Permissions" : "Baimenak",
     "Upload only" : "Igoera soilik",
     "View only" : "Ikustea soilik",

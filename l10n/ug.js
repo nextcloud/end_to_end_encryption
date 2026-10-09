@@ -47,6 +47,7 @@ OC.L10N.register(
     "Please make sure to back up the following recovery phrase, as it will be required to access your encrypted files." : "شىفىرلانغان ھۆججەتلىرىڭىزگە كىرىش ئۈچۈن تۆۋەندىكى ئەسلىگە كەلتۈرۈش جۈملىسىنىڭ زاپاس نۇسخىسىنى ساقلاپ قويۇشنى ئۇنتۇپ قالماڭ، چۈنكى بۇ سىزنىڭ شىفىرلانغان ھۆججەتلىرىڭىزگە كىرىشىڭىزگە توغرا كېلىدۇ.",
     "Your recovery phrase is:" : "سىزنىڭ ئەسلىگە قايتۇرۇش پارولىڭىز بولسا:",
     "Download" : "چۈشۈرۈش",
+    "Email address" : "ئېلخەت ئادرېسى",
     "Permissions" : "ئىجازەت",
     "Upload only" : "پەقەت يۈكلەڭ",
     "View only" : "پەقەت كۆرۈش",

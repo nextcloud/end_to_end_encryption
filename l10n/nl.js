@@ -50,6 +50,7 @@ OC.L10N.register(
     "Download" : "Download",
     "End-to-end encrypted link shares" : "Gedeelde links met end-to-end versleuteling",
     "Link share" : "Link delen",
+    "Email address" : "E-mailadres",
     "Permissions" : "Rechten",
     "Upload only" : "Alleen uploaden",
     "View only" : "Alleen bekijken",
