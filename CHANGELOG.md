@@ -7,6 +7,21 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.5.0 - 2026-10-12
+### Added
+* feat(sharing): allow end-to-end encrypted shares by email \([\#2192](https://github.com/nextcloud/end_to_end_encryption/pull/2192)\)
+
+### Fixed
+* fix: properly handle shares for v1 API \([\#2191](https://github.com/nextcloud/end_to_end_encryption/pull/2191)\)
+* fix(filedrop): tell the user why an upload failed \([\#2206](https://github.com/nextcloud/end_to_end_encryption/pull/2206)\)
+
+### Changed
+* Updated dependencies
+  * Bump `@nextcloud/vue` to 9.13.1
+  * Bump `fast-xml-parser` to 5.11.2
+  * Bump `webdav` to 5.11.0
+  * Some sub-dependencies
+
 ## v2.4.0 - 2026-10-06
 ### Added
 * feat: add setup check and occ command to detect v1 metadata \([\#2151](https://github.com/nextcloud/end_to_end_encryption/pull/2151)\)
