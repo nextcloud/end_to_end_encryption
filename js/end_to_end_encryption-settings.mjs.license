@@ -21,16 +21,16 @@ This file is generated from multiple sources. Included packages:
 	- version: 9.9.0
 	- license: AGPL-3.0-or-later
 - @vue/reactivity
-	- version: 3.5.39
+	- version: 3.5.43
 	- license: MIT
 - @vue/runtime-core
-	- version: 3.5.39
+	- version: 3.5.43
 	- license: MIT
 - @vue/runtime-dom
-	- version: 3.5.39
+	- version: 3.5.43
 	- license: MIT
 - @vue/shared
-	- version: 3.5.39
+	- version: 3.5.43
 	- license: MIT
 - @vueuse/core
 	- version: 14.3.0
@@ -42,7 +42,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 3.0.0
 	- license: MIT
 - end_to_end_encryption
-	- version: 1.18.5
+	- version: 1.18.6
 	- license: AGPL-3.0-or-later
 - floating-vue
 	- version: 5.2.2
