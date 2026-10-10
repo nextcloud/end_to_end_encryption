@@ -7,7 +7,7 @@
 import type { IRawMetadataFileDrop } from '../models/metadata.d.ts'
 
 import { mdiAlertCircleOutline, mdiCheck } from '@mdi/js'
-import { showInfo, showWarning } from '@nextcloud/dialogs'
+import { showError, showInfo, showWarning } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import { getSharingToken } from '@nextcloud/sharing/public'
@@ -18,7 +18,7 @@ import NcContent from '@nextcloud/vue/components/NcContent'
 import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import { finalizeFileDrop, uploadFileDrop } from '../services/fileDropUtils.ts'
+import { finalizeFileDrop, getUploadErrorMessage, uploadFileDrop } from '../services/fileDropUtils.ts'
 import logger from '../services/logger.ts'
 
 const folderId = loadState<string>('end_to_end_encryption', 'fileId')
@@ -27,7 +27,14 @@ const metadataVersion = loadState<number>('end_to_end_encryption', 'metadataVers
 const note = loadState<string>('end_to_end_encryption', 'note', '')
 const publicKeys: { userId: string, key: CryptoKey }[] = []
 
-const uploadedFiles = ref<{ name: string, status: 'uploading' | 'done' | 'error' }[]>([])
+interface IUploadEntry {
+	name: string
+	status: 'uploading' | 'done' | 'error'
+	/** User facing reason why the upload failed */
+	error?: string
+}
+
+const uploadedFiles = ref<IUploadEntry[]>([])
 const highlightDropZone = ref(false)
 const loading = ref(true)
 
@@ -94,50 +101,70 @@ async function handleUpload(fileList: FileList) {
 	uploadedFiles.value = []
 
 	loading.value = true
-	const promises: Promise<[string, IRawMetadataFileDrop]>[] = []
-	const fileNames: string[] = []
 	logger.debug('[FileDrop] Starting upload of files')
-	for (const file of Array.from(fileList)) {
-		fileNames.push(file.name)
-
-		const entry = reactive({ name: file.name, status: 'uploading' as 'uploading' | 'done' | 'error' })
+	const uploads = Array.from(fileList).map(async (file) => {
+		const entry = reactive<IUploadEntry>({ name: file.name, status: 'uploading' })
 		uploadedFiles.value.push(entry)
-		promises.push(uploadFileDrop(file, folderId, getSharingToken()!, publicKeys)
-			.then((entries) => {
-				entry.status = 'done'
-				return entries
-			})
-			.catch((error) => {
-				entry.status = 'error'
-				throw error
-			}))
-	}
+		try {
+			const [encryptedFileName, rawEntry] = await uploadFileDrop(file, folderId, getSharingToken()!, publicKeys)
+			entry.status = 'done'
+			return { entry, encryptedFileName, rawEntry }
+		} catch (error) {
+			logger.error(`[FileDrop] Failed to upload file ${file.name}`, { error })
+			entry.status = 'error'
+			entry.error = getUploadErrorMessage(error)
+			return null
+		}
+	})
 
 	logger.debug('[FileDrop] Waiting for all files to be encrypted and uploaded')
+	const uploaded = (await Promise.all(uploads)).filter((upload) => upload !== null)
+	if (uploaded.length > 0) {
+		await finalizeUploads(uploaded)
+	}
+
+	const failed = uploadedFiles.value.filter(({ status }) => status === 'error')
+	if (failed.length === uploadedFiles.value.length) {
+		// show the reason if all uploads failed for the same one (e.g. a single file)
+		const reasons = new Set(failed.map(({ error }) => error))
+		showError(reasons.size === 1 ? failed[0]!.error! : t('end_to_end_encryption', 'All files failed to upload.'))
+	} else if (failed.length > 0) {
+		showWarning(t('end_to_end_encryption', 'Some files failed to upload.'))
+	}
+	loading.value = false
+}
+
+/**
+ * Add the metadata entries of the uploaded files to the file drop
+ * and mark the entries the server did not accept as failed.
+ *
+ * @param uploaded - The successfully uploaded files with their metadata entries
+ */
+async function finalizeUploads(uploaded: { entry: IUploadEntry, encryptedFileName: string, rawEntry: IRawMetadataFileDrop }[]) {
+	const entries = Object.fromEntries(uploaded.map(({ encryptedFileName, rawEntry }) => [encryptedFileName, rawEntry]))
 	try {
-		const allEntries = await Promise.all(promises)
-		const result = await finalizeFileDrop(Object.fromEntries(allEntries), folderId, getSharingToken()!)
+		const result = await finalizeFileDrop(entries, folderId, getSharingToken()!)
 		if (result === null) {
 			logger.debug('[FileDrop] Server is still processing the request')
 			showInfo(t('end_to_end_encryption', 'The upload completed, but the file drop is still being processed on the server.'))
-		} else if (result.length < fileNames.length) {
-			const failedFiles: string[] = []
-			for (const [name] of allEntries) {
-				if (!result.includes(name)) {
-					const index = allEntries.findIndex(([encryptedFileName]) => encryptedFileName === name)
-					failedFiles.push(fileNames[index])
-					logger.debug(`[FileDrop] File ${failedFiles.at(-1)} failed to upload`)
-					uploadedFiles.value[index].status = 'error'
-				}
-			}
-			showWarning(t('end_to_end_encryption', 'Some files failed to upload.'))
-		} else {
-			logger.debug('[FileDrop] All files encrypted and uploaded')
+			return
 		}
-	} catch (exception) {
-		logger.error('[FileDrop] Error while encrypting and uploading files', { exception })
+
+		for (const { entry, encryptedFileName } of uploaded) {
+			if (!result.includes(encryptedFileName)) {
+				logger.debug(`[FileDrop] File ${entry.name} was rejected by the server`)
+				entry.status = 'error'
+				entry.error = t('end_to_end_encryption', 'The file was rejected by the server.')
+			}
+		}
+		logger.debug('[FileDrop] All files encrypted and uploaded')
+	} catch (error) {
+		logger.error('[FileDrop] Failed to add the uploaded files to the file drop', { error })
+		for (const { entry } of uploaded) {
+			entry.status = 'error'
+			entry.error = getUploadErrorMessage(error)
+		}
 	}
-	loading.value = false
 }
 </script>
 
@@ -183,9 +210,10 @@ async function handleUpload(fileList: FileList) {
 
 				<ul aria-live="polite" :aria-label="t('end_to_end_encryption', 'Uploaded files')" class="uploader-form__file-list">
 					<li
-						v-for="({ name, status }, index) in uploadedFiles"
+						v-for="({ name, status, error }, index) in uploadedFiles"
 						:key="index"
-						class="uploader-form__file-list__item">
+						class="uploader-form__file-list__item"
+						:class="{ 'uploader-form__file-list__item--error': status === 'error' }">
 						<NcIconSvgWrapper
 							v-if="status === 'error'"
 							:path="mdiAlertCircleOutline"
@@ -198,7 +226,12 @@ async function handleUpload(fileList: FileList) {
 							v-else
 							:size="20"
 							:name="t('end_to_end_encryption', 'Uploading…')" />
-						<b>{{ name }}</b>
+						<div>
+							<b>{{ name }}</b>
+							<p v-if="error" class="uploader-form__file-list__error">
+								{{ error }}
+							</p>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -268,14 +301,25 @@ async function handleUpload(fileList: FileList) {
 			&__item {
 				display: flex;
 				align-items: center;
+				padding-block: 4px;
 
 				.material-design-icon {
 					margin-inline-end: 8px;
+					flex-shrink: 0;
 				}
 
 				.loading-icon :deep(svg) {
 					animation: rotate var(--animation-duration, 0.8s) linear infinite;
 				}
+
+				&--error {
+					color: var(--color-error-text);
+				}
+			}
+
+			&__error {
+				font-size: var(--default-font-size);
+				font-weight: normal;
 			}
 		}
 	}
