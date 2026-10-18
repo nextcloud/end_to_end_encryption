@@ -10,6 +10,7 @@ OC.L10N.register(
     "Download" : "Descărcare",
     "Email address" : "Email",
     "Permissions" : "Permisiuni",
+    "Upload only" : "Doar încărcare",
     "View only" : "Numai se vizualizează",
     "Password" : "Parolă",
     "Note to recipient" : "Notă către destinatar",
@@ -23,6 +24,7 @@ OC.L10N.register(
     "Upload successful" : "Încărcare cu succes",
     "Uploading…" : "Încărcare…",
     "Limit to groups" : "Limitează pentru grupuri",
+    "Limit app usage to groups" : "Limitează utilizarea aplicației la grupuri",
     "Cancel" : "Anulare"
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");
