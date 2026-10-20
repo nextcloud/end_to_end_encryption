@@ -26,6 +26,7 @@ OC.L10N.register(
     "The server could serve malicious source code to extract the secret that protects your files." : "El servidor podria servir codi font maliciós per extreure el secret que protegeix els vostres fitxers.",
     "I understand the risks" : "Entenc els riscos",
     "Submit" : "Envia",
+    "Create folder" : "Crea una carpeta",
     "Folder name cannot be empty" : "El nom de la carpeta no pot estar buit",
     "Folder name" : "Nom de la carpeta",
     "Mnemonic" : "Mnemotècnic",
@@ -71,10 +72,6 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Comproveu a tots els dispositius connectats si podeu recuperar el vostre recordatori.",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Qualsevol dispositiu encara connectat pot causar problemes després de suprimir les claus, per la qual cosa és millor desconnectar i tornar a connectar els dispositius.",
     "Delete existing encrypted files" : "Suprimeix els fitxers xifrats existents",
-    "Download unencrypted" : "Baixa sense xifrar",
-    "End-to-end encryption endpoint" : "Extrem xifratge extrem-a-extrem",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Aquesta aplicació proporciona totes les API necessàries per implementar el xifratge d'extrem a extrem al costat del client.\nA més, implementa Secure FileDrop i s'assegura que els fitxers xifrats d'extrem a extrem no siguin accessibles a través de la interfície web ni d'altres clients WebDAV.",
-    "Error while uploading files" : "S'ha produït un error en penjar fitxers",
-    "Error while uploading metadata" : "S'ha produït un error en penjar les metadades"
+    "Download unencrypted" : "Baixa sense xifrar"
 },
 "nplurals=2; plural=(n != 1);");

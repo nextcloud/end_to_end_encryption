@@ -154,10 +154,6 @@ OC.L10N.register(
     "Migrate later" : "Koli ümber hiljem",
     "Migrating file drop entries, please do not close this tab…" : "Kolin ümber faili üleslaadimiskirjeid. Palun ära sulge seda vahekaarti…",
     "An error occurred while migrating one file drop entry. Please try again later." : "Ühe faili üleslaadimiskirje ümberkolimisel tekkis viga. Palun proovi hiljem uuesti.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Ootel on veel lõpetamata töid ja ülesandeid. Kas oled kindel, et soovid lahkuda?",
-    "End-to-end encryption endpoint" : "Läbiva krüptimise otspunkt",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "See rakendus tagab kõik vajalikud liidestused, et kliendipoolne läbiv krüptimine saaks toimida.\nLisaks võtab ta kasutusele „Secure FileDrop“ (turvaline üleslaadimine kolmandalt osapoolelt) meetodi, mis tagab, et läbivalt krüptitud failid pole kättesaadavad ei veebiliidesest ega muude WebDAVi klientidega.",
-    "Error while uploading files" : "Viga failide üleslaadimisel",
-    "Error while uploading metadata" : "Viga metainfo üleslaadimisel"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Ootel on veel lõpetamata töid ja ülesandeid. Kas oled kindel, et soovid lahkuda?"
 },
 "nplurals=2; plural=(n != 1);");

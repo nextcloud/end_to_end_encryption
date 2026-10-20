@@ -162,10 +162,6 @@ OC.L10N.register(
     "You are not allowed to upload files to this share." : "Você não tem permissão para enviar arquivos para esta pasta compartilhada.",
     "The share does not exist anymore." : "O compartilhamento não existe mais.",
     "The connection to the server was lost. Please check your network connection and try again." : "A conexão com o servidor foi perdida. Verifique sua conexão de rede e tente novamente.",
-    "An unexpected error occurred while uploading the file." : "Ocorreu um erro inesperado durante o envio do arquivo.",
-    "End-to-end encryption endpoint" : "Ponto final da criptografia de ponta-a-ponta",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Es-e aplicativo fornece todas as APIs necessárias para implementar a criptografia de ponta-a-ponta no lado do cliente.\nAlém disso, ele implementa o Depósito de Arquivos Seguro (Secure File Drop) e garante que os arquivos criptografados de ponta-a-ponta não sejam acessíveis pela interface web nem por outros clientes WebDAV.",
-    "Error while uploading files" : "Erro ao fazer upload de arquivos",
-    "Error while uploading metadata" : "Erro ao fazer upload de metadados"
+    "An unexpected error occurred while uploading the file." : "Ocorreu um erro inesperado durante o envio do arquivo."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

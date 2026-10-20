@@ -134,10 +134,6 @@ OC.L10N.register(
     "Migrate later" : "Μετανάστευση αργότερα",
     "Migrating file drop entries, please do not close this tab…" : "Μετανάστευση εγγραφών απόθεσης αρχείων, παρακαλούμε μην κλείσετε αυτήν την καρτέλα…",
     "An error occurred while migrating one file drop entry. Please try again later." : "Παρουσιάστηκε σφάλμα κατά τη μετανάστευση μιας εγγραφής απόθεσης αρχείων. Παρακαλούμε δοκιμάστε ξανά αργότερα.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Υπάρχουν εκκρεμείς εργασίες που πρέπει να ολοκληρωθούν. Είστε βέβαιοι ότι θέλετε να αποχωρήσετε;",
-    "End-to-end encryption endpoint" : "Άκρο κρυπτογράφησης από Άκρο σε Άκρο",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Αυτή η εφαρμογή παρέχει όλα τα απαραίτητα API για την υλοποίηση κρυπτογράφησης από Άκρο σε Άκρο από την πλευρά του πελάτη.\nΕπιπλέον υλοποιεί Ασφαλή FileDrop και διασφαλίζει ότι τα κρυπτογραφημένα αρχεία από Άκρο σε Άκρο δεν είναι προσβάσιμα μέσω της διαδικτυακής διεπαφής ή άλλων WebDAV πελατών.",
-    "Error while uploading files" : "Σφάλμα κατά τη μεταφόρτωση αρχείων",
-    "Error while uploading metadata" : "Σφάλμα κατά τη μεταφόρτωση μεταδεδομένων"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Υπάρχουν εκκρεμείς εργασίες που πρέπει να ολοκληρωθούν. Είστε βέβαιοι ότι θέλετε να αποχωρήσετε;"
 },
 "nplurals=2; plural=(n != 1);");

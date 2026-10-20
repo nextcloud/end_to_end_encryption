@@ -77,7 +77,6 @@ OC.L10N.register(
     "End-to-end encryption" : "Begin-tot-eind versleuteling",
     "Enable E2EE navigation in browser" : "E2EE in browser aanzetten",
     "Enabling E2EE in the browser can weaken security" : "E2EE in de browser kan de beveiliging verzwakken",
-    "New encrypted folder" : "Nieuwe versleutelde map",
-    "End-to-end encryption endpoint" : "Begin-tot-eind versleutelingseindpunt"
+    "New encrypted folder" : "Nieuwe versleutelde map"
 },
 "nplurals=2; plural=(n != 1);");

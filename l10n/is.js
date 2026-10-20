@@ -118,9 +118,6 @@ OC.L10N.register(
     "Decrypting {file}" : "Afkóða {file}",
     "An error occurred while decrypting the file. Please try downloading the file again." : "Villa kom upp við að afkóða skrána. Prófaðu að sækja skrána aftur.",
     "Migrate now" : "Yfirfæra núna",
-    "Migrate later" : "Yfirfæra síðar",
-    "End-to-end encryption endpoint" : "Endapunktur fyrir enda-í-enda dulritun",
-    "Error while uploading files" : "Villa við að senda inn skrár",
-    "Error while uploading metadata" : "Villa við að senda inn lýsigögn"
+    "Migrate later" : "Yfirfæra síðar"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

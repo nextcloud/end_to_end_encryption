@@ -43,7 +43,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "Rajoita sovelluskäyttö ryhmiin",
     "Cancel" : "Peruuta",
     "End-to-end encryption" : "Päästä päähän -salaus",
-    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot",
-    "End-to-end encryption endpoint" : "Päästä päähän -salauksen päätepiste"
+    "Delete existing encrypted files" : "Poista olemassa olevat salatut tiedostot"
 },
 "nplurals=2; plural=(n != 1);");

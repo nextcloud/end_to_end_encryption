@@ -34,7 +34,6 @@ OC.L10N.register(
     "Limit to groups" : "הגבלה לקבוצות",
     "Limit app usage to groups" : "הגבלת השימוש ביישומון לקבוצות",
     "Cancel" : "ביטול",
-    "End-to-end encryption" : "הצפנה מקצה לקצה",
-    "End-to-end encryption endpoint" : "נקודת גישה של הצפנה מנקודה לנקודה"
+    "End-to-end encryption" : "הצפנה מקצה לקצה"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

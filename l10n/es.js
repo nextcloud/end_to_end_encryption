@@ -140,10 +140,6 @@ OC.L10N.register(
     "Migrate later" : "Migrarlos luego",
     "Migrating file drop entries, please do not close this tab…" : "Migrando entradas de archivos, por favor no cierre esta pestaña…",
     "An error occurred while migrating one file drop entry. Please try again later." : "Se produjo un error al migrar una entrada de entrega de archivos. Inténtelo de nuevo más tarde.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Hay tareas pendientes que deben completarse. ¿Estás seguro de que quieres salir?",
-    "End-to-end encryption endpoint" : "Endpoint del cifrado extremo a extremo",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Esta app provee todas las APIs necesarias para implementar el cifrado de extremo a extremo del lado del cliente.\nAdicionalmente, implementa FileDrop seguro y se asegura de que los archivos cifrados de extremo a extremo no sean accedidos tanto vía la interfaz web ni por otros clientes WebDAV.",
-    "Error while uploading files" : "Error mientras se cargaban los archivos",
-    "Error while uploading metadata" : "Se encontró un error al cargar los metadatos"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Hay tareas pendientes que deben completarse. ¿Estás seguro de que quieres salir?"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -40,8 +40,6 @@ OC.L10N.register(
     "Limit to groups" : "Lìmita a grupos",
     "Limit app usage to groups" : "Lìmita s'impreu de s'aplicatzione a grupos",
     "Cancel" : "Annulla",
-    "End-to-end encryption" : "Tzifradura end-to-end",
-    "End-to-end encryption endpoint" : "Puntu finale de sa critografia a nodu terminale",
-    "Error while uploading files" : "Errore carrighende is archìvios noos"
+    "End-to-end encryption" : "Tzifradura end-to-end"
 },
 "nplurals=2; plural=(n != 1);");

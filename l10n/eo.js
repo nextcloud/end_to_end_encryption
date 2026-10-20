@@ -28,7 +28,6 @@ OC.L10N.register(
     "Uploading…" : "Alŝutado…",
     "Limit to groups" : "Limigi al grupoj",
     "Limit app usage to groups" : "Limigi aplikaĵan uzon al grupoj",
-    "Cancel" : "Cancel",
-    "End-to-end encryption endpoint" : "Finpunkto de tutvoja ĉifrado"
+    "Cancel" : "Cancel"
 },
 "nplurals=2; plural=(n != 1);");

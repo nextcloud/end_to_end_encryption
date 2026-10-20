@@ -160,10 +160,6 @@
     "You are not allowed to upload files to this share." : "Du har ikke tilladelse til at overføre filer til denne deling.",
     "The share does not exist anymore." : "Delingen findes ikke længere.",
     "The connection to the server was lost. Please check your network connection and try again." : "Forbindelsen til serveren blev afbrudt. Tjek din netværksforbindelse, og prøv igen.",
-    "An unexpected error occurred while uploading the file." : "Der opstod en uventet fejl under overførslen af filen.",
-    "End-to-end encryption endpoint" : "Endpoint for end-to-end-kryptering",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Denne app indeholder alle de API'er, der skal til for at implementere end-to-end-kryptering på klienten.\nDesuden implementerer den sikker fil-aflevering og sikrer, at end-to-end-krypterede filer hverken er tilgængelige via webgrænsefladen eller andre WebDAV-klienter.",
-    "Error while uploading files" : "Fejl under overførsel af filer",
-    "Error while uploading metadata" : "Fejl under overførsel af metadata"
+    "An unexpected error occurred while uploading the file." : "Der opstod en uventet fejl under overførslen af filen."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

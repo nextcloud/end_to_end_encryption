@@ -160,10 +160,6 @@
     "You are not allowed to upload files to this share." : "Вам не разрешено загружать файлы в этот общий ресурс.",
     "The share does not exist anymore." : "Общий ресурс больше не существует.",
     "The connection to the server was lost. Please check your network connection and try again." : "Соединение с сервером потеряно. Проверьте подключение к сети и повторите попытку.",
-    "An unexpected error occurred while uploading the file." : "При загрузке файла произошла непредвиденная ошибка.",
-    "End-to-end encryption endpoint" : "Конечная точка сквозного шифрования",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Это приложение предоставляет все API, необходимые для сквозного шифрования на стороне клиента.\nКроме того, оно реализует защищённый приём файлов (Secure FileDrop) и гарантирует, что файлы со сквозным шифрованием недоступны ни через веб-интерфейс, ни через другие клиенты WebDAV.",
-    "Error while uploading files" : "Ошибка при загрузке файлов",
-    "Error while uploading metadata" : "Ошибка при загрузке метаданных"
+    "An unexpected error occurred while uploading the file." : "При загрузке файла произошла непредвиденная ошибка."
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

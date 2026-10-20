@@ -162,10 +162,6 @@ OC.L10N.register(
     "You are not allowed to upload files to this share." : "Du darfst keine Dateien in diese Freigabe hochladen.",
     "The share does not exist anymore." : "Der Freigabe existiert nicht mehr.",
     "The connection to the server was lost. Please check your network connection and try again." : "Die Verbindung zum Server ist verloren gegangen. Bitte die Netzwerkverbindung überprüfen und es erneut versuchen.",
-    "An unexpected error occurred while uploading the file." : "Beim Hochladen der Datei ist ein unerwarteter Fehler aufgetreten.",
-    "End-to-end encryption endpoint" : "Endpunkt für Ende-zu-Ende-Verschlüsselung",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Diese App bietet alle notwendigen APIs, um eine Ende-zu-Ende-Verschlüsselung auf der Client-Seite zu implementieren.\nZusätzlich implementiert sie Secure FileDrop und stellt sicher, dass Ende-zu-Ende-verschlüsselte Dateien weder über das Webinterface noch über andere WebDAV-Clients zugänglich sind.",
-    "Error while uploading files" : "Fehler beim Hochladen von Dateien",
-    "Error while uploading metadata" : "Fehler beim Hochladen von Metadaten"
+    "An unexpected error occurred while uploading the file." : "Beim Hochladen der Datei ist ein unerwarteter Fehler aufgetreten."
 },
 "nplurals=2; plural=(n != 1);");

@@ -160,10 +160,6 @@
     "You are not allowed to upload files to this share." : "Nemáte povolené odovzdávať súbory do tohto zdieľania.",
     "The share does not exist anymore." : "Toto zdieľanie už neexistuje.",
     "The connection to the server was lost. Please check your network connection and try again." : "Spojenie so serverom sa prerušilo. Skontrolujte svoje sieťové pripojenie a skúste to znova.",
-    "An unexpected error occurred while uploading the file." : "Počas odovzdávania súboru sa vyskytla neočakávaná chyba.",
-    "End-to-end encryption endpoint" : "Koncový bod šifrovania po celej dĺžke spojenia",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Táto aplikácia poskytuje všetky potrebné rozhrania API pre implementáciu end-to-end šifrovania na strane klienta.\nNavyše implementuje Secure FileDrop a zaisťuje, že end-to-End šifrované súbory nie sú dostupné ani cez webové rozhranie, ani cez iných WebDAV klientov.",
-    "Error while uploading files" : "Chyba pri nahrávaní súborov",
-    "Error while uploading metadata" : "Chyba pri nahrávaní metadáť"
+    "An unexpected error occurred while uploading the file." : "Počas odovzdávania súboru sa vyskytla neočakávaná chyba."
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

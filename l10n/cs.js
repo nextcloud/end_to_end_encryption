@@ -129,10 +129,6 @@ OC.L10N.register(
     "Creating new encrypted folder: Failed" : "Vytváření nové šifrované složky: nezdařilo se",
     "Decrypting {file}" : "Rozšifrovávání {file}",
     "Migrate now" : "Zmigrovat nyní",
-    "Migrate later" : "Zmigrovat později",
-    "End-to-end encryption endpoint" : "Koncový bod šifrování mezi koncovými body",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Tato aplikace poskytuje veškerá nezbytná API rozhraní pro implementaci šifrování mezi koncovými body na straně klienta.\nKrom toho implementuje Zabezpečené upuštění souboru a zajišťuje, že soubory šifrované mezi koncovými body nejsou přístupné ani přes webové rozhraní, ani prostřednictvím ostatních WebDAV klientů.",
-    "Error while uploading files" : "Chyba při nahrávání souborů",
-    "Error while uploading metadata" : "Chyba při nahrávání metadat"
+    "Migrate later" : "Zmigrovat později"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

@@ -160,10 +160,6 @@
     "You are not allowed to upload files to this share." : "您不被允許上傳檔案至此分享。",
     "The share does not exist anymore." : "分享已不存在。",
     "The connection to the server was lost. Please check your network connection and try again." : "與伺服器的連線已中斷。請檢查您的網路連線，然後再試一次。",
-    "An unexpected error occurred while uploading the file." : "上傳檔案時發生了意外錯誤。",
-    "End-to-end encryption endpoint" : "端到端加密端點",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "此應用程式提供所有必要的 API，以便在客戶端實作端對端加密。\n此外，它還實作了 Secure FileDrop，並確保端對端的加密檔案無法透過網頁介面或其他 WebDAV 客戶端存取。",
-    "Error while uploading files" : "上傳檔案時發生錯誤",
-    "Error while uploading metadata" : "上傳詮釋資料時發生錯誤"
+    "An unexpected error occurred while uploading the file." : "上傳檔案時發生了意外錯誤。"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

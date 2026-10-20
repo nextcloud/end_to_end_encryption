@@ -115,10 +115,6 @@
     "Migrate now" : "Migrar agora",
     "Migrating file drop entries, please do not close this tab…" : "Migração de entradas de depósitos de arquivos; por favor, não feche esta aba…",
     "An error occurred while migrating one file drop entry. Please try again later." : "Ocorreu um erro durante a migração de uma entrada do depósito de arquivos. Tente novamente mais tarde.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Há tarefas pendentes que precisam ser concluídas. Tem certeza de que deseja sair?",
-    "End-to-end encryption endpoint" : "\"Endpoint\" de encriptação ponto-a-ponto",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Es-e aplicativo fornece todas as APIs necessárias para implementar a criptografia de ponta-a-ponta no lado do cliente.\nAlém disso, ele implementa o Depósito de Arquivos Seguro (Secure File Drop) e garante que os arquivos criptografados de ponta-a-ponta não sejam acessíveis pela interface web nem por outros clientes WebDAV.",
-    "Error while uploading files" : "Erro ao fazer upload de arquivos",
-    "Error while uploading metadata" : "Erro ao fazer upload de metadados"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Há tarefas pendentes que precisam ser concluídas. Tem certeza de que deseja sair?"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

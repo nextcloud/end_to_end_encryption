@@ -140,10 +140,6 @@ OC.L10N.register(
     "Migrate later" : "後で移行",
     "Migrating file drop entries, please do not close this tab…" : "ファイルドロップのエントリを移行中です。このタブを閉じないでください…",
     "An error occurred while migrating one file drop entry. Please try again later." : "1つのファイルドロップエントリの移行中にエラーが発生しました。後ほど再度お試しください。",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "まだ完了していないタスクがあります。本当に退出しますか？",
-    "End-to-end encryption endpoint" : "End-to-End 暗号化のエンドポイント",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "このアプリは、クライアント側でEnd-to-End暗号化を実装するために必要なすべてのAPIを提供します。\nさらに、Secure FileDrop を実装し、End-to-End で暗号化されたファイルには Web インターフェースからも他の WebDAV クライアントからもアクセスできないようにします。",
-    "Error while uploading files" : "ファイルのアップロード中にエラーが発生しました",
-    "Error while uploading metadata" : "メタデータのアップロード中にエラーが発生しました"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "まだ完了していないタスクがあります。本当に退出しますか？"
 },
 "nplurals=1; plural=0;");

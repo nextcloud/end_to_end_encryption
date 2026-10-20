@@ -49,7 +49,6 @@ OC.L10N.register(
     "Limit app usage to groups" : "限制可使用应用的分组",
     "Cancel" : "取消",
     "End-to-end encryption" : "端到端加密",
-    "New encrypted folder" : "新加密文件夹",
-    "End-to-end encryption endpoint" : "端到端加密端点"
+    "New encrypted folder" : "新加密文件夹"
 },
 "nplurals=1; plural=0;");

@@ -138,10 +138,6 @@ OC.L10N.register(
     "Migrate later" : "Мігрувати пізніше",
     "Migrating file drop entries, please do not close this tab…" : "Триває міграція файлів через перетягування, не закривайте вкладку ...",
     "An error occurred while migrating one file drop entry. Please try again later." : "Помилка під час міграції одного з файлів перетягування. Спробуйте ще раз пізніше.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Тривають процеси, які потрібно завершити. Дійсно залишити?",
-    "End-to-end encryption endpoint" : "Точка наскрізного шифрування",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ця програма надає всі необхідні API для реалізації наскрізного шифрування на стороні клієнта.\nКрім того, вона реалізує Secure FileDrop і гарантує, що наскрізно зашифровані файли не будуть доступні через веб-інтерфейс або інші клієнти WebDAV.",
-    "Error while uploading files" : "Помилка під час завантаження файлів",
-    "Error while uploading metadata" : "Помилка під час завантаження метаданих"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Тривають процеси, які потрібно завершити. Дійсно залишити?"
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

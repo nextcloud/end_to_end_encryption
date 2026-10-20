@@ -162,10 +162,6 @@ OC.L10N.register(
     "You are not allowed to upload files to this share." : "Du har inte behörighet att ladda upp filer till den här delningen.",
     "The share does not exist anymore." : "Delningen finns inte längre.",
     "The connection to the server was lost. Please check your network connection and try again." : "Anslutningen till servern bröts. Kontrollera din nätverksanslutning och försök igen.",
-    "An unexpected error occurred while uploading the file." : "Ett oväntat fel uppstod när filen laddades upp.",
-    "End-to-end encryption endpoint" : "Slutpunkt för ände-till-ände-kryptering",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Den här appen tillhandahåller alla API:er som krävs för att implementera ände-till-ände-kryptering på klientsidan.\nDen implementerar dessutom säker filinlämning och säkerställer att ände-till-ände-krypterade filer inte är åtkomliga via vare sig webbgränssnittet eller andra WebDAV-klienter.",
-    "Error while uploading files" : "Fel vid uppladdning av filer",
-    "Error while uploading metadata" : "Fel vid uppladdning av metadata"
+    "An unexpected error occurred while uploading the file." : "Ett oväntat fel uppstod när filen laddades upp."
 },
 "nplurals=2; plural=(n != 1);");

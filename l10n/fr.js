@@ -143,12 +143,10 @@ OC.L10N.register(
     "Check on all connected devices if you can retrieve your mnemonic." : "Vérifiez sur tous les appareils connectés si vous pouvez récupérer votre phrase secrète",
     "Any still connected device might cause problems after deleting the keys, so it is better to disconnect and reconnect the devices again." : "Tout appareil encore connecté peut causer des problèmes après la suppression des clés, il est donc préférable de déconnecter et de reconnecter les appareils à nouveau.",
     "Delete existing encrypted files" : "Supprimer les fichiers chiffrés existants",
-    "Preparing download for {file}" : "Dépôt de fichiers chiffré",
     "Download unencrypted" : "Télécharger en clair",
     "New encrypted folder" : "Nouveau dossier chiffré",
     "Creating new encrypted folder: Cancelled" : "Création d'un nouveau dossier chiffré : annulée",
     "Creating new encrypted folder: Failed" : "Création d'un nouveau dossier chiffré : échec",
-    "Decrypting {file}" : "Créer un dépôt de fichiers chiffré",
     "An error occurred while decrypting the file. Please try downloading the file again." : "Toute personne disposant du lien peut téléverser des fichiers chiffrés.",
     "Pending file drop migrations" : "Lien de dépôt de fichiers",
     "There are pending file drop migrations that need to be completed. Do you want to complete them now?" : "Copié dans le presse-papiers",
@@ -162,10 +160,6 @@ OC.L10N.register(
     "You are not allowed to upload files to this share." : "Vous n’êtes pas autorisé à téléverser des fichiers dans ce partage.",
     "The share does not exist anymore." : "Le partage n'existe plus.",
     "The connection to the server was lost. Please check your network connection and try again." : "La connexion avec le serveur a été perdue. Veuillez vérifier votre connexion réseau et réessayer.",
-    "An unexpected error occurred while uploading the file." : "Une erreur inattendue est survenue lors du téléversement du fichier.",
-    "End-to-end encryption endpoint" : "Terminaison du chiffrement de bout en bout",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Cette application fournit toutes les APIs nécessaires pour implémenter le chiffrement de bout en bout côté client.\nElle implémente aussi Secure FileDrop et s'assure que les fichiers chiffrés de bout en bout ne sont accessibles ni par une interface web, ni par d'autres clients WebDAV.",
-    "Error while uploading files" : "Erreur lors du téléversement du fichier",
-    "Error while uploading metadata" : "Erreur lors du téléversement des métadonnées"
+    "An unexpected error occurred while uploading the file." : "Une erreur inattendue est survenue lors du téléversement du fichier."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

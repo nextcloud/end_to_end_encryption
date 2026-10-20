@@ -138,10 +138,6 @@ OC.L10N.register(
     "Migrate later" : "مهاجرت بعداً",
     "Migrating file drop entries, please do not close this tab…" : "در حال مهاجرت ورودی‌های پروندهدراپ، لطفاً این زبانه را نبندید…",
     "An error occurred while migrating one file drop entry. Please try again later." : "هنگام مهاجرت یک ورودی ارسال فایل خطایی رخ داد. لطفاً بعداً دوباره تلاش کنید.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "وظایف در انتظاری وجود دارد که باید تکمیل شوند. آیا مطمئن هستید که می‌خواهید خارج شوید؟",
-    "End-to-end encryption endpoint" : "نقطه پایانی رمزگذاری سرتاسری",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "این برنامه تمام APIهای لازم برای پیاده‌سازی رمزگذاری سرتاسری در سمت کلاینت را فراهم می‌کند. علاوه بر این، Secure FileDrop را پیاده‌سازی می‌کند و اطمینان حاصل می‌کند که فایل‌های رمزگذاری‌شده سرتاسری از طریق رابط وب یا سایر کلاینت‌های WebDAV قابل دسترسی نیستند.",
-    "Error while uploading files" : "خطا در آپلود فایل‌ها",
-    "Error while uploading metadata" : "خطا در آپلود متادیتا"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "وظایف در انتظاری وجود دارد که باید تکمیل شوند. آیا مطمئن هستید که می‌خواهید خارج شوید؟"
 },
 "nplurals=2; plural=(n > 1);");

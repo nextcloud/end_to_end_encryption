@@ -138,10 +138,6 @@
     "Migrate later" : "Migruoti vėliau",
     "Migrating file drop entries, please do not close this tab…" : "Perkeliami failų numetimo įrašai, neuždarykite šio skirtuko...",
     "An error occurred while migrating one file drop entry. Please try again later." : "Perkeliant vieną failo numetimo įrašą įvyko klaida. Bandykite dar kartą vėliau.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Yra laukiančių užduočių, kurias reikia atlikti. Ar tikrai norite išeiti?",
-    "End-to-end encryption endpoint" : "Ištisinio šifravimo galutinis taškas",
-    "This app provides all the necessary APIs to implement End-to-End encryption on the client side.\nAdditionally it implements Secure FileDrop and makes sure that End-to-End encrypted files are neither accessible via the web interface nor other WebDAV clients." : "Ši programėlė teikia visas reikalingas API sąsajas, kad kliento pusėje būtų galima įdiegti ištisinį šifravimą.\nBe to, ji įgyvendina „Secure FileDrop“ ir užtikrina, kad ištisiniai šifruoti failai nebūtų pasiekiami nei per žiniatinklio sąsają, nei per kitus „WebDAV“ klientus.",
-    "Error while uploading files" : "Įkeliant failus įvyko klaida",
-    "Error while uploading metadata" : "Įkeliant metaduomenis įvyko klaida"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "Yra laukiančių užduočių, kurias reikia atlikti. Ar tikrai norite išeiti?"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }
