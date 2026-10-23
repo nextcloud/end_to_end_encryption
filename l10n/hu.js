@@ -28,6 +28,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "A mappanév nem lehet üres",
     "Folder name" : "Mappanév",
     "Continue" : "Folytatás",
+    "Downloading …" : "Letöltés …",
     "Download" : "Letöltés",
     "End-to-end encrypted link shares" : "Végpontok közti titkosítással rendelkező megosztási hivatkozások",
     "Link share" : "Megosztási hivatkozás",

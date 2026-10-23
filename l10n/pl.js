@@ -26,6 +26,7 @@ OC.L10N.register(
     "Folder name cannot be empty" : "Nazwa katalogu nie może być pusta",
     "Folder name" : "Nazwa katalogu",
     "Continue" : "Kontynuuj",
+    "Downloading …" : "Pobieranie …",
     "Download" : "Pobierz",
     "End-to-end encrypted link shares" : "Udostępnianie linków szyfrowanych end-to-end",
     "Link share" : "Udostępnianie linkiem",
