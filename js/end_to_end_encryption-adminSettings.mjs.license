@@ -13,18 +13,11 @@ SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
 SPDX-FileCopyrightText: Paul Vorbach <paul@vorb.de> (http://vorb.de)
 SPDX-FileCopyrightText: Paul Vorbach <paul@vorba.ch> (http://paul.vorba.ch)
 SPDX-FileCopyrightText: Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)
-SPDX-FileCopyrightText: atomiks
 SPDX-FileCopyrightText: debounce developers
 
 This file is generated from multiple sources. Included packages:
-- @floating-ui/dom
-	- version: 1.8.0
-	- license: MIT
-- @floating-ui/utils
-	- version: 0.2.12
-	- license: MIT
 - @nextcloud/vue
-	- version: 8.41.0
+	- version: 8.42.0
 	- license: AGPL-3.0-or-later
 - @nextcloud/vue-select
 	- version: 3.26.0
@@ -66,7 +59,7 @@ This file is generated from multiple sources. Included packages:
 	- version: 6.0.2
 	- license: MIT
 - vite
-	- version: 7.3.6
+	- version: 7.3.7
 	- license: MIT
 - vue-demi
 	- version: 0.14.10
