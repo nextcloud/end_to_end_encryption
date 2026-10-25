@@ -12,6 +12,9 @@
 /*.iml
 .vscode/
 
+# AI
+.claude/
+
 ## File-based project format
 *.ipr
 *.iws
