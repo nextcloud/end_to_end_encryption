@@ -68,7 +68,6 @@
     "@nextcloud/typings": "^1.10.0",
     "@nextcloud/vite-config": "^2.5.2",
     "@playwright/test": "^1.64.1",
-    "@relative-ci/agent": "^4.3.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/wicg-file-system-access": "^2023.10.7",
     "@vitest/browser-playwright": "^5.0.5",
