@@ -65,6 +65,8 @@
     "Link share" : "Link share",
     "Email share" : "Email share",
     "Failed to create the file drop share." : "Failed to create the file drop share.",
+    "Failed to create the link share." : "Failed to create the link share.",
+    "End-to-end encrypted email share" : "End-to-end encrypted email share",
     "End-to-end encrypted link share" : "End-to-end encrypted link share",
     "Email address" : "Email address",
     "Permissions" : "Permissions",
@@ -76,7 +78,9 @@
     "Password" : "Password",
     "Note to recipient" : "Note to recipient",
     "Share url" : "Share url",
+    "The share link was sent to {email}." : "The share link was sent to {email}.",
     "Please share the secret mnemonic with the recipient using a secure second channel." : "Please share the secret mnemonic with the recipient using a secure second channel.",
+    "Create email share" : "Create email share",
     "Update link share" : "Update link share",
     "Create link share" : "Create link share",
     "Close" : "Close",
@@ -98,8 +102,10 @@
     "Save" : "Save",
     "Enter your 12 words mnemonic" : "Enter your 12 words mnemonic",
     "Decrypting your files in the browser can weaken security" : "Decrypting your files in the browser can weaken security",
+    "All files failed to upload." : "All files failed to upload.",
     "Some files failed to upload." : "Some files failed to upload.",
     "The upload completed, but the file drop is still being processed on the server." : "The upload completed, but the file drop is still being processed on the server.",
+    "The file was rejected by the server." : "The file was rejected by the server.",
     "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata." : "This share is using a legacy encryption method. Please ask the share owner to update the encryption metadata.",
     "Note from the owner" : "Note from the owner",
     "Select or drop files" : "Select or drop files",
@@ -148,6 +154,12 @@
     "Migrate later" : "Migrate later",
     "Migrating file drop entries, please do not close this tab…" : "Migrating file drop entries, please do not close this tab…",
     "An error occurred while migrating one file drop entry. Please try again later." : "An error occurred while migrating one file drop entry. Please try again later.",
-    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "There are pending tasks that need to be completed. Are you sure you want to leave?"
+    "There are pending tasks that need to be completed. Are you sure you want to leave?" : "There are pending tasks that need to be completed. Are you sure you want to leave?",
+    "The file is too large to be uploaded." : "The file is too large to be uploaded.",
+    "There is not enough free space to upload the file." : "There is not enough free space to upload the file.",
+    "You are not allowed to upload files to this share." : "You are not allowed to upload files to this share.",
+    "The share does not exist anymore." : "The share does not exist anymore.",
+    "The connection to the server was lost. Please check your network connection and try again." : "The connection to the server was lost. Please check your network connection and try again.",
+    "An unexpected error occurred while uploading the file." : "An unexpected error occurred while uploading the file."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
