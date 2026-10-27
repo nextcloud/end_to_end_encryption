@@ -3,9 +3,11 @@ OC.L10N.register(
     {
     "Internal error" : "Interna greška",
     "Folder name" : "Naziv fascikle",
+    "Download" : "Preuzmi",
     "Note to recipient" : "Beleška primaocu",
     "Close" : "Zatvori",
     "Edit" : "Izmeni",
+    "Remove" : "Ukloni",
     "Save" : "Sačuvaj",
     "Upload failed" : "Otpremanje neuspešno",
     "Uploading…" : "Otpremam…",
