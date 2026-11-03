@@ -50,7 +50,7 @@
     "@peculiar/x509": "^2.2.0",
     "@rxliuli/vista": "^0.5.3",
     "@vueuse/core": "^15.0.0",
-    "asn1js": "^3.0.10",
+    "asn1js": "^4.0.0",
     "bip39": "^3.1.2",
     "core-js": "^3.51.0",
     "debounce": "^3.0.0",
