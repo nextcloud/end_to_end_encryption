@@ -54,6 +54,7 @@ class V1MetaDataCheckTest extends TestCase {
 		$this->assertEquals(SetupResult::WARNING, $result->getSeverity());
 		$this->assertStringContainsString('Affected accounts: {user1}, {user2}', $result->getDescription() ?? '');
 		$this->assertStringContainsString('owner could not be determined', $result->getDescription() ?? '');
+		$this->assertStringContainsString('occ end_to_end_encryption:cleanup-orphaned-metadata', $result->getDescription() ?? '');
 		$this->assertEquals([
 			'user1' => ['type' => 'user', 'id' => 'alice', 'name' => 'Alice'],
 			'user2' => ['type' => 'user', 'id' => 'bob', 'name' => 'bob'],

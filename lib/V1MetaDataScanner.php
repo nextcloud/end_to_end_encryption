@@ -8,12 +8,9 @@ declare(strict_types=1);
 
 namespace OCA\EndToEndEncryption;
 
-use OCA\EndToEndEncryption\AppInfo\Application;
 use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
-use OCP\Files\NotFoundException;
-use OCP\IConfig;
 
 /**
  * Finds all end-to-end encrypted folders that still use the legacy v1 metadata format.
@@ -25,7 +22,7 @@ class V1MetaDataScanner {
 
 	public function __construct(
 		private readonly IRootFolder $rootFolder,
-		private readonly IConfig $config,
+		private readonly MetaDataRoot $metaDataRoot,
 	) {
 	}
 
@@ -33,7 +30,7 @@ class V1MetaDataScanner {
 	 * @return list<V1MetaDataEntry>
 	 */
 	public function findV1MetaData(): array {
-		$metaDataRoot = $this->getMetaDataRoot();
+		$metaDataRoot = $this->metaDataRoot->getFolder();
 		if ($metaDataRoot === null) {
 			return [];
 		}
@@ -73,17 +70,6 @@ class V1MetaDataScanner {
 		), SORT_REGULAR));
 		sort($users);
 		return $users;
-	}
-
-	private function getMetaDataRoot(): ?Folder {
-		$instanceId = $this->config->getSystemValueString('instanceid');
-		try {
-			$folder = $this->rootFolder->get('appdata_' . $instanceId . '/' . Application::APP_ID . '/meta-data');
-		} catch (NotFoundException) {
-			return null;
-		}
-
-		return $folder instanceof Folder ? $folder : null;
 	}
 
 	/**
