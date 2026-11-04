@@ -11,6 +11,7 @@ namespace OCA\EndToEndEncryption\Listener;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\EndToEndEncryption\AppInfo\ConfigLexicon;
+use OCA\EndToEndEncryption\Config;
 use OCA\Files\Event\LoadAdditionalScriptsEvent;
 use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
 use OCP\AppFramework\Services\IInitialState;
@@ -29,6 +30,7 @@ class LoadAdditionalListener implements IEventListener {
 		private readonly IInitialState $initialState,
 		private readonly ?string $userId,
 		private readonly IUserConfig $userConfig,
+		private readonly Config $config,
 	) {
 	}
 
@@ -55,6 +57,7 @@ class LoadAdditionalListener implements IEventListener {
 			'userConfig',
 			[
 				'e2eeInBrowserEnabled' => $browserE2eeEnabled,
+				ConfigLexicon::DEBUG_TOOLS_ENABLED => $this->userId !== null && $this->config->isDebugToolsEnabled($this->userId),
 			]
 		);
 

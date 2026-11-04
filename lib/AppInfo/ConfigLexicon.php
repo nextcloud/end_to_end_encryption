@@ -20,6 +20,8 @@ class ConfigLexicon implements ILexicon {
 	public const AUTOMATIC_ROLLBACK_ENABLED = 'automatic_rollback';
 	public const AUTOMATIC_ROLLBACK_TTL = 'automatic_rollback_ttl';
 	public const E2EE_IN_BROWSER_ENABLED = 'e2eeInBrowserEnabled';
+	public const DEBUG_TOOLS_ALLOWED = 'debug_tools_allowed';
+	public const DEBUG_TOOLS_ENABLED = 'debug_tools_enabled';
 
 	#[\Override]
 	public function getStrictness(): Strictness {
@@ -41,6 +43,12 @@ class ConfigLexicon implements ILexicon {
 				defaultRaw: 60 * 60 * 24,
 				definition: 'Time-to-live for automatic rollback of encrypted files',
 			),
+			new Entry(
+				key: self::DEBUG_TOOLS_ALLOWED,
+				type: ValueType::BOOL,
+				defaultRaw: false,
+				definition: 'Allow users to enable the debugging tools for end-to-end encrypted folders in the web interface',
+			),
 		];
 	}
 
@@ -52,6 +60,12 @@ class ConfigLexicon implements ILexicon {
 				type: ValueType::BOOL,
 				defaultRaw: false,
 				definition: 'Whether the user opted in to navigating end-to-end encrypted files in the browser',
+			),
+			new Entry(
+				key: self::DEBUG_TOOLS_ENABLED,
+				type: ValueType::BOOL,
+				defaultRaw: false,
+				definition: 'Whether the user enabled the debugging tools for end-to-end encrypted folders, only effective if allowed by the administrator',
 			),
 		];
 	}

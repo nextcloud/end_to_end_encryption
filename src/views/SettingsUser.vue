@@ -24,7 +24,8 @@ const hasKey = ref(loadState('end_to_end_encryption', 'hasKey'))
 const shouldDisplayWarning = ref(false)
 const deleteEncryptedFiles = ref(false)
 const shouldDisplayE2EEInBrowserWarning = ref(false)
-const userConfig = ref(loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false }))
+const userConfig = ref(loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false, debug_tools_enabled: false }))
+const debugToolsAllowed = loadState('end_to_end_encryption', 'debugToolsAllowed', false)
 
 const confirmationDialog = new DialogBuilder()
 	.setName(t('end_to_end_encryption', 'Confirm resetting keys'))
@@ -123,11 +124,25 @@ async function handleResponse(status: { status?: 'ok' | 'failure', errorMessage:
  * @param key - The configuration key
  * @param value - The configuration value
  */
-async function setConfig(key: string, value: string) {
+async function setConfig(key: string, value: string | boolean) {
 	await axios.put(generateUrl('apps/end_to_end_encryption/api/v1/config/{key}', { key }), {
 		value: (typeof value === 'string') ? value : JSON.stringify(value),
 	})
 	userConfig.value[key] = value
+}
+
+/**
+ * Enable or disable the debugging tools
+ *
+ * @param enabled - Whether the debugging tools are enabled
+ */
+async function setDebugToolsEnabled(enabled: boolean) {
+	try {
+		await setConfig('debug_tools_enabled', enabled)
+	} catch (error) {
+		logger.error('Could not save the debugging tools setting', { error })
+		showError(t('end_to_end_encryption', 'Could not save the debugging tools setting'))
+	}
 }
 </script>
 
@@ -178,6 +193,18 @@ async function setConfig(key: string, value: string) {
 				{{ t('end_to_end_encryption', 'Enable E2EE navigation in browser') }}
 			</NcCheckboxRadioSwitch>
 		</NcNoteCard>
+
+		<NcCheckboxRadioSwitch
+			v-if="debugToolsAllowed"
+			class="margin-bottom"
+			:modelValue="userConfig.debug_tools_enabled"
+			type="switch"
+			@update:modelValue="setDebugToolsEnabled">
+			{{ t('end_to_end_encryption', 'Enable debugging tools for encrypted folders') }}
+			<template #description>
+				{{ t('end_to_end_encryption', 'Adds a "Debug encryption" action to encrypted folders, which shows their metadata. Requires the E2EE navigation in the browser.') }}
+			</template>
+		</NcCheckboxRadioSwitch>
 
 		<NcButton
 			v-if="!shouldDisplayWarning"

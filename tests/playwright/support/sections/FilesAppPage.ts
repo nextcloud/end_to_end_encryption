@@ -6,6 +6,7 @@
 import type { Locator, Page } from '@playwright/test'
 
 import { expect } from '@playwright/test'
+import { SectionEncryptedFolderDebugDialog } from './SectionEncryptedFolderDebugDialog.ts'
 import { SectionFileActionsMenu } from './SectionFileActionsMenu.ts'
 import { SectionFileDropMigrationDialog } from './SectionFileDropMigrationDialog.ts'
 import { SectionMnemonicDialog } from './SectionMnemonicDialog.ts'
@@ -216,6 +217,27 @@ export class FilesAppPage {
 			await this.getMnemonicDialog().fillAndSubmit(mnemonic)
 		}
 		await expect(this.getFileOrFolder(name)).toHaveCount(0)
+	}
+
+	/**
+	 * Open the "Debug encryption" dialog of an encrypted folder through its
+	 * actions menu and wait for the report to be shown.
+	 *
+	 * @param name - Name of the encrypted folder
+	 * @param mnemonic - Recovery phrase, if inspecting is expected to ask for it.
+	 * Decrypting the metadata needs the private key, so a browser session that has
+	 * not unlocked the key pair yet - a freshly loaded page - is asked to.
+	 */
+	public async openDebugDialog(name: string, mnemonic?: string): Promise<SectionEncryptedFolderDebugDialog> {
+		const actionsMenu = await this.openActionsMenu(name)
+		await actionsMenu.getDebugEntry().click()
+		if (mnemonic !== undefined) {
+			await this.getMnemonicDialog().fillAndSubmit(mnemonic)
+		}
+
+		const dialog = new SectionEncryptedFolderDebugDialog(this.page, name)
+		await dialog.waitForReport()
+		return dialog
 	}
 
 	/**

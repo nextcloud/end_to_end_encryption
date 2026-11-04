@@ -10,6 +10,7 @@ namespace OCA\EndToEndEncryption\Controller;
 
 use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\EndToEndEncryption\AppInfo\ConfigLexicon;
+use OCA\EndToEndEncryption\Config;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\FrontpageRoute;
@@ -25,6 +26,7 @@ class ConfigController extends Controller {
 		IRequest $request,
 		private readonly ?string $userId,
 		private readonly IUserConfig $userConfig,
+		private readonly Config $config,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -38,6 +40,16 @@ class ConfigController extends Controller {
 
 		if ($key === ConfigLexicon::E2EE_IN_BROWSER_ENABLED) {
 			$this->userConfig->setValueBool($this->userId, Application::APP_ID, $key, $value === 'true');
+			return new JSONResponse([], Http::STATUS_OK);
+		}
+
+		if ($key === ConfigLexicon::DEBUG_TOOLS_ENABLED) {
+			$enabled = $value === 'true';
+			if ($enabled && !$this->config->isDebugToolsAllowed()) {
+				return new JSONResponse([], Http::STATUS_FORBIDDEN);
+			}
+
+			$this->userConfig->setValueBool($this->userId, Application::APP_ID, $key, $enabled);
 			return new JSONResponse([], Http::STATUS_OK);
 		}
 
