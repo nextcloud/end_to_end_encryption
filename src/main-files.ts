@@ -9,6 +9,7 @@ import { getFileActions, getFilesRegistry, registerFileAction } from '@nextcloud
 import { registerDavProperty } from '@nextcloud/files/dav'
 import { loadState } from '@nextcloud/initial-state'
 import { isPublicShare } from '@nextcloud/sharing/public'
+import debugEncryptedFolderAction from './files_actions/debugEncryptedFolderAction.ts'
 import downloadUnencryptedAction from './files_actions/downloadUnencryptedAction.ts'
 import { registerNewEncryptedFolderEntry } from './files_newMenu/new-encrypted-folder.ts'
 import { setupEventBusProxy } from './services/eventBusProxy.ts'
@@ -18,7 +19,7 @@ import { canManageEncryptedShares } from './services/permissions.ts'
 import { setupTasksManager } from './services/TasksManager.ts'
 import { setupWebDavProxy } from './services/webDavProxy.ts'
 
-const userConfig = loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false })
+const userConfig = loadState('end_to_end_encryption', 'userConfig', { e2eeInBrowserEnabled: false, debug_tools_enabled: false })
 const browserSupportsWebCrypto = typeof window.crypto !== 'undefined' && typeof window.crypto.subtle !== 'undefined'
 
 if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCrypto) {
@@ -30,6 +31,9 @@ if ((userConfig.e2eeInBrowserEnabled || isPublicShare()) && browserSupportsWebCr
 	registerDavProperty('nc:e2ee-metadata-signature', { nc: 'http://nextcloud.org/ns' })
 	// Register file integrations
 	registerFileAction(downloadUnencryptedAction)
+	if (userConfig.debug_tools_enabled && !isPublicShare()) {
+		registerFileAction(debugEncryptedFolderAction)
+	}
 	// e2ee nodes have no share permission, but the owner can share them with our sidebar section
 	patchFileActionEnabled('sharing-status', ({ nodes }, originalEnabled) => originalEnabled()
 		|| (nodes.length === 1 && canManageEncryptedShares(nodes[0]!)))

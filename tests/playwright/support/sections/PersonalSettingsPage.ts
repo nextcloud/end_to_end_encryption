@@ -6,7 +6,7 @@
 import type { Locator, Page } from '@playwright/test'
 
 import { expect } from '@playwright/test'
-import { BROWSER_E2EE_CONFIG_ENDPOINT } from '../utils/config.ts'
+import { BROWSER_E2EE_CONFIG_ENDPOINT, DEBUG_TOOLS_CONFIG_ENDPOINT } from '../utils/config.ts'
 
 export class PersonalSettingsPage {
 	public readonly URL = 'settings/user/security'
@@ -17,6 +17,7 @@ export class PersonalSettingsPage {
 	public readonly buttonEnableBrowserE2ee: Locator
 	public readonly buttonResetE2ee: Locator
 	public readonly switchEnableBrowserE2ee: Locator
+	public readonly switchEnableDebugTools: Locator
 
 	constructor(public readonly page: Page) {
 		this.sectionHeaderLocator = page.getByRole('heading', { name: 'End-to-end encryption' })
@@ -29,6 +30,7 @@ export class PersonalSettingsPage {
 		this.noteCardBrowserE2ee = this.sectionLocator.getByRole('alert')
 		// NcCheckboxRadioSwitch exposes `type="switch"` as role `switch`, not `checkbox`
 		this.switchEnableBrowserE2ee = this.noteCardBrowserE2ee.getByRole('switch', { name: /Enable E2EE navigation in browser/i })
+		this.switchEnableDebugTools = this.sectionLocator.getByRole('switch', { name: 'Enable debugging tools for encrypted folders' })
 	}
 
 	/**
@@ -60,6 +62,24 @@ export class PersonalSettingsPage {
 	/** Disable browser based end-to-end encryption through the UI. */
 	public async disableBrowserE2ee(): Promise<void> {
 		await this.toggleBrowserE2ee(false)
+	}
+
+	/**
+	 * Enable or disable the debugging tools through the switch and wait for the
+	 * server to acknowledge it.
+	 *
+	 * @param enabled - Whether the debugging tools should be enabled
+	 */
+	public async setDebugToolsEnabled(enabled: boolean): Promise<void> {
+		await expect(this.switchEnableDebugTools).toBeChecked({ checked: !enabled })
+
+		const saved = this.page.waitForResponse((response) => response.request().method() === 'PUT'
+			&& response.url().endsWith(DEBUG_TOOLS_CONFIG_ENDPOINT))
+		// toggled from the keyboard as the input is visually hidden, see `toggleSwitch`
+		await this.switchEnableDebugTools.press(' ')
+
+		expect((await saved).status()).toBe(200)
+		await expect(this.switchEnableDebugTools).toBeChecked({ checked: enabled })
 	}
 
 	/**
