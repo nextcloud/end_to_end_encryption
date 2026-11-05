@@ -61,7 +61,7 @@ export async function initializeEncryption(token?: string) {
  * @return A 12 word mnemonic
  */
 async function generateMnemonic(): Promise<string[]> {
-	const { default: words } = await import('bip39/src/wordlists/english.json', { assert: { type: 'json' } })
+	const { default: words } = await import('bip39/src/wordlists/english.json', { with: { type: 'json' } })
 	const values = self.crypto.getRandomValues(new Uint16Array(12))
 	return Array.from(values)
 		.map((value) => words.at(value % words.length)!)
