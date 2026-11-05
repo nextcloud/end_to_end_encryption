@@ -11,6 +11,7 @@ import { t } from '@nextcloud/l10n'
 import { spawnDialog } from '@nextcloud/vue/functions/dialog'
 import { defineAsyncComponent } from 'vue'
 import logger from '../services/logger.ts'
+import { getPrivateKey } from '../store/keys.ts'
 
 const EncryptedFolderDebugDialog = defineAsyncComponent(() => import('../components/EncryptedFolderDebugDialog.vue'))
 
@@ -32,9 +33,6 @@ export default {
 
 	async exec({ nodes }) {
 		try {
-			// Inspecting the metadata needs the private key. Unlocking it might ask for the mnemonic,
-			// which has to happen before the debug dialog is opened as both dialogs would trap the focus.
-			const { getPrivateKey } = await import('../store/keys.ts')
 			await getPrivateKey()
 		} catch (error) {
 			logger.error('Could not unlock the private key', { error })
