@@ -66,6 +66,7 @@ class V1MetaDataCheck implements ISetupCheck {
 		}
 		if ($unknownOwners) {
 			$description .= "\n" . $this->l10n->t('For some metadata the owner could not be determined, it might belong to deleted folders.');
+			$description .= "\n" . $this->l10n->t('Run "occ end_to_end_encryption:cleanup-orphaned-metadata" to remove the metadata of deleted folders.');
 		}
 		$description .= "\n" . $this->l10n->t('Run "occ end_to_end_encryption:list-v1-metadata" for a detailed list of affected folders.');
 
