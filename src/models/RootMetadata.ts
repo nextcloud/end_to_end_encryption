@@ -7,10 +7,10 @@ import type { IMetadata, IRawMetadataFileDrop, IRawMetadataUser, IRawRootMetadat
 
 import { getUniqueName } from '@nextcloud/files'
 import { X509Certificate } from '@peculiar/x509'
-import { base64ToBuffer, bufferToBase64 } from '../services/bufferUtils.ts'
+import { bufferToBase64 } from '../services/bufferUtils.ts'
 import { sha256Hash } from '../services/crypto.ts'
 import logger from '../services/logger.ts'
-import { decryptMetadata } from '../services/metadata.ts'
+import { decryptMetadata, decryptMetadataKey, importMetadataKey } from '../services/metadata.ts'
 import { encryptWithRSA, ensureKeyUsage } from '../services/rsaUtils.ts'
 import { FileDropEntry } from './FileDropEntry.ts'
 import { Metadata } from './Metadata.ts'
@@ -189,27 +189,8 @@ export class RootMetadata extends Metadata<IRawRootMetadata> {
 			throw new Error(`Unsupported metadata version: ${json.version}`)
 		}
 
-		const currentUserEntry = json.users.find((u) => u.userId === userId)
-		if (!currentUserEntry) {
-			throw new Error('Current user has no access to this folder')
-		}
-
 		const decryptionKey = await ensureKeyUsage(privateKey, 'decrypt')
-
-		const metadataKeyData = await globalThis.crypto.subtle.decrypt(
-			{
-				name: 'RSA-OAEP',
-			},
-			decryptionKey,
-			base64ToBuffer(currentUserEntry.encryptedMetadataKey),
-		)
-		const metadataKey = await globalThis.crypto.subtle.importKey(
-			'raw',
-			metadataKeyData,
-			{ name: 'AES-GCM', length: 128 },
-			false,
-			['decrypt', 'encrypt'],
-		)
+		const metadataKey = await importMetadataKey(await decryptMetadataKey(json, userId, decryptionKey))
 
 		const metadata = new RootMetadata(
 			metadataKey,

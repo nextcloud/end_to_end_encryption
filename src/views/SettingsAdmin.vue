@@ -7,13 +7,14 @@
 import type { OCSResponse } from '@nextcloud/typings/ocs'
 
 import axios from '@nextcloud/axios'
-import { showSuccess } from '@nextcloud/dialogs'
+import { showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import { generateOcsUrl } from '@nextcloud/router'
 import debounce from 'debounce'
 import { onMounted, ref } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
 import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import logger from '../services/logger.ts'
@@ -34,6 +35,9 @@ const allowedGroups = ref(loadState<string[]>('end_to_end_encryption', 'allowed_
 	return a.displayname.localeCompare(b.displayname)
 }))
 const groups = ref([...allowedGroups.value])
+
+const debugToolsAllowed = ref(loadState<boolean>('end_to_end_encryption', 'debug_tools_allowed', false))
+const savingDebugTools = ref(false)
 
 /**
  * Searches for groups matching the query
@@ -77,6 +81,27 @@ function saveChanges() {
 		},
 	})
 }
+
+/**
+ * Allow or disallow people to enable the debugging tools
+ *
+ * @param allowed - Whether the debugging tools are allowed
+ */
+function setDebugToolsAllowed(allowed: boolean) {
+	savingDebugTools.value = true
+	globalThis.OCP.AppConfig.setValue('end_to_end_encryption', 'debug_tools_allowed', allowed ? 'true' : 'false', {
+		success() {
+			savingDebugTools.value = false
+			debugToolsAllowed.value = allowed
+			showSuccess(t('end_to_end_encryption', 'Saved debugging tools setting'))
+		},
+		error(error: unknown) {
+			savingDebugTools.value = false
+			logger.error('Could not save the debugging tools setting', { error })
+			showError(t('end_to_end_encryption', 'Could not save the debugging tools setting'))
+		},
+	})
+}
 </script>
 
 <template>
@@ -104,6 +129,19 @@ function saveChanges() {
 			@click="saveChanges">
 			{{ t('end_to_end_encryption', 'Save') }}
 		</NcButton>
+
+		<h3>{{ t('end_to_end_encryption', 'Debugging tools') }}</h3>
+		<p class="settings-hint">
+			{{ t('end_to_end_encryption', 'People can enable an action in their personal settings that shows the metadata of end-to-end encrypted folders in the browser. This helps to investigate issues with encrypted folders.') }}
+		</p>
+		<NcCheckboxRadioSwitch
+			:disabled="savingDebugTools"
+			:loading="savingDebugTools"
+			:modelValue="debugToolsAllowed"
+			type="switch"
+			@update:modelValue="setDebugToolsAllowed">
+			{{ t('end_to_end_encryption', 'Allow people to enable the debugging tools') }}
+		</NcCheckboxRadioSwitch>
 	</NcSettingsSection>
 </template>
 

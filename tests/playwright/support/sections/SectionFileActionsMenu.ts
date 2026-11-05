@@ -34,6 +34,11 @@ export class SectionFileActionsMenu {
 		return this.getMenuEntry(/^Delete (file|folder)$/i)
 	}
 
+	/** The entry that opens the debug dialog of an encrypted folder. */
+	public getDebugEntry(): Locator {
+		return this.getMenuEntry('Debug encryption')
+	}
+
 	/** The entry that opens the file picker to move or copy the node. */
 	public getMoveCopyEntry(): Locator {
 		return this.getMenuEntry('Move or copy')

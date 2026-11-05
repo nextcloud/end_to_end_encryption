@@ -26,6 +26,45 @@ export function isRootMetadata(json: unknown): json is IRawRootMetadata {
 }
 
 /**
+ * Decrypt the metadata key of the given root metadata for a user.
+ *
+ * @param json - The raw root metadata
+ * @param userId - The user to decrypt the metadata key for
+ * @param privateKey - The private key of that user
+ * @return The raw metadata key
+ * @throws {Error} If the user has no access to the metadata
+ */
+export async function decryptMetadataKey(json: IRawRootMetadata, userId: string, privateKey: CryptoKey): Promise<Uint8Array<ArrayBuffer>> {
+	const userEntry = json.users.find((u) => u.userId === userId)
+	if (!userEntry) {
+		throw new Error('Current user has no access to this folder')
+	}
+
+	const decryptionKey = await ensureKeyUsage(privateKey, 'decrypt')
+	const metadataKey = await globalThis.crypto.subtle.decrypt(
+		{ name: 'RSA-OAEP' },
+		decryptionKey,
+		base64ToBuffer(userEntry.encryptedMetadataKey),
+	)
+	return new Uint8Array(metadataKey)
+}
+
+/**
+ * Import a raw metadata key for usage with the metadata.
+ *
+ * @param metadataKey - The raw metadata key
+ */
+export async function importMetadataKey(metadataKey: Uint8Array<ArrayBuffer>): Promise<CryptoKey> {
+	return await globalThis.crypto.subtle.importKey(
+		'raw',
+		metadataKey,
+		{ name: 'AES-GCM', length: 128 },
+		false,
+		['decrypt', 'encrypt'],
+	)
+}
+
+/**
  * Decrypt the metadata from the given raw json using the provided metadata key
  *
  * @param json - The raw json
