@@ -7,6 +7,21 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.6.0 - 2026-11-05
+### Added
+* feat: add occ command to remove orphaned metadata \([\#2275](https://github.com/nextcloud/end_to_end_encryption/pull/2275)\)
+* feat: add optional debug dialog \([\#2277](https://github.com/nextcloud/end_to_end_encryption/pull/2277)\)
+
+### Changed
+* Updated dependencies
+  * Bump `@nextcloud/password-confirmation` to 6.2.1
+  * Bump `asn1js` to 3.1.0
+  * Bump `bip39` to 3.1.2
+  * Bump `pkijs` to 3.4.3
+  * Bump `vue` to 3.5.44
+  * Bump `vue-material-design-icons` to 5.4.0
+  * Updated various sub-dependencies
+
 ## v2.5.0 - 2026-10-12
 ### Added
 * feat(sharing): allow end-to-end encrypted shares by email \([\#2192](https://github.com/nextcloud/end_to_end_encryption/pull/2192)\)
