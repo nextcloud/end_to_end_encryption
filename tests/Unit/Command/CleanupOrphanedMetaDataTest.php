@@ -16,7 +16,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Test\TestCase;
 
 class CleanupOrphanedMetaDataTest extends TestCase {
-	private const array ENTRIES = [
+	private const ENTRIES = [
 		['user' => null, 'fileId' => 42, 'path' => '42'],
 		['user' => 'alice', 'fileId' => null, 'path' => 'alice/files/folder'],
 	];

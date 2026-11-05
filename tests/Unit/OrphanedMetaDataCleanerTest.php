@@ -30,9 +30,9 @@ use Test\Traits\UserTrait;
 class OrphanedMetaDataCleanerTest extends TestCase {
 	use UserTrait;
 
-	private const string USER = 'e2ee-orphan-owner';
-	private const string DELETED_USER = 'e2ee-orphan-deleted';
-	private const int DELETED_FILE_ID = 999999999;
+	private const USER = 'e2ee-orphan-owner';
+	private const DELETED_USER = 'e2ee-orphan-deleted';
+	private const DELETED_FILE_ID = 999999999;
 
 	private Folder $metaDataRoot;
 	private int $encryptedFolderId;

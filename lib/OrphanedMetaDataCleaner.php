@@ -26,8 +26,8 @@ use Psr\Log\LoggerInterface;
  * @psalm-type OrphanedMetaDataEntry = array{user: ?string, fileId: ?int, path: string}
  */
 class OrphanedMetaDataCleaner {
-	private const string METADATA_FILE_NAME = 'meta.data';
-	private const array FILE_ID_METADATA_FILE_NAMES = [
+	private const METADATA_FILE_NAME = 'meta.data';
+	private const FILE_ID_METADATA_FILE_NAMES = [
 		'meta.data',
 		'meta.data.signature',
 		'meta.data.counter',
@@ -35,7 +35,7 @@ class OrphanedMetaDataCleaner {
 		'intermediate.meta.data.signature',
 		'intermediate.meta.data.counter',
 	];
-	private const int FILE_ID_CHUNK_SIZE = 1000;
+	private const FILE_ID_CHUNK_SIZE = 1000;
 
 	public function __construct(
 		private readonly MetaDataRoot $metaDataRoot,
