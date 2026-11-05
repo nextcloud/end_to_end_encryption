@@ -12,6 +12,9 @@
 			"DOM",
 			"ESNext",
 		],
+		"types": [
+			"@types/wicg-file-system-access"
+		],
 		"rootDir": "src",
 		"allowSyntheticDefaultImports": true,
 		"noImplicitAny": false,
