@@ -452,6 +452,33 @@ export async function getDirectoryContents(path: string) {
 }
 
 /**
+ * Fetch a folder and its contents as stored on the server, bypassing the WebDAV proxy.
+ * So the names are not decrypted and nodes unknown to the metadata are included.
+ *
+ * @param path - The folder path relative to the DAV root
+ */
+export async function getRawFolderListing(path: string): Promise<{ folder: FileStat, contents: FileStat[] }> {
+	if (!client) {
+		client = getClient()
+	}
+
+	if (!path.startsWith(defaultRootPath)) {
+		path = join(defaultRootPath, path)
+	}
+
+	const options = {
+		details: true as const,
+		data: METADATA_PROPFIND,
+		headers: { 'X-E2EE-SUPPORTED': 'true' },
+	}
+	const [{ data: folder }, { data: contents }] = await Promise.all([
+		client.stat(path, options) as Promise<ResponseDataDetailed<FileStat>>,
+		client.getDirectoryContents(path, options) as Promise<ResponseDataDetailed<FileStat[]>>,
+	])
+	return { folder, contents }
+}
+
+/**
  * Search for folders within a given path.
  *
  * @param path - The path relative to the DAV root to search within

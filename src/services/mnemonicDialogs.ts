@@ -6,8 +6,6 @@
 import { spawnDialog } from '@nextcloud/vue/functions/dialog'
 import MnemonicPromptDialog from '../components/MnemonicPromptDialog.vue'
 
-import '@nextcloud/dialogs/style.css'
-
 /**
  * Prompts the user for their mnemonic using a dialog.
  */
