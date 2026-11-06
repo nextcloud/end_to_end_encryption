@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Folder name" : "Papkanyň ady",
     "Download" : "Göçürip almak",
+    "Unknown" : "Näbelli",
+    "File" : "Faýl",
     "Password" : "Açarsöz",
     "Note to recipient" : "Alyja bellik",
     "Close" : "Ýap",

@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Folder name" : "Ainm a’ phasgain",
     "Download" : "Luchdaich a-nuas",
+    "Unknown" : "Chan eil fhios",
+    "File" : "Faidhle",
     "Password" : "Facal-faire",
     "Note to recipient" : "Nòta dhan fhaightear",
     "Close" : "Dùin",

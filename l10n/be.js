@@ -14,6 +14,8 @@ OC.L10N.register(
     "Download and decrypt all selected files." : "Спампаваць і расшыфраваць усе выбраныя файлы.",
     "Downloading …" : "Спампоўванне …",
     "Download" : "Спампаваць",
+    "Failed" : "Не ўдалося",
+    "Skipped" : "Прапушчана",
     "Email address" : "Адрас электроннай пошты",
     "Permissions" : "Дазволы",
     "View only" : "Толькі прагляд",

@@ -4,6 +4,8 @@ OC.L10N.register(
     "Internal error" : "Interna greška",
     "Folder name" : "Naziv fascikle",
     "Download" : "Preuzmi",
+    "Failed" : "Nije uspelo",
+    "File" : "Fajl",
     "Note to recipient" : "Beleška primaocu",
     "Close" : "Zatvori",
     "Edit" : "Izmeni",
