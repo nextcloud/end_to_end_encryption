@@ -1,0 +1,17 @@
+OC.L10N.register(
+    "end_to_end_encryption",
+    {
+    "Internal error" : "අභ්‍යන්තර දෝෂයකි",
+    "Folder name" : "බහාලුමේ නම",
+    "Download" : "බාගන්න",
+    "Summary" : "සාරාංශය",
+    "Folder" : "බහාලුම",
+    "File" : "ගොනුව",
+    "Close" : "වසන්න",
+    "Edit" : "සංස්කරණය",
+    "Remove" : "ඉවත් කරන්න",
+    "Save" : "සුරකින්න",
+    "Uploading…" : "උඩුගත වෙමින්…",
+    "Cancel" : "අවලංගු"
+},
+"nplurals=2; plural=(n != 1);");

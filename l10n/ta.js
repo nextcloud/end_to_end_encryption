@@ -1,0 +1,17 @@
+OC.L10N.register(
+    "end_to_end_encryption",
+    {
+    "Folder name" : "கோப்புறை பெயர்",
+    "Download" : "பதிவிறக்குக",
+    "Unknown" : "தெரியாத",
+    "Folder" : "கோப்புறை",
+    "File" : "File",
+    "Password" : "கடவுச்சொல்",
+    "Close" : "மூடுக",
+    "Edit" : "தொகுக்க",
+    "Remove" : "அகற்றுக",
+    "Save" : "சேமிக்க ",
+    "Upload failed" : "பதிவேற்றல் தோல்வியுற்றது",
+    "Cancel" : "ரத்து செய்"
+},
+"nplurals=2; plural=(n != 1);");

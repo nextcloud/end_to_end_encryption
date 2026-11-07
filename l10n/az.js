@@ -4,6 +4,8 @@ OC.L10N.register(
     "Folder name" : "Qovluq adı",
     "Continue" : "Davam et",
     "Download" : "Yüklə",
+    "Summary" : "Xülasə",
+    "Folder" : "Qovluq",
     "Close" : "Bağla",
     "Read only" : "Oxumaq üçün",
     "Edit" : "Dəyişiklik et",

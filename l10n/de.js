@@ -66,6 +66,7 @@ OC.L10N.register(
     "Failed" : "Fehlgeschlagen",
     "Skipped" : "Übersprungen",
     "Counter" : "Zähler",
+    "Folder" : "Ordner",
     "File" : "Datei",
     "End-to-end encrypted link shares" : "Ende-zu-Ende-verschlüsselte Linkfreigaben",
     "Link share" : "Linkfreigabe",
