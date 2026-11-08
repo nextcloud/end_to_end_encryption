@@ -12,13 +12,11 @@ use OCA\EndToEndEncryption\AppInfo\Application;
 use OCA\EndToEndEncryption\AppInfo\ConfigLexicon;
 use OCP\Config\IUserConfig;
 use OCP\IAppConfig;
-use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUser;
 
 class Config {
 	public function __construct(
-		private readonly IConfig $config,
 		private readonly IGroupManager $groupManager,
 		private readonly IAppConfig $appConfig,
 		private readonly IUserConfig $userConfig,
@@ -29,7 +27,7 @@ class Config {
 	 * @return string[]
 	 */
 	public function getAllowedGroupIds(): array {
-		$groups = $this->config->getAppValue('end_to_end_encryption', 'allowed_groups', '[]');
+		$groups = $this->appConfig->getValue('end_to_end_encryption', 'allowed_groups', '[]');
 		$groups = json_decode($groups, true);
 		return \is_array($groups) ? $groups : [];
 	}
