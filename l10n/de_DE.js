@@ -88,6 +88,7 @@ OC.L10N.register(
     "Users with access" : "Benutzer mit Zugriff",
     "Checks" : "Prüfungen",
     "File drop" : "Dateiablage",
+    "No file drop entries" : "Keine Dateiablage-Einträge",
     "Unknown file" : "Unbekannte Datei",
     "Cannot be decrypted: {error}" : "Kann nicht entschlüsselt werden: {error}",
     "Missing on the server" : "Fehlt auf dem Server",
