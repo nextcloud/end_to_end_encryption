@@ -7,6 +7,170 @@
 
 <!-- All notable changes to this project will be documented in this file so they will be shown in the Nextcloud app store "changes"-section -->
 
+## v2.6.0 - 2026-11-05
+### Added
+* feat: add occ command to remove orphaned metadata \([\#2275](https://github.com/nextcloud/end_to_end_encryption/pull/2275)\)
+* feat: add optional debug dialog \([\#2277](https://github.com/nextcloud/end_to_end_encryption/pull/2277)\)
+
+### Changed
+* Updated dependencies
+  * Bump `@nextcloud/password-confirmation` to 6.2.1
+  * Bump `asn1js` to 3.1.0
+  * Bump `bip39` to 3.1.2
+  * Bump `pkijs` to 3.4.3
+  * Bump `vue` to 3.5.44
+  * Bump `vue-material-design-icons` to 5.4.0
+  * Updated various sub-dependencies
+
+## v2.5.0 - 2026-10-12
+### Added
+* feat(sharing): allow end-to-end encrypted shares by email \([\#2192](https://github.com/nextcloud/end_to_end_encryption/pull/2192)\)
+
+### Fixed
+* fix: properly handle shares for v1 API \([\#2191](https://github.com/nextcloud/end_to_end_encryption/pull/2191)\)
+* fix(filedrop): tell the user why an upload failed \([\#2206](https://github.com/nextcloud/end_to_end_encryption/pull/2206)\)
+
+### Changed
+* Updated dependencies
+  * Bump `@nextcloud/vue` to 9.13.1
+  * Bump `fast-xml-parser` to 5.11.2
+  * Bump `webdav` to 5.11.0
+  * Some sub-dependencies
+
+## v2.4.0 - 2026-10-06
+### Added
+* feat: add setup check and occ command to detect v1 metadata \([\#2151](https://github.com/nextcloud/end_to_end_encryption/pull/2151)\)
+
+### Fixed
+* fix(metadata): encode metadata and file drop entries as UTF-8 \([\#2152](https://github.com/nextcloud/end_to_end_encryption/pull/2152)\)
+* fix(sharing): show sharing status action for encrypted folders \([\#2163](https://github.com/nextcloud/end_to_end_encryption/pull/2163)\)
+* fix: add missing audit-logging for important events \([\#2150](https://github.com/nextcloud/end_to_end_encryption/pull/2150)\)
+* fix: disable viewer where it does not handle e2ee itself \([\#2154](https://github.com/nextcloud/end_to_end_encryption/pull/2154)\)
+* fix: properly handle COPY to store displayname instead of UUID \([\#2160](https://github.com/nextcloud/end_to_end_encryption/pull/2160)\)
+* fix: ensure filedrop migration results in unique names \([\#2186](https://github.com/nextcloud/end_to_end_encryption/pull/2186)\)
+
+### Changed
+* Updated dependencies
+  * Bump `@nextcloud/router` to 3.2.0
+  * Bump `pkijs` to 3.4.1
+  * Bump `vue` to 3.5.43
+  * Updated various sub-dependencies
+
+## v2.3.0 - 2026-09-28
+### Added
+* feat(filedrop): add share password and note to recipient \([\#2144](https://github.com/nextcloud/end_to_end_encryption/pull/2144)\)
+
+### Fixed
+* fix(dav): multistatus response with property-level 404s \([\#2070](https://github.com/nextcloud/end_to_end_encryption/pull/2070)\)
+* fix(metadata): defer missing metadata handling to controller \([\#2071](https://github.com/nextcloud/end_to_end_encryption/pull/2071)\)
+* fix: clean up legacy metadata when deleting files \([\#2091](https://github.com/nextcloud/end_to_end_encryption/pull/2091)\)
+* fix: delete stale intermediate metadata signatures after rollback \([\#2093](https://github.com/nextcloud/end_to_end_encryption/pull/2093)\)
+* fix(webui): keep propstat as xml during interceptor handling \([\#2094](https://github.com/nextcloud/end_to_end_encryption/pull/2094)\)
+* fix(delete): serialize metadata updates per folder \([\#2131](https://github.com/nextcloud/end_to_end_encryption/pull/2131)\)
+* fix: refresh files list when migrating filedrop files \([\#2133](https://github.com/nextcloud/end_to_end_encryption/pull/2133)\)
+
+### Changed
+* Move away from deprecated `RedirectToDefaultAppResponse` \([\#2096](https://github.com/nextcloud/end_to_end_encryption/pull/2096)\)
+* Updated dependencies
+  * Bump `@nextcloud/dialogs` to 7.5.0
+  * Bump `@nextcloud/vue` to 9.12.0
+  * Bump `fast-xml-parser` to 5.11.1
+  * Bump `vue` to 3.5.42
+  * Bump various sub-dependencies
+
+## v2.2.4 - 2026-08-31
+### Fixed
+* fix: add 2.1 metadata version support to "legacy" models.ts \([\#2038](https://github.com/nextcloud/end_to_end_encryption/pull/2038)\)
+* fix: align v1 measures with existing measures on v2 endpoints \([\#2045](https://github.com/nextcloud/end_to_end_encryption/pull/2045)\)
+* fix: handle filesystem root in encrypted file checks \([\#2049](https://github.com/nextcloud/end_to_end_encryption/pull/2049)\)
+
+### Changed
+* Updated dependencies
+  * Bump `vue` to 3.5.41
+  * Bump `fast-xml-parser` to 5.11.0
+
+## v2.2.3 - 2026-08-18
+### Changed
+* Added support for *Nextcloud 2026 Summer* (Nextcloud 35).
+* Updated dependencies
+  * Bump `@vueuse/core` to 14.4.0
+  * Bump `@rxliuli/vista` to 0.5.3
+
+## v2.2.2 - 2026-08-06
+### Fixed
+* fix(filedrop): properly handle rejected files \([#1936](https://github.com/nextcloud/end_to_end_encryption/pull/1936)\)
+* fix(propfind): properly handle PROPFIND when only a child is e2ee \([#1940](https://github.com/nextcloud/end_to_end_encryption/pull/1940)\)
+* fix: properly handle encoded paths \([#1943](https://github.com/nextcloud/end_to_end_encryption/pull/1943)\)
+* fix(web): properly handle DELETE requests \([#1951](https://github.com/nextcloud/end_to_end_encryption/pull/1951)\)
+* fix: ensure to properly handle read-only shares \([#1969](https://github.com/nextcloud/end_to_end_encryption/pull/1969)\)
+* fix: add some leeway for certificate validation \([#1974](https://github.com/nextcloud/end_to_end_encryption/pull/1974)\)
+* fix: ensure folder can be properly locked or unlocked \([#1973](https://github.com/nextcloud/end_to_end_encryption/pull/1973)\)
+* fix: handle failed uploads \([#1984](https://github.com/nextcloud/end_to_end_encryption/pull/1984)\)
+* fix: resolve type error in propfind plugin \([#1988](https://github.com/nextcloud/end_to_end_encryption/pull/1988)\)
+
+### Changed
+* Drop v1 API for filedrop handling - use v2 API instead
+* Updated dependencies
+  * Bump `@nextcloud/dialogs` to 7.4.1
+  * Bump `@nextcloud/vue` to 9.9.0
+  * Bump `fast-xml-parser` to 5.10.1
+  * Bump `vue` to 3.5.40
+  * Bump various sub-dependencies
+
+## v2.2.1 - 2026-07-15
+### Fixed
+* fix: enforce using SHA256 \([\#1853](https://github.com/nextcloud/end_to_end_encryption/pull/1853)\)
+* fix: only throttle public requests \([\#1855](https://github.com/nextcloud/end_to_end_encryption/pull/1855)\)
+* fix: require password confirmation \([\#1858](https://github.com/nextcloud/end_to_end_encryption/pull/1858)\)
+
+### Changed
+* Updated dependencies
+
+## v2.2.0 - 2026-06-18
+### Added
+* Added support for Nextcloud 34
+
+### Changed
+* Updated dependencies
+
+## v2.1.1 - 2026-05-13
+### Fixed
+* fix: properly handle large encrypted file downloads \([\#1698](https://github.com/nextcloud/end_to_end_encryption/pull/1698)\)
+
+### Changed
+* Updated dependencies
+
+## v2.1.0 - 2026-04-07
+### Added
+* Allow to convert files uploaded by public end-to-end encrypted file drops to regular files within the browser \([\#1594](https://github.com/nextcloud/end_to_end_encryption/pull/1594)\).
+
+### Fixed
+* Validate keys to match expected format before storing them \([\#1597](https://github.com/nextcloud/end_to_end_encryption/pull/1597)\)
+* Improved error handling on public API endpoints \([\#1596](https://github.com/nextcloud/end_to_end_encryption/pull/1596)\)
+* API endpoints for metadata locking now always return the proper HTTP status code \([\#1595](https://github.com/nextcloud/end_to_end_encryption/pull/1595)\)
+
+### Changed
+* Updated dependencies
+* Updated translations
+
+## v2.0.2 - 2026-03-27
+### Fixed
+* fix(sharing): Always enable e2ee proxy in public shares [\#1571](https://github.com/nextcloud/end_to_end_encryption/pull/1571)
+* fix(sharing): Delete share keys before its deletion [\#1572](https://github.com/nextcloud/end_to_end_encryption/pull/1572)
+
+## v2.0.1 - 2026-03-27
+### Fixed
+
+* feat(api): Hint clients towards using the proper API version [\#1520](https://github.com/nextcloud/end_to_end_encryption/pull/1520)
+* fix(keys): Properly handle `shareToken` for public encrypted shares [\#1527](https://github.com/nextcloud/end_to_end_encryption/pull/1527)
+* fix: skip trashbin on move [\#1532](https://github.com/nextcloud/end_to_end_encryption/pull/1532)
+* fix(lock): Write counter after creating the lock [\#1533](https://github.com/nextcloud/end_to_end_encryption/pull/1533)
+* fix: add throttling to all public page controllers [\#1531](https://github.com/nextcloud/end_to_end_encryption/pull/1531)
+
+### Changed
+
+* Updated dependencies
+
 ## v2.0.0 - 2026-02-05
 ### Added
 * Setup end-to-end encryption in the web interface.
