@@ -60,7 +60,7 @@ class V1MetaDataCheck implements ISetupCheck {
 			];
 		}
 
-		$description = $this->l10n->t('Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata.');
+		$description = $this->l10n->t('Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client (version 33.0.0 or later) to migrate them to v2 metadata.');
 		if ($placeholders !== []) {
 			$description .= "\n" . $this->l10n->t('Affected accounts: %s', [implode(', ', $placeholders)]);
 		}
