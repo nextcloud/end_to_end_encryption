@@ -58,6 +58,7 @@ OC.L10N.register(
     "Unknown" : "Άγνωστο",
     "Counter" : "Μετρητής",
     "File drop" : "Απόθεση αρχείου",
+    "Folder" : "Φάκελος",
     "File" : "Αρχείο",
     "End-to-end encrypted link shares" : "Σύνδεσμοι διαμοιρασμού με κρυπτογράφηση από άκρο σε άκρο",
     "Link share" : "Διαμοιρασμός συνδέσμου",

@@ -26,7 +26,6 @@
     "Encrypted share" : "加密分享",
     "End-to-end encryption metadata version" : "端對端加密中繼資料版本",
     "All end-to-end encrypted folders use the current metadata version." : "所有端到端加密資料夾均使用了目前的中繼資料版本。",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "部分端對端加密資料夾仍使用舊版 v1 中繼資料格式。系統即將停止支援 v1 中繼資料，屆時將無法再存取這些資料夾。受影響的帳戶需要使用最新版本的桌面用戶端開啟其加密資料夾，將中繼資料移轉至 v2 格式。",
     "Affected accounts: %s" : "受影響的帳戶：%s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "無法確定部分中繼資料的擁有者，這些資料可能屬於已刪除的資料夾。",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "執行「occ end_to_end_encryption:cleanup-orphaned-metadata」以移除已刪除資料夾的中繼資料。",

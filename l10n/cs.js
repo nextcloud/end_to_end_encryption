@@ -61,6 +61,7 @@ OC.L10N.register(
     "Unknown" : "Neznámé",
     "Counter" : "Čítač",
     "File drop" : "Předání souboru",
+    "Folder" : "Složka",
     "File" : "Soubor",
     "End-to-end encrypted link shares" : "Sdílení odkazem, šifrovaná mezi koncovými body",
     "Link share" : "Sdílení odkazu",

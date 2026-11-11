@@ -28,7 +28,6 @@ OC.L10N.register(
     "Encrypted share" : "Partajare criptată",
     "End-to-end encryption metadata version" : "Versiunea metadatelor pentru criptarea end-to-end",
     "All end-to-end encrypted folders use the current metadata version." : "Toate dosarele criptate end-to-end folosesc versiunea curentă a metadatelor.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Unele dosare criptate end-to-end folosesc încă formatul vechi de metadate v1. Suportul pentru metadatele v1 va fi eliminat în curând, după care aceste dosare nu vor mai putea fi accesate. Conturile afectate trebuie să-și deschidă dosarele criptate cu un client desktop actualizat, pentru a le migra la metadatele v2.",
     "Affected accounts: %s" : "Conturi afectate: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Pentru unele metadate nu s-a putut determina proprietarul; este posibil să aparțină unor dosare șterse.",
     "Run \"occ end_to_end_encryption:list-v1-metadata\" for a detailed list of affected folders." : "Rulează „occ end_to_end_encryption:list-v1-metadata” pentru o listă detaliată a dosarelor afectate.",

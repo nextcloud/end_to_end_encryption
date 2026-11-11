@@ -61,6 +61,7 @@ OC.L10N.register(
     "Summary" : "Resumen",
     "Unknown" : "Desconocido",
     "File drop" : "Entrega de archivos",
+    "Folder" : "Carpeta",
     "File" : "Archivo",
     "End-to-end encrypted link shares" : "Enlaces cifrados de extremo a extremo compartidos",
     "Link share" : "Compartir enlace",

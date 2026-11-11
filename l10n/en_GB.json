@@ -26,7 +26,6 @@
     "Encrypted share" : "Encrypted share",
     "End-to-end encryption metadata version" : "End-to-end encryption metadata version",
     "All end-to-end encrypted folders use the current metadata version." : "All end-to-end encrypted folders use the current metadata version.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata.",
     "Affected accounts: %s" : "Affected accounts: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "For some metadata the owner could not be determined, it might belong to deleted folders.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders.",

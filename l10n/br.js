@@ -8,6 +8,7 @@ OC.L10N.register(
     "Failed" : "C'hwitet",
     "Summary" : "Diverrañ",
     "Unknown" : "Dianv",
+    "Folder" : "Teuliad",
     "File" : "Restr",
     "Note to recipient" : "Kemenañ d'an degemerer",
     "Close" : "Serriñ",

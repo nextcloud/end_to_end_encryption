@@ -28,7 +28,6 @@ OC.L10N.register(
     "Encrypted share" : "Šifrované zdieľanie",
     "End-to-end encryption metadata version" : "Verzia metadát šifrovania end-to-end",
     "All end-to-end encrypted folders use the current metadata version." : "Všetky priečinky so šifrovaním end-to-end používajú aktuálnu verziu metadát.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Niektoré priečinky so šifrovaním end-to-end stále používajú zastaraný formát metadát v1. Podpora pre metadáta v1 bude čoskoro ukončená, potom tieto priečinky už nebude možné otvoriť. Dotknuté účty musia otvoriť svoje šifrované priečinky aktuálnou desktopovou aplikáciou, aby sa metadáta migrovali na verziu v2.",
     "Affected accounts: %s" : "Dotknuté účty: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Pre niektoré metadáta nebolo možné určiť vlastníka; môžu patriť odstráneným priečinkom.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Spustením príkazu „occ end_to_end_encryption:cleanup-orphaned-metadata“ odstránite metadáta odstránených priečinkov.",

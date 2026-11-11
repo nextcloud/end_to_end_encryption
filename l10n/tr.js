@@ -28,7 +28,6 @@ OC.L10N.register(
     "Encrypted share" : "Şifrelenmiş paylaşım",
     "End-to-end encryption metadata version" : "Uçtan uca şifreleme üst veri sürümü",
     "All end-to-end encrypted folders use the current metadata version." : "Tüm uçtan uca şifrelenmiş klasörler güncel üst veri sürümünü kullanıyor.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Bazı uçtan uca şifrelenmiş klasörler hala eski v1 üst veri biçimini kullanıyor. V1 üst verilerinin desteği yakında kaldırılacak. Bundan sonra bu klasörlere artık erişilemeyecek. Etkilenen hesapların şifrelenmiş klasörlerini v2 üst verilerine taşımak için güncel bir bilgisayar istemcisi ile açmaları gerekir.",
     "Affected accounts: %s" : "Etkilenen hesaplar: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Bazı üst verilerin sahibi belirlenemedi, silinen klasörlere ait olabilir.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Silinen klasörlerin üst verilerini kaldırmak için \"occ end_to_end_encryption:cleanup-orphaned-metadata\" komutunu yürütün.",

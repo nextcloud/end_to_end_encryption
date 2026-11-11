@@ -26,7 +26,6 @@
     "Encrypted share" : "Roinn criptithe",
     "End-to-end encryption metadata version" : "Leagan meiteashonraí criptithe ó cheann go ceann",
     "All end-to-end encrypted folders use the current metadata version." : "Úsáideann gach fillteán atá criptithe ó cheann go ceann an leagan reatha de na meiteashonraí.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Úsáideann roinnt fillteán a bhfuil criptiú ceann-go-ceann orthu an seanfhormáid meiteashonraí v1 fós. Cuirfear deireadh leis an tacaíocht do mheitashonraí v1 go luath; ina dhiaidh sin, ní bheidh rochtain ar na fillteáin sin a thuilleadh. Ní mór d’úsáideoirí na gcuntas lena mbaineann na fillteáin chriptithe sin a oscailt ag baint úsáide as feidhmchlár deisce cothrom le dáta chun iad a aistriú go dtí an fhormáid meiteashonraí v2.",
     "Affected accounts: %s" : "Cuntais a bhfuil tionchar orthu: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "I gcás roinnt meiteashonraí, níorbh fhéidir an t-úinéir a chinneadh; d’fhéadfadh sé go mbaineann siad le fillteáin a scriosadh.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Rith \"occ end_to_end_encryption:cleanup-orphaned-metadata\" chun meiteashonraí fillteán scriosta a bhaint.",

@@ -26,7 +26,6 @@
     "Encrypted share" : "Verschlüsselte Freigabe",
     "End-to-end encryption metadata version" : "Version der Ende-zu-Ende-Verschlüsselungsmetadaten",
     "All end-to-end encrypted folders use the current metadata version." : "Alle Ende-zu-Ende-verschlüsselten Ordner verwenden die aktuelle Metadatenversion.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Einige Ende-zu-Ende-verschlüsselte Ordner verwenden immer noch das ältere v1-Metadatenformat. Die Unterstützung für v1-Metadaten wird bald eingestellt, danach kann nicht mehr auf diese Ordner zugegriffen werden. Die betroffenen Konten müssen ihre verschlüsselten Ordner mit einem aktuellen Desktop-Client öffnen, um sie auf v2-Metadaten zu migrieren.",
     "Affected accounts: %s" : "Betroffene Konten: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Für einige Metadaten konnte der Besitzer nicht ermittelt werden, sie könnten zu gelöschten Ordnern gehören.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Den Befehl \"occ end_to_end_encryption:cleanup-orphaned-metadata\" ausführen, um die Metadaten gelöschter Ordner zu entfernen.",

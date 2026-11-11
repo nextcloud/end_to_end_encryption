@@ -28,7 +28,6 @@ OC.L10N.register(
     "Encrypted share" : "Krüptitud jagamine",
     "End-to-end encryption metadata version" : "Läbiva krüptimise metateabe versioon",
     "All end-to-end encrypted folders use the current metadata version." : "Kõik läbiva krüptimisega kaustad kasutavad metateabe viimast versiooni.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Mõned läbivalt krüptitud kaustad kasutavad jätkuvalt varasemat v1 metateabe vormingut. Selle aegunud v1 vormingu tugi lõppeb õige pea ja siis sellised kaustad pole enam ligipääsetavad. Kasutajad, kellel niisuguseid kaustu leidub, peavad need avama töölauarakenduse viimase versiooniga ja kolima kaustad üle kasutama metateabe v2-vormingut.",
     "Affected accounts: %s" : "Mõjutatud kasutajakontod: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Mõne metateabe puhul polnud võimalik omanikku tuvastada, aga see võis kuuluda kustutatud kaustade juurde.",
     "Run \"occ end_to_end_encryption:list-v1-metadata\" for a detailed list of affected folders." : "Leidmaks üksikasjalikku loendit tuvastatud kaustadest käivita: „occ end_to_end_encryption:list-v1-metadata“.",

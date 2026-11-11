@@ -36,6 +36,7 @@ OC.L10N.register(
     "Summary" : "Resum",
     "Unknown" : "Desconegut",
     "File drop" : "Pujada de fitxers",
+    "Folder" : "Carpeta",
     "File" : "Fitxer",
     "Email address" : "Adreça electrònica",
     "Permissions" : "Permisos",

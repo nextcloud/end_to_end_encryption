@@ -26,7 +26,6 @@
     "Encrypted share" : "Partage chiffré",
     "End-to-end encryption metadata version" : "Version des métadonnées du chiffrement de bout en bout",
     "All end-to-end encrypted folders use the current metadata version." : "Tous les dossiers chiffrés de bout en bout utilisent la version courante des métadonnées.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Certains dossiers chiffrés de bout en bout utilisent encore l'ancien format de métadonnées v1. La prise en charge des métadonnées v1 sera bientôt retirée, après quoi ces dossiers ne seront plus accessibles. Les comptes concernés vont devoir ouvrir leurs dossiers chiffrés avec un client de bureau à jour afin de migrer leurs métadonnées en v2.",
     "Affected accounts: %s" : "Comptes concernés : %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Pour certaines métadonnées, le propriétaire n'a pas pu être déterminé, elles peuvent être associées à des dossiers supprimés.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Exécutez « occ end_to_end_encryption:cleanup-orphaned-metadata » pour supprimer les métadonnées des dossiers qui n'existent plus.",

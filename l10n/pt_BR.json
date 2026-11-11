@@ -26,7 +26,6 @@
     "Encrypted share" : "Compartilhamento criptografado",
     "End-to-end encryption metadata version" : "Versão dos metadados da criptografia de ponta-a-ponta",
     "All end-to-end encrypted folders use the current metadata version." : "Todas as pastas com criptografia de ponta-a-ponta utilizam a versão atual dos metadados.",
-    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client to migrate them to v2 metadata." : "Algumas pastas com criptografia de ponta-a-ponta ainda utilizam o formato legado de metadados v1. O suporte aos metadados v1 será descontinuado em breve; a partir de então, não será mais possível acessar essas pastas. As contas afetadas precisam abrir suas pastas criptografadas com um cliente para desktop atualizado para migrá-las para o formato de metadados v2.",
     "Affected accounts: %s" : "Contas afetadas: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Para alguns metadados, não foi possível determinar o proprietário; eles podem pertencer a pastas excluídas.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Execute o comando “occ end_to_end_encryption:cleanup-orphaned-metadata” para remover os metadados das pastas excluídas.",

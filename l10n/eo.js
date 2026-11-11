@@ -19,6 +19,7 @@ OC.L10N.register(
     "Download" : "Elŝuti",
     "Summary" : "Resumo",
     "Unknown" : "Nekonata",
+    "Folder" : "Dosierujo",
     "File" : "Dosiero",
     "Email address" : "Retpoŝtadreso",
     "Note to recipient" : "Noto por la ricevonto",
