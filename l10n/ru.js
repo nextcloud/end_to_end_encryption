@@ -28,6 +28,7 @@ OC.L10N.register(
     "Encrypted share" : "Зашифрованный ресурс",
     "End-to-end encryption metadata version" : "Версия метаданных сквозного шифрования",
     "All end-to-end encrypted folders use the current metadata version." : "Все папки со сквозным шифрованием используют текущую версию метаданных.",
+    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client (version 33.0.0 or later) to migrate them to v2 metadata." : "Некоторые папки со сквозным шифрованием всё ещё используют устаревший формат метаданных v1. Скоро его поддержка прекратится, и доступ к таким папкам будет потерян. Владельцам этих учётных записей нужно открыть свои зашифрованные папки в актуальном настольном клиенте (версии 33.0.0 или новее), чтобы перевести их на метаданные v2.",
     "Affected accounts: %s" : "Затронутые учётные записи: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "Для некоторых метаданных не удалось определить владельца: возможно, они относятся к удалённым папкам.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Чтобы удалить метаданные удалённых папок, выполните «occ end_to_end_encryption:cleanup-orphaned-metadata».",
