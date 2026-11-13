@@ -28,6 +28,7 @@ OC.L10N.register(
     "Encrypted share" : "Krypterad delning",
     "End-to-end encryption metadata version" : "Metadataversion för ände-till-ände-kryptering",
     "All end-to-end encrypted folders use the current metadata version." : "Alla mappar med ände-till-ände-kryptering använder den aktuella metadataversionen.",
+    "Some end-to-end encrypted folders still use the legacy v1 metadata format. Support for v1 metadata will be dropped soon, after that these folders can no longer be accessed. The affected accounts need to open their encrypted folders with an up-to-date desktop client (version 33.0.0 or later) to migrate them to v2 metadata." : "Vissa end-to-end-krypterade mappar använder fortfarande det äldre metadataformatet v1. Stödet för v1-metadata upphör snart och därefter går det inte längre att komma åt dessa mappar. Berörda konton måste öppna sina krypterade mappar med en aktuell skrivbordsklient (version 33.0.0 eller senare) för att migrera dem till v2-metadata.",
     "Affected accounts: %s" : "Berörda konton: %s",
     "For some metadata the owner could not be determined, it might belong to deleted folders." : "För vissa metadata kunde ägaren inte fastställas. De kan tillhöra borttagna mappar.",
     "Run \"occ end_to_end_encryption:cleanup-orphaned-metadata\" to remove the metadata of deleted folders." : "Kör “occ end_to_end_encryption:cleanup-orphaned-metadata” för att ta bort metadata för borttagna mappar.",
