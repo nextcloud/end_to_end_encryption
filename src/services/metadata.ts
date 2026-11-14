@@ -23,6 +23,8 @@ export function isRootMetadata(json: unknown): json is IRawRootMetadata {
 	return typeof json === 'object'
 		&& json !== null
 		&& 'users' in json
+		&& Array.isArray(json.users)
+		&& json.users.length > 0
 }
 
 /**
