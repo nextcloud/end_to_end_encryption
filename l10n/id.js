@@ -22,6 +22,7 @@ OC.L10N.register(
     "File" : "Berkas",
     "End-to-end encrypted link shares" : "Berbagi melalui tautan terenkripsi end-to-end",
     "Link share" : "Berbagi melalui tautan",
+    "Email share" : "Berbagi melalui email",
     "Email address" : "Alamat email",
     "Permissions" : "Izin",
     "Upload only" : "Hanya unggah",
