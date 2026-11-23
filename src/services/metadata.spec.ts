@@ -23,7 +23,7 @@ const folderMetadata: IRawMetadata = {
 
 const rootMetadata: IRawRootMetadata = {
 	...folderMetadata,
-	users: [],
+	users: rootFolderMetadata.users,
 }
 
 describe('isRootMetadata', () => {
@@ -33,6 +33,10 @@ describe('isRootMetadata', () => {
 
 	test('check subfolder metadata', () => {
 		expect(isRootMetadata(folderMetadata)).toBe(false)
+	})
+
+	test.each([{ users: [] }, { users: null }, { users: undefined }])('check subfolder metadata with users=$users', ({ users }) => {
+		expect(isRootMetadata({ ...folderMetadata, users })).toBe(false)
 	})
 })
 
